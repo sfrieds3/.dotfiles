@@ -1,18 +1,14 @@
+" Housekeeping {{{
+set nocompatible " be safe out there
 call plug#begin('~/.vim/plugged')
+set foldmethod=marker
+"}}}
 
-" start of plugins
+" start of plugins {{{
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
-
-" fuzzy finder plugins:
-Plug 'kien/ctrlp.vim'
-Plug 'imkmf/ctrlp-branches'
-Plug 'sgur/ctrlp-extensions.vim'
-
-" testmate snippit thing?
-" Plug 'SirVer/ultisnips'
 
 Plug 'tpope/vim-commentary' " plugin for commenting things
 Plug 'tpope/vim-fugitive' " github manager for vim
@@ -42,8 +38,9 @@ Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
+"}}}
 
-" Basic vim setups
+" Basic vim setups {{{
 
 " retain buffers until quit
 set hidden
@@ -124,8 +121,9 @@ syntax enable
 set background=light
 colorscheme github
 let g:airline_theme='papercolor'
+"}}}
 
-" Remapping key commands
+" Remapping key commands {{{
 
 "wrapped lines go down/up to next row
 noremap j gj
@@ -139,22 +137,22 @@ nnoremap <leader>w <C-w>v<C-w>l " comma w -> vertical split
 "horizontal split
 nnoremap <leader>h <C-w>v<C-w>l " comma h -> horizontal split
 
-" save stuff - enter to write file in normal modeG
-" nnoremap <cr> :w<cr>
-
 " buffer commands
-nmap <c-b> :bprevious<CR> " ctrl+b back in buffers
-nmap <c-n> :bnext<CR> " ctrl+n next buffer
+nmap <c-j> :bprevious<CR> " ctrl+b back in buffers
+nmap <c-k> :bnext<CR> " ctrl+n next buffer
 nmap bb :bw<CR>
 
 " turn off nohlsarch
 nmap <silent> <leader><space> :nohlsearch<CR>
 
-" switch between files with ,,
-nnoremap <leader><leader> <c;^>
+"leader+S for search/replace
+nnoremap <Leader>S :%s//<left>
 
-" ,o opens directory in netrw
-nnoremap <leader>o :Explore %:h<cr>
+" leader+s for search
+nnoremap <Leader>s /
+
+" switch between files with ,,
+"nnoremap <leader><leader> <c;^>
 
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -180,28 +178,28 @@ inoremap <right> <nop>
 nnoremap W gw
 nnoremap E ge
 
-" plugin configurations
+" tab for % (i.e. moving b/w brackets)
+nnoremap <Tab> %
+
+" sudo for write... in case you forgot :( 
+cmap w!! w !sudo tee % >/dev/null
+
+" open/close folds the easy way
+nnoremap <Leader>tf zA
+nnoremap <Leader>ttf za
+nnoremap <Leader>caf zM
+nnoremap <Leader>oaf zR
+"}}}
+
+" Language-specific configs {{{
+inoremap <Leader><cr> <esc>Yp<C-a>e1C " Increment lists in markdown
+"}}}
+
+" plugin configurations {{{
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
-
-" ctrl-p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-nmap <leader>i :CtrlPBuffer<cr> "current buffers with ,+i
-
-
-function! VisualFindAndReplace()
-    :OverCommandLine%s/
-    :w
-endfunction
-function! VisualFindAndReplaceWithSelection() range
-    :'<,'>OverCommandLine s/
-    :w
-endfunction
-nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
-xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
 
 " quick editing of files!
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -211,4 +209,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ,n for nerdtree
-map <Leader>n :NERDTreeToggle<CR>
+map <Leader>o :NERDTreeToggle<CR>
+"
+" ,o opens directory in netrw
+nnoremap <leader>O :Explore %:h<cr>
+"}}}
