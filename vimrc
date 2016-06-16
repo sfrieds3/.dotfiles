@@ -134,8 +134,8 @@ let g:airline_theme='papercolor'
 noremap j gj
 noremap k gk
 
-let mapleader = ","
-let g:mapleader = ","
+"let mapleader = ","
+"let g:mapleader = ","
 
 "vertical split
 nnoremap <leader>w <C-w>v<C-w>l " comma w -> vertical split
