@@ -60,7 +60,7 @@ set ttyfast
 set wildmode=longest:full,list:full,list:longest
 set wildchar=<TAB>
 
-" Line numbers 'yo
+" show me where I am? 
 set ruler
 
 " Always show status
@@ -107,7 +107,8 @@ set incsearch
 set showmatch
 set hlsearch
 
-" line numbering
+" Line numbers 'yo'
+set relativenumber
 set number
 
 " Tree style listing on Explore
