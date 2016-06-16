@@ -174,10 +174,6 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 
 " Make moving through words easier!!
 nnoremap W gw
@@ -185,6 +181,9 @@ nnoremap E ge
 
 " tab for % (i.e. moving b/w brackets)
 nnoremap <Tab> %
+
+" leader enter does nothing in insert.. NOTHING!
+inoremap <Leader><cr> <nop>
 
 " sudo for write... in case you forgot :( 
 cmap w!! w !sudo tee % >/dev/null
