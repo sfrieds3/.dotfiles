@@ -2,6 +2,7 @@
 set nocompatible " be safe out there
 call plug#begin('~/.vim/plugged')
 set foldmethod=marker
+set clipboard=unnamed "use system default clipboard
 "}}}
 
 " start of plugins {{{
@@ -35,6 +36,10 @@ Plug 'osyo-manga/vim-over' " visual find replace
 " nerd shit
 Plug 'scrooloose/nerdcommenter' " ,c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
+
+Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
+
+Plug 'ervandew/supertab' " Vim insert mode completions
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -152,7 +157,7 @@ nnoremap <Leader>S :%s//<left>
 nnoremap <Leader>s /
 
 " switch between files with ,,
-"nnoremap <leader><leader> <c;^>
+nnoremap <leader><leader> <c;^>
 
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -184,6 +189,9 @@ nnoremap <Tab> %
 " sudo for write... in case you forgot :( 
 cmap w!! w !sudo tee % >/dev/null
 
+" quick editing of files!
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
 " open/close folds the easy way
 nnoremap <Leader>tf zA
 nnoremap <Leader>ttf za
@@ -193,6 +201,7 @@ nnoremap <Leader>oaf zR
 
 " Language-specific configs {{{
 inoremap <Leader><cr> <esc>Yp<C-a>e1C " Increment lists in markdown
+
 "}}}
 
 " plugin configurations {{{
@@ -200,9 +209,6 @@ inoremap <Leader><cr> <esc>Yp<C-a>e1C " Increment lists in markdown
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
-
-" quick editing of files!
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 " Nerdtree starts up automatially if no file selected for vim
 autocmd StdinReadPre * let s:std_in=1
