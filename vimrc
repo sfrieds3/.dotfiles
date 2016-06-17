@@ -139,9 +139,9 @@ noremap k gk
 "let g:mapleader = ","
 
 "vertical split
-nnoremap <leader>w <C-w>v<C-w>l " comma w -> vertical split
+nnoremap <leader>w <C-w>v<C-w>l " \+w -> vertical split
 "horizontal split
-nnoremap <leader>h <C-w>v<C-w>l " comma h -> horizontal split
+nnoremap <leader>h <C-w>v<C-w>l " \+h -> horizontal split
 
 " buffer commands
 nmap <c-j> :bprevious<CR> " ctrl+b back in buffers
@@ -157,13 +157,16 @@ nnoremap <Leader>S :%s//<left>
 " leader+s for search
 nnoremap <Leader>s /
 
-" switch between files with ,,
+" visal mode + leader+s searches for current selection
+vnoremap <Leader> s :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+
+" switch between files with \\
 nnoremap <leader><leader> <c;^>
 
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
-" ,v selects text just pasted in 
+" \v selects text just pasted in 
 nnoremap <leader>v V']
 
 " remap % to tab (to find matching bracket pairs)
@@ -190,7 +193,7 @@ inoremap <Leader><cr> <nop>
 cmap w!! w !sudo tee % >/dev/null
 
 " quick editing of files!
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " open/close folds the easy way
 nnoremap <Leader>tf zA
