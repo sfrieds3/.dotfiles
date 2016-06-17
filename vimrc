@@ -151,9 +151,12 @@ noremap k gk
 "let g:mapleader = ","
 
 "vertical split
-nnoremap <leader>w <C-w>v<C-w>l " \+w -> vertical split
+nnoremap <leader>i <C-w>v<C-w>l " \+w -> vertical split
 "horizontal split
 nnoremap <leader>h <C-w>v<C-w>l " \+h -> horizontal split
+
+" switch windows w/ \+w
+nnoremap <Leader>w <C-w><C-w>
 
 " buffer commands
 nmap <c-j> :bprevious<CR> " ctrl+b back in buffers
