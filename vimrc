@@ -20,6 +20,7 @@ Plug 'croaky/vim-colors-github'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
+Plug 'tpope/vim-vividchalk'
 " End colors :(
 
 "Plug 'amiel/vim-tmux-navigator' " navigate tmux and vim panes
