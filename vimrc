@@ -127,6 +127,10 @@ syntax enable
 set background=light
 colorscheme github
 let g:airline_theme='papercolor'
+
+" return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
+
 "}}}
 
 " Remapping key commands {{{
