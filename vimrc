@@ -18,6 +18,8 @@ Plug 'tpope/vim-surround' " advanced functions with words etc
 " Color time!
 Plug 'croaky/vim-colors-github'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
 " End colors :(
 
 "Plug 'amiel/vim-tmux-navigator' " navigate tmux and vim panes
@@ -55,6 +57,9 @@ set visualbell
 
 " Fast scrolling
 set ttyfast
+
+" set cursorline
+set cursorline
 
 " path/file expansion in colon-mode
 set wildmode=longest:full,list:full,list:longest
@@ -124,9 +129,11 @@ set directory=~/.vim/backup
 
 " Color settings!
 syntax enable
-set background=light
-colorscheme github
-let g:airline_theme='papercolor'
+set background=dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+let g:airline_theme='gruvbox'
+" let g:airline_theme='papercolor'
 
 " return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
