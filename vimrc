@@ -157,9 +157,6 @@ nnoremap <Leader>S :%s//<left>
 " leader+s for search
 nnoremap <Leader>s /
 
-" visal mode + leader+s searches for current selection
-vnoremap <Leader> s :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-
 " switch between files with \\
 nnoremap <leader><leader> <c;^>
 
