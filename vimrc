@@ -1,11 +1,11 @@
 " Housekeeping {{{
 set nocompatible " be safe out there
-call plug#begin('~/.vim/plugged')
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 "}}}
 
 " start of plugins {{{
+call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -30,14 +30,13 @@ Plug 'rking/ag.vim' " silver searcher- quick search thru code
 Plug 'jtratner/vim-flavored-markdown' "markdown for vim
 Plug 'scrooloose/syntastic' " catch-all highlighting - potential slowdown?
 
-"
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'osyo-manga/vim-over' " visual find replace
 
 " nerd shit
-Plug 'scrooloose/nerdcommenter' " ,c[space] to comment/uncomment lines
+Plug 'scrooloose/nerdcommenter' " \+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
@@ -62,11 +61,19 @@ set ttyfast
 " set cursorline
 set cursorline
 
+" highlight extra whitespace 
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
 " path/file expansion in colon-mode
 set wildmode=longest:full,list:full,list:longest
 set wildchar=<TAB>
 
-" show me where I am? 
+" show me where I am?
 set ruler
 
 " Always show status
@@ -178,7 +185,7 @@ nnoremap <leader><leader> <c;^>
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
-" \v selects text just pasted in 
+" \v selects text just pasted in
 nnoremap <leader>v V']
 
 " remap % to tab (to find matching bracket pairs)
@@ -201,7 +208,7 @@ nnoremap <Tab> %
 " leader enter does nothing in insert.. NOTHING!
 inoremap <Leader><cr> <nop>
 
-" sudo for write... in case you forgot :( 
+" sudo for write... in case you forgot :(
 cmap w!! w !sudo tee % >/dev/null
 
 " quick editing of files!
@@ -209,9 +216,9 @@ nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " open/close folds the easy way
 nnoremap <Leader>tf zA
-nnoremap <Leader>ttf za
+nnoremap <space> za
 nnoremap <Leader>caf zM
-nnoremap <Leader>oaf zR
+nnoremap <Leader>af zR
 "}}}
 
 " Language-specific configs {{{
