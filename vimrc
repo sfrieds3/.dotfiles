@@ -2,6 +2,10 @@
 set nocompatible " be safe out there
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 "}}}
 
 " start of plugins {{{
@@ -14,6 +18,7 @@ Plug 'endwise.vim' " auto end..endif
 Plug 'tpope/vim-commentary' " plugin for commenting things
 Plug 'tpope/vim-fugitive' " github manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
+" Plug 'vim-scripts/better-whitespace' " whitespace functions
 
 " Color time!
 Plug 'croaky/vim-colors-github'
@@ -61,13 +66,9 @@ set ttyfast
 " set cursorline
 set cursorline
 
-" highlight extra whitespace 
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+" set characters for end of line & tab
+set list
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 
 " path/file expansion in colon-mode
 set wildmode=longest:full,list:full,list:longest
@@ -144,7 +145,7 @@ let g:airline_theme='gruvbox'
 " let g:airline_theme='papercolor'
 
 " return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
+"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
 
 "}}}
 
