@@ -70,6 +70,9 @@ set cursorline
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 
+" make backspace work
+set backspace=2
+
 " path/file expansion in colon-mode
 set wildmode=longest:full,list:full,list:longest
 set wildchar=<TAB>
@@ -135,6 +138,8 @@ set undolevels=1000 " How many undos
 set undoreload=10000 " number of lines to save for undo
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
+
+set guifont=Monaco\ 12
 
 " Color settings!
 syntax enable
