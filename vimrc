@@ -125,8 +125,8 @@ set showmatch
 set hlsearch
 
 " Line numbers 'yo'
-set relativenumber
 set number
+set relativenumber
 
 " Tree style listing on Explore
 let g:netrw_liststyle=3
