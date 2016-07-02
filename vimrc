@@ -147,7 +147,7 @@ set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
 let g:airline_theme='gruvbox'
-" let g:airline_theme='papercolor'
+"let g:airline_theme='papercolor'
 
 " return to last edit position when opening files
 "au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
@@ -160,8 +160,12 @@ let g:airline_theme='gruvbox'
 noremap j gj
 noremap k gk
 
+" update leader - turned off for now
 "let mapleader = ","
 "let g:mapleader = ","
+
+" upper case last word using ctrl+u
+inoremap <C-u> <esc>mzgUiw`za
 
 "vertical split
 nnoremap <leader>i <C-w>v<C-w>l " \+w -> vertical split
