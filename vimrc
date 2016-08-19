@@ -168,7 +168,7 @@ noremap k gk
 inoremap <C-u> <esc>mzgUiw`za
 
 "vertical split
-nnoremap <leader>i <C-w>v<C-w>l " \+w -> vertical split
+nnoremap <leader>j <C-w>v<C-w>l " \+w -> vertical split
 "horizontal split
 nnoremap <leader>h <C-w>v<C-w>l " \+h -> horizontal split
 
