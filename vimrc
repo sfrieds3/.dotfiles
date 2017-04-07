@@ -139,7 +139,7 @@ set undoreload=10000 " number of lines to save for undo
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
-set guifont=Monaco\ 12
+set guifont=Source\ Code\ Pro\ 12
 
 " Color settings!
 syntax enable
