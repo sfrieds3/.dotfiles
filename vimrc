@@ -6,6 +6,7 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+set so=13 " set lines above/below cursor
 "}}}
 
 " start of plugins {{{
@@ -41,7 +42,7 @@ Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'osyo-manga/vim-over' " visual find replace
 
 " nerd shit
-Plug 'scrooloose/nerdcommenter' " \+c[space] to comment/uncomment lines
+Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
@@ -80,8 +81,9 @@ set wildchar=<TAB>
 " show me where I am?
 set ruler
 
-" Always show status
+" Status line stuff
 set laststatus=2
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 "Brace face
 set showmatch
@@ -149,9 +151,8 @@ let g:gruvbox_contrast_dark='hard'
 let g:airline_theme='gruvbox'
 "let g:airline_theme='papercolor'
 
-" return to last edit position when opening files
+" Return to last edit position when opening files
 "au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
-
 "}}}
 
 " Remapping key commands {{{
@@ -160,17 +161,17 @@ let g:airline_theme='gruvbox'
 noremap j gj
 noremap k gk
 
-" update leader - turned off for now
-"let mapleader = ","
-"let g:mapleader = ","
+" update leader
+let mapleader = ","
+let g:mapleader = ","
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
 "vertical split
-nnoremap <leader>j <C-w>v<C-w>l " \+w -> vertical split
+nnoremap <leader>e C-w>v<C-w>l
 "horizontal split
-nnoremap <leader>h <C-w>v<C-w>l " \+h -> horizontal split
+nnoremap <leader>z <C-w>v<C-w>l
 
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
@@ -189,7 +190,7 @@ nnoremap <Leader>S :%s//<left>
 " leader+s for search
 nnoremap <Leader>s /
 
-" switch between files with \\
+" switch between files with ,,
 nnoremap <leader><leader> <c;^>
 
 " Clean trailing whitespace
@@ -234,6 +235,64 @@ nnoremap <Leader>af zR
 " Language-specific configs {{{
 inoremap <Leader><cr> <esc>Yp<C-a>e1C " Increment lists in markdown
 
+"}}}
+
+"{{{ Moving around, tabs, windows and buffers
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :bdelete<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+"}}}
+
+"Visual mode related {{{
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 "}}}
 
 " plugin configurations {{{
