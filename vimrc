@@ -7,6 +7,7 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 set so=13 " set lines above/below cursor
+set term=screen-256color
 "}}}
 
 " start of plugins {{{
@@ -227,7 +228,7 @@ nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " open/close folds the easy way
 nnoremap <Leader>tf zA
-nnoremap <space> za
+"nnoremap <space> za
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
 "}}}
