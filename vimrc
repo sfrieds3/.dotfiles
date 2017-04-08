@@ -1,4 +1,5 @@
 " Housekeeping {{{
+
 set nocompatible " be safe out there
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
@@ -14,9 +15,11 @@ set wildmenu
 "2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
 set wildmode=longest:full,full "extra margin on left
 set foldcolumn=1
+"
 "}}}
 
 " start of plugins {{{
+
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'vim-airline/vim-airline'
@@ -58,6 +61,7 @@ Plug 'ervandew/supertab' " Vim insert mode completions
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
+
 "}}}
 
 " Basic vim setups {{{
@@ -160,6 +164,7 @@ let g:airline_theme='gruvbox'
 
 " Return to last edit position when opening files
 "au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
+
 "}}}
 
 " Remapping key commands {{{
@@ -296,8 +301,10 @@ endtry
 "}}}
 
 "Visual mode related {{{
+"
 "map // to copy visually selected text and search
 vnoremap // y/<C-R>"<CR>"
+"
 "}}}
 
 " plugin configurations {{{
