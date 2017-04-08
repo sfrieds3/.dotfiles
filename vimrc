@@ -180,6 +180,9 @@ let g:mapleader = ","
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
+" C-c to center cursor
+nnoremap <c-c> zz
+
 "vertical split
 nnoremap <leader>e C-w>v<C-w>l
 "horizontal split
