@@ -7,7 +7,7 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-set so=13 " set lines above/below cursor
+set so=8 " set lines above/below cursor
 set term=screen-256color " make tmux work with vim
 set autoread "set to autoread when file changed from outside
 " turn on wild menu
