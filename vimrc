@@ -319,7 +319,8 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ,n for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
-"
-" ,o opens directory in netrw
+" ,r to refresh NERDTree
+"nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+" ,O opens directory in netrw
 nnoremap <leader>O :Explore %:h<cr>
 "}}}
