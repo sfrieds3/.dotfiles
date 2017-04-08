@@ -189,9 +189,9 @@ nnoremap <leader>z <C-w>v<C-w>l
 nnoremap <Leader>w <C-w><C-w>
 
 " buffer commands
-nmap <c-j> :bprevious<CR> " ctrl+b back in buffers
-nmap <c-k> :bnext<CR> " ctrl+n next buffer
-nmap bb :bw<CR>
+nmap <c-p> :bprevious<CR>
+nmap <c-n> :bnext<CR>
+"nmap bb :bw<CR>
 
 " turn off nohlsarch
 nmap <silent> <leader><space> :nohlsearch<CR>
@@ -208,7 +208,7 @@ nnoremap <leader><leader> <c;^>
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
-" \v selects text just pasted in
+" ,v selects text just pasted in
 nnoremap <leader>v V']
 
 " remap % to tab (to find matching bracket pairs)
