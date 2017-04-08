@@ -7,7 +7,13 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 set so=13 " set lines above/below cursor
-set term=screen-256color
+set term=screen-256color " make tmux work with vim
+set autoread "set to autoread when file changed from outside
+" turn on wild menu
+set wildmenu
+"2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
+set wildmode=longest:full,full "extra margin on left
+set foldcolumn=1
 "}}}
 
 " start of plugins {{{
@@ -290,10 +296,8 @@ endtry
 "}}}
 
 "Visual mode related {{{
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+"map // to copy visually selected text and search
+vnoremap // y/<C-R>"<CR>"
 "}}}
 
 " plugin configurations {{{
