@@ -3,15 +3,22 @@
 set nocompatible " be safe out there
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
+
+" highlight extra whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
 set so=8 " set lines above/below cursor
+
 set term=screen-256color " make tmux work with vim
-set autoread "set to autoread when file changed from outside
+
+"set autoread "set to autoread when file changed from outside
+
 " turn on wild menu
 set wildmenu
+
 "2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
 set wildmode=longest:full,full "extra margin on left
 set foldcolumn=1
@@ -184,9 +191,9 @@ inoremap <C-u> <esc>mzgUiw`za
 nnoremap <c-c> zz
 
 "vertical split
-nnoremap <leader>e C-w>v<C-w>l
+nnoremap <leader>e <C-w>v<C-w>l
 "horizontal split
-nnoremap <leader>z <C-w>v<C-w>l
+nnoremap <leader>z <C-w>s<C-w>l
 
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
