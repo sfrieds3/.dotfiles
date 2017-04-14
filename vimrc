@@ -20,8 +20,8 @@ set term=screen-256color " make tmux work with vim
 set wildmenu
 
 "2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
-set wildmode=longest:full,full "extra margin on left
-set foldcolumn=1
+set wildmode=longest:full,full
+set foldcolumn=0
 "
 "}}}
 
