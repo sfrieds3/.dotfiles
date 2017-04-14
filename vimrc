@@ -1,6 +1,6 @@
 " Housekeeping {{{
 
-set nocompatible " be safe out there
+set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
@@ -58,7 +58,7 @@ Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'osyo-manga/vim-over' " visual find replace
 
-" nerd shit
+" nerd stuff
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 
@@ -190,6 +190,9 @@ inoremap <C-u> <esc>mzgUiw`za
 " C-c to center cursor
 nnoremap <c-c> zz
 
+" remap 0 to first nonblank character
+map 0 ^
+
 "vertical split
 nnoremap <leader>e <C-w>v<C-w>l
 "horizontal split
@@ -202,6 +205,24 @@ nnoremap <Leader>w <C-w><C-w>
 nmap <c-p> :bprevious<CR>
 nmap <c-n> :bnext<CR>
 "nmap bb :bw<CR>
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+
+au TabLeave * let g:lasttab = tabpagenr()​
+
+" Disable scrollbars (real hackers don't use scrollbars for navigation!)
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L"
 
 " turn off nohlsarch
 nmap <silent> <leader><space> :nohlsearch<CR>
@@ -225,7 +246,7 @@ nnoremap <leader>v V']
 nnoremap <tab> %
 vnoremap <tab> %
 
-" fuck the arrow keys
+" no arrow keys
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
@@ -252,6 +273,11 @@ nnoremap <Leader>tf zA
 "nnoremap <space> za
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
+
+" reload when switching buffer
+"u FocusGained,BufEnter * :silent! ! " reload buffer when back in focus
+"au FocusLost,WinLeave * :silent! noautocmd w " save file when leaving buffer
+
 "}}}
 
 " Language-specific configs {{{
@@ -294,7 +320,6 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -316,6 +341,62 @@ endtry
 vnoremap // y/<C-R>"<CR>"
 "
 "}}}
+
+" highlight Interesting Words {{{
+
+augroup highlight_interesting_word
+  autocmd!
+  " This mini-plugin provides a few mappings for highlighting words temporarily.
+  "
+  " Sometimes you're looking at a hairy piece of code and would like a certain
+  " word or two to stand out temporarily.  You can search for it, but that only
+  " gives you one color of highlighting.  Now you can use <leader>N where N is
+  " a number from 1-6 to highlight the current word in a specific color.
+
+  " credit: https://github.com/paulirish/dotfiles/blob/master/.vimrc
+
+  function! HiInterestingWord(n) " {{{
+    " Save our location.
+    normal! mz
+
+    " Yank the current word into the z register.
+    normal! "zyiw
+
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
+
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
+
+    " Move back to our original location.
+    normal! `z
+  endfunction " }}}
+
+  " Mappings {{{
+  nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+  nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+  nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+  nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+  nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+  nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+  " }}}
+
+  " Default Highlights {{{
+  hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+  hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+  hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+  hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+  hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+  hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+  " }}}
+augroup END
+" }}}
 
 " plugin configurations {{{
 
