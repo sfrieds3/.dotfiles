@@ -4,7 +4,14 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
-"
+" turn persistant undo on
+" can undo even after closing buffer/VIM
+try
+    set undodir=~/.vim/temp_dir/undodir
+    set undofile
+catch
+endtry
+
 "}}}
 
 " start of plugins {{{
@@ -15,20 +22,27 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
 
+" tpope stuff {{{
+
 Plug 'tpope/vim-commentary' " plugin for commenting things
-Plug 'tpope/vim-fugitive' " github manager for vim
+Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
+Plug 'tpope/vim-eunuch' " unix shell commands
+Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
+
+" }}}
+
 " Plug 'vim-scripts/better-whitespace' " whitespace functions
 
 " Color time!
-Plug 'croaky/vim-colors-github'
+"Plug 'croaky/vim-colors-github'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-vividchalk'
 " End colors :(
 
-"Plug 'amiel/vim-tmux-navigator' " navigate tmux and vim panes
+Plug 'amiel/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'rking/ag.vim' " silver searcher- quick search thru code
 
 " Language specific
@@ -36,8 +50,6 @@ Plug 'jtratner/vim-flavored-markdown' "markdown for vim
 Plug 'scrooloose/syntastic' " catch-all highlighting - potential slowdown?
 
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
-Plug 'tpope/vim-eunuch' " unix shell commands
-Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'osyo-manga/vim-over' " visual find replace
 
 " nerd stuff
@@ -305,10 +317,10 @@ map <c-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-h> <C-W>h
+"map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :bdelete<cr>:tabclose<cr>gT
