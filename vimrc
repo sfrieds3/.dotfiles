@@ -1,5 +1,8 @@
 " Housekeeping {{{
 
+" reload vimrc
+" :so $MYVIMRC
+
 set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
@@ -11,6 +14,12 @@ try
     set undofile
 catch
 endtry
+
+" audo reload vimrc
+"augroup myvimrc
+    "au!
+    "au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    "augroup END
 
 "}}}
 
@@ -78,6 +87,11 @@ set ttyfast
 
 " set cursorline
 set cursorline
+
+" not case sensitive
+set ignorecase
+" unless all caps
+set smartcase
 
 " set characters for end of line & tab
 set list
