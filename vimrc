@@ -4,24 +4,6 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
-" highlight extra whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-
-set so=8 " set lines above/below cursor
-
-set term=screen-256color " make tmux work with vim
-
-"set autoread "set to autoread when file changed from outside
-
-" turn on wild menu
-set wildmenu
-
-"2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
-set wildmode=longest:full,full
-set foldcolumn=0
 "
 "}}}
 
@@ -98,6 +80,27 @@ set wildchar=<TAB>
 
 " show me where I am?
 set ruler
+
+" show filename in window titlebar
+set title
+
+set so=8 " set lines above/below cursor
+
+set term=screen-256color " make tmux work with vim
+
+"set autoread "set to autoread when file changed from outside
+
+" turn on wild menu
+set wildmenu
+
+"2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
+set wildmode=longest:full,full
+set foldcolumn=0
+" highlight extra whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Status line stuff
 set laststatus=2
@@ -223,6 +226,14 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L"
+
+" Hard to type things
+
+iabbrev >> →
+iabbrev << ←
+iabbrev ^^ ↑
+iabbrev VV ↓
+iabbrev aa λ
 
 " turn off nohlsarch
 nmap <silent> <leader><space> :nohlsearch<CR>
