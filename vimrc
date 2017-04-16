@@ -9,11 +9,11 @@ set clipboard=unnamed "use system default clipboard
 
 " turn persistant undo on
 " can undo even after closing buffer/VIM
-try
-    set undodir=~/.vim/temp_dir/undodir
-    set undofile
-catch
-endtry
+"try
+    "set undodir=~/.vim/temp_dir/undodir
+    "set undofile
+"catch
+"endtry
 
 " audo reload vimrc
 "augroup myvimrc
@@ -30,6 +30,7 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
+Plug 'airblade/vim-gitgutter' "show git diff in gutter
 
 " tpope stuff {{{
 
