@@ -7,6 +7,16 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
+" make nvim and tmux play nice
+"set nottimeout
+"if ! has('gui_running')
+"set ttimeoutlen=10
+"augroup FastEscape
+    "autocmd!
+    "au InsertEnter * set timeoutlen=0
+    "au InsertLeave * set timeoutlen=1000
+"augroup END
+                                    endif
 " turn persistant undo on
 " can undo even after closing buffer/VIM
 "try
@@ -113,7 +123,7 @@ set title
 
 set so=8 " set lines above/below cursor
 
-"set term=screen-256color " make tmux work with vim
+set term=screen-256color " make tmux work with vim
 
 "set autoread "set to autoread when file changed from outside
 
