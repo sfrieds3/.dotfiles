@@ -113,7 +113,7 @@ set title
 
 set so=8 " set lines above/below cursor
 
-set term=screen-256color " make tmux work with vim
+"set term=screen-256color " make tmux work with vim
 
 "set autoread "set to autoread when file changed from outside
 
