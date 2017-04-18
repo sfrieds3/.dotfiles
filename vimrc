@@ -7,10 +7,12 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
+"set term=screen-256color " make tmux work with vim
+
 " make nvim and tmux play nice
 "set nottimeout
 "if ! has('gui_running')
-"set ttimeoutlen=10
+"set ttimeoutlen=0
 "augroup FastEscape
     "autocmd!
     "au InsertEnter * set timeoutlen=0
@@ -124,8 +126,6 @@ set title
 
 set so=8 " set lines above/below cursor
 
-set term=screen-256color " make tmux work with vim
-
 "set autoread "set to autoread when file changed from outside
 
 " turn on wild menu
@@ -235,9 +235,9 @@ nnoremap <c-c> zz
 map 0 ^
 
 "vertical split
-nnoremap <leader>e <C-w>v<C-w>l
+nnoremap <leader>e <C-w>v<C-w>l<CR>
 "horizontal split
-nnoremap <leader>z <C-w>s<C-w>l
+nnoremap <leader>z <C-w>s<C-w>l<CR>
 
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>

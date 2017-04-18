@@ -125,4 +125,4 @@ alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
 # neovim alias
 alias vim='nvim'
 
-fish
+zsh
