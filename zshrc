@@ -42,7 +42,7 @@ ENABLE_CORRECTION="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git command-not-found common-aliases compleat)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,4 +96,4 @@ alias python='python3'
 alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
 
 # neovim alias
-alias vim='nvim'
+#alias vim='nvim'

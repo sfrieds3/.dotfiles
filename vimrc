@@ -44,6 +44,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
+Plug 'kien/ctrlp.vim'
 
 " tpope stuff {{{
 
@@ -463,4 +464,7 @@ map <Leader>o :NERDTreeToggle<CR>
 "nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
 " ,O opens directory in netrw
 nnoremap <leader>O :Explore %:h<cr>
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 "}}}
