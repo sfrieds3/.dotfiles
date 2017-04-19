@@ -235,9 +235,9 @@ nnoremap <c-c> zz
 map 0 ^
 
 "vertical split
-nnoremap <leader>e <C-w>v<C-w>l<CR>
+nnoremap <leader>e <C-w>v
 "horizontal split
-nnoremap <leader>z <C-w>s<C-w>l<CR>
+nnoremap <leader>z <C-w>s
 
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
