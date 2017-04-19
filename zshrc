@@ -95,5 +95,12 @@ alias python='python3'
 # alias for cdm linux box
 alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
 
+# show autocomplete options
+setopt menu_complete
+    setopt auto_menu
+    autoload -Uz compinit
+    compinit
+    zstyle ':completion:*' menu yes select
+
 # neovim alias
 #alias vim='nvim'

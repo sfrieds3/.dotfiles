@@ -45,6 +45,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
+Plug 'benmills/vimux'
 
 " tpope stuff {{{
 
@@ -53,6 +54,9 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
+"Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 
 " }}}
 
@@ -71,7 +75,7 @@ Plug 'rking/ag.vim' " silver searcher- quick search thru code
 
 " Language specific
 Plug 'jtratner/vim-flavored-markdown' "markdown for vim
-Plug 'scrooloose/syntastic' " catch-all highlighting - potential slowdown?
+Plug 'scrooloose/syntastic' " catch-all highlighting
 
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'osyo-manga/vim-over' " visual find replace
@@ -125,7 +129,7 @@ set ruler
 " show filename in window titlebar
 set title
 
-set so=8 " set lines above/below cursor
+set so=7 " set lines above/below cursor
 
 "set autoread "set to autoread when file changed from outside
 
@@ -135,6 +139,7 @@ set wildmenu
 "2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
 set wildmode=longest:full,full
 set foldcolumn=0
+
 " highlight extra whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -236,9 +241,9 @@ nnoremap <c-c> zz
 map 0 ^
 
 "vertical split
-nnoremap <leader>e <C-w>v
+nnoremap <leader>\| <C-w>v
 "horizontal split
-nnoremap <leader>z <C-w>s
+nnoremap <leader>- <C-w>s
 
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
