@@ -45,7 +45,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
-Plug 'benmills/vimux'
+"Plug 'benmills/vimux'
 
 " tpope stuff {{{
 
@@ -55,8 +55,8 @@ Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 "Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-sleuth'
 
 " }}}
 
