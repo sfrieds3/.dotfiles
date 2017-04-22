@@ -9,30 +9,6 @@ set clipboard=unnamed "use system default clipboard
 
 "set term=screen-256color " make tmux work with vim
 
-" make nvim and tmux play nice
-"set nottimeout
-"if ! has('gui_running')
-"set ttimeoutlen=0
-"augroup FastEscape
-    "autocmd!
-    "au InsertEnter * set timeoutlen=0
-    "au InsertLeave * set timeoutlen=1000
-"augroup END
-"endif
-
-" turn persistant undo on
-" can undo even after closing buffer/VIM
-"try
-    "set undodir=~/.vim/temp_dir/undodir
-    "set undofile
-"catch
-"endtry
-
-" audo reload vimrc
-"augroup myvimrc
-    "au!
-    "au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-    "augroup END
 
 "}}}
 
