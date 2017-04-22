@@ -102,5 +102,28 @@ setopt menu_complete
     compinit
     zstyle ':completion:*' menu yes select
 
+# adds arguments from last command to autocomplete list
+_complete_plus_last_command_args() {
+    last_command=$history[$[HISTCMD-1]]
+    last_command_array=("${(s/ /)last_command}") 
+    _sep_parts last_command_array
+    _complete 
+    }
+_force_rehash() {
+    (( CURRENT == 1  )) && rehash
+    return 1  # Because we didn't really complete anything
+    }
+zstyle ':completion:::::' completer _force_rehash _complete_plus_last_command_args _approximate
+
+# other random autocomplete stuff
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3  ))  )'
+zstyle ':completion:*:descriptions' format "- %d -"
+zstyle ':completion:*:corrections' format "- %d - (errors %e})"
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*' menu select
+zstyle ':completion:*' verbose yes
+
 # neovim alias
 #alias vim='nvim'
