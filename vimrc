@@ -167,7 +167,7 @@ set incsearch
 set showmatch
 set hlsearch
 
-" Line numbers 'yo'
+" Line numbers
 set number
 set relativenumber
 
@@ -189,7 +189,7 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
-let g:airline_theme='gruvbox'
+"let g:airline_theme='gruvbox'
 "let g:airline_theme='papercolor'
 
 " Return to last edit position when opening files
