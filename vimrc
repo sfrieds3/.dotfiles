@@ -436,10 +436,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
 " Nerdtree starts up automatially if no file selected for vim
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" ,n for nerdtree
+" ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
 " ,r to refresh NERDTree
 "nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
