@@ -249,11 +249,11 @@ set guioptions-=L"
 
 " Hard to type things
 
-iabbrev >> →
-iabbrev << ←
-iabbrev ^^ ↑
-iabbrev VV ↓
-iabbrev aa λ
+"iabbrev >> →
+"iabbrev << ←
+"iabbrev ^^ ↑
+"iabbrev VV ↓
+"iabbrev aa λ
 
 " turn off nohlsarch
 nmap <silent> <leader><space> :nohlsearch<CR>
