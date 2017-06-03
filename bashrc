@@ -121,6 +121,7 @@ alias python='python3'
 
 # alias for cdm linux box
 alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
+alias sshcdm32='ssh sfriedr3@140.192.36.187.cdm.depaul.edu'
 
 # neovim alias
 #alias vim='nvim'
