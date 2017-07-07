@@ -21,6 +21,8 @@
 (use-package auto-package-update
   :ensure t)
 
+
+
 ;;;; STARTUP SETTINGS
 
 ;; set window size on open
@@ -40,14 +42,16 @@
 (setq-default indent-tabs-mode nil)
 
 ;; show matching parenthesis
-(setq show-paren-delay 0)
-(show-paren-mode 1)
+;; (setq show-paren-delay 0)
+;; (show-paren-mode 1)
 
-;; remove trailing whitespace on save
+;; Remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
 (set-default-font "Source Code Pro 11")
+
+
 
 ;;;; THEMES
 ;; gruvbox
@@ -75,6 +79,8 @@
 ;; theme to load
 (load-theme 'gruvbox t)
 
+
+
 ;;;; LANGUAGE SPECIFIC
 
 ;; markdown support
@@ -98,38 +104,39 @@
 (evil-mode t)
 
 ;;; evil nerd commentator
-  ;; Emacs key bindings
-  (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-  (global-set-key (kbd "C-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
-  (global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
-  (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
+(use-package evil-nerd-commenter
+  :ensure t)
+;; Emacs key bindings
+(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
+(global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
-  ;; Vim key bindings
-  (require 'evil-leader)
-  (global-evil-leader-mode)
-  (evil-leader/set-key
-     "ci" 'evilnc-comment-or-uncomment-lines
-     "  cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-     "ll"   'evilnc-quick-comment-or-uncomment-to-the-line
-     "cc" 'e  vilnc-copy-and-comment-lines
-     "cp" 'evil  nc-comment-or-uncomment-paragraphs
-     "cr" 'comment  -or-uncomment-region
-     "cv" 'evilnc-tog  gle-invert-comment-line-by-line
-     "."  'evilnc-copy-a  nd-comment-operator
-     "\\" 'evilnc-comment-o  perator ; if you prefer backslash key
-       )
+;; Vim key bindings
+(use-package evil-leader
+  :ensure t)
+(global-evil-leader-mode)
+(evil-leader/set-key
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "."  'evilnc-copy-and-comment-operator
+  ;; "\\" 'evilnc-comment-operator ; if you prefer backslash key
+  )
 
 ;; better defaults!
 (use-package better-defaults
   :ensure t)
-
 
 ;; auto-complete support
 (use-package auto-complete
   :ensure t)
 ;; enable auto-complete at open
 (global-auto-complete-mode t)
-
 
 ;; powerline (like VIM!!)
 (use-package powerline ;; powerline (like VIM!!!)
@@ -155,10 +162,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; evil mode for vim-style shortcuts
-(use-package evil
-  :ensure t)
-
 ;; show line numbers
 (use-package nlinum
   :ensure t)
@@ -176,6 +179,12 @@
   :ensure t)
 (indent-guide-global-mode)
 (setq indent-guide-recursive t)
+
+;; aggressive indent mode
+(use-package aggressive-indent
+  :ensure t)
+(global-aggressive-indent-mode 1)
+(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
 ;; minimap
 ;;(use-package sublimity
@@ -203,6 +212,20 @@
 (use-package ace-jump-mode
   :ensure t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
+
+;; undo tree
+(use-package undo-tree
+  :ensure t)
+(global-undo-tree-mode)
+
+;; whitespace
+(use-package whitespace
+  :ensure t)
+
+(use-package rainbow-delimiters
+  :ensure t)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
 
 ;;;; IVY STUFF
 (use-package ivy
@@ -233,6 +256,9 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+
+
+
 
 ;;;; ORG MODE
 ;; pretty bullets for org mode
