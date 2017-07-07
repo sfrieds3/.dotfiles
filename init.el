@@ -74,18 +74,50 @@
 (use-package better-defaults
   :ensure t)
 
-(ido-mode t) ;; turn on ido for auto-complete
+;;;; ivy stuff
+(use-package ivy
+  :ensure t)
+
+(use-package swiper
+  :ensure t)
+
+(use-package counsel
+  :ensure t)
+
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+
+;;;; helm stuff
+
+;;(ido-mode t) ;; turn on ido for auto-complete
 ;; C-x C-b is ibuffer
 ;; C-s and C-r are swapped with regex-aware incremenetal search functionality
 
 ;; add helm - interactive buffer menus
-(use-package helm
-  :ensure t)
-(global-set-key (kbd "M-x") 'helm-M-x)
+;; (use-package helm
+;;   :ensure t)
+;; (global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; add helm-ag - implements ag searching in helm
-(use-package helm-ag
-  :ensure t)
+;; (use-package helm-ag
+;;   :ensure t)
 ;; USAGE:
 ;; helm-ag:                    input search w/ ag command (use C-u to cd)
 ;; helm-ag-this-file:          same as helm-ag, search only current file
