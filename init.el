@@ -173,6 +173,12 @@
 (use-package magit
   :ensure t)
 
+;; which-key
+(use-package which-key
+  :ensure t)
+(which-key-mode t)
+(which-key-setup-minibuffer)
+
 ;; highlight instances of word when hovering
 (use-package idle-highlight-mode
   :ensure t)
