@@ -3,8 +3,10 @@
 ;;;; GENERAL PACKAGE SETTINGS
 (require 'package)
 
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '(("marmalade" . "https://marmalade-repo.org/packages/")))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (setq package-enable-at-startup nil)
@@ -166,6 +168,7 @@
 (use-package nlinum
   :ensure t)
 (global-linum-mode t)
+(linum-relative-mode t)
 ;; (setq linum-format "%4d \u2502 ")
 ;; (setq linum-format "%d ")
 
