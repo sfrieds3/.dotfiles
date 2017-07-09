@@ -23,6 +23,9 @@
 (use-package auto-package-update
   :ensure t)
 
+(use-package cl
+  :ensure t)
+
 
 
 ;;;; STARTUP SETTINGS
@@ -150,9 +153,13 @@
   :ensure t)
 (yas-global-mode 1)
 
-;; powerline (like VIM!!)
+powerline (like VIM!!)
 (use-package powerline ;; powerline (like VIM!!!)
   :ensure t)
+(use-package powerline-evil
+  :ensure t)
+(powerline-evil-vim-theme)
+
 (use-package airline-themes ;; vim airline themes for powerline
   :ensure t)
 
