@@ -6,8 +6,7 @@
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '(("marmalade" . "https://marmalade-repo.org/packages/")))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (setq package-enable-at-startup nil)
 (package-initialize)
@@ -153,33 +152,10 @@
   :ensure t)
 (yas-global-mode 1)
 
-powerline (like VIM!!)
-(use-package powerline ;; powerline (like VIM!!!)
+(use-package smart-mode-line
   :ensure t)
-(use-package powerline-evil
-  :ensure t)
-(powerline-evil-vim-theme)
+(sml/setup)
 
-(use-package airline-themes ;; vim airline themes for powerline
-  :ensure t)
-
-;; set airline theme for powerline
-(load-theme 'airline-dark t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("f23a961abba42fc5d75bf94c46b5688c52683c02b3a81313dd0738b4d48afd1d" "8d3c5e9ba9dcd05020ccebb3cc615e40e7623b267b69314bdb70fe473dd9c7a8" "4cbec5d41c8ca9742e7c31cc13d8d4d5a18bd3a0961c18eb56d69972bbcf3071" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "b9cbfb43711effa2e0a7fbc99d5e7522d8d8c1c151a3194a4b176ec17c9a8215" "962dacd99e5a99801ca7257f25be7be0cebc333ad07be97efd6ff59755e6148f" default)))
- '(inhibit-startup-screen t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; show line numbers
 (use-package nlinum
