@@ -29,6 +29,9 @@
 
 ;;;; STARTUP SETTINGS
 
+;; inhibit startup screen
+(setq inhibit-startup-screen t)
+
 ;; set window size on open
 (when window-system (set-frame-size (selected-frame) 135 35))
 
@@ -45,16 +48,15 @@
 ;; spaces by default instead of tabs!
 (setq-default indent-tabs-mode nil)
 
-;; show matching parenthesis
-;; (setq show-paren-delay 0)
-;; (show-paren-mode 1)
-
 ;; Remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
 (set-default-font "Source Code Pro 11")
 
+;; move between windows with shift-arrow keys
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 
 
 ;;;; THEMES
