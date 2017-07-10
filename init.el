@@ -162,7 +162,7 @@
 ;; show line numbers
 (use-package nlinum
   :ensure t)
-(global-linum-mode t)
+;; (global-linum-mode t)
 ;; Make linums relative by default
 ;; (setq linum-format "%4d \u2502 ")
 ;; (setq linum-format "%d ")
