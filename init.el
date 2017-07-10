@@ -232,8 +232,7 @@
 ;;;; HELM
 (use-package helm
   :ensure t)
-(use-package helm-config
-  :ensure t)
+(require 'helm-config)
 
 ;; from http://tuhdo.github.io/helm-intro.html
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
