@@ -1,6 +1,6 @@
 ;; my emacs config - its a work in progress
 
-;;;; GENERAL PACKAGE SETTINGS
+;;;; general package settings
 (require 'package)
 
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
@@ -27,7 +27,7 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; STARTUP SETTINGS
+;;;; startup settings
 
 ;; inhibit startup screen
 (setq inhibit-startup-screen t)
@@ -36,11 +36,11 @@
 (when window-system (set-frame-size (selected-frame) 135 35))
 
 ;; start with split windows
-;; Open split shell on launch
+;; open split shell on launch
 (add-hook 'emacs-startup-hook
-  (lambda ()
-    (split-window-horizontally)
-    (split-window-vertically)))
+          (lambda ()
+            (split-window-horizontally)
+            (split-window-vertically)))
 
 ;; highlight current line
 (global-hl-line-mode t)
@@ -48,11 +48,11 @@
 ;; spaces by default instead of tabs!
 (setq-default indent-tabs-mode nil)
 
-;; Remove trailing whitespace on save
+;; remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-default-font "Source Code Pro 11")
+(set-default-font "source code pro 11")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -60,7 +60,7 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; THEMES
+;;;; themes
 ;; gruvbox
 (use-package gruvbox-theme
   :ensure t)
@@ -81,14 +81,14 @@
   :ensure t)
 ;; solarized
 (use-package solarized-theme
- :ensure t)
+  :ensure t)
 
 ;; theme to load
 (load-theme 'gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; LANGUAGE SPECIFIC
+;;;; language specific
 
 ;; markdown support
 (use-package markdown-mode ;; markdown support
@@ -97,7 +97,7 @@
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
+  :mode (("readme\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
@@ -110,8 +110,8 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; EMACS PACKAGES
-;; use Evil mode
+;;;; emacs packages
+;; use evil mode
 (use-package evil
   :ensure t)
 (evil-mode t)
@@ -119,13 +119,13 @@
 ;;; evil nerd commentator
 (use-package evil-nerd-commenter
   :ensure t)
-;; Emacs key bindings
-(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "C-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
-(global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
-(global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
+;; emacs key bindings
+(global-set-key (kbd "m-;") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "c-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(global-set-key (kbd "c-c c") 'evilnc-copy-and-comment-lines)
+(global-set-key (kbd "c-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
-;; Vim key bindings
+;; vim key bindings
 (use-package evil-leader
   :ensure t)
 (global-evil-leader-mode)
@@ -171,7 +171,7 @@
 (use-package nlinum
   :ensure t)
 ;; (global-linum-mode t)
-;; Make linums relative by default
+;; make linums relative by default
 ;; (setq linum-format "%4d \u2502 ")
 ;; (setq linum-format "%d ")
 
@@ -217,7 +217,7 @@
 ;; ace jump mode
 (use-package ace-jump-mode
   :ensure t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
+(define-key global-map (kbd "c-c spc") 'ace-jump-mode) ;; c-c spc to enable
 
 ;; undo tree
 (use-package undo-tree
@@ -234,38 +234,89 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; IVY
-(use-package ivy
+;;;; helm
+(use-package helm
   :ensure t)
-(use-package counsel
-  :ensure t)
-(use-package swiper
-  :ensure t)
+(require 'helm-config)
 
-;; ivy settings
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+;; from http://tuhdo.github.io/helm-intro.html
+;; the default "c-x c" is quite close to "c-x c-c", which quits emacs.
+;; changed to "c-c h". note: we must set "c-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "c-c h") 'helm-command-prefix)
+(global-unset-key (kbd "c-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "c-i") 'helm-execute-persistent-action) ; make tab work in terminal
+(define-key helm-map (kbd "c-z")  'helm-select-action) ; list actions using c-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using m-<next>/m-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t)
+
+
+(defun spacemacs//helm-hide-minibuffer-maybe ()
+  "hide minibuffer in helm session if we use the header line as input field."
+  (when (with-helm-buffer helm-echo-input-in-header-line)
+    (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+      (overlay-put ov 'window (selected-window))
+      (overlay-put ov 'face
+                   (let ((bg-color (face-background 'default nil)))
+                     `(:background ,bg-color :foreground ,bg-color)))
+      (setq-local cursor-type nil))))
+
+(add-hook 'helm-minibuffer-set-up-hook
+          'spacemacs//helm-hide-minibuffer-maybe)
+
+;; get m-x set up
+(global-set-key (kbd "m-x") 'helm-m-x)
+(setq helm-m-x-fuzzy-match t) ; add fuzzy matching for helm m-x
+
+;; helm find files
+(global-set-key (kbd "c-x c-f") 'helm-find-files)
+
+;; get mini-buffer set up
+(global-set-key (kbd "c-x b") 'helm-mini)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
+(global-set-key (kbd "m-y") 'helm-show-kill-ring)
+
+;; get to man pages using <prefix> m (prefix == c-x c default, c-x h as specified above
+(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
+
+;; helm find using <prefix> /
+;; helm locate using <prefix> l
+(setq helm-locate-fuzzy-match t)
+
+;; helm occur using <prefix> o (similar to occur normally)
+;; (global-set-key (kbd "c-c h o") 'helm-occur)
+
+;; helm apropos - <prefix> a
+(setq helm-apropos-fuzzy-match t)
+
+;; helm <prefix><tab> for available loaded lisp functions
+(setq helm-lisp-fuzzy-completion t)
+
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+
+(helm-mode 1)
+
+;; swiper for searching
+(use-package swiper-helm
+  :ensure t)
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; ORG MODE
+;;;; org mode
 ;; pretty bullets for org mode
 (use-package org-bullets
   :ensure t)
@@ -275,5 +326,5 @@
 ;; syntax highlighting in source blocks when editing
 (setq org-src-fontify-natively t)
 
-;; log when TODO is completed in org mode
+;; log when todo is completed in org mode
 (setq org-log-done 'time)
