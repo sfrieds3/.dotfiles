@@ -256,6 +256,7 @@
       helm-ff-file-name-history-use-recentf t
       helm-echo-input-in-header-line t)
 
+
 (defun spacemacs//helm-hide-minibuffer-maybe ()
   "Hide minibuffer in Helm session if we use the header line as input field."
   (when (with-helm-buffer helm-echo-input-in-header-line)
@@ -266,9 +267,38 @@
                      `(:background ,bg-color :foreground ,bg-color)))
       (setq-local cursor-type nil))))
 
-
 (add-hook 'helm-minibuffer-set-up-hook
           'spacemacs//helm-hide-minibuffer-maybe)
+
+;; get M-x set up
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-M-x-fuzzy-match t) ; add fuzzy matching for helm M-x
+
+;; helm find files
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+;; get mini-buffer set up
+(global-set-key (kbd "C-x b") 'helm-mini)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+;; get to man pages using <prefix> m (prefix == C-x c default, C-x h as specified above
+(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
+
+;; helm find using <prefix> /
+;; helm locate using <prefix> l
+(setq helm-locate-fuzzy-match t)
+
+;; helm occur using <prefix> o (similar to occur normally)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+
+;; helm apropos - <prefix> a
+(setq helm-apropos-fuzzy-match t)
+
+;; helm <prefix><Tab> for available loaded lisp functions
+(setq helm-lisp-fuzzy-completion t)
 
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 20)
