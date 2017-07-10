@@ -154,16 +154,16 @@
   :ensure t)
 (yas-global-mode 1)
 
-(use-package smart-mode-line
-  :ensure t)
-(sml/setup)
+;;(use-package smart-mode-line
+;;  :ensure t)
+;;(sml/setup)
 
 
 ;; show line numbers
 (use-package nlinum
   :ensure t)
 (global-linum-mode t)
-(linum-relative-mode t)
+;; Make linums relative by default
 ;; (setq linum-format "%4d \u2502 ")
 ;; (setq linum-format "%d ")
 
