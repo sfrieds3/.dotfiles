@@ -122,8 +122,11 @@
 (use-package evil-leader
   :ensure t)
 (global-evil-leader-mode)
+;; set leader to ","
+(evil-leader/set-leader ",")
 (evil-leader/set-key
   "ci" 'evilnc-comment-or-uncomment-lines
+  "c<SPC>" 'evilnc-comment-or-uncomment-lines
   "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
   "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
   "cc" 'evilnc-copy-and-comment-lines
