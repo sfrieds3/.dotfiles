@@ -118,6 +118,12 @@
 
 ;; ////////////////////////////////////////////////////////////
 
+;;;; GENERAL KEY REMAPPINGS
+(global-set-key (kbd "C-c b") 'eval-buffer) ;; C-c b to eval buffer
+(global-set-key (kbd "C-c e") 'eval-defun) ;; C-c e to eval defun
+
+;; ////////////////////////////////////////////////////////////
+
 ;;;; EMACS PACKAGES
 ;; use Evil mode
 (use-package evil
@@ -129,7 +135,7 @@
   :ensure t)
 ;; Emacs key bindings
 (global-set-key (kbd "C-c l") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "C-c t") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(global-set-key (kbd "C-c / l") 'evilnc-quick-comment-or-uncomment-to-the-line)
 (global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
 (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
@@ -155,6 +161,11 @@
 (use-package ag
   :ensure t)
 (global-set-key (kbd "C-c a") 'ag)
+
+;; google this: C-c g to google
+(use-package google-this
+  :ensure t)
+(google-this-mode 1)
 
 ;; yasnippet
 (use-package yasnippet
