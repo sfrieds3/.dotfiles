@@ -1,6 +1,9 @@
 ;;;; package --- summary
 ;;;; Commentary:
 ;;;; my Emacs config - its a work in progress
+;;;;
+;;;; requirements:
+;;;;   silversearcher - sudo apt install silversearcher-ag
 
 
 ;;; Code:
@@ -112,13 +115,6 @@
 ;; mips assembly
 (use-package mips-mode
   :ensure t)
-
-;; java
-;; https://github.com/jdee-emacs/jdee-server
-;; (use-package JDEE
-;;   :ensure t)
-;; (custom-set-variables
-;;  '(jdee-server-dir "/Users/you/.emacs.d/jdee-server"))
 
 ;; ////////////////////////////////////////////////////////////
 
