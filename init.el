@@ -1,5 +1,9 @@
-;; my emacs config - its a work in progress
+;;;; package --- summary
+;;;; Commentary:
+;;;; my Emacs config - its a work in progress
 
+
+;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
 (require 'package)
 
@@ -52,7 +56,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-default-font "Source Code Pro 11")
+(set-frame-font "Source Code Pro 11")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -105,8 +109,12 @@
 ;; asm mode
 (add-hook 'asm-mode-hook (lambda()
                            (setq tab-width 4)
-                           (setq indent-line-function 'insert-tab)
-                           (setq asm-indent-level 4)))
+                           (setq indent-line-function 'insert-tab)))
+
+;; flycheck for syntax checking
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -120,28 +128,10 @@
 (use-package evil-nerd-commenter
   :ensure t)
 ;; Emacs key bindings
-(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "C-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(global-set-key (kbd "C-c l") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c t") 'evilnc-quick-comment-or-uncomment-to-the-line)
 (global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
 (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
-
-;; Vim key bindings
-(use-package evil-leader
-  :ensure t)
-(global-evil-leader-mode)
-;; set leader to ","
-(evil-leader/set-leader ",")
-(evil-leader/set-key
-  "ci" 'evilnc-comment-or-uncomment-lines
-  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
-  "cc" 'evilnc-copy-and-comment-lines
-  "cp" 'evilnc-comment-or-uncomment-paragraphs
-  "cr" 'comment-or-uncomment-region
-  "cv" 'evilnc-toggle-invert-comment-line-by-line
-  "."  'evilnc-copy-and-comment-operator
-  ;; "\\" 'evilnc-comment-operator ; if you prefer backslash key
-  )
 
 ;; better defaults!
 (use-package better-defaults
@@ -155,7 +145,7 @@
 ;; auto-complete support
 (use-package auto-complete
   :ensure t)
-;; enable auto-complete at open
+(ac-config-default)
 (global-auto-complete-mode t)
 
 ;; yasnippet
@@ -163,9 +153,9 @@
   :ensure t)
 (yas-global-mode 1)
 
-;;(use-package smart-mode-line
-;;  :ensure t)
-;;(sml/setup)
+(use-package smart-mode-line
+  :ensure t)
+(sml/setup)
 
 ;; show line numbers
 (use-package nlinum
@@ -241,6 +231,14 @@
   :ensure t)
 (use-package swiper
   :ensure t)
+(use-package flx
+  :ensure t)
+
+;; use fuzzy matching
+(setq ivy-re-builders-alist
+      '((ivy-switch-buffer . ivy--regex-plus)
+        (t . ivy--regex-fuzzy)))
+(setq ivy-initial-inputs-alist nil)
 
 ;; ivy settings
 (ivy-mode 1)
@@ -277,3 +275,85 @@
 
 ;; log when TODO is completed in org mode
 (setq org-log-done 'time)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(sml/mode-width
+   (if
+       (eq
+        (powerline-current-separator)
+        (quote arrow))
+       (quote right)
+     (quote full)))
+ '(sml/pos-id-separator
+   (quote
+    (""
+     (:propertize " " face powerline-active1)
+     (:eval
+      (propertize " "
+                  (quote display)
+                  (funcall
+                   (intern
+                    (format "powerline-%s-%s"
+                            (powerline-current-separator)
+                            (car powerline-default-separator-dir)))
+                   (quote powerline-active1)
+                   (quote powerline-active2))))
+     (:propertize " " face powerline-active2))))
+ '(sml/pos-minor-modes-separator
+   (quote
+    (""
+     (:propertize " " face powerline-active1)
+     (:eval
+      (propertize " "
+                  (quote display)
+                  (funcall
+                   (intern
+                    (format "powerline-%s-%s"
+                            (powerline-current-separator)
+                            (cdr powerline-default-separator-dir)))
+                   (quote powerline-active1)
+                   (quote sml/global))))
+     (:propertize " " face sml/global))))
+ '(sml/pre-id-separator
+   (quote
+    (""
+     (:propertize " " face sml/global)
+     (:eval
+      (propertize " "
+                  (quote display)
+                  (funcall
+                   (intern
+                    (format "powerline-%s-%s"
+                            (powerline-current-separator)
+                            (car powerline-default-separator-dir)))
+                   (quote sml/global)
+                   (quote powerline-active1))))
+     (:propertize " " face powerline-active1))))
+ '(sml/pre-minor-modes-separator
+   (quote
+    (""
+     (:propertize " " face powerline-active2)
+     (:eval
+      (propertize " "
+                  (quote display)
+                  (funcall
+                   (intern
+                    (format "powerline-%s-%s"
+                            (powerline-current-separator)
+                            (cdr powerline-default-separator-dir)))
+                   (quote powerline-active2)
+                   (quote powerline-active1))))
+     (:propertize " " face powerline-active1))))
+ '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
