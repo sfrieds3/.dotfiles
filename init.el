@@ -150,11 +150,18 @@
 (setq ac-ignore-case 'smart) ; use smart case
 (global-auto-complete-mode t)
 
+;; ag - searching
+;; dependent on silversearcher - sudo apt install silversearcher-ag
+(use-package ag
+  :ensure t)
+(global-set-key (kbd "C-c a") 'ag)
+
 ;; yasnippet
 (use-package yasnippet
   :ensure t)
 (yas-global-mode 1)
 
+;; smart mode line
 (use-package smart-mode-line
   :ensure t)
 (sml/setup)
