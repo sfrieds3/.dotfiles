@@ -122,6 +122,7 @@
 
 ;; open recent files
 (global-set-key (kbd "C-c r") 'recentf-open-files)
+(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -135,9 +136,9 @@
 (use-package evil-nerd-commenter
   :ensure t)
 ;; Emacs key bindings
-(global-set-key (kbd "C-c l") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c c") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "C-c / l") 'evilnc-quick-comment-or-uncomment-to-the-line)
-(global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
+(global-set-key (kbd "C-c / c") 'evilnc-copy-and-comment-lines)
 (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
 ;; better defaults!
