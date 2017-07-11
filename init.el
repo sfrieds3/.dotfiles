@@ -62,6 +62,9 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+;; turn on recent file mode
+(recentf-mode t)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEMES
@@ -111,16 +114,14 @@
                            (setq tab-width 4)
                            (setq indent-line-function 'insert-tab)))
 
-;; flycheck for syntax checking
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
-
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; GENERAL KEY REMAPPINGS
 (global-set-key (kbd "C-c b") 'eval-buffer) ;; C-c b to eval buffer
 (global-set-key (kbd "C-c e") 'eval-defun) ;; C-c e to eval defun
+
+;; open recent files
+(global-set-key (kbd "C-c r") 'recentf-open-files)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -155,6 +156,11 @@
 (setq ac-auto-show-menu 0)   ; show menu immediately
 (setq ac-ignore-case 'smart) ; use smart case
 (global-auto-complete-mode t)
+
+;; flycheck for syntax checking
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
