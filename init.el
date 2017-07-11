@@ -26,7 +26,7 @@
 (use-package auto-package-update
   :ensure t)
 
-(use-package cl
+(use-package cl-lib
   :ensure t)
 
 ;; ////////////////////////////////////////////////////////////
