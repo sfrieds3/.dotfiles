@@ -185,8 +185,6 @@
 (use-package smart-mode-line
   :ensure t)
 (display-time-mode)
-(setq sml/mode-width 0)
-(setq sml/name-width 20)
 (rich-minority-mode 1)
 (setf rm-blacklist "")
 (sml/setup)
