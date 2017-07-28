@@ -163,7 +163,12 @@
 ;; flycheck for syntax checking
 (use-package flycheck
   :ensure t
-  :init (flycheck-mode))
+  :init (global-flycheck-mode))
+
+;; flyspell for spelling
+(use-package flyspell
+  :ensure t)
+(flyspell-mode 1)
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
