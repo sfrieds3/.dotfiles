@@ -126,6 +126,11 @@
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 
+;; flyspell commands (spellcheck)
+(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; EMACS PACKAGES
