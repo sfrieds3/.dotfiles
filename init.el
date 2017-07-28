@@ -163,7 +163,7 @@
 ;; flycheck for syntax checking
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init (flycheck-mode))
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
@@ -184,7 +184,7 @@
 ;; smart mode line
 (use-package smart-mode-line
   :ensure t)
-(display-time-mode)
+;; (display-time-mode)
 (rich-minority-mode 1)
 (setf rm-blacklist "")
 (sml/setup)
