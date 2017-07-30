@@ -205,7 +205,7 @@
 ;; auto matching brackets
 (use-package autopair
   :ensure t)
-(autopair-global-mode t
+(autopair-global-mode t)
 
 ;; show indent guides
 (use-package indent-guide ;; use to show indent guides
