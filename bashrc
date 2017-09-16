@@ -123,5 +123,8 @@ alias python='python3'
 alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
 alias sshcdm32='ssh sfriedr3@140.192.36.187'
 
+# alias to Class folder
+alias class='cd ~/git/Class'
+
 # neovim alias
 #alias vim='nvim'
