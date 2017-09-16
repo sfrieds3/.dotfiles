@@ -3,6 +3,10 @@
 " reload vimrc
 " :so $MYVIMRC
 
+" open second tab on startup
+autocmd VimEnter * tabnew
+autocmd VimEnter * tabprevious
+
 set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
@@ -25,6 +29,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
+Plug 'gcmt/taboo.vim' " tab stuff for vim
 "Plug 'benmills/vimux'
 
 " tpope stuff {{{
@@ -239,12 +244,6 @@ nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-"
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-
-au TabLeave * let g:lasttab = tabpagenr()​
 
 " Disable scrollbars
 set guioptions-=r
@@ -338,8 +337,8 @@ map <leader>bd :bdelete<cr> :tabclose<cr>gT
 map <leader>ba :bufdo bd<cr>
 
 " go to previous and next buffer
-"map <leader>l :bnext<cr>
-"map <leader>h :bprevious<cr>
+map <leader>bn :bnext<cr>
+map <leader>bp :bprevious<cr>
 map << :bprevious<cr>
 map >> :bnext<cr>
 
@@ -347,13 +346,19 @@ map >> :bnext<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>th :-tabmove<cr>
+map <leader>tl :+tabmove<cr>
+map <leader>[ :tabprevious<cr>
+map <leader>] :tabnext<cr>
+
+" rename tab
+map <leader>tr :TabooRename<space>
+map <leader>tt :TabooOpen<space>
 
 " Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+"let g:lasttab = 1
+"nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+"au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
