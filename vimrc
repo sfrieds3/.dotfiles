@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+"Plug 'majutsushi/tagbar' " show current function being edited in statusline
 Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
@@ -435,16 +436,28 @@ augroup END
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
+" NERDTree {{{
+
 " Nerdtree starts up automatially if no file selected for vim
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
+
+" let nerdtree show hidden files by default (I to toggle)
+let NERDTreeShowHidden=1
+
 " ,r to refresh NERDTree
-"nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+
+" open nerdtree in current directory with <leader>o
+ map <leader>i :NERDTreeFind<cr>
+
 " ,O opens directory in netrw
 nnoremap <Leader>O :Explore %:h<cr>
+
+" }}}
 
 " use ag for ack search, fall back on ack if ag not avail
 if executable('ag')
