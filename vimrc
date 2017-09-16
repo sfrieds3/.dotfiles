@@ -228,8 +228,8 @@ nnoremap <leader>- <C-w>s
 nnoremap <Leader>w <C-w><C-w>
 
 " buffer commands
-nmap <c-p> :bprevious<CR>
-nmap <c-n> :bnext<CR>
+"nmap <c-p> :bprevious<CR>
+"nmap <c-n> :bnext<CR>
 "nmap bb :bw<CR>
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
