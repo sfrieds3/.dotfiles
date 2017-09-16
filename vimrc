@@ -50,7 +50,7 @@ Plug 'tpope/vim-vividchalk'
 " End colors :(
 
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
-Plug 'rking/ag.vim' " silver searcher- quick search thru code
+Plug 'mileszs/ack.vim' " ack/ag searching in vim
 
 " Language specific
 Plug 'jtratner/vim-flavored-markdown' "markdown for vim
@@ -62,6 +62,7 @@ Plug 'osyo-manga/vim-over' " visual find replace
 " nerd stuff
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 
@@ -244,7 +245,7 @@ nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 
 au TabLeave * let g:lasttab = tabpagenr()​
 
-" Disable scrollbars (real hackers don't use scrollbars for navigation!)
+" Disable scrollbars
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
@@ -258,7 +259,7 @@ set guioptions-=L"
 "iabbrev VV ↓
 "iabbrev aa λ
 
-" turn off nohlsarch
+" turn off nohlsearch
 nmap <silent> <leader><space> :nohlsearch<CR>
 
 "leader+S for search/replace
@@ -285,10 +286,6 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-
-" Make moving through words easier!!
-nnoremap W gw
-nnoremap E ge
 
 " tab for % (i.e. moving b/w brackets)
 nnoremap <Tab> %
@@ -447,8 +444,18 @@ map <Leader>o :NERDTreeToggle<CR>
 " ,r to refresh NERDTree
 "nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
 " ,O opens directory in netrw
-nnoremap <leader>O :Explore %:h<cr>
+nnoremap <Leader>O :Explore %:h<cr>
 
+" use ag for ack search, fall back on ack if ag not avail
+if executable('ag')
+      let g:ackprg = 'ag --vimgrep'
+  endif
+
+" ack/ag with <leader> a
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+" ctrlp mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "}}}
