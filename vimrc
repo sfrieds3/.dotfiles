@@ -4,7 +4,7 @@
 " :so $MYVIMRC
 
 " open second tab on startup
-autocmd VimEnter * tabnew
+autocmd VimEnter * TabooOpen scratch
 autocmd VimEnter * tabprevious
 
 set nocompatible
@@ -350,10 +350,12 @@ map <leader>th :-tabmove<cr>
 map <leader>tl :+tabmove<cr>
 map <leader>[ :tabprevious<cr>
 map <leader>] :tabnext<cr>
+map <leader><< :tabprevious<cr>
+map <leader>>> :tabnext<cr>
 
 " rename tab
 map <leader>tr :TabooRename<space>
-map <leader>tt :TabooOpen<space>
+map <leader>T :TabooOpen<space>
 
 " Let 'tl' toggle between this and the last accessed tab
 "let g:lasttab = 1
