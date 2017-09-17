@@ -350,8 +350,8 @@ map <leader>th :-tabmove<cr>
 map <leader>tl :+tabmove<cr>
 map <leader>[ :tabprevious<cr>
 map <leader>] :tabnext<cr>
-map <leader><< :tabprevious<cr>
-map <leader>>> :tabnext<cr>
+map <leader>< :tabprevious<cr>
+map <leader>> :tabnext<cr>
 
 " rename tab
 map <leader>tr :TabooRename<space>
