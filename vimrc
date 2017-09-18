@@ -72,7 +72,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 
-Plug 'ervandew/supertab' " Vim insert mode completions
+" Plug 'ervandew/supertab' " Vim insert mode completions -- see below
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -181,8 +181,16 @@ set hlsearch
 set number
 set relativenumber
 
-" Tree style listing on Explore
-let g:netrw_liststyle=3
+" netrw settings
+" - :edit a folder to open a file browser
+" - <CR>/v/t to open in an h-split/v-split/tab
+" - check |netrw-browse-maps| for more mappings
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 set history=1000
 set undofile
@@ -486,4 +494,37 @@ nnoremap <Leader>a :Ack!<Space>
 " ctrlp mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+"}}}
+
+" COVTIL (Cool Other Vim Things I Learned) {{{
+" SOURCE: https://www.youtube.com/watch?v=XA2WjJbmmoM
+" https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
+
+" allow recursive searching with :find
+" can use :b to autocomplete to any open buffer
+" :ls will list all open buffers
+set path+=**
+
+" Create the `tags` file (may need to install ctags first)
+" sudo apt-get install exuberant-ctags
+command! MakeTags !ctags -R .
+
+" NOW WE CAN:
+" - Use ^] to jump to tag under cursor
+" - Use g^] for ambiguous tags
+" - Use ^t to jump back up the tag stack
+
+" AUTOCOMPLETE:
+
+" The good stuff is documented in |ins-completion|
+
+" HIGHLIGHTS:
+" - ^x^n for JUST this file
+" - ^x^f for filenames (works with our path trick!)
+" - ^x^] for tags only
+" - ^n for anything specified by the 'complete' option
+
+" NOW WE CAN:
+" - Use ^n and ^p to go back and forth in the suggestion list
+
 "}}}
