@@ -26,7 +26,7 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'majutsushi/tagbar' " show current function being edited in statusline
-Plug 'endwise.vim' " auto end..endif
+"Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
 Plug 'gcmt/taboo.vim' " tab stuff for vim
@@ -445,6 +445,11 @@ augroup END
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
+
+" Git gutter
+map <Leader>G :GitGutterLineHighlightsToggle<CR>
+map <Leader>gn :GitGutterNextHunk<CR>
+map <Leader>gp :GitGutterPrevHunk<CR>
 
 " NERDTree {{{
 
