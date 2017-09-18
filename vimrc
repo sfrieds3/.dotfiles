@@ -25,12 +25,24 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'majutsushi/tagbar' " show current function being edited in statusline
-"Plug 'endwise.vim' " auto end..endif
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
 Plug 'gcmt/taboo.vim' " tab stuff for vim
-"Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
+Plug 'mileszs/ack.vim' " ack/ag searching in vim
+Plug 'jtratner/vim-flavored-markdown' "markdown for vim
+Plug 'scrooloose/syntastic' " catch-all highlighting
+Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
+Plug 'osyo-manga/vim-over' " visual find replace
+Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
+Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
+Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
+" Colors:
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-vividchalk'
 
 " tpope stuff {{{
 
@@ -39,40 +51,10 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
-"Plug 'tpope/vim-sensible'
-"Plug 'tpope/vim-surround'
-"Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
 
 " }}}
 
-" Plug 'vim-scripts/better-whitespace' " whitespace functions
-
-" Color time!
-"Plug 'croaky/vim-colors-github'
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
-Plug 'tpope/vim-vividchalk'
-" End colors :(
-
-Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
-Plug 'mileszs/ack.vim' " ack/ag searching in vim
-
-" Language specific
-Plug 'jtratner/vim-flavored-markdown' "markdown for vim
-Plug 'scrooloose/syntastic' " catch-all highlighting
-
-Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
-Plug 'osyo-manga/vim-over' " visual find replace
-
-" nerd stuff
-Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
-Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
-
-Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
-
-" Plug 'ervandew/supertab' " Vim insert mode completions -- see below
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -92,6 +74,18 @@ set ttyfast
 
 " set cursorline
 set cursorline
+
+" allow recursive searching with :find
+set path+=**
+
+" Create the `tags` file (may need to install ctags first)
+" sudo apt-get install exuberant-ctags
+command! MakeTags !ctags -R .
+
+" NOW WE CAN:
+" - Use ^] to jump to tag under cursor
+" - Use g^] for ambiguous tags
+" - Use ^t to jump back up the tag stack
 
 " not case sensitive
 set ignorecase
@@ -144,7 +138,7 @@ set matchtime=3
 set splitbelow
 set splitright
 
-" read filetype stuff
+" filetype
 filetype plugin on
 filetype indent on
 
@@ -209,9 +203,6 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
 "let g:airline_theme='gruvbox'
 "let g:airline_theme='papercolor'
-
-" Return to last edit position when opening files
-"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal| g'\"" | endif
 
 "}}}
 
@@ -319,8 +310,13 @@ nnoremap <Leader>af zR
 
 "}}}
 
-" Language-specific configs {{{
-inoremap <Leader><cr> <esc>Yp<C-a>e1C " Increment lists in markdown
+" Shortcuts {{{
+
+" Increment lists in markdown
+inoremap <Leader><cr> <esc>Yp<C-a>e1C
+
+"map // to copy visually selected text and search
+vnoremap // y/<C-R>"<CR>"
 
 "}}}
 
@@ -385,14 +381,55 @@ catch
 endtry
 "}}}
 
-"Visual mode related {{{
-"
-"map // to copy visually selected text and search
-vnoremap // y/<C-R>"<CR>"
-"
+" plugin configurations {{{
+
+" ignore for wild:
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
+set wildignore+=*/node_modules/*,*/bower_components/* "node js
+
+" Git gutter
+map <Leader>G :GitGutterLineHighlightsToggle<CR>
+map <Leader>gn :GitGutterNextHunk<CR>
+map <Leader>gp :GitGutterPrevHunk<CR>
+
+" NERDTree {{{
+
+" Nerdtree starts up automatially if no file selected for vim
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" ,o for nerdtree
+map <Leader>o :NERDTreeToggle<CR>
+
+" let nerdtree show hidden files by default (I to toggle)
+let NERDTreeShowHidden=1
+
+" ,r to refresh NERDTree
+nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+
+" open nerdtree in current directory with <leader>o
+ map <leader>i :NERDTreeFind<cr>
+
+" ,O opens directory in netrw
+nnoremap <Leader>O :Explore %:h<cr>
+
+" }}}
+
+" use ag for ack search, fall back on ack if ag not avail
+if executable('ag')
+      let g:ackprg = 'ag --vimgrep'
+  endif
+
+" ack/ag with <leader> a
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+" ctrlp mappings
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 "}}}
 
-" highlight Interesting Words {{{
+" Highlight Interesting Words {{{
 
 augroup highlight_interesting_word
   autocmd!
@@ -448,71 +485,12 @@ augroup highlight_interesting_word
 augroup END
 " }}}
 
-" plugin configurations {{{
-
-" ignore for wild:
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
-set wildignore+=*/node_modules/*,*/bower_components/* "node js
-
-" Git gutter
-map <Leader>G :GitGutterLineHighlightsToggle<CR>
-map <Leader>gn :GitGutterNextHunk<CR>
-map <Leader>gp :GitGutterPrevHunk<CR>
-
-" NERDTree {{{
-
-" Nerdtree starts up automatially if no file selected for vim
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" ,o for nerdtree
-map <Leader>o :NERDTreeToggle<CR>
-
-" let nerdtree show hidden files by default (I to toggle)
-let NERDTreeShowHidden=1
-
-" ,r to refresh NERDTree
-nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
-
-" open nerdtree in current directory with <leader>o
- map <leader>i :NERDTreeFind<cr>
-
-" ,O opens directory in netrw
-nnoremap <Leader>O :Explore %:h<cr>
-
-" }}}
-
-" use ag for ack search, fall back on ack if ag not avail
-if executable('ag')
-      let g:ackprg = 'ag --vimgrep'
-  endif
-
-" ack/ag with <leader> a
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
-
-" ctrlp mappings
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-"}}}
-
 " COVTIL (Cool Other Vim Things I Learned) {{{
 " SOURCE: https://www.youtube.com/watch?v=XA2WjJbmmoM
 " https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
 
-" allow recursive searching with :find
 " can use :b to autocomplete to any open buffer
 " :ls will list all open buffers
-set path+=**
-
-" Create the `tags` file (may need to install ctags first)
-" sudo apt-get install exuberant-ctags
-command! MakeTags !ctags -R .
-
-" NOW WE CAN:
-" - Use ^] to jump to tag under cursor
-" - Use g^] for ambiguous tags
-" - Use ^t to jump back up the tag stack
 
 " AUTOCOMPLETE:
 
