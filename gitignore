@@ -50,6 +50,7 @@ Thumbs.db
 # VS Code #
 
 **/.vscode/**
+
 # Emacs #
 ######################
 ### Emacs ###
@@ -98,3 +99,7 @@ flycheck_*.el
 
 # directory configuration
 .dir-locals.el
+
+# Tag files
+Tags
+tags
