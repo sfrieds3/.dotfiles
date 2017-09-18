@@ -527,4 +527,6 @@ command! MakeTags !ctags -R .
 " NOW WE CAN:
 " - Use ^n and ^p to go back and forth in the suggestion list
 
+" :helpgrep <text> - grep for <text> in all help docs
+" :cn :cp to go to next or previous result from :helpgrep
 "}}}
