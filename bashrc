@@ -119,6 +119,9 @@ fi
 # python alias
 alias python='python3'
 
+# eclipse alias
+alias eclipse='/home/scott/eclipse/java-oxygen/eclipse/eclipse'
+
 # alias for cdm linux box
 alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
 alias sshcdm32='ssh sfriedr3@140.192.36.187'
