@@ -219,8 +219,8 @@ let g:mapleader = ","
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
-" C-c to center cursor
-nnoremap <c-c> zz
+" C-' to center cursor
+nnoremap <c-'> zz
 
 " remap 0 to first nonblank character
 map 0 ^
