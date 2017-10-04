@@ -220,7 +220,7 @@ let g:mapleader = ","
 inoremap <C-u> <esc>mzgUiw`za
 
 " C-' to center cursor
-nnoremap <c-'> zz
+"nnoremap <c-'> zz
 
 " remap 0 to first nonblank character
 map 0 ^
