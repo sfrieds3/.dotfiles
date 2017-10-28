@@ -43,6 +43,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'sickill/vim-monokai'
 Plug 'tpope/vim-vividchalk'
+Plug 'rafi/awesome-vim-colorschemes'
 
 " tpope stuff {{{
 
@@ -64,12 +65,16 @@ call plug#end()
 " Basic vim setups {{{
 "
 " Color settings!
-syntax enable
-set background=dark
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
-"let g:airline_theme='gruvbox'
-"let g:airline_theme='papercolor'
+if !exists("g:syntax_on")
+    syntax enable
+endif
+
+"set colorscheme below
+colorscheme onedark
+
+" enable if gruvbox
+"set background=dark
+"let g:gruvbox_contrast_dark='hard'
 
 " retain buffers until quit
 set hidden
