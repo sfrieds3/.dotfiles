@@ -41,7 +41,7 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 " Colors:
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
+Plug 'sickill/vim-monokai'
 Plug 'tpope/vim-vividchalk'
 
 " tpope stuff {{{
@@ -62,6 +62,14 @@ call plug#end()
 "}}}
 
 " Basic vim setups {{{
+"
+" Color settings!
+syntax enable
+set background=dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+"let g:airline_theme='gruvbox'
+"let g:airline_theme='papercolor'
 
 " retain buffers until quit
 set hidden
@@ -196,14 +204,6 @@ set directory=~/.vim/backup
 
 "set guifont Fira\ Code\ Retina\ 12
 "set guifont=Source\ Code\ Pro\ 12
-
-" Color settings!
-syntax enable
-set background=dark
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
-"let g:airline_theme='gruvbox'
-"let g:airline_theme='papercolor'
 
 "}}}
 
