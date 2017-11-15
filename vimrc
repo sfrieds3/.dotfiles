@@ -11,7 +11,7 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
-"set term=screen-256color " make tmux work with vim
+set term=screen-256color " make tmux work with vim
 
 " Update term title but restore old title after leaving Vim
 set title
@@ -43,7 +43,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'sickill/vim-monokai'
 Plug 'tpope/vim-vividchalk'
-Plug 'rafi/awesome-vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 
 " tpope stuff {{{
 
@@ -70,11 +70,11 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme onedark
+colorscheme gruvbox
 
 " enable if gruvbox
-"set background=dark
-"let g:gruvbox_contrast_dark='hard'
+set background=dark
+let g:gruvbox_contrast_dark='hard'
 
 " retain buffers until quit
 set hidden
