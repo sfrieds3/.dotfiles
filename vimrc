@@ -199,16 +199,21 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
+if !isdirectory($HOME."/.vim/backup")
+    silent! execute "!mkdir ~/.vim/backup"
+endif
+
+if !isdirectory($HOME."/.vim/undo")
+    silent! execute "~mkdir !/.vim/undo"
+endif
+
 set history=1000
 set undofile
 set undodir=~/.vim/undo " where to save undo history
 set undolevels=1000 " How many undos
 set undoreload=10000 " number of lines to save for undo
 set backupdir=~/.vim/backup
-set directory=~/.vim/backup
-
-"set guifont Fira\ Code\ Retina\ 12
-"set guifont=Source\ Code\ Pro\ 12
+set noswapfile
 
 "}}}
 
