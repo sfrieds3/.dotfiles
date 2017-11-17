@@ -11,7 +11,7 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
-set term=screen-256color " make tmux work with vim
+"set term=screen-256color " make tmux work with vim
 
 " Update term title but restore old title after leaving Vim
 set title
