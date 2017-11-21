@@ -23,6 +23,8 @@ set titleold=
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
 Plug 'gcmt/taboo.vim' " tab stuff for vim
