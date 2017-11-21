@@ -23,8 +23,6 @@ set titleold=
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim'
 Plug 'gcmt/taboo.vim' " tab stuff for vim
@@ -38,12 +36,7 @@ Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
-" Colors:
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'sickill/vim-monokai'
-Plug 'tpope/vim-vividchalk'
-Plug 'flazz/vim-colorschemes'
+Plug 'morhetz/gruvbox' " gruvbox colorscheme
 
 " tpope stuff {{{
 
@@ -71,8 +64,6 @@ endif
 
 "set colorscheme below
 colorscheme gruvbox
-
-" enable if gruvbox
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 
