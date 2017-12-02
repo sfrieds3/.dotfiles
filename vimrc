@@ -337,8 +337,8 @@ nnoremap <Leader>af zR
 " Increment lists in markdown
 inoremap <Leader><cr> <esc>Yp<C-a>e1C
 
-"map // to copy visually selected text and search
-vnoremap // y/<C-R>"<CR>"
+" map // to copy visually selected text and search
+vnoremap // y/<C-R>"<CR>
 
 "}}}
 
