@@ -1,0 +1,11 @@
+# input rc- for bash input
+
+# Ctrl-r will search for text as well
+
+# up arrow/down arrow searches in bash history for autocomplete suggestions
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# other settings for bash searching
+set show-all-if-ambiguous on
+set completion-ignore-case on
