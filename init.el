@@ -199,8 +199,8 @@
   :ensure t)
 ;; (global-linum-mode t)
 ;; Make linums relative by default
-;; (setq linum-format "%4d \u2502 ")
-;; (setq linum-format "%d ")
+(setq linum-format "%4d \u2502 ")
+(setq linum-format "%d ")
 
 ;; auto matching brackets
 (use-package autopair
@@ -220,14 +220,13 @@
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
 ;; minimap
-;;(use-package sublimity
-;;  :ensure t)
-;;(sublimity-mode 1)
 (use-package minimap
   :ensure t)
 
 ;; magit - for git
 (use-package magit
+  :ensure t)
+(use-package ghub
   :ensure t)
 
 ;; which-key
@@ -298,17 +297,15 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
-;; ////////////////////////////////////////////////////////////
-
-;;;; ORG MODE
-;; pretty bullets for org mode
-(use-package org-bullets
-  :ensure t)
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-bullets-mode t)))
-;; syntax highlighting in source blocks when editing
-(setq org-src-fontify-natively t)
-
-;; log when TODO is completed in org mode
-(setq org-log-done 'time)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (gruvbox-dark-hard))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
