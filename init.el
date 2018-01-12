@@ -59,7 +59,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-frame-font "Source Code Pro 11")
+(set-frame-font "Inconsolata 12")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
