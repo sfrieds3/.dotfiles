@@ -193,6 +193,7 @@
 (rich-minority-mode 1)
 (setf rm-blacklist "")
 (sml/setup)
+(setq sml/mode-width 'full)
 
 ;; show line numbers
 (use-package nlinum
