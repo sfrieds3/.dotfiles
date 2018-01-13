@@ -4,6 +4,7 @@
 ;;;;
 ;;;; requirements:
 ;;;;   silversearcher - sudo apt install silversearcher-ag
+;;;;   jdee - Java backend (https://github.com/jdee-emacs/jdee-server)
 
 
 ;;; Code:
@@ -38,6 +39,10 @@
 
 ;; inhibit startup screen
 (setq inhibit-startup-screen t)
+
+;; inhibit visual bells
+(setq visible-bell nil
+      ring-bell-function #'ignore)
 
 ;; set window size on open
 (when window-system (set-frame-size (selected-frame) 135 35))
@@ -130,6 +135,12 @@
 (global-set-key (kbd "C-c s") 'flyspell-buffer)
 (global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
+
+;; window resizing
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 ;; ////////////////////////////////////////////////////////////
 
