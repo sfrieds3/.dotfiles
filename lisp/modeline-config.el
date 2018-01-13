@@ -76,6 +76,9 @@
                     :overline nil
                     :underline nil)
 
+(set-face-attribute 'mode-line-buffer-id nil
+                    :foreground "8a8a8a")
+
 (set-face-attribute 'mode-line-inactive nil
                     :background "#808080"
                     :foreground "#1c1c1c"
