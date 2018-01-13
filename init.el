@@ -165,6 +165,10 @@
 (setq ac-ignore-case 'smart) ; use smart case
 (global-auto-complete-mode t)
 
+;; Java support
+(use-package jdee
+  :ensure t)
+
 ;; flycheck for syntax checking
 (use-package flycheck
   :ensure t
