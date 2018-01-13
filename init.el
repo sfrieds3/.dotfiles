@@ -45,9 +45,9 @@
 ;; start with split windows
 ;; Open split shell on launch
 (add-hook 'emacs-startup-hook
-  (lambda ()
-    (split-window-horizontally)
-    (split-window-vertically)))
+          (lambda ()
+            (split-window-horizontally)
+            (split-window-vertically)))
 
 ;; highlight current line
 (global-hl-line-mode t)
@@ -91,10 +91,10 @@
   :ensure t)
 ;; solarized
 (use-package solarized-theme
- :ensure t)
+  :ensure t)
 
 ;; theme to load
-(load-theme 'gruvbox-dark-hard t)
+(load-theme 'solarized-dark t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -195,14 +195,6 @@
 (sml/setup)
 (setq sml/mode-width 'full)
 
-;; show line numbers
-(use-package nlinum
-  :ensure t)
-;; (global-linum-mode t)
-;; Make linums relative by default
-(setq linum-format "%4d \u2502 ")
-(setq linum-format "%d ")
-
 ;; auto matching brackets
 (use-package autopair
   :ensure t)
@@ -297,16 +289,3 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (gruvbox-dark-hard))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
