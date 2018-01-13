@@ -75,31 +75,41 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; THEMES
-;; gruvbox
-(use-package gruvbox-theme
-  :ensure t)
-;; blackboard
-(use-package blackboard-theme
-  :ensure t)
-;; dracula
-(use-package dracula-theme
-  :ensure t)
-;; zenburn
-(use-package zenburn-theme
-  :ensure t)
-;; moe
-(use-package moe-theme
-  :ensure t)
-;; monokai
-(use-package monokai-theme
-  :ensure t)
-;; solarized
-(use-package solarized-theme
-  :ensure t)
+;;;; DEPENDENCIES
 
-;; theme to load
-(load-theme 'solarized-dark t)
+;; add load path
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;; require config for modeline
+(require 'modeline-config.el)
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; THEMES
+;;;; gruvbox
+;; (use-package gruvbox-theme
+;;  :ensure t)
+;;;; blackboard
+;;(use-package blackboard-theme
+  ;;:ensure t)
+;;;; dracula
+;;(use-package dracula-theme
+  ;;:ensure t)
+;;;; zenburn
+;;(use-package zenburn-theme
+  ;;:ensure t)
+;;;; moe
+;;(use-package moe-theme
+  ;;:ensure t)
+;;;; monokai
+;;(use-package monokai-theme
+  ;;:ensure t)
+;;;; solarized
+;;(use-package solarized-theme
+  ;;:ensure t)
+;;
+;;;; theme to load
+;;(load-theme 'solarized-dark t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -201,14 +211,14 @@
   :ensure t)
 (yas-global-mode 1)
 
-;; smart mode line
-(use-package smart-mode-line
-  :ensure t)
-;; (display-time-mode)
-(rich-minority-mode 1)
-(setf rm-blacklist "")
-(sml/setup)
-(setq sml/mode-width 'full)
+;; ;; smart mode line
+;; (use-package smart-mode-line
+;;   :ensure t)
+;; ;; (display-time-mode)
+;; (rich-minority-mode 1)
+;; (setf rm-blacklist "")
+;; (sml/setup)
+;; (setq sml/mode-width 'full)
 
 ;; auto matching brackets
 (use-package autopair
@@ -304,3 +314,7 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+
+(provide 'init.el)
+
+;;; init.el ends here
