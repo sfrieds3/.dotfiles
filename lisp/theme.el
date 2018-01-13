@@ -1,5 +1,7 @@
-;;; modeline-config.el -- solarized modeline for emacs
-;; solarized modeline for emacs
+;;; package --- Summary
+;;; Commentary:
+;; theme.el -- solarized modeline for Emacs
+;; solarized modeline for Emacs
 ;; most code is from https://gitlab.com/mark.feller/emacs.d/blob/master/modules/module-solarized.el
 ;; reqires: M-x all-the-icons-install-fonts
 
@@ -51,9 +53,20 @@
              face mode-line-directory)
            "Formats the current directory.")
 
-         ;; (setcar mode-line-position "")
+         (setcar mode-line-position
+                 '(:eval (format "%3d%%" (/ (window-end) 0.01 (point-max)))))
          )
   :config
+  ;; add git status to mode line
+  (defadvice vc-git-mode-line-string (after plus-minus (file) compile activate)
+    (setq ad-return-value
+          (concat ad-return-value
+                  (let ((plus-minus (vc-git--run-command-string
+                                     file "diff" "--numstat" "--")))
+                    (and plus-minus
+                         (string-match "^\\([0-9]+\\)\t\\([0-9]+\\)\t" plus-minus)
+                         (format " +%s-%s" (match-string 1 plus-minus) (match-string 2 plus-minus)))))))
+
   (progn (setq-default mode-line-format
                        (list
                         " "
@@ -65,27 +78,30 @@
                         mode-line-position
                         mode-line-my-vc
                         "   "
-                        mode-line-modes))))
+                        mode-line-modes
+                        " "
+                        system-name
+                        ))))
 
 (load-theme 'solarized-dark t)
 
-(set-face-attribute 'mode-line nil
+(set-face-attribute 'mode-line t
                     :background "#808080"
                     :foreground "#1c1c1c"
                     :box '(:line-width 2 :color "#1c1c1c")
                     :overline nil
                     :underline nil)
 
-(set-face-attribute 'mode-line-buffer-id nil
+(set-face-attribute 'mode-line-buffer-id t
                     :foreground "8a8a8a")
 
-(set-face-attribute 'mode-line-inactive nil
+(set-face-attribute 'mode-line-inactive t
                     :background "#808080"
                     :foreground "#1c1c1c"
                     :box '(:line-width 2 :color "#808080")
                     :overline nil
                     :underline nil)
 
-(provide 'modeline-config.el)
+(provide 'theme.el)
 
-;;; modeline-config.el ends here
+;;; theme.el ends here

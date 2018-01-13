@@ -81,7 +81,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; require config for modeline
-(require 'modeline-config.el)
+(require 'theme.el)
 
 ;; ////////////////////////////////////////////////////////////
 
