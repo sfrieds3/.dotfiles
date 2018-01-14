@@ -207,15 +207,6 @@
   :ensure t)
 (yas-global-mode 1)
 
-;; ;; smart mode line
-;; (use-package smart-mode-line
-;;   :ensure t)
-;; ;; (display-time-mode)
-;; (rich-minority-mode 1)
-;; (setf rm-blacklist "")
-;; (sml/setup)
-;; (setq sml/mode-width 'full)
-
 ;; auto matching brackets
 (use-package autopair
   :ensure t)
