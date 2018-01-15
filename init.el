@@ -50,7 +50,9 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (split-window-horizontally)
-            (split-window-vertically)))
+            (other-window 1)
+            (split-window-vertically)
+            (other-window 2)))
 
 ;; highlight current line
 (global-hl-line-mode t)
@@ -67,6 +69,12 @@
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+
+;; move between windows with Alt-arrow
+(global-set-key [M-left] 'windmove-left)          ; move to left window
+(global-set-key [M-right] 'windmove-right)        ; move to right window
+(global-set-key [M-up] 'windmove-up)              ; move to upper window
+(global-set-key [M-down] 'windmove-down)          ; move to lower window
 
 ;; turn on recent file mode
 (recentf-mode t)
