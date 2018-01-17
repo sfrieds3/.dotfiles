@@ -84,7 +84,7 @@
 
 ;; other required files
 (require 'theme.el)
-(require 'cmode.el)
+(require 'autocomplete.el)
 
 ;; ////////////////////////////////////////////////////////////
 
