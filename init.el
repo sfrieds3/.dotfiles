@@ -60,7 +60,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-frame-font "Inconsolata 12")
+(set-frame-font "Hack 11")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -82,8 +82,9 @@
 ;; add load path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; require config for modeline
+;; other required files
 (require 'theme.el)
+(require 'cmode.el)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -93,22 +94,22 @@
 ;;  :ensure t)
 ;;;; blackboard
 ;;(use-package blackboard-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;;; dracula
 ;;(use-package dracula-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;;; zenburn
 ;;(use-package zenburn-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;;; moe
 ;;(use-package moe-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;;; monokai
 ;;(use-package monokai-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;;; solarized
 ;;(use-package solarized-theme
-  ;;:ensure t)
+;;:ensure t)
 ;;
 ;;;; theme to load
 ;;(load-theme 'solarized-dark t)
@@ -179,34 +180,6 @@
 (use-package smooth-scrolling
   :ensure t)
 (smooth-scrolling-mode 1)
-
-;; company mode for autocompletion
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode)
-  (progn
-    ;; Use Company for completion
-    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
-
-    (setq company-tooltip-align-annotations t
-          ;; Easy navigation to candidates with M-<n>
-          company-show-numbers t)
-    (setq company-dabbrev-downcase nil))
-  :diminish company-mode)
-;; (add-hook 'after-init-hook 'global-company-mode)
-
-(use-package company-quickhelp          ; Documentation popups for Company
-             :ensure t
-             :defer t
-             :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
-
-;; (use-package auto-complete
-;;   :ensure t)
-;; (ac-config-default)
-;; (setq ac-auto-show-menu 0)   ; show menu immediately
-;; (setq ac-ignore-case 'smart) ; use smart case
-;; (global-auto-complete-mode t)
 
 ;; flycheck for syntax checking
 (use-package flycheck
