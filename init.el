@@ -6,26 +6,18 @@
 ;;;;   silversearcher - sudo apt install silversearcher-ag
 ;;;;   jdee - Java backend (https://github.com/jdee-emacs/jdee-server)
 
-
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
-(require 'package)
-
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-;; use use-package
-(unless (package-installed-p 'use-package)
+(cond
+ ((>= 24 emacs-major-version)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-
-;;(use-package cl-lib
-;;  :ensure t)
+ )
+)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -33,6 +25,9 @@
 
 ;; inhibit startup screen
 (setq inhibit-startup-screen t)
+
+;; no toolbar
+(tool-bar-mode -1)
 
 ;; inhibit visual bells
 (setq visible-bell nil
@@ -85,6 +80,7 @@
 ;; other required files
 (require 'theme.el)
 (require 'autocomplete.el)
+(require 'packageload.el)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -118,21 +114,15 @@
 
 ;;;; LANGUAGE SPECIFIC
 
-;; markdown support
-(use-package markdown-mode ;; markdown support
-  :ensure t)
 ;; markdown mode for md files
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; mips assembly
-(use-package mips-mode
-  :ensure t)
+(autoload 'gfm-mode "markdown-mode"
+  "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -158,117 +148,87 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; EMACS PACKAGES
+(require 'cl-lib)
+(require 'markdown-mode)
+(require 'evil)
+(require 'evil-nerd-commenter)
+(require 'better-defaults)
+(require 'smooth-scrolling)
+(require 'flycheck)
+(require 'ag)
+(require 'google-this)
+(require 'indent-guide)
+(require 'autopair)
+;; (require 'agressive-indent)
+(require 'minimap)
+(require 'magit)
+(require 'ghub)
+(require 'which-key)
+(require 'idle-highlight-mode)
+(require 'ace-jump-mode)
+(require 'undo-tree)
+(require 'whitespace)
+(require 'rainbow-delimiters)
+(require 'ivy)
+(require 'counsel)
+(require 'swiper)
+(require 'flx)
+
 ;; use Evil mode
-(use-package evil
-  :ensure t)
 (evil-mode t)
 
 ;;; evil nerd commentator
-(use-package evil-nerd-commenter
-  :ensure t)
-;; Emacs key bindings
 (global-set-key (kbd "C-c c") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "C-c / l") 'evilnc-quick-comment-or-uncomment-to-the-line)
 (global-set-key (kbd "C-c / c") 'evilnc-copy-and-comment-lines)
 (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
-;; better defaults!
-(use-package better-defaults
-  :ensure t)
-
-;; smooth scrolling
-(use-package smooth-scrolling
-  :ensure t)
+;; smooth-scrolling
 (smooth-scrolling-mode 1)
 
 ;; flycheck for syntax checking
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+(global-flycheck-mode t)
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
-(use-package ag
-  :ensure t)
 (global-set-key (kbd "C-c a") 'ag)
 
-;; google this: C-c g to google
-(use-package google-this
-  :ensure t)
+;; google-this: C-c g to google
 (google-this-mode 1)
 
 ;; yasnippet
-(use-package yasnippet
-  :ensure t)
-(yas-global-mode 1)
+;; (yas-global-mode 1)
 
-;; auto matching brackets
-(use-package autopair
-  :ensure t)
+;; autopair
 (autopair-global-mode t)
 
-;; show indent guides
-(use-package indent-guide ;; use to show indent guides
-  :ensure t)
+;; indent-guide
 (indent-guide-global-mode)
 (setq indent-guide-recursive t)
 
-;; aggressive indent mode
-(use-package aggressive-indent
-  :ensure t)
+;; aggressive-indent
 (global-aggressive-indent-mode 1)
 (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
-;; minimap
-(use-package minimap
-  :ensure t)
-
-;; magit - for git
-(use-package magit
-  :ensure t)
-(use-package ghub
-  :ensure t)
-
 ;; which-key
-(use-package which-key
-  :ensure t)
 (which-key-mode t)
 (which-key-setup-side-window-bottom)
 
-;; highlight instances of word when hovering
-(use-package idle-highlight-mode
-  :ensure t)
+;; idle-highlight-mode
 (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
 
 ;; ace jump mode
-(use-package ace-jump-mode
-  :ensure t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
 
 ;; undo tree
-(use-package undo-tree
-  :ensure t)
 (global-undo-tree-mode)
 
-;; whitespace
-(use-package whitespace
-  :ensure t)
-
-(use-package rainbow-delimiters
-  :ensure t)
+;; rainbow-delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; IVY
-(use-package ivy
-  :ensure t)
-(use-package counsel
-  :ensure t)
-(use-package swiper
-  :ensure t)
-(use-package flx
-  :ensure t)
+;;;; Settings for ivy, counsel, swiper, flx
 
 ;; use fuzzy matching
 (setq ivy-re-builders-alist
