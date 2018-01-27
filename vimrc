@@ -39,7 +39,7 @@ Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
-Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 
 " tpope stuff {{{
 
@@ -400,6 +400,12 @@ map <leader>> :tabnext<cr>
 map <leader>tr :TabooRename<space>
 map <leader>T :TabooOpen<space>
 
+" resize splits with ctrl shift hjkl
+map <M-h> <C-w><
+map <M-j> <C-w>+
+map <M-k> <C-w>-
+map <M-l> <C-w>>
+
 " Let 'tl' toggle between this and the last accessed tab
 "let g:lasttab = 1
 "nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
@@ -462,6 +468,9 @@ if executable('ag')
 " ack/ag with <leader> a
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+
+" use ag as default ack client
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " ctrlp mappings
 let g:ctrlp_map = '<c-p>'
