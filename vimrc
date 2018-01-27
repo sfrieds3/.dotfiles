@@ -132,6 +132,11 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
+" auto line wrap at 80 for .md and .html files
+" select line and gq to reformat
+au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.html setlocal textwidth=80
+
 " Status line stuff
 set laststatus=2
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
