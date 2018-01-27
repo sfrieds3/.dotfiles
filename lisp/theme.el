@@ -7,19 +7,16 @@
 
 ;;; code:
 
-(use-package solarized-theme
-  :ensure t
-  :config
-  (progn (setq solarized-emphasize-indicators nil
-               solarized-high-contrast-mode-line nil
-               solarized-scale-org-headlines nil
-               solarized-use-less-bold t
-               solarized-use-variable-pitch nil
-               solarized-distinct-fringe-background nil)))
+(require 'solarized-theme)
+(progn (setq solarized-emphasize-indicators nil
+             solarized-high-contrast-mode-line nil
+             solarized-scale-org-headlines nil
+             solarized-use-less-bold t
+             solarized-use-variable-pitch nil
+             solarized-distinct-fringe-background nil))
 
 ;; use rich-minority package to get rid of minor modes on statusline
-(use-package rich-minority
-  :ensure t)
+(require 'rich-minority)
 (rich-minority-mode 1)
 (setf rm-blacklist "")
 
