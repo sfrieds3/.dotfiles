@@ -39,6 +39,7 @@ Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
+Plug 'altercation/vim-colors-solarized'
 
 " tpope stuff {{{
 
@@ -63,6 +64,9 @@ call plug#end()
 if !exists("g:syntax_on")
     syntax enable
 endif
+
+" set termguicolors
+set termguicolors
 
 "set colorscheme below
 colorscheme gruvbox
@@ -127,10 +131,18 @@ set wildmode=longest:full,full
 set foldcolumn=0
 
 " highlight extra whitespace
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+" do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " auto line wrap at 80 for .md and .html files
 " select line and gq to reformat
