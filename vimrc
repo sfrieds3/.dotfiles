@@ -499,7 +499,7 @@ let g:ctrlp_cmd = 'CtrlP'
 " rainbow parenthesis - activate on startup {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-            \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+            \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'darkorchid3'],
             \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
             \	'operators': '_,_',
             \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
