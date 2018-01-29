@@ -213,6 +213,9 @@ set hlsearch
 set number
 set relativenumber
 
+" do not show line numbers in terminal mode
+au TermOpen * setlocal nonumber norelativenumber
+
 " netrw settings
 " - :edit a folder to open a file browser
 " - <CR>/v/t to open in an h-split/v-split/tab
