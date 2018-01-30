@@ -451,9 +451,15 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
 " Git gutter
-map <Leader>G :GitGutterLineHighlightsToggle<CR>
-map <Leader>gn :GitGutterNextHunk<CR>
-map <Leader>gp :GitGutterPrevHunk<CR>
+nnoremap <Leader>G :GitGutterLineHighlightsToggle<CR>
+nnoremap <Leader>gn :GitGutterNextHunk<CR>
+nnoremap <Leader>gp :GitGutterPrevHunk<CR>
+
+" fugitive
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gg :Gpush<CR>
+nnoremap <Leader>gb :Gblame
 
 " show indent markers by default
 let g:indentLine_enabled = 1
@@ -498,11 +504,13 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " ctrlp mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+nnoremap <Leader>p :CtrlPBuffer<Space>
+nnoremap <c-P> :CtrlPMixed<Space>
 
 " rainbow parenthesis - activate on startup {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-            \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'darkorchid3'],
+            \	'guifgs': ['white', 'darkorange3', 'seagreen3', 'yellow', 'lightyellow'],
             \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
             \	'operators': '_,_',
             \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
@@ -512,7 +520,7 @@ let g:rainbow_conf = {
             \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
             \		},
             \		'lisp': {
-            \			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+            \			'guifgs': ['white', 'royalblue3', 'darkorange3', 'seagreen3', 'darkorchid3'],
             \		},
             \		'vim': {
             \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
