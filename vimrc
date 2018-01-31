@@ -451,7 +451,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
 " Git gutter
-nnoremap <Leader>G :GitGutterLineHighlightsToggle<CR>
+nnoremap <Leader>gg :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 
@@ -504,8 +504,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " ctrlp mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-nnoremap <Leader>p :CtrlPBuffer<Space>
-nnoremap <c-P> :CtrlPMixed<Space>
+nnoremap <Leader>p :CtrlPBuffer<CR>
+nnoremap <Leader>bf :CtrlPBuffer<CR>
+nnoremap <c-P> :CtrlPMixed<CR>
 
 " rainbow parenthesis - activate on startup {{{
 let g:rainbow_active = 1
