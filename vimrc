@@ -504,9 +504,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " ctrlp mappings
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-nnoremap <Leader>p :CtrlPBuffer<CR>
+nnoremap <C-e> :CtrlPBuffer<CR>
 nnoremap <Leader>bf :CtrlPBuffer<CR>
-nnoremap <c-P> :CtrlPMixed<CR>
+nnoremap <Leader>p :CtrlPMixed<CR>
 
 " rainbow parenthesis - activate on startup {{{
 let g:rainbow_active = 1
