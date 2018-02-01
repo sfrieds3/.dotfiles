@@ -458,7 +458,7 @@ nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 " fugitive
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>GP :Gpush<CR>
+nnoremap <Leader>GP :Gpush<CR>:echo "Gpush"<CR>
 nnoremap <Leader>gb :Gblame
 
 " show indent markers by default
