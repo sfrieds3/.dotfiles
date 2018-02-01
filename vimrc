@@ -444,7 +444,7 @@ catch
 endtry
 "}}}
 
-" plugin configurations {{{
+" Plugin Configurations {{{
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
@@ -458,7 +458,7 @@ nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 " fugitive
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>GP :Gpush<CR>:echo "Gpush"<CR>
+nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 
 " show indent markers by default
@@ -509,9 +509,17 @@ nnoremap <Leader>bf :CtrlPBuffer<CR>
 nnoremap <Leader>p :CtrlPMixed<CR>
 
 " rainbow parenthesis - activate on startup {{{
+" set colors for rainbow parenthesis
+let faded_orange = #af3a03
+let faded_blue = #076678
+let faded_yellow = #b57614
+let faded_green = #79740e
+let faded_aqua = #427b58
+
+" rainbow parenthesis settings
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-            \	'guifgs': ['white', 'darkorange3', 'seagreen3', 'yellow', 'lightyellow'],
+            \	'guifgs': ['#98971a', '#d79921', '#d65d0e', 'yellow', 'lightyellow'],
             \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
             \	'operators': '_,_',
             \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
