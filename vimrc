@@ -328,7 +328,7 @@ nnoremap <Leader>s /
 nnoremap <leader><leader> <c;^>
 
 " Clean trailing whitespace
-nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " ,v selects text just pasted in
 nnoremap <leader>v V']
@@ -479,7 +479,7 @@ map <Leader>o :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " ,r to refresh NERDTree
-nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+"nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
 
 " open nerdtree in current directory with <leader>o
  map <leader>i :NERDTreeFind<cr>
@@ -510,16 +510,22 @@ nnoremap <Leader>p :CtrlPMixed<CR>
 
 " rainbow parenthesis - activate on startup {{{
 " set colors for rainbow parenthesis
-let faded_orange = #af3a03
-let faded_blue = #076678
-let faded_yellow = #b57614
-let faded_green = #79740e
-let faded_aqua = #427b58
+let faded_orange = '#af3a03'
+let faded_blue = '#076678'
+let faded_yellow = '#b57614'
+let faded_green = '#79740e'
+let faded_aqua = '#427b58'
+let clemson_orange = '#F66733'
+let clemson_regalia = '#522D80'
+let clemson_hartwell_moon = '#D4C99E'
+let clemson_howards_rock = '#685C53'
+let clemson_calhoun_fields = '#B5C327'
 
 " rainbow parenthesis settings
-let g:rainbow_active = 1
+nnoremap <Leader>r :RainbowToggle<CR> " turn rainbow parenthesis on
+let g:rainbow_active = 0
 let g:rainbow_conf = {
-            \	'guifgs': ['#98971a', '#d79921', '#d65d0e', 'yellow', 'lightyellow'],
+            \	'guifgs': [clemson_orange, clemson_regalia, clemson_hartwell_moon, clemson_howards_rock, clemson_calhoun_fields],
             \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
             \	'operators': '_,_',
             \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
