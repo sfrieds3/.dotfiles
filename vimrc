@@ -41,7 +41,7 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'luochen1990/rainbow' " rainbow parenthesis
-Plug 'Yggdroot/indentLine' " indent guides
+" Plug 'Yggdroot/indentLine' " indent guides
 
 " tpope stuff {{{
 
@@ -163,6 +163,10 @@ autocmd BufWinLeave * call clearmatches()
 " select line and gq to reformat
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.html setlocal textwidth=80
+
+" show line at column 80, full highlight from column 120 on
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80,".join(range(120,999),",")
 
 " Status line stuff
 set laststatus=2
@@ -462,7 +466,7 @@ nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 
 " show indent markers by default
-let g:indentLine_enabled = 1
+"let g:indentLine_enabled = 1
 "let g:indentLine_char = '┆'
 "let g:indentLine_char = '⎸'
 
