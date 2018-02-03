@@ -1,8 +1,5 @@
 " Housekeeping {{{
 
-" reload vimrc
-" :so $MYVIMRC
-
 " open second tab on startup
 autocmd VimEnter * TabooOpen scratch
 autocmd VimEnter * tabprevious
@@ -41,7 +38,6 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'luochen1990/rainbow' " rainbow parenthesis
-" Plug 'Yggdroot/indentLine' " indent guides
 
 " tpope stuff {{{
 
@@ -84,21 +80,12 @@ set visualbell
 " Fast scrolling
 set ttyfast
 
-" set cursorline
-"set cursorline
-
 " set cursorline for current window only
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   au WinLeave * setlocal nocursorline
 augroup END
-
-" use <leader>l to highlight current line after leaving split
-":nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-
-" use <leader>c to highlight current column after leaving split
-":nnoremap <silent> <Leader>c :execute 'match Search /\%'.virtcol('.').'v/'<CR>
 
 " allow recursive searching with :find
 set path+=**
@@ -365,10 +352,6 @@ nnoremap <Leader>tf zA
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
 
-" reload when switching buffer
-"u FocusGained,BufEnter * :silent! ! " reload buffer when back in focus
-"au FocusLost,WinLeave * :silent! noautocmd w " save file when leaving buffer
-
 "}}}
 
 " Shortcuts {{{
@@ -465,16 +448,11 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 
-" show indent markers by default
-"let g:indentLine_enabled = 1
-"let g:indentLine_char = '┆'
-"let g:indentLine_char = '⎸'
-
 " NERDTree {{{
 
 " Nerdtree starts up automatially if no file selected for vim
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
@@ -482,8 +460,8 @@ map <Leader>o :NERDTreeToggle<CR>
 " let nerdtree show hidden files by default (I to toggle)
 let NERDTreeShowHidden=1
 
-" ,r to refresh NERDTree
-"nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
+" ,or to refresh NERDTree
+nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
 
 " open nerdtree in current directory with <leader>o
  map <leader>i :NERDTreeFind<cr>
