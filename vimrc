@@ -157,7 +157,7 @@ let &colorcolumn="80,".join(range(120,999),",")
 
 " Status line stuff
 set laststatus=2
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 "Brace face
 set showmatch
@@ -461,7 +461,7 @@ map <Leader>o :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " ,or to refresh NERDTree
-nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
+"nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
 
 " open nerdtree in current directory with <leader>o
  map <leader>i :NERDTreeFind<cr>
