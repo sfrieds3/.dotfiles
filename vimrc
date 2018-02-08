@@ -38,6 +38,7 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'luochen1990/rainbow' " rainbow parenthesis
+Plug 'fatih/vim-go' " for golang development
 
 " tpope stuff {{{
 
