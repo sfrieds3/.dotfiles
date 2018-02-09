@@ -39,6 +39,7 @@ Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
+Plug 'hickop/vim-hickop-colors' " Hickop colors
 
 " tpope stuff {{{
 
@@ -68,9 +69,10 @@ endif
 set termguicolors
 
 "set colorscheme below
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark='hard'
+colorscheme hickop
+"set background=dark
+"let g:gruvbox_contrast_dark='hard'
+highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
 " retain buffers until quit
 set hidden
@@ -153,7 +155,7 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.html setlocal textwidth=80
 
 " show line at column 80, full highlight from column 120 on
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+highlight ColorColumn ctermbg=235 guibg=#282828
 let &colorcolumn="80,".join(range(120,999),",")
 
 " Status line stuff
@@ -442,6 +444,7 @@ set wildignore+=*/node_modules/*,*/bower_components/* "node js
 nnoremap <Leader>gg :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
+let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
 
 " fugitive
 nnoremap <Leader>gs :Gstatus<CR>
