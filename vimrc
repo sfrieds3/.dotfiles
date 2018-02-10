@@ -57,6 +57,13 @@ call plug#end()
 
 "}}}
 
+" Language settings {{{
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
+autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
+autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+" }}}
+
 " Basic vim setups {{{
 "
 " Color settings!
@@ -133,12 +140,6 @@ set wildmenu
 set wildmode=longest:full,full
 set foldcolumn=0
 
-" highlight extra whitespace
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+$/
-"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-
 " do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -171,7 +172,7 @@ endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
-" default the statusline to green when entering Vim
+" default the statusline to dark grey when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
@@ -189,9 +190,9 @@ set statusline+=%y      "filetype
         set statusline+=%*
 
 set statusline+=\ %=                        " align left
-set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ Col:%2c                    " current column
-set statusline+=\ Buf:%n                    " Buffer number
+set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ C:%2c                    " current column
+set statusline+=\ B:%n                    " Buffer number
 set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
