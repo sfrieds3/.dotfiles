@@ -204,7 +204,7 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
-set statusline=%f                           " file name
+set statusline=%F%m%r%h                           " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
