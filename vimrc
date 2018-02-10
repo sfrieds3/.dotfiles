@@ -158,35 +158,6 @@ let &colorcolumn="80,".join(range(120,999),",")
 
 " Status line stuff
 set laststatus=2
-"set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-"set statusline=%F%m%r%h%<%w\ [%{&ff}][%Y][A:\%03.3b][0x\%02.2B]%=[L:%04l,C:%04v][%p%%][LEN=%L]
-"set statusline=
-"set statusline +=%1*\ %n\ %*            "buffer number
-"set statusline +=%5*%{&ff}%*            "file format
-"set statusline +=%3*%y%*                "file type
-"set statusline +=%4*\ %<%F%*            "full path
-"set statusline +=%2*%m%*                "modified flag
-"set statusline +=%1*%=%5l%*             "current line
-"set statusline +=%2*/%L%*               "total lines
-"set statusline +=%1*%4v\ %*             "virtual column number
-"set statusline +=%2*0x%04B\ %*          "character under cursor
-
-"" statusline
-"function! InsertStatuslineColor(mode)
-  "if a:mode == 'i'
-    "hi statusline guibg=magenta
-  "elseif a:mode == 'r'
-    "hi statusline guibg=blue
-  "else
-    "hi statusline guibg=red
-  "endif
-"endfunction
-
-"au InsertEnter * call InsertStatuslineColor(v:insertmode)
-"au InsertChange * call InsertStatuslineColor(v:insertmode)
-"au InsertLeave * hi statusline guibg=green
-
-" statusline stuff
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
@@ -204,13 +175,11 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
-set statusline=%F%m%r%h                           " file name
+set statusline=%f%m%r%h                           " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
+set statusline+=[%r%{getcwd()}%<] " current working directory
 
 " Puts in the current git status
         set statusline+=%{fugitive#statusline()}
@@ -222,9 +191,9 @@ set statusline+=%r      "read only flag
 
 set statusline+=\ %=                        " align left
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ Col:%c                    " current column
+set statusline+=\ Col:%2c                    " current column
 set statusline+=\ Buf:%n                    " Buffer number
-set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
+set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
 
