@@ -175,11 +175,10 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
-set statusline=%f%m%r%h                           " file name
+set statusline=%F                           " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
-set statusline+=[%r%{getcwd()}%<] " current working directory
 
 " Puts in the current git status
         set statusline+=%{fugitive#statusline()}
