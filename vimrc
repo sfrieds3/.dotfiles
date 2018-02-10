@@ -20,8 +20,6 @@ set titleold=
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'kien/ctrlp.vim' " C-P for searching
 Plug 'gcmt/taboo.vim' " tab stuff for vim
@@ -37,14 +35,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
-
-" autocompletion
-"Plug 'Shougo/deoplete.nvim' " neovim autocomplete
-"Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-"Plug 'zchee/deoplete-go' " go autocompletion
-"Plug 'zchee/deoplete-jedi' " python autocompletion
-"Plug 'sebastianmarkow/deoplete-rust' " rust autocompletion
-"Plug 'Shougo/neco-vim' " vimscript autocompletion
 
 " colors
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
@@ -80,8 +70,6 @@ set termguicolors
 
 "set colorscheme below
 colorscheme hickop
-"set background=dark
-"let g:gruvbox_contrast_dark='hard'
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
 
