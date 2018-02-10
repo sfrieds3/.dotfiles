@@ -20,10 +20,10 @@ set titleold=
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim' " C-P for searching
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
@@ -35,11 +35,21 @@ Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
-Plug 'morhetz/gruvbox' " gruvbox colorscheme
-Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
+
+" autocompletion
+"Plug 'Shougo/deoplete.nvim' " neovim autocomplete
+"Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+"Plug 'zchee/deoplete-go' " go autocompletion
+"Plug 'zchee/deoplete-jedi' " python autocompletion
+"Plug 'sebastianmarkow/deoplete-rust' " rust autocompletion
+"Plug 'Shougo/neco-vim' " vimscript autocompletion
+
+" colors
+Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'hickop/vim-hickop-colors' " Hickop colors
+Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 
 " tpope stuff {{{
 
@@ -72,7 +82,8 @@ set termguicolors
 colorscheme hickop
 "set background=dark
 "let g:gruvbox_contrast_dark='hard'
-highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
+highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
 
 " retain buffers until quit
 set hidden
@@ -160,22 +171,75 @@ let &colorcolumn="80,".join(range(120,999),",")
 
 " Status line stuff
 set laststatus=2
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=%F%m%r%h%<%w\ [%{&ff}][%Y][A:\%03.3b][0x\%02.2B]%=[L:%04l,C:%04v][%p%%][LEN=%L]
+"set statusline=
+"set statusline +=%1*\ %n\ %*            "buffer number
+"set statusline +=%5*%{&ff}%*            "file format
+"set statusline +=%3*%y%*                "file type
+"set statusline +=%4*\ %<%F%*            "full path
+"set statusline +=%2*%m%*                "modified flag
+"set statusline +=%1*%=%5l%*             "current line
+"set statusline +=%2*/%L%*               "total lines
+"set statusline +=%1*%4v\ %*             "virtual column number
+"set statusline +=%2*0x%04B\ %*          "character under cursor
 
-" statusline
+"" statusline
+"function! InsertStatuslineColor(mode)
+  "if a:mode == 'i'
+    "hi statusline guibg=magenta
+  "elseif a:mode == 'r'
+    "hi statusline guibg=blue
+  "else
+    "hi statusline guibg=red
+  "endif
+"endfunction
+
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertChange * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline guibg=green
+
+" statusline stuff
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=magenta
+    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
   elseif a:mode == 'r'
-    hi statusline guibg=blue
+    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
   else
-    hi statusline guibg=red
+    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
   endif
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertChange * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=green
+au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" default the statusline to green when entering Vim
+hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" Formats the statusline
+set statusline=%f                           " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+
+" Puts in the current git status
+        set statusline+=%{fugitive#statusline()}
+
+" Puts in syntastic warnings
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+
+set statusline+=\ %=                        " align left
+set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ Col:%c                    " current column
+set statusline+=\ Buf:%n                    " Buffer number
+set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
+
+" end statusline
 
 "Brace face
 set showmatch
@@ -450,6 +514,9 @@ endtry
 "}}}
 
 " Plugin Configurations {{{
+
+" autocomplete
+let g:deoplete#enable_at_startup = 1
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
