@@ -58,10 +58,55 @@ call plug#end()
 "}}}
 
 " Language settings {{{
+
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+"
+" }}}
+
+" statusline {{{
+
+set laststatus=2
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+  elseif a:mode == 'r'
+    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+  else
+    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+  endif
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" default the statusline to dark grey when entering Vim
+hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" Formats the statusline
+set statusline=%F                           " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+
+" Puts in the current git status
+        set statusline+=%{fugitive#statusline()}
+
+" Puts in syntastic warnings
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+
+set statusline+=\ %=                        " align left
+set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ C:%2c                    " current column
+set statusline+=\ B:%n                    " Buffer number
+set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+
+" end statusline
+
 " }}}
 
 " Basic vim setups {{{
@@ -157,45 +202,6 @@ au BufRead,BufNewFile *.html setlocal textwidth=80
 highlight ColorColumn ctermbg=235 guibg=#282828
 let &colorcolumn="80,".join(range(120,999),",")
 
-" Status line stuff
-set laststatus=2
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
-  elseif a:mode == 'r'
-    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
-  else
-    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
-  endif
-endfunction
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-" default the statusline to dark grey when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-" Formats the statusline
-set statusline=%F                           " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%y      "filetype
-
-" Puts in the current git status
-        set statusline+=%{fugitive#statusline()}
-
-" Puts in syntastic warnings
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-
-set statusline+=\ %=                        " align left
-set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ C:%2c                    " current column
-set statusline+=\ B:%n                    " Buffer number
-set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
-
-" end statusline
 
 "Brace face
 set showmatch
