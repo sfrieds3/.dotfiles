@@ -27,7 +27,6 @@ Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
 Plug 'jtratner/vim-flavored-markdown' "markdown for vim
 Plug 'scrooloose/syntastic' " catch-all highlighting
-Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
@@ -39,7 +38,6 @@ Plug 'fatih/vim-go' " for golang development
 " colors
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'hickop/vim-hickop-colors' " Hickop colors
-Plug 'altercation/vim-colors-solarized' " solarized colorscheme
 
 " tpope stuff {{{
 
@@ -48,6 +46,7 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
+Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'tpope/vim-surround'
 
 " }}}
