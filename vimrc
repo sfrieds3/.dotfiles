@@ -315,7 +315,7 @@ inoremap <C-u> <esc>mzgUiw`za
 "nnoremap <c-'> zz
 
 " remap 0 to first nonblank character
-map 0 ^
+nnoremap 0 ^
 
 "vertical split
 nnoremap <leader>\| <C-w>v
@@ -331,10 +331,10 @@ nnoremap <Leader>w <C-w><C-w>
 "nmap bb :bw<CR>
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <C-M-j> mz:m+<cr>`z
+nnoremap <C-M-k> mz:m-2<cr>`z
+vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " Disable scrollbars
 set guioptions-=r
@@ -431,8 +431,8 @@ map <leader>ba :bufdo bd<cr>
 " go to previous and next buffer
 map <leader>bn :bnext<cr>
 map <leader>bp :bprevious<cr>
-map << :bprevious<cr>
-map >> :bnext<cr>
+map <C-Left> :bprevious<cr>
+map <C-Right> :bnext<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
