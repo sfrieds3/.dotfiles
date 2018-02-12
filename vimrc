@@ -411,50 +411,51 @@ vnoremap // y/<C-R>"<CR>
 
 "{{{ Moving around, tabs, windows and buffers
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+nnoremap <space> /
+nnoremap <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
+nnoremap <Leader>b :b
 " Close the current buffer
-map <leader>bd :bdelete<cr>
+nnoremap <leader>bd :bdelete<cr>
 
 " Close all the buffers
-map <leader>ba :bufdo bd<cr>
+nnoremap <leader>ba :bufdo bd<cr>
 
 " go to previous and next buffer
-map <leader>bn :bnext<cr>
-map <leader>bp :bprevious<cr>
-map <C-Left> :bprevious<cr>
-map <C-Right> :bnext<cr>
+nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <C-Left> :bprevious<cr>
+nnoremap <C-Right> :bnext<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>th :-tabmove<cr>
-map <leader>tl :+tabmove<cr>
-map <leader>[ :tabprevious<cr>
-map <leader>] :tabnext<cr>
-map <leader>< :tabprevious<cr>
-map <leader>> :tabnext<cr>
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>th :-tabmove<cr>
+nnoremap <leader>tl :+tabmove<cr>
+nnoremap <leader>[ :tabprevious<cr>
+nnoremap <leader>] :tabnext<cr>
+nnoremap <leader>< :tabprevious<cr>
+nnoremap <leader>> :tabnext<cr>
 
 " rename tab
-map <leader>tr :TabooRename<space>
-map <leader>T :TabooOpen<space>
+nnoremap <leader>tr :TabooRename<space>
+nnoremap <leader>T :TabooOpen<space>
 
 " resize splits with ctrl shift hjkl
-map <M-h> <C-w><
-map <M-j> <C-w>+
-map <M-k> <C-w>-
-map <M-l> <C-w>>
+nnoremap <M-h> <C-w><
+nnoremap <M-j> <C-w>+
+nnoremap <M-k> <C-w>-
+nnoremap <M-l> <C-w>>
 
 " Let 'tl' toggle between this and the last accessed tab
 "let g:lasttab = 1
@@ -463,10 +464,10 @@ map <M-l> <C-w>>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
