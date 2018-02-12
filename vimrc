@@ -305,73 +305,36 @@ set noswapfile
 noremap j gj
 noremap k gk
 
-" update leader
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ","                 " update leader
+let g:mapleader = ","               " update leader
+inoremap <C-u> <esc>mzgUiw`za       " upper case last word using ctrl+u
+inoremap <S-Tab> <C-V><Tab>        " Shift-Tab enters actual tab
+nnoremap 0 ^                        " remap 0 to first nonblank character
+nnoremap <leader>\| <C-w>v          " vertical split
+nnoremap <leader>- <C-w>s           " horizontal split
+nnoremap <Leader>w <C-w><C-w>       " switch windows w/ \+w
+nnoremap <C-M-j> mz:m+<cr>`z                " move line of text up
+nnoremap <C-M-k> mz:m-2<cr>`z               " move line ot text down
+vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z   " move line of text up (visual mode)
+vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z  " move line of text down (visual mode)
+nmap <silent> <leader><space> :nohlsearch<CR>   " turn off nohlsearch
+nnoremap <Leader>S :%s//<left>                  "leader+S for search/replace
+nnoremap <Leader>s /                            " leader+s for search
+nnoremap <leader><leader> <c;^>                 " switch between files with ,,
+nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z   " Clean trailing whitespace
+nnoremap <leader>v V']                          " ,v selects text just pasted in
+nnoremap <tab> %                    " remap % to tab (to find matching bracket pairs)
+vnoremap <tab> %                    " remap % to tab (to find matching bracket pairs)
+nnoremap <Tab> %                    " tab for % (i.e. moving b/w brackets)
+inoremap <Leader><cr> <nop>         " leader enter does nothing in insert
+cmap w!! w !sudo tee % >/dev/null   " sudo for write
+nnoremap <Leader>tf zA              " open/close single fold
+"nnoremap <space> za
+nnoremap <Leader>caf zM             " close all folds
+nnoremap <Leader>af zR              " open all folds
 
-" upper case last word using ctrl+u
-inoremap <C-u> <esc>mzgUiw`za
-
-" C-' to center cursor
-"nnoremap <c-'> zz
-
-" remap 0 to first nonblank character
-nnoremap 0 ^
-
-"vertical split
-nnoremap <leader>\| <C-w>v
-"horizontal split
-nnoremap <leader>- <C-w>s
-
-" switch windows w/ \+w
-nnoremap <Leader>w <C-w><C-w>
-
-" buffer commands
-"nmap <c-p> :bprevious<CR>
-"nmap <c-n> :bnext<CR>
-"nmap bb :bw<CR>
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nnoremap <C-M-j> mz:m+<cr>`z
-nnoremap <C-M-k> mz:m-2<cr>`z
-vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" Disable scrollbars
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L"
-
-" Hard to type things
-
-"iabbrev >> →
-"iabbrev << ←
-"iabbrev ^^ ↑
-"iabbrev VV ↓
-"iabbrev aa λ
-
-" turn off nohlsearch
-nmap <silent> <leader><space> :nohlsearch<CR>
-
-"leader+S for search/replace
-nnoremap <Leader>S :%s//<left>
-
-" leader+s for search
-nnoremap <Leader>s /
-
-" switch between files with ,,
-nnoremap <leader><leader> <c;^>
-
-" Clean trailing whitespace
-nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
-" ,v selects text just pasted in
-nnoremap <leader>v V']
-
-" remap % to tab (to find matching bracket pairs)
-nnoremap <tab> %
-vnoremap <tab> %
+" quick editing of files!
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " no arrow keys
 nnoremap <up> <nop>
@@ -379,23 +342,11 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" tab for % (i.e. moving b/w brackets)
-nnoremap <Tab> %
-
-" leader enter does nothing in insert.. NOTHING!
-inoremap <Leader><cr> <nop>
-
-" sudo for write... in case you forgot :(
-cmap w!! w !sudo tee % >/dev/null
-
-" quick editing of files!
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
-
-" open/close folds the easy way
-nnoremap <Leader>tf zA
-"nnoremap <space> za
-nnoremap <Leader>caf zM
-nnoremap <Leader>af zR
+" Disable scrollbars
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L"
 
 "}}}
 
