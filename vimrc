@@ -123,6 +123,7 @@ set termguicolors
 colorscheme hickop
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
+highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
 
 " retain buffers until quit
 set hidden
