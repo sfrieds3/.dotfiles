@@ -333,7 +333,10 @@ nnoremap <Leader>tf zA              " open/close single fold
 nnoremap <Leader>caf zM             " close all folds
 nnoremap <Leader>af zR              " open all folds
 
-" quick editing of files!
+" <space> to show avilable marks and be ready to swtich
+nnoremap <space> :<C-u>marks<CR>:normal! `
+
+" quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " no arrow keys
@@ -362,8 +365,8 @@ vnoremap // y/<C-R>"<CR>
 
 "{{{ Moving around, tabs, windows and buffers
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-nnoremap <space> /
-nnoremap <c-space> ?
+"nnoremap <space> /
+"nnoremap <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :noh<cr>
