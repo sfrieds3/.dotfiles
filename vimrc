@@ -160,7 +160,8 @@ set smartcase
 
 " set characters for end of line & tab
 set list
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set showbreak=↪
+set listchars=tab:\|_,nbsp:␣,extends:…,precedes:…
 
 " make backspace work
 set backspace=2
@@ -246,8 +247,7 @@ set showmatch
 set hlsearch
 
 " Line numbers
-set number
-set relativenumber
+set nonumber
 
 " do not show line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
@@ -332,9 +332,10 @@ nnoremap <Leader>tf zA              " open/close single fold
 "nnoremap <space> za
 nnoremap <Leader>caf zM             " close all folds
 nnoremap <Leader>af zR              " open all folds
+nnoremap <silent> <Leader>n :set invnumber<CR> " toggle line numbers
 
 " <space> to show avilable marks and be ready to swtich
-nnoremap <space> :<C-u>marks<CR>:normal! `
+nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
