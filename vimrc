@@ -333,6 +333,8 @@ nnoremap <Leader>tf zA              " open/close single fold
 nnoremap <Leader>caf zM             " close all folds
 nnoremap <Leader>af zR              " open all folds
 nnoremap <silent> <Leader>n :set invnumber<CR> " toggle line numbers
+nnoremap <C-n> <C-f>                " C-n to page down
+nnoremap <silent> <leader>vt :Ack! TODO<CR>     " open Ack quick fix window to show TODO's
 
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
