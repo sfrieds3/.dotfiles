@@ -7,13 +7,7 @@
 
 ;;; code:
 
-(require 'solarized-theme)
-(progn (setq solarized-emphasize-indicators nil
-             solarized-high-contrast-mode-line nil
-             solarized-scale-org-headlines nil
-             solarized-use-less-bold t
-             solarized-use-variable-pitch nil
-             solarized-distinct-fringe-background nil))
+(require 'zenburn-theme)
 
 ;; use rich-minority package to get rid of minor modes on statusline
 (require 'rich-minority)
@@ -80,7 +74,7 @@
                         system-name
                         ))))
 
-(load-theme 'solarized-dark t)
+(load-theme 'zenburn t)
 
 (set-face-attribute 'mode-line t
                     :background "#808080"
