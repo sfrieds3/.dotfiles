@@ -29,6 +29,12 @@
 ;; no toolbar
 (tool-bar-mode -1)
 
+;; no scrollbar
+(scroll-bar-mode -1)
+
+;; no menubar
+(menu-bar-mode -1)
+
 ;; inhibit visual bells
 (setq visible-bell nil
       ring-bell-function #'ignore)
@@ -47,6 +53,7 @@
 
 ;; highlight current line
 (global-hl-line-mode t)
+(set-face-attribute hl-line-face nil :underline nil)
 
 ;; spaces by default instead of tabs!
 (setq-default indent-tabs-mode nil)
@@ -55,7 +62,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-frame-font "Source Code Pro 11")
+(set-frame-font "Ubuntu Mono 12")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -81,34 +88,6 @@
 (require 'theme.el)
 (require 'autocomplete.el)
 (require 'packageload.el)
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; THEMES
-;;;; gruvbox
-;; (use-package gruvbox-theme
-;;  :ensure t)
-;;;; blackboard
-;;(use-package blackboard-theme
-;;:ensure t)
-;;;; dracula
-;;(use-package dracula-theme
-;;:ensure t)
-;;;; zenburn
-;;(use-package zenburn-theme
-;;:ensure t)
-;;;; moe
-;;(use-package moe-theme
-;;:ensure t)
-;;;; monokai
-;;(use-package monokai-theme
-;;:ensure t)
-;;;; solarized
-;;(use-package solarized-theme
-;;:ensure t)
-;;
-;;;; theme to load
-;;(load-theme 'solarized-dark t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -144,34 +123,6 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; EMACS PACKAGES
-;(require 'cl-lib)
-;(require 'markdown-mode)
-;(require 'evil)
-;(require 'evil-nerd-commenter)
-;(require 'better-defaults)
-;(require 'smooth-scrolling)
-;(require 'flycheck)
-;(require 'ag)
-;(require 'google-this)
-;(require 'indent-guide)
-;(require 'autopair)
-;(require 'minimap)
-;(require 'magit)
-;(require 'ghub)
-;(require 'which-key)
-;(require 'idle-highlight-mode)
-;(require 'ace-jump-mode)
-;(require 'undo-tree)
-;(require 'whitespace)
-;(require 'rainbow-delimiters)
-;(require 'ivy)
-;(require 'counsel)
-;(require 'swiper)
-;(require 'flx)
 
 ;; use Evil mode
 (evil-mode t)
@@ -257,20 +208,3 @@
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
 (provide 'init.el)
-
-;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("f36b0a4ecb6151c0ec4d51d5cafc94de326b4659aaa7ac64a663e38ebc6d71dc" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
- '(jdee-server-dir ""))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -7,8 +7,6 @@
 
 ;;; code:
 
-(require 'zenburn-theme)
-
 ;; use rich-minority package to get rid of minor modes on statusline
 (require 'rich-minority)
 (rich-minority-mode 1)
@@ -74,7 +72,7 @@
                         system-name
                         ))))
 
-(load-theme 'zenburn t)
+(load-theme 'wombat t)
 
 (set-face-attribute 'mode-line t
                     :background "#808080"
