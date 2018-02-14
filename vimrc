@@ -66,6 +66,24 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 "
 " }}}
 
+" theme settings {{{
+
+" Color settings!
+if !exists("g:syntax_on")
+    syntax enable
+endif
+
+" set termguicolors
+set termguicolors
+
+"set colorscheme below
+colorscheme hickop
+highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
+highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
+highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
+
+" }}}
+
 " statusline {{{
 
 set laststatus=2
@@ -91,13 +109,13 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
 
-" Puts in the current git status
-        set statusline+=%{fugitive#statusline()}
+" get current git status
+set statusline+=%{fugitive#statusline()}
 
-" Puts in syntastic warnings
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
+" show syntastic warnings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 set statusline+=\ %=                        " align left
 set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
@@ -109,21 +127,18 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 
 " }}}
 
-" Basic vim setups {{{
+" Basic vim settings {{{
 "
-" Color settings!
-if !exists("g:syntax_on")
-    syntax enable
-endif
+let mapleader = ","                 " update leader
+let g:mapleader = ","               " update leader
 
-" set termguicolors
-set termguicolors
+" neovim commands
+" neovim terminal - esc to exit terminal-mode
+:tnoremap <Esc> <C-\><C-n>
 
-"set colorscheme below
-colorscheme hickop
-highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
-highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
-highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
+"wrapped lines go down/up to next row
+noremap j gj
+noremap k gk
 
 " retain buffers until quit
 set hidden
@@ -283,64 +298,69 @@ set noswapfile
 
 " Remapping key commands {{{
 
-" neovim commands
-" neovim terminal - esc to exit terminal-mode
-:tnoremap <Esc> <C-\><C-n>
 
-" use Alt+{hjkl} to navigate windows from any mode
-:tnoremap <A-h> <C-\><C-N><C-w>h
-:tnoremap <A-j> <C-\><C-N><C-w>j
-:tnoremap <A-k> <C-\><C-N><C-w>k
-:tnoremap <A-l> <C-\><C-N><C-w>l
-:inoremap <A-h> <C-\><C-N><C-w>h
-:inoremap <A-j> <C-\><C-N><C-w>j
-:inoremap <A-k> <C-\><C-N><C-w>k
-:inoremap <A-l> <C-\><C-N><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
-
-"wrapped lines go down/up to next row
-noremap j gj
-noremap k gk
-
-let mapleader = ","                 " update leader
-let g:mapleader = ","               " update leader
-inoremap <C-u> <esc>mzgUiw`za       " upper case last word using ctrl+u
-inoremap <S-Tab> <C-V><Tab>        " Shift-Tab enters actual tab
-nnoremap 0 ^                        " remap 0 to first nonblank character
-nnoremap <leader>\| <C-w>v          " vertical split
-nnoremap <leader>- <C-w>s           " horizontal split
-nnoremap <Leader>w <C-w><C-w>       " switch windows w/ \+w
-nnoremap <C-M-j> mz:m+<cr>`z                " move line of text up
-nnoremap <C-M-k> mz:m-2<cr>`z               " move line ot text down
-vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z   " move line of text up (visual mode)
-vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z  " move line of text down (visual mode)
-nmap <silent> <leader><space> :nohlsearch<CR>   " turn off nohlsearch
-nnoremap <Leader>S :%s//<left>                  "leader+S for search/replace
-nnoremap <Leader>s /                            " leader+s for search
-nnoremap <leader><leader> <c;^>                 " switch between files with ,,
-nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z   " Clean trailing whitespace
-nnoremap <leader>v V']                          " ,v selects text just pasted in
-nnoremap <tab> %                    " remap % to tab (to find matching bracket pairs)
-vnoremap <tab> %                    " remap % to tab (to find matching bracket pairs)
-nnoremap <Tab> %                    " tab for % (i.e. moving b/w brackets)
-inoremap <Leader><cr> <nop>         " leader enter does nothing in insert
-cmap w!! w !sudo tee % >/dev/null   " sudo for write
-nnoremap <Leader>tf zA              " open/close single fold
-"nnoremap <space> za
-nnoremap <Leader>caf zM             " close all folds
-nnoremap <Leader>af zR              " open all folds
-nnoremap <silent> <Leader>n :set invnumber<CR> " toggle line numbers
-nnoremap <C-n> <C-f>                " C-n to page down
-nnoremap <silent> <leader>vt :Ack! TODO<CR>     " open Ack quick fix window to show TODO's
-
+" upper case last word using ctrl+u
+inoremap <C-u> <esc>mzgUiw`za
+" Shift-Tab enters actual tab
+inoremap <S-Tab> <C-V><Tab>
+" remap 0 to first nonblank character
+nnoremap 0 ^
+" vertical split
+nnoremap <leader>\| <C-w>v
+" horizontal split
+nnoremap <leader>- <C-w>s
+" switch windows w/ \+w
+nnoremap <Leader>w <C-w><C-w>
+" move line of text up
+nnoremap <C-M-j> mz:m+<cr>`z
+" move line ot text down
+nnoremap <C-M-k> mz:m-2<cr>`z
+" move line of text up (visual mode)
+vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
+" move line of text down (visual mode)
+vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <silent> <leader><space> :nohlsearch<CR>
+" turn off nohlsearch
+" leader+S for search/replace
+nnoremap <Leader>S :%s//<left>
+" leader+s for search
+nnoremap <Leader>s /
+" switch between files with ,,
+nnoremap <leader><leader> <c;^>
+" Clean trailing whitespace
+nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+" ,v selects text just pasted in
+nnoremap <leader>v V']
+" remap % to tab (to find matching bracket pairs)
+nnoremap <tab> %
+vnoremap <tab> %
+" leader enter does nothing in insert
+inoremap <Leader><cr> <nop>
+" sudo for write
+cmap w!! w !sudo tee % >/dev/null
+" toggle line numbers
+nnoremap <silent> <Leader>n :set invnumber<CR>
+" C-n to page down
+nnoremap <C-n> <C-f>
+" open Ack quick fix window to show TODO's
+nnoremap <silent> <leader>vt :Ack! TODO<CR>
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
+" map // to copy visually selected text and search
+vnoremap // y/<C-R>"<CR>
+" Switch CWD to the directory of the open buffer
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+" Disable highlight when <leader><cr> is pressed
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+
+" fold controls
+nnoremap <Leader>tf zA
+"nnoremap <space> za
+nnoremap <Leader>caf zM
+nnoremap <Leader>af zR
 
 " no arrow keys
 nnoremap <up> <nop>
@@ -356,23 +376,21 @@ set guioptions-=L"
 
 "}}}
 
-" Shortcuts {{{
-
-" Increment lists in markdown
-inoremap <Leader><cr> <esc>Yp<C-a>e1C
-
-" map // to copy visually selected text and search
-vnoremap // y/<C-R>"<CR>
-
-"}}}
-
 "{{{ Moving around, tabs, windows and buffers
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"nnoremap <space> /
-"nnoremap <c-space> ?
 
-" Disable highlight when <leader><cr> is pressed
-nnoremap <silent> <leader><cr> :noh<cr>
+" use Alt+{hjkl} to navigate windows from any mode
+:tnoremap <A-h> <C-\><C-N><C-w>h
+:tnoremap <A-j> <C-\><C-N><C-w>j
+:tnoremap <A-k> <C-\><C-N><C-w>k
+:tnoremap <A-l> <C-\><C-N><C-w>l
+:inoremap <A-h> <C-\><C-N><C-w>h
+:inoremap <A-j> <C-\><C-N><C-w>j
+:inoremap <A-k> <C-\><C-N><C-w>k
+:inoremap <A-l> <C-\><C-N><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
 
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -380,16 +398,10 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
-nnoremap <Leader>b :b
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
 
-" Close all the buffers
-nnoremap <leader>ba :bufdo bd<cr>
-
 " go to previous and next buffer
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>bp :bprevious<cr>
 nnoremap <C-Left> :bprevious<cr>
 nnoremap <C-Right> :bnext<cr>
 
@@ -415,16 +427,12 @@ nnoremap <M-k> <C-w>-
 nnoremap <M-l> <C-w>>
 
 " Let 'tl' toggle between this and the last accessed tab
-"let g:lasttab = 1
-"nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-"au TabLeave * let g:lasttab = tabpagenr()
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
 nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -432,6 +440,7 @@ try
   set stal=2
 catch
 endtry
+
 "}}}
 
 " Plugin Configurations {{{
@@ -618,3 +627,4 @@ augroup END
 " :helpgrep <text> - grep for <text> in all help docs
 " :cn :cp to go to next or previous result from :helpgrep
 "}}}
+"
