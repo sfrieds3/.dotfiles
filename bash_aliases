@@ -26,3 +26,6 @@ alias vim='nvim'
 # alias for sudo
 # to check for aliases after sudo
 alias sudo='sudo '
+
+# alias for golang github dir
+alias gogit='cd go/src/github.com/sfrieds3'
