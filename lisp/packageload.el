@@ -17,7 +17,6 @@
         google-this
         indent-guide
         autopair
-;;        agressive-indent
         minimap
         magit
         ghub
@@ -30,7 +29,9 @@
         ivy
         counsel
         swiper
-        flx))
+        flx
+        dracula-theme
+        monochrome-theme))
 
 ;; activate all the packages (in particular autoloads)
 (package-initialize)
