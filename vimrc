@@ -73,9 +73,6 @@ if !exists("g:syntax_on")
     syntax enable
 endif
 
-" set termguicolors
-set termguicolors
-
 "set colorscheme below
 colorscheme hickop
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
@@ -132,9 +129,6 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 let mapleader = ","                 " update leader
 let g:mapleader = ","               " update leader
 
-" neovim commands
-" neovim terminal - esc to exit terminal-mode
-:tnoremap <Esc> <C-\><C-n>
 
 "wrapped lines go down/up to next row
 noremap j gj
@@ -264,9 +258,6 @@ set hlsearch
 " Line numbers
 set nonumber
 
-" do not show line numbers in terminal mode
-au TermOpen * setlocal nonumber norelativenumber
-
 " netrw settings
 " - :edit a folder to open a file browser
 " - <CR>/v/t to open in an h-split/v-split/tab
@@ -295,6 +286,28 @@ set backupdir=~/.vim/backup
 set noswapfile
 
 "}}}
+
+" neovim settings {{{
+
+if has('nvim')
+" neovim commands
+" neovim terminal - esc to exit terminal-mode
+:tnoremap <Esc> <C-\><C-n>
+
+" set termguicolors
+set termguicolors
+
+" do not show line numbers in terminal mode
+au TermOpen * setlocal nonumber norelativenumber
+
+" use Alt+{hjkl} to navigate windows from terminal mode
+:tnoremap <A-h> <C-\><C-N><C-w>h
+:tnoremap <A-j> <C-\><C-N><C-w>j
+:tnoremap <A-k> <C-\><C-N><C-w>k
+:tnoremap <A-l> <C-\><C-N><C-w>l
+endif
+
+" }}}
 
 " Remapping key commands {{{
 
@@ -381,10 +394,6 @@ set guioptions-=L"
 "{{{ Moving around, tabs, windows and buffers
 
 " use Alt+{hjkl} to navigate windows from any mode
-:tnoremap <A-h> <C-\><C-N><C-w>h
-:tnoremap <A-j> <C-\><C-N><C-w>j
-:tnoremap <A-k> <C-\><C-N><C-w>k
-:tnoremap <A-l> <C-\><C-N><C-w>l
 :inoremap <A-h> <C-\><C-N><C-w>h
 :inoremap <A-j> <C-\><C-N><C-w>j
 :inoremap <A-k> <C-\><C-N><C-w>k
@@ -459,6 +468,52 @@ nnoremap <Leader>gg :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
+
+" use [c and ]c to cycle throguh hunks in all buffers
+function! NextHunkAllBuffers()
+  let line = line('.')
+  GitGutterNextHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bnext
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! 1G
+      GitGutterNextHunk
+      return
+    endif
+  endwhile
+endfunction
+
+function! PrevHunkAllBuffers()
+  let line = line('.')
+  GitGutterPrevHunk
+  if line('.') != line
+    return
+  endif
+
+  let bufnr = bufnr('')
+  while 1
+    bprevious
+    if bufnr('') == bufnr
+      return
+    endif
+    if !empty(GitGutterGetHunks())
+      normal! G
+      GitGutterPrevHunk
+      return
+    endif
+  endwhile
+endfunction
+
+nmap <silent> ]c :call NextHunkAllBuffers()<CR>
+nmap <silent> [c :call PrevHunkAllBuffers()<CR>
 
 " fugitive
 nnoremap <Leader>gs :Gstatus<CR>
