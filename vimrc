@@ -127,7 +127,7 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 " Basic vim settings {{{
 "
 let mapleader = ","                 " update leader
-let g:mapleader = ","               " update leader
+let maplocalleader = "\\"           " map local leader- can use for other commands with <localleader>
 
 
 "wrapped lines go down/up to next row
