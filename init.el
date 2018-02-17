@@ -62,7 +62,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-frame-font "Ubuntu Mono 12")
+(set-frame-font "Hack 11")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
