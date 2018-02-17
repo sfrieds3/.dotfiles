@@ -208,3 +208,17 @@
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
 (provide 'init.el)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("858a353233c58b69dbe3a06087fc08905df2d8755a0921ad4c407865f17ab52f" "53f97243218e8be82ba035ae34c024fd2d2e4de29dc6923e026d5580c77ff702" "d5b121d69e48e0f2a84c8e4580f0ba230423391a78fcb4001ccb35d02494d79e" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
