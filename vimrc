@@ -367,6 +367,8 @@ vnoremap // y/<C-R>"<CR>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :noh<cr>
+" <localleader>b to list buffers
+nnoremap <silent> <localleader>b :ls b<cr>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
