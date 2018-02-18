@@ -358,7 +358,9 @@ nnoremap <C-n> <C-f>
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
 " open Ack quick fix winow to show currnet word
-nnoremap <leader>a :Ack! <cword><CR>
+nnoremap <leader>A :Ack! <cword><CR>
+" ack for a word
+nnoremap <leader>a :Ack!
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
 " map // to copy visually selected text and search
