@@ -63,7 +63,13 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-"
+
+" golang
+" goimport on save
+let g:go_fmt_command = "goimports"
+" no listchars for go files
+autocmd FileType go set nolist
+
 " }}}
 
 " theme settings {{{
