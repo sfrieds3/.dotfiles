@@ -4,6 +4,7 @@
 " go get -u github.com/nsf/gocode
 " cargo install racer
 " pip install jedi
+" sudo apt-get install exuberant-ctags
 
 " open second tab on startup
 autocmd VimEnter * TabooOpen scratch
@@ -191,7 +192,6 @@ augroup END
 set path+=**
 
 " Create the `tags` file (may need to install ctags first)
-" sudo apt-get install exuberant-ctags
 command! MakeTags !ctags -R .
 
 " NOW WE CAN:
@@ -348,66 +348,94 @@ endif
 
 " Remapping key commands {{{
 
-
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
+
 " Shift-Tab enters actual tab
 inoremap <S-Tab> <C-V><Tab>
+
 " remap 0 to first nonblank character
 nnoremap 0 ^
+
 " vertical split
 nnoremap <leader>\| <C-w>v
+
 " horizontal split
 nnoremap <leader>- <C-w>s
+
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
+
 " move line of text up
 nnoremap <C-M-j> mz:m+<cr>`z
+
 " move line ot text down
 nnoremap <C-M-k> mz:m-2<cr>`z
+
 " move line of text up (visual mode)
 vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
+
 " move line of text down (visual mode)
 vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-nmap <silent> <leader><space> :nohlsearch<CR>
+
 " turn off nohlsearch
+nmap <silent> <leader><space> :nohlsearch<CR>
+
 " leader+S for search/replace
 nnoremap <Leader>S :%s//<left>
+
 " leader+s for search
 nnoremap <Leader>s /
+
 " switch between files with ,,
 nnoremap <leader><leader> <c;^>
+
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
 " ,v selects text just pasted in
 nnoremap <leader>v V']
+
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
 vnoremap <tab> %
+
 " leader enter does nothing in insert
 inoremap <Leader><cr> <nop>
+
 " sudo for write
 cmap w!! w !sudo tee % >/dev/null
+
 " toggle line numbers
 nnoremap <silent> <Leader>n :set invnumber<CR>
+
 " C-n to page down
 nnoremap <C-n> <C-f>
+
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
+
 " open Ack quick fix winow to show currnet word
 nnoremap <leader>A :Ack! <cword><CR>
+
 " ack for a word
 nnoremap <leader>a :Ack!
+
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
+
 " map // to copy visually selected text and search
 vnoremap // y/<C-R>"<CR>
+
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :noh<cr>
+
 " <localleader>b to list buffers
 nnoremap <silent> <localleader>b :ls b<cr>
+
 " <localleader>t to show tagbar
 nnoremap <localleader>b :TagbarToggle<CR>
 
