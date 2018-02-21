@@ -35,11 +35,39 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
 
+"-------------------------------------------------------"
+
 " colors
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'hickop/vim-hickop-colors' " Hickop colors
 
-" tpope stuff {{{
+"-------------------------------------------------------"
+
+" deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" deoplete sources
+" go get -u github.com/nsf/gocode
+" cargo install racer
+" pip install jedi
+
+Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'zchee/deoplete-jedi' " python autocomplete
+Plug 'sebastianmarkow/deoplete-rust' " rust autocomplete
+Plug 'Shougo/neco-vim' " vim auocomplete
+Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+Plug 'neovim/python-client' " required for python autocomplete
+Plug 'davidhalter/jedi' " python autocomplete engine
+
+"-------------------------------------------------------"
+
+" tpope stuff
 
 Plug 'tpope/vim-commentary' " plugin for commenting things
 Plug 'tpope/vim-fugitive' " git manager for vim
@@ -49,7 +77,7 @@ Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'tpope/vim-surround'
 
-" }}}
+"-------------------------------------------------------"
 
 
 " ALL PLUGINS BEFORE THIS LINE
