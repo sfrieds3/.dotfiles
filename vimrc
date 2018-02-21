@@ -34,6 +34,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
+Plug 'majutsushi/tagbar' " tagbar on right side
 
 "-------------------------------------------------------"
 
@@ -405,6 +406,8 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <silent> <leader><cr> :noh<cr>
 " <localleader>b to list buffers
 nnoremap <silent> <localleader>b :ls b<cr>
+" <localleader>t to show tagbar
+nnoremap <localleader>b :TagbarToggle<CR>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
