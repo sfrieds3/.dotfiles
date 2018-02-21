@@ -507,6 +507,12 @@ nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
 
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " use [c and ]c to cycle throguh hunks in all buffers
 function! NextHunkAllBuffers()
   let line = line('.')
@@ -559,7 +565,7 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 
-" NERDTree {{{
+" NERDTree
 
 " Nerdtree starts up automatially if no file selected for vim
 autocmd StdinReadPre * let s:std_in=1
@@ -580,8 +586,6 @@ let NERDTreeShowHidden=1
 " ,O opens directory in netrw
 nnoremap <Leader>O :Explore %:h<cr>
 
-" }}}
-
 " use ag for ack search, fall back on ack if ag not avail
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
@@ -601,7 +605,7 @@ nnoremap <C-e> :CtrlPBuffer<CR>
 nnoremap <Leader>bf :CtrlPBuffer<CR>
 nnoremap <Leader>p :CtrlPMixed<CR>
 
-" rainbow parenthesis - activate on startup {{{
+" rainbow parenthesis
 " set colors for rainbow parenthesis
 let faded_orange = '#af3a03'
 let faded_blue = '#076678'
@@ -639,7 +643,6 @@ let g:rainbow_conf = {
             \		'css': 0,
             \	}
             \}
-" }}}
 
 "}}}
 
