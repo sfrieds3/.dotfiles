@@ -3,6 +3,7 @@
 " Dependencies
 " go get -u github.com/jstemmer/gotags
 " go get -u github.com/nsf/gocode
+" go get github.com/rogpeppe/godef
 " cargo install racer
 " pip install jedi
 " sudo apt-get install exuberant-ctags
