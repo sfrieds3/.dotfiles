@@ -1,4 +1,9 @@
 " Housekeeping {{{
+" Dependencies
+" go get -u github.com/jstemmer/gotags
+" go get -u github.com/nsf/gocode
+" cargo install racer
+" pip install jedi
 
 " open second tab on startup
 autocmd VimEnter * TabooOpen scratch
@@ -54,9 +59,6 @@ else
 endif
 
 " deoplete sources
-" go get -u github.com/nsf/gocode
-" cargo install racer
-" pip install jedi
 
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
@@ -607,6 +609,49 @@ let g:ctrlp_cmd = 'CtrlP'
 nnoremap <C-e> :CtrlPBuffer<CR>
 nnoremap <Leader>bf :CtrlPBuffer<CR>
 nnoremap <Leader>p :CtrlPMixed<CR>
+
+" tagbar
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
+ let g:tagbar_type_rust = {
+    \ 'ctagstype' : 'rust',
+    \ 'kinds' : [
+        \'T:types,type definitions',
+        \'f:functions,function definitions',
+        \'g:enum,enumeration names',
+        \'s:structure names',
+        \'m:modules,module names',
+        \'c:consts,static constants',
+        \'t:traits',
+        \'i:impls,trait implementations',
+    \]
+    \}
 
 " rainbow parenthesis
 " set colors for rainbow parenthesis
