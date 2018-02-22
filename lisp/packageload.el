@@ -30,7 +30,7 @@
         counsel
         swiper
         flx
-        dracula-theme
+        ample-theme
         monochrome-theme))
 
 ;; activate all the packages (in particular autoloads)

@@ -4,6 +4,7 @@
 " go get -u github.com/jstemmer/gotags
 " go get -u github.com/nsf/gocode
 " go get github.com/rogpeppe/godef
+" :GoInstallBinaries
 " cargo install racer
 " pip install jedi
 " sudo apt-get install exuberant-ctags
@@ -439,7 +440,7 @@ nnoremap <silent> <leader><cr> :noh<cr>
 nnoremap <silent> <localleader>b :ls b<cr>
 
 " <localleader>t to show tagbar
-nnoremap <localleader>b :TagbarToggle<CR>
+nnoremap <localleader>t :TagbarToggle<CR>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
@@ -529,8 +530,9 @@ endtry
 
 " Plugin Configurations {{{
 
-" autocomplete
+" deoplete
 let g:deoplete#enable_at_startup = 1
+autocmd CompleteDone * pclose! " close quickfix window
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux

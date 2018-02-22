@@ -72,7 +72,10 @@
                         system-name
                         ))))
 
-(load-theme 'wombat t)
+(load-theme 'ample t t)
+(load-theme 'ample-flat t t)
+(load-theme 'ample-light t t)
+(enable-theme 'ample)
 
 (set-face-attribute 'mode-line t
                     :background "#808080"
