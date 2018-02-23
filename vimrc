@@ -372,6 +372,15 @@ nnoremap <silent> <leader><cr> :noh<cr>
 " <localleader>b to list buffers
 nnoremap <silent> <localleader>b :ls b<cr>
 
+" use ctrl-s to vimgrep and open results in quickfix window
+function! FindAll()
+    call inputsave()
+    let p = input('Enter pattern:')
+    call inputrestore()
+    execute 'vimgrep "'.p.'" % |copen'
+endfunction
+nnoremap <C-s> :call FindAll()<cr>
+
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
