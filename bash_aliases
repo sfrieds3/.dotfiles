@@ -28,4 +28,4 @@ alias vim='nvim'
 alias sudo='sudo '
 
 # alias for golang github dir
-alias gogit='cd go/src/github.com/sfrieds3'
+alias gogit='cd ~/go/src/github.com/sfrieds3'

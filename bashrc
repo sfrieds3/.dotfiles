@@ -114,6 +114,10 @@ fi
 # Nvim as editor
 export EDITOR=nvim
 
+# golang GOPATH
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # update bash prompt
 # get current branch in git repo
 function parse_git_branch() {

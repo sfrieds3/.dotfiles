@@ -1,5 +1,14 @@
 " Housekeeping {{{
 
+" Dependencies
+" go get -u github.com/jstemmer/gotags
+" go get -u github.com/nsf/gocode
+" go get github.com/rogpeppe/godef
+" :GoInstallBinaries
+" cargo install racer
+" pip install jedi
+" sudo apt-get install exuberant-ctags
+
 " open second tab on startup
 autocmd VimEnter * TabooOpen scratch
 autocmd VimEnter * tabprevious
@@ -34,12 +43,38 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
+Plug 'majutsushi/tagbar' " tagbar on right side
+
+"-------------------------------------------------------"
 
 " colors
 Plug 'morhetz/gruvbox' " gruvbox colorscheme
 Plug 'hickop/vim-hickop-colors' " Hickop colors
 
-" tpope stuff {{{
+"-------------------------------------------------------"
+
+" deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" deoplete sources
+
+Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'zchee/deoplete-jedi' " python autocomplete
+Plug 'sebastianmarkow/deoplete-rust' " rust autocomplete
+Plug 'Shougo/neco-vim' " vim auocomplete
+Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+Plug 'neovim/python-client' " required for python autocomplete
+Plug 'davidhalter/jedi' " python autocomplete engine
+
+"-------------------------------------------------------"
+
+" tpope stuff
 
 Plug 'tpope/vim-commentary' " plugin for commenting things
 Plug 'tpope/vim-fugitive' " git manager for vim
@@ -49,7 +84,7 @@ Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'tpope/vim-surround'
 
-" }}}
+"-------------------------------------------------------"
 
 
 " ALL PLUGINS BEFORE THIS LINE
@@ -63,7 +98,13 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-"
+
+" golang
+" goimport on save
+let g:go_fmt_command = "goimports"
+" no listchars for go files
+autocmd FileType go set nolist
+
 " }}}
 
 " theme settings {{{
@@ -154,7 +195,6 @@ augroup END
 set path+=**
 
 " Create the `tags` file (may need to install ctags first)
-" sudo apt-get install exuberant-ctags
 command! MakeTags !ctags -R .
 
 " NOW WE CAN:
@@ -311,64 +351,91 @@ endif
 
 " Remapping key commands {{{
 
-
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
+
 " Shift-Tab enters actual tab
 inoremap <S-Tab> <C-V><Tab>
+
 " remap 0 to first nonblank character
 nnoremap 0 ^
+
 " vertical split
 nnoremap <leader>\| <C-w>v
+
 " horizontal split
 nnoremap <leader>- <C-w>s
+
 " switch windows w/ \+w
 nnoremap <Leader>w <C-w><C-w>
+
 " move line of text up
 nnoremap <C-M-j> mz:m+<cr>`z
+
 " move line ot text down
 nnoremap <C-M-k> mz:m-2<cr>`z
+
 " move line of text up (visual mode)
 vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
+
 " move line of text down (visual mode)
 vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-nmap <silent> <leader><space> :nohlsearch<CR>
+
 " turn off nohlsearch
+nmap <silent> <leader><space> :nohlsearch<CR>
+
 " leader+S for search/replace
 nnoremap <Leader>S :%s//<left>
+
 " leader+s for search
 nnoremap <Leader>s /
+
 " switch between files with ,,
 nnoremap <leader><leader> <c;^>
+
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
 " ,v selects text just pasted in
 nnoremap <leader>v V']
+
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
 vnoremap <tab> %
+
 " leader enter does nothing in insert
 inoremap <Leader><cr> <nop>
+
 " sudo for write
 cmap w!! w !sudo tee % >/dev/null
+
 " toggle line numbers
 nnoremap <silent> <Leader>n :set invnumber<CR>
+
 " C-n to page down
 nnoremap <C-n> <C-f>
+
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
+
 " open Ack quick fix winow to show currnet word
 nnoremap <leader>A :Ack! <cword><CR>
+
 " ack for a word
 nnoremap <leader>a :Ack!
+
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
+
 " map // to copy visually selected text and search
 vnoremap // y/<C-R>"<CR>
+
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :noh<cr>
+
 " <localleader>b to list buffers
 nnoremap <silent> <localleader>b :ls b<cr>
 
@@ -380,6 +447,9 @@ function! FindAll()
     execute 'vimgrep "'.p.'" % |copen'
 endfunction
 nnoremap <C-s> :call FindAll()<cr>
+
+" <localleader>t to show tagbar
+nnoremap <localleader>t :TagbarToggle<CR>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
@@ -469,8 +539,9 @@ endtry
 
 " Plugin Configurations {{{
 
-" autocomplete
+" deoplete
 let g:deoplete#enable_at_startup = 1
+autocmd CompleteDone * pclose! " close quickfix window
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
@@ -481,6 +552,13 @@ nnoremap <Leader>gg :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:go_list_type = "quickfix"
 
 " use [c and ]c to cycle throguh hunks in all buffers
 function! NextHunkAllBuffers()
@@ -534,7 +612,7 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 
-" NERDTree {{{
+" NERDTree
 
 " Nerdtree starts up automatially if no file selected for vim
 autocmd StdinReadPre * let s:std_in=1
@@ -555,8 +633,6 @@ let NERDTreeShowHidden=1
 " ,O opens directory in netrw
 nnoremap <Leader>O :Explore %:h<cr>
 
-" }}}
-
 " use ag for ack search, fall back on ack if ag not avail
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
@@ -576,7 +652,50 @@ nnoremap <C-e> :CtrlPBuffer<CR>
 nnoremap <Leader>bf :CtrlPBuffer<CR>
 nnoremap <Leader>p :CtrlPMixed<CR>
 
-" rainbow parenthesis - activate on startup {{{
+" tagbar
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
+ let g:tagbar_type_rust = {
+    \ 'ctagstype' : 'rust',
+    \ 'kinds' : [
+        \'T:types,type definitions',
+        \'f:functions,function definitions',
+        \'g:enum,enumeration names',
+        \'s:structure names',
+        \'m:modules,module names',
+        \'c:consts,static constants',
+        \'t:traits',
+        \'i:impls,trait implementations',
+    \]
+    \}
+
+" rainbow parenthesis
 " set colors for rainbow parenthesis
 let faded_orange = '#af3a03'
 let faded_blue = '#076678'
@@ -614,7 +733,6 @@ let g:rainbow_conf = {
             \		'css': 0,
             \	}
             \}
-" }}}
 
 "}}}
 
