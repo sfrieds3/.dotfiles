@@ -550,6 +550,12 @@ endtry
 let g:deoplete#enable_at_startup = 1
 autocmd CompleteDone * pclose! " close quickfix window
 
+" make enter work with deoplete in insert mode
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+    return deoplete#close_popup() . "\<CR>"
+endfunction
+
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
