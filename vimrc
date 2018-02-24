@@ -7,6 +7,9 @@
 " :GoInstallBinaries
 " cargo install racer
 " pip install jedi
+" pip3 install neovim
+" pip install neovim
+" :UpdateRemotePlugins
 " sudo apt-get install exuberant-ctags
 
 " open second tab on startup
@@ -44,6 +47,7 @@ Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
 Plug 'majutsushi/tagbar' " tagbar on right side
+Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
 
 "-------------------------------------------------------"
 
@@ -68,9 +72,9 @@ Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'sebastianmarkow/deoplete-rust' " rust autocomplete
 Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
 Plug 'neovim/python-client' " required for python autocomplete
-Plug 'davidhalter/jedi' " python autocomplete engine
+Plug 'davidhalter/jedi' " python autocomplete
+Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
 
 "-------------------------------------------------------"
 
@@ -104,6 +108,9 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 let g:go_fmt_command = "goimports"
 " no listchars for go files
 autocmd FileType go set nolist
+
+" Java
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " }}}
 
@@ -654,46 +661,64 @@ nnoremap <Leader>p :CtrlPMixed<CR>
 
 " tagbar
 let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : {
-		\ 't' : 'ctype',
-		\ 'n' : 'ntype'
-	\ },
-	\ 'scope2kind' : {
-		\ 'ctype' : 't',
-		\ 'ntype' : 'n'
-	\ },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-\ }
+            \ 'ctagstype' : 'go',
+            \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+            \ ],
+            \ 'sro' : '.',
+            \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+            \ },
+            \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+            \ },
+            \ 'ctagsbin'  : 'gotags',
+            \ 'ctagsargs' : '-sort -silent'
+            \ }
 
- let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds' : [
-        \'T:types,type definitions',
-        \'f:functions,function definitions',
-        \'g:enum,enumeration names',
-        \'s:structure names',
-        \'m:modules,module names',
-        \'c:consts,static constants',
-        \'t:traits',
-        \'i:impls,trait implementations',
-    \]
-    \}
+" rust
+let g:tagbar_type_rust = {
+            \ 'ctagstype' : 'rust',
+            \ 'kinds' : [
+            \'T:types,type definitions',
+            \'f:functions,function definitions',
+            \'g:enum,enumeration names',
+            \'s:structure names',
+            \'m:modules,module names',
+            \'c:consts,static constants',
+            \'t:traits',
+            \'i:impls,trait implementations',
+            \]
+            \}
+
+" markdown
+" Add support for markdown files in tagbar.
+let g:tagbar_type_markdown = {
+            \ 'ctagstype': 'markdown',
+            \ 'ctagsbin' : '~/.vim/plugged/markdown2ctags/markdown2ctags.py',
+            \ 'ctagsargs' : '-f - --sort=yes',
+            \ 'kinds' : [
+            \ 's:sections',
+            \ 'i:images'
+            \ ],
+            \ 'sro' : '|',
+            \ 'kind2scope' : {
+            \ 's' : 'section',
+            \ },
+            \ 'sort': 0,
+            \ }
 
 " rainbow parenthesis
 " set colors for rainbow parenthesis
