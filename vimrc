@@ -159,6 +159,7 @@ if g:colors_name == 'nord'
     let g:nord_italic = 1
     let g:nord_italic_comments = 1
     let g:nord_comment_brightness = 13
+    highlight Comment guifg=#81A1C1 " comment colors
     " show line at column 80, full highlight from column 120 on
     "let &colorcolumn="80,".join(range(120,999),",")
 endif
