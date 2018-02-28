@@ -5,12 +5,14 @@
 " go get -u github.com/nsf/gocode
 " go get github.com/rogpeppe/godef
 " :GoInstallBinaries
+" export PATH=$PATH:$(go env GOPATH)/bin
 " cargo install racer
 " pip install jedi
 " pip3 install neovim
 " pip install neovim
 " :UpdateRemotePlugins
 " sudo apt-get install exuberant-ctags
+" go get -u github.com/sourcegraph/go-langserver
 
 " open second tab on startup
 autocmd VimEnter * TabooOpen scratch
@@ -48,12 +50,26 @@ Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
 Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
+Plug 'junegunn/fzf' " multiselction ui
 
 "-------------------------------------------------------"
 
 " colors
-Plug 'morhetz/gruvbox' " gruvbox colorscheme
-Plug 'hickop/vim-hickop-colors' " Hickop colors
+Plug 'morhetz/gruvbox'
+Plug 'hickop/vim-hickop-colors'
+Plug 'ayu-theme/ayu-vim'
+Plug 'arcticicestudio/nord-vim'
+
+"-------------------------------------------------------"
+
+" language server
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
+
+" plugins
+
 
 "-------------------------------------------------------"
 
@@ -75,6 +91,7 @@ Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'neovim/python-client' " required for python autocomplete
 Plug 'davidhalter/jedi' " python autocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
 
 "-------------------------------------------------------"
 
@@ -103,11 +120,21 @@ autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
+"-------------------------------------------------------"
+
 " golang
 " goimport on save
 let g:go_fmt_command = "goimports"
 " no listchars for go files
 autocmd FileType go set nolist
+" show definition when hovering
+let g:go_auto_type_info = 1
+autocmd FileType go nnoremap <localleader>d :GoDoc<CR>
+autocmd FileType go nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+autocmd FileType go nnoremap <localleader>D :call LanguageClient_textDocument_definition()<CR>
+autocmd FileType go nnoremap <localleader>r :call LanguageClient_textDocument_rename()<CR>
+
+"-------------------------------------------------------"
 
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -122,10 +149,25 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme hickop
+colorscheme nord
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
+
+" nord colorscheme settings
+if g:colors_name == 'nord'
+    let g:nord_italic = 1
+    let g:nord_italic_comments = 1
+    let g:nord_comment_brightness = 13
+    " show line at column 80, full highlight from column 120 on
+    "let &colorcolumn="80,".join(range(120,999),",")
+endif
+
+if g:colors_name == 'hickop'
+    " show line at column 80, full highlight from column 120 on
+    highlight ColorColumn ctermbg=235 guibg=#282828
+    let &colorcolumn="80,".join(range(120,999),",")
+endif
 
 " }}}
 
@@ -255,11 +297,6 @@ autocmd BufWinLeave * call clearmatches()
 " select line and gq to reformat
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.html setlocal textwidth=80
-
-" show line at column 80, full highlight from column 120 on
-highlight ColorColumn ctermbg=235 guibg=#282828
-let &colorcolumn="80,".join(range(120,999),",")
-
 
 "Brace face
 set showmatch
@@ -413,6 +450,9 @@ vnoremap <tab> %
 " leader enter does nothing in insert
 inoremap <Leader><cr> <nop>
 
+" Close all but the current one
+nnoremap <localleader>o :only<CR>
+
 " sudo for write
 cmap w!! w !sudo tee % >/dev/null
 
@@ -548,13 +588,28 @@ endtry
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-autocmd CompleteDone * pclose! " close quickfix window
+autocmd CompleteDone * pclose!
+"
+" deoplete-go settings
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " make enter work with deoplete in insert mode
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
     return deoplete#close_popup() . "\<CR>"
 endfunction
+
+" LanguageClient
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+            \ 'python': ['pyls'],
+            \ 'cpp': ['clangd'],
+            \ 'go': ['go-langserver'],
+            \ }
+
+let g:LanguageClient_autoStart = 1
+
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
