@@ -94,9 +94,6 @@ alias l='ls -CF'
 # python alias
 alias python='python3'
 
-# alias for cdm linux box
-alias sshcdm='ssh sfriedr3@cdmlinux.cdm.depaul.edu'
-
 # show autocomplete options
 setopt menu_complete
     setopt auto_menu
