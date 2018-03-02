@@ -8,7 +8,7 @@
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
-ZSH_THEME="ys"
+ZSH_THEME="kardan"
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -53,7 +53,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras command-not-found common-aliases compleat dirhistory geeknote tmux tmuxinator vi-mode web-search)
+plugins=(git git-extras command-not-found common-aliases compleat dirhistory geeknote tmux tmuxinator vi-mode web-search zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -126,6 +126,3 @@ alias python='python3'
 
 # neovim alias
 alias vim='nvim'
-
-# plugins
-plugins=(zsh-autosuggestions)
