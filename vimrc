@@ -4,6 +4,8 @@
 " go get -u github.com/jstemmer/gotags
 " go get -u github.com/nsf/gocode
 " go get github.com/rogpeppe/godef
+" go get -u github.com/derekparker/delve/cmd/dlv
+" gometalinter --install (terminal)
 " :GoInstallBinaries
 " export PATH=$PATH:$(go env GOPATH)/bin
 " cargo install racer
@@ -15,7 +17,8 @@
 " go get -u github.com/sourcegraph/go-langserver
 
 " open second tab on startup
-autocmd VimEnter * TabooOpen scratch
+autocmd VimEnter * TabooOpen bash
+autocmd VimEnter * terminal
 autocmd VimEnter * tabprevious
 
 set nocompatible
@@ -125,14 +128,15 @@ autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 " golang
 " goimport on save
 let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
 " no listchars for go files
 autocmd FileType go set nolist
 " show definition when hovering
 let g:go_auto_type_info = 1
-autocmd FileType go nnoremap <localleader>d :GoDoc<CR>
+autocmd FileType go nnoremap <localleader>d :GoDoc<space>
 autocmd FileType go nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-autocmd FileType go nnoremap <localleader>D :call LanguageClient_textDocument_definition()<CR>
 autocmd FileType go nnoremap <localleader>r :call LanguageClient_textDocument_rename()<CR>
+autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
 
@@ -158,7 +162,6 @@ highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
 if g:colors_name == 'nord'
     let g:nord_italic = 1
     let g:nord_italic_comments = 1
-    let g:nord_comment_brightness = 13
     highlight Comment guifg=#D08770 " comment colors
     " show line at column 80, full highlight from column 120 on
     "let &colorcolumn="80,".join(range(120,999),",")
