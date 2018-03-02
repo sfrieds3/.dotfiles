@@ -95,7 +95,7 @@ alias l='ls -CF'
 alias python='python3'
 
 # golang alias
-alias ~/go/src/github.com/sfrieds3/
+alias gogit='~/go/src/github.com/sfrieds3/'
 
 # show autocomplete options
 #setopt menu_complete
