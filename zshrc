@@ -94,6 +94,9 @@ alias l='ls -CF'
 # python alias
 alias python='python3'
 
+# golang alias
+alias ~/go/src/github.com/sfrieds3/
+
 # show autocomplete options
 #setopt menu_complete
     #setopt auto_menu
