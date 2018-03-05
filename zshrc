@@ -97,6 +97,12 @@ alias python='python3'
 # golang alias
 alias gogit='~/go/src/github.com/sfrieds3/'
 
+# sudo alias
+alias sudo='sudo '
+
+# neovim alias
+alias vim='nvim'
+
 # show autocomplete options
 #setopt menu_complete
     #setopt auto_menu
@@ -126,6 +132,3 @@ alias gogit='~/go/src/github.com/sfrieds3/'
 #zstyle ':completion:*:manuals' separate-sections true
 #zstyle ':completion:*' menu select
 #zstyle ':completion:*' verbose yes
-
-# neovim alias
-alias vim='nvim'
