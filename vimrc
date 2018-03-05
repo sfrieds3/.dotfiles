@@ -913,4 +913,3 @@ augroup END
 " :helpgrep <text> - grep for <text> in all help docs
 " :cn :cp to go to next or previous result from :helpgrep
 "}}}
-"
