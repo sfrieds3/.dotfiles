@@ -143,6 +143,11 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 " Java
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
+"-------------------------------------------------------"
+
+" Markdown
+autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+
 " }}}
 
 " theme settings {{{
