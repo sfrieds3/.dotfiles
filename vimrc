@@ -54,6 +54,7 @@ Plug 'fatih/vim-go' " for golang development
 Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
 Plug 'junegunn/fzf' " multiselction ui
+Plug 'easymotion/vim-easymotion' " vim easymotion
 
 "-------------------------------------------------------"
 
