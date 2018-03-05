@@ -229,6 +229,8 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 let mapleader = ","                 " update leader
 let maplocalleader = "\\"           " map local leader- can use for other commands with <localleader>
 
+" blinking cursor
+set guicursor=a:blinkon1
 
 "wrapped lines go down/up to next row
 noremap j gj
