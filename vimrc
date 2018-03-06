@@ -270,7 +270,7 @@ set ignorecase
 set smartcase
 
 " set characters for end of line & tab
-set list
+"set list
 set showbreak=↪
 set listchars=tab:\|_,nbsp:␣,extends:…,precedes:…
 
