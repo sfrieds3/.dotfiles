@@ -148,6 +148,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " Markdown
 autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+autocmd FileType markdown vnoremap <localleader>q gq
 
 " }}}
 
