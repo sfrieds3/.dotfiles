@@ -473,7 +473,10 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap <silent> <Leader>n :set invnumber<CR>
 
 " C-n to page down
-nnoremap <C-n> <C-f>
+nnoremap <C-n> <C-f>M
+
+" C-b to page up
+nnoremap <C-b> <C-b>M
 
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
