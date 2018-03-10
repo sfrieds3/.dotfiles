@@ -203,6 +203,7 @@ hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
 set statusline=%F                           " file name
+set statusline+=-
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
