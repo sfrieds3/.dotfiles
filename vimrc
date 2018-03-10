@@ -17,9 +17,9 @@
 " go get -u github.com/sourcegraph/go-langserver
 
 " open second tab on startup
-autocmd VimEnter * TabooOpen bash
-autocmd VimEnter * terminal
-autocmd VimEnter * tabprevious
+"autocmd VimEnter * TabooOpen bash
+"autocmd VimEnter * terminal
+"autocmd VimEnter * tabprevious
 
 set nocompatible
 set foldmethod=marker
