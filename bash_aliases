@@ -23,3 +23,6 @@ alias sudo='sudo '
 
 # alias for golang github dir
 alias gogit='cd ~/go/src/github.com/sfrieds3'
+
+# alias for noteit
+alias noteit='go run ~/go/src/github.com/sfrieds3/noteit/main.go'
