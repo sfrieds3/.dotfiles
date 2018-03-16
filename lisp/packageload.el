@@ -30,7 +30,6 @@
         counsel
         swiper
         flx
-        ample-theme
         monochrome-theme))
 
 ;; activate all the packages (in particular autoloads)

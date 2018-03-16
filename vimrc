@@ -72,9 +72,6 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ 'do': 'bash install.sh',
             \ }
 
-" plugins
-
-
 "-------------------------------------------------------"
 
 " deoplete
@@ -138,6 +135,10 @@ autocmd FileType go nnoremap <localleader>d :GoDoc<space>
 autocmd FileType go nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 autocmd FileType go nnoremap <localleader>r :call LanguageClient_textDocument_rename()<CR>
 autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
+
+"-------------------------------------------------------"
+" python
+
 
 "-------------------------------------------------------"
 
@@ -629,6 +630,9 @@ let g:LanguageClient_serverCommands = {
             \ }
 
 let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>art = 1
 
 
 " ignore for wild:
