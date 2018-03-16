@@ -87,7 +87,6 @@ endif
 
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
-Plug 'sebastianmarkow/deoplete-rust' " rust autocomplete
 Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'neovim/python-client' " required for python autocomplete
 Plug 'davidhalter/jedi' " python autocomplete
@@ -98,16 +97,13 @@ Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/sy
 
 " tpope stuff
 
-Plug 'tpope/vim-commentary' " plugin for commenting things
 Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-eunuch' " unix shell commands
 Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
-Plug 'tpope/vim-surround'
 
 "-------------------------------------------------------"
-
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -623,7 +619,6 @@ endfunction
 
 " LanguageClient
 let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
             \ 'python': ['pyls'],
             \ 'cpp': ['clangd'],
             \ 'go': ['go-langserver'],
@@ -634,7 +629,16 @@ nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>art = 1
 
-
+" cquery language client rgister (if installed)
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': { 'cacheDirectory': '/path/to/cquery/cache' },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+      \ })
+endif
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
