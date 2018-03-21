@@ -63,6 +63,7 @@ Plug 'morhetz/gruvbox'
 Plug 'hickop/vim-hickop-colors'
 Plug 'ayu-theme/ayu-vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 "-------------------------------------------------------"
 
@@ -86,12 +87,12 @@ endif
 " deoplete sources
 
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
 Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'neovim/python-client' " required for python autocomplete
 Plug 'davidhalter/jedi' " python autocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
 
 "-------------------------------------------------------"
 
@@ -395,10 +396,10 @@ set termguicolors
 au TermOpen * setlocal nonumber norelativenumber
 
 " use Alt+{hjkl} to navigate windows from terminal mode
-:tnoremap <A-h> <C-\><C-N><C-w>h
-:tnoremap <A-j> <C-\><C-N><C-w>j
-:tnoremap <A-k> <C-\><C-N><C-w>k
-:tnoremap <A-l> <C-\><C-N><C-w>l
+":tnoremap <A-h> <C-\><C-N><C-w>h
+":tnoremap <A-j> <C-\><C-N><C-w>j
+":tnoremap <A-k> <C-\><C-N><C-w>k
+":tnoremap <A-l> <C-\><C-N><C-w>l
 endif
 
 " }}}
@@ -496,9 +497,6 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :noh<cr>
 
-" <localleader>b to list buffers
-nnoremap <silent> <localleader>b :ls b<cr>
-
 " use ctrl-s to vimgrep and open results in quickfix window
 function! FindAll()
     call inputsave()
@@ -537,14 +535,14 @@ set guioptions-=L"
 "{{{ Moving around, tabs, windows and buffers
 
 " use Alt+{hjkl} to navigate windows from any mode
-:inoremap <A-h> <C-\><C-N><C-w>h
-:inoremap <A-j> <C-\><C-N><C-w>j
-:inoremap <A-k> <C-\><C-N><C-w>k
-:inoremap <A-l> <C-\><C-N><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+":inoremap <A-h> <C-\><C-N><C-w>h
+":inoremap <A-j> <C-\><C-N><C-w>j
+":inoremap <A-k> <C-\><C-N><C-w>k
+":inoremap <A-l> <C-\><C-N><C-w>l
+":nnoremap <A-h> <C-w>h
+":nnoremap <A-j> <C-w>j
+":nnoremap <A-k> <C-w>k
+":nnoremap <A-l> <C-w>l
 
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -556,8 +554,11 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>bd :bdelete<cr>
 
 " go to previous and next buffer
-nnoremap <C-Left> :bprevious<cr>
-nnoremap <C-Right> :bnext<cr>
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bn :bnext<cr>
+
+" <localleader>b to list buffers
+nnoremap <silent> <localleader>bl :ls b<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
