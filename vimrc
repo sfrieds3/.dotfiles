@@ -42,7 +42,7 @@ Plug 'kien/ctrlp.vim' " C-P for searching
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
-Plug 'jtratner/vim-flavored-markdown' "markdown for vim
+Plug 'plasticboy/vim-markdown' "markdown for vim
 Plug 'scrooloose/syntastic' " catch-all highlighting
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
