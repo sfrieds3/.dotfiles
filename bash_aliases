@@ -26,3 +26,6 @@ alias gogit='cd ~/go/src/github.com/sfrieds3'
 
 # alias for noteit
 alias noteit='go run ~/go/src/github.com/sfrieds3/noteit/main.go'
+
+# alias for eclim
+alias eclim='~/eclipse/java-latest-released/eclipse/eclimd'
