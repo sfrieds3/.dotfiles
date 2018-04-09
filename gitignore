@@ -40,6 +40,17 @@ Thumbs.db
 
 # Java #
 ######################
+.metadata
+**/bin/**
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 **.idea/**/workspace.xml
 /**/*.iml
 **/out/**/*
@@ -47,8 +58,20 @@ Thumbs.db
 **/.classpath
 **/.project
 
-# VS Code #
+# SBT #
+######################
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
 
+# VS Code #
+######################
 **/.vscode/**
 
 # Emacs #

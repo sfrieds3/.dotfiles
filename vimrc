@@ -42,7 +42,6 @@ Plug 'kien/ctrlp.vim' " C-P for searching
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
-Plug 'plasticboy/vim-markdown' "markdown for vim
 Plug 'scrooloose/syntastic' " catch-all highlighting
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
@@ -557,8 +556,8 @@ nnoremap <leader>bd :bdelete<cr>
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
 
-" <localleader>b to list buffers
-nnoremap <silent> <localleader>bl :ls b<cr>
+" <leader>lb to list buffers
+nnoremap <silent> <leader>lb :ls b<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
