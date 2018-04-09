@@ -42,6 +42,7 @@ Thumbs.db
 ######################
 .metadata
 **/bin/**
+**/project/**
 tmp/
 *.tmp
 *.bak

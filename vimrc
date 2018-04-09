@@ -137,12 +137,17 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 
 "-------------------------------------------------------"
-
 " Java
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+"autocmd FileType java let b:deoplete_disable_auto_complete = 1
+autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
+
 
 "-------------------------------------------------------"
+" Scala
+"autocmd FileType scala let b:deoplete_disable_auto_complete = 1
+autocmd FileType scala let g:EclimCompletionMethod = 'omnifunc'
 
+"-------------------------------------------------------"
 " Markdown
 autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
 autocmd FileType markdown vnoremap <localleader>q gq
@@ -606,10 +611,6 @@ autocmd CompleteDone * pclose!
 " deoplete-go settings
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-" deoplete Java settings
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 
 " make enter work with deoplete in insert mode
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
