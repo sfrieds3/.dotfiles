@@ -2,9 +2,6 @@
 ;;;; Commentary:
 ;;;; my Emacs config - its a work in progress
 ;;;;
-;;;; requirements:
-;;;;   silversearcher - sudo apt install silversearcher-ag
-;;;;   jdee - Java backend (https://github.com/jdee-emacs/jdee-server)
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -15,9 +12,20 @@
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (package-refresh-contents)
  )
 )
+
+;;;; USE PACKAGE
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (add-to-list 'load-path "<path where use-package is installed>")
+  (require 'use-package))
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -42,15 +50,6 @@
 ;; set window size on open
 (when window-system (set-frame-size (selected-frame) 135 35))
 
-;; start with split windows
-;; Open split shell on launch
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (split-window-horizontally)
-            (other-window 1)
-            (split-window-vertically)
-            (other-window 2)))
-
 ;; highlight current line
 (global-hl-line-mode t)
 (set-face-attribute hl-line-face nil :underline nil)
@@ -62,7 +61,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; set font
-(set-frame-font "Hack 11")
+(set-frame-font "Ubuntu Mono 14")
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -76,18 +75,6 @@
 
 ;; turn on recent file mode
 (recentf-mode t)
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; DEPENDENCIES
-
-;; add load path
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
-;; other required files
-(require 'theme.el)
-(require 'autocomplete.el)
-(require 'packageload.el)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -120,50 +107,52 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
-;; use Evil mode
-(evil-mode t)
-
-;;; evil nerd commentator
-(global-set-key (kbd "C-c c") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "C-c / l") 'evilnc-quick-comment-or-uncomment-to-the-line)
-(global-set-key (kbd "C-c / c") 'evilnc-copy-and-comment-lines)
-(global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
-
 ;; smooth-scrolling
-(smooth-scrolling-mode 1)
+(use-package smooth-scrolling
+  :ensure t
+  :init
+  (smooth-scrolling-mode 1))
 
 ;; flycheck for syntax checking
-(global-flycheck-mode t)
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
-(global-set-key (kbd "C-c a") 'ag)
-
-;; google-this: C-c g to google
-(google-this-mode 1)
-
-;; yasnippet
-;; (yas-global-mode 1)
+(use-package ag
+  :ensure t
+  :init
+  (global-set-key (kbd "C-c a") 'ag))
 
 ;; autopair
-(autopair-global-mode t)
+(use-package autopair
+  :ensure t
+  :init
+  (autopair-global-mode t))
 
 ;; indent-guide
-(indent-guide-global-mode)
-(setq indent-guide-recursive t)
-
-;; aggressive-indent
-(global-aggressive-indent-mode 1)
-(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+(use-package indent-guide
+  :ensure t
+  :init
+  (indent-guide-global-mode))
 
 ;; which-key
-(which-key-mode t)
-(which-key-setup-side-window-bottom)
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode t)
+  (which-key-setup-side-window-bottom))
 
 ;; idle-highlight-mode
+(use-package idle-highlight-mode
+  :ensure t)
 (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
 
 ;; ace jump mode
+(use-package ace-jump-mode
+  :ensure t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
 
 ;; undo tree
@@ -172,49 +161,4 @@
 ;; rainbow-delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-;; ////////////////////////////////////////////////////////////
-
-;;;; Settings for ivy, counsel, swiper, flx
-
-;; use fuzzy matching
-(setq ivy-re-builders-alist
-      '((ivy-switch-buffer . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
-(setq ivy-initial-inputs-alist nil)
-
-;; ivy settings
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-
 (provide 'init.el)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("858a353233c58b69dbe3a06087fc08905df2d8755a0921ad4c407865f17ab52f" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

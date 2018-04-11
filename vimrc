@@ -92,6 +92,7 @@ Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'neovim/python-client' " required for python autocomplete
 Plug 'davidhalter/jedi' " python autocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
 
 "-------------------------------------------------------"
 
@@ -145,7 +146,7 @@ autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
 "-------------------------------------------------------"
 " Scala
 "autocmd FileType scala let b:deoplete_disable_auto_complete = 1
-autocmd FileType scala let g:EclimCompletionMethod = 'omnifunc'
+"autocmd FileType scala let g:EclimCompletionMethod = 'omnifunc'
 
 "-------------------------------------------------------"
 " Markdown
@@ -607,7 +608,13 @@ endtry
 " deoplete
 let g:deoplete#enable_at_startup = 1
 autocmd CompleteDone * pclose!
-"
+let g:deoplete#sources={}
+let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
+let g:deoplete#omni#input_patterns={}
+
+" deoplete Scala settings
+let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+
 " deoplete-go settings
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
