@@ -1,7 +1,6 @@
 ;;;; package --- summary
 ;;;; Commentary:
 ;;;; my Emacs config - its a work in progress
-;;;;
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -14,7 +13,6 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
  )
 )
-
 ;;;; USE PACKAGE
 (eval-when-compile
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
@@ -26,6 +24,16 @@
 (setq version-control t)
 (setq vc-make-backup-files t)
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; THEME SETTINGS
+
+;; Set theme here
+(use-package material-theme
+  :ensure t
+  :init
+  (load-theme 'material t))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -47,11 +55,12 @@
 (setq visible-bell nil
       ring-bell-function #'ignore)
 
-;; set window size on open
-(when window-system (set-frame-size (selected-frame) 135 35))
+;; use y/n for all yes/no prompts
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; highlight current line
 (global-hl-line-mode t)
+(defvar hl-line-face)
 (set-face-attribute hl-line-face nil :underline nil)
 
 ;; spaces by default instead of tabs!
@@ -63,18 +72,31 @@
 ;; set font
 (set-frame-font "Ubuntu Mono 14")
 
-;; move between windows with shift-arrow keys
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-
-;; move between windows with Alt-arrow
-(global-set-key [M-left] 'windmove-left)          ; move to left window
-(global-set-key [M-right] 'windmove-right)        ; move to right window
-(global-set-key [M-up] 'windmove-up)              ; move to upper window
-(global-set-key [M-down] 'windmove-down)          ; move to lower window
 
 ;; turn on recent file mode
 (recentf-mode t)
+
+;; ////////////////////////////////////////////////////////////
+
+;; mode line format
+(setq-default mode-line-format
+      (list
+       ;; value of `mode-name'
+       "%m: "
+       ;; value of current buffer name
+       "%b"
+       ;; value of current line number
+       " | line %l "
+       ;; value of current column number
+       " | col %c"
+       ))
+
+;; unique buffer names in mode line
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -86,9 +108,12 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; GENERAL KEY REMAPPINGS
+
+;; eval lisp code settings
 (global-set-key (kbd "C-c b") 'eval-buffer) ;; C-c b to eval buffer
 (global-set-key (kbd "C-c e") 'eval-defun) ;; C-c e to eval defun
 
@@ -106,6 +131,14 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+;; move between windows with shift-arrow keys
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; PACKAGES
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -125,6 +158,13 @@
   :ensure t
   :init
   (global-set-key (kbd "C-c a") 'ag))
+
+;; ido
+(use-package ido
+  :ensure t
+  :init
+  (ido-mode t)
+  (ido-everywhere 1))
 
 ;; autopair
 (use-package autopair
@@ -156,9 +196,57 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
 
 ;; undo tree
-(global-undo-tree-mode)
+(use-package undo-tree
+  :ensure t
+  :init
+(global-undo-tree-mode))
 
-;; rainbow-delimiters
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;; visual undo-tree
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t)))
+
+;; drag stuff mode (M-<arrow> to move lines of text)
+(use-package drag-stuff
+  :ensure t
+  :init
+  (drag-stuff-global-mode t)
+  (drag-stuff-define-keys))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; IDO SETTINGS
+
+(global-set-key
+ "\M-x"
+ (lambda ()
+   (interactive)
+   (call-interactively
+    (intern
+     (ido-completing-read
+      "M-x "
+      (all-completions "" obarray 'commandp))))))
+
+;; ido vertical mode
+(use-package ido-vertical-mode
+  :ensure t
+  :init
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
+
+;; flx for fuzzy matching
+(use-package flx-ido
+  :ensure t
+  :init
+  (flx-ido-mode 1)
+  ;; disable ido faces to see flx highlights.
+  (setq ido-enable-flex-matching t)
+  (setq ido-use-faces nil))
 
 (provide 'init.el)
+;;; init.el ends here
