@@ -81,13 +81,15 @@
 ;; mode line format
 (setq-default mode-line-format
       (list
-       ;; value of `mode-name'
+       ;; `mode-name'
        "%m: "
-       ;; value of current buffer name
-       "%b"
-       ;; value of current line number
+       ;; current buffer name
+       "%& %b"
+       ;; % buffer above top of window
+       " | %P"
+       ;; current line number
        " | line %l "
-       ;; value of current column number
+       ;; current column number
        " | col %c"
        ))
 
