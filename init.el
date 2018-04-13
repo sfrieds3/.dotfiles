@@ -121,6 +121,9 @@
 (global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
 
+;; git-gutter mode
+(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
+
 ;; window resizing
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -152,15 +155,19 @@
 
 ;; git-gutter+
 (use-package git-gutter
-  :ensure t
-  :init
-  (global-git-gutter-mode t))
+  :ensure t)
+(global-git-gutter-mode t)
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
   :ensure t
   :init
   (smooth-scrolling-mode 1))
+
+;; neotree (file tree)
+(use-package neotree
+  :ensure t)
+(global-set-key (kbd "C-c t") 'neotree-toggle)
 
 ;; highlight-symbol
 (use-package highlight-symbol
