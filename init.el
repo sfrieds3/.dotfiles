@@ -31,9 +31,13 @@
 
 ;; Set theme here
 (use-package material-theme
+  :ensure t)
+
+(use-package nord-theme
   :ensure t
   :init
-  (load-theme 'material t))
+  (setq nord-comment-brightness 15)
+  (load-theme 'nord t))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -158,6 +162,11 @@
   :init
   (smooth-scrolling-mode 1))
 
+;; highlight-symbol
+(use-package highlight-symbol
+  :ensure t
+  :init)
+
 ;; flycheck for syntax checking
 (use-package flycheck
   :ensure t
@@ -235,10 +244,13 @@
 ;;;; LANGUAGE SETTINGS AND PACKAGES
 
 ;; markdown mode for md files
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 ;; SCALA
 (use-package scala-mode
@@ -256,6 +268,10 @@
    'minibuffer-complete-word
    'self-insert-command
    minibuffer-local-completion-map))
+
+;; JAVA
+(use-package jdee
+  :ensure t)
 
 ;; GOLANG
 (use-package go-mode
@@ -293,3 +309,17 @@
 
 (provide 'init.el)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("7527f3308a83721f9b6d50a36698baaedc79ded9f6d5bd4e9a28a22ab13b3cb1" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
