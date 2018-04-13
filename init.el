@@ -102,17 +102,6 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; LANGUAGE SPECIFIC
-
-;; markdown mode for md files
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-
-;; ////////////////////////////////////////////////////////////
-
 ;;;; GENERAL KEY REMAPPINGS
 
 ;; eval lisp code settings
@@ -141,6 +130,16 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
+
+;; magit
+(use-package magit
+  :ensure t)
+
+;; git-gutter+
+(use-package git-gutter
+  :ensure t
+  :init
+  (global-git-gutter-mode t))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -219,6 +218,37 @@
   :init
   (drag-stuff-global-mode t)
   (drag-stuff-define-keys))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; LANGUAGE SETTINGS AND PACKAGES
+
+;; markdown mode for md files
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; SCALA
+(use-package scala-mode
+  :ensure t
+  :interpreter
+  ("scala" . scala-mode))
+;; SBT for Scala
+(use-package sbt-mode
+  :ensure t
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
+
+;; GOLANG
+(use-package go-mode
+  :ensure t)
 
 ;; ////////////////////////////////////////////////////////////
 
