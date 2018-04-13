@@ -127,6 +127,17 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+;; move between windows
+(global-set-key (kbd "C-c C-h") 'windmove-left)
+(global-set-key (kbd "C-c C-l") 'windmove-right)
+(global-set-key (kbd "C-c C-j") 'windmove-down)
+(global-set-key (kbd "C-c C-k") 'windmove-up)
+
+;; window splits
+(global-set-key (kbd "C-c |") 'split-window-horizontally)
+(global-set-key (kbd "C-c -") 'split-window-vertically)
+(global-set-key (kbd "C-c d") 'delete-window)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
