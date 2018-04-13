@@ -92,7 +92,7 @@
        ;; % buffer above top of window
        " | %P"
        ;; current line number
-       " | line %l "
+       " | line %l"
        ;; current column number
        " | col %c"
        ))
@@ -130,12 +130,6 @@
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-
-;; move between windows
-(global-set-key (kbd "C-c C-h") 'windmove-left)
-(global-set-key (kbd "C-c C-l") 'windmove-right)
-(global-set-key (kbd "C-c C-j") 'windmove-down)
-(global-set-key (kbd "C-c C-k") 'windmove-up)
 
 ;; window splits
 (global-set-key (kbd "C-c |") 'split-window-horizontally)
