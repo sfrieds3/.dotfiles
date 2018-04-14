@@ -279,6 +279,9 @@
    'minibuffer-complete-word
    'self-insert-command
    minibuffer-local-completion-map))
+(use-package ensime
+  :ensure t
+  :pin melpa)
 
 ;; JAVA
 (use-package jdee
