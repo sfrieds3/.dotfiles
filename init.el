@@ -242,6 +242,16 @@
 
 ;; ////////////////////////////////////////////////////////////
 
+;;;; COMPANY MODE
+
+(use-package company
+  :ensure t
+  :commands company-mode
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
+
+;; ////////////////////////////////////////////////////////////
+
 ;;;; LANGUAGE SETTINGS AND PACKAGES
 
 ;; markdown mode for md files
@@ -277,6 +287,11 @@
 ;; GOLANG
 (use-package go-mode
   :ensure t)
+(use-package company-go
+  :ensure t)
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -310,6 +325,7 @@
 
 (provide 'init.el)
 ;;; init.el ends here
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
