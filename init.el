@@ -1,3 +1,4 @@
+
 ;;;; package --- summary
 ;;;; Commentary:
 ;;;; my Emacs config - its a work in progress
@@ -248,7 +249,8 @@
   :ensure t
   :commands company-mode
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  (global-company-mode '(not markdown-mode)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -280,8 +282,7 @@
    'self-insert-command
    minibuffer-local-completion-map))
 (use-package ensime
-  :ensure t
-  :pin melpa)
+  :ensure t)
 
 ;; JAVA
 (use-package jdee
