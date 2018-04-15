@@ -140,6 +140,14 @@
 (global-set-key (kbd "C-c -") 'split-window-vertically)
 (global-set-key (kbd "C-c d") 'delete-window)
 
+;; zap up to char
+(autoload 'zap-up-to-char "misc"
+  "Kill up to, but not including ARGth occurrence of CHAR.
+
+  \(fn arg char)"
+  'interactive)
+(global-set-key "\M-z" 'zap-up-to-char)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
