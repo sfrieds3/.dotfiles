@@ -77,6 +77,8 @@
 ;; set font
 (set-frame-font "Ubuntu Mono 14")
 
+;; show matching parens
+(show-paren-mode 1)
 
 ;; turn on recent file mode
 (recentf-mode t)
@@ -152,9 +154,15 @@
 
 ;;;; PACKAGES
 
-;; magit
-(use-package magit
-  :ensure t)
+;; evil
+;; (use-package evil
+;;   :ensure t
+;;   :init
+;;   (evil-mode 1))
+
+;; ;; magit
+;; (use-package magit
+;;   :ensure t)
 
 ;; git-gutter+
 (use-package git-gutter
