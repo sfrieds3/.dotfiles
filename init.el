@@ -1,4 +1,3 @@
-
 ;;;; package --- summary
 ;;;; Commentary:
 ;;;; my Emacs config - its a work in progress
@@ -13,7 +12,13 @@
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
  )
-)
+ )
+
+;; bootstrap use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 ;;;; USE PACKAGE
 (eval-when-compile
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
@@ -150,24 +155,33 @@
   'interactive)
 (global-set-key "\M-z" 'zap-up-to-char)
 
+;; key-chords
+;; (defun jc/switch-to-previous-buffer ()
+;;   (interactive)
+;;   (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+;; (key-chord-define-global "JJ" 'jc/switch-to-previous-buffer)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
-
-;; evil
-;; (use-package evil
-;;   :ensure t
-;;   :init
-;;   (evil-mode 1))
-
-;; ;; magit
-;; (use-package magit
-;;   :ensure t)
 
 ;; git-gutter+
 (use-package git-gutter
   :ensure t)
 (global-git-gutter-mode t)
+
+;; chords
+(use-package use-package-chords
+  :ensure t
+  :config
+  (key-chord-mode 1))
+
+;; crux - C-a move to first non-whitespace char
+
+(use-package crux
+  :ensure t
+  :bind (("C-a" . crux-move-beginning-of-line)))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -229,10 +243,18 @@
   :ensure t)
 (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
 
-;; ace jump mode
-(use-package ace-jump-mode
-  :ensure t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode) ;; C-c SPC to enable
+;; avy
+(use-package avy
+  :ensure t
+  :chords (("jj" . avy-goto-char-2)
+           ("jl" . avy-goto-line)))
+
+;; ace window
+(use-package ace-window
+  :ensure t
+  :chords ("jk" . ace-window)
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; undo tree
 (use-package undo-tree
