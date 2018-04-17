@@ -88,6 +88,10 @@
 ;; turn on recent file mode
 (recentf-mode t)
 
+;; filename in titlebar
+(setq frame-title-format '((:eval (if (buffer-file-name)
+(abbreviate-file-name (buffer-file-name)) "%b"))))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; mode line format
@@ -171,6 +175,16 @@
   :ensure t)
 (global-git-gutter-mode t)
 
+;; git time machine
+(use-package git-timemachine
+  :ensure t)
+
+;; magit- for git
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+
+
 ;; chords
 (use-package use-package-chords
   :ensure t
@@ -178,7 +192,6 @@
   (key-chord-mode 1))
 
 ;; crux - C-a move to first non-whitespace char
-
 (use-package crux
   :ensure t
   :bind (("C-a" . crux-move-beginning-of-line)))
@@ -212,6 +225,18 @@
   :init
   (global-set-key (kbd "C-c a") 'ag))
 
+;; fzf file finder
+(use-package fzf
+  :ensure t)
+
+;; dumb jump- attempts to search for source like IDE
+(use-package dumb-jump
+  :ensure t
+  :diminish dumb-jump-mode
+  :bind (("C-M-g" . dumb-jump-go)
+         ("C-M-p" . dumb-jump-back)
+         ("C-M-q" . dumb-jump-quick-look)))
+
 ;; ido
 (use-package ido
   :ensure t
@@ -219,11 +244,25 @@
   (ido-mode t)
   (ido-everywhere 1))
 
-;; autopair
-(use-package autopair
+;; smartparens
+(use-package smartparens
   :ensure t
-  :init
-  (autopair-global-mode t))
+  :diminish smartparens-mode
+  :config
+  (add-hook 'prog-mode-hook 'smartparens-mode))
+
+;; rainbow delimiters
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+;; rainbow mode- highlight strings that represent colors
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (setq rainbow-x-colors nil)
+  (add-hook 'prog-mode-hook 'rainbow-mode))
 
 ;; indent-guide
 (use-package indent-guide
