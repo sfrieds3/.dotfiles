@@ -25,6 +25,10 @@
   (add-to-list 'load-path "<path where use-package is installed>")
   (require 'use-package))
 
+;; always ensure packages are installed
+(setq use-package-always-ensure t)
+
+;; backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq delete-old-versions -1)
 (setq version-control t)
@@ -36,12 +40,10 @@
 ;;;; THEME SETTINGS
 
 ;; Set theme here
-(use-package material-theme
-  :ensure t)
+(use-package material-theme)
 
 (use-package nord-theme
-  :ensure t
-  :init
+  :config
   (setq nord-comment-brightness 15)
   (load-theme 'nord t))
 
@@ -151,96 +153,19 @@
 (global-set-key (kbd "C-c -") 'split-window-vertically)
 (global-set-key (kbd "C-c d") 'delete-window)
 
+;; neotree toggle
+(global-set-key (kbd "C-c t") 'neotree-toggle)
+
 ;; zap up to char
 (autoload 'zap-up-to-char "misc"
-  "Kill up to, but not including ARGth occurrence of CHAR.
-
-  \(fn arg char)"
   'interactive)
 (global-set-key "\M-z" 'zap-up-to-char)
 
-;; ////////////////////////////////////////////////////////////
-
-;;;; PACKAGES
-
-;; git-gutter+
-(use-package git-gutter
-  :ensure t)
-(global-git-gutter-mode t)
-
-;; git time machine
-(use-package git-timemachine
-  :ensure t)
-
-;; magit- for git
-(use-package magit
-  :ensure t
-  :bind ("C-x g" . magit-status))
-
-
 ;; chords
-(use-package use-package-chords
-  :ensure t
-  :config
-  (key-chord-mode 1))
+(key-chord-define-global ",z" 'zap-up-to-char)
+(key-chord-define-global ",s" 'swiper)
 
-;; crux - C-a move to first non-whitespace char
-(use-package crux
-  :ensure t
-  :bind (("C-a" . crux-move-beginning-of-line)))
-
-;; smooth-scrolling
-(use-package smooth-scrolling
-  :ensure t
-  :init
-  (smooth-scrolling-mode 1))
-
-;; neotree (file tree)
-(use-package neotree
-  :ensure t)
-(global-set-key (kbd "C-c t") 'neotree-toggle)
-
-;; highlight-symbol
-(use-package highlight-symbol
-  :ensure t
-  :init)
-
-;; flycheck for syntax checking
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode t))
-
-;; ag - searching
-;; dependent on silversearcher - sudo apt install silversearcher-ag
-(use-package ag
-  :ensure t
-  :init
-  (global-set-key (kbd "C-c a") 'ag))
-
-;; fzf file finder
-(use-package fzf
-  :ensure t)
-
-;; dumb jump- attempts to search for source like IDE
-(use-package dumb-jump
-  :ensure t
-  :diminish dumb-jump-mode
-  :bind (("C-M-g" . dumb-jump-go)
-         ("C-M-p" . dumb-jump-back)
-         ("C-M-q" . dumb-jump-quick-look)))
-
-;; ivy
-(use-package counsel
-  :ensure t)
-(use-package ivy :demand
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d "))
-(counsel-mode 1)
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
+;; Ivy settings
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -256,77 +181,133 @@
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+;; ////////////////////////////////////////////////////////////
+
+;;;; PACKAGES
+
+;; git-gutter+
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode t))
+
+;; git time machine
+(use-package git-timemachine)
+
+;; magit- for git
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
+;; chords
+(use-package use-package-chords
+  :config
+  (key-chord-mode 1))
+
+;; smooth-scrolling
+(use-package smooth-scrolling
+  :config
+  (smooth-scrolling-mode 1))
+
+;; neotree (file tree)
+(use-package neotree)
+
+;; highlight-symbol
+(use-package highlight-symbol)
+
+;; flycheck for syntax checking
+(use-package flycheck
+  :config
+  (global-flycheck-mode t))
+
+;; ag - searching
+;; dependent on silversearcher - sudo apt install silversearcher-ag
+(use-package ag
+  :init
+  (global-set-key (kbd "C-c a") 'ag))
+
+;; fzf file finder
+(use-package fzf)
+
+;; dumb jump- attempts to search for source like IDE
+(use-package dumb-jump
+  :diminish dumb-jump-mode
+  :bind (("C-M-g" . dumb-jump-go)
+         ("C-M-p" . dumb-jump-back)
+         ("C-M-q" . dumb-jump-quick-look)))
+
+;; ivy
+(use-package counsel
+  :config
+  (counsel-mode 1))
+
+(use-package ivy
+  :demand
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d ")
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
+
 ;; smartparens
 (use-package smartparens
-  :ensure t
   :diminish smartparens-mode
   :config
   (add-hook 'prog-mode-hook 'smartparens-mode))
 
 ;; rainbow delimiters
 (use-package rainbow-delimiters
-  :ensure t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; rainbow mode- highlight strings that represent colors
 (use-package rainbow-mode
-  :ensure t
   :config
   (setq rainbow-x-colors nil)
   (add-hook 'prog-mode-hook 'rainbow-mode))
 
 ;; indent-guide
 (use-package indent-guide
-  :ensure t
-  :init
+  :config
   (indent-guide-global-mode))
 
 ;; which-key
 (use-package which-key
-  :ensure t
-  :init
+  :config
   (which-key-mode t)
   (which-key-setup-side-window-bottom))
 
 ;; idle-highlight-mode
 (use-package idle-highlight-mode
-  :ensure t)
-(add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t)))
+  :config
+  (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 ;; avy
 (use-package avy
-  :ensure t
   :chords (("jj" . avy-goto-char-2)
            ("jl" . avy-goto-line)))
 
 ;; ace window
 (use-package ace-window
-  :ensure t
   :chords ("jk" . ace-window)
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; undo tree
 (use-package undo-tree
-  :ensure t
-  :init
-(global-undo-tree-mode))
+  :config
+  (global-undo-tree-mode))
 
 ;; visual undo-tree
 (use-package undo-tree
-  :ensure t
   :diminish undo-tree-mode
   :config
-  (progn
-    (global-undo-tree-mode)
+  (progn (global-undo-tree-mode)
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)))
 
 ;; drag stuff mode (M-<arrow> to move lines of text)
 (use-package drag-stuff
-  :ensure t
-  :init
+  :config
   (drag-stuff-global-mode t)
   (drag-stuff-define-keys))
 
@@ -335,7 +316,6 @@
 ;;;; COMPANY MODE
 
 (use-package company
-  :ensure t
   :commands company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode)
@@ -358,7 +338,6 @@
 
 ;; markdown mode for md files
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -367,12 +346,10 @@
 
 ;; SCALA
 (use-package scala-mode
-  :ensure t
   :interpreter
   ("scala" . scala-mode))
 ;; SBT for Scala
 (use-package sbt-mode
-  :ensure t
   :commands sbt-start sbt-command
   :config
   ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
@@ -381,18 +358,14 @@
    'minibuffer-complete-word
    'self-insert-command
    minibuffer-local-completion-map))
-(use-package ensime
-  :ensure t)
+(use-package ensime)
 
 ;; JAVA
-(use-package jdee
-  :ensure t)
+(use-package jdee)
 
 ;; GOLANG
-(use-package go-mode
-  :ensure t)
-(use-package company-go
-  :ensure t)
+(use-package go-mode)
+(use-package company-go)
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)))
