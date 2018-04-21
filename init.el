@@ -1,6 +1,5 @@
 ;;;; package --- summary
 ;;;; Commentary:
-;;;; my Emacs config - its a work in progress
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -162,9 +161,12 @@
 (global-set-key "\M-z" 'zap-up-to-char)
 
 ;; chords
-(key-chord-define-global ",z" 'zap-up-to-char)
-(key-chord-define-global ",s" 'swiper)
-(key-chord-define-global ",t" 'neotree-toggle)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-c t") 'neotree-toggle)
+(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c c") 'avy-goto-char)
+(global-set-key (kbd "C-c C") 'avy-goto-char-2)
+(global-set-key (kbd "C-c l") 'avy-goto-line)
 
 ;; Ivy settings
 (global-set-key (kbd "C-s") 'swiper)
@@ -175,7 +177,6 @@
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
 (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
@@ -197,11 +198,6 @@
 ;; magit- for git
 (use-package magit
   :bind ("C-x g" . magit-status))
-
-;; chords
-(use-package use-package-chords
-  :config
-  (key-chord-mode 1))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -283,13 +279,10 @@
   (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 ;; avy
-(use-package avy
-  :chords (("jj" . avy-goto-char-2)
-           ("jl" . avy-goto-line)))
+(use-package avy)
 
 ;; ace window
 (use-package ace-window
-  :chords ("jk" . ace-window)
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
