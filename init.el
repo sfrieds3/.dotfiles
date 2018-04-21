@@ -164,6 +164,7 @@
 ;; chords
 (key-chord-define-global ",z" 'zap-up-to-char)
 (key-chord-define-global ",s" 'swiper)
+(key-chord-define-global ",t" 'neotree-toggle)
 
 ;; Ivy settings
 (global-set-key (kbd "C-s") 'swiper)
