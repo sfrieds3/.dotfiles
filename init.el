@@ -167,6 +167,7 @@
 (global-set-key (kbd "C-c c") 'avy-goto-char)
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
+(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
 
 ;; Ivy settings
 (global-set-key (kbd "C-s") 'swiper)
