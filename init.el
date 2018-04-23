@@ -9,9 +9,7 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  )
- )
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)))
 
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
@@ -121,55 +119,43 @@
 
 ;;;; GENERAL KEY REMAPPINGS
 
-;; eval lisp code settings
-(global-set-key (kbd "C-c b") 'eval-buffer) ;; C-c b to eval buffer
-(global-set-key (kbd "C-c e") 'eval-defun) ;; C-c e to eval defun
-
-;; open recent files
-(global-set-key (kbd "C-c r") 'recentf-open-files)
-(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
-
-;; flyspell commands (spellcheck)
-(global-set-key (kbd "C-c s") 'flyspell-buffer)
-(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
-(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
-
-;; git-gutter mode
-(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
-
-;; window resizing
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-;; window splits
-(global-set-key (kbd "C-c |") 'split-window-horizontally)
-(global-set-key (kbd "C-c -") 'split-window-vertically)
-(global-set-key (kbd "C-c d") 'delete-window)
-
-;; neotree toggle
-(global-set-key (kbd "C-c t") 'neotree-toggle)
-
 ;; zap up to char
 (autoload 'zap-up-to-char "misc"
   'interactive)
-(global-set-key "\M-z" 'zap-up-to-char)
-
-;; chords
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+
+;; key customizations
+(global-set-key (kbd "C-c b") 'eval-buffer)
+(global-set-key (kbd "C-c e") 'eval-defun)
+(global-set-key (kbd "C-c r") 'recentf-open-files)
+(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
+(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
+(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c t") 'neotree-toggle)
-(global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c |") 'split-window-horizontally)
+(global-set-key (kbd "C-c -") 'split-window-vertically)
+(global-set-key (kbd "C-c D") 'delete-window)
+(global-set-key (kbd "C-c t") 'neotree-toggle)
+(global-set-key (kbd "C-c g") 'magit-diff)
 (global-set-key (kbd "C-c c") 'avy-goto-char)
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 (global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
-
-;; Ivy settings
+(global-set-key (kbd "C-c k") 'kill-whole-line)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-M-g") 'dumb-jump-go)
+(global-set-key (kbd "C-M-p") 'dumb-jump-back)
+(global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -178,10 +164,9 @@
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
 (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c a") 'counsel-ag)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 ;; ////////////////////////////////////////////////////////////
@@ -197,8 +182,7 @@
 (use-package git-timemachine)
 
 ;; magit- for git
-(use-package magit
-  :bind ("C-x g" . magit-status))
+(use-package magit)
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -218,19 +202,14 @@
 
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
-(use-package ag
-  :init
-  (global-set-key (kbd "C-c a") 'ag))
+(use-package ag)
 
 ;; fzf file finder
 (use-package fzf)
 
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
-  :diminish dumb-jump-mode
-  :bind (("C-M-g" . dumb-jump-go)
-         ("C-M-p" . dumb-jump-back)
-         ("C-M-q" . dumb-jump-quick-look)))
+  :diminish dumb-jump-mode)
 
 ;; ivy
 (use-package counsel
