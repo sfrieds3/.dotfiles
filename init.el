@@ -36,6 +36,9 @@
 
 ;;;; THEME SETTINGS
 
+;; set font
+(set-frame-font "Ubuntu Mono 14")
+
 ;; Set theme here
 (use-package material-theme)
 
@@ -77,9 +80,6 @@
 
 ;; Remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; set font
-(set-frame-font "Ubuntu Mono 14")
 
 ;; show matching parens
 (show-paren-mode 1)
