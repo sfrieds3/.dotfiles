@@ -265,11 +265,6 @@
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
-;; undo tree
-(use-package undo-tree
-  :config
-  (global-undo-tree-mode))
-
 ;; visual undo-tree
 (use-package undo-tree
   :diminish undo-tree-mode
