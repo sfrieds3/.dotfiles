@@ -383,10 +383,17 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("7527f3308a83721f9b6d50a36698baaedc79ded9f6d5bd4e9a28a22ab13b3cb1" default))))
+    ("7527f3308a83721f9b6d50a36698baaedc79ded9f6d5bd4e9a28a22ab13b3cb1" default)))
+ '(package-selected-packages
+   (quote
+    (which-key use-package undo-tree smooth-scrolling smooth-scroll smartparens rainbow-mode rainbow-delimiters nord-theme neotree material-theme markdown-mode magit jdee indent-guide ido-vertical-mode idle-highlight-mode highlight-symbol git-timemachine git-gutter git-gutter+ fzf flx-ido ensime dumb-jump drag-stuff crux counsel company-go bind-chord autopair all-the-icons ag ace-window ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(company-scrollbar-bg ((t (:background "#434c5d"))))
+ '(company-scrollbar-fg ((t (:background "#38404e"))))
+ '(company-tooltip ((t (:inherit default :background "#323845"))))
+ '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
+ '(company-tooltip-selection ((t (:inherit font-lock-function-name-face)))))
