@@ -1,15 +1,15 @@
+
 ;;;; package --- summary
 ;;;; Commentary:
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
-(cond
- ((>= 24 emacs-major-version)
   (require 'package)
-  (package-initialize)
+  (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (package-initialize)
 
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
@@ -17,10 +17,9 @@
   (package-install 'use-package))
 
 ;;;; USE PACKAGE
-(eval-when-compile
-  ;; Following line is not needed if use-package.el is in ~/.emacs.d
-  (add-to-list 'load-path "<path where use-package is installed>")
-  (require 'use-package))
+ (eval-when-compile
+   (add-to-list 'load-path "~/.emacs.d/elpa")
+   (require 'use-package))
 
 ;; always ensure packages are installed
 (setq use-package-always-ensure t)
