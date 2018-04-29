@@ -67,32 +67,32 @@ Plug 'NLKNguyen/papercolor-theme'
 "-------------------------------------------------------"
 
 " language server
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+            "\ 'branch': 'next',
+            "\ 'do': 'bash install.sh',
+            "\ }
 
-"-------------------------------------------------------"
+""-------------------------------------------------------"
 
-" deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+"" deoplete
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+"endif
 
-" deoplete sources
+"" deoplete sources
 
-Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
-Plug 'zchee/deoplete-jedi' " python autocomplete
-Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'neovim/python-client' " required for python autocomplete
-Plug 'davidhalter/jedi' " python autocomplete
-Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+"Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+"Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
+"Plug 'zchee/deoplete-jedi' " python autocomplete
+"Plug 'Shougo/neco-vim' " vim auocomplete
+"Plug 'neovim/python-client' " required for python autocomplete
+"Plug 'davidhalter/jedi' " python autocomplete
+"Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
 
 "-------------------------------------------------------"
 
