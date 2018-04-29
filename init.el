@@ -49,6 +49,9 @@
 
 ;;;; STARTUP SETTINGS
 
+;; cursor always blinks
+(setq blink-cursor-blinks -1)
+
 ;; inhibit startup screen
 (setq inhibit-startup-screen t)
 
@@ -125,6 +128,10 @@
 (autoload 'zap-up-to-char "misc"
   'interactive)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-S-z") 'zap-up-to-char)
+
+;; god-mode
+(global-set-key (kbd "<escape>") 'god-mode-all)
 
 ;; key customizations
 (global-set-key (kbd "C-c b") 'eval-buffer)
@@ -167,10 +174,10 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
-(global-set-key (kbd "<escape>") 'god-mode-all)
 (global-set-key (kbd "C-S-b") 'left-word)
 (global-set-key (kbd "C-S-f") 'right-word)
 (global-set-key (kbd "C-c L") 'goto-line)
+(global-set-key (kbd "C-S-d") 'kill-word)
 
 ;; ////////////////////////////////////////////////////////////
 
