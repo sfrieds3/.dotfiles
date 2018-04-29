@@ -184,7 +184,10 @@
 ;;;; PACKAGES
 
 ;; god mode
-(use-package god-mode)
+(use-package god-mode
+  :config
+  (setq god-exempt-major-modes nil)
+  (setq god-exempt-predicates nil))
 
 ;; change cursor for god-mode
 (defun my-update-cursor ()
