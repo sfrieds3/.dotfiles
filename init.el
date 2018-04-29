@@ -1,4 +1,3 @@
-
 ;;;; package --- summary
 ;;;; Commentary:
 
@@ -167,10 +166,28 @@
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-S-k") 'kill-whole-line)
+(global-set-key (kbd "<escape>") 'god-mode-all)
+(global-set-key (kbd "C-S-b") 'left-word)
+(global-set-key (kbd "C-S-f") 'right-word)
+(global-set-key (kbd "C-c L") 'goto-line)
 
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
+
+;; god mode
+(use-package god-mode)
+
+;; change cursor for god-mode
+(defun my-update-cursor ()
+  "Change cursor based on god-mode."
+(setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'box
+                      'bar)))
+
+(add-hook 'god-mode-enabled-hook 'my-update-cursor)
+(add-hook 'god-mode-disabled-hook 'my-update-cursor)
 
 ;; git-gutter+
 (use-package git-gutter
@@ -381,7 +398,7 @@
     ("7527f3308a83721f9b6d50a36698baaedc79ded9f6d5bd4e9a28a22ab13b3cb1" default)))
  '(package-selected-packages
    (quote
-    (which-key use-package undo-tree smooth-scrolling smooth-scroll smartparens rainbow-mode rainbow-delimiters nord-theme neotree material-theme markdown-mode magit jdee indent-guide ido-vertical-mode idle-highlight-mode highlight-symbol git-timemachine git-gutter git-gutter+ fzf flx-ido ensime dumb-jump drag-stuff crux counsel company-go bind-chord autopair all-the-icons ag ace-window ace-jump-mode))))
+    (god-mode which-key use-package undo-tree smooth-scrolling smooth-scroll smartparens rainbow-mode rainbow-delimiters nord-theme neotree material-theme markdown-mode magit jdee indent-guide ido-vertical-mode idle-highlight-mode highlight-symbol git-timemachine git-gutter git-gutter+ fzf flx-ido ensime dumb-jump drag-stuff crux counsel company-go bind-chord autopair all-the-icons ag ace-window ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
