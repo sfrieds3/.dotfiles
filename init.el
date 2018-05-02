@@ -172,6 +172,7 @@
 (global-set-key (kbd "C-c a") 'counsel-ag)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-c m") 'counsel-mark-ring)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-S-k") 'kill-whole-line)
 (global-set-key (kbd "C-S-b") 'left-word)
