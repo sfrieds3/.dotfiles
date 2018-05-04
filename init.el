@@ -179,6 +179,7 @@
 (global-set-key (kbd "C-S-f") 'right-word)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-S-d") 'kill-word)
+(global-set-key (kbd "C-c SPC") 'comment-line)
 
 ;; ////////////////////////////////////////////////////////////
 
