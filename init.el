@@ -156,7 +156,6 @@
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 (global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
-(global-set-key (kbd "C-c k") 'kill-whole-line)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-M-g") 'dumb-jump-go)
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
@@ -174,11 +173,7 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c m") 'counsel-mark-ring)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-S-k") 'kill-whole-line)
-(global-set-key (kbd "C-S-b") 'left-word)
-(global-set-key (kbd "C-S-f") 'right-word)
 (global-set-key (kbd "C-c L") 'goto-line)
-(global-set-key (kbd "C-S-d") 'kill-word)
 (global-set-key (kbd "C-c SPC") 'comment-line)
 
 ;; ////////////////////////////////////////////////////////////
