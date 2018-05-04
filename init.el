@@ -185,21 +185,10 @@
 
 ;;;; PACKAGES
 
-;; god mode
-(use-package god-mode
+;; evil mode
+(use-package evil
   :config
-  (setq god-exempt-major-modes nil)
-  (setq god-exempt-predicates nil))
-
-;; change cursor for god-mode
-(defun my-update-cursor ()
-  "Change cursor based on god-mode."
-(setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'box
-                      'bar)))
-
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
+  (evil-mode 1))
 
 ;; git-gutter+
 (use-package git-gutter
