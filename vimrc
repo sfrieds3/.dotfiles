@@ -67,32 +67,35 @@ Plug 'NLKNguyen/papercolor-theme'
 "-------------------------------------------------------"
 
 " language server
-"Plug 'autozimu/LanguageClient-neovim', {
-            "\ 'branch': 'next',
-            "\ 'do': 'bash install.sh',
-            "\ }
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 
 ""-------------------------------------------------------"
 
 "" deoplete
-"if has('nvim')
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-  "Plug 'Shougo/deoplete.nvim'
-  "Plug 'roxma/nvim-yarp'
-  "Plug 'roxma/vim-hug-neovim-rpc'
-"endif
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 "" deoplete sources
 
-"Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-"Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
-"Plug 'zchee/deoplete-jedi' " python autocomplete
-"Plug 'Shougo/neco-vim' " vim auocomplete
-"Plug 'neovim/python-client' " required for python autocomplete
-"Plug 'davidhalter/jedi' " python autocomplete
-"Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
+Plug 'zchee/deoplete-jedi' " python autocomplete
+Plug 'Shougo/neco-vim' " vim auocomplete
+Plug 'neovim/python-client' " required for python autocomplete
+Plug 'davidhalter/jedi' " python autocomplete
+Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+
+"" Scala stuff
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+Plug 'derekwyatt/vim-scala'
 
 "-------------------------------------------------------"
 
@@ -145,8 +148,27 @@ autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
 
 "-------------------------------------------------------"
 " Scala
-"autocmd FileType scala let b:deoplete_disable_auto_complete = 1
-"autocmd FileType scala let g:EclimCompletionMethod = 'omnifunc'
+autocmd BufWritePost *.scala silent :EnTypeCheck
+nnoremap <localleader>k :EnType<CR>
+au FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+autocmd BufWritePost *.scala :EnTypeCheck
+"Linting with neomake
+let g:neomake_sbt_maker = {
+      \ 'exe': 'sbt',
+      \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
+      \ 'append_file': 0,
+      \ 'auto_enabled': 1,
+      \ 'output_stream': 'stdout',
+      \ 'errorformat':
+          \ '%E[%trror]\ %f:%l:\ %m,' .
+            \ '%-Z[error]\ %p^,' .
+            \ '%-C%.%#,' .
+            \ '%-G%.%#'
+     \ }
+let g:neomake_enabled_makers = ['sbt']
+let g:neomake_verbose=3
+" Neomake on text change
+autocmd InsertLeave,TextChanged * update | Neomake! sbt
 
 "-------------------------------------------------------"
 " Markdown
