@@ -29,3 +29,8 @@ alias noteit='go run ~/go/src/github.com/sfrieds3/noteit/main.go'
 
 # alias for eclim
 alias eclim='~/eclipse/java-latest-released/eclipse/eclimd'
+
+# emacs alias
+alias emacs='emacsclient'
+alias ed='emacs --daemon'
+alias ec='emacs --create-frame'

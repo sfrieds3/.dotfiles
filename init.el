@@ -42,11 +42,13 @@
 
 ;; Set theme here
 (use-package material-theme)
-
+(use-package solarized-theme)
+(use-package gruvbox-theme)
 (use-package nord-theme
   :config
-  (setq nord-comment-brightness 15)
-  (load-theme 'nord t))
+  (setq nord-comment-brightness 15))
+
+(load-theme 'solarized-dark t)
 
 ;; ////////////////////////////////////////////////////////////
 
