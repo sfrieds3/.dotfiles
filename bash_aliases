@@ -1,4 +1,3 @@
-
 # python alias
 alias python='python3'
 
@@ -31,6 +30,6 @@ alias noteit='go run ~/go/src/github.com/sfrieds3/noteit/main.go'
 alias eclim='~/eclipse/java-latest-released/eclipse/eclimd'
 
 # emacs alias
-alias emacs='emacsclient'
-alias ed='emacs --daemon'
-alias ec='emacs --create-frame'
+#alias emacs='emacsclient'
+#alias ed='emacs --daemon'
+#alias ec='emacs --create-frame'
