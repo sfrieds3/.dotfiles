@@ -1,5 +1,5 @@
 ;;;; package --- summary
-;;;; Commentary:
+;;;; Commentary: platform specific files are loaded at end
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -400,6 +400,15 @@
             (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+;; ////////////////////////////////////////////////////////////
+
+;; platform specific files
+(load-file (expand-file-name
+            (cond ((eq system-type 'windows-nt) "windows.el")
+                  ((eq system-type 'gnu/linux) "linux.el")
+                  (t "default-system.el"))
+            user-emacs-directory))
 
 ;; ////////////////////////////////////////////////////////////
 
