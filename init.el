@@ -38,7 +38,13 @@
 ;;;; THEME SETTINGS
 
 ;; set font
-(set-frame-font "Ubuntu Mono 14")
+(setq my-prefered-font
+      (cond ((eq system-type 'windows-nt) "Consolas 11")
+            ((eq system-type 'gnu/linux) "Ubuntu Mono 14")
+            (t nil)))
+
+(when my-prefered-font
+  (set-frame-font my-prefered-font nil t))
 
 ;; Set theme here
 (use-package material-theme)
