@@ -1,5 +1,6 @@
 ;;;; package --- summary
-;;;; Commentary: platform specific files are loaded at end
+;;;; Commentary: place 'local-settings.el' file (provide 'local-settings)
+;;;;             in .emacs.d directory to overwrite settings (loaded at end)
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -37,14 +38,15 @@
 
 ;;;; THEME SETTINGS
 
-;; set font
-(setq my-prefered-font
+;; set default preferred fonts
+(defvar platform-default-font)
+(setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Consolas 11")
             ((eq system-type 'gnu/linux) "Ubuntu Mono 14")
             (t nil)))
 
-(when my-prefered-font
-  (set-frame-font my-prefered-font nil t))
+(when platform-default-font
+  (set-frame-font platform-default-font nil t))
 
 ;; Set theme here
 (use-package material-theme)
@@ -404,11 +406,9 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; platform specific files
-(load-file (expand-file-name
-            (cond ((eq system-type 'windows-nt) "windows.el")
-                  ((eq system-type 'gnu/linux) "linux.el")
-                  (t "default-system.el"))
-            user-emacs-directory))
+(let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
+  (when (file-exists-p local-settings)
+    (load-file local-settings)))
 
 ;; ////////////////////////////////////////////////////////////
 
