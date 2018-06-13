@@ -17,11 +17,6 @@
 " go get -u github.com/sourcegraph/go-langserver
 " pip install websocket-client sexpdata (ensime)
 
-" open second tab on startup
-"autocmd VimEnter * TabooOpen bash
-"autocmd VimEnter * terminal
-"autocmd VimEnter * tabprevious
-
 set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
@@ -45,7 +40,6 @@ Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
-Plug 'scrooloose/syntastic' " catch-all highlighting
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
@@ -58,6 +52,7 @@ Plug 'easymotion/vim-easymotion' " vim easymotion
 Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
+Plug 'w0rp/ale' " linting
 
 "-------------------------------------------------------"
 
@@ -218,6 +213,20 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
@@ -225,7 +234,7 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 " Formats the statusline
-set statusline=%F                           " file name
+set statusline=%f " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
@@ -233,10 +242,8 @@ set statusline+=%y      "filetype
 " get current git status
 set statusline+=%{fugitive#statusline()}
 
-" show syntastic warnings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Ale status
+set statusline+=%{LinterStatus()}
 
 set statusline+=\ %=                        " align left
 set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
@@ -731,8 +738,8 @@ nnoremap <Leader>gb :Gblame
 " NERDTree
 
 " Nerdtree starts up automatially if no file selected for vim
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
