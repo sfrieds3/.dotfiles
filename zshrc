@@ -132,3 +132,5 @@ alias vim='nvim'
 #zstyle ':completion:*:manuals' separate-sections true
 #zstyle ':completion:*' menu select
 #zstyle ':completion:*' verbose yes
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

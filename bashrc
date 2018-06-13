@@ -164,3 +164,5 @@ function parse_git_dirty {
 
 # Bash prompt
 export PS1="\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]\\$ "
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

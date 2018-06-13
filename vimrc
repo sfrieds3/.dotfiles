@@ -15,6 +15,7 @@
 " :UpdateRemotePlugins
 " sudo apt-get install exuberant-ctags
 " go get -u github.com/sourcegraph/go-langserver
+" pip install websocket-client sexpdata (ensime)
 
 " open second tab on startup
 "autocmd VimEnter * TabooOpen bash
@@ -31,6 +32,9 @@ set clipboard=unnamed "use system default clipboard
 set title
 set titleold=
 
+" mouse no work - also put in ~/.config/nvim/init.vim
+set mouse=a
+
 "}}}
 
 " start of plugins {{{
@@ -38,7 +42,6 @@ set titleold=
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'kien/ctrlp.vim' " C-P for searching
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
@@ -48,21 +51,29 @@ Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
-Plug 'luochen1990/rainbow' " rainbow parenthesis
 Plug 'fatih/vim-go' " for golang development
 Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
-Plug 'junegunn/fzf' " multiselction ui
 Plug 'easymotion/vim-easymotion' " vim easymotion
+Plug 'tpope/vim-fugitive' " git manager for vim
+Plug 'tpope/vim-surround' " advanced functions with words etc
+Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
+
+"-------------------------------------------------------"
+
+" fzf- fuzzy file finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 "-------------------------------------------------------"
 
 " colors
 Plug 'morhetz/gruvbox'
-Plug 'hickop/vim-hickop-colors'
+Plug 'sfrieds3/vim-hickop-colors'
 Plug 'ayu-theme/ayu-vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'sjl/badwolf'
 
 "-------------------------------------------------------"
 
@@ -97,18 +108,6 @@ Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
 Plug 'derekwyatt/vim-scala'
 
-"-------------------------------------------------------"
-
-" tpope stuff
-
-Plug 'tpope/vim-fugitive' " git manager for vim
-Plug 'tpope/vim-surround' " advanced functions with words etc
-Plug 'tpope/vim-eunuch' " unix shell commands
-Plug 'tpope/vim-repeat' " adds repeat awareness- can repeat commands
-Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
-
-"-------------------------------------------------------"
-
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
 
@@ -120,6 +119,7 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
 autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 "-------------------------------------------------------"
 
@@ -142,16 +142,14 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
 " Java
-"autocmd FileType java let b:deoplete_disable_auto_complete = 1
 autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
 
 
 "-------------------------------------------------------"
 " Scala
 autocmd BufWritePost *.scala silent :EnTypeCheck
-nnoremap <localleader>k :EnType<CR>
-au FileType scala nnoremap <localleader>df :EnDeclaration<CR>
-autocmd BufWritePost *.scala :EnTypeCheck
+autocmd FileType scala nnoremap <localleader>k :EnType<CR>
+autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
 "Linting with neomake
 let g:neomake_sbt_maker = {
       \ 'exe': 'sbt',
@@ -185,7 +183,7 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme nord
+colorscheme badwolf
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
@@ -602,7 +600,7 @@ nnoremap <leader>> :tabnext<cr>
 nnoremap <leader>tr :TabooRename<space>
 nnoremap <leader>T :TabooOpen<space>
 
-" resize splits with ctrl shift hjkl
+" resize splits
 nnoremap <M-h> <C-w><
 nnoremap <M-j> <C-w>+
 nnoremap <M-k> <C-w>-
@@ -629,17 +627,9 @@ endtry
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-autocmd CompleteDone * pclose!
-let g:deoplete#sources={}
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
-let g:deoplete#omni#input_patterns={}
-
-" deoplete Scala settings
-let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
-
-" deoplete-go settings
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+"autocmd CompleteDone * pclose!
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.scala = '[^. *\t]\.\w*\|: [A-Z]\w*'
 
 " make enter work with deoplete in insert mode
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -756,6 +746,19 @@ let NERDTreeShowHidden=1
 " open nerdtree in current directory with <leader>o
  map <leader>i :NERDTreeFind<cr>
 
+" custom indicator map
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "ᵐ",
+    \ "Staged"    : "ˢ",
+    \ "Untracked" : "ᵘ",
+    \ "Renamed"   : "ʳ",
+    \ "Unmerged"  : "ᶴ",
+    \ "Deleted"   : "ˣ",
+    \ "Dirty"     : "˜",
+    \ "Clean"     : "ᵅ",
+    \ "Unknown"   : "?"
+\ }
+
 " ,O opens directory in netrw
 nnoremap <Leader>O :Explore %:h<cr>
 
@@ -771,12 +774,8 @@ nnoremap <Leader>a :Ack!<Space>
 " use ag as default ack client
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" ctrlp mappings
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-nnoremap <C-e> :CtrlPBuffer<CR>
-nnoremap <Leader>bf :CtrlPBuffer<CR>
-nnoremap <Leader>p :CtrlPMixed<CR>
+" fzf mappings
+nnoremap <c-p> :FZF<CR>
 
 " tagbar
 let g:tagbar_type_go = {
@@ -838,45 +837,6 @@ let g:tagbar_type_markdown = {
             \ },
             \ 'sort': 0,
             \ }
-
-" rainbow parenthesis
-" set colors for rainbow parenthesis
-let faded_orange = '#af3a03'
-let faded_blue = '#076678'
-let faded_yellow = '#b57614'
-let faded_green = '#79740e'
-let faded_aqua = '#427b58'
-let clemson_orange = '#F66733'
-let clemson_regalia = '#522D80'
-let clemson_hartwell_moon = '#D4C99E'
-let clemson_howards_rock = '#685C53'
-let clemson_calhoun_fields = '#B5C327'
-
-" rainbow parenthesis settings
-nnoremap <Leader>r :RainbowToggle<CR> " turn rainbow parenthesis on
-let g:rainbow_active = 0
-let g:rainbow_conf = {
-            \	'guifgs': [clemson_orange, clemson_regalia, clemson_hartwell_moon, clemson_howards_rock, clemson_calhoun_fields],
-            \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-            \	'operators': '_,_',
-            \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-            \	'separately': {
-            \		'*': {},
-            \		'tex': {
-            \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-            \		},
-            \		'lisp': {
-            \			'guifgs': ['white', 'royalblue3', 'darkorange3', 'seagreen3', 'darkorchid3'],
-            \		},
-            \		'vim': {
-            \			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-            \		},
-            \		'html': {
-            \			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-            \		},
-            \		'css': 0,
-            \	}
-            \}
 
 "}}}
 
