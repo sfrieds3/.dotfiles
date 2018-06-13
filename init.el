@@ -1,5 +1,6 @@
 ;;;; package --- summary
-;;;; Commentary:
+;;;; Commentary: place 'local-settings.el' file (provide 'local-settings)
+;;;;             in .emacs.d directory to overwrite settings (loaded at end)
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
@@ -37,8 +38,15 @@
 
 ;;;; THEME SETTINGS
 
-;; set font
-(set-frame-font "Ubuntu Mono 14")
+;; set default preferred fonts
+(defvar platform-default-font)
+(setq platform-default-font
+      (cond ((eq system-type 'windows-nt) "Consolas 11")
+            ((eq system-type 'gnu/linux) "Ubuntu Mono 14")
+            (t nil)))
+
+(when platform-default-font
+  (set-frame-font platform-default-font nil t))
 
 ;; Set theme here
 (use-package material-theme)
@@ -398,6 +406,13 @@
             (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+;; ////////////////////////////////////////////////////////////
+
+;; platform specific files
+(let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
+  (when (file-exists-p local-settings)
+    (load-file local-settings)))
 
 ;; ////////////////////////////////////////////////////////////
 
