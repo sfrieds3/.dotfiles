@@ -142,8 +142,8 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
 " Java
+autocmd FileType java let b:deoplete_disable_auto_complete = 1
 autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
-
 
 "-------------------------------------------------------"
 " Scala
