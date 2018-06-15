@@ -17,18 +17,8 @@
 " go get -u github.com/sourcegraph/go-langserver
 " pip install websocket-client sexpdata (ensime)
 
-set nocompatible
-set foldmethod=marker
-set clipboard=unnamed "use system default clipboard
-
-"set term=screen-256color " make tmux work with vim
-
-" Update term title but restore old title after leaving Vim
-set title
-set titleold=
-
-" mouse no work - also put in ~/.config/nvim/init.vim
-set mouse=a
+" :helpgrep <text> - grep for <text> in all help docs
+" :cn :cp to go to next or previous result from :helpgrep
 
 "}}}
 
@@ -44,7 +34,6 @@ Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
-Plug 'jiangmiao/auto-pairs' " auto pairs for brackets/parens/quotes
 Plug 'fatih/vim-go' " for golang development
 Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
@@ -412,6 +401,36 @@ set undoreload=10000 " number of lines to save for undo
 set backupdir=~/.vim/backup
 set noswapfile
 
+set nocompatible
+set foldmethod=marker
+set clipboard=unnamed "use system default clipboard
+
+" Update term title but restore old title after leaving Vim
+set title
+set titleold=
+
+" mouse no work - also put in ~/.config/nvim/init.vim
+set mouse=a
+
+" Disable scrollbars
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L"
+
+" no arrow keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
 "}}}
 
 " neovim settings {{{
@@ -453,20 +472,20 @@ nnoremap <leader>\| <C-w>v
 " horizontal split
 nnoremap <leader>- <C-w>s
 
-" switch windows w/ \+w
+" switch windows w/ ,+w
 nnoremap <Leader>w <C-w><C-w>
 
 " move line of text up
-nnoremap <C-M-j> mz:m+<cr>`z
+nnoremap <M-j> mz:m+<cr>`z
 
 " move line ot text down
-nnoremap <C-M-k> mz:m-2<cr>`z
+nnoremap <M-k> mz:m-2<cr>`z
 
 " move line of text up (visual mode)
-vnoremap <C-M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 
 " move line of text down (visual mode)
-vnoremap <C-M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " turn off nohlsearch
 nmap <silent> <leader><space> :nohlsearch<CR>
@@ -478,13 +497,10 @@ nnoremap <Leader>S :%s//<left>
 nnoremap <Leader>s /
 
 " switch between files with ,,
-nnoremap <leader><leader> <c;^>
+nnoremap <leader><leader> <c-^>
 
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
-" ,v selects text just pasted in
-nnoremap <leader>v V']
 
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
@@ -520,9 +536,6 @@ nnoremap <leader>a :Ack!
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
 
-" map // to copy visually selected text and search
-vnoremap // y/<C-R>"<CR>
-
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
@@ -542,7 +555,7 @@ nnoremap <C-s> :call FindAll()<cr>
 nnoremap <localleader>t :TagbarToggle<CR>
 
 " quick editing of files
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
 
 " fold controls
 nnoremap <Leader>tf zA
@@ -550,31 +563,9 @@ nnoremap <Leader>tf zA
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
 
-" no arrow keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-" Disable scrollbars
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L"
-
 "}}}
 
 "{{{ Moving around, tabs, windows and buffers
-
-" use Alt+{hjkl} to navigate windows from any mode
-":inoremap <A-h> <C-\><C-N><C-w>h
-":inoremap <A-j> <C-\><C-N><C-w>j
-":inoremap <A-k> <C-\><C-N><C-w>k
-":inoremap <A-l> <C-\><C-N><C-w>l
-":nnoremap <A-h> <C-w>h
-":nnoremap <A-j> <C-w>j
-":nnoremap <A-k> <C-w>k
-":nnoremap <A-l> <C-w>l
 
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -608,25 +599,10 @@ nnoremap <leader>tr :TabooRename<space>
 nnoremap <leader>T :TabooOpen<space>
 
 " resize splits
-nnoremap <M-h> <C-w><
-nnoremap <M-j> <C-w>+
-nnoremap <M-k> <C-w>-
-nnoremap <M-l> <C-w>>
-
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
-" Opens a new tab with the current buffer's path
-nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
+nnoremap <C-M-h> <C-w><
+nnoremap <C-M-j> <C-w>+
+nnoremap <C-M-k> <C-w>-
+nnoremap <C-M-l> <C-w>>
 
 "}}}
 
@@ -666,22 +642,17 @@ if executable('cquery')
       \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
       \ })
 endif
+
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
 " Git gutter
-nnoremap <Leader>gg :GitGutterLineHighlightsToggle<CR>
+nnoremap <Leader>gg :GitGutterToggle<CR>
+nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
 nnoremap <Leader>gp :GitGutterPrevHunk<CR>
 let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
-
-" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:go_list_type = "quickfix"
 
 " use [c and ]c to cycle throguh hunks in all buffers
 function! NextHunkAllBuffers()
@@ -734,6 +705,7 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
+nnoremap <Leader>gd :Gdiff<CR>
 
 " NERDTree
 
@@ -750,7 +722,7 @@ let NERDTreeShowHidden=1
 " ,or to refresh NERDTree
 "nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
 
-" open nerdtree in current directory with <leader>o
+" open nerdtree in current directory with <leader>i
  map <leader>i :NERDTreeFind<cr>
 
 " custom indicator map
@@ -902,27 +874,3 @@ augroup highlight_interesting_word
   " }}}
 augroup END
 " }}}
-
-" COVTIL (Cool Other Vim Things I Learned) {{{
-" SOURCE: https://www.youtube.com/watch?v=XA2WjJbmmoM
-" https://github.com/mcantor/no_plugins/blob/master/no_plugins.vim
-
-" can use :b to autocomplete to any open buffer
-" :ls will list all open buffers
-
-" AUTOCOMPLETE:
-
-" The good stuff is documented in |ins-completion|
-
-" HIGHLIGHTS:
-" - ^x^n for JUST this file
-" - ^x^f for filenames (works with our path trick!)
-" - ^x^] for tags only
-" - ^n for anything specified by the 'complete' option
-
-" NOW WE CAN:
-" - Use ^n and ^p to go back and forth in the suggestion list
-
-" :helpgrep <text> - grep for <text> in all help docs
-" :cn :cp to go to next or previous result from :helpgrep
-"}}}
