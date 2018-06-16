@@ -168,7 +168,7 @@ endif
 "set colorscheme below
 colorscheme badwolf
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
-highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=white
+highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
 
 " nord colorscheme settings
@@ -221,11 +221,10 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 " default the statusline to dark grey when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
-" Formats the statusline
+" format the statusline
 set statusline=%f " file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
-set statusline+=%y      "filetype
 
 " get current git status
 set statusline+=%{fugitive#statusline()}

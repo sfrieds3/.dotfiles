@@ -22,7 +22,7 @@ alias eclim='~/eclipse/java-latest-released/eclipse/eclimd'
 
 # git aliases
 alias gs='git status'
-alias gs='git diff'
+alias gd='git diff'
 alias gca='git add -A && git commit'
 alias gp='git pull'
 alias gP='git push'
