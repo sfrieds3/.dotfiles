@@ -1,4 +1,4 @@
-" Housekeeping {{{
+" housekeeping {{{
 
 " Dependencies
 " go get -u github.com/jstemmer/gotags
@@ -27,21 +27,20 @@
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
+Plug 'easymotion/vim-easymotion' " vim easymotion
+Plug 'fatih/vim-go' " for golang development
+Plug 'gcmt/taboo.vim' " tab stuff for vim
+Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
+Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
-Plug 'fatih/vim-go' " for golang development
-Plug 'majutsushi/tagbar' " tagbar on right side
-Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
-Plug 'easymotion/vim-easymotion' " vim easymotion
 Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
-Plug 'tpope/vim-abolish' " coersion- (crs) snake, mixed, upper case etc
 Plug 'w0rp/ale' " linting
+Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 
 "-------------------------------------------------------"
 
@@ -52,11 +51,11 @@ Plug 'junegunn/fzf.vim'
 "-------------------------------------------------------"
 
 " colors
-Plug 'morhetz/gruvbox'
-Plug 'sfrieds3/vim-hickop-colors'
-Plug 'ayu-theme/ayu-vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'sfrieds3/vim-hickop-colors'
 Plug 'sjl/badwolf'
 
 "-------------------------------------------------------"
@@ -80,13 +79,13 @@ endif
 
 "" deoplete sources
 
-Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
-Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'neovim/python-client' " required for python autocomplete
-Plug 'davidhalter/jedi' " python autocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
+Plug 'davidhalter/jedi' " python autocomplete
+Plug 'neovim/python-client' " required for python autocomplete
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
+Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'zchee/deoplete-jedi' " python autocomplete
 
 "" Scala stuff
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
@@ -97,7 +96,7 @@ call plug#end()
 
 "}}}
 
-" Language settings {{{
+" language settings {{{
 
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
@@ -244,8 +243,8 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 
 " }}}
 
-" Basic vim settings {{{
-"
+" basic vim settings {{{
+
 let mapleader = ","                 " update leader
 let maplocalleader = "\\"           " map local leader- can use for other commands with <localleader>
 
@@ -455,7 +454,7 @@ endif
 
 " }}}
 
-" Remapping key commands {{{
+" remapping key commands {{{
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -565,7 +564,7 @@ nnoremap <Leader>af zR
 
 "}}}
 
-"{{{ Moving around, tabs, windows and buffers
+" moving around, tabs, windows and buffers {{{
 
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
@@ -606,7 +605,7 @@ nnoremap <C-M-l> <C-w>>
 
 "}}}
 
-" Plugin Configurations {{{
+" plugin configurations {{{
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -706,6 +705,9 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 nnoremap <Leader>gd :Gdiff<CR>
+
+" vim-over visual find replace
+nnoremap <leader>vr :OverCommandLine<CR>%s/
 
 " NERDTree
 
@@ -819,7 +821,7 @@ let g:tagbar_type_markdown = {
 
 "}}}
 
-" Highlight Interesting Words {{{
+" highlight interesting words {{{
 
 augroup highlight_interesting_word
   autocmd!
