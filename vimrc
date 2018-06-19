@@ -221,22 +221,25 @@ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 " default the statusline to dark grey when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
+set modeline
+
 " format the statusline
-set statusline=%f " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
+"set statusline=%f " file name
+"set statusline+=%m " modified flag
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=%{&ff}] "file format
 
-" get current git status
-set statusline+=%{fugitive#statusline()}
+"" get current git status
+"set statusline+=%{fugitive#statusline()}
 
-" Ale status
-set statusline+=%{LinterStatus()}
+"" Ale status
+"set statusline+=%{LinterStatus()}
 
-set statusline+=\ %=                        " align left
-set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ C:%2c                    " current column
-set statusline+=\ B:%n                    " Buffer number
-set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+"set statusline+=\ %=                        " align left
+"set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
+"set statusline+=\ C:%2c                    " current column
+"set statusline+=\ B:%n                    " Buffer number
+"set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
 
@@ -414,7 +417,7 @@ set mouse=a
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
-set guioptions-=L"
+set guioptions-=L
 
 " no arrow keys
 nnoremap <up> <nop>
@@ -515,12 +518,6 @@ cmap w!! w !sudo tee % >/dev/null
 
 " toggle line numbers
 nnoremap <silent> <Leader>n :set invnumber<CR>
-
-" C-n to page down
-nnoremap <C-n> <C-f>M
-
-" C-b to page up
-nnoremap <C-b> <C-b>M
 
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
