@@ -474,12 +474,6 @@ inoremap <S-Tab> <C-V><Tab>
 " remap 0 to first nonblank character
 nnoremap 0 ^
 
-" vertical split
-nnoremap <leader>\| <C-w>v
-
-" horizontal split
-nnoremap <leader>- <C-w>s
-
 " switch windows w/ ,+w
 nnoremap <Leader>w <C-w><C-w>
 
@@ -626,6 +620,7 @@ endfunction
 let g:LanguageClient_serverCommands = {
             \ 'python': ['pyls'],
             \ 'cpp': ['clangd'],
+            \ 'c': ['clangd'],
             \ 'go': ['go-langserver'],
             \ }
 
