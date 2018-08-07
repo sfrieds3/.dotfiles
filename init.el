@@ -1,6 +1,7 @@
 ;;;; package --- summary
-;;;; Commentary: place 'local-settings.el' file (provide 'local-settings)
-;;;;             in .emacs.d directory to overwrite settings (loaded at end)
+;;; Commentary:
+;;;     place 'local-settings.el' file (provide 'local-settings)
+;;;     in .emacs.d directory to overwrite settings (loaded at end)
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
