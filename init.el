@@ -42,7 +42,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Consolas 11")
-            ((eq system-type 'gnu/linux) "Ubuntu Mono 14")
+            ((eq system-type 'gnu/linux) "Hack 14")
             (t nil)))
 
 (when platform-default-font
@@ -56,7 +56,7 @@
   :config
   (setq nord-comment-brightness 15))
 
-(load-theme 'solarized-dark t)
+(load-theme 'material t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -140,6 +140,7 @@
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+(global-set-key (kbd "M-o") 'ace-window)
 
 ;; zap up to char
 (autoload 'zap-up-to-char "misc"
@@ -188,7 +189,7 @@
 (global-set-key (kbd "C-c m") 'counsel-mark-ring)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
-(global-set-key (kbd "C-c SPC") 'comment-line)
+(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -198,6 +199,9 @@
 (use-package evil
   :config
   (evil-mode 1))
+
+;; evil nerd commenter
+(use-package evil-nerd-commenter)
 
 ;; git-gutter+
 (use-package git-gutter
@@ -263,10 +267,10 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; rainbow mode- highlight strings that represent colors
-(use-package rainbow-mode
-  :config
-  (setq rainbow-x-colors nil)
-  (add-hook 'prog-mode-hook 'rainbow-mode))
+;; (use-package rainbow-mode
+;;   :config
+;;   (setq rainbow-x-colors nil)
+;;   (add-hook 'prog-mode-hook 'rainbow-mode))
 
 ;; indent-guide
 (use-package indent-guide
