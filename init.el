@@ -43,7 +43,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Consolas 11")
-            ((eq system-type 'gnu/linux) "Hack 14")
+            ((eq system-type 'gnu/linux) "Hack 13")
             (t nil)))
 
 (when platform-default-font
@@ -57,7 +57,7 @@
   :config
   (setq nord-comment-brightness 15))
 
-(load-theme 'material t)
+(load-theme 'gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -163,8 +163,6 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c t") 'neotree-toggle)
-(global-set-key (kbd "C-c |") 'split-window-horizontally)
-(global-set-key (kbd "C-c -") 'split-window-vertically)
 (global-set-key (kbd "C-c D") 'delete-window)
 (global-set-key (kbd "C-c t") 'neotree-toggle)
 (global-set-key (kbd "C-c g") 'magit-diff)
@@ -191,6 +189,7 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "M-p") 'fzf)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -262,16 +261,11 @@
   :config
   (add-hook 'prog-mode-hook 'smartparens-mode))
 
-;; rainbow delimiters
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
 ;; rainbow mode- highlight strings that represent colors
-;; (use-package rainbow-mode
-;;   :config
-;;   (setq rainbow-x-colors nil)
-;;   (add-hook 'prog-mode-hook 'rainbow-mode))
+(use-package rainbow-mode
+  :config
+  (setq rainbow-x-colors nil)
+  (add-hook 'prog-mode-hook 'rainbow-mode))
 
 ;; indent-guide
 (use-package indent-guide
