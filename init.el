@@ -256,10 +256,10 @@
   (setq ivy-count-format "(%d/%d) "))
 
 ;; smartparens
-(use-package smartparens
-  :diminish smartparens-mode
-  :config
-  (add-hook 'prog-mode-hook 'smartparens-mode))
+;; (use-package smartparens
+;;   :diminish smartparens-mode
+;;   :config
+;;   (add-hook 'prog-mode-hook 'smartparens-mode))
 
 ;; rainbow mode- highlight strings that represent colors
 (use-package rainbow-mode
@@ -363,6 +363,12 @@
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)))
+
+;; python
+(use-package company-jedi)
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 ;; ////////////////////////////////////////////////////////////
 
