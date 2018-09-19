@@ -35,6 +35,16 @@
 ;; temp file for custom settings
 (setq custom-file (make-temp-file "emacs-custom"))
 
+;; set proper terminal for windows machines
+(defvar default-shell-location)
+
+(setq default-shell-location
+      (cond ((eq system-type 'windows-nt) "C/Windows/System32/bash.exe")))
+
+(when default-shell-location
+  (setq shell-file-name default-shell-location)
+  (add-to-list 'exec-path "C:/Windows/System32/bash.exe")) ;
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEME SETTINGS
@@ -200,6 +210,14 @@
   :config
   (evil-mode 1))
 
+;; Make movement keys work like they should
+(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
+  
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
 
