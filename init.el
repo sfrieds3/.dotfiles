@@ -45,6 +45,10 @@
   (setq shell-file-name default-shell-location)
   (add-to-list 'exec-path "C:/Windows/System32/bash.exe")) ;
 
+;; speed up font rendering on windows
+(cond ((eq system-type 'windows-nt)
+          (setq inhibit-compacting-font-caches t)))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEME SETTINGS
@@ -217,7 +221,7 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 ; Make horizontal movement cross lines
 (setq-default evil-cross-lines t)
-  
+
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
 
