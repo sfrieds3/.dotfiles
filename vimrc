@@ -173,7 +173,7 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme badwolf
+colorscheme desert " badwolf
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
