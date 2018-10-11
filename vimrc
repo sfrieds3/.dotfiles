@@ -231,22 +231,22 @@ hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 set modeline
 
 " format the statusline
-"set statusline=%f " file name
-"set statusline+=%m " modified flag
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
+set statusline=%f " file name
+set statusline+=%m " modified flag
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
 
 "" get current git status
-"set statusline+=%{fugitive#statusline()}
+set statusline+=%{fugitive#statusline()}
 
 "" Ale status
-"set statusline+=%{LinterStatus()}
+set statusline+=%{LinterStatus()}
 
-"set statusline+=\ %=                        " align left
-"set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
-"set statusline+=\ C:%2c                    " current column
-"set statusline+=\ B:%n                    " Buffer number
-"set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+set statusline+=\ %=                        " align left
+set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ C:%2c                    " current column
+set statusline+=\ B:%n                    " Buffer number
+set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
 
@@ -493,13 +493,13 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 nmap <silent> <leader><space> :nohlsearch<CR>
 
 " leader+S for search/replace
-nnoremap <Leader>S :%s//<left>
+nnoremap <Leader>S :OverCommandLine<cr>%s/
 
 " leader+s for search
 nnoremap <Leader>s /
 
-" switch between files with ,,
-nnoremap <leader><leader> <c-^>
+" switch between files with \\
+nnoremap <localleader><localleader> <c-^>
 
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
