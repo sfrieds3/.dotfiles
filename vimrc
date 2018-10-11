@@ -114,6 +114,8 @@ autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
 "-------------------------------------------------------"
 
 " golang
+" no warning for out of date nvim
+let g:go_version_warning = 0
 " goimport on save
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
@@ -173,7 +175,7 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme desert " badwolf
+colorscheme badwolf
 highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
