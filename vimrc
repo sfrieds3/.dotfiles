@@ -293,9 +293,8 @@ command! MakeTags !ctags -R .
 " - Use g^] for ambiguous tags
 " - Use ^t to jump back up the tag stack
 
-" not case sensitive
+" not case sensitive, unless all caps
 set ignorecase
-" unless all caps
 set smartcase
 
 " set characters for end of line & tab
@@ -360,7 +359,7 @@ set ttimeoutlen=10
 " resize splits when window is resized
 au VimResized * :wincmd =
 
-"set utf8 as standard encoding / en_US standard language
+"set utf8 as standard encoding
 set encoding=utf8
 
 " use spaces instead of tabs
@@ -467,6 +466,9 @@ endif
 
 " remapping key commands {{{
 
+" show list of digraphs -- special symbols
+nnoremap <localleader>dk :digraphs<cr>
+
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
@@ -479,26 +481,14 @@ nnoremap 0 ^
 " switch windows w/ ,+w
 nnoremap <Leader>w <C-w><C-w>
 
-" move line of text up
+" move line of text up, down using Alt-j/k
 nnoremap <M-j> mz:m+<cr>`z
-
-" move line ot text down
 nnoremap <M-k> mz:m-2<cr>`z
-
-" move line of text up (visual mode)
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-
-" move line of text down (visual mode)
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" turn off nohlsearch
-nmap <silent> <leader><space> :nohlsearch<CR>
 
 " leader+S for search/replace
 nnoremap <Leader>S :OverCommandLine<cr>%s/
-
-" leader+s for search
-nnoremap <Leader>s /
 
 " switch between files with \\
 nnoremap <localleader><localleader> <c-^>
@@ -538,7 +528,7 @@ nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Disable highlight when <leader><cr> is pressed
-nnoremap <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
 " use ctrl-s to vimgrep and open results in quickfix window
 function! FindAll()
@@ -557,7 +547,6 @@ nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
 
 " fold controls
 nnoremap <Leader>tf zA
-"nnoremap <space> za
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
 
