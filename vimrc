@@ -467,7 +467,7 @@ endif
 " remapping key commands {{{
 
 " show list of digraphs -- special symbols
-nnoremap <localleader>dk :digraphs<cr>
+nnoremap <localleader>D :help digraphs<cr>:175<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
