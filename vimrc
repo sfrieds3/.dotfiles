@@ -181,6 +181,18 @@ highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighti
 highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
 highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
 
+" desert colorscheme settings
+if g:colors_name == 'desert'
+    highlight NonText guibg=grey20
+    highlight VertSplit guibg=grey20
+    let g:gitgutter_override_sign_column_highlight = 0
+    highlight SignColumn guibg=grey20
+    highlight GitGutterAdd guibg=grey20
+    highlight GitGutterChange guibg=grey20
+    highlight GitGutterDelete guibg=grey20
+    highlight GitGutterChangeDelete guibg=grey20
+endif
+
 " nord colorscheme settings
 if g:colors_name == 'nord'
     let g:nord_italic = 1
@@ -190,6 +202,7 @@ if g:colors_name == 'nord'
     "let &colorcolumn="80,".join(range(120,999),",")
 endif
 
+" hickop colorscheme settings
 if g:colors_name == 'hickop'
     " show line at column 80, full highlight from column 120 on
     highlight ColorColumn ctermbg=235 guibg=#282828
