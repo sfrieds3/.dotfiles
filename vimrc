@@ -191,6 +191,7 @@ if g:colors_name == 'desert'
     highlight GitGutterChange guibg=grey20
     highlight GitGutterDelete guibg=grey20
     highlight GitGutterChangeDelete guibg=grey20
+
 endif
 
 " nord colorscheme settings
@@ -224,6 +225,12 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" default the statusline to dark grey when entering Vim
+hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -237,12 +244,6 @@ function! LinterStatus() abort
     \)
 endfunction
 
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-" default the statusline to dark grey when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 set modeline
 
@@ -580,6 +581,8 @@ nnoremap <leader>bd :bdelete<cr>
 " go to previous and next buffer
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>[ :bprevious<cr>
+nnoremap <leader>] :bnext<cr>
 
 " <leader>lb to list buffers
 nnoremap <silent> <leader>lb :ls b<cr>
@@ -590,8 +593,6 @@ nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
-nnoremap <leader>[ :tabprevious<cr>
-nnoremap <leader>] :tabnext<cr>
 nnoremap <leader>< :tabprevious<cr>
 nnoremap <leader>> :tabnext<cr>
 
