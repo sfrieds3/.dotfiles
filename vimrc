@@ -191,7 +191,7 @@ if g:colors_name == 'desert'
     highlight GitGutterChange guibg=grey20
     highlight GitGutterDelete guibg=grey20
     highlight GitGutterChangeDelete guibg=grey20
-
+    highlight MatchParen guifg=white guibg=grey50
 endif
 
 " nord colorscheme settings
@@ -243,7 +243,6 @@ function! LinterStatus() abort
     \   all_errors
     \)
 endfunction
-
 
 set modeline
 
