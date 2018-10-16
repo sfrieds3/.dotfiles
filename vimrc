@@ -36,7 +36,6 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'easymotion/vim-easymotion' " vim easymotion
-Plug 'fatih/vim-go' " for golang development
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
 Plug 'majutsushi/tagbar' " tagbar on right side
@@ -48,6 +47,14 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'w0rp/ale' " linting
 Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
+
+"-------------------------------------------------------"
+
+" languages
+Plug 'vim-scripts/c.vim' " c/c++
+Plug 'python-mode/python-mode' " python
+Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'fatih/vim-go' " golang
 
 "-------------------------------------------------------"
 
@@ -130,7 +137,9 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
 " python
-
+let g:pymode_options_colorcolumn = 0
+let g:pymode_folding = 0
+let g:pymode_options = 0
 
 "-------------------------------------------------------"
 " Java
@@ -192,6 +201,8 @@ if g:colors_name == 'desert'
     highlight GitGutterDelete guibg=grey20
     highlight GitGutterChangeDelete guibg=grey20
     highlight MatchParen guifg=white guibg=grey50
+    highlight Title guifg=#aaaaaa
+    highlight PreProc guifg=#aaaaaa
 endif
 
 " nord colorscheme settings
@@ -199,15 +210,6 @@ if g:colors_name == 'nord'
     let g:nord_italic = 1
     let g:nord_italic_comments = 1
     highlight Comment guifg=#D08770 " comment colors
-    " show line at column 80, full highlight from column 120 on
-    "let &colorcolumn="80,".join(range(120,999),",")
-endif
-
-" hickop colorscheme settings
-if g:colors_name == 'hickop'
-    " show line at column 80, full highlight from column 120 on
-    highlight ColorColumn ctermbg=235 guibg=#282828
-    let &colorcolumn="80,".join(range(120,999),",")
 endif
 
 " }}}
