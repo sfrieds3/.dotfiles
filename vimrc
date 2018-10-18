@@ -33,6 +33,7 @@ endif
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
+Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'easymotion/vim-easymotion' " vim easymotion
@@ -47,12 +48,12 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'w0rp/ale' " linting
 Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
+Plug 'ap/vim-css-color' " show CSS colors inline
 
 "-------------------------------------------------------"
 
 " languages
 Plug 'vim-scripts/c.vim' " c/c++
-Plug 'python-mode/python-mode' " python
 Plug 'vim-ruby/vim-ruby' " ruby
 Plug 'fatih/vim-go' " golang
 
@@ -95,11 +96,10 @@ endif
 
 Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-Plug 'davidhalter/jedi' " python autocomplete
-Plug 'neovim/python-client' " required for python autocomplete
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'zchee/deoplete-jedi' " python autocomplete
 
 "" Scala stuff
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
@@ -576,14 +576,20 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
+" go to previous and next tab/buffers
+nnoremap <M-<> :bprevious<cr>
+nnoremap <M->> :bnext<cr>
+nnoremap <M-h> :tabprevious<cr>
+nnoremap <M-l> :tabnext<cr>
+
+" resize splits
+nnoremap <C-M-h> <C-w><
+nnoremap <C-M-j> <C-w>+
+nnoremap <C-M-k> <C-w>-
+nnoremap <C-M-l> <C-w>>
+
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
-
-" go to previous and next buffer
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>[ :bprevious<cr>
-nnoremap <leader>] :bnext<cr>
 
 " <leader>lb to list buffers
 nnoremap <silent> <leader>lb :ls b<cr>
@@ -594,18 +600,10 @@ nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
-nnoremap <leader>< :tabprevious<cr>
-nnoremap <leader>> :tabnext<cr>
 
 " rename tab
 nnoremap <leader>tr :TabooRename<space>
 nnoremap <leader>T :TabooOpen<space>
-
-" resize splits
-nnoremap <C-M-h> <C-w><
-nnoremap <C-M-j> <C-w>+
-nnoremap <C-M-k> <C-w>-
-nnoremap <C-M-l> <C-w>>
 
 "}}}
 
