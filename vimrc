@@ -577,10 +577,10 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 " go to previous and next tab/buffers
-nnoremap <M-h> :bprevious<cr>
-nnoremap <M-l> :bnext<cr>
-nnoremap <C-h> :tabprevious<cr>
-nnoremap <C-l> :tabnext<cr>
+nnoremap <M-<> :bprevious<cr>
+nnoremap <M->> :bnext<cr>
+nnoremap <M-h> :tabprevious<cr>
+nnoremap <M-l> :tabnext<cr>
 
 " resize splits
 nnoremap <C-M-h> <C-w><
