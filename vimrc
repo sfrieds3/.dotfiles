@@ -49,6 +49,7 @@ Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'w0rp/ale' " linting
 Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'ap/vim-css-color' " show CSS colors inline
+Plug 'mbbill/undotree' " visual undo tree
 
 "-------------------------------------------------------"
 
