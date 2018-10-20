@@ -332,7 +332,7 @@ set ruler
 " show filename in window titlebar
 set title
 
-set so=7 " set lines above/below cursor
+set so=0 " set lines above/below cursor
 
 "set autoread "set to autoread when file changed from outside
 
