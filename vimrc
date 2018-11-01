@@ -67,6 +67,7 @@ Plug 'junegunn/fzf.vim'
 "-------------------------------------------------------"
 
 " colors
+Plug 'sfrieds3/dim.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'morhetz/gruvbox'
@@ -186,10 +187,7 @@ endif
 
 "set colorscheme below
 "colorscheme badwolf
-colorscheme desert
-highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
-highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
-highlight Todo ctermfg=255 ctermbg=NONE guifg=#8b0000 guibg=#ffff00
+colorscheme dim
 
 " desert colorscheme settings
 if g:colors_name == 'desert'
@@ -483,6 +481,9 @@ endif
 
 " remapping key commands {{{
 
+" open fish shell
+nnoremap <localleader>f :terminal fish<cr>
+
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
 
@@ -610,6 +611,10 @@ nnoremap <leader>T :TabooOpen<space>
 
 " plugin configurations {{{
 
+" easymotion
+
+highlight link EasyMotionTarget Todo
+
 " deoplete
 let g:deoplete#enable_at_startup = 1
 "autocmd CompleteDone * pclose!
@@ -624,7 +629,7 @@ endfunction
 
 " LanguageClient
 let g:LanguageClient_serverCommands = {
-            \ 'python': ['pyls'],
+            \ 'python': ['/usr/local/bin/pyls', 'pyls'],
             \ 'cpp': ['clangd'],
             \ 'c': ['clangd'],
             \ 'go': ['go-langserver'],

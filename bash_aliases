@@ -42,7 +42,6 @@ alias raftka='cd ~/git/raftka'
 # Spotify alias
 alias spotify='spotify --force-device-scale-factor=2'
 
-
 # Python pip alias - auto install for --user
 function pip() {
   if [[ "$1" == "install" ]]; then
