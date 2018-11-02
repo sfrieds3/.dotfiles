@@ -518,9 +518,6 @@ nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 nnoremap <tab> %
 vnoremap <tab> %
 
-" leader enter does nothing in insert
-inoremap <Leader><cr> <nop>
-
 " Close all but the current one
 nnoremap <localleader>o :only<CR>
 
