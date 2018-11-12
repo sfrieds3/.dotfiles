@@ -487,6 +487,9 @@ nnoremap <localleader>f :terminal fish<cr>
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
 
+" * does not move to next occurrence
+nnoremap * *N
+
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
