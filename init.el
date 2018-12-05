@@ -211,14 +211,14 @@
 
 ;; mode line - from DOOM
 (use-package doom-modeline
-  :defer t
-  :hook
-  (after-init . doom-modeline-init)
-  :config
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-icon f))
+      :ensure t
+      :defer t
+      :hook (after-init . doom-modeline-init)
+      :config
+      (setq doom-modeline-icon nil)
+      (setq doom-modeline-minor-modes nil))
 
-;; all-the-icons (for DOOM modeline)
+;; all-the-icons for DOOM modeline
 (use-package all-the-icons)
 
 ;; evil mode
