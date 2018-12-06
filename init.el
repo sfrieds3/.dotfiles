@@ -203,7 +203,6 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "M-p") 'fzf)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -276,9 +275,6 @@
 ;; ag - searching
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
 (use-package ag)
-
-;; fzf file finder
-(use-package fzf)
 
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
