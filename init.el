@@ -127,26 +127,26 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; mode line format
-(setq-default mode-line-format
-      (list
-       ;; `mode-name'
-       "%m: "
-       ;; current buffer name
-       "%& %b"
-       ;; % buffer above top of window
-       " | %P"
-       ;; current line number
-       " | line %l"
-       ;; current column number
-       " | col %c"
-       ))
+;; (setq-default mode-line-format
+;;       (list
+;;        ;; `mode-name'
+;;        "%m: "
+;;        ;; current buffer name
+;;        "%& %b"
+;;        ;; % buffer above top of window
+;;        " | %P"
+;;        ;; current line number
+;;        " | line %l"
+;;        ;; current column number
+;;        " | col %c"
+;;        ))
 
 ;; unique buffer names in mode line
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+;; (require 'uniquify)
+;; (setq uniquify-buffer-name-style 'forward)
+;; (setq uniquify-separator "/")
+;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -209,6 +209,18 @@
 
 ;;;; PACKAGES
 
+;; mode line - from DOOM
+(use-package doom-modeline
+      :ensure t
+      :defer t
+      :hook (after-init . doom-modeline-init)
+      :config
+      (setq doom-modeline-icon nil)
+      (setq doom-modeline-minor-modes nil))
+
+;; all-the-icons for DOOM modeline
+(use-package all-the-icons)
+
 ;; evil mode
 (use-package evil
   :config
@@ -219,13 +231,14 @@
 (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
 ; Make horizontal movement cross lines
 (setq-default evil-cross-lines t)
 
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
 
-;; git-gutter+
+;; git-gutter
 (use-package git-gutter
   :config
   (global-git-gutter-mode t))
