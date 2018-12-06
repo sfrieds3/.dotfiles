@@ -189,8 +189,6 @@
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
 (global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
 (global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
@@ -285,21 +283,6 @@
   :config
   (counsel-mode 1))
 
-(use-package ivy
-  :demand
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d ")
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) "))
-
-;; smartparens
-;; (use-package smartparens
-;;   :diminish smartparens-mode
-;;   :config
-;;   (add-hook 'prog-mode-hook 'smartparens-mode))
-
 ;; rainbow mode- highlight strings that represent colors
 (use-package rainbow-mode
   :config
@@ -343,6 +326,20 @@
   :config
   (drag-stuff-global-mode t)
   (drag-stuff-define-keys))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; Helm
+
+(use-package helm
+  :config
+  (helm-mode t)
+  (setq helm-M-x-fuzzy-match t)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -426,36 +423,6 @@
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; IDO SETTINGS
-
-(global-set-key
- "\M-x"
- (lambda ()
-   (interactive)
-   (call-interactively
-    (intern
-     (ido-completing-read
-      "M-x "
-      (all-completions "" obarray 'commandp))))))
-
-;; ido vertical mode
-(use-package ido-vertical-mode
-  :ensure t
-  :init
-  (ido-vertical-mode 1)
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
-
-;; flx for fuzzy matching
-(use-package flx-ido
-  :ensure t
-  :init
-  (flx-ido-mode 1)
-  ;; disable ido faces to see flx highlights.
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil))
 
 
 ;; ////////////////////////////////////////////////////////////
