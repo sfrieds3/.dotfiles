@@ -225,8 +225,9 @@
       (setq doom-modeline-icon t)
       (setq doom-modeline-minor-modes nil))
 
-;; all-the-icons for DOOM modeline
+;; necessary for DOOM modeline
 (use-package all-the-icons)
+(use-package eldoc-eval)
 
 ;; evil mode
 (use-package evil
