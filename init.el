@@ -57,7 +57,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Consolas 11")
-            ((eq system-type 'gnu/linux) "Hack 13")
+            ((eq system-type 'gnu/linux) "Hack 11")
             (t nil)))
 
 (when platform-default-font
@@ -195,7 +195,7 @@
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c D") 'counsel-unicode-char)
 (global-set-key (kbd "C-c a") 'counsel-ag)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-x l") 'counsel-locate)
@@ -356,6 +356,9 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   (global-company-mode '(not markdown-mode)))
+(with-eval-after-load 'company
+  (add-hook 'company-mode-hook (lambda ()
+                                 (add-to-list 'company-backends 'company-capf))))
 
 ;; customize
 (let ((bg (face-attribute 'default :background)))
@@ -379,6 +382,21 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+;; C family
+(use-package irony
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+(use-package company-irony)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(use-package flycheck-irony)
+
 
 ;; SCALA
 (use-package scala-mode
