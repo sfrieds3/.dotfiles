@@ -209,13 +209,20 @@
 
 ;;;; PACKAGES
 
+;; projectile
+(use-package projectile
+  :config
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
 ;; mode line - from DOOM
 (use-package doom-modeline
       :ensure t
       :defer t
       :hook (after-init . doom-modeline-init)
       :config
-      (setq doom-modeline-icon nil)
+      (setq doom-modeline-icon t)
       (setq doom-modeline-minor-modes nil))
 
 ;; all-the-icons for DOOM modeline
