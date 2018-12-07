@@ -377,7 +377,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-;; C family
+;; clang
 (use-package irony
   :config
   (add-hook 'c++-mode-hook 'irony-mode)
@@ -391,6 +391,10 @@
 
 (use-package flycheck-irony)
 
+(defun my-c++-mode-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'substatement-open 0))
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 ;; SCALA
 (use-package scala-mode
