@@ -33,10 +33,10 @@ endif
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
+Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
 Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'easymotion/vim-easymotion' " vim easymotion
-Plug 'fatih/vim-go' " for golang development
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
 Plug 'majutsushi/tagbar' " tagbar on right side
@@ -48,6 +48,15 @@ Plug 'tpope/vim-fugitive' " git manager for vim
 Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'w0rp/ale' " linting
 Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
+Plug 'ap/vim-css-color' " show CSS colors inline
+Plug 'mbbill/undotree' " visual undo tree
+
+"-------------------------------------------------------"
+
+" languages
+Plug 'vim-scripts/c.vim' " c/c++
+Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'fatih/vim-go' " golang
 
 "-------------------------------------------------------"
 
@@ -58,6 +67,7 @@ Plug 'junegunn/fzf.vim'
 "-------------------------------------------------------"
 
 " colors
+Plug 'sfrieds3/dim.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'morhetz/gruvbox'
@@ -88,11 +98,10 @@ endif
 
 Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
-Plug 'davidhalter/jedi' " python autocomplete
-Plug 'neovim/python-client' " required for python autocomplete
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'zchee/deoplete-jedi' " python autocomplete
 
 "" Scala stuff
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
@@ -114,6 +123,8 @@ autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
 "-------------------------------------------------------"
 
 " golang
+" no warning for out of date nvim
+let g:go_version_warning = 0
 " goimport on save
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
@@ -128,7 +139,9 @@ autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
 " python
-
+let g:pymode_options_colorcolumn = 0
+let g:pymode_folding = 0
+let g:pymode_options = 0
 
 "-------------------------------------------------------"
 " Java
@@ -173,24 +186,29 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-colorscheme badwolf
-highlight LineNr ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE " no highlighting for line number
-highlight MatchParen ctermfg=black ctermbg=white guifg=black guifg=#f66733
-highlight Todo ctermfg=255 ctermbg=NONE guifg=#ffff00 guibg=NONE
+"colorscheme badwolf
+colorscheme dim
+
+" desert colorscheme settings
+if g:colors_name == 'desert'
+    highlight NonText guibg=grey20
+    highlight VertSplit guibg=grey20
+    let g:gitgutter_override_sign_column_highlight = 0
+    highlight SignColumn guibg=grey20
+    highlight GitGutterAdd guibg=grey20
+    highlight GitGutterChange guibg=grey20
+    highlight GitGutterDelete guibg=grey20
+    highlight GitGutterChangeDelete guibg=grey20
+    highlight MatchParen guifg=white guibg=grey50
+    highlight Title guifg=#aaaaaa
+    highlight PreProc guifg=#aaaaaa
+endif
 
 " nord colorscheme settings
 if g:colors_name == 'nord'
     let g:nord_italic = 1
     let g:nord_italic_comments = 1
     highlight Comment guifg=#D08770 " comment colors
-    " show line at column 80, full highlight from column 120 on
-    "let &colorcolumn="80,".join(range(120,999),",")
-endif
-
-if g:colors_name == 'hickop'
-    " show line at column 80, full highlight from column 120 on
-    highlight ColorColumn ctermbg=235 guibg=#282828
-    let &colorcolumn="80,".join(range(120,999),",")
 endif
 
 " }}}
@@ -208,6 +226,12 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
+" default the statusline to dark grey when entering Vim
+hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -221,32 +245,25 @@ function! LinterStatus() abort
     \)
 endfunction
 
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-" default the statusline to dark grey when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
 set modeline
 
 " format the statusline
-"set statusline=%f " file name
-"set statusline+=%m " modified flag
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
+set statusline=%f " file name
+set statusline+=%m " modified flag
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
 
 "" get current git status
-"set statusline+=%{fugitive#statusline()}
+set statusline+=%{fugitive#statusline()}
 
 "" Ale status
-"set statusline+=%{LinterStatus()}
+set statusline+=%{LinterStatus()}
 
-"set statusline+=\ %=                        " align left
-"set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
-"set statusline+=\ C:%2c                    " current column
-"set statusline+=\ B:%n                    " Buffer number
-"set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+set statusline+=\ %=                        " align left
+set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ C:%2c                    " current column
+set statusline+=\ B:%n                    " Buffer number
+set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
 
@@ -291,9 +308,8 @@ command! MakeTags !ctags -R .
 " - Use g^] for ambiguous tags
 " - Use ^t to jump back up the tag stack
 
-" not case sensitive
+" not case sensitive, unless all caps
 set ignorecase
-" unless all caps
 set smartcase
 
 " set characters for end of line & tab
@@ -314,7 +330,7 @@ set ruler
 " show filename in window titlebar
 set title
 
-set so=7 " set lines above/below cursor
+set so=0 " set lines above/below cursor
 
 "set autoread "set to autoread when file changed from outside
 
@@ -358,7 +374,7 @@ set ttimeoutlen=10
 " resize splits when window is resized
 au VimResized * :wincmd =
 
-"set utf8 as standard encoding / en_US standard language
+"set utf8 as standard encoding
 set encoding=utf8
 
 " use spaces instead of tabs
@@ -465,6 +481,15 @@ endif
 
 " remapping key commands {{{
 
+" open fish shell
+nnoremap <localleader>f :terminal fish<cr>
+
+" show list of digraphs -- special symbols
+nnoremap <localleader>D :help digraphs<cr>:175<cr>
+
+" * does not move to next occurrence
+nnoremap * *N
+
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
 
@@ -477,29 +502,17 @@ nnoremap 0 ^
 " switch windows w/ ,+w
 nnoremap <Leader>w <C-w><C-w>
 
-" move line of text up
+" move line of text up, down using Alt-j/k
 nnoremap <M-j> mz:m+<cr>`z
-
-" move line ot text down
 nnoremap <M-k> mz:m-2<cr>`z
-
-" move line of text up (visual mode)
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-
-" move line of text down (visual mode)
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" turn off nohlsearch
-nmap <silent> <leader><space> :nohlsearch<CR>
-
 " leader+S for search/replace
-nnoremap <Leader>S :%s//<left>
+nnoremap <Leader>S :OverCommandLine<cr>%s/
 
-" leader+s for search
-nnoremap <Leader>s /
-
-" switch between files with ,,
-nnoremap <leader><leader> <c-^>
+" switch between files with \\
+nnoremap <localleader><localleader> <c-^>
 
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -507,9 +520,6 @@ nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
 vnoremap <tab> %
-
-" leader enter does nothing in insert
-inoremap <Leader><cr> <nop>
 
 " Close all but the current one
 nnoremap <localleader>o :only<CR>
@@ -536,7 +546,7 @@ nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Disable highlight when <leader><cr> is pressed
-nnoremap <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
 " use ctrl-s to vimgrep and open results in quickfix window
 function! FindAll()
@@ -555,7 +565,6 @@ nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
 
 " fold controls
 nnoremap <Leader>tf zA
-"nnoremap <space> za
 nnoremap <Leader>caf zM
 nnoremap <Leader>af zR
 
@@ -569,12 +578,20 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
+" go to previous and next tab/buffers
+nnoremap <M-<> :bprevious<cr>
+nnoremap <M->> :bnext<cr>
+nnoremap <M-h> :tabprevious<cr>
+nnoremap <M-l> :tabnext<cr>
+
+" resize splits
+nnoremap <C-M-h> <C-w><
+nnoremap <C-M-j> <C-w>+
+nnoremap <C-M-k> <C-w>-
+nnoremap <C-M-l> <C-w>>
+
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
-
-" go to previous and next buffer
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
 
 " <leader>lb to list buffers
 nnoremap <silent> <leader>lb :ls b<cr>
@@ -585,24 +602,18 @@ nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
-nnoremap <leader>[ :tabprevious<cr>
-nnoremap <leader>] :tabnext<cr>
-nnoremap <leader>< :tabprevious<cr>
-nnoremap <leader>> :tabnext<cr>
 
 " rename tab
 nnoremap <leader>tr :TabooRename<space>
 nnoremap <leader>T :TabooOpen<space>
 
-" resize splits
-nnoremap <C-M-h> <C-w><
-nnoremap <C-M-j> <C-w>+
-nnoremap <C-M-k> <C-w>-
-nnoremap <C-M-l> <C-w>>
-
 "}}}
 
 " plugin configurations {{{
+
+" easymotion
+
+highlight link EasyMotionTarget Todo
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -618,7 +629,7 @@ endfunction
 
 " LanguageClient
 let g:LanguageClient_serverCommands = {
-            \ 'python': ['pyls'],
+            \ 'python': ['/usr/local/bin/pyls', 'pyls'],
             \ 'cpp': ['clangd'],
             \ 'c': ['clangd'],
             \ 'go': ['go-langserver'],

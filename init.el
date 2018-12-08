@@ -35,6 +35,20 @@
 ;; temp file for custom settings
 (setq custom-file (make-temp-file "emacs-custom"))
 
+;; set proper terminal for windows machines
+(defvar default-shell-location)
+
+(setq default-shell-location
+      (cond ((eq system-type 'windows-nt) "C/Windows/System32/bash.exe")))
+
+(when default-shell-location
+  (setq shell-file-name default-shell-location)
+  (add-to-list 'exec-path "C:/Windows/System32/bash.exe")) ;
+
+;; speed up font rendering on windows
+(cond ((eq system-type 'windows-nt)
+          (setq inhibit-compacting-font-caches t)))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEME SETTINGS
@@ -43,7 +57,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Consolas 11")
-            ((eq system-type 'gnu/linux) "Hack 13")
+            ((eq system-type 'gnu/linux) "Hack 11")
             (t nil)))
 
 (when platform-default-font
@@ -113,26 +127,26 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; mode line format
-(setq-default mode-line-format
-      (list
-       ;; `mode-name'
-       "%m: "
-       ;; current buffer name
-       "%& %b"
-       ;; % buffer above top of window
-       " | %P"
-       ;; current line number
-       " | line %l"
-       ;; current column number
-       " | col %c"
-       ))
+;; (setq-default mode-line-format
+;;       (list
+;;        ;; `mode-name'
+;;        "%m: "
+;;        ;; current buffer name
+;;        "%& %b"
+;;        ;; % buffer above top of window
+;;        " | %P"
+;;        ;; current line number
+;;        " | line %l"
+;;        ;; current column number
+;;        " | col %c"
+;;        ))
 
 ;; unique buffer names in mode line
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+;; (require 'uniquify)
+;; (setq uniquify-buffer-name-style 'forward)
+;; (setq uniquify-separator "/")
+;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -175,13 +189,11 @@
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
 (global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
 (global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c D") 'counsel-unicode-char)
 (global-set-key (kbd "C-c a") 'counsel-ag)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-x l") 'counsel-locate)
@@ -189,21 +201,50 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "M-p") 'fzf)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
+
+;; projectile
+(use-package projectile
+  :config
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+;; mode line - from DOOM
+(use-package doom-modeline
+      :ensure t
+      :defer t
+      :hook (after-init . doom-modeline-init)
+      :config
+      (setq doom-modeline-icon t)
+      (setq doom-modeline-minor-modes nil))
+
+;; necessary for DOOM modeline
+(use-package all-the-icons)
+(use-package eldoc-eval)
 
 ;; evil mode
 (use-package evil
   :config
   (evil-mode 1))
 
+;; Make movement keys work like they should
+(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
+; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
+
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
 
-;; git-gutter+
+;; git-gutter
 (use-package git-gutter
   :config
   (global-git-gutter-mode t))
@@ -234,9 +275,6 @@
 ;; dependent on silversearcher - sudo apt install silversearcher-ag
 (use-package ag)
 
-;; fzf file finder
-(use-package fzf)
-
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
   :diminish dumb-jump-mode)
@@ -245,21 +283,6 @@
 (use-package counsel
   :config
   (counsel-mode 1))
-
-(use-package ivy
-  :demand
-  :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d ")
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) "))
-
-;; smartparens
-;; (use-package smartparens
-;;   :diminish smartparens-mode
-;;   :config
-;;   (add-hook 'prog-mode-hook 'smartparens-mode))
 
 ;; rainbow mode- highlight strings that represent colors
 (use-package rainbow-mode
@@ -307,6 +330,27 @@
 
 ;; ////////////////////////////////////////////////////////////
 
+;;;; Helm
+
+(use-package helm
+  :config
+  (helm-mode t)
+  (setq helm-M-x-fuzzy-match t)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files))
+  (setq helm-split-window-in-side-p t
+        helm-move-to-line-cycle-in-source t
+        helm-ff-search-library-in-sexp t
+        helm-scroll-amount 8
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t)
+
+
+;; ////////////////////////////////////////////////////////////
+
 ;;;; COMPANY MODE
 
 (use-package company
@@ -314,6 +358,9 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   (global-company-mode '(not markdown-mode)))
+(with-eval-after-load 'company
+  (add-hook 'company-mode-hook (lambda ()
+                                 (add-to-list 'company-backends 'company-capf))))
 
 ;; customize
 (let ((bg (face-attribute 'default :background)))
@@ -326,6 +373,9 @@
                                     font-lock-function-name-face))))
    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 
+(define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+(define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; LANGUAGE SETTINGS AND PACKAGES
@@ -337,6 +387,25 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+;; clang
+(use-package irony
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+(use-package company-irony)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(use-package flycheck-irony)
+
+(defun my-c++-mode-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'substatement-open 0))
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 ;; SCALA
 (use-package scala-mode
@@ -369,36 +438,8 @@
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; IDO SETTINGS
-
-(global-set-key
- "\M-x"
- (lambda ()
-   (interactive)
-   (call-interactively
-    (intern
-     (ido-completing-read
-      "M-x "
-      (all-completions "" obarray 'commandp))))))
-
-;; ido vertical mode
-(use-package ido-vertical-mode
-  :ensure t
-  :init
-  (ido-vertical-mode 1)
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
-
-;; flx for fuzzy matching
-(use-package flx-ido
-  :ensure t
-  :init
-  (flx-ido-mode 1)
-  ;; disable ido faces to see flx highlights.
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil))
+(setq jedi:complete-on-dot t)
+(setq py-python-command "/usr/bin/python3")
 
 
 ;; ////////////////////////////////////////////////////////////

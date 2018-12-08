@@ -72,6 +72,10 @@ project/plugins/project/
 .lib/
 **ensime**
 
+# Python #
+######################
+**/__pycache__/**
+
 # VS Code #
 ######################
 **/.vscode/**
