@@ -201,6 +201,7 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -340,6 +341,13 @@
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t)
   (global-set-key (kbd "C-x C-f") 'helm-find-files))
+  (setq helm-split-window-in-side-p t
+        helm-move-to-line-cycle-in-source t
+        helm-ff-search-library-in-sexp t
+        helm-scroll-amount 8
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t)
+
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -364,6 +372,9 @@
    `(company-tooltip-selection ((t (:inherit
                                     font-lock-function-name-face))))
    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
+(define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+(define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -427,6 +438,8 @@
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
+(setq jedi:complete-on-dot t)
+(setq py-python-command "/usr/bin/python3")
 
 
 ;; ////////////////////////////////////////////////////////////
