@@ -114,6 +114,9 @@ fi
 # Nvim as editor
 export EDITOR=nvim
 
+# Xfce from WSL
+export DISPLAY=:0.0
+
 # update bash prompt
 # get current branch in git repo
 function parse_git_branch() {
