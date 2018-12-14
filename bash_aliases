@@ -51,3 +51,16 @@ function pip() {
     command pip "$@"
   fi
 }
+
+# Python pip3 alias - auto install for --user
+function pip3() {
+  if [[ "$1" == "install" ]]; then
+    shift 1
+    command pip3 install --user "$@"
+  else
+    command pip3 "$@"
+  fi
+}
+
+# shortcut to windows dev environment
+alias windev='cd /mnt/c/users/scott/git'

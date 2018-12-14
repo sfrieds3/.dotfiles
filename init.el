@@ -176,7 +176,6 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
-(global-set-key (kbd "C-c t") 'neotree-toggle)
 (global-set-key (kbd "C-c D") 'delete-window)
 (global-set-key (kbd "C-c t") 'neotree-toggle)
 (global-set-key (kbd "C-c g") 'magit-diff)
@@ -189,6 +188,8 @@
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
 (global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
 (global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
@@ -201,7 +202,6 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -216,12 +216,12 @@
 
 ;; mode line - from DOOM
 (use-package doom-modeline
-      :ensure t
-      :defer t
-      :hook (after-init . doom-modeline-init)
-      :config
-      (setq doom-modeline-icon t)
-      (setq doom-modeline-minor-modes nil))
+  :ensure t
+  :defer t
+  :hook (after-init . doom-modeline-init)
+  :config
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-minor-modes nil))
 
 ;; necessary for DOOM modeline
 (use-package all-the-icons)
@@ -243,6 +243,22 @@
 
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
+
+;; fzf
+(use-package fzf
+  :config (progn
+            (add-to-list 'load-path "~/.fzf/bin/fzf")
+
+            (defadvice fzf/start (after normalize-fzf-mode-line activate)
+              (face-remap-add-relative 'mode-line '(:box nil)))
+
+            (defun disable-scroll-margin ()
+              (setq-local scroll-margin 0))
+            (add-hook 'term-mode-hook #'disable-scroll-margin)
+
+            (defadvice fzf/start (after normalize-fzf-mode-line activate)
+              "Hide the modeline so FZF will render properly."
+              (setq mode-line-format nil))))
 
 ;; git-gutter
 (use-package git-gutter
@@ -280,6 +296,15 @@
   :diminish dumb-jump-mode)
 
 ;; ivy
+(use-package ivy
+  :demand
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d ")
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
+
 (use-package counsel
   :config
   (counsel-mode 1))
@@ -327,26 +352,6 @@
   :config
   (drag-stuff-global-mode t)
   (drag-stuff-define-keys))
-
-;; ////////////////////////////////////////////////////////////
-
-;;;; Helm
-
-(use-package helm
-  :config
-  (helm-mode t)
-  (setq helm-M-x-fuzzy-match t)
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (setq helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match    t)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files))
-  (setq helm-split-window-in-side-p t
-        helm-move-to-line-cycle-in-source t
-        helm-ff-search-library-in-sexp t
-        helm-scroll-amount 8
-        helm-ff-file-name-history-use-recentf t
-        helm-echo-input-in-header-line t)
 
 
 ;; ////////////////////////////////////////////////////////////
