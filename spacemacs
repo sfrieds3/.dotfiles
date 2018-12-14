@@ -335,7 +335,7 @@ you should place your code here."
      ((t (:inherit company-tooltip :weight bold :underline nil))))
    '(company-tooltip-common-selection
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-  ;; terminal settings
+  ;; terminal settings for windows
   (cond ((eq system-type 'windows-nt)
          (setq explicit-shell-file-name "C:/Windows/System32/bash.exe")
          (setq shell-file-name explicit-shell-file-name)
