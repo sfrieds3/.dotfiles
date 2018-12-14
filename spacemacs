@@ -336,9 +336,10 @@ you should place your code here."
    '(company-tooltip-common-selection
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
   ;; terminal settings
-  (setq explicit-shell-file-name "C:/Windows/System32/bash.exe")
-  (setq shell-file-name explicit-shell-file-name)
-  (add-to-list 'exec-path "C:/Windows/System32/bash.exe")
+  (cond ((eq system-type 'windows-nt)
+         (setq explicit-shell-file-name "C:/Windows/System32/bash.exe")
+         (setq shell-file-name explicit-shell-file-name)
+         (add-to-list 'exec-path "C:/Windows/System32/bash.exe")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
