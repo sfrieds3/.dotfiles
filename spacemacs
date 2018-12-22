@@ -115,7 +115,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -124,7 +124,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -157,7 +157,7 @@ values."
    dotspacemacs-leader-key ","
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
    ;; (default ",")
-   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-emacs-command-key ","
    ;; The key used for Vim Ex commands (default ":")
    dotspacemacs-ex-command-key ":"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -324,10 +324,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; install ag and add to PATH for ,* to grep
 
+  ;; note: install ag and add to PATH for ,* to grep
+
+  ;; evil settings
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
+  ;; comment things easily
+  (spacemacs/set-leader-keys "c SPC" 'comment-or-uncomment-region)
+
+  ;; projectile settings
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-git-submodule-command nil)
@@ -345,6 +352,7 @@ you should place your code here."
          (setq shell-file-name explicit-shell-file-name)
          (add-to-list 'exec-path "C:/Windows/System32/bash.exe")))
   (setq-default frame-title-format "%b (%f)")
+
   ;; (set-face-attribute 'hl-todo nil :foreground "#FFFF00")
   )
 
