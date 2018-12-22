@@ -343,8 +343,8 @@ you should place your code here."
   (cond ((eq system-type 'windows-nt)
          (setq explicit-shell-file-name "C:/Windows/System32/bash.exe")
          (setq shell-file-name explicit-shell-file-name)
-         (add-to-list 'exec-path "C:/Windows/System32/bash.exe")
-         (setq default-directory "C:/users/scott/git/")))
+         (add-to-list 'exec-path "C:/Windows/System32/bash.exe")))
+  (setq-default frame-title-format "%b (%f)")
   ;; (set-face-attribute 'hl-todo nil :foreground "#FFFF00")
   )
 
