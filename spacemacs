@@ -115,7 +115,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -332,7 +332,10 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
   ;; comment things easily
-  (spacemacs/set-leader-keys "c SPC" 'comment-or-uncomment-region)
+  (spacemacs/set-leader-keys "c SPC" 'dumb-jump-go)
+
+  ;; other keymappings
+  (global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
 
   ;; projectile settings
   (setq projectile-enable-caching t)
@@ -352,6 +355,7 @@ you should place your code here."
          (setq shell-file-name explicit-shell-file-name)
          (add-to-list 'exec-path "C:/Windows/System32/bash.exe")))
   (setq-default frame-title-format "%b (%f)")
+
 
   ;; (set-face-attribute 'hl-todo nil :foreground "#FFFF00")
   )
