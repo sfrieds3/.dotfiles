@@ -326,6 +326,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; note: install ag and add to PATH for ,* to grep
+  ;; note: install ctags and add to PATH for ctags support
 
   ;; evil settings
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
@@ -333,9 +334,14 @@ you should place your code here."
 
   ;; comment things easily
   (spacemacs/set-leader-keys "c SPC" 'dumb-jump-go)
+  (spacemacs/set-leader-keys "\ t" 'dumb-jump-go)
 
   ;; other keymappings
   (global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
+
+  (defun find-todo ()
+    (interactive)
+    ())
 
   ;; projectile settings
   (setq projectile-enable-caching t)
@@ -354,6 +360,8 @@ you should place your code here."
          (setq explicit-shell-file-name "C:/Windows/System32/bash.exe")
          (setq shell-file-name explicit-shell-file-name)
          (add-to-list 'exec-path "C:/Windows/System32/bash.exe")))
+
+  ;; make frame title show current buffer
   (setq-default frame-title-format "%b (%f)")
 
 
