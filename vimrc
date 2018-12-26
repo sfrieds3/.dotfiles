@@ -35,7 +35,7 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
+"Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'easymotion/vim-easymotion' " vim easymotion
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
@@ -97,7 +97,6 @@ endif
 "" deoplete sources
 
 Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
 Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
@@ -144,11 +143,6 @@ let g:pymode_folding = 0
 let g:pymode_options = 0
 
 "-------------------------------------------------------"
-" Java
-autocmd FileType java let b:deoplete_disable_auto_complete = 1
-autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
-
-"-------------------------------------------------------"
 " Scala
 autocmd BufWritePost *.scala silent :EnTypeCheck
 autocmd FileType scala nnoremap <localleader>k :EnType<CR>
@@ -174,7 +168,6 @@ let g:neomake_verbose=3
 "-------------------------------------------------------"
 " Markdown
 autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
-autocmd FileType markdown vnoremap <localleader>q gq
 
 " }}}
 
@@ -499,9 +492,6 @@ inoremap <S-Tab> <C-V><Tab>
 " remap 0 to first nonblank character
 nnoremap 0 ^
 
-" switch windows w/ ,+w
-nnoremap <Leader>w <C-w><C-w>
-
 " move line of text up, down using Alt-j/k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
@@ -520,9 +510,6 @@ nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
 vnoremap <tab> %
-
-" Close all but the current one
-nnoremap <localleader>o :only<CR>
 
 " sudo for write
 cmap w!! w !sudo tee % >/dev/null
@@ -563,11 +550,6 @@ nnoremap <localleader>t :TagbarToggle<CR>
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
 
-" fold controls
-nnoremap <Leader>tf zA
-nnoremap <Leader>caf zM
-nnoremap <Leader>af zR
-
 "}}}
 
 " moving around, tabs, windows and buffers {{{
@@ -577,6 +559,8 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+nnoremap <leader>ww <C-w>w
+nmap <leader>w <C-W>
 
 " go to previous and next tab/buffers
 nnoremap <M-<> :bprevious<cr>
@@ -594,7 +578,7 @@ nnoremap <C-M-l> <C-w>>
 nnoremap <leader>bd :bdelete<cr>
 
 " <leader>lb to list buffers
-nnoremap <silent> <leader>lb :ls b<cr>
+nnoremap <silent> <leader>bb :ls b<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
@@ -719,11 +703,6 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <leader>vr :OverCommandLine<CR>%s/
 
 " NERDTree
-
-" Nerdtree starts up automatially if no file selected for vim
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
 " ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
 
