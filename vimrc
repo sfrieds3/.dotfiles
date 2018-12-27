@@ -474,14 +474,14 @@ endif
 
 " remapping key commands {{{
 
+" open python repl
+nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
+
 " open fish shell
 nnoremap <localleader>f :terminal fish<cr>
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
-
-" * does not move to next occurrence
-nnoremap * *N
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -520,7 +520,7 @@ nnoremap <silent> <Leader>n :set invnumber<CR>
 " open Ack quick fix window to show TODO's
 nnoremap <silent> <leader>vt :Ack! TODO<CR>
 
-" open Ack quick fix winow to show currnet word
+" open Ack quick fix winow to show current word
 nnoremap <leader>A :Ack! <cword><CR>
 
 " ack for a word
@@ -528,6 +528,9 @@ nnoremap <leader>a :Ack!
 
 " <space> to show avilable marks and be ready to swtich
 nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
+
+" list all buffers and be ready to switch
+nnoremap <silent> <leader>bb :<C-u>:buffers<CR>:buffer<space>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -577,8 +580,6 @@ nnoremap <C-M-l> <C-w>>
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
 
-" <leader>lb to list buffers
-nnoremap <silent> <leader>bb :ls b<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
@@ -744,7 +745,7 @@ nnoremap <Leader>a :Ack!<Space>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " fzf mappings
-nnoremap <c-p> :FZF<CR>
+nnoremap <C-S-p> :FZF<CR>
 
 " tagbar
 let g:tagbar_type_go = {
