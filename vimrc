@@ -745,7 +745,7 @@ nnoremap <Leader>a :Ack!<Space>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " fzf mappings
-nnoremap <C-S-p> :FZF<CR>
+nnoremap <A-p> :FZF<CR>
 
 " tagbar
 let g:tagbar_type_go = {
