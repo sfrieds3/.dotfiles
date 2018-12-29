@@ -75,14 +75,6 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sfrieds3/vim-hickop-colors'
 Plug 'sjl/badwolf'
 
-"-------------------------------------------------------"
-
-" language server
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
-
 ""-------------------------------------------------------"
 
 "" deoplete
@@ -99,7 +91,7 @@ endif
 Plug 'Shougo/neco-vim' " vim auocomplete
 Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' } " golang support
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
 
 "" Scala stuff
@@ -132,8 +124,6 @@ autocmd FileType go set nolist
 " show definition when hovering
 let g:go_auto_type_info = 1
 autocmd FileType go nnoremap <localleader>d :GoDoc<space>
-autocmd FileType go nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-autocmd FileType go nnoremap <localleader>r :call LanguageClient_textDocument_rename()<CR>
 autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
 
 "-------------------------------------------------------"
@@ -596,8 +586,10 @@ nnoremap <leader>T :TabooOpen<space>
 
 " plugin configurations {{{
 
-" easymotion
+" ale
+let g:ale_lint_on_enter = 1
 
+" easymotion
 highlight link EasyMotionTarget Todo
 
 " deoplete
@@ -611,30 +603,6 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
     return deoplete#close_popup() . "\<CR>"
 endfunction
-
-" LanguageClient
-let g:LanguageClient_serverCommands = {
-            \ 'python': ['/usr/local/bin/pyls', 'pyls'],
-            \ 'cpp': ['clangd'],
-            \ 'c': ['clangd'],
-            \ 'go': ['go-langserver'],
-            \ }
-
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>art = 1
-
-" cquery language client rgister (if installed)
-if executable('cquery')
-   au User lsp_setup call lsp#register_server({
-      \ 'name': 'cquery',
-      \ 'cmd': {server_info->['cquery']},
-      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-      \ 'initialization_options': { 'cacheDirectory': '/path/to/cquery/cache' },
-      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-      \ })
-endif
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
