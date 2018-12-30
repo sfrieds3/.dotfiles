@@ -50,6 +50,7 @@ Plug 'w0rp/ale' " linting
 Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'ap/vim-css-color' " show CSS colors inline
 Plug 'mbbill/undotree' " visual undo tree
+Plug 'ludovicchabant/vim-gutentags' " tags management
 
 "-------------------------------------------------------"
 
@@ -93,6 +94,7 @@ Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'zchee/deoplete-jedi' " python autocomplete
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
+Plug 'zchee/deoplete-clang' " clang deoplete backend
 
 "" Scala stuff
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
@@ -256,9 +258,6 @@ set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under curs
 
 let mapleader = ","                 " update leader
 let maplocalleader = "\\"           " map local leader- can use for other commands with <localleader>
-
-" blinking cursor
-set guicursor=a:blinkon1
 
 "wrapped lines go down/up to next row
 noremap j gj
@@ -467,6 +466,9 @@ endif
 " open python repl
 nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
 
+" tag search
+nnoremap <leader><space> :Tags<cr>
+
 " open fish shell
 nnoremap <localleader>f :terminal fish<cr>
 
@@ -516,8 +518,8 @@ nnoremap <leader>A :Ack! <cword><CR>
 " ack for a word
 nnoremap <leader>a :Ack!
 
-" <space> to show avilable marks and be ready to swtich
-nnoremap <silent> <space> :<C-u>marks<CR>:normal! `
+" show avilable marks and be ready to swtich
+nnoremap <leader>mm :<C-u>marks<CR>:normal! `
 
 " list all buffers and be ready to switch
 nnoremap <silent> <leader>bb :<C-u>:buffers<CR>:buffer<space>
@@ -556,6 +558,8 @@ nnoremap <leader>ww <C-w>w
 nmap <leader>w <C-W>
 
 " go to previous and next tab/buffers
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leaderbn :bnext<cr>
 nnoremap <M-<> :bprevious<cr>
 nnoremap <M->> :bnext<cr>
 nnoremap <M-h> :tabprevious<cr>
