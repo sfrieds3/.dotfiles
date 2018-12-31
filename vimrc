@@ -1,28 +1,4 @@
-" housekeeping {{{
-
-" Dependencies
-" go get -u github.com/jstemmer/gotags
-" go get -u github.com/nsf/gocode
-" go get github.com/rogpeppe/godef
-" go get -u github.com/derekparker/delve/cmd/dlv
-" gometalinter --install (terminal)
-" :GoInstallBinaries
-" export PATH=$PATH:$(go env GOPATH)/bin
-" cargo install racer
-" pip install jedi
-" pip3 install neovim
-" pip install neovim
-" :UpdateRemotePlugins
-" sudo apt-get install exuberant-ctags
-" go get -u github.com/sourcegraph/go-langserver
-" pip install websocket-client sexpdata (ensime)
-
-" :helpgrep <text> - grep for <text> in all help docs
-" :cn :cp to go to next or previous result from :helpgrep
-
-"}}}
-
-" start of plugins {{{
+" plugins {{{
 
 " install plugged if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -281,14 +257,6 @@ augroup END
 
 " allow recursive searching with :find
 set path+=**
-
-" Create the `tags` file (may need to install ctags first)
-command! MakeTags !ctags -R .
-
-" NOW WE CAN:
-" - Use ^] to jump to tag under cursor
-" - Use g^] for ambiguous tags
-" - Use ^t to jump back up the tag stack
 
 " not case sensitive, unless all caps
 set ignorecase
@@ -837,3 +805,31 @@ augroup highlight_interesting_word
   " }}}
 augroup END
 " }}}
+
+" housekeeping {{{
+
+" Dependencies
+" go get -u github.com/jstemmer/gotags
+" go get -u github.com/nsf/gocode
+" go get github.com/rogpeppe/godef
+" go get -u github.com/derekparker/delve/cmd/dlv
+" gometalinter --install (terminal)
+" :GoInstallBinaries
+" export PATH=$PATH:$(go env GOPATH)/bin
+" cargo install racer
+" pip install jedi
+" pip3 install neovim
+" pip install neovim
+" :UpdateRemotePlugins
+" sudo apt-get install exuberant-ctags
+" go get -u github.com/sourcegraph/go-langserver
+" pip install websocket-client sexpdata (ensime)
+
+" :helpgrep <text> - grep for <text> in all help docs
+" :cn :cp to go to next or previous result from :helpgrep
+" Tags:
+" - Use ^] to jump to tag under cursor
+" - Use g^] for ambiguous tags
+" - Use ^t to jump back up the tag stack
+
+"}}}
