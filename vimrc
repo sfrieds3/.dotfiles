@@ -489,9 +489,6 @@ nnoremap <leader>a :Ack!
 " show avilable marks and be ready to swtich
 nnoremap <leader>mm :<C-u>marks<CR>:normal! `
 
-" list all buffers and be ready to switch
-nnoremap <silent> <leader>bb :<C-u>:buffers<CR>:buffer<space>
-
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
@@ -579,6 +576,25 @@ endfunction
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
 set wildignore+=*/node_modules/*,*/bower_components/* "node js
+
+" fzf through buffers
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader>bb :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
 
 " Git gutter
 nnoremap <Leader>gg :GitGutterToggle<CR>
