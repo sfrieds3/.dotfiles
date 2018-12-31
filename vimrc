@@ -1,4 +1,4 @@
-" plugins {{{
+" start of plugins {{{
 
 " install plugged if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -806,24 +806,7 @@ augroup highlight_interesting_word
 augroup END
 " }}}
 
-" housekeeping {{{
-
-" Dependencies
-" go get -u github.com/jstemmer/gotags
-" go get -u github.com/nsf/gocode
-" go get github.com/rogpeppe/godef
-" go get -u github.com/derekparker/delve/cmd/dlv
-" gometalinter --install (terminal)
-" :GoInstallBinaries
-" export PATH=$PATH:$(go env GOPATH)/bin
-" cargo install racer
-" pip install jedi
-" pip3 install neovim
-" pip install neovim
-" :UpdateRemotePlugins
-" sudo apt-get install exuberant-ctags
-" go get -u github.com/sourcegraph/go-langserver
-" pip install websocket-client sexpdata (ensime)
+" notes {{{
 
 " :helpgrep <text> - grep for <text> in all help docs
 " :cn :cp to go to next or previous result from :helpgrep

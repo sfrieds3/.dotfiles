@@ -1,26 +1,25 @@
 #! /usr/bin/python3
+from os.path import expanduser
 import os
 import subprocess
-from os.path import expanduser
 
-user_home = expanduser("~")
+USER_HOME = expanduser("~")
 
 # symlink bash, ctags, gitignore, vimrc
-bash_files = ['bashrc', 'bash_aliases', 'ctags', 'dircolors', 'gitignore', 'inputrc', 'vimrc']
+BASH_FILES = ['bashrc', 'bash_aliases', 'ctags', 'dircolors', 'gitignore', 'inputrc', 'vimrc']
 
-for x in bash_files:
-        if not os.path.islink(user_home + '/.' + x):
-                os.symlink(user_home + '/.dotfiles/' + x, user_home + '/.' + x)
+for x in BASH_FILES:
+    if not os.path.islink(USER_HOME + '/.' + x):
+        os.symlink(USER_HOME + '/.dotfiles/' + x, USER_HOME + '/.' + x)
 
-if not os.path.islink(user_home + '/.config/nvim/init.vim'):
-        os.symlink(user_home + '/.dotfiles', user_home + '/.congif/nvim/init.vim')
+if not os.path.islink(USER_HOME + '/.config/nvim/init.vim'):
+    os.symlink(USER_HOME + '/.dotfiles', USER_HOME + '/.congif/nvim/init.vim')
 
 # I'm lazy, shell script to set up to set custom colors for git
-subprocess.call(user_home + '/.dotfiles/setup.sh')
+subprocess.call(USER_HOME + '/.dotfiles/setup.sh')
 
 # I'm still lazy.. shell script to apt install neovim etc etc
-print(user_home + '/.dotfiles/apt_install.sh')
-subprocess.call(user_home + '/.dotfiles/apt_install.sh')
+print(USER_HOME + '/.dotfiles/apt_install.sh')
+subprocess.call(USER_HOME + '/.dotfiles/apt_install.sh')
 
 # install golang
-
