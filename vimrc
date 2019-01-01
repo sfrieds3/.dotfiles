@@ -237,7 +237,8 @@ endfunction
 set modeline
 
 " format the statusline
-set statusline=%f " file name
+set statusline=[%n]
+set statusline+=%f " file name
 set statusline+=%m " modified flag
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
@@ -249,9 +250,10 @@ set statusline+=%{fugitive#statusline()}
 set statusline+=%{LinterStatus()}
 
 set statusline+=\ %=                        " align left
-set statusline+=%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ C:%2c                    " current column
-set statusline+=\ B:%n                    " Buffer number
+set statusline+=%l,
+set statusline+=%2c
+set statusline+=\ [%p%%
+set statusline+=\ %L]            " line X of Y [percent of file]
 set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
