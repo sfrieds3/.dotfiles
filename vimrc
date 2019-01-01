@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-"Plug 'christoomey/vim-tmux-navigator' " navigate tmux and vim panes
 Plug 'easymotion/vim-easymotion' " vim easymotion
 Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
@@ -27,16 +26,12 @@ Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'ap/vim-css-color' " show CSS colors inline
 Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
+Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 
-"-------------------------------------------------------"
-
-" languages
 Plug 'vim-scripts/c.vim' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
 Plug 'fatih/vim-go' " golang
-
-"-------------------------------------------------------"
-
+"
 " fzf- fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -83,38 +78,67 @@ call plug#end()
 
 " language settings {{{
 
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
-autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
-autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup lang
+    autocmd!
+
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
+    autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
+    autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
 
 "-------------------------------------------------------"
 
 " golang
 " no warning for out of date nvim
 let g:go_version_warning = 0
+
 " goimport on save
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
-" no listchars for go files
-autocmd FileType go set nolist
+"
 " show definition when hovering
 let g:go_auto_type_info = 1
-autocmd FileType go nnoremap <localleader>d :GoDoc<space>
-autocmd FileType go nnoremap <localleader>l :GoMetaLinter<CR>
+
+augroup go
+    autocmd!
+
+    autocmd FileType go set nolist
+
+    autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
+    autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
+    autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
+
+    autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
+
+    autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
+    autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
+
+    autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
+    autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
+    autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
+    autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
+
+    autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
+augroup END
 
 "-------------------------------------------------------"
 " python
+" python-mode
 let g:pymode_options_colorcolumn = 0
 let g:pymode_folding = 0
 let g:pymode_options = 0
 
 "-------------------------------------------------------"
 " Scala
-autocmd BufWritePost *.scala silent :EnTypeCheck
-autocmd FileType scala nnoremap <localleader>k :EnType<CR>
-autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+augroup scala
+    autocmd!
+    autocmd BufWritePost *.scala silent :EnTypeCheck
+    autocmd FileType scala nnoremap <localleader>k :EnType<CR>
+    autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+augroup END
+"
 "Linting with neomake
 let g:neomake_sbt_maker = {
       \ 'exe': 'sbt',
@@ -135,7 +159,11 @@ let g:neomake_verbose=3
 
 "-------------------------------------------------------"
 " Markdown
-autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+augroup markdown
+    autocmd!
+
+    autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+augroup END
 
 " }}}
 
@@ -452,6 +480,9 @@ inoremap <S-Tab> <C-V><Tab>
 " remap 0 to first nonblank character
 nnoremap 0 ^
 
+" stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+
 " move line of text up, down using Alt-j/k
 nnoremap <M-j> mz:m+<cr>`z
 nnoremap <M-k> mz:m-2<cr>`z
@@ -572,6 +603,9 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
     return deoplete#close_popup() . "\<CR>"
 endfunction
+
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " ignore for wild:
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
