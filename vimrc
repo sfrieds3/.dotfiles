@@ -234,27 +234,56 @@ function! LinterStatus() abort
     \)
 endfunction
 
-set modeline
+let s:modes = {
+      \ 'n': 'NORMAL',
+      \ 'i': 'INSERT',
+      \ 'R': 'REPLACE',
+      \ 'v': 'VISUAL',
+      \ 'V': 'V-LINE',
+      \ "\<C-v>": 'V-BLOCK',
+      \ 'c': 'COMMAND',
+      \ 's': 'SELECT',
+      \ 'S': 'S-LINE',
+      \ "\<C-s>": 'S-BLOCK',
+      \ 't': 'TERMINAL'
+      \}
+
+let s:prev_mode = ""
+function! StatusLineMode()
+  let cur_mode = get(s:modes, mode(), '')
+  let s:prev_mode = cur_mode
+  return cur_mode
+endfunction
+
+function! StatusLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLineFormat()
+    return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
+endfunction
 
 " format the statusline
-set statusline=[%n]
+set statusline=
+set statusline+=%{StatusLineMode()}
+set statusline+=\ (%n)
 set statusline+=%f " file name
 set statusline+=%m " modified flag
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
 
 "" get current git status
-set statusline+=%{fugitive#statusline()}
+set statusline+=\ %{fugitive#statusline()}
 
 "" Ale status
 set statusline+=%{LinterStatus()}
 
-set statusline+=\ %=                        " align left
-set statusline+=%l,
-set statusline+=%2c
-set statusline+=\ [%p%%
-set statusline+=\ %L]            " line X of Y [percent of file]
-set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+set statusline+=%=                              " right section
+set statusline+=%{StatusLineFormat()}
+set statusline+=\ %{StatusLineFiletype()}
+set statusline+=\ %l,                             " line number
+set statusline+=%2c                             " column number
+set statusline+=\ %p%%                          " file percent
+set statusline+=\ %L                            " number of lines
+"set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
 
 " end statusline
 
@@ -271,6 +300,9 @@ noremap k gk
 
 " retain buffers until quit
 set hidden
+
+" use modeline
+set modeline
 
 " No bells!
 set visualbell
@@ -303,6 +335,10 @@ set backspace=2
 " path/file expansion in colon-mode
 set wildmode=longest:full,list:full,list:longest
 set wildchar=<TAB>
+
+" ignore for wild:
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
+set wildignore+=*/node_modules/*,*/bower_components/* "node js
 
 " show me where I am?
 set ruler
@@ -588,13 +624,15 @@ nnoremap <leader>T :TabooOpen<space>
 
 " plugin configurations {{{
 
-" ale
+" ale {{{
 let g:ale_lint_on_enter = 1
+" }}}
 
-" easymotion
+" easymotion {{{
 highlight link EasyMotionTarget Todo
+" }}}
 
-" deoplete
+" deoplete {{{
 let g:deoplete#enable_at_startup = 1
 "autocmd CompleteDone * pclose!
 let g:deoplete#omni_patterns = {}
@@ -605,13 +643,15 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
     return deoplete#close_popup() . "\<CR>"
 endfunction
+" }}}
 
+" quickscope {{{
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" }}}
 
-" ignore for wild:
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
-set wildignore+=*/node_modules/*,*/bower_components/* "node js
+" fzf {{{
+nnoremap <A-p> :FZF<CR>
 
 " fzf through buffers
 function! s:buflist()
@@ -631,8 +671,9 @@ nnoremap <silent> <Leader>bb :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
+" }}}
 
-" Git gutter
+" Git gutter {{{
 nnoremap <Leader>gg :GitGutterToggle<CR>
 nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
 nnoremap <Leader>gn :GitGutterNextHunk<CR>
@@ -684,18 +725,21 @@ endfunction
 
 nmap <silent> ]c :call NextHunkAllBuffers()<CR>
 nmap <silent> [c :call PrevHunkAllBuffers()<CR>
+" }}}
 
-" fugitive
+" fugitive {{{
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>GP :Gpush<CR>
 nnoremap <Leader>gb :Gblame
 nnoremap <Leader>gd :Gdiff<CR>
+" }}}
 
-" vim-over visual find replace
+" vim-over {{{
 nnoremap <leader>vr :OverCommandLine<CR>%s/
+" }}}
 
-" NERDTree
+" NERDTree {{{
 " ,o for nerdtree
 map <Leader>o :NERDTreeToggle<CR>
 
@@ -720,10 +764,14 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "ᵅ",
     \ "Unknown"   : "?"
 \ }
+" }}}
 
+" netrw {{{
 " ,O opens directory in netrw
 nnoremap <Leader>O :Explore %:h<cr>
+" }}}
 
+" ag/ack {{{
 " use ag for ack search, fall back on ack if ag not avail
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
@@ -735,11 +783,9 @@ nnoremap <Leader>a :Ack!<Space>
 
 " use ag as default ack client
 let g:ackprg = 'ag --nogroup --nocolor --column'
+" }}}
 
-" fzf mappings
-nnoremap <A-p> :FZF<CR>
-
-" tagbar
+" tagbar {{{
 let g:tagbar_type_go = {
             \ 'ctagstype' : 'go',
             \ 'kinds'     : [
@@ -799,8 +845,9 @@ let g:tagbar_type_markdown = {
             \ },
             \ 'sort': 0,
             \ }
+" }}}
 
-"}}}
+" }}}
 
 " highlight interesting words {{{
 
