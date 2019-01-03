@@ -76,97 +76,6 @@ call plug#end()
 
 "}}}
 
-" language settings {{{
-
-augroup lang
-    autocmd!
-
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
-    autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
-    autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-    autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
-augroup END
-
-"-------------------------------------------------------"
-
-" golang
-" no warning for out of date nvim
-let g:go_version_warning = 0
-
-" goimport on save
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-"
-" show definition when hovering
-let g:go_auto_type_info = 1
-
-augroup go
-    autocmd!
-
-    autocmd FileType go set nolist
-
-    autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
-    autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
-    autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
-
-    autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
-
-    autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
-    autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
-
-    autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
-    autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
-    autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
-    autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
-
-    autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
-augroup END
-
-"-------------------------------------------------------"
-" python
-" python-mode
-let g:pymode_options_colorcolumn = 0
-let g:pymode_folding = 0
-let g:pymode_options = 0
-
-"-------------------------------------------------------"
-" Scala
-augroup scala
-    autocmd!
-    autocmd BufWritePost *.scala silent :EnTypeCheck
-    autocmd FileType scala nnoremap <localleader>k :EnType<CR>
-    autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
-augroup END
-"
-"Linting with neomake
-let g:neomake_sbt_maker = {
-      \ 'exe': 'sbt',
-      \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
-      \ 'append_file': 0,
-      \ 'auto_enabled': 1,
-      \ 'output_stream': 'stdout',
-      \ 'errorformat':
-          \ '%E[%trror]\ %f:%l:\ %m,' .
-            \ '%-Z[error]\ %p^,' .
-            \ '%-C%.%#,' .
-            \ '%-G%.%#'
-     \ }
-let g:neomake_enabled_makers = ['sbt']
-let g:neomake_verbose=3
-" Neomake on text change
-"autocmd InsertLeave,TextChanged * update | Neomake! sbt
-
-"-------------------------------------------------------"
-" Markdown
-augroup markdown
-    autocmd!
-
-    autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
-augroup END
-
-" }}}
-
 " theme settings {{{
 
 " Color settings!
@@ -175,7 +84,6 @@ if !exists("g:syntax_on")
 endif
 
 "set colorscheme below
-"colorscheme badwolf
 colorscheme dim
 
 " desert colorscheme settings
@@ -215,8 +123,11 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+augroup statusline
+    autocmd!
+    autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+    autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+augroup END
 
 " default the statusline to dark grey when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
@@ -266,14 +177,14 @@ endfunction
 function! StatusLineFileName()
     let bnum = expand(bufnr('%'))
     let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-    return printf("(%d)%s", bnum, fname)
+    return printf("%d-%s", bnum, fname)
 endfunction
 
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineMode()}
-set statusline+=%m
 set statusline+=%{StatusLineFileName()}
+set statusline+=%m
 
 "" get current git status
 set statusline+=\ %{fugitive#statusline()}
@@ -304,8 +215,10 @@ set statusline+=\ %p%%
 
 " basic vim settings {{{
 
-let mapleader = ","                 " update leader
-let maplocalleader = "\\"           " map local leader- can use for other commands with <localleader>
+" update leader
+let mapleader = ","
+" map local leader- can use for other commands with <localleader>
+let maplocalleader = "\\"
 
 "wrapped lines go down/up to next row
 noremap j gj
@@ -325,9 +238,9 @@ set ttyfast
 
 " set cursorline for current window only
 augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
 augroup END
 
 " allow recursive searching with :find
@@ -345,23 +258,11 @@ set listchars=tab:\|_,nbsp:␣,extends:…,precedes:…
 " make backspace work
 set backspace=2
 
-" path/file expansion in colon-mode
-set wildmode=longest:full,list:full,list:longest
-set wildchar=<TAB>
-
-" ignore for wild:
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip "macOS/Linux
-set wildignore+=*/node_modules/*,*/bower_components/* "node js
-
-" show me where I am?
-set ruler
-
 " show filename in window titlebar
 set title
 
-set so=0 " set lines above/below cursor
-
-"set autoread "set to autoread when file changed from outside
+" set lines above/below cursor
+set so=0
 
 " turn on wild menu
 set wildmenu
@@ -370,18 +271,20 @@ set wildmenu
 set wildmode=longest:full,full
 set foldcolumn=0
 
+" path/file expansion in colon-mode
+set wildmode=longest:full,list:full,list:longest
+set wildchar=<TAB>
+
 " do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" auto line wrap at 80 for .md and .html files
-" select line and gq to reformat
-au BufRead,BufNewFile *.md setlocal textwidth=80
-au BufRead,BufNewFile *.html setlocal textwidth=80
+augroup hiwhitespace
+    autocmd!
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+augroup END
 
 "Brace face
 set showmatch
@@ -401,7 +304,10 @@ set ttimeout
 set ttimeoutlen=10
 
 " resize splits when window is resized
-au VimResized * :wincmd =
+augroup resize
+    autocmd!
+    autocmd VimResized * :wincmd =
+augroup END
 
 "set utf8 as standard encoding
 set encoding=utf8
@@ -458,7 +364,7 @@ set nocompatible
 set foldmethod=marker
 set clipboard=unnamed "use system default clipboard
 
-" Update term title but restore old title after leaving Vim
+" Update term title
 set title
 set titleold=
 
@@ -477,34 +383,118 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
 "}}}
 
 " neovim settings {{{
 
 if has('nvim')
-" neovim commands
-" neovim terminal - esc to exit terminal-mode
-:tnoremap <Esc> <C-\><C-n>
+    " neovim commands
+    " neovim terminal - esc to exit terminal-mode
+    :tnoremap <Esc> <C-\><C-n>
 
-" set termguicolors
-set termguicolors
+    " set termguicolors
+    set termguicolors
 
-" do not show line numbers in terminal mode
-au TermOpen * setlocal nonumber norelativenumber
+    " do not show line numbers in terminal mode
+    augroup termsettings
+        autocmd!
+        autocmd TermOpen * setlocal nonumber norelativenumber
+    augroup END
 
-" use Alt+{hjkl} to navigate windows from terminal mode
-":tnoremap <A-h> <C-\><C-N><C-w>h
-":tnoremap <A-j> <C-\><C-N><C-w>j
-":tnoremap <A-k> <C-\><C-N><C-w>k
-":tnoremap <A-l> <C-\><C-N><C-w>l
 endif
+
+" }}}
+
+" general language settings {{{
+
+augroup lang
+    autocmd!
+
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
+    autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
+    autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+    "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
+augroup END
+
+" golang {{{
+" no warning for out of date nvim
+let g:go_version_warning = 0
+
+" goimport on save
+let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
+"
+" show definition when hovering
+let g:go_auto_type_info = 1
+
+augroup go
+    autocmd!
+
+    autocmd FileType go set nolist
+
+    autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
+    autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
+    autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
+
+    autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
+
+    autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
+    autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
+
+    autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
+    autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
+    autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
+    autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
+
+    autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
+augroup END
+" }}}
+
+" python {{{
+" python-mode
+let g:pymode_options_colorcolumn = 0
+let g:pymode_folding = 0
+let g:pymode_options = 0
+" }}}
+
+" Scala {{{
+augroup scala
+    autocmd!
+    autocmd BufWritePost *.scala silent :EnTypeCheck
+    autocmd FileType scala nnoremap <localleader>k :EnType<CR>
+    autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+augroup END
+
+"Linting with neomake
+let g:neomake_sbt_maker = {
+      \ 'exe': 'sbt',
+      \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
+      \ 'append_file': 0,
+      \ 'auto_enabled': 1,
+      \ 'output_stream': 'stdout',
+      \ 'errorformat':
+          \ '%E[%trror]\ %f:%l:\ %m,' .
+            \ '%-Z[error]\ %p^,' .
+            \ '%-C%.%#,' .
+            \ '%-G%.%#'
+     \ }
+let g:neomake_enabled_makers = ['sbt']
+let g:neomake_verbose=3
+" Neomake on text change
+"autocmd InsertLeave,TextChanged * update | Neomake! sbt
+" }}}
+
+" Markdown {{{
+augroup markdown
+    autocmd!
+
+    autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+augroup END
+
+" }}}
 
 " }}}
 
