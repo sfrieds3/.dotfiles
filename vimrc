@@ -227,7 +227,7 @@ function! LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? 'OK' : printf(
+    return l:counts.total == 0 ? ' OK' : printf(
     \   '%dW %dE',
     \   all_non_errors,
     \   all_errors
@@ -252,7 +252,7 @@ let s:prev_mode = ""
 function! StatusLineMode()
   let cur_mode = get(s:modes, mode(), '')
   let s:prev_mode = cur_mode
-  return cur_mode
+  return printf("-%s-", cur_mode)
 endfunction
 
 function! StatusLineFiletype()
@@ -263,12 +263,17 @@ function! StatusLineFormat()
     return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
 endfunction
 
+function! StatusLineFileName()
+    let bnum = expand(bufnr('%'))
+    let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+    return printf("(%d)%s", bnum, fname)
+endfunction
+
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineMode()}
-set statusline+=\ (%n)
-set statusline+=%f " file name
-set statusline+=%m " modified flag
+set statusline+=%m
+set statusline+=%{StatusLineFileName()}
 
 "" get current git status
 set statusline+=\ %{fugitive#statusline()}
@@ -276,14 +281,22 @@ set statusline+=\ %{fugitive#statusline()}
 "" Ale status
 set statusline+=%{LinterStatus()}
 
-set statusline+=%=                              " right section
+" right section
+set statusline+=%=
+" file format
 set statusline+=%{StatusLineFormat()}
+" file type
 set statusline+=\ %{StatusLineFiletype()}
-set statusline+=\ %l,                             " line number
-set statusline+=%2c                             " column number
-set statusline+=\ %p%%                          " file percent
-set statusline+=\ %L                            " number of lines
-"set statusline+=\ [%03b][0x%04B]\               " ASCII and byte code under cursor
+" line number
+set statusline+=\ %l,
+" column number
+set statusline+=%2c
+" % of file
+set statusline+=\ %p%%
+" number of lines
+"set statusline+=\ %L
+" ASCII and byte code under cursor
+"set statusline+=\ [%03b][0x%04B]\
 
 " end statusline
 
