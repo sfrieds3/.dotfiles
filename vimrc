@@ -28,7 +28,7 @@ Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 
-Plug 'vim-scripts/c.vim' " c/c++
+Plug 'JBakamovic/yavide' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
 Plug 'fatih/vim-go' " golang
 "
