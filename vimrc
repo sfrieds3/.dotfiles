@@ -415,6 +415,7 @@ augroup lang
     autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
     autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
     "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
     "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
 augroup END
