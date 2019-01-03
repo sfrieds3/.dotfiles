@@ -145,6 +145,7 @@ function! LinterStatus() abort
         \)
 endfunction
 
+" some statusline stuff from fatih (https://github.com/fatih/dotfiles/blob/master/vimrc)
 let s:modes = {
       \ 'n': 'NORMAL',
       \ 'i': 'INSERT',
@@ -352,6 +353,7 @@ if !isdirectory($HOME."/.vim/undo")
   silent! execute "~mkdir !/.vim/undo"
 endif
 
+set maxmempattern=20000 " increase max memory -- show syntax highlighting for large files
 set history=1000
 set undofile
 set undodir=~/.vim/undo " where to save undo history
