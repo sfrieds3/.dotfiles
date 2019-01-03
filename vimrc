@@ -3,7 +3,7 @@
 " install plugged if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -80,7 +80,7 @@ call plug#end()
 
 " Color settings!
 if !exists("g:syntax_on")
-    syntax enable
+  syntax enable
 endif
 
 "set colorscheme below
@@ -88,24 +88,24 @@ colorscheme dim
 
 " desert colorscheme settings
 if g:colors_name == 'desert'
-    highlight NonText guibg=grey20
-    highlight VertSplit guibg=grey20
-    let g:gitgutter_override_sign_column_highlight = 0
-    highlight SignColumn guibg=grey20
-    highlight GitGutterAdd guibg=grey20
-    highlight GitGutterChange guibg=grey20
-    highlight GitGutterDelete guibg=grey20
-    highlight GitGutterChangeDelete guibg=grey20
-    highlight MatchParen guifg=white guibg=grey50
-    highlight Title guifg=#aaaaaa
-    highlight PreProc guifg=#aaaaaa
+  highlight NonText guibg=grey20
+  highlight VertSplit guibg=grey20
+  let g:gitgutter_override_sign_column_highlight = 0
+  highlight SignColumn guibg=grey20
+  highlight GitGutterAdd guibg=grey20
+  highlight GitGutterChange guibg=grey20
+  highlight GitGutterDelete guibg=grey20
+  highlight GitGutterChangeDelete guibg=grey20
+  highlight MatchParen guifg=white guibg=grey50
+  highlight Title guifg=#aaaaaa
+  highlight PreProc guifg=#aaaaaa
 endif
 
 " nord colorscheme settings
 if g:colors_name == 'nord'
-    let g:nord_italic = 1
-    let g:nord_italic_comments = 1
-    highlight Comment guifg=#D08770 " comment colors
+  let g:nord_italic = 1
+  let g:nord_italic_comments = 1
+  highlight Comment guifg=#D08770 " comment colors
 endif
 
 " }}}
@@ -124,25 +124,25 @@ function! InsertStatuslineColor(mode)
 endfunction
 
 augroup statusline
-    autocmd!
-    autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-    autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
+  autocmd!
+  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+  autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 augroup END
 
 " default the statusline to dark grey when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
+  let l:counts = ale#statusline#Count(bufnr(''))
 
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? ' OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
+  return l:counts.total == 0 ? ' OK' : printf(
+        \   '%dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
 endfunction
 
 let s:modes = {
@@ -171,13 +171,13 @@ function! StatusLineFiletype()
 endfunction
 
 function! StatusLineFormat()
-    return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
+  return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
 endfunction
 
 function! StatusLineFileName()
-    let bnum = expand(bufnr('%'))
-    let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-    return printf("%d-%s", bnum, fname)
+  let bnum = expand(bufnr('%'))
+  let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+  return printf("%d-%s", bnum, fname)
 endfunction
 
 " format the statusline
@@ -279,11 +279,11 @@ set wildchar=<TAB>
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 augroup hiwhitespace
-    autocmd!
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd BufWinLeave * call clearmatches()
+  autocmd!
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
 augroup END
 
 "Brace face
@@ -305,8 +305,8 @@ set ttimeoutlen=10
 
 " resize splits when window is resized
 augroup resize
-    autocmd!
-    autocmd VimResized * :wincmd =
+  autocmd!
+  autocmd VimResized * :wincmd =
 augroup END
 
 "set utf8 as standard encoding
@@ -345,11 +345,11 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 if !isdirectory($HOME."/.vim/backup")
-    silent! execute "!mkdir ~/.vim/backup"
+  silent! execute "!mkdir ~/.vim/backup"
 endif
 
 if !isdirectory($HOME."/.vim/undo")
-    silent! execute "~mkdir !/.vim/undo"
+  silent! execute "~mkdir !/.vim/undo"
 endif
 
 set history=1000
@@ -358,6 +358,7 @@ set undodir=~/.vim/undo " where to save undo history
 set undolevels=1000 " How many undos
 set undoreload=10000 " number of lines to save for undo
 set backupdir=~/.vim/backup
+set viminfo='1000 " need for FzfHistory
 set noswapfile
 
 set nocompatible
@@ -388,18 +389,18 @@ nnoremap <right> <nop>
 " neovim settings {{{
 
 if has('nvim')
-    " neovim commands
-    " neovim terminal - esc to exit terminal-mode
-    :tnoremap <Esc> <C-\><C-n>
+  " neovim commands
+  " neovim terminal - esc to exit terminal-mode
+  :tnoremap <Esc> <C-\><C-n>
 
-    " set termguicolors
-    set termguicolors
+  " set termguicolors
+  set termguicolors
 
-    " do not show line numbers in terminal mode
-    augroup termsettings
-        autocmd!
-        autocmd TermOpen * setlocal nonumber norelativenumber
-    augroup END
+  " do not show line numbers in terminal mode
+  augroup termsettings
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+  augroup END
 
 endif
 
@@ -408,16 +409,16 @@ endif
 " general language settings {{{
 
 augroup lang
-    autocmd!
+  autocmd!
 
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
-    autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
-    autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-    autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-    "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
+  autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
+  autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
+  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+  "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
 augroup END
 
 " golang {{{
@@ -432,25 +433,25 @@ let g:go_metalinter_autosave = 1
 let g:go_auto_type_info = 1
 
 augroup go
-    autocmd!
+  autocmd!
 
-    autocmd FileType go set nolist
+  autocmd FileType go set nolist
 
-    autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
-    autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
-    autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
+  autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
 
-    autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
 
-    autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
-    autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
+  autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
+  autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
 
-    autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
-    autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
-    autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
-    autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
+  autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
+  autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
+  autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
 
-    autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
 augroup END
 " }}}
 
@@ -463,10 +464,10 @@ let g:pymode_options = 0
 
 " Scala {{{
 augroup scala
-    autocmd!
-    autocmd BufWritePost *.scala silent :EnTypeCheck
-    autocmd FileType scala nnoremap <localleader>k :EnType<CR>
-    autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+  autocmd!
+  autocmd BufWritePost *.scala silent :EnTypeCheck
+  autocmd FileType scala nnoremap <localleader>k :EnType<CR>
+  autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
 augroup END
 
 "Linting with neomake
@@ -477,11 +478,11 @@ let g:neomake_sbt_maker = {
       \ 'auto_enabled': 1,
       \ 'output_stream': 'stdout',
       \ 'errorformat':
-          \ '%E[%trror]\ %f:%l:\ %m,' .
-            \ '%-Z[error]\ %p^,' .
-            \ '%-C%.%#,' .
-            \ '%-G%.%#'
-     \ }
+      \ '%E[%trror]\ %f:%l:\ %m,' .
+      \ '%-Z[error]\ %p^,' .
+      \ '%-C%.%#,' .
+      \ '%-G%.%#'
+      \ }
 let g:neomake_enabled_makers = ['sbt']
 let g:neomake_verbose=3
 " Neomake on text change
@@ -490,9 +491,9 @@ let g:neomake_verbose=3
 
 " Markdown {{{
 augroup markdown
-    autocmd!
+  autocmd!
 
-    autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
+  autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
 augroup END
 
 " }}}
@@ -503,9 +504,6 @@ augroup END
 
 " open python repl
 nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
-
-" tag search
-nnoremap <leader><space> :Tags<cr>
 
 " open fish shell
 nnoremap <localleader>f :terminal fish<cr>
@@ -559,8 +557,8 @@ nnoremap <leader>A :Ack! <cword><CR>
 " ack for a word
 nnoremap <leader>a :Ack!
 
-" show avilable marks and be ready to swtich
-nnoremap <leader>mm :<C-u>marks<CR>:normal! `
+" show avilable marks and be ready to swtich - now use fzf
+"nnoremap <leader>mm :<C-u>marks<CR>:normal! `
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -570,10 +568,10 @@ nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
 " use ctrl-s to vimgrep and open results in quickfix window
 function! FindAll()
-    call inputsave()
-    let p = input('Enter pattern:')
-    call inputrestore()
-    execute 'vimgrep "'.p.'" % |copen'
+  call inputsave()
+  let p = input('Enter pattern:')
+  call inputrestore()
+  execute 'vimgrep "'.p.'" % |copen'
 endfunction
 nnoremap <C-s> :call FindAll()<cr>
 
@@ -645,7 +643,7 @@ let g:deoplete#omni_patterns.scala = '[^. *\t]\.\w*\|: [A-Z]\w*'
 " make enter work with deoplete in insert mode
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
-    return deoplete#close_popup() . "\<CR>"
+  return deoplete#close_popup() . "\<CR>"
 endfunction
 " }}}
 
@@ -655,7 +653,24 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " }}}
 
 " fzf {{{
-nnoremap <A-p> :FZF<CR>
+"
+" Fzf prefix
+let g:fzf_command_prefix = 'Fzf'
+
+" fzf through project
+nnoremap <A-p> :FzfFiles<CR>
+
+" fzf through file
+nnoremap <leader>ll :FzfLines<CR>
+
+" recent files
+nnoremap <leader>ff :FzfHistory<CR>
+
+" marks
+nnoremap <leader>mm :FzfMarks<CR>
+
+" tags
+nnoremap <leader><space> :FzfTags<cr>
 
 " fzf through buffers
 function! s:buflist()
@@ -670,11 +685,11 @@ function! s:bufopen(e)
 endfunction
 
 nnoremap <silent> <Leader>bb :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink':    function('<sid>bufopen'),
+      \   'options': '+m',
+      \   'down':    len(<sid>buflist()) + 2
+      \ })<CR>
 " }}}
 
 " Git gutter {{{
@@ -754,20 +769,20 @@ let NERDTreeShowHidden=1
 "nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
 
 " open nerdtree in current directory with <leader>i
- map <leader>i :NERDTreeFind<cr>
+map <leader>i :NERDTreeFind<cr>
 
 " custom indicator map
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "ᵐ",
-    \ "Staged"    : "ˢ",
-    \ "Untracked" : "ᵘ",
-    \ "Renamed"   : "ʳ",
-    \ "Unmerged"  : "ᶴ",
-    \ "Deleted"   : "ˣ",
-    \ "Dirty"     : "˜",
-    \ "Clean"     : "ᵅ",
-    \ "Unknown"   : "?"
-\ }
+      \ "Modified"  : "ᵐ",
+      \ "Staged"    : "ˢ",
+      \ "Untracked" : "ᵘ",
+      \ "Renamed"   : "ʳ",
+      \ "Unmerged"  : "ᶴ",
+      \ "Deleted"   : "ˣ",
+      \ "Dirty"     : "˜",
+      \ "Clean"     : "ᵅ",
+      \ "Unknown"   : "?"
+      \ }
 " }}}
 
 " netrw {{{
@@ -778,8 +793,8 @@ nnoremap <Leader>O :Explore %:h<cr>
 " ag/ack {{{
 " use ag for ack search, fall back on ack if ag not avail
 if executable('ag')
-      let g:ackprg = 'ag --vimgrep'
-  endif
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " ack/ag with <leader> a
 cnoreabbrev Ack Ack!
@@ -791,64 +806,64 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " tagbar {{{
 let g:tagbar_type_go = {
-            \ 'ctagstype' : 'go',
-            \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-            \ ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-            \ },
-            \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-            \ },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
-            \ }
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 " rust
 let g:tagbar_type_rust = {
-            \ 'ctagstype' : 'rust',
-            \ 'kinds' : [
-            \'T:types,type definitions',
-            \'f:functions,function definitions',
-            \'g:enum,enumeration names',
-            \'s:structure names',
-            \'m:modules,module names',
-            \'c:consts,static constants',
-            \'t:traits',
-            \'i:impls,trait implementations',
-            \]
-            \}
+      \ 'ctagstype' : 'rust',
+      \ 'kinds' : [
+      \'T:types,type definitions',
+      \'f:functions,function definitions',
+      \'g:enum,enumeration names',
+      \'s:structure names',
+      \'m:modules,module names',
+      \'c:consts,static constants',
+      \'t:traits',
+      \'i:impls,trait implementations',
+      \]
+      \}
 
 " markdown
 " Add support for markdown files in tagbar.
 let g:tagbar_type_markdown = {
-            \ 'ctagstype': 'markdown',
-            \ 'ctagsbin' : '~/.vim/plugged/markdown2ctags/markdown2ctags.py',
-            \ 'ctagsargs' : '-f - --sort=yes',
-            \ 'kinds' : [
-            \ 's:sections',
-            \ 'i:images'
-            \ ],
-            \ 'sro' : '|',
-            \ 'kind2scope' : {
-            \ 's' : 'section',
-            \ },
-            \ 'sort': 0,
-            \ }
+      \ 'ctagstype': 'markdown',
+      \ 'ctagsbin' : '~/.vim/plugged/markdown2ctags/markdown2ctags.py',
+      \ 'ctagsargs' : '-f - --sort=yes',
+      \ 'kinds' : [
+      \ 's:sections',
+      \ 'i:images'
+      \ ],
+      \ 'sro' : '|',
+      \ 'kind2scope' : {
+      \ 's' : 'section',
+      \ },
+      \ 'sort': 0,
+      \ }
 " }}}
 
 " }}}
