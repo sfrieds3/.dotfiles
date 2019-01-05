@@ -1,10 +1,12 @@
 " start of plugins {{{
 
 " install plugged if not installed
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+if has("unix")
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
 endif
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
@@ -41,7 +43,6 @@ Plug 'junegunn/fzf.vim'
 
 " colors
 Plug 'sfrieds3/dim.vim'
-Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
@@ -86,28 +87,6 @@ endif
 
 "set colorscheme below
 colorscheme dim
-
-" desert colorscheme settings
-if g:colors_name == 'desert'
-  highlight NonText guibg=grey20
-  highlight VertSplit guibg=grey20
-  let g:gitgutter_override_sign_column_highlight = 0
-  highlight SignColumn guibg=grey20
-  highlight GitGutterAdd guibg=grey20
-  highlight GitGutterChange guibg=grey20
-  highlight GitGutterDelete guibg=grey20
-  highlight GitGutterChangeDelete guibg=grey20
-  highlight MatchParen guifg=white guibg=grey50
-  highlight Title guifg=#aaaaaa
-  highlight PreProc guifg=#aaaaaa
-endif
-
-" nord colorscheme settings
-if g:colors_name == 'nord'
-  let g:nord_italic = 1
-  let g:nord_italic_comments = 1
-  highlight Comment guifg=#D08770 " comment colors
-endif
 
 " }}}
 
@@ -409,7 +388,6 @@ endif
 
 if has("win32")
   let g:python3_host_prog = 'C:\Users\scott\AppData\Local\Programs\Python\Python37-32\python.exe'
-  "let g:python3_host_prog
 endif
 
 " }}}
@@ -945,4 +923,4 @@ augroup END
 " - Use g^] for ambiguous tags
 " - Use ^t to jump back up the tag stack
 
-"}}}
+"
