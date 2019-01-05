@@ -27,6 +27,7 @@ Plug 'ap/vim-css-color' " show CSS colors inline
 Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
+Plug 'airblade/vim-rooter' " change current working directory
 
 Plug 'JBakamovic/yavide' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
@@ -404,6 +405,11 @@ if has('nvim')
     autocmd TermOpen * setlocal nonumber norelativenumber
   augroup END
 
+endif
+
+if has("win32")
+  let g:python3_host_prog = 'C:\Users\scott\AppData\Local\Programs\Python\Python37-32\python.exe'
+  "let g:python3_host_prog
 endif
 
 " }}}
@@ -866,6 +872,10 @@ let g:tagbar_type_markdown = {
       \ },
       \ 'sort': 0,
       \ }
+" }}}
+
+" vim-rooter {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
 " }}}
 
 " }}}
