@@ -130,5 +130,5 @@ flycheck_*.el
 .dir-locals.el
 
 # Tag files
-Tags
-tags
+**/Tags
+**/tags
