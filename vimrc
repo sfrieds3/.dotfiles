@@ -62,9 +62,6 @@ Plug 'ncm2/ncm2-go' " golang
 Plug 'ObserverOfTime/ncm2-jc2' " java
 Plug 'ncm2/ncm2-racer' " rust
 Plug 'gaalcaras/ncm-R' " R
-Plug 'mhartington/nvim-typescript' " typescript
-Plug 'ncm2/ncm2-tern' " javascript
-Plug 'ncm2/ncm2-cssomni' "css
 
 "-------------------------------------------------------"
 
@@ -860,6 +857,20 @@ augroup highlight_interesting_word
   hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
   " }}}
 augroup END
+" }}}
+
+" verbose debugging {{{
+
+function! ToggleVerbose()
+    if !&verbose
+        set verbosefile=~/.vim/log/verbose.log
+        set verbose=15
+    else
+        set verbose=0
+        set verbosefile=
+    endif
+endfunction
+"
 " }}}
 
 " notes {{{
