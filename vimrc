@@ -531,11 +531,7 @@ let g:lightline = {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
             \ },
-            \ 'inactive': {
-            \   'left':[ [ 'pwd' ] ]
-            \ },
             \ 'component_function': {
-            \   'pwd': 'LightlineWorkingDirectory',
             \   'gitbranch': 'fugitive#head'
             \ },
             \ }
