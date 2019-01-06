@@ -31,48 +31,52 @@ Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 Plug 'airblade/vim-rooter' " change current working directory
 Plug 'itchyny/lightline.vim' " lightline statusline
+Plug 'maximbaz/lightline-ale' " ALE status in lightline
 
+" language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
 Plug 'fatih/vim-go' " golang
-"
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+Plug 'derekwyatt/vim-scala' " scala
+
 " fzf- fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+""-------------------------------------------------------"
+
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+" source
+Plug 'ncm2/ncm2-path' " words in path
+Plug 'ncm2/ncm2-bufword' " words in buffers
+Plug 'ncm2/ncm2-jedi' " python
+Plug 'ncm2/ncm2-pyclang' " c/c++
+Plug 'ncm2/ncm2-vim' " vimscript
+Plug 'ncm2/ncm2-go' " golang
+Plug 'ObserverOfTime/ncm2-jc2' " java
+Plug 'ncm2/ncm2-racer' " rust
+Plug 'gaalcaras/ncm-R' " R
+Plug 'mhartington/nvim-typescript' " typescript
+Plug 'ncm2/ncm2-tern' " javascript
+Plug 'ncm2/ncm2-cssomni' "css
 
 "-------------------------------------------------------"
 
 " colors
 Plug 'sfrieds3/dim.vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sfrieds3/vim-hickop-colors'
-Plug 'sjl/badwolf'
+"Plug 'ayu-theme/ayu-vim'
+"Plug 'morhetz/gruvbox'
+"Plug 'NLKNguyen/papercolor-theme'
+"Plug 'sfrieds3/vim-hickop-colors'
+"Plug 'sjl/badwolf'
 
-""-------------------------------------------------------"
-
-"" deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-"" deoplete sources
-
-Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'zchee/deoplete-jedi' " python autocomplete
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'zchee/deoplete-clang' " clang deoplete backend
-
-"" Scala stuff
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
-Plug 'derekwyatt/vim-scala'
+"-------------------------------------------------------"
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -382,8 +386,8 @@ let g:neomake_verbose=3
 " Markdown {{{
 augroup markdown
   autocmd!
+  " TODO: disable ncm2 autocomplete for markdown
 
-  autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
 augroup END
 
 " }}}
@@ -520,21 +524,73 @@ nnoremap <leader>T :TabooOpen<space>
 let g:ale_lint_on_enter = 1
 " }}}
 
+" lightline {{{
+
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'inactive': {
+            \   'left':[ [ 'pwd' ] ]
+            \ }
+            \ 'component_function': {
+            \   'pwd': 'LightlineWorkingDirectory',
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ }
+
+" from https://github.com/maximbaz/dotfiles
+function! LightlineWorkingDirectory()
+  return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
+endfunction
+
+" }}}
+
 " easymotion {{{
 highlight link EasyMotionTarget Todo
 " }}}
 
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-"autocmd CompleteDone * pclose!
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.scala = '[^. *\t]\.\w*\|: [A-Z]\w*'
+" ncm2 {{{
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" make enter work with deoplete in insert mode
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+au User Ncm2Plugin call ncm2#register_source({
+      \ 'name' : 'css',
+      \ 'priority': 9, 
+      \ 'subscope_enable': 1,
+      \ 'scope': ['css','scss'],
+      \ 'mark': 'css',
+      \ 'word_pattern': '[\w\-]+',
+      \ 'complete_pattern': ':\s*',
+      \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+      \ })
+
 " }}}
 
 " quickscope {{{
