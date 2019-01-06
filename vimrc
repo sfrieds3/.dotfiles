@@ -532,8 +532,8 @@ let g:lightline = {
             \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
             \ },
             \ 'inactive': {
-            \   'left':[ [ 'pwd' ] ],
-            \ }
+            \   'left':[ [ 'pwd' ] ]
+            \ },
             \ 'component_function': {
             \   'pwd': 'LightlineWorkingDirectory',
             \   'gitbranch': 'fugitive#head'
