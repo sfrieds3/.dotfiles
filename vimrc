@@ -449,7 +449,7 @@ augroup go
   autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
 
   autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <localleader><localleader>t  <Plug>(go-test)
+  autocmd FileType go nmap <silent> <localleader>t  <Plug>(go-test)
   autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
   autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
 
@@ -577,8 +577,8 @@ function! FindAll()
 endfunction
 nnoremap <C-s> :call FindAll()<cr>
 
-" <localleader>t to show tagbar
-nnoremap <localleader>t :TagbarToggle<CR>
+" show tagbar
+nnoremap <localleader>T :TagbarToggle<CR>
 
 " quick editing of files
 nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
@@ -655,24 +655,21 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " }}}
 
 " fzf {{{
-"
-" Fzf prefix
-let g:fzf_command_prefix = 'Fzf'
 
 " fzf through project
-nnoremap <A-p> :FzfFiles<CR>
+nnoremap <A-p> :Files<CR>
 
 " fzf through file
-nnoremap <leader>ll :FzfLines<CR>
+nnoremap <leader>ll :Lines<CR>
 
 " recent files
-nnoremap <leader>ff :FzfHistory<CR>
+nnoremap <leader>ff :History<CR>
 
 " marks
-nnoremap <leader>mm :FzfMarks<CR>
+nnoremap <leader>mm :Marks<CR>
 
 " tags
-nnoremap <leader><space> :FzfTags<cr>
+nnoremap <leader><space> :Tags<cr>
 
 " fzf through buffers
 function! s:buflist()
