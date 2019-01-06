@@ -1,10 +1,12 @@
 " start of plugins {{{
 
 " install plugged if not installed
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+if has("unix")
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
 endif
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
@@ -27,49 +29,54 @@ Plug 'ap/vim-css-color' " show CSS colors inline
 Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
+Plug 'airblade/vim-rooter' " change current working directory
+Plug 'itchyny/lightline.vim' " lightline statusline
+Plug 'maximbaz/lightline-ale' " ALE status in lightline
 
+" language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
 Plug 'fatih/vim-go' " golang
-"
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+Plug 'derekwyatt/vim-scala' " scala
+
 " fzf- fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+""-------------------------------------------------------"
+
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+" source
+Plug 'ncm2/ncm2-path' " words in path
+Plug 'ncm2/ncm2-bufword' " words in buffers
+Plug 'ncm2/ncm2-jedi' " python
+Plug 'ncm2/ncm2-pyclang' " c/c++
+Plug 'ncm2/ncm2-vim' " vimscript
+Plug 'ncm2/ncm2-go' " golang
+Plug 'ObserverOfTime/ncm2-jc2' " java
+Plug 'ncm2/ncm2-racer' " rust
+Plug 'gaalcaras/ncm-R' " R
+Plug 'mhartington/nvim-typescript' " typescript
+Plug 'ncm2/ncm2-tern' " javascript
+Plug 'ncm2/ncm2-cssomni' "css
 
 "-------------------------------------------------------"
 
 " colors
 Plug 'sfrieds3/dim.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sfrieds3/vim-hickop-colors'
-Plug 'sjl/badwolf'
+"Plug 'ayu-theme/ayu-vim'
+"Plug 'morhetz/gruvbox'
+"Plug 'NLKNguyen/papercolor-theme'
+"Plug 'sfrieds3/vim-hickop-colors'
+"Plug 'sjl/badwolf'
 
-""-------------------------------------------------------"
-
-"" deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-"" deoplete sources
-
-Plug 'Shougo/neco-vim' " vim auocomplete
-Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'zchee/deoplete-jedi' " python autocomplete
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'zchee/deoplete-go', { 'do': 'make'} " golang autocomplete
-Plug 'zchee/deoplete-clang' " clang deoplete backend
-
-"" Scala stuff
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
-Plug 'derekwyatt/vim-scala'
+"-------------------------------------------------------"
 
 " ALL PLUGINS BEFORE THIS LINE
 call plug#end()
@@ -86,131 +93,12 @@ endif
 "set colorscheme below
 colorscheme dim
 
-" desert colorscheme settings
-if g:colors_name == 'desert'
-  highlight NonText guibg=grey20
-  highlight VertSplit guibg=grey20
-  let g:gitgutter_override_sign_column_highlight = 0
-  highlight SignColumn guibg=grey20
-  highlight GitGutterAdd guibg=grey20
-  highlight GitGutterChange guibg=grey20
-  highlight GitGutterDelete guibg=grey20
-  highlight GitGutterChangeDelete guibg=grey20
-  highlight MatchParen guifg=white guibg=grey50
-  highlight Title guifg=#aaaaaa
-  highlight PreProc guifg=#aaaaaa
-endif
-
-" nord colorscheme settings
-if g:colors_name == 'nord'
-  let g:nord_italic = 1
-  let g:nord_italic_comments = 1
-  highlight Comment guifg=#D08770 " comment colors
-endif
-
 " }}}
 
 " statusline {{{
 
 set laststatus=2
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
-  elseif a:mode == 'r'
-    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
-  else
-    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
-  endif
-endfunction
-
-augroup statusline
-  autocmd!
-  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-augroup END
-
-" default the statusline to dark grey when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? ' OK' : printf(
-        \   '%dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
-
-" some statusline stuff from fatih (https://github.com/fatih/dotfiles/blob/master/vimrc)
-let s:modes = {
-      \ 'n': 'NORMAL',
-      \ 'i': 'INSERT',
-      \ 'R': 'REPLACE',
-      \ 'v': 'VISUAL',
-      \ 'V': 'V-LINE',
-      \ "\<C-v>": 'V-BLOCK',
-      \ 'c': 'COMMAND',
-      \ 's': 'SELECT',
-      \ 'S': 'S-LINE',
-      \ "\<C-s>": 'S-BLOCK',
-      \ 't': 'TERMINAL'
-      \}
-
-let s:prev_mode = ""
-function! StatusLineMode()
-  let cur_mode = get(s:modes, mode(), '')
-  let s:prev_mode = cur_mode
-  return printf("-%s-", cur_mode)
-endfunction
-
-function! StatusLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! StatusLineFormat()
-  return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
-endfunction
-
-function! StatusLineFileName()
-  let bnum = expand(bufnr('%'))
-  let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-  return printf("%d-%s", bnum, fname)
-endfunction
-
-" format the statusline
-set statusline=
-set statusline+=%{StatusLineMode()}
-set statusline+=%{StatusLineFileName()}
-set statusline+=%m
-
-"" get current git status
-set statusline+=\ %{fugitive#statusline()}
-
-"" Ale status
-set statusline+=%{LinterStatus()}
-
-" right section
-set statusline+=%=
-" file format
-set statusline+=%{StatusLineFormat()}
-" file type
-set statusline+=\ %{StatusLineFiletype()}
-" line number
-set statusline+=\ %l,
-" column number
-set statusline+=%2c
-" % of file
-set statusline+=\ %p%%
-" number of lines
-"set statusline+=\ %L
-" ASCII and byte code under cursor
-"set statusline+=\ [%03b][0x%04B]\
-
-" end statusline
+set noshowmode
 
 " }}}
 
@@ -406,6 +294,10 @@ if has('nvim')
 
 endif
 
+if has("win32")
+  let g:python3_host_prog = 'C:\Users\scott\AppData\Local\Programs\Python\Python37-32\python.exe'
+endif
+
 " }}}
 
 " general language settings {{{
@@ -494,8 +386,8 @@ let g:neomake_verbose=3
 " Markdown {{{
 augroup markdown
   autocmd!
+  " TODO: disable ncm2 autocomplete for markdown
 
-  autocmd FileType markdown let b:deoplete_disable_auto_complete = 1
 augroup END
 
 " }}}
@@ -632,21 +524,64 @@ nnoremap <leader>T :TabooOpen<space>
 let g:ale_lint_on_enter = 1
 " }}}
 
+" lightline {{{
+
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ }
+
+" }}}
+
 " easymotion {{{
 highlight link EasyMotionTarget Todo
 " }}}
 
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-"autocmd CompleteDone * pclose!
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.scala = '[^. *\t]\.\w*\|: [A-Z]\w*'
+" ncm2 {{{
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" make enter work with deoplete in insert mode
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+au User Ncm2Plugin call ncm2#register_source({
+      \ 'name' : 'css',
+      \ 'priority': 9, 
+      \ 'subscope_enable': 1,
+      \ 'scope': ['css','scss'],
+      \ 'mark': 'css',
+      \ 'word_pattern': '[\w\-]+',
+      \ 'complete_pattern': ':\s*',
+      \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+      \ })
+
 " }}}
 
 " quickscope {{{
@@ -863,6 +798,10 @@ let g:tagbar_type_markdown = {
       \ },
       \ 'sort': 0,
       \ }
+" }}}
+
+" vim-rooter {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
 " }}}
 
 " }}}
