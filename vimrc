@@ -536,11 +536,6 @@ let g:lightline = {
             \ },
             \ }
 
-" from https://github.com/maximbaz/dotfiles
-function! LightlineWorkingDirectory()
-  return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
-endfunction
-
 " }}}
 
 " easymotion {{{
