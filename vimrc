@@ -31,7 +31,6 @@ Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 Plug 'airblade/vim-rooter' " change current working directory
 Plug 'itchyny/lightline.vim' " lightline statusline
-Plug 'maximbaz/lightline-ale' " ALE status in lightline
 
 " language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
@@ -56,13 +55,16 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2-jedi' " python
 Plug 'ncm2/ncm2-pyclang' " c/c++
 Plug 'ncm2/ncm2-vim' " vimscript
+Plug 'shougo/neco-vim' " requirement for ncm2-vim
 Plug 'ncm2/ncm2-go' " golang
 Plug 'ObserverOfTime/ncm2-jc2' " java
+Plug 'artur-shaik/vim-javacomplete2' " requirement for ncm2-java
 Plug 'ncm2/ncm2-racer' " rust
 Plug 'gaalcaras/ncm-R' " R
 
 Plug 'ncm2/ncm2-path' " words in path
 Plug 'ncm2/ncm2-bufword' " words in buffers
+Plug 'ncm2/ncm2-markdown-subscope' " markdown subscope detection
 
 "-------------------------------------------------------"
 
@@ -384,6 +386,15 @@ let g:neomake_verbose=3
 "autocmd InsertLeave,TextChanged * update | Neomake! sbt
 " }}}
 
+" {{{
+
+augroup java
+  autocmd!
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+augroup END
+
+" }}}
+
 " Markdown {{{
 augroup markdown
   autocmd!
@@ -588,7 +599,7 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 "               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
 au User Ncm2Plugin call ncm2#register_source({
       \ 'name' : 'css',
-      \ 'priority': 9, 
+      \ 'priority': 9,
       \ 'subscope_enable': 1,
       \ 'scope': ['css','scss'],
       \ 'mark': 'css',
