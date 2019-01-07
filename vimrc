@@ -53,8 +53,6 @@ Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 
 " source
-Plug 'ncm2/ncm2-path' " words in path
-Plug 'ncm2/ncm2-bufword' " words in buffers
 Plug 'ncm2/ncm2-jedi' " python
 Plug 'ncm2/ncm2-pyclang' " c/c++
 Plug 'ncm2/ncm2-vim' " vimscript
@@ -62,6 +60,9 @@ Plug 'ncm2/ncm2-go' " golang
 Plug 'ObserverOfTime/ncm2-jc2' " java
 Plug 'ncm2/ncm2-racer' " rust
 Plug 'gaalcaras/ncm-R' " R
+
+Plug 'ncm2/ncm2-path' " words in path
+Plug 'ncm2/ncm2-bufword' " words in buffers
 
 "-------------------------------------------------------"
 
@@ -319,7 +320,10 @@ let g:go_version_warning = 0
 " goimport on save
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
-"
+let g:go_list_type = "quickfix"
+let g:go_term_mode = "split"
+let g:go_term_height = 10
+
 " show definition when hovering
 let g:go_auto_type_info = 1
 
