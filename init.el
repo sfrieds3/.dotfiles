@@ -39,7 +39,7 @@
 (defvar default-shell-location)
 
 (setq default-shell-location
-      (cond ((eq system-type 'windows-nt) "C/Windows/System32/bash.exe")))
+      (cond ((eq system-type 'windows-nt) "C:/Windows/System32/bash.exe")))
 
 (when default-shell-location
   (setq shell-file-name default-shell-location)
@@ -67,11 +67,12 @@
 (use-package material-theme)
 (use-package solarized-theme)
 (use-package gruvbox-theme)
+(use-package zerodark-theme)
 (use-package nord-theme
   :config
   (setq nord-comment-brightness 15))
 
-(load-theme 'gruvbox-dark-hard t)
+(load-theme 'zerodark t)
 
 ;; ////////////////////////////////////////////////////////////
 
