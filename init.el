@@ -49,6 +49,14 @@
 (cond ((eq system-type 'windows-nt)
           (setq inhibit-compacting-font-caches t)))
 
+;; Windows performance tweaks
+;;
+(when (boundp 'w32-pipe-read-delay)
+  (setq w32-pipe-read-delay 0))
+;; Set the buffer size to 64K on Windows (from the original 4K)
+(when (boundp 'w32-pipe-buffer-size)
+  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEME SETTINGS
@@ -395,6 +403,43 @@
   :init (setq markdown-command "multimarkdown"))
 
 ;; clang
+(use-package rtags
+  :config
+  (progn
+    (unless (rtags-executable-find "rc") (error "Binary rc is not installed!"))
+    (unless (rtags-executable-find "rdm") (error "Binary rdm is not installed!"))
+    (rtags-enable-standard-keybindings)
+
+    ;; Shutdown rdm when leaving emacs.
+    (add-hook 'kill-emacs-hook 'rtags-quit-rdm)
+    ))
+
+;; Use rtags for auto-completion.
+(use-package company-rtags
+  :config
+  (progn
+    (setq rtags-autostart-diagnostics t)
+    (rtags-diagnostics)
+    (setq rtags-completions-enabled t)
+    (push 'company-rtags company-backends)
+    ))
+
+;; Live code checking.
+(use-package flycheck-rtags
+  :config
+  (progn
+    ;; ensure that we use only rtags checking
+    ;; https://github.com/Andersbakken/rtags#optional-1
+    (defun setup-flycheck-rtags ()
+      (flycheck-select-checker 'rtags)
+      (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+      (setq-local flycheck-check-syntax-automatically nil)
+      (rtags-set-periodic-reparse-timeout 2.0)  ;; Run flycheck 2 seconds after being idle.
+      )
+    (add-hook 'c-mode-hook #'setup-flycheck-rtags)
+    (add-hook 'c++-mode-hook #'setup-flycheck-rtags)
+    ))
+
 (use-package irony
   :config
   (add-hook 'c++-mode-hook 'irony-mode)
