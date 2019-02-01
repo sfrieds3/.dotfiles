@@ -37,6 +37,7 @@
 
 ;; set proper terminal for windows machines
 (defvar default-shell-location)
+(defvar explicit-shell-file-name)
 
 (setq default-shell-location
       (cond ((eq system-type 'windows-nt) "C:/Windows/System32/bash.exe")))
@@ -45,11 +46,17 @@
   (setq shell-file-name default-shell-location)
   (add-to-list 'exec-path "C:/Windows/System32/bash.exe")) ;
 
+(setq explicit-shell-file-name
+      (cond ((eq system-type 'windows-nt) "C:/Windows/System32/bash.exe")))
+
+(setq shell-file-name explicit-shell-file-name)
+(add-to-list 'exec-path "c:/Windows/System32/bash.exe")
+
 ;; speed up font rendering on windows
 (cond ((eq system-type 'windows-nt)
           (setq inhibit-compacting-font-caches t)))
 
-;; Windows performance tweaks
+;; windows performance tweaks
 ;;
 (when (boundp 'w32-pipe-read-delay)
   (setq w32-pipe-read-delay 0))
@@ -76,15 +83,20 @@
 (use-package solarized-theme)
 (use-package gruvbox-theme)
 (use-package zerodark-theme)
+(use-package dracula-theme)
 (use-package nord-theme
   :config
   (setq nord-comment-brightness 15))
 
-(load-theme 'zerodark t)
+(load-theme 'dracula t)
 
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; STARTUP SETTINGS
+
+;; 0 line buffer before/after cursor
+(setq scroll-margin 0)
+(setq smooth-scroll-margin 3)
 
 ;; cursor always blinks
 (setq blink-cursor-blinks -1)
@@ -225,9 +237,8 @@
 
 ;; mode line - from DOOM
 (use-package doom-modeline
-  :ensure t
-  :defer t
-  :hook (after-init . doom-modeline-init)
+      :ensure t
+      :hook (after-init . doom-modeline-mode)
   :config
   (setq doom-modeline-icon t)
   (setq doom-modeline-minor-modes nil))
@@ -256,7 +267,7 @@
 ;; fzf
 (use-package fzf
   :config (progn
-            (add-to-list 'load-path "~/.fzf/bin/fzf")
+            (add-to-list 'load-path "user/swf/.fzf/bin/fzf")
 
             (defadvice fzf/start (after normalize-fzf-mode-line activate)
               (face-remap-add-relative 'mode-line '(:box nil)))
@@ -473,6 +484,9 @@
    'self-insert-command
    minibuffer-local-completion-map))
 (use-package ensime)
+
+;; RUST
+(use-package rust-mode)
 
 ;; JAVA
 (use-package jdee)
