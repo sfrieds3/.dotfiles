@@ -31,6 +31,7 @@ Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 Plug 'airblade/vim-rooter' " change current working directory
 Plug 'itchyny/lightline.vim' " lightline statusline
+Plug 'jremmen/vim-ripgrep' " ripgrep for vim
 
 " language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
