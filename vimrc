@@ -31,6 +31,7 @@ Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 Plug 'airblade/vim-rooter' " change current working directory
 Plug 'itchyny/lightline.vim' " lightline statusline
+Plug 'jremmen/vim-ripgrep' " ripgrep for vim
 
 " language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
@@ -571,6 +572,9 @@ highlight link EasyMotionTarget Todo
 " ncm2 {{{
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" path to directory where libclang.so can be found
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
