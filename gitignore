@@ -132,3 +132,6 @@ flycheck_*.el
 # Tag files
 **/Tags
 **/tags
+
+# Scala
+/.metals
