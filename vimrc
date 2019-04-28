@@ -574,7 +574,7 @@ highlight link EasyMotionTarget Todo
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " path to directory where libclang.so can be found
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-5.0/lib'
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
