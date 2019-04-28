@@ -83,7 +83,7 @@
 ;; set default preferred fonts
 (defvar platform-default-font)
 (setq platform-default-font
-      (cond ((eq system-type 'windows-nt) "Consolas 11")
+      (cond ((eq system-type 'windows-nt) "Hack 11")
             ((eq system-type 'gnu/linux) "Hack 11")
             (t nil)))
 
@@ -160,26 +160,26 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; mode line format
-;; (setq-default mode-line-format
-;;       (list
-;;        ;; `mode-name'
-;;        "%m: "
-;;        ;; current buffer name
-;;        "%& %b"
-;;        ;; % buffer above top of window
-;;        " | %P"
-;;        ;; current line number
-;;        " | line %l"
-;;        ;; current column number
-;;        " | col %c"
-;;        ))
+(setq-default mode-line-format
+      (list
+       ;; `mode-name'
+       "%m: "
+       ;; current buffer name
+       "%& %b"
+       ;; % buffer above top of window
+       " | %P"
+       ;; current line number
+       " | line %l"
+       ;; current column number
+       " | col %c"
+       ))
 
 ;; unique buffer names in mode line
-;; (require 'uniquify)
-;; (setq uniquify-buffer-name-style 'forward)
-;; (setq uniquify-separator "/")
-;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -247,22 +247,10 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-;; mode line - from DOOM
-(use-package doom-modeline
-      :ensure t
-      :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-minor-modes nil))
-
-;; necessary for DOOM modeline
-(use-package all-the-icons)
-(use-package eldoc-eval)
-
 ;; evil mode
 (use-package evil
   :config
-  (evil-mode 1))
+  (evil-mode 0))
 
 ;; Make movement keys work like they should
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
