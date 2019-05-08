@@ -498,6 +498,7 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <leader>ww <C-w>w
+nnoremap <A-o> <C-w>w
 nmap <leader>w <C-W>
 
 " go to previous and next tab/buffers
