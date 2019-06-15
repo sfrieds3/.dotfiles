@@ -76,10 +76,6 @@ project/plugins/project/
 ######################
 **/__pycache__/**
 
-# VS Code #
-######################
-**/.vscode/**
-
 # Emacs #
 ######################
 ### Emacs ###
