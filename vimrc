@@ -515,10 +515,10 @@ nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tt :tabnext<cr>
 
 " resize splits
-nnoremap <M-h> <C-w><
-nnoremap <M-k> <C-w>+
-nnoremap <M-j> <C-w>-
-nnoremap <M-l> <C-w>>
+nnoremap <M-[> <C-w><
+nnoremap <M-=> <C-w>+
+nnoremap <M--> <C-w>-
+nnoremap <M-]> <C-w>>
 
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
