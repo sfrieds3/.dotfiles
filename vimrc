@@ -503,21 +503,18 @@ nmap <leader>w <C-W>
 
 " go to previous and next tab/buffers
 nnoremap <leader>bp :bprevious<cr>
-nnoremap <leaderbn :bnext<cr>
-nnoremap <M-<> :bprevious<cr>
-nnoremap <M->> :bnext<cr>
-nnoremap <M-h> :tabprevious<cr>
-nnoremap <M-l> :tabnext<cr>
+nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>pp :tabprevious<cr>
+nnoremap <leader>nn :tabnext<cr>
 
 " resize splits
-nnoremap <C-M-h> <C-w><
-nnoremap <C-M-j> <C-w>+
-nnoremap <C-M-k> <C-w>-
-nnoremap <C-M-l> <C-w>>
+nnoremap <M-h> <C-w><
+nnoremap <M-k> <C-w>+
+nnoremap <M-j> <C-w>-
+nnoremap <M-l> <C-w>>
 
 " Close the current buffer
 nnoremap <leader>bd :bdelete<cr>
-
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
@@ -649,7 +646,7 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader>bb :call fzf#run({
+nnoremap <silent> <leader>bb :call fzf#run({
       \   'source':  reverse(<sid>buflist()),
       \   'sink':    function('<sid>bufopen'),
       \   'options': '+m',
