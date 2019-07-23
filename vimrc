@@ -504,8 +504,10 @@ nmap <leader>w <C-W>
 " go to previous and next tab/buffers
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>pp :tabprevious<cr>
-nnoremap <leader>nn :tabnext<cr>
+nnoremap <leader>bb :bnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tt :tabnext<cr>
 
 " resize splits
 nnoremap <M-h> <C-w><
@@ -517,7 +519,7 @@ nnoremap <M-l> <C-w>>
 nnoremap <leader>bd :bdelete<cr>
 
 " Useful mappings for managing tabs
-nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>tN :tabnew<cr>
 nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
