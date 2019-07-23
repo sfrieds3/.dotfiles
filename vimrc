@@ -117,8 +117,9 @@ noremap k gk
 " retain buffers until quit
 set hidden
 
-" use modeline
-set modeline
+" do not use modeline
+" modeline is a security risk
+set nomodeline
 
 " No bells!
 set visualbell
@@ -314,6 +315,10 @@ augroup lang
   autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
   "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
+
+  " autopep8 on gq
+  autocmd FileType python setlocal formatprg=autopep8\ -
+
 augroup END
 
 " golang {{{
