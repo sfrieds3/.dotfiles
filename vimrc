@@ -414,6 +414,9 @@ augroup END
 
 " remapping key commands {{{
 
+" remap :W to write file
+cmap W w
+
 " open python repl
 nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
 
@@ -428,9 +431,6 @@ inoremap <C-u> <esc>mzgUiw`za
 
 " Shift-Tab enters actual tab
 inoremap <S-Tab> <C-V><Tab>
-
-" remap 0 to first nonblank character
-nnoremap 0 ^
 
 " stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
@@ -640,6 +640,9 @@ nnoremap <leader>mm :Marks<CR>
 
 " tags
 nnoremap <leader><space> :Tags<cr>
+
+" windows
+nnoremap <leader>fw :Windows<cr>
 
 " fzf through buffers
 function! s:buflist()
