@@ -125,8 +125,8 @@ function! LinterStatus() abort
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  return l:counts.total == 0 ? ' OK' : printf(
-        \   '%dW %dE',
+  return l:counts.total == 0 ? ' [OK]' : printf(
+        \   '[%dW %dE]',
         \   all_non_errors,
         \   all_errors
         \)
@@ -148,6 +148,12 @@ let s:modes = {
       \}
 
 let s:prev_mode = ""
+
+function! StatusLineBuffNum()
+  let bnum = expand(bufnr('%'))
+  return printf("[%d]", bnum)
+endfunction
+
 function! StatusLineMode()
   let cur_mode = get(s:modes, mode(), '')
   let s:prev_mode = cur_mode
@@ -163,15 +169,15 @@ function! StatusLineFormat()
 endfunction
 
 function! StatusLineFileName()
-  let bnum = expand(bufnr('%'))
   let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-  return printf("(%d)%s", bnum, fname)
+  return printf("%s", fname)
 endfunction
 
 " format the statusline
 set statusline=
-set statusline+=%{StatusLineMode()}
-set statusline+=%{StatusLineFileName()}
+set statusline+=%{StatusLineBuffNum()}
+set statusline+=\ %{StatusLineMode()}
+set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 
 "" get current git status
@@ -195,7 +201,7 @@ set statusline+=\ %p%%
 " number of lines
 "set statusline+=\ %L
 " ASCII and byte code under cursor
-"set statusline+=\ [%03b][0x%04B]\
+set statusline+=\ [%03b][0x%04B]
 
 " end statusline
 
