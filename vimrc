@@ -165,7 +165,7 @@ endfunction
 function! StatusLineFileName()
   let bnum = expand(bufnr('%'))
   let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
-  return printf("%d-%s", bnum, fname)
+  return printf("(%d)%s", bnum, fname)
 endfunction
 
 " format the statusline
