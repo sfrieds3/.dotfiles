@@ -181,7 +181,7 @@ set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 
 "" get current git status
-set statusline+=\ %{fugitive#statusline()}
+set statusline+=\%{fugitive#statusline()}
 
 "" Ale status
 set statusline+=%{LinterStatus()}
@@ -643,7 +643,19 @@ nnoremap <leader>T :TabooOpen<space>
 " plugin configurations {{{
 
 " ale {{{
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+
+nnoremap <space>n :lnext<CR>
+nnoremap <space>p :lprevious<CR>
+nnoremap <space>r :lrewind<CR>
+
+" no highlighting for warning
+highlight clear ALEWarningSign
+" and use a simpler warning
+let g:ale_sign_warning = ' ∘'
+" set erorr sign
+let g:ale_sign_error = '▶▶'
 " }}}
 
 " lightline {{{
