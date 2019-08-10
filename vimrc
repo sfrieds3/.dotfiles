@@ -545,9 +545,6 @@ nnoremap <M-k> mz:m-2<cr>`z
 vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" leader+S for search/replace
-nnoremap <Leader>S :OverCommandLine<cr>%s/
-
 " switch between files with \\
 nnoremap <localleader><localleader> <c-^>
 
@@ -843,7 +840,7 @@ nnoremap <Leader>gd :Gdiff<CR>
 " }}}
 
 " vim-over {{{
-nnoremap <leader>vr :OverCommandLine<CR>%s/
+nnoremap <leader>V :OverCommandLine<CR>%s/
 " }}}
 
 " NERDTree {{{
