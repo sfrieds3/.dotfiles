@@ -30,17 +30,16 @@ Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
 Plug 'airblade/vim-rooter' " change current working directory
-"Plug 'itchyny/lightline.vim' " lightline statusline
 Plug 'jremmen/vim-ripgrep' " ripgrep for vim
 
 " language specific plugins
 Plug 'JBakamovic/yavide' " c/c++
 Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'tpope/vim-rails' " rails
 Plug 'fatih/vim-go' " golang
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
-Plug 'derekwyatt/vim-scala' " scala
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
+"Plug 'derekwyatt/vim-scala' " scala
 
 " fzf- fuzzy file finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -58,10 +57,7 @@ Plug 'ncm2/ncm2-pyclang' " c/c++
 Plug 'ncm2/ncm2-vim' " vimscript
 Plug 'shougo/neco-vim' " requirement for ncm2-vim
 Plug 'ncm2/ncm2-go' " golang
-Plug 'ObserverOfTime/ncm2-jc2' " java
-Plug 'artur-shaik/vim-javacomplete2' " requirement for ncm2-java
 Plug 'ncm2/ncm2-racer' " rust
-Plug 'gaalcaras/ncm-R' " R
 
 Plug 'ncm2/ncm2-path' " words in path
 Plug 'ncm2/ncm2-bufword' " words in buffers
@@ -496,12 +492,11 @@ let g:neomake_verbose=3
 "autocmd InsertLeave,TextChanged * update | Neomake! sbt
 " }}}
 
-" {{{
+" {{{ ruby
 
-augroup java
-  autocmd!
-  autocmd FileType java setlocal omnifunc=javacomplete#Complete
-augroup END
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " }}}
 
