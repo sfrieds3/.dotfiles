@@ -13,23 +13,17 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
 
 Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'easymotion/vim-easymotion' " vim easymotion
-Plug 'gcmt/taboo.vim' " tab stuff for vim
 Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
 Plug 'majutsushi/tagbar' " tagbar on right side
 Plug 'mileszs/ack.vim' " ack/ag searching in vim
 Plug 'osyo-manga/vim-over' " visual find replace
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
-Plug 'scrooloose/nerdtree' " ,n to toggle nerdtree
 Plug 'tpope/vim-fugitive' " git manager for vim
-Plug 'tpope/vim-surround' " advanced functions with words etc
 Plug 'w0rp/ale' " linting
-Plug 'xuyuanp/nerdtree-git-plugin' " show git status in nerdtree
 Plug 'ap/vim-css-color' " show CSS colors inline
 Plug 'mbbill/undotree' " visual undo tree
 Plug 'ludovicchabant/vim-gutentags' " tags management
 Plug 'unblevable/quick-scope' " highlight next occurrence of letters
-Plug 'airblade/vim-rooter' " change current working directory
 Plug 'jremmen/vim-ripgrep' " ripgrep for vim
 
 " language specific plugins
@@ -121,63 +115,39 @@ function! LinterStatus() abort
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  return l:counts.total == 0 ? ' [OK]' : printf(
+  return l:counts.total == 0 ? '' : printf(
         \   '[%dW %dE]',
         \   all_non_errors,
         \   all_errors
         \)
 endfunction
 
-" some statusline stuff from fatih (https://github.com/fatih/dotfiles/blob/master/vimrc)
-let s:modes = {
-      \ 'n': 'NORMAL',
-      \ 'i': 'INSERT',
-      \ 'R': 'REPLACE',
-      \ 'v': 'VISUAL',
-      \ 'V': 'V-LINE',
-      \ "\<C-v>": 'V-BLOCK',
-      \ 'c': 'COMMAND',
-      \ 's': 'SELECT',
-      \ 'S': 'S-LINE',
-      \ "\<C-s>": 'S-BLOCK',
-      \ 't': 'TERMINAL'
-      \}
-
-let s:prev_mode = ""
-
 function! StatusLineBuffNum()
   let bnum = expand(bufnr('%'))
-  return printf("[%d]", bnum)
-endfunction
-
-function! StatusLineMode()
-  let cur_mode = get(s:modes, mode(), '')
-  let s:prev_mode = cur_mode
-  return printf("-%s-", cur_mode)
+  return printf("-%d-", bnum)
 endfunction
 
 function! StatusLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 160 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! StatusLineFormat()
-  return winwidth(0) > 70 ? printf("%s | %s", &ff, &fenc) : ''
+  return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
 endfunction
 
 function! StatusLineFileName()
-  let fname = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+  let fname = '' != expand('%:f') ? expand('%:f') : '[No Name]'
   return printf("%s", fname)
 endfunction
 
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
-set statusline+=\ %{StatusLineMode()}
-set statusline+=\ %{StatusLineFileName()}
+set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
 
 "" get current git status
-set statusline+=\%{fugitive#statusline()}
+set statusline+=\ %{fugitive#statusline()}
 
 "" Ale status
 set statusline+=%{LinterStatus()}
@@ -192,12 +162,8 @@ set statusline+=\ %{StatusLineFiletype()}
 set statusline+=\ %l,
 " column number
 set statusline+=%2c
-" % of file
+ "% of file
 set statusline+=\ %p%%
-" number of lines
-"set statusline+=\ %L
-" ASCII and byte code under cursor
-set statusline+=\ [%03b][0x%04B]
 
 " end statusline
 
@@ -249,9 +215,6 @@ set listchars=tab:\|_,nbsp:␣,extends:…,precedes:…
 " make backspace work
 set backspace=2
 
-" show filename in window titlebar
-set title
-
 " set lines above/below cursor
 set so=0
 
@@ -277,6 +240,9 @@ augroup hiwhitespace
   autocmd BufWinLeave * call clearmatches()
 augroup END
 
+" Automatically cd into the directory that the file is in
+autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+
 "Brace face
 set showmatch
 set matchtime=3
@@ -289,7 +255,7 @@ set splitright
 filetype plugin on
 filetype indent on
 
-" Time out on key codes but not mappings - needed for terminal vim?
+" Time out on key codes but not mappings
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -324,17 +290,7 @@ set hlsearch
 " Line numbers
 set nonumber
 
-" netrw settings
-" - :edit a folder to open a file browser
-" - <CR>/v/t to open in an h-split/v-split/tab
-" - check |netrw-browse-maps| for more mappings
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
+" create backup folders if not created
 if !isdirectory($HOME."/.vim/backup")
   silent! execute "!mkdir ~/.vim/backup"
 endif
@@ -396,10 +352,6 @@ if has('nvim')
 
 endif
 
-if has("win32")
-  let g:python3_host_prog = 'C:\Users\scott\AppData\Local\Programs\Python\Python37-32\python.exe'
-endif
-
 " }}}
 
 " general language settings {{{
@@ -416,8 +368,6 @@ augroup lang
   "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
 
-  " autopep8 on gq
-  autocmd FileType python setlocal formatprg=autopep8\ -
 
 augroup END
 
@@ -459,10 +409,10 @@ augroup END
 " }}}
 
 " python {{{
-" python-mode
-let g:pymode_options_colorcolumn = 0
-let g:pymode_folding = 0
-let g:pymode_options = 0
+
+" autopep8 on gq
+autocmd FileType python setlocal formatprg=autopep8\ -
+
 " }}}
 
 " Scala {{{
@@ -509,6 +459,11 @@ augroup END
 
 " }}}
 
+" {{{ HTML
+iabbrev </ </<C-X><C-O>
+imap <C-Space> <C-X><C-O>
+" }}}
+
 " }}}
 
 " remapping key commands {{{
@@ -516,11 +471,11 @@ augroup END
 " remap :W to write file
 cmap W w
 
+" remap :Q to quit
+cmap Q q
+
 " open python repl
 nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
-
-" open fish shell
-nnoremap <localleader>f :terminal fish<cr>
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
@@ -556,20 +511,11 @@ cmap w!! w !sudo tee % >/dev/null
 " toggle line numbers
 nnoremap <silent> <Leader>n :set invnumber<CR>
 
-" open Ack quick fix window to show TODO's
-nnoremap <silent> <leader>vt :Ack! TODO<CR>
-
-" open Ack quick fix winow to show current word
-nnoremap <leader>A :Ack! <cword><CR>
-
-" ack for a word
-nnoremap <leader>a :Ack!
-
 " show avilable marks and be ready to swtich - now use fzf
 "nnoremap <leader>mm :<C-u>marks<CR>:normal! `
 
 " Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+"nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
@@ -626,10 +572,6 @@ nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
 
-" rename tab
-nnoremap <leader>tr :TabooRename<space>
-nnoremap <leader>T :TabooOpen<space>
-
 "}}}
 
 " plugin configurations {{{
@@ -648,38 +590,6 @@ highlight clear ALEWarningSign
 let g:ale_sign_warning = ' ∘'
 " set erorr sign
 let g:ale_sign_error = '▶▶'
-" }}}
-
-" lightline {{{
-
-"function! LinterStatus() abort
-"  let l:counts = ale#statusline#Count(bufnr(''))
-"
-"  let l:all_errors = l:counts.error + l:counts.style_error
-"  let l:all_non_errors = l:counts.total - l:all_errors
-"
-"  return l:counts.total == 0 ? ' OK' : printf(
-"        \   '%dW %dE',
-"        \   all_non_errors,
-"        \   all_errors
-"        \)
-"endfunction
-"
-"let g:lightline = {
-"            \ 'active': {
-"            \   'left': [ [ 'mode', 'paste' ],
-"            \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'linter'] ]
-"            \ },
-"            \ 'component_function': {
-"            \   'gitbranch': 'fugitive#head',
-"            \   'linter': 'LinterStatus',
-"            \ },
-"            \ }
-"
-" }}}
-
-" easymotion {{{
-highlight link EasyMotionTarget Todo
 " }}}
 
 " ncm2 {{{
@@ -735,7 +645,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " fzf {{{
 
 " fzf through project
-nnoremap <A-p> :Files<CR>
+nnoremap <C-p> :Files<CR>
 
 " fzf through file
 nnoremap <leader>ll :Lines<CR>
@@ -838,36 +748,15 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <leader>V :OverCommandLine<CR>%s/
 " }}}
 
-" NERDTree {{{
-" ,o for nerdtree
-map <Leader>o :NERDTreeToggle<CR>
-
-" let nerdtree show hidden files by default (I to toggle)
-let NERDTreeShowHidden=1
-
-" ,or to refresh NERDTree
-"nmap <Leader>or :NERDTreeFocus<cr>R<c-w><c-p>
-
-" open nerdtree in current directory with <leader>i
-map <leader>i :NERDTreeFind<cr>
-
-" custom indicator map
-let g:NERDTreeIndicatorMapCustom = {
-      \ "Modified"  : "ᵐ",
-      \ "Staged"    : "ˢ",
-      \ "Untracked" : "ᵘ",
-      \ "Renamed"   : "ʳ",
-      \ "Unmerged"  : "ᶴ",
-      \ "Deleted"   : "ˣ",
-      \ "Dirty"     : "˜",
-      \ "Clean"     : "ᵅ",
-      \ "Unknown"   : "?"
-      \ }
-" }}}
-
 " netrw {{{
-" ,O opens directory in netrw
-nnoremap <Leader>O :Explore %:h<cr>
+nnoremap <Leader>o :Vexplore<cr>
+
+let g:netrw_banner=0
+let g:netrw_browse_split=2
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_winsize = 25
 " }}}
 
 " ag/ack {{{
@@ -879,6 +768,12 @@ endif
 " ack/ag with <leader> a
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+
+" open Ack quick fix window to show TODO's
+nnoremap <silent> <leader>vt :Ack! TODO<CR>
+
+" open Ack quick fix winow to show current word
+nnoremap <leader>A :Ack! <cword><CR>
 
 " use ag as default ack client
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -944,10 +839,6 @@ let g:tagbar_type_markdown = {
       \ },
       \ 'sort': 0,
       \ }
-" }}}
-
-" vim-rooter {{{
-let g:rooter_change_directory_for_non_project_files = 'current'
 " }}}
 
 " }}}
@@ -1019,7 +910,7 @@ function! ToggleVerbose()
         set verbosefile=
     endif
 endfunction
-"
+
 " }}}
 
 " notes {{{
