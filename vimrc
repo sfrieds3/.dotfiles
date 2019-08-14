@@ -140,6 +140,11 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
+function! GitStatus()
+  return has("statusline") && exists('*fugitive#statusline') ? printf(" %s", fugitive#statusline()) : printf("")
+  endif
+endfunction
+
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
@@ -147,7 +152,7 @@ set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
 
 "" get current git status
-set statusline+=\ %{fugitive#statusline()}
+set statusline+=%{GitStatus()}
 
 "" Ale status
 set statusline+=%{LinterStatus()}
