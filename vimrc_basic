@@ -156,6 +156,7 @@ endif
 
 " set default colors on vim and window enter
 augroup colors
+  autocmd VimEnter * hi Todo ctermfg=0 ctermbg=11 guifg=#8b0000 guibg=#ffff00
   autocmd VimEnter * hi folded guibg=Black ctermfg=8 guifg=White ctermbg=15
   autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
   autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
@@ -165,11 +166,11 @@ augroup END
 " set statusline color for various modes
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
+  hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
   elseif a:mode == 'r'
-    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+  hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
   else
-    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+  hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
   endif
 endfunction
 
@@ -331,18 +332,27 @@ augroup resize
 augroup END
 
 if !exists('*GitGrep')
-    fun GitGrep(...)
-      let save = &grepprg
-      set grepprg=git\ grep\ -n\ $*
-      let s = 'grep'
-      for i in a:000
-        let s = s . ' ' . i
-      endfor
-      exe s
-      let &grepprg = save
-    endfun
-    command -nargs=? G call GitGrep(<f-args>)
+  func GitGrep(...)
+    let save = &grepprg
+    set grepprg=git\ grep\ -n\ $*
+    let s = 'grep'
+    for i in a:000
+      let s = s . ' ' . i
+    endfor
+    exe s
+    let &grepprg = save
+  endfun
+  command -nargs=? G call GitGrep(<f-args>)
 endif
+
+" git grep for word under cursor
+if !exists('*GitGrepWord')
+    func GitGrepWord()
+      normal! "zyiw
+      call GitGrep('-w -e ', getreg('z'))
+    endf
+endif
+nnoremap <C-x>G :call GitGrepWord()<CR>
 
 " netrw
 nnoremap <Leader>o :Vexplore<cr>
