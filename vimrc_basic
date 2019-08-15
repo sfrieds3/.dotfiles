@@ -156,9 +156,11 @@ endif
 
 set laststatus=2
 
+" default the statusline to dark grey when entering Vim
+
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+    hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
   elseif a:mode == 'r'
     hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
   else
@@ -166,14 +168,11 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
-  autocmd!
-  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 augroup statusline
+  autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+  autocmd InsertLeave * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
 augroup END
-
-" default the statusline to dark grey when entering Vim
-"hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
 
 function! StatusLineBuffNum()
   let bnum = expand(bufnr('%'))
@@ -341,17 +340,19 @@ augroup resize
   autocmd VimResized * :wincmd =
 augroup END
 
-function! GitGrep(...)
-  let save = &grepprg
-  set grepprg=git\ grep\ -n\ $*
-  let s = 'grep'
-  for i in a:000
-    let s = s . ' ' . i
-  endfor
-  exe s
-  let &grepprg = save
-endfun
-command -nargs=? G call GitGrep(<f-args>)
+if !exists('*GitGrep')
+    fun GitGrep(...)
+      let save = &grepprg
+      set grepprg=git\ grep\ -n\ $*
+      let s = 'grep'
+      for i in a:000
+        let s = s . ' ' . i
+      endfor
+      exe s
+      let &grepprg = save
+    endfun
+    command -nargs=? G call GitGrep(<f-args>)
+endif
 
 " netrw
 nnoremap <Leader>o :Vexplore<cr>
