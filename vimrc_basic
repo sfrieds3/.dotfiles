@@ -8,6 +8,9 @@ let mapleader = ","
 " map local leader- can use for other commands with <localleader>
 let maplocalleader = "\\"
 
+" auto cd into current directory
+set autochdir
+
 " omnicomplete
 set omnifunc=syntaxcomplete#Complete
 
@@ -297,8 +300,11 @@ vnoremap <tab> %
 " toggle line numbers
 nnoremap <silent> <Leader>n :set invnumber<CR>
 
-" show avilable marks and be ready to swtich - now use fzf
+" show avilable marks and be ready to swtich
 nnoremap <leader>mm :<C-u>marks<CR>:normal! `
+
+" show buffers and be ready to switch
+nnoremap <silent> <leader>bb :<C-u>:buffers<CR>:buffer<space>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -327,13 +333,35 @@ augroup hiwhitespace
 augroup END
 
 " Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+"autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
 " resize splits when window is resized
 augroup resize
   autocmd!
   autocmd VimResized * :wincmd =
 augroup END
+
+function! GitGrep(...)
+  let save = &grepprg
+  set grepprg=git\ grep\ -n\ $*
+  let s = 'grep'
+  for i in a:000
+    let s = s . ' ' . i
+  endfor
+  exe s
+  let &grepprg = save
+endfun
+command -nargs=? G call GitGrep(<f-args>)
+
+" netrw
+nnoremap <Leader>o :Vexplore<cr>
+
+let g:netrw_banner=0
+let g:netrw_browse_split=2
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_winsize = 25
 
 "}}}
 
@@ -351,7 +379,6 @@ nmap <leader>w <C-W>
 " go to previous and next tab/buffers
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>bb :bnext<cr>
 nnoremap <leader>tp :tabprevious<cr>
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tt :tabnext<cr>
