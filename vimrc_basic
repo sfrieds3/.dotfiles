@@ -168,7 +168,8 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
-augroup statusline
+augroup colors
+  autocmd VimEnter * hi folded guibg=Black ctermfg=8 guifg=White ctermbg=15
   autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
   autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
   autocmd InsertLeave * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
@@ -228,22 +229,11 @@ augroup lang
   autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
   "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
-
-
 augroup END
-" python {{{
 
+" python {{{
 " autopep8 on gq
 autocmd FileType python setlocal formatprg=autopep8\ -
-
-" }}}
-
-" {{{ ruby
-
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
 " }}}
 
 " {{{ HTML
