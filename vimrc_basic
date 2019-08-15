@@ -152,12 +152,11 @@ endif
 
 " }}}
 
-" statusline {{{
+" visuals {{{
 
 set laststatus=2
 
 " default the statusline to dark grey when entering Vim
-
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
