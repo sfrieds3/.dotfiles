@@ -1,7 +1,7 @@
 " basic vim settings {{{
 
 " colorscheme
-colorscheme industry
+colorscheme default
 
 " update leader
 let mapleader = ","
@@ -154,9 +154,15 @@ endif
 
 " visuals {{{
 
-set laststatus=2
+" set default colors on vim and window enter
+augroup colors
+  autocmd VimEnter * hi folded guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+  autocmd InsertLeave * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+augroup END
 
-" default the statusline to dark grey when entering Vim
+" set statusline color for various modes
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
@@ -167,12 +173,7 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
-augroup colors
-  autocmd VimEnter * hi folded guibg=Black ctermfg=8 guifg=White ctermbg=15
-  autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
-  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
-augroup END
+set laststatus=2
 
 function! StatusLineBuffNum()
   let bnum = expand(bufnr('%'))
@@ -366,9 +367,10 @@ nnoremap <leader>ww <C-w>w
 nnoremap <A-o> <C-w>w
 nmap <leader>w <C-W>
 
-" go to previous and next tab/buffers
+" tab and buffer management
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>bd :bdelete<cr>
 nnoremap <leader>tp :tabprevious<cr>
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tt :tabnext<cr>
@@ -378,9 +380,6 @@ nnoremap <M-[> <C-w><
 nnoremap <M-=> <C-w>+
 nnoremap <M--> <C-w>-
 nnoremap <M-]> <C-w>>
-
-" Close the current buffer
-nnoremap <leader>bd :bdelete<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tN :tabnew<cr>
