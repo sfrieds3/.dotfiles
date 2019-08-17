@@ -381,6 +381,8 @@ if !exists('*GenerateTags')
   command T call GenerateTags()
 endif
 
+nnoremap <c-[> <C-T>
+
 "}}}
 
 " moving around, tabs, windows and buffers {{{
