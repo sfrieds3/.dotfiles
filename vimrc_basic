@@ -302,14 +302,15 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
-" use ctrl-s to vimgrep and open results in quickfix window
-function! FindAll()
-  call inputsave()
-  let p = input('Enter pattern:')
-  call inputrestore()
-  execute 'vimgrep "'.p.'" % |copen'
-endfunction
-nnoremap <C-s> :call FindAll()<cr>
+" netrw
+nnoremap <Leader>o :Vexplore<cr>
+
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_winsize = 25
 
 " higlight whitespace, but do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -331,6 +332,20 @@ augroup resize
   autocmd VimResized * :wincmd =
 augroup END
 
+" }}}
+
+" {{{ Functions
+
+" use ctrl-s to vimgrep and open results in quickfix window
+function! FindAll()
+  call inputsave()
+  let p = input('Enter pattern:')
+  call inputrestore()
+  execute 'vimgrep "'.p.'" % |copen'
+endfunction
+nnoremap <C-s> :call FindAll()<cr>
+
+" call gitgrep with :G
 if !exists('*GitGrep')
   func GitGrep(...)
     let save = &grepprg
@@ -354,15 +369,12 @@ if !exists('*GitGrepWord')
 endif
 nnoremap <C-x>G :call GitGrepWord()<CR>
 
-" netrw
-nnoremap <Leader>o :Vexplore<cr>
-
-let g:netrw_banner=0
-let g:netrw_browse_split=4
-let g:netrw_altv=1
-let g:netrw_liststyle=3
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_winsize = 25
+if !exists('*GenerateTags')
+  func GenerateTags()
+    :! ctags -R
+  endf
+endif
+command T call GenerateTags()
 
 "}}}
 
