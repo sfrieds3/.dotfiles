@@ -266,9 +266,6 @@ cmap W w
 " remap :Q to quit
 cmap Q q
 
-" remap tag pop stack
-nnoremap <c-[> <C-T>
-
 " highlight current line in active window only
 "augroup BgHighlight
 "    autocmd!
