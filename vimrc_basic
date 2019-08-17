@@ -13,9 +13,6 @@ let mapleader = ","
 " map local leader- can use for other commands with <localleader>
 let maplocalleader = "\\"
 
-" auto cd into current directory
-set autochdir
-
 " omnicomplete
 set omnifunc=syntaxcomplete#Complete
 
@@ -70,7 +67,11 @@ set splitright
 
 " filetype
 filetype plugin on
+
+" indentation
 filetype indent on
+set autoindent
+set smartindent
 
 " Time out on key codes but not mappings
 set notimeout
@@ -84,7 +85,6 @@ set encoding=utf8
 set expandtab
 
 "be smart when using tabs!
-set autoindent
 set smarttab
 
 " 1 tab == 4 spaces
@@ -233,6 +233,8 @@ augroup lang
   autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
   autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
   autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType eruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
   "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
 augroup END
@@ -263,6 +265,9 @@ cmap W w
 
 " remap :Q to quit
 cmap Q q
+
+" remap tag pop stack
+nnoremap <c-[> <C-T>
 
 " highlight current line in active window only
 "augroup BgHighlight
@@ -305,9 +310,6 @@ nnoremap <leader>mm :<C-u>marks<CR>:normal! `
 " show buffers and be ready to switch
 nnoremap <silent> <leader>bb :<C-u>:buffers<CR>:buffer<space>
 
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
@@ -325,8 +327,12 @@ augroup END
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
+" Switch CWD to the directory of the open buffer
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
 " Automatically cd into the directory that the file is in
 "autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+"set autochdir
 
 " resize splits when window is resized
 augroup resize
@@ -347,6 +353,14 @@ let g:netrw_winsize = 25
 " }}}
 
 " {{{ functions
+
+" quick way to open quickfix window
+if !exists('*OpenQuickfix')
+  func OpenQuickfix()
+    :copen
+  endf
+  command C call OpenQuickfix()
+endif
 
 " use ctrl-s to vimgrep and open results in quickfix window
 function! FindAll()
@@ -374,13 +388,14 @@ endif
 
 " git grep for word under cursor
 if !exists('*GitGrepWord')
-    func GitGrepWord()
-      normal! "zyiw
-      call GitGrep('-w -e ', getreg('z'))
-    endf
+  func GitGrepWord()
+    normal! "zyiw
+    call GitGrep('-w -e ', getreg('z'))
+  endf
 endif
 nnoremap <C-x>G :call GitGrepWord()<CR>
 
+" generate tags quickly
 if !exists('*GenerateTags')
   func GenerateTags()
     :! ctags -R
@@ -388,7 +403,6 @@ if !exists('*GenerateTags')
   command T call GenerateTags()
 endif
 
-nnoremap <c-[> <C-T>
 
 "}}}
 
