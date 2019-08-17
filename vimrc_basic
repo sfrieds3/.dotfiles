@@ -266,13 +266,6 @@ cmap W w
 " remap :Q to quit
 cmap Q q
 
-" highlight current line in active window only
-"augroup BgHighlight
-"    autocmd!
-"    autocmd WinEnter * set cul
-"    autocmd WinLeave * set nocul
-"augroup END
-
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
 
@@ -496,13 +489,13 @@ augroup END
 " verbose debugging {{{
 
 function! ToggleVerbose()
-    if !&verbose
-        set verbosefile=~/.vim/log/verbose.log
-        set verbose=15
-    else
-        set verbose=0
-        set verbosefile=
-    endif
+  if !&verbose
+      set verbosefile=~/.vim/log/verbose.log
+      set verbose=15
+  else
+      set verbose=0
+      set verbosefile=
+  endif
 endfunction
 
 " }}}
