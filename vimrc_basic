@@ -240,6 +240,13 @@ augroup END
 " python {{{
 " autopep8 on gq
 autocmd FileType python setlocal formatprg=autopep8\ -
+
+" turn on python autocomplete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+" auto close pydoc window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " }}}
 
 " {{{ HTML
