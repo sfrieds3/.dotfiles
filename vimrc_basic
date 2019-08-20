@@ -51,11 +51,12 @@ set splitright
 set autoindent
 set smartindent
 set encoding=utf8
+set tabstop=8
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set smarttab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set formatoptions=qrn1j
 set wrap
 set incsearch
 set showmatch
@@ -188,14 +189,14 @@ set statusline+=\ %p%%
 augroup lang
   autocmd!
 
-  autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
-  autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
-  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-  autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType eruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  autocmd FileType html setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType go setlocal shiftwidth=8 softtabstop=8
+  autocmd FileType c setlocal shiftwidth=8 softtabstop=8
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType scala setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
 augroup END
 
 " commenting for filetypes {{{
