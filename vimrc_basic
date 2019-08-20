@@ -1,5 +1,6 @@
 " basic vim settings {{{
 
+" initial settings {{{
 let mapleader = ","
 let maplocalleader = "\\"
 
@@ -37,13 +38,15 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
+" }}}
+
+" basic settings {{{
 set nomodeline
 set visualbell
 set path+=**
 set ignorecase
 set smartcase
 set backspace=2
-set foldcolumn=0
 set showmatch
 set matchtime=3
 set splitbelow
@@ -63,8 +66,13 @@ set showmatch
 set hlsearch
 set nonumber
 set nocompatible
-set foldmethod=marker
 set clipboard=unnamed
+set foldmethod=marker
+set foldcolumn=0
+
+" }}}
+
+" disable some stuff {{{
 
 " Disable scrollbars
 set guioptions-=r
@@ -78,7 +86,9 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" backup settings
+" }}}
+
+" backup settings {{{
 set undofile
 set backup
 set noswapfile
@@ -97,6 +107,8 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 
+" }}}
+
 "}}}
 
 " neovim settings {{{
@@ -106,7 +118,6 @@ if has('nvim')
   " neovim terminal - esc to exit terminal-mode
   :tnoremap <Esc> <C-\><C-n>
 
-  " set termguicolors
   set termguicolors
 
   " do not show line numbers in terminal mode
@@ -120,16 +131,20 @@ endif
 
 " visuals {{{
 
+" colors {{{
 " set default colors on vim and window enter
 augroup colors
   autocmd!
-  autocmd VimEnter * hi Todo ctermfg=0 ctermbg=11 guifg=#8b0000 guibg=#ffff00
-  autocmd VimEnter * hi folded guibg=Black ctermfg=8 guifg=White ctermbg=15
-  autocmd VimEnter * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd VimEnter * highlight Todo ctermfg=0 ctermbg=11 guifg=#8b0000 guibg=#ffff00
+  autocmd VimEnter * highlight folded guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd VimEnter * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
   autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  autocmd InsertLeave * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
 augroup END
 
+" }}}
+
+" statusline {{{
 " set statusline color for various modes
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
@@ -180,7 +195,7 @@ set statusline+=%2c
  "% of file
 set statusline+=\ %p%%
 
-" end statusline
+" }}}
 
 " }}}
 
@@ -234,7 +249,7 @@ imap <C-Space> <C-X><C-O>
 
 " }}}
 
-" custom stuff {{{
+" custom mappings and stuff {{{
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
@@ -356,7 +371,7 @@ if !exists('*GitGrep')
     for i in a:000
       let s = s . ' ' . i
     endfor
-    exe s
+    execute s
     let &grepprg = save
   endfunction
   command -nargs=? G call GitGrep(<f-args>)
@@ -383,6 +398,7 @@ endif
 
 " moving around, tabs, windows and buffers {{{
 
+" windows {{{
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -392,6 +408,15 @@ nnoremap <leader>ww <C-w>w
 nnoremap <A-o> <C-w>w
 nmap <leader>w <C-W>
 
+" resize splits
+nnoremap <M-[> <C-w><
+nnoremap <M-=> <C-w>+
+nnoremap <M--> <C-w>-
+nnoremap <M-]> <C-w>>
+
+" }}}
+
+" buffers and tabs {{{
 " tab and buffer management
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
@@ -400,18 +425,14 @@ nnoremap <leader>tp :tabprevious<cr>
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tt :tabnext<cr>
 
-" resize splits
-nnoremap <M-[> <C-w><
-nnoremap <M-=> <C-w>+
-nnoremap <M--> <C-w>-
-nnoremap <M-]> <C-w>>
-
 " Useful mappings for managing tabs
 nnoremap <leader>tN :tabnew<cr>
 nnoremap <leader>to :tabonly<cr>
 nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
+
+" }}}
 
 "}}}
 
