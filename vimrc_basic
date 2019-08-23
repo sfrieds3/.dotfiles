@@ -8,8 +8,11 @@ let maplocalleader = "\\"
 if !exists("g:syntax_on")
   syntax enable
 endif
+
+let base16colorspace=256  " Access colors present in 256 colorspace
+
 set background=dark
-colorscheme default
+colorscheme base16-default-dark
 
 noremap j gj
 noremap k gk
@@ -134,12 +137,12 @@ endif
 " colors {{{
 " set default colors on vim and window enter
 augroup colors
-  autocmd!
-  autocmd VimEnter * highlight Todo ctermfg=0 ctermbg=11 guifg=#8b0000 guibg=#ffff00
-  autocmd VimEnter * highlight folded guibg=Black ctermfg=8 guifg=White ctermbg=15
-  autocmd VimEnter * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
-  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  "autocmd!
+  "autocmd VimEnter * highlight Todo ctermfg=0 ctermbg=11 guifg=#8b0000 guibg=#ffff00
+  "autocmd VimEnter * highlight folded guibg=Black ctermfg=8 guifg=White ctermbg=15
+  "autocmd VimEnter * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+  "autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+  "autocmd InsertLeave * highlight statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
 augroup END
 
 " }}}
@@ -245,6 +248,10 @@ augroup END
 " {{{ HTML
 iabbrev </ </<C-X><C-O>
 imap <C-Space> <C-X><C-O>
+" }}}
+
+" {{{ clojure
+
 " }}}
 
 " }}}
