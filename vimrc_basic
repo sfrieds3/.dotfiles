@@ -370,7 +370,7 @@ if !exists('*GitGrep')
     " restore grepprg to original setting
     let &grepprg = save
   endfunction
-  command -nargs=? G call GitGrep(<f-args>)
+  command -nargs=+ G call GitGrep(<f-args>)
 endif
 
 " git grep for word under cursor
@@ -381,6 +381,8 @@ if !exists('*GitGrepWord')
   endfunction
 endif
 nnoremap <C-x>G :call GitGrepWord()<cr>
+" or, an easier way to do it
+nnoremap <leader>G :G <cword><cr>
 
 " generate tags quickly
 if !exists('*GenerateTags')
