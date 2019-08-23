@@ -356,7 +356,9 @@ nnoremap <C-s> :call FindAll()<cr>
 " call gitgrep with :G
 if !exists('*GitGrep')
   function! GitGrep(...)
+    " store grepprg to restore after running
     let save = &grepprg
+    " set grepprg to git grep for use in function
     set grepprg=git\ grep\ -n\ $*
     let s = 'grep!'
     let s = 'silent ' . s
@@ -365,6 +367,7 @@ if !exists('*GitGrep')
     endfor
     let s = s . ' | copen'
     execute s
+    " restore grepprg to original setting
     let &grepprg = save
   endfunction
   command -nargs=? G call GitGrep(<f-args>)
