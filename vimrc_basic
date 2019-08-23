@@ -348,7 +348,7 @@ if !exists('*FindAll')
     call inputsave()
     let p = input('Enter pattern:')
     call inputrestore()
-    execute 'vimgrep "'.p.'" % |copen'
+    execute 'vimgrep! "'.p.'" % | copen'
   endfunction
 endif
 nnoremap <C-s> :call FindAll()<cr>
@@ -358,10 +358,12 @@ if !exists('*GitGrep')
   function! GitGrep(...)
     let save = &grepprg
     set grepprg=git\ grep\ -n\ $*
-    let s = 'grep'
+    let s = 'grep!'
+    let s = 'silent ' . s
     for i in a:000
       let s = s . ' ' . i
     endfor
+    let s = s . ' | copen'
     execute s
     let &grepprg = save
   endfunction
