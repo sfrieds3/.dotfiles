@@ -1,4 +1,5 @@
 #! /usr/bin/python3
+
 from os.path import expanduser
 import os
 import subprocess
@@ -15,11 +16,5 @@ for x in BASH_FILES:
 if not os.path.islink(USER_HOME + '/.config/nvim/init.vim'):
     os.symlink(USER_HOME + '/.dotfiles', USER_HOME + '/.congif/nvim/init.vim')
 
-# I'm lazy, shell script to set up to set custom colors for git
+# shell script to complete setup
 subprocess.call(USER_HOME + '/.dotfiles/setup.sh')
-
-# I'm still lazy.. shell script to apt install neovim etc etc
-print(USER_HOME + '/.dotfiles/apt_install.sh')
-subprocess.call(USER_HOME + '/.dotfiles/apt_install.sh')
-
-# install golang

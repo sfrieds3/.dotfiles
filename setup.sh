@@ -12,17 +12,35 @@ git config --global color.diff.old "yellow reverse dim"
 LS_COLORS='ow=01;36;40'
 export LS_COLORS
 
-# installations for neovim
-go get -u github.com/jstemmer/gotags
-go get -u github.com/nsf/gocode
-go get github.com/rogpeppe/godef
-go get -u github.com/derekparker/delve/cmd/dlv
-gometalinter --install
-export PATH=$PATH:$(go env GOPATH)/bin
-cargo install racer
-pip install jedi
-pip3 install neovim
-pip install neovim
-sudo apt-get install exuberant-ctags
-go get -u github.com/sourcegraph/go-langserver
-pip install websocket-client sexpdata
+# go get -u github.com/jstemmer/gotags
+# go get -u github.com/nsf/gocode
+# go get github.com/rogpeppe/godef
+# go get -u github.com/derekparker/delve/cmd/dlv
+# go get -u github.com/sourcegraph/go-langserver
+# gometalinter --install
+# export PATH=$PATH:$(go env GOPATH)/bin
+
+# cargo install racer
+
+# apt install packages for ubuntu
+sudo apt install exuberant-ctags
+sudo apt install leiningen
+sudo apt install neovim
+sudo apt install python-neovim
+sudo apt install python3-neovim
+sudo apt install postgresql
+sudo apt install tmux
+sudo apt install rvm
+
+# python pip installation
+python3 -m pip install jedi
+python3 -m pip install neovim
+python -m pip install neovim
+python3 -m pip install websocket-client sexpdata
+python3 -m pip install virtualenv
+
+# install vim colorschemes
+mkdir -p ~/.vim/bundle
+mkdir -p ~/.vim/colors
+git clone https://github.com/chriskempson/base16-vim.git ~/.vim/bundle
+cp ~/.vim/bundle/base16/colors/*.vim ~/.vim/colors/
