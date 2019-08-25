@@ -7,7 +7,7 @@ import subprocess
 USER_HOME = expanduser("~")
 
 # symlink bash, ctags, gitignore, vimrc
-BASH_FILES = ['bashrc', 'bash_aliases', 'ctags', 'dircolors', 'gitignore', 'inputrc', 'vimrc']
+BASH_FILES = ['bashrc', 'bash_aliases', 'ctags', 'dircolors', 'gitignore', 'inputrc']
 
 for x in BASH_FILES:
     if not os.path.islink(USER_HOME + '/.' + x):
@@ -17,4 +17,5 @@ if not os.path.islink(USER_HOME + '/.config/nvim/init.vim'):
     os.symlink(USER_HOME + '/.dotfiles', USER_HOME + '/.congif/nvim/init.vim')
 
 # shell script to complete setup
+# note tmux and vim config is set in setup.sh
 subprocess.call(USER_HOME + '/.dotfiles/setup.sh')
