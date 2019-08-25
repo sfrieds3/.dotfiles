@@ -30,6 +30,8 @@ sudo apt install python-neovim
 sudo apt install python3-neovim
 sudo apt install postgresql
 sudo apt install tmux
+sudo apt install mysql-server
+sudo apt install libmysqlclient-dev
 sudo apt install rvm
 
 # python pip installation
