@@ -256,6 +256,9 @@ augroup autocomment
   autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
 augroup End
 
+" uncomment
+nnoremap <c-k><c-u> ^x==
+
 " }}}
 
 " python {{{
