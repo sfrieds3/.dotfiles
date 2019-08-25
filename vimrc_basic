@@ -10,7 +10,6 @@ if !exists("g:syntax_on")
 endif
 
 let base16colorspace=256  " Access colors present in 256 colorspace
-
 set background=dark
 colorscheme base16-default-dark
 
@@ -30,13 +29,17 @@ set ttyfast
 set complete=.,w,b,u,t
 set completeopt=longest,menuone
 
-" allow recursive searching with :find
+" allow recursive searching for find
+set path+=**
+
+" do not close hidden buffers
 set hidden
-"
+
 " set lines above/below cursor
 set so=0
 
 " timeout on key codes but not mappings
+" for terminal vim
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -44,34 +47,34 @@ set ttimeoutlen=10
 " }}}
 
 " basic settings {{{
-set nomodeline
-set visualbell
-set path+=**
-set ignorecase
-set smartcase
 set backspace=2
-set showmatch
 set matchtime=3
-set splitbelow
-set splitright
-set autoindent
-set smartindent
 set encoding=utf8
 set tabstop=8
 set shiftwidth=4
 set softtabstop=4
+set clipboard=unnamed
+set foldmethod=marker
+set foldcolumn=0
+set formatoptions=qrn1j
+
+set nomodeline
+set visualbell
+set ignorecase
+set smartcase
+set showmatch
+set splitbelow
+set splitright
+set autoindent
+set smartindent
 set expandtab
 set smarttab
-set formatoptions=qrn1j
 set wrap
 set incsearch
 set showmatch
 set hlsearch
 set nonumber
 set nocompatible
-set clipboard=unnamed
-set foldmethod=marker
-set foldcolumn=0
 
 " }}}
 
@@ -92,6 +95,7 @@ nnoremap <right> <nop>
 " }}}
 
 " backup settings {{{
+
 set undofile
 set backup
 set noswapfile
