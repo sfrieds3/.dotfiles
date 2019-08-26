@@ -9,9 +9,10 @@ if !exists("g:syntax_on")
   syntax enable
 endif
 
-let base16colorspace=256  " Access colors present in 256 colorspace
+set termguicolors
 set background=dark
 colorscheme base16-default-dark
+let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
 noremap k gk
@@ -169,8 +170,6 @@ if has('nvim')
   " neovim commands
   " neovim terminal - esc to exit terminal-mode
   :tnoremap <Esc> <C-\><C-n>
-
-  set termguicolors
 
   " do not show line numbers in terminal mode
   augroup termsettings
