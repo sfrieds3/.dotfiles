@@ -387,6 +387,9 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 
 " {{{ functions
 
+" shortcut for find command
+cnoreabbrev f find
+
 " quick way to open quickfix window
 if !exists('*OpenQuickfix')
   function! OpenQuickfix()
