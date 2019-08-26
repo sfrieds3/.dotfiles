@@ -168,6 +168,9 @@ vmap <C-ScrollWheelRight> <nop>
 
 if has('nvim')
   " neovim commands
+  " show effects of command incrementally
+  set inccommand=split
+
   " neovim terminal - esc to exit terminal-mode
   :tnoremap <Esc> <C-\><C-n>
 
