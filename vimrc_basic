@@ -33,11 +33,20 @@ set completeopt=longest,menuone
 " allow recursive searching for find
 set path+=**
 
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
 " do not close hidden buffers
 set hidden
 
 " set lines above/below cursor
-set so=0
+set scrolloff=0
 
 " timeout on key codes but not mappings
 " for terminal vim
@@ -59,6 +68,7 @@ set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
 
+set autoread
 set nomodeline
 set visualbell
 set ignorecase
@@ -263,7 +273,7 @@ augroup autocomment
 augroup End
 
 " uncomment
-nnoremap <c-k><c-u> ^x==
+nnoremap <localleader>u ^x==
 
 " }}}
 
@@ -294,6 +304,13 @@ imap <C-Space> <C-X><C-O>
 " }}}
 
 " custom mappings and stuff {{{
+
+" various command shortcuts
+cnoreabbrev f find
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev B b
+cnoreabbrev E e
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
@@ -364,7 +381,7 @@ augroup resize
 augroup END
 
 " netrw
-nnoremap <Leader>o :Vexplore<cr>
+nnoremap <Leader>o :Lexplore<cr>
 
 let g:netrw_banner=0
 let g:netrw_browse_split=4
@@ -386,9 +403,6 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " {{{ functions
-
-" shortcut for find command
-cnoreabbrev f find
 
 " quick way to open quickfix window
 if !exists('*OpenQuickfix')
