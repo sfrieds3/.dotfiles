@@ -381,7 +381,7 @@ augroup resize
 augroup END
 
 " netrw
-nnoremap <Leader>o :Lexplore<cr>
+nnoremap <Leader>o :Sexplore!<cr>
 
 let g:netrw_banner=0
 let g:netrw_browse_split=4
