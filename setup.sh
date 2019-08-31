@@ -49,4 +49,4 @@ ln -s ~/.dotfiles/tmux_basic.conf ~/.tmux.conf
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/colors
 git clone https://github.com/chriskempson/base16-vim.git ~/.vim/bundle
-cp ~/.vim/bundle/base16/colors/*.vim ~/.vim/colors/
+cp -s ~/.vim/bundle/base16/colors/*.vim ~/.vim/colors/
