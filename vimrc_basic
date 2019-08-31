@@ -1,6 +1,7 @@
 " basic vim settings {{{
 
 " initial settings {{{
+
 let mapleader = ","
 let maplocalleader = "\\"
 
@@ -37,10 +38,6 @@ if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
 endif
 
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
 
 " do not close hidden buffers
 set hidden
@@ -53,6 +50,17 @@ set scrolloff=0
 set notimeout
 set ttimeout
 set ttimeoutlen=10
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+if filereadable('$HOME/.vim/autoload/pathogen.vim')
+  " Use pathogen as plugin manager
+  call pathogen#infect()
+  call pathogen#helptags()
+endif
 
 " }}}
 
@@ -307,6 +315,7 @@ imap <C-Space> <C-X><C-O>
 
 " various command shortcuts
 cnoreabbrev f find
+cnoreabbrev F find
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev B b
