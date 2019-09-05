@@ -42,8 +42,8 @@ python3 -m pip install websocket-client sexpdata
 python3 -m pip install virtualenv
 
 # add vimrc and tmux.conf
-ln -s ~/.dotfiles/vimrc_basic ~/.vimrc
-ln -s ~/.dotfiles/tmux_basic.conf ~/.tmux.conf
+ln -s ~/.dotfiles/vimrc ~/.vimrc
+ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 
 # install vim colorschemes
 mkdir -p ~/.vim/bundle
