@@ -1,126 +1,220 @@
-" start of plugins {{{
+" basic vim settings {{{
 
-" install plugged if not installed
-if has("unix")
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  endif
-endif
+" initial settings {{{
 
-call plug#begin('~/.vim/plugged') " call plugged to manage plugins"
+let mapleader = ","
+let maplocalleader = "\\"
 
-Plug 'neovim/python-client' " required for nvim python plugins
-Plug 'airblade/vim-gitgutter' "show git diff in gutter
-Plug 'jszakmeister/markdown2ctags' " markdown support for ctags/tagbar
-Plug 'majutsushi/tagbar' " tagbar on right side
-Plug 'mileszs/ack.vim' " ack/ag searching in vim
-Plug 'osyo-manga/vim-over' " visual find replace
-Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
-Plug 'tpope/vim-fugitive' " git manager for vim
-Plug 'w0rp/ale' " linting
-Plug 'ap/vim-css-color' " show CSS colors inline
-Plug 'mbbill/undotree' " visual undo tree
-Plug 'ludovicchabant/vim-gutentags' " tags management
-Plug 'unblevable/quick-scope' " highlight next occurrence of letters
-Plug 'jremmen/vim-ripgrep' " ripgrep for vim
-
-" language specific plugins
-Plug 'JBakamovic/yavide' " c/c++
-Plug 'vim-ruby/vim-ruby' " ruby
-Plug 'tpope/vim-rails' " rails
-Plug 'fatih/vim-go' " golang
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' } " Scala
-"Plug 'derekwyatt/vim-scala' " scala
-
-" fzf- fuzzy file finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-""-------------------------------------------------------"
-
-" ncm2
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-
-" source
-Plug 'ncm2/ncm2-jedi' " python
-Plug 'ncm2/ncm2-pyclang' " c/c++
-Plug 'ncm2/ncm2-vim' " vimscript
-Plug 'shougo/neco-vim' " requirement for ncm2-vim
-Plug 'ncm2/ncm2-go' " golang
-Plug 'ncm2/ncm2-racer' " rust
-
-Plug 'ncm2/ncm2-path' " words in path
-Plug 'ncm2/ncm2-bufword' " words in buffers
-Plug 'ncm2/ncm2-markdown-subscope' " markdown subscope detection
-
-"-------------------------------------------------------"
-
-" colors
-Plug 'sfrieds3/dim.vim'
-"Plug 'ayu-theme/ayu-vim'
-"Plug 'morhetz/gruvbox'
-"Plug 'NLKNguyen/papercolor-theme'
-"Plug 'sfrieds3/vim-hickop-colors'
-"Plug 'sjl/badwolf'
-
-"-------------------------------------------------------"
-
-" ALL PLUGINS BEFORE THIS LINE
-call plug#end()
-
-"}}}
-
-" theme settings {{{
-
-" Color settings!
+" enable syntax
 if !exists("g:syntax_on")
   syntax enable
 endif
 
-"set colorscheme below
-colorscheme dim
+set termguicolors
+set background=dark
+colorscheme base16-default-dark
+let base16colorspace=256  " Access colors present in 256 colorspace
+
+noremap j gj
+noremap k gk
+
+filetype plugin on
+filetype indent on
+
+set wildmenu
+set wildignorecase
+set wildmode=longest:full,full
+set omnifunc=syntaxcomplete#Complete
+set ttyfast
+
+" better completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
+" allow recursive searching for find
+set path+=**
+
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+
+
+" do not close hidden buffers
+set hidden
+
+" set lines above/below cursor
+set scrolloff=0
+
+" timeout on key codes but not mappings
+" for terminal vim
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+if filereadable('$HOME/.vim/autoload/pathogen.vim')
+  " Use pathogen as plugin manager
+  call pathogen#infect()
+  call pathogen#helptags()
+endif
+
+" }}}
+
+" basic settings {{{
+set backspace=2
+set matchtime=3
+set encoding=utf8
+set tabstop=8
+set shiftwidth=4
+set softtabstop=4
+set clipboard=unnamed
+set foldmethod=marker
+set foldcolumn=0
+set formatoptions=qrn1j
+
+set autoread
+set nomodeline
+set visualbell
+set ignorecase
+set smartcase
+set showmatch
+set splitbelow
+set splitright
+set autoindent
+set smartindent
+set expandtab
+set smarttab
+set wrap
+set incsearch
+set showmatch
+set hlsearch
+set nonumber
+set nocompatible
+
+" }}}
+
+" disable some stuff {{{
+
+" Disable scrollbars
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+
+" no arrow keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" }}}
+
+" backup settings {{{
+
+set undofile
+set backup
+set noswapfile
+set undodir=~/.vim/tmp/undo// " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap// " swap files
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+
+" }}}
+
+" stop mouse {{{
+" it's a terrible hack, but needs to be done
+set mouse=a
+
+nmap <ScrollWheelUp> <nop>
+nmap <S-ScrollWheelUp> <nop>
+nmap <C-ScrollWheelUp> <nop>
+nmap <ScrollWheelDown> <nop>
+nmap <S-ScrollWheelDown> <nop>
+nmap <C-ScrollWheelDown> <nop>
+nmap <ScrollWheelLeft> <nop>
+nmap <S-ScrollWheelLeft> <nop>
+nmap <C-ScrollWheelLeft> <nop>
+nmap <ScrollWheelRight> <nop>
+nmap <S-ScrollWheelRight> <nop>
+nmap <C-ScrollWheelRight> <nop>
+
+imap <ScrollWheelUp> <nop>
+imap <S-ScrollWheelUp> <nop>
+imap <C-ScrollWheelUp> <nop>
+imap <ScrollWheelDown> <nop>
+imap <S-ScrollWheelDown> <nop>
+imap <C-ScrollWheelDown> <nop>
+imap <ScrollWheelLeft> <nop>
+imap <S-ScrollWheelLeft> <nop>
+imap <C-ScrollWheelLeft> <nop>
+imap <ScrollWheelRight> <nop>
+imap <S-ScrollWheelRight> <nop>
+imap <C-ScrollWheelRight> <nop>
+
+vmap <ScrollWheelUp> <nop>
+vmap <S-ScrollWheelUp> <nop>
+vmap <C-ScrollWheelUp> <nop>
+vmap <ScrollWheelDown> <nop>
+vmap <S-ScrollWheelDown> <nop>
+vmap <C-ScrollWheelDown> <nop>
+vmap <ScrollWheelLeft> <nop>
+vmap <S-ScrollWheelLeft> <nop>
+vmap <C-ScrollWheelLeft> <nop>
+vmap <ScrollWheelRight> <nop>
+vmap <S-ScrollWheelRight> <nop>
+vmap <C-ScrollWheelRight> <nop>
+
+" }}}
+
+"}}}
+
+" neovim settings {{{
+
+if has('nvim')
+  " neovim commands
+  " show effects of command incrementally
+  set inccommand=split
+
+  " neovim terminal - esc to exit terminal-mode
+  :tnoremap <Esc> <C-\><C-n>
+
+  " do not show line numbers in terminal mode
+  augroup termsettings
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+  augroup END
+endif
 
 " }}}
 
 " statusline {{{
 
-set laststatus=2
-
+" set statusline color for various modes
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+  hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
   elseif a:mode == 'r'
-    hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+  hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
   else
-    hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+  hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
   endif
 endfunction
 
-augroup statusline
-  autocmd!
-  autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
-  autocmd InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-augroup END
-
-" default the statusline to dark grey when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=black ctermbg=15
-
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? '' : printf(
-        \   '[%dW %dE]',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
+set laststatus=2
 
 function! StatusLineBuffNum()
   let bnum = expand(bufnr('%'))
@@ -140,22 +234,11 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
-function! GitStatus()
-  return has("statusline") && exists('*fugitive#statusline') ? printf(" %s", fugitive#statusline()) : printf("")
-  endif
-endfunction
-
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
-
-"" get current git status
-set statusline+=%{GitStatus()}
-
-"" Ale status
-set statusline+=%{LinterStatus()}
 
 " right section
 set statusline+=%=
@@ -170,193 +253,6 @@ set statusline+=%2c
  "% of file
 set statusline+=\ %p%%
 
-" end statusline
-
-" }}}
-
-" basic vim settings {{{
-
-" update leader
-let mapleader = ","
-" map local leader- can use for other commands with <localleader>
-let maplocalleader = "\\"
-
-"wrapped lines go down/up to next row
-noremap j gj
-noremap k gk
-
-" retain buffers until quit
-set hidden
-
-" do not use modeline
-" modeline is a security risk
-set nomodeline
-
-" No bells!
-set visualbell
-
-" Fast scrolling
-set ttyfast
-
-" set cursorline for current window only
-augroup CursorLine
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
-
-" allow recursive searching with :find
-set path+=**
-
-" not case sensitive, unless all caps
-set ignorecase
-set smartcase
-
-" set characters for end of line & tab
-"set list
-set showbreak=↪
-set listchars=tab:\|_,nbsp:␣,extends:…,precedes:…
-
-" make backspace work
-set backspace=2
-
-" set lines above/below cursor
-set so=0
-
-" turn on wild menu
-set wildmenu
-
-"2nd tab: complete first alternative, allow tab/S-tab to cycle back and forth
-set wildmode=longest:full,full
-set foldcolumn=0
-
-" path/file expansion in colon-mode
-set wildmode=longest:full,list:full,list:longest
-set wildchar=<TAB>
-
-" do not highlight in insert mode
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-augroup hiwhitespace
-  autocmd!
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-  autocmd BufWinLeave * call clearmatches()
-augroup END
-
-" Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-
-"Brace face
-set showmatch
-set matchtime=3
-
-" split down and right
-set splitbelow
-set splitright
-
-" filetype
-filetype plugin on
-filetype indent on
-
-" Time out on key codes but not mappings
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
-" resize splits when window is resized
-augroup resize
-  autocmd!
-  autocmd VimResized * :wincmd =
-augroup END
-
-"set utf8 as standard encoding
-set encoding=utf8
-
-" use spaces instead of tabs
-set expandtab
-
-"be smart when using tabs!
-set autoindent
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-set wrap
-
-" search shows all results
-set incsearch
-set showmatch
-set hlsearch
-
-" Line numbers
-set nonumber
-
-" create backup folders if not created
-if !isdirectory($HOME."/.vim/backup")
-  silent! execute "!mkdir ~/.vim/backup"
-endif
-
-if !isdirectory($HOME."/.vim/undo")
-  silent! execute "~mkdir !/.vim/undo"
-endif
-
-set maxmempattern=20000 " increase max memory -- show syntax highlighting for large files
-set history=1000
-set undofile
-set undodir=~/.vim/undo " where to save undo history
-set undolevels=1000 " How many undos
-set undoreload=10000 " number of lines to save for undo
-set backupdir=~/.vim/backup
-set viminfo='1000 " need for FzfHistory
-set noswapfile
-
-set nocompatible
-set foldmethod=marker
-set clipboard=unnamed "use system default clipboard
-
-" Update term title
-set title
-set titleold=
-
-" mouse no work - also put in ~/.config/nvim/init.vim
-set mouse=a
-
-" Disable scrollbars
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-
-" no arrow keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-"}}}
-
-" neovim settings {{{
-
-if has('nvim')
-  " neovim commands
-  " neovim terminal - esc to exit terminal-mode
-  :tnoremap <Esc> <C-\><C-n>
-
-  " set termguicolors
-  set termguicolors
-
-  " do not show line numbers in terminal mode
-  augroup termsettings
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber
-  augroup END
-
-endif
-
 " }}}
 
 " general language settings {{{
@@ -364,104 +260,44 @@ endif
 augroup lang
   autocmd!
 
-  autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=8
-  autocmd FileType c setlocal shiftwidth=8 tabstop=8 softtabstop=8
-  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-  autocmd FileType scala setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
-  "autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-  "autocmd BufRead,BufNewFile *.html setlocal textwidth=80
-
-
+  autocmd FileType html setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType go setlocal shiftwidth=8 softtabstop=8
+  autocmd FileType c setlocal shiftwidth=8 softtabstop=8
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType vim setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
+  autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
 augroup END
 
-" golang {{{
-" no warning for out of date nvim
-let g:go_version_warning = 0
-
-" goimport on save
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_list_type = "quickfix"
-let g:go_term_mode = "split"
-let g:go_term_height = 10
-
-" show definition when hovering
-let g:go_auto_type_info = 1
-
-augroup go
+" commenting for filetypes {{{
+augroup autocomment
   autocmd!
+  autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
+  autocmd FileType vim nnoremap <buffer> <localleader>c I"<esc>
+  autocmd FileType ruby nnoremap <buffer> <localleader>c I#<esc>
+  autocmd FileType eruby nnoremap <buffer> <localleader>c I#<esc>
+  autocmd FileType go nnoremap <buffer> <localleader>c I//<esc>
+  autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+augroup End
 
-  autocmd FileType go set nolist
+" uncomment
+nnoremap <localleader>u ^x==
 
-  autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
-  autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
-
-  autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
-
-  autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
-  autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
-
-  autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <localleader>t  <Plug>(go-test)
-  autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
-  autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
-
-  autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
-augroup END
 " }}}
 
 " python {{{
-
-" autopep8 on gq
-autocmd FileType python setlocal formatprg=autopep8\ -
-
-" }}}
-
-" Scala {{{
-augroup scala
+augroup python
   autocmd!
-  autocmd BufWritePost *.scala silent :EnTypeCheck
-  autocmd FileType scala nnoremap <localleader>k :EnType<CR>
-  autocmd FileType scala nnoremap <localleader>df :EnDeclaration<CR>
+  " autopep8 on gq
+  autocmd FileType python setlocal formatprg=autopep8\ -
+
+  " turn on python autocomplete
+  autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+  " auto close pydoc window
+  "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+  "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 augroup END
-
-"Linting with neomake
-let g:neomake_sbt_maker = {
-      \ 'exe': 'sbt',
-      \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
-      \ 'append_file': 0,
-      \ 'auto_enabled': 1,
-      \ 'output_stream': 'stdout',
-      \ 'errorformat':
-      \ '%E[%trror]\ %f:%l:\ %m,' .
-      \ '%-Z[error]\ %p^,' .
-      \ '%-C%.%#,' .
-      \ '%-G%.%#'
-      \ }
-let g:neomake_enabled_makers = ['sbt']
-let g:neomake_verbose=3
-" Neomake on text change
-"autocmd InsertLeave,TextChanged * update | Neomake! sbt
-" }}}
-
-" {{{ ruby
-
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
-" }}}
-
-" Markdown {{{
-augroup markdown
-  autocmd!
-  " TODO: disable ncm2 autocomplete for markdown
-
-augroup END
-
 " }}}
 
 " {{{ HTML
@@ -469,18 +305,21 @@ iabbrev </ </<C-X><C-O>
 imap <C-Space> <C-X><C-O>
 " }}}
 
+" {{{ clojure
+
 " }}}
 
-" remapping key commands {{{
+" }}}
 
-" remap :W to write file
-cmap W w
+" custom mappings and stuff {{{
 
-" remap :Q to quit
-cmap Q q
-
-" open python repl
-nnoremap<localleader>P :terminal python3<cr> :keepalt file *python*<cr>
+" various command shortcuts
+cnoreabbrev f find
+cnoreabbrev F find
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev B b
+cnoreabbrev E e
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:175<cr>
@@ -503,47 +342,143 @@ vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " switch between files with \\
 nnoremap <localleader><localleader> <c-^>
 
-" Clean trailing whitespace
-nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
 " remap % to tab (to find matching bracket pairs)
 nnoremap <tab> %
 vnoremap <tab> %
 
-" sudo for write
-cmap w!! w !sudo tee % >/dev/null
+" use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
+nnoremap / /\v
+vnoremap / /\v
 
 " toggle line numbers
-nnoremap <silent> <Leader>n :set invnumber<CR>
+nnoremap <silent> <Leader>n :set invnumber<cr>
 
-" show avilable marks and be ready to swtich - now use fzf
-"nnoremap <leader>mm :<C-u>marks<CR>:normal! `
+" show avilable marks and be ready to swtich
+nnoremap <leader>mm :<C-u>marks<cr>:normal! `
 
-" Switch CWD to the directory of the open buffer
-"nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+" show buffers and be ready to switch
+nnoremap <silent> <leader>bb :<C-u>:buffers<cr>:buffer<space>
 
 " Disable highlight when <leader><cr> is pressed
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
+" higlight whitespace, but do not highlight in insert mode
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+augroup hiwhitespace
+  autocmd!
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup END
+
+" Clean trailing whitespace
+nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
+" Switch CWD to the directory of the open buffer
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Automatically cd into the directory that the file is in
+"autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+"set autochdir
+
+" resize splits when window is resized
+augroup resize
+  autocmd!
+  autocmd VimResized * :wincmd =
+augroup END
+
+" netrw
+nnoremap <Leader>o :Sexplore!<cr>
+
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_winsize = 25
+
+" easy editing {{{
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+" }}}
+
+" operator mappings {{{
+onoremap p i(
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+" }}}
+
+" }}}
+
+" {{{ functions
+
+" quick way to open quickfix window
+if !exists('*OpenQuickfix')
+  function! OpenQuickfix()
+    :copen
+  endfunction
+  command C call OpenQuickfix()
+endif
+
 " use ctrl-s to vimgrep and open results in quickfix window
-function! FindAll()
-  call inputsave()
-  let p = input('Enter pattern:')
-  call inputrestore()
-  execute 'vimgrep "'.p.'" % |copen'
-endfunction
+if !exists('*FindAll')
+  function! FindAll()
+    call inputsave()
+    let p = input('Enter pattern:')
+    call inputrestore()
+    execute 'vimgrep! "'.p.'" % | copen'
+  endfunction
+endif
 nnoremap <C-s> :call FindAll()<cr>
 
-" show tagbar
-nnoremap <localleader>T :TagbarToggle<CR>
+" call gitgrep with :G
+if !exists('*GitGrep')
+  function! GitGrep(...)
+    " store grepprg to restore after running
+    let save = &grepprg
+    " set grepprg to git grep for use in function
+    set grepprg=git\ grep\ -n\ $*
+    let s = 'grep!'
+    let s = 'silent ' . s
+    for i in a:000
+      let s = s . ' ' . i
+    endfor
+    let s = s . ' | copen'
+    execute s
+    " restore grepprg to original setting
+    let &grepprg = save
+  endfunction
+  command -nargs=+ G call GitGrep(<f-args>)
+endif
 
-" quick editing of files
-nnoremap <leader>ev :vsplit ~/.dotfiles/vimrc<cr>
+" git grep for word under cursor
+if !exists('*GitGrepWord')
+  function GitGrepWord()
+    normal! "zyiw
+    call GitGrep('-w -e ', getreg('z'))
+  endfunction
+endif
+nnoremap <C-x>G :call GitGrepWord()<cr>
+" or, an easier way to do it
+nnoremap <leader>G :G <cword><cr>
+
+" grep for word under cuursor
+"nnoremap <leader>g :silent execute "grep! -R " .shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+
+" generate tags quickly
+if !exists('*GenerateTags')
+  function GenerateTags()
+    :! ctags -R
+  endfunction
+  command T call GenerateTags()
+endif
 
 "}}}
 
 " moving around, tabs, windows and buffers {{{
 
+" windows {{{
 " Smart way to move between windows
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -553,22 +488,22 @@ nnoremap <leader>ww <C-w>w
 nnoremap <A-o> <C-w>w
 nmap <leader>w <C-W>
 
-" go to previous and next tab/buffers
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>bb :bnext<cr>
-nnoremap <leader>tp :tabprevious<cr>
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tt :tabnext<cr>
-
 " resize splits
 nnoremap <M-[> <C-w><
 nnoremap <M-=> <C-w>+
 nnoremap <M--> <C-w>-
 nnoremap <M-]> <C-w>>
 
-" Close the current buffer
+" }}}
+
+" buffers and tabs {{{
+" tab and buffer management
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bn :bnext<cr>
 nnoremap <leader>bd :bdelete<cr>
+nnoremap <leader>tp :tabprevious<cr>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tt :tabnext<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tN :tabnew<cr>
@@ -577,276 +512,9 @@ nnoremap <leader>tc :tabclose<cr>
 nnoremap <leader>th :-tabmove<cr>
 nnoremap <leader>tl :+tabmove<cr>
 
+" }}}
+
 "}}}
-
-" plugin configurations {{{
-
-" ale {{{
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-
-nnoremap <space>n :lnext<CR>
-nnoremap <space>p :lprevious<CR>
-nnoremap <space>r :lrewind<CR>
-
-" no highlighting for warning
-highlight clear ALEWarningSign
-" and use a simpler warning
-let g:ale_sign_warning = ' ∘'
-" set erorr sign
-let g:ale_sign_error = '▶▶'
-" }}}
-
-" ncm2 {{{
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" path to directory where libclang.so can be found
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
- "Use <TAB> to select the popup menu:
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-      \ 'name' : 'css',
-      \ 'priority': 9,
-      \ 'subscope_enable': 1,
-      \ 'scope': ['css','scss'],
-      \ 'mark': 'css',
-      \ 'word_pattern': '[\w\-]+',
-      \ 'complete_pattern': ':\s*',
-      \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-      \ })
-
-" }}}
-
-" quickscope {{{
-" Trigger a highlight in the appropriate direction when pressing these keys:
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-" }}}
-
-" fzf {{{
-
-" fzf through project
-nnoremap <C-p> :Files<CR>
-
-" fzf through file
-nnoremap <leader>ll :Lines<CR>
-
-" recent files
-nnoremap <leader>ff :History<CR>
-
-" marks
-nnoremap <leader>mm :Marks<CR>
-
-" tags
-nnoremap <leader><space> :Tags<cr>
-
-" windows
-nnoremap <leader>fw :Windows<cr>
-
-" fzf through buffers
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <leader>bb :call fzf#run({
-      \   'source':  reverse(<sid>buflist()),
-      \   'sink':    function('<sid>bufopen'),
-      \   'options': '+m',
-      \   'down':    len(<sid>buflist()) + 2
-      \ })<CR>
-" }}}
-
-" Git gutter {{{
-nnoremap <Leader>gg :GitGutterToggle<CR>
-nnoremap <Leader>gh :GitGutterLineHighlightsToggle<CR>
-nnoremap <Leader>gn :GitGutterNextHunk<CR>
-nnoremap <Leader>gp :GitGutterPrevHunk<CR>
-let g:gitgutter_override_sign_column_highlight = 0 " don't highlight
-
-" use [c and ]c to cycle throguh hunks in all buffers
-function! NextHunkAllBuffers()
-  let line = line('.')
-  GitGutterNextHunk
-  if line('.') != line
-    return
-  endif
-
-  let bufnr = bufnr('')
-  while 1
-    bnext
-    if bufnr('') == bufnr
-      return
-    endif
-    if !empty(GitGutterGetHunks())
-      normal! 1G
-      GitGutterNextHunk
-      return
-    endif
-  endwhile
-endfunction
-
-function! PrevHunkAllBuffers()
-  let line = line('.')
-  GitGutterPrevHunk
-  if line('.') != line
-    return
-  endif
-
-  let bufnr = bufnr('')
-  while 1
-    bprevious
-    if bufnr('') == bufnr
-      return
-    endif
-    if !empty(GitGutterGetHunks())
-      normal! G
-      GitGutterPrevHunk
-      return
-    endif
-  endwhile
-endfunction
-
-nmap <silent> ]c :call NextHunkAllBuffers()<CR>
-nmap <silent> [c :call PrevHunkAllBuffers()<CR>
-" }}}
-
-" fugitive {{{
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>GP :Gpush<CR>
-nnoremap <Leader>gb :Gblame
-nnoremap <Leader>gd :Gdiff<CR>
-" }}}
-
-" vim-over {{{
-nnoremap <leader>V :OverCommandLine<CR>%s/
-" }}}
-
-" netrw {{{
-nnoremap <Leader>o :Vexplore<cr>
-
-let g:netrw_banner=0
-let g:netrw_browse_split=2
-let g:netrw_altv=1
-let g:netrw_liststyle=3
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_winsize = 25
-" }}}
-
-" ag/ack {{{
-" use ag for ack search, fall back on ack if ag not avail
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
-" ack/ag with <leader> a
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
-
-" open Ack quick fix window to show TODO's
-nnoremap <silent> <leader>vt :Ack! TODO<CR>
-
-" open Ack quick fix winow to show current word
-nnoremap <leader>A :Ack! <cword><CR>
-
-" use ag as default ack client
-let g:ackprg = 'ag --nogroup --nocolor --column'
-" }}}
-
-" tagbar {{{
-let g:tagbar_type_go = {
-      \ 'ctagstype' : 'go',
-      \ 'kinds'     : [
-      \ 'p:package',
-      \ 'i:imports:1',
-      \ 'c:constants',
-      \ 'v:variables',
-      \ 't:types',
-      \ 'n:interfaces',
-      \ 'w:fields',
-      \ 'e:embedded',
-      \ 'm:methods',
-      \ 'r:constructor',
-      \ 'f:functions'
-      \ ],
-      \ 'sro' : '.',
-      \ 'kind2scope' : {
-      \ 't' : 'ctype',
-      \ 'n' : 'ntype'
-      \ },
-      \ 'scope2kind' : {
-      \ 'ctype' : 't',
-      \ 'ntype' : 'n'
-      \ },
-      \ 'ctagsbin'  : 'gotags',
-      \ 'ctagsargs' : '-sort -silent'
-      \ }
-
-" rust
-let g:tagbar_type_rust = {
-      \ 'ctagstype' : 'rust',
-      \ 'kinds' : [
-      \'T:types,type definitions',
-      \'f:functions,function definitions',
-      \'g:enum,enumeration names',
-      \'s:structure names',
-      \'m:modules,module names',
-      \'c:consts,static constants',
-      \'t:traits',
-      \'i:impls,trait implementations',
-      \]
-      \}
-
-" markdown
-" Add support for markdown files in tagbar.
-let g:tagbar_type_markdown = {
-      \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : '~/.vim/plugged/markdown2ctags/markdown2ctags.py',
-      \ 'ctagsargs' : '-f - --sort=yes',
-      \ 'kinds' : [
-      \ 's:sections',
-      \ 'i:images'
-      \ ],
-      \ 'sro' : '|',
-      \ 'kind2scope' : {
-      \ 's' : 'section',
-      \ },
-      \ 'sort': 0,
-      \ }
-" }}}
-
-" }}}
 
 " highlight interesting words {{{
 
@@ -907,13 +575,13 @@ augroup END
 " verbose debugging {{{
 
 function! ToggleVerbose()
-    if !&verbose
-        set verbosefile=~/.vim/log/verbose.log
-        set verbose=15
-    else
-        set verbose=0
-        set verbosefile=
-    endif
+  if !&verbose
+      set verbosefile=~/.vim/log/verbose.log
+      set verbose=15
+  else
+      set verbose=0
+      set verbosefile=
+  endif
 endfunction
 
 " }}}
