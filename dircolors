@@ -1,9 +1,3 @@
-# Configuration file for dircolors, a utility to help you set the
-# LS_COLORS environment variable used by GNU ls with the --color option.
-
-# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
-# slackware version of dircolors) are recognized but ignored.
-
 # Below, there should be one TERM entry for each termtype that is colorizable
 TERM linux
 TERM console
@@ -30,7 +24,7 @@ TERM vt100
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 NORMAL 00 # global default, although everything should be something.
 FILE 00 # normal file
-DIR 01;37 # directory
+DIR 07 # directory
 LINK 01;36 # symbolic link
 FIFO 40;33 # pipe
 SOCK 01;31 # socket
@@ -39,20 +33,13 @@ CHR 40;33;01 # character device driver
 ORPHAN 40;31;01 # symlink to nonexistent file
 
 # This is for files with execute permission:
-EXEC 01;32
+EXEC di=34:ln=35:so=32:pi=33:ex=1;36;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
 
-# List any file extensions like '.gz' or '.tar' that you would like ls
-# to colorize below. Put the extension, a space, and the color init string.
-# (and any comments you want to add after a '#')
+# This is for all other files with execute permissions
+OTHER_WRITABLE di=34:ln=35:so=32:pi=33:ex=1;36;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
 
-# If you use DOS-style suffixes, you may want to uncomment the following:
-#.cmd 01;32 # executables (bright green)
-#.exe 01;32
-#.com 01;32
-#.btm 01;32
-#.bat 01;32
-
-.tar 01;33 # archives or compressed (bright red)
+# Various file extensions
+.ta 01;33 # archives or compressed (bright red)
 ..tgz 01;33
 ..arj 01;33
 ..taz 01;33
