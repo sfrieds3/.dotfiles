@@ -21,8 +21,9 @@ Plug 'fatih/vim-go' " golang
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
-Plug 'w0rp/ale' " linting
+Plug 'dense-analysis/ale' " linting
 Plug 'tpope/vim-fugitive' " git
+Plug 'jiangmiao/auto-pairs' " auto pair
 
 " autocomplete
 Plug 'ncm2/ncm2'
