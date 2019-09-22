@@ -16,6 +16,7 @@ call plug#begin('~/.vim/plugged') " call plugged to manage plugins
 
 Plug 'neovim/python-client' " required for nvim python plugins
 Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'tpope/vim-rails' " rails
 Plug 'fatih/vim-go' " golang
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'davidhalter/jedi-vim' " python autocomplete
