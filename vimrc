@@ -1,4 +1,4 @@
-" basic vim settings {{{
+" vim settings {{{
 
 " plug init {{{
 if has("unix")
@@ -8,6 +8,37 @@ if has("unix")
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   endif
 endif
+" }}}
+
+" plugins {{{
+
+call plug#begin('~/.vim/plugged') " call plugged to manage plugins
+
+Plug 'neovim/python-client' " required for nvim python plugins
+Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'fatih/vim-go' " golang
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
+Plug 'w0rp/ale' " linting
+Plug 'tpope/vim-fugitive' " git
+
+" autocomplete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+" sources
+Plug 'ncm2/ncm2-path' " words in path
+Plug 'ncm2/ncm2-bufword' " words in buffers
+Plug 'ncm2/ncm2-jedi' " python
+Plug 'ncm2/ncm2-pyclang' " c/c++
+Plug 'ncm2/ncm2-vim' " vimscript
+Plug 'ncm2/ncm2-go' " golang
+
+" colors
+Plug 'chriskempson/base16-vim/'
+
+call plug#end()
+
 " }}}
 
 " initial settings {{{
@@ -184,34 +215,6 @@ vmap <C-ScrollWheelRight> <nop>
 " }}}
 
 "}}}
-
-" plugins {{{
-
-call plug#begin('~/.vim/plugged') " call plugged to manage plugins
-
-Plug 'neovim/python-client' " required for nvim python plugins
-Plug 'vim-ruby/vim-ruby' " ruby
-Plug 'fatih/vim-go' " golang
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
-Plug 'w0rp/ale' " linting
-Plug 'tpope/vim-fugitive' " git
-
-" autocomplete
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-" sources
-Plug 'ncm2/ncm2-path' " words in path
-Plug 'ncm2/ncm2-bufword' " words in buffers
-Plug 'ncm2/ncm2-jedi' " python
-Plug 'ncm2/ncm2-pyclang' " c/c++
-Plug 'ncm2/ncm2-vim' " vimscript
-Plug 'ncm2/ncm2-go' " golang
-
-call plug#end()
-
-" }}}
 
 " neovim settings {{{
 
