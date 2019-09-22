@@ -75,6 +75,7 @@ project/plugins/project/
 # Python #
 ######################
 **/__pycache__/**
+**/.mypy_cache/**
 
 # Emacs #
 ######################

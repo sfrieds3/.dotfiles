@@ -1,8 +1,16 @@
 " basic vim settings {{{
 
-" initial settings {{{
+" plug init {{{
+if has("unix")
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+endif
+" }}}
 
-execute pathogen#infect()
+" initial settings {{{
 
 let mapleader = ","
 let maplocalleader = "\\"
@@ -40,7 +48,6 @@ if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
 endif
 
-
 " do not close hidden buffers
 set hidden
 
@@ -56,12 +63,6 @@ set ttimeoutlen=10
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
-endif
-
-if filereadable('$HOME/.vim/autoload/pathogen.vim')
-  " Use pathogen as plugin manager
-  call pathogen#infect()
-  call pathogen#helptags()
 endif
 
 " }}}
@@ -184,6 +185,34 @@ vmap <C-ScrollWheelRight> <nop>
 
 "}}}
 
+" plugins {{{
+
+call plug#begin('~/.vim/plugged') " call plugged to manage plugins
+
+Plug 'neovim/python-client' " required for nvim python plugins
+Plug 'vim-ruby/vim-ruby' " ruby
+Plug 'fatih/vim-go' " golang
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'davidhalter/jedi-vim' " python autocomplete
+Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
+Plug 'w0rp/ale' " linting
+Plug 'tpope/vim-fugitive' " git
+
+" autocomplete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+" sources
+Plug 'ncm2/ncm2-path' " words in path
+Plug 'ncm2/ncm2-bufword' " words in buffers
+Plug 'ncm2/ncm2-jedi' " python
+Plug 'ncm2/ncm2-pyclang' " c/c++
+Plug 'ncm2/ncm2-vim' " vimscript
+Plug 'ncm2/ncm2-go' " golang
+
+call plug#end()
+
+" }}}
+
 " neovim settings {{{
 
 if has('nvim')
@@ -236,11 +265,26 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? ' [OK]' : printf(
+                \   '[%dW %dE]',
+                \   all_non_errors,
+                \   all_errors
+                \)
+endfunction
+
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
+set statusline+=\%{fugitive#statusline()}
+set statusline+=%{LinterStatus()}
 
 " right section
 set statusline+=%=
@@ -283,8 +327,8 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " Note that omnifunc does not run in background and may probably block the
 " editor. If you don't want to be blocked by omnifunc too often, you could
 " add 180ms delay before the omni wrapper:
-'on_complete': ['ncm2#on_complete#delay', 180,
-             \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+"'on_complete': ['ncm2#on_complete#delay', 180,
+"             \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
 au User Ncm2Plugin call ncm2#register_source({
       \ 'name' : 'css',
       \ 'priority': 9,
@@ -295,6 +339,22 @@ au User Ncm2Plugin call ncm2#register_source({
       \ 'complete_pattern': ':\s*',
       \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
       \ })
+
+" }}}
+
+" ale {{{
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+
+nnoremap <space>n :lnext<CR>
+nnoremap <space>p :lprevious<CR>
+nnoremap <space>r :lrewind<CR>
+
+" and use a simpler warning
+let g:ale_sign_warning = ' ∘'
+" " set erorr sign
+let g:ale_sign_error = '▶▶'
 
 " }}}
 
@@ -313,22 +373,6 @@ augroup lang
   autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
   autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
 augroup END
-
-" commenting for filetypes {{{
-augroup autocomment
-  autocmd!
-  autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
-  autocmd FileType vim nnoremap <buffer> <localleader>c I"<esc>
-  autocmd FileType ruby nnoremap <buffer> <localleader>c I#<esc>
-  autocmd FileType eruby nnoremap <buffer> <localleader>c I#<esc>
-  autocmd FileType go nnoremap <buffer> <localleader>c I//<esc>
-  autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
-augroup End
-
-" uncomment
-nnoremap <localleader>u ^x==
-
-" }}}
 
 " python {{{
 augroup python
