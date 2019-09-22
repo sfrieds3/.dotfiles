@@ -362,6 +362,44 @@ let g:ale_sign_error = '▶▶'
 
 " }}}
 
+" go {{{
+" no warning for out of date vim
+let g:go_version_warning = 0
+
+" goimport on save
+let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 1
+let g:go_list_type = "quickfix"
+let g:go_term_mode = "split"
+let g:go_term_height = 10
+
+" show definition when hovering
+let g:go_auto_type_info = 1
+
+augroup go
+  autocmd!
+
+  autocmd FileType go set nolist
+
+  autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
+
+  autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
+
+  autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
+  autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
+
+  autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <localleader>t  <Plug>(go-test)
+  autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
+  autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
+
+  autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
+augroup END
+
+" }}}
+
 " }}}
 
 " general language settings {{{
