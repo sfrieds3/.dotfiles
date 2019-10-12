@@ -133,7 +133,6 @@ alias vim='nvim'
 #zstyle ':completion:*' menu select
 #zstyle ':completion:*' verbose yes
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
