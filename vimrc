@@ -55,7 +55,7 @@ endif
 
 set termguicolors
 set background=light
-colorscheme base16-default-light
+colorscheme base16-atelier-dune
 let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
@@ -430,8 +430,8 @@ nnoremap <leader>mm :<C-u>marks<cr>:normal! `
 " show buffers and be ready to switch
 nnoremap <silent> <leader>bb :<C-u>:buffers<cr>:buffer<space>
 
-" Disable highlight when <leader><cr> is pressed
-nnoremap <silent> <leader><cr> :nohlsearch<cr>
+" Disable highlight
+nnoremap <silent> <space> :nohlsearch<cr>
 
 " higlight whitespace, but do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
