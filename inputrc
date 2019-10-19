@@ -7,5 +7,5 @@
 "\e[B": history-search-forward
 
 # other settings for bash searching
-set show-all-if-ambiguous on
-set completion-ignore-case on
+# set show-all-if-ambiguous on
+# set completion-ignore-case on
