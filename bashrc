@@ -111,8 +111,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# vim as editor
-export EDITOR=vim
+# nvim as editor
+export EDITOR=nvim
 
 # Xfce from WSL
 export DISPLAY=:0.0
