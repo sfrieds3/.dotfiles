@@ -43,7 +43,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Hack 11")
-            ((eq system-type 'gnu/linux) "Hack 11")
+            ((eq system-type 'gnu/linux) "DejaVu Sans Mono Book 11")
             (t nil)))
 
 (when platform-default-font
@@ -111,26 +111,26 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; mode line format
-(setq-default mode-line-format
-      (list
-       ;; `mode-name'
-       "%m: "
-       ;; current buffer name
-       "%& %b"
-       ;; % buffer above top of window
-       " | %P"
-       ;; current line number
-       " | line %l"
-       ;; current column number
-       " | col %c"
-       ))
+;; (setq-default mode-line-format
+;;       (list
+;;        ;; `mode-name'
+;;        "%m: "
+;;        ;; current buffer name
+;;        "%& %b"
+;;        ;; % buffer above top of window
+;;        " | %P"
+;;        ;; current line number
+;;        " | line %l"
+;;        ;; current column number
+;;        " | col %c"
+;;        ))
 
-;; unique buffer names in mode line
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+;; ;; unique buffer names in mode line
+;; (require 'uniquify)
+;; (setq uniquify-buffer-name-style 'forward)
+;; (setq uniquify-separator "/")
+;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -214,6 +214,15 @@
 
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
+
+;; doom mode line
+(use-package doom-modeline
+  :hook
+  (after-init . doom-modeline-mode)
+  :config
+  (custom-set-faces
+  '(mode-line ((t (:height 0.9))))
+  '(mode-line-inactive ((t (:height 0.9))))))
 
 ;; git-gutter
 (use-package git-gutter
@@ -305,7 +314,7 @@
 ;; matchin parenthesis
 (use-package smartparens
   :config
-  (smartparens-global-strict-mode t))
+  (smartparens-global-mode t))
 
 
 ;; ////////////////////////////////////////////////////////////
