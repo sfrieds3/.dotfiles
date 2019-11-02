@@ -8,7 +8,7 @@
   (require 'package)
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-  ;; (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
   ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
 
@@ -51,7 +51,7 @@
 
 ;; Set theme here
 (use-package base16-theme)
-(load-theme 'base16-atelier-dune t)
+(load-theme 'base16-darktooth t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -110,27 +110,27 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; mode line format
-(setq-default mode-line-format
-      (list
-       ;; `mode-name'
-       "%m: "
-       ;; current buffer name
-       "%& %b"
-       ;; % buffer above top of window
-       " | %P"
-       ;; current line number
-       " | line %l"
-       ;; current column number
-       " | col %c"
-       ))
+;; ;; mode line format
+;; (setq-default mode-line-format
+;;       (list
+;;        ;; `mode-name'
+;;        "%m: "
+;;        ;; current buffer name
+;;        "%& %b"
+;;        ;; % buffer above top of window
+;;        " | %P"
+;;        ;; current line number
+;;        " | line %l"
+;;        ;; current column number
+;;        " | col %c"
+;;        ))
 
-;; unique buffer names in mode line
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+;; ;; unique buffer names in mode line
+;; (require 'uniquify)
+;; (setq uniquify-buffer-name-style 'forward)
+;; (setq uniquify-separator "/")
+;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -214,6 +214,14 @@
 
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
+
+;; modeline
+(use-package mood-line
+  :config
+  (mood-line-mode 1))
+(use-package minions
+  :config
+  (minions-mode 1))
 
 ;; git-gutter
 (use-package git-gutter

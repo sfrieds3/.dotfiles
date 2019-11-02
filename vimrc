@@ -55,7 +55,7 @@ endif
 
 set termguicolors
 set background=light
-colorscheme base16-atelier-dune
+colorscheme base16-darktooth
 let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
