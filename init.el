@@ -35,47 +35,6 @@
 ;; temp file for custom settings
 (setq custom-file (make-temp-file "emacs-custom"))
 
-;; set proper terminal for windows machines
-(defvar default-shell-location)
-(defvar explicit-shell-file-name)
-
-(setq default-shell-location
-      (cond ((eq system-type 'windows-nt) "C:/Windows/System32/bash.exe")))
-
-(when default-shell-location
-  (setq shell-file-name default-shell-location)
-  (add-to-list 'exec-path "C:/Windows/System32/bash.exe")) ;
-
-(setq explicit-shell-file-name
-      (cond ((eq system-type 'windows-nt) "C:/Windows/System32/bash.exe")))
-
-(setq shell-file-name explicit-shell-file-name)
-(add-to-list 'exec-path "c:/Windows/System32/bash.exe")
-
-;; speed up font rendering on windows
-(cond ((eq system-type 'windows-nt)
-          (setq inhibit-compacting-font-caches t)))
-
-;; windows performance tweaks
-;;
-(when (boundp 'w32-pipe-read-delay)
-  (setq w32-pipe-read-delay 0))
-;; Set the buffer size to 64K on Windows (from the original 4K)
-(when (boundp 'w32-pipe-buffer-size)
-  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
-
-;; for irony mode on Windows
-
-(setenv "PATH"
-        (concat
-         "C:\\alt\\msys32\\usr\\bin" ";"
-         "C:\\alt\\msys32\\mingw32\\bin" ";"
-         (getenv "PATH")
-         )
-)
-(setq exec-path (append '("c:/alt/msys32/usr/bin" "c:/alt/msys32/mingw32/bin")
-                        exec-path))
-
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; THEME SETTINGS
@@ -91,16 +50,8 @@
   (set-frame-font platform-default-font nil t))
 
 ;; Set theme here
-(use-package material-theme)
-(use-package solarized-theme)
-(use-package gruvbox-theme)
-(use-package zerodark-theme)
-(use-package dracula-theme)
-(use-package nord-theme
-  :config
-  (setq nord-comment-brightness 15))
-
-(load-theme 'dracula t)
+(use-package base16-theme)
+(load-theme 'base16-atelier-dune t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -250,7 +201,7 @@
 ;; evil mode
 (use-package evil
   :config
-  (evil-mode 0))
+  (evil-mode 1))
 
 ;; Make movement keys work like they should
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -263,22 +214,6 @@
 
 ;; evil nerd commenter
 (use-package evil-nerd-commenter)
-
-;; fzf
-(use-package fzf
-  :config (progn
-            (add-to-list 'load-path "user/swf/.fzf/bin/fzf")
-
-            (defadvice fzf/start (after normalize-fzf-mode-line activate)
-              (face-remap-add-relative 'mode-line '(:box nil)))
-
-            (defun disable-scroll-margin ()
-              (setq-local scroll-margin 0))
-            (add-hook 'term-mode-hook #'disable-scroll-margin)
-
-            (defadvice fzf/start (after normalize-fzf-mode-line activate)
-              "Hide the modeline so FZF will render properly."
-              (setq mode-line-format nil))))
 
 ;; git-gutter
 (use-package git-gutter
@@ -296,9 +231,6 @@
   :config
   (smooth-scrolling-mode 1))
 
-;; neotree (file tree)
-(use-package neotree)
-
 ;; highlight-symbol
 (use-package highlight-symbol)
 
@@ -306,10 +238,6 @@
 (use-package flycheck
   :config
   (global-flycheck-mode t))
-
-;; ag - searching
-;; dependent on silversearcher - sudo apt install silversearcher-ag
-(use-package ag)
 
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
@@ -323,7 +251,8 @@
         ivy-count-format "%d/%d ")
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) "))
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
   :config
@@ -372,6 +301,11 @@
   :config
   (drag-stuff-global-mode t)
   (drag-stuff-define-keys))
+
+;; matchin parenthesis
+(use-package smartparens
+  :config
+  (smartparens-global-strict-mode t))
 
 
 ;; ////////////////////////////////////////////////////////////
@@ -431,28 +365,6 @@
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
-
-;; SCALA
-(use-package scala-mode
-  :interpreter
-  ("scala" . scala-mode))
-;; SBT for Scala
-(use-package sbt-mode
-  :commands sbt-start sbt-command
-  :config
-  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
-  ;; allows using SPACE when in the minibuffer
-  (substitute-key-definition
-   'minibuffer-complete-word
-   'self-insert-command
-   minibuffer-local-completion-map))
-(use-package ensime)
-
-;; RUST
-(use-package rust-mode)
-
-;; JAVA
-(use-package jdee)
 
 ;; GOLANG
 (use-package go-mode)
