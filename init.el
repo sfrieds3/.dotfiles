@@ -9,7 +9,7 @@
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  ;;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
 
 ;; bootstrap use-package
@@ -43,7 +43,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Hack 11")
-            ((eq system-type 'gnu/linux) "DejaVu Sans Mono Book 11")
+            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 12")
             (t nil)))
 
 (when platform-default-font
@@ -51,7 +51,7 @@
 
 ;; Set theme here
 (use-package base16-theme)
-(load-theme 'base16-darktooth t)
+(load-theme 'base16-gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -132,60 +132,6 @@
 ;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
 ;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
-;; ////////////////////////////////////////////////////////////
-
-;;;; GENERAL KEY REMAPPINGS
-
-;; move between windows with shift-arrow keys
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-(global-set-key (kbd "M-o") 'ace-window)
-
-;; zap up to char
-(autoload 'zap-up-to-char "misc"
-  'interactive)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "C-S-z") 'zap-up-to-char)
-
-;; key customizations
-(global-set-key (kbd "C-c b") 'eval-buffer)
-(global-set-key (kbd "C-c e") 'eval-defun)
-(global-set-key (kbd "C-c r") 'recentf-open-files)
-(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
-(global-set-key (kbd "C-c s") 'flyspell-buffer)
-(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
-(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
-(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-(global-set-key (kbd "C-c D") 'delete-window)
-(global-set-key (kbd "C-c t") 'neotree-toggle)
-(global-set-key (kbd "C-c g") 'magit-diff)
-(global-set-key (kbd "C-c c") 'avy-goto-char)
-(global-set-key (kbd "C-c C") 'avy-goto-char-2)
-(global-set-key (kbd "C-c l") 'avy-goto-line)
-(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-M-g") 'dumb-jump-go)
-(global-set-key (kbd "C-M-p") 'dumb-jump-back)
-(global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "C-c D") 'counsel-unicode-char)
-(global-set-key (kbd "C-c a") 'counsel-ag)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-c m") 'counsel-mark-ring)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-c L") 'goto-line)
-(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -387,8 +333,6 @@
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 (setq jedi:complete-on-dot t)
-(setq py-python-command "/usr/bin/python3")
-
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -400,6 +344,61 @@
             (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+;; ////////////////////////////////////////////////////////////
+
+;;;; GENERAL KEY REMAPPINGS
+
+;; move between windows with shift-arrow keys
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+(global-set-key (kbd "M-o") 'ace-window)
+
+;; zap up to char
+(autoload 'zap-up-to-char "misc"
+  'interactive)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-S-z") 'zap-up-to-char)
+
+;; key customizations
+(global-set-key (kbd "C-c b") 'eval-buffer)
+(global-set-key (kbd "C-c e") 'eval-defun)
+(global-set-key (kbd "C-c r") 'recentf-open-files)
+(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
+(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
+(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(global-set-key (kbd "C-c D") 'delete-window)
+(global-set-key (kbd "C-c t") 'neotree-toggle)
+(global-set-key (kbd "C-c g") 'magit-diff)
+(global-set-key (kbd "C-c c") 'avy-goto-char)
+(global-set-key (kbd "C-c C") 'avy-goto-char-2)
+(global-set-key (kbd "C-c l") 'avy-goto-line)
+(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-M-g") 'dumb-jump-go)
+(global-set-key (kbd "C-M-p") 'dumb-jump-back)
+(global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "C-c D") 'counsel-unicode-char)
+(global-set-key (kbd "C-c a") 'counsel-ag)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-c m") 'counsel-mark-ring)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-c L") 'goto-line)
+(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
 
 ;; ////////////////////////////////////////////////////////////
 
