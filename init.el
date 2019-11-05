@@ -43,7 +43,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Hack 11")
-            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 12")
+            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 11")
             (t nil)))
 
 (when platform-default-font
@@ -132,7 +132,6 @@
 ;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
 ;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
-
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; PACKAGES
@@ -141,7 +140,6 @@
 (use-package projectile
   :config
   (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;; evil mode
@@ -201,16 +199,20 @@
 (use-package ivy
   :demand
   :config
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d ")
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-re-builders-alist
+      '((ivy-switch-buffer . ivy--regex-plus)
+        (t . ivy--regex-fuzzy)))
   (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
   :config
   (counsel-mode 1))
+
+;; flx - fuzzy match sorting
+(use-package flx)
 
 ;; rainbow mode- highlight strings that represent colors
 (use-package rainbow-mode
@@ -234,7 +236,7 @@
   :config
   (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
-;; avy
+;; avy - go to characters
 (use-package avy)
 
 ;; ace window
@@ -399,6 +401,10 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c L") 'goto-line)
 (global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>")  'shrink-window)
+(global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
 ;; ////////////////////////////////////////////////////////////
 
