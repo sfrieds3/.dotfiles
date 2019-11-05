@@ -255,8 +255,7 @@
 ;; drag stuff mode (M-<arrow> to move lines of text)
 (use-package drag-stuff
   :config
-  (drag-stuff-global-mode t)
-  (drag-stuff-define-keys))
+  (drag-stuff-global-mode t))
 
 ;; matchin parenthesis
 (use-package smartparens
@@ -273,9 +272,13 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   (global-company-mode '(not markdown-mode)))
+
 (with-eval-after-load 'company
   (add-hook 'company-mode-hook (lambda ()
-                                 (add-to-list 'company-backends 'company-capf))))
+                                 (add-to-list 'company-backends 'company-capf)))
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "C-SPC") #'company-complete-selection))
 
 ;; customize
 (let ((bg (face-attribute 'default :background)))
