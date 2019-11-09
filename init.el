@@ -110,27 +110,23 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; ;; mode line format
-;; (setq-default mode-line-format
-;;       (list
-;;        ;; `mode-name'
-;;        "%m: "
-;;        ;; current buffer name
-;;        "%& %b"
-;;        ;; % buffer above top of window
-;;        " | %P"
-;;        ;; current line number
-;;        " | line %l"
-;;        ;; current column number
-;;        " | col %c"
-;;        ))
+;; grep in current directory
+(defun dgrep ()
+  "Run grep recursively from the directory of the current buffer or the default directory."
+  (interactive)
+  (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
+    (let ((command (read-from-minibuffer "Run grep (like this): "
+                                         (cons (concat "grep -nH -ir  " dir) 14))))
+      (grep command))))
 
-;; ;; unique buffer names in mode line
-;; (require 'uniquify)
-;; (setq uniquify-buffer-name-style 'forward)
-;; (setq uniquify-separator "/")
-;; (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-;; (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
+;; grep in current file
+(defun fgrep ()
+  "Run grep in the curRent file."
+  (interactive)
+  (let ((fname (buffer-file-name)))
+    (let ((command (read-from-minibuffer "Run grep (like this): "
+                                         (cons (concat "grep -nH -ir  " fname) 14))))
+      (grep command))))
 
 ;; ////////////////////////////////////////////////////////////
 
