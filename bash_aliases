@@ -14,9 +14,6 @@ alias vi='nvim'
 # to check for aliases after sudo
 alias sudo='sudo '
 
-# alias for eclim
-alias eclim='~/eclipse/java-latest-released/eclipse/eclimd'
-
 # git aliases
 alias gs='git status'
 alias gd='git diff'
@@ -37,4 +34,7 @@ alias noteit='go run ~/go/src/github.com/sfrieds3/noteit/main.go'
 alias raftka='cd ~/git/raftka'
 
 # Spotify alias
-alias spotify='spotify --force-device-scale-factor=2 &> /dev/null &disown'
+alias spotify='spotify --force-device-scale-factor=2 &'
+
+# emacsclient alias
+alias emacs='emacsclient'
