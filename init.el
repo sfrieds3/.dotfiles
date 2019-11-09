@@ -116,7 +116,7 @@
   (interactive)
   (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
     (let ((command (read-from-minibuffer "Run grep (like this): "
-                                         (cons (concat "grep -nH -ir  " dir) 14))))
+                                         (cons (concat "grep --color --null -nH -ir -e  " dir) 32))))
       (grep command))))
 
 ;; grep in current file
@@ -125,7 +125,7 @@
   (interactive)
   (let ((fname (buffer-file-name)))
     (let ((command (read-from-minibuffer "Run grep (like this): "
-                                         (cons (concat "grep -nH -ir  " fname) 14))))
+                                         (cons (concat "grep --color --null -nH -ir -e  " fname) 32))))
       (grep command))))
 
 ;; ////////////////////////////////////////////////////////////
