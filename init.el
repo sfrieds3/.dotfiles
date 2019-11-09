@@ -91,9 +91,6 @@
 ;; spaces by default instead of tabs!
 (setq-default indent-tabs-mode nil)
 
-;; Remove trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; show matching parens
 (show-paren-mode 1)
 
@@ -172,11 +169,13 @@
   :config
   (global-git-gutter-mode t))
 
-;; git time machine
-(use-package git-timemachine)
-
 ;; magit- for git
 (use-package magit)
+
+;; ws-butler: trim trailing whitespace
+(use-package ws-butler
+  :config
+  (ws-butler-global-mode t))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
@@ -244,20 +243,12 @@
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
-;; visual undo-tree
-(use-package undo-tree
-  :diminish undo-tree-mode
-  :config
-  (progn (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t)))
-
 ;; drag stuff mode (M-<arrow> to move lines of text)
 (use-package drag-stuff
   :config
   (drag-stuff-global-mode t))
 
-;; matchin parenthesis
+;; matching parenthesis
 (use-package smartparens
   :config
   (smartparens-global-mode t))
