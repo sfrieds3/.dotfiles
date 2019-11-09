@@ -12,8 +12,6 @@
 # Logs and databases #
 ######################
 *.log
-*.sql
-*.sqlite
 
 # server auth directory
 /server/
