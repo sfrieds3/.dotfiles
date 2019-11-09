@@ -9,7 +9,7 @@
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  ;;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
 
 ;; bootstrap use-package
@@ -170,6 +170,11 @@
 
 ;; magit- for git
 (use-package magit)
+
+;; grep-a-lot: multiple grep buffers open
+(use-package grep-a-lot
+  :config
+  (grep-a-lot-setup-keys))
 
 ;; ws-butler: trim trailing whitespace
 (use-package ws-butler
