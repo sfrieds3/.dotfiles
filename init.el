@@ -57,6 +57,9 @@
 
 ;;;; STARTUP SETTINGS
 
+;; always start emacsclient
+(server-start)
+
 ;; 0 line buffer before/after cursor
 (setq scroll-margin 0)
 (setq smooth-scroll-margin 3)
