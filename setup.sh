@@ -8,6 +8,10 @@ git config --global color.status.nobranch "red bold ul"
 # update git color for diff
 git config --global color.diff.old "yellow reverse dim"
 
+# add difftool
+git config --global diff.tool meld
+git config --global difftool.prompt false
+
 # directory colors for ls
 LS_COLORS='ow=01;36;40'
 export LS_COLORS
@@ -33,6 +37,8 @@ sudo apt install tmux
 sudo apt install mysql-server
 sudo apt install libmysqlclient-dev
 sudo apt install rvm
+sudo apt install meld
+sudo apt install gitk
 
 # python pip installation
 python3 -m pip install jedi
