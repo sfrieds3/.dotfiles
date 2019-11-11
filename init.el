@@ -58,7 +58,13 @@
 ;;;; STARTUP SETTINGS
 
 ;; always start emacsclient
-(server-start)
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'server)
+            (unless (server-running-p)
+              (server-start))))
+
 
 ;; 0 line buffer before/after cursor
 (setq scroll-margin 0)
