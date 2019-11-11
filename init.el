@@ -5,12 +5,17 @@
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (package-initialize)
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives
+      '(("gnu-elpa"     . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa"        . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("melpa-stable" . 2)
+        ("gnu-elp"      . 1)
+        ("melpa"        . 0)))
+(package-initialize)
 
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
@@ -58,13 +63,7 @@
 ;;;; STARTUP SETTINGS
 
 ;; always start emacsclient
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'server)
-            (unless (server-running-p)
-              (server-start))))
-
+(server-start)
 
 ;; 0 line buffer before/after cursor
 (setq scroll-margin 0)
@@ -181,6 +180,11 @@
 (use-package grep-a-lot
   :config
   (grep-a-lot-setup-keys))
+
+;; hl-todo: easy find todo's
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode t))
 
 ;; ws-butler: trim trailing whitespace
 (use-package ws-butler
@@ -342,17 +346,6 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; EVIL MODE SETTINGS
-
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
-            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
-
-;; ////////////////////////////////////////////////////////////
-
 ;;;; GENERAL KEY REMAPPINGS
 
 ;; move between windows with shift-arrow keys
@@ -367,6 +360,7 @@
 (global-set-key (kbd "C-S-z") 'zap-up-to-char)
 
 ;; key customizations
+;; general customizations
 (global-set-key (kbd "[") 'previous-error)
 (global-set-key (kbd "]") 'next-error)
 (global-set-key (kbd "C-c o") 'occur)
@@ -374,25 +368,44 @@
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
-(global-set-key (kbd "C-c s") 'flyspell-buffer)
-(global-set-key (kbd "C-c w") 'flyspell-auto-correct-word)
-(global-set-key (kbd "C-c n") 'flyspell-goto-next-error)
-(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
+(global-set-key (kbd "C-c L") 'goto-line)
+;; evil
+(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
+;; flycheck
+(global-set-key (kbd "C-c f n") 'flycheck-next-error)
+(global-set-key (kbd "C-c f p") 'flycheck-previous-error)
+(global-set-key (kbd "C-c f f") 'flycheck-list-errors)
+;; flyspell
+(global-set-key (kbd "C-c f s") 'flyspell-buffer)
+(global-set-key (kbd "C-c f w") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-c f e") 'flyspell-goto-next-error)
+;; hl-todo(define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
+(define-key hl-todo-mode-map (kbd "C-c t n") 'hl-todo-next)
+(define-key hl-todo-mode-map (kbd "C-c t o") 'hl-todo-occur)
+(define-key hl-todo-mode-map (kbd "C-c t i") 'hl-todo-insert)
+;; window management
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c D") 'delete-window)
-(global-set-key (kbd "C-c t") 'neotree-toggle)
-(global-set-key (kbd "C-c g") 'magit-diff)
+;; avy
 (global-set-key (kbd "C-c c") 'avy-goto-char)
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
-(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
+;; magit/git stuff
+(global-set-key (kbd "C-c g") 'magit-diff)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
+(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
+;; dumb jump
 (global-set-key (kbd "C-M-g") 'dumb-jump-go)
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
 (global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
+;; drag stuff
+(global-set-key (kbd "M-<up>") 'drag-stuff-up)
+(global-set-key (kbd "M-<down>") 'drag-stuff-down)
+;; counsel/ivy/swiper
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -406,12 +419,6 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-c m") 'counsel-mark-ring)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-c L") 'goto-line)
-(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "S-C-<left>")  'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>")  'shrink-window)
-(global-set-key (kbd "S-C-<up>")    'enlarge-window)
 
 ;; ////////////////////////////////////////////////////////////
 
