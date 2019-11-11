@@ -367,6 +367,8 @@
 (global-set-key (kbd "C-S-z") 'zap-up-to-char)
 
 ;; key customizations
+(global-set-key (kbd "[") 'previous-error)
+(global-set-key (kbd "]") 'next-error)
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
