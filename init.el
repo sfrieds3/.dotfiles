@@ -109,6 +109,9 @@
 (setq frame-title-format '((:eval (if (buffer-file-name)
 (abbreviate-file-name (buffer-file-name)) "%b"))))
 
+;; C-x w h REGEX <RET> <RET> to highlight all occurances of REGEX, and C-x w r REGEX <RET> to unhighlight them again.
+(global-hi-lock-mode 1)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PERSONAL FUNCTIONS
@@ -243,11 +246,6 @@
   :config
   (which-key-mode t)
   (which-key-setup-side-window-bottom))
-
-;; idle-highlight-mode
-(use-package idle-highlight-mode
-  :config
-  (add-hook 'prog-mode-hook (lambda () (idle-highlight-mode t))))
 
 ;; avy - go to characters
 (use-package avy)
