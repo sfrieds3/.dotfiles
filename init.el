@@ -358,6 +358,10 @@
 (global-set-key (kbd "C-S-z") 'zap-up-to-char)
 
 ;; key customizations
+;; custom functions
+(global-set-key (kbd "C-c g d") 'dgrep)
+(global-set-key (kbd "C-c g s") 'fgrep)
+(global-set-key (kbd "C-c g f") 'find-dired)
 ;; general customizations
 (global-set-key (kbd "[") 'previous-error)
 (global-set-key (kbd "]") 'next-error)
@@ -392,10 +396,7 @@
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 ;; magit/git stuff
-(global-set-key (kbd "C-c g") 'magit-diff)
-(global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
-(global-set-key (kbd "C-c g") 'global-git-gutter-mode)
 ;; dumb jump
 (global-set-key (kbd "C-M-g") 'dumb-jump-go)
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
