@@ -6,6 +6,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# use xdg-open
+alias open='xdg-open'
+
 # neovim
 alias vim='nvim'
 alias vi='nvim'

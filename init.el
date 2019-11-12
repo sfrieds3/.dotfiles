@@ -119,7 +119,7 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; grep in current directory
-(defun dgrep ()
+(defun dir-grep ()
   "Run grep recursively from the directory of the current buffer or the default directory."
   (interactive)
   (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
@@ -128,7 +128,7 @@
       (grep command))))
 
 ;; grep in current file
-(defun fgrep ()
+(defun file-grep ()
   "Run grep in the curRent file."
   (interactive)
   (let ((fname (buffer-file-name)))
@@ -359,8 +359,8 @@
 
 ;; key customizations
 ;; custom functions
-(global-set-key (kbd "C-c g d") 'dgrep)
-(global-set-key (kbd "C-c g s") 'fgrep)
+(global-set-key (kbd "C-c g d") 'dir-grep)
+(global-set-key (kbd "C-c g s") 'file-grep)
 (global-set-key (kbd "C-c g f") 'find-dired)
 ;; general customizations
 (global-set-key (kbd "[") 'previous-error)
