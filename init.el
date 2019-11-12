@@ -23,9 +23,9 @@
   (package-install 'use-package))
 
 ;;;; USE PACKAGE
- (eval-when-compile
-   (add-to-list 'load-path "~/.emacs.d/elpa")
-   (require 'use-package))
+(eval-when-compile
+  (add-to-list 'load-path "~/.emacs.d/elpa")
+  (require 'use-package))
 
 ;; always ensure packages are installed
 (setq use-package-always-ensure t)
@@ -138,7 +138,9 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; PACKAGES
+;; PACKAGES
+
+;; ////////////////////////////////////////////////////////////
 
 ;; projectile
 (use-package projectile
@@ -157,7 +159,7 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-; Make horizontal movement cross lines
+;; Make horizontal movement cross lines
 (setq-default evil-cross-lines t)
 
 ;; evil nerd commenter
@@ -264,7 +266,6 @@
 (use-package smartparens
   :config
   (smartparens-global-mode t))
-
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -396,7 +397,7 @@
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 ;; magit/git stuff
-(global-set-key (kbd "C-c \\") 'diff-buffer-with-file)
+(global-set-key (kbd "C-c \\") 'magit-diff-buffer-file)
 ;; dumb jump
 (global-set-key (kbd "C-M-g") 'dumb-jump-go)
 (global-set-key (kbd "C-M-p") 'dumb-jump-back)
