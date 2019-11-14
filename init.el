@@ -54,7 +54,6 @@
 (when platform-default-font
   (set-frame-font platform-default-font nil t))
 
-;; Set theme here
 (use-package base16-theme)
 (load-theme 'base16-gruvbox-dark-hard t)
 
@@ -181,11 +180,6 @@
 ;; magit- for git
 (use-package magit)
 
-;; grep-a-lot: multiple grep buffers open
-(use-package grep-a-lot
-  :config
-  (grep-a-lot-setup-keys))
-
 ;; hl-todo: easy find todo's
 (use-package hl-todo
   :config
@@ -202,7 +196,9 @@
   (smooth-scrolling-mode 1))
 
 ;; highlight-symbol
-(use-package highlight-symbol)
+(use-package highlight-symbol
+  :config
+  (highlight-symbol-mode t))
 
 ;; flycheck for syntax checking
 (use-package flycheck
@@ -228,15 +224,6 @@
 (use-package counsel
   :config
   (counsel-mode 1))
-
-;; flx - fuzzy match sorting
-(use-package flx)
-
-;; rainbow mode- highlight strings that represent colors
-(use-package rainbow-mode
-  :config
-  (setq rainbow-x-colors nil)
-  (add-hook 'prog-mode-hook 'rainbow-mode))
 
 ;; indent-guide
 (use-package indent-guide
@@ -364,8 +351,8 @@
 (global-set-key (kbd "C-c g s") 'file-grep)
 (global-set-key (kbd "C-c g f") 'find-dired)
 ;; general customizations
-(global-set-key (kbd "[") 'previous-error)
-(global-set-key (kbd "]") 'next-error)
+(global-set-key (kbd "C-c [") 'previous-error)
+(global-set-key (kbd "C-c ]") 'next-error)
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
