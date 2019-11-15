@@ -31,7 +31,7 @@ alias gbd='git branch -d'
 alias gba='git branch -a'
 
 # Spotify alias
-alias spotify='spotify --force-device-scale-factor=2 &'
+alias spotify='spotify --force-device-scale-factor=1.5 &'
 
 # emacsclient alias
 alias emacs='emacsclient'
