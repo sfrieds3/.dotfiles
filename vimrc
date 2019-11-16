@@ -21,7 +21,7 @@ Plug 'tpope/vim-fugitive' " git
 Plug 'jiangmiao/auto-pairs' " auto pair
 
 " colors
-Plug 'chriskempson/base16-vim/'
+"Plug 'chriskempson/base16-vim/'
 Plug 'sjl/badwolf'
 
 call plug#end()
@@ -164,6 +164,7 @@ endif
 " statusline {{{
 
 " set statusline color for various modes
+" not used currently
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
   hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
@@ -308,9 +309,6 @@ augroup python
   " autopep8 on gq
   autocmd FileType python setlocal formatprg=autopep8\ -
 
-  " turn on python autocomplete
-  autocmd FileType python set omnifunc=pythoncomplete#Complete
-
   " auto close pydoc window
   "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
   "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -339,7 +337,7 @@ cnoreabbrev B b
 cnoreabbrev E e
 
 " show list of digraphs -- special symbols
-nnoremap <localleader>D :help digraphs<cr>:175<cr>
+nnoremap <localleader>D :help digraphs<cr>:179<cr>zt
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -350,18 +348,14 @@ inoremap <S-Tab> <C-V><Tab>
 " stay where you are on * from fatih (http://www.github.com/fatih/dotfiles)
 nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
 
-" move line of text up, down using Alt-j/k
-nnoremap <M-j> mz:m+<cr>`z
-nnoremap <M-k> mz:m-2<cr>`z
-vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" move line of text up/down
+nnoremap <C-Down> mz:m+<cr>`z
+nnoremap <C-Up> mz:m-2<cr>`z
+vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " switch between files with \\
 nnoremap <localleader><localleader> <c-^>
-
-" remap % to tab (to find matching bracket pairs)
-nnoremap <tab> %
-vnoremap <tab> %
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
 nnoremap / /\v
@@ -377,7 +371,7 @@ nnoremap <leader>mm :<C-u>marks<cr>:normal! `
 nnoremap <silent> <leader>bb :<C-u>:buffers<cr>:buffer<space>
 
 " Disable highlight
-nnoremap <silent> <space> :nohlsearch<cr>
+nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
 " higlight whitespace, but do not highlight in insert mode
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -417,6 +411,7 @@ let g:netrw_winsize = 25
 
 " easy editing {{{
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader><space> :split ~/todo<cr>
 " }}}
 
 " operator mappings {{{
@@ -436,8 +431,9 @@ if !exists('*OpenQuickfix')
   endfunction
   command C call OpenQuickfix()
 endif
+nnoremap <leader>q :call OpenQuickfix()<cr>
 
-" use ctrl-s to vimgrep and open results in quickfix window
+" use ctrl-s to vimgrep and open uesults in quickfix window
 if !exists('*FindAll')
   function! FindAll()
     call inputsave()
@@ -446,7 +442,8 @@ if !exists('*FindAll')
     execute 'vimgrep! "'.p.'" % | copen'
   endfunction
 endif
-nnoremap <C-s> :call FindAll()<cr>
+nnoremap <leader>s :call FindAll()<cr>
+nnoremap <leader>S :call FindAll()<cr><cword><cr>
 
 " call gitgrep with :G
 if !exists('*GitGrep')
@@ -501,7 +498,6 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 nnoremap <leader>ww <C-w>w
-nnoremap <A-o> <C-w>w
 nmap <leader>w <C-W>
 
 " resize splits
