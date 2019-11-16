@@ -38,6 +38,7 @@ Plug 'ncm2/ncm2-go' " golang
 
 " colors
 Plug 'chriskempson/base16-vim/'
+Plug 'sjl/badwolf'
 
 call plug#end()
 
@@ -55,8 +56,8 @@ endif
 
 set termguicolors
 set background=light
-colorscheme base16-darktooth
-let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme goodwolf
+"let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
 noremap k gk
