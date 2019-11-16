@@ -243,7 +243,7 @@ nnoremap <space>p :lprevious<CR>
 nnoremap <space>r :lrewind<CR>
 
 " and use a simpler warning
-let g:ale_sign_warning = ' ∘'
+let g:ale_sign_warning = '∘'
 " " set erorr sign
 let g:ale_sign_error = '▶▶'
 
