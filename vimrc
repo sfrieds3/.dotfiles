@@ -14,27 +14,11 @@ endif
 
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins
 
-Plug 'neovim/python-client' " required for nvim python plugins
-Plug 'vim-ruby/vim-ruby' " ruby
-Plug 'tpope/vim-rails' " rails
-Plug 'fatih/vim-go' " golang
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'dense-analysis/ale' " linting
 Plug 'tpope/vim-fugitive' " git
 Plug 'jiangmiao/auto-pairs' " auto pair
-
-" autocomplete
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-" sources
-Plug 'ncm2/ncm2-path' " words in path
-Plug 'ncm2/ncm2-bufword' " words in buffers
-Plug 'ncm2/ncm2-jedi' " python
-Plug 'ncm2/ncm2-pyclang' " c/c++
-Plug 'ncm2/ncm2-vim' " vimscript
-Plug 'ncm2/ncm2-go' " golang
 
 " colors
 Plug 'chriskempson/base16-vim/'
@@ -248,45 +232,6 @@ set statusline+=\ %p%%
 
 " plugin configs {{{
 
-" ncm2 {{{
-
-" enable for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" " found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"'on_complete': ['ncm2#on_complete#delay', 180,
-"             \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-      \ 'name' : 'css',
-      \ 'priority': 9,
-      \ 'subscope_enable': 1,
-      \ 'scope': ['css','scss'],
-      \ 'mark': 'css',
-      \ 'word_pattern': '[\w\-]+',
-      \ 'complete_pattern': ':\s*',
-      \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-      \ })
-
-" }}}
-
 " ale {{{
 
 let g:ale_lint_on_text_changed = 'never'
@@ -468,7 +413,6 @@ let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_altv=1
 let g:netrw_liststyle=3
-let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_winsize = 25
 
 " easy editing {{{
