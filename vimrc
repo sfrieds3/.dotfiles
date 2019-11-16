@@ -444,7 +444,7 @@ endif
 nnoremap <leader>s :call FindAll()<cr>
 nnoremap <leader>S :call FindAll()<cr><cword><cr>
 
-" call gitgrep with :G
+" gitgrep
 if !exists('*GitGrep')
   function! GitGrep(...)
     " store grepprg to restore after running
@@ -461,7 +461,7 @@ if !exists('*GitGrep')
     " restore grepprg to original setting
     let &grepprg = save
   endfunction
-  command -nargs=+ G call GitGrep(<f-args>)
+  command -nargs=+ GitGrep call GitGrep(<f-args>)
 endif
 
 " git grep for word under cursor
@@ -472,10 +472,8 @@ if !exists('*GitGrepWord')
   endfunction
 endif
 nnoremap <C-x>G :call GitGrepWord()<cr>
-" or, an easier way to do it
-nnoremap <leader>G :G <cword><cr>
 
-" grep for word under cuursor
+" grep for word under cursor
 "nnoremap <leader>g :silent execute "grep! -R " .shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 
 " generate tags quickly
