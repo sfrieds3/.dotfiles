@@ -20,7 +20,6 @@ Plug 'tpope/vim-fugitive' " git
 Plug 'jiangmiao/auto-pairs' " auto pair
 
 " colors
-"Plug 'chriskempson/base16-vim/'
 Plug 'sjl/badwolf'
 
 call plug#end()
