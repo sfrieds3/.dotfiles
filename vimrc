@@ -210,7 +210,7 @@ set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
-set statusline+=\%{fugitive#statusline()}
+"set statusline+=\%{fugitive#statusline()}
 set statusline+=%{LinterStatus()}
 
 " right section
