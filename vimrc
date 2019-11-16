@@ -15,7 +15,6 @@ endif
 call plug#begin('~/.vim/plugged') " call plugged to manage plugins
 
 Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'scrooloose/nerdcommenter' " ,+c[space] to comment/uncomment lines
 Plug 'dense-analysis/ale' " linting
 Plug 'tpope/vim-fugitive' " git
 Plug 'jiangmiao/auto-pairs' " auto pair
