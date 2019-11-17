@@ -496,10 +496,10 @@ nnoremap <leader>ww <C-w>w
 nmap <leader>w <C-W>
 
 " resize splits
-nnoremap <M-[> <C-w><
-nnoremap <M-=> <C-w>+
-nnoremap <M--> <C-w>-
-nnoremap <M-]> <C-w>>
+nnoremap <C-S-Left> <C-w><
+nnoremap <C-S-Up> <C-w>+
+nnoremap <C-S-Down> <C-w>-
+nnoremap <C-S-Right> <C-w>>
 
 " }}}
 
