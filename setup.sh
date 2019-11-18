@@ -39,6 +39,7 @@ sudo apt install libmysqlclient-dev
 sudo apt install rvm
 sudo apt install meld
 sudo apt install gitk
+sudo apt install vim-nox
 
 # python pip installation
 python3 -m pip install jedi
