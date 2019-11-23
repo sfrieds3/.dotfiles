@@ -18,6 +18,10 @@ Plug 'davidhalter/jedi-vim' " python autocomplete
 Plug 'dense-analysis/ale' " linting
 Plug 'jiangmiao/auto-pairs' " auto pair
 
+" clojure
+Plug 'tpope/vim-salve'
+Plug 'tpope/vim-fireplace'
+
 " colors
 Plug 'sjl/badwolf'
 
@@ -94,6 +98,7 @@ set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
 
+set cursorline
 set autoread
 set nomodeline
 set visualbell
@@ -303,12 +308,8 @@ augroup END
 " python {{{
 augroup python
   autocmd!
-  " autopep8 on gq
-  autocmd FileType python setlocal formatprg=autopep8\ -
-
-  " auto close pydoc window
-  "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+  " open quickfix with list of functions
+  nnoremap <silent> <localleader>f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
 augroup END
 " }}}
 
@@ -335,6 +336,10 @@ cnoreabbrev E e
 
 " show list of digraphs -- special symbols
 nnoremap <localleader>D :help digraphs<cr>:179<cr>zt
+
+" toggle line and column markers
+nnoremap <silent> <localleader>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <localleader>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -439,8 +444,8 @@ if !exists('*FindAll')
     execute 'vimgrep! "'.p.'" % | copen'
   endfunction
 endif
-nnoremap <leader>s :call FindAll()<cr>
-nnoremap <leader>S :call FindAll()<cr><cword><cr>
+"nnoremap <leader>s :call FindAll()<cr>
+"nnoremap <leader>S :call FindAll()<cr><cword><cr>
 
 " gitgrep
 if !exists('*GitGrep')
