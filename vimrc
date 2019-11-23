@@ -165,18 +165,6 @@ endif
 
 " statusline {{{
 
-" set statusline color for various modes
-" not used currently
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-  hi statusline guibg=Orange ctermfg=6 guifg=Black ctermbg=0
-  elseif a:mode == 'r'
-  hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
-  else
-  hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
-  endif
-endfunction
-
 set laststatus=2
 
 function! StatusLineBuffNum()
