@@ -13,3 +13,12 @@
 [submodule "_vim/bundle/vim-salve"]
 	path = _vim/bundle/vim-salve
 	url = https://github.com/tpope/vim-salve.git
+[submodule "_vim/bundle/vim-fireplace"]
+	path = _vim/bundle/vim-fireplace
+	url = https://github.com/tpope/vim-fireplace.git
+[submodule "_vim/bundle/jedi-vim"]
+	path = _vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "_vim/bundle/ale"]
+	path = _vim/bundle/ale
+	url = https://github.com/dense-analysis/ale.git
