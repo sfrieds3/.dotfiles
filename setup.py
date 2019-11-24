@@ -1,21 +1,59 @@
 #! /usr/bin/python3
 
+"""
+Set up basic development environment on new machine
+"""
+
 from os.path import expanduser
 import os
-import subprocess
+
 
 USER_HOME = expanduser("~")
 
-# symlink bash, ctags, gitignore, vimrc
-BASH_FILES = ['bashrc', 'bash_aliases', 'ctags', 'dircolors', 'gitignore', 'inputrc']
 
-for x in BASH_FILES:
-    if not os.path.islink(USER_HOME + '/.' + x):
-        os.symlink(USER_HOME + '/.dotfiles/' + x, USER_HOME + '/.' + x)
+def run():
+    """
+    set everything up
+    """
+    symlink_files()
+    symlink_vim_folders()
 
-if not os.path.islink(USER_HOME + '/.config/nvim/init.vim'):
-    os.symlink(USER_HOME + '/.dotfiles', USER_HOME + '/.congif/nvim/init.vim')
 
-# shell script to complete setup
-# note tmux and vim config is set in setup.sh
-subprocess.call(USER_HOME + '/.dotfiles/setup.sh')
+def symlink_files():
+    """
+    add any files that need to be symlinked here
+    """
+
+    bash_files = [
+        'vimrc'
+    ]
+
+    for file in bash_files:
+        if not os.path.islink(USER_HOME + '/.' + file):
+            os.symlink(
+                USER_HOME + '/.dotfiles/' + file,
+                USER_HOME + '/.' + file
+            )
+
+
+def symlink_vim_folders():
+    """
+    symlink necessary folders for vim
+    """
+
+    folder_list = [
+        'autoload',
+        'bundle',
+        'colors'
+    ]
+
+    for file in folder_list:
+        if not os.path.islink(USER_HOME + '/.vim/' + file):
+            os.symlink(
+                USER_HOME + '/.vim/' + file,
+                USER_HOME + './' + file
+            )
+
+
+if __name__ == "__main__":
+    run()

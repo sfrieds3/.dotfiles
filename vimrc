@@ -1,31 +1,20 @@
 " vim settings {{{
 
-" plug init {{{
-if has("unix")
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  endif
-endif
-" }}}
+" pathogen {{{
 
-" plugins {{{
+call pathogen#infect()
+call pathogen#helptags()
 
-call plug#begin('~/.vim/plugged') " call plugged to manage plugins
-
-Plug 'davidhalter/jedi-vim' " python autocomplete
-Plug 'dense-analysis/ale' " linting
-Plug 'jiangmiao/auto-pairs' " auto pair
+"Plug 'davidhalter/jedi-vim' " python autocomplete
+"Plug 'dense-analysis/ale' " linting
+"Plug 'jiangmiao/auto-pairs' " auto pair
 
 " clojure
-Plug 'tpope/vim-salve'
-Plug 'tpope/vim-fireplace'
+"Plug 'tpope/vim-salve'
+"Plug 'tpope/vim-fireplace'
 
 " colors
-Plug 'sjl/badwolf'
-
-call plug#end()
+"Plug 'sjl/badwolf'
 
 " }}}
 

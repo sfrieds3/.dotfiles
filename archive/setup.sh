@@ -51,9 +51,3 @@ python3 -m pip install virtualenv
 # add vimrc and tmux.conf
 ln -s ~/.dotfiles/vimrc ~/.vimrc
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
-
-# install vim colorschemes
-mkdir -p ~/.vim/bundle
-mkdir -p ~/.vim/colors
-git clone https://github.com/chriskempson/base16-vim.git ~/.vim/bundle
-cp -s ~/.vim/bundle/base16/colors/*.vim ~/.vim/colors/
