@@ -223,8 +223,16 @@ nnoremap <space>r :lrewind<CR>
 
 " and use a simpler warning
 let g:ale_sign_warning = '∘'
-" " set erorr sign
+" set erorr sign
 let g:ale_sign_error = '▶▶'
+
+" update error msg
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" ignore annoying erorrs
+let g:ale_python_flake8_options = '--ignore=E501'
 
 " }}}
 
