@@ -224,7 +224,7 @@ nnoremap <space>r :lrewind<CR>
 " and use a simpler warning
 let g:ale_sign_warning = '∘'
 " set erorr sign
-let g:ale_sign_error = '▶▶'
+let g:ale_sign_error = '●'
 
 " update error msg
 let g:ale_echo_msg_error_str = 'E'
@@ -398,6 +398,7 @@ let g:netrw_winsize = 25
 
 " easy editing {{{
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <silent> <leader>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
 nnoremap <leader><space> :split ~/todo<cr>
 " }}}
 

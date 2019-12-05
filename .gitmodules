@@ -10,9 +10,6 @@
 [submodule "vim/bundle/vim-fireplace"]
 	path = vim/bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace.git
-[submodule "_vim/bundle/vim-salve"]
-	path = _vim/bundle/vim-salve
-	url = https://github.com/tpope/vim-salve.git
 [submodule "_vim/bundle/vim-fireplace"]
 	path = _vim/bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace.git
