@@ -1,24 +1,8 @@
 " vim settings {{{
 
-" pathogen {{{
-
-call pathogen#infect()
-call pathogen#helptags()
-
-"Plug 'davidhalter/jedi-vim' " python autocomplete
-"Plug 'dense-analysis/ale' " linting
-"Plug 'jiangmiao/auto-pairs' " auto pair
-
-" clojure
-"Plug 'tpope/vim-salve'
-"Plug 'tpope/vim-fireplace'
-
-" colors
-"Plug 'sjl/badwolf'
-
-" }}}
-
 " initial settings {{{
+
+execute pathogen#infect()
 
 let mapleader = ","
 let maplocalleader = "\\"
@@ -46,11 +30,11 @@ set omnifunc=syntaxcomplete#Complete
 set ttyfast
 
 " better completion
-set complete=.,w,b,u,t
+set complete=.,w,b,u,t,i
 set completeopt=longest,menuone
 
 " allow recursive searching for find
-set path+=**
+set path=,,
 
 if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
@@ -79,7 +63,7 @@ endif
 set backspace=2
 set matchtime=3
 set encoding=utf8
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set clipboard=unnamed
@@ -97,7 +81,6 @@ set showmatch
 set splitbelow
 set splitright
 set autoindent
-set smartindent
 set expandtab
 set smarttab
 set wrap
@@ -271,6 +254,11 @@ augroup go
 
   autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
 augroup END
+
+" }}}
+
+" jedi {{{
+let g:jedi#show_call_signatures=2
 
 " }}}
 

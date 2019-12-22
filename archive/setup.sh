@@ -40,6 +40,7 @@ sudo apt install rvm
 sudo apt install meld
 sudo apt install gitk
 sudo apt install vim-nox
+sudo apt install libxml2-utils
 
 # python pip installation
 python3 -m pip install jedi
