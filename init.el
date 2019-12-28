@@ -55,7 +55,8 @@
   (set-frame-font platform-default-font nil t))
 
 (use-package base16-theme)
-(load-theme 'base16-gruvbox-dark-hard t)
+;;(load-theme 'base16-gruvbox-dark-hard t)
+(load-theme 'wombat t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -66,7 +67,6 @@
 
 ;; 0 line buffer before/after cursor
 (setq scroll-margin 0)
-(setq smooth-scroll-margin 3)
 
 ;; cursor always blinks
 (setq blink-cursor-blinks -1)
@@ -214,8 +214,9 @@
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-re-builders-alist
-      '((ivy-switch-buffer . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
+        '((ivy-switch-buffer . ivy--regex-plus)
+          (swiper . regexp-quote)
+          (t . ivy--regex-fuzzy)))
   (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
@@ -286,14 +287,6 @@
 
 ;;;; LANGUAGE SETTINGS AND PACKAGES
 
-;; markdown mode for md files
-(use-package markdown-mode
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
-
 ;; clang
 (use-package irony
   :config
@@ -309,6 +302,7 @@
 (use-package flycheck-irony)
 
 (defun my-c++-mode-hook ()
+  (defvar c-basic-offset)
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
@@ -339,7 +333,6 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 (global-set-key (kbd "M-o") 'ace-window)
-
 ;; key customizations
 ;; custom functions
 (global-set-key (kbd "C-c g d") 'dir-grep)
