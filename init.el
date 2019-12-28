@@ -161,9 +161,6 @@
 ;; Make horizontal movement cross lines
 (setq-default evil-cross-lines t)
 
-;; evil nerd commenter
-(use-package evil-nerd-commenter)
-
 ;; modeline
 (use-package mood-line
   :config
@@ -322,13 +319,17 @@
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)))
-
 ;; python
 (use-package company-jedi)
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 (setq jedi:complete-on-dot t)
+
+;; common lisp
+(use-package slime)
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq slime-contribs '(slime-fancy))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -338,12 +339,6 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 (global-set-key (kbd "M-o") 'ace-window)
-
-;; zap up to char
-(autoload 'zap-up-to-char "misc"
-  'interactive)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "C-S-z") 'zap-up-to-char)
 
 ;; key customizations
 ;; custom functions
@@ -359,8 +354,6 @@
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c L") 'goto-line)
-;; evil
-(global-set-key (kbd "C-c SPC") 'evilnc-comment-or-uncomment-lines)
 ;; flycheck
 (global-set-key (kbd "C-c f n") 'flycheck-next-error)
 (global-set-key (kbd "C-c f p") 'flycheck-previous-error)
