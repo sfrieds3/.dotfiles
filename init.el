@@ -128,7 +128,7 @@
 
 ;; grep in current file
 (defun file-grep ()
-  "Run grep in the curRent file."
+  "Run grep in the current file."
   (interactive)
   (let ((fname (buffer-file-name)))
     (let ((command (read-from-minibuffer "Run grep (like this): "
@@ -137,26 +137,53 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; PACKAGES
+;; EVIL CONFIG
 
 ;; ////////////////////////////////////////////////////////////
 
-;; projectile
-(use-package projectile
-  :config
-  (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+;; evil leader
+(use-package evil-leader
+      :commands (evil-leader-mode)
+      :init
+      (global-evil-leader-mode)
+      :config
+      (progn
+        (evil-leader/set-leader ",")
+        (evil-leader/set-key "," 'other-window)
+        (evil-leader/set-key "W" 'delete-trailing-whitespace)))
 
 ;; evil mode
 (use-package evil
+  :init
+  (evil-mode)
   :config
-  (evil-mode 1))
+  (progn
+    ;; Make movement keys work like they should
+    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    ;; easy window switching
+    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
 
-;; Make movement keys work like they should
-(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+;; evil bindings for occur mode
+(add-hook 'occur-mode-hook
+          (lambda ()
+            (evil-add-hjkl-bindings occur-mode-map 'emacs
+              (kbd "/")       'evil-search-forward
+              (kbd "n")       'evil-search-next
+              (kbd "N")       'evil-search-previous
+              (kbd "C-d")     'evil-scroll-down
+              (kbd "C-u")     'evil-scroll-up
+              (kbd "C-w C-w") 'other-window)))
+;; ////////////////////////////////////////////////////////////
+
+;; PACKAGES
+
+;; ////////////////////////////////////////////////////////////
 
 ;; Make horizontal movement cross lines
 (setq-default evil-cross-lines t)
@@ -165,9 +192,6 @@
 (use-package mood-line
   :config
   (mood-line-mode 1))
-(use-package minions
-  :config
-  (minions-mode 1))
 
 ;; git-gutter
 (use-package git-gutter
@@ -181,11 +205,6 @@
 (use-package hl-todo
   :config
   (global-hl-todo-mode t))
-
-;; ws-butler: trim trailing whitespace
-(use-package ws-butler
-  :config
-  (ws-butler-global-mode t))
 
 ;; smooth-scrolling
 (use-package smooth-scrolling
