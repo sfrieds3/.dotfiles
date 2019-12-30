@@ -67,6 +67,7 @@
 
 ;; 0 line buffer before/after cursor
 (setq scroll-margin 0)
+(setq smooth-scroll-margin 1)
 
 ;; cursor always blinks
 (setq blink-cursor-blinks -1)
