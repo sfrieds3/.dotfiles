@@ -55,8 +55,7 @@
   (set-frame-font platform-default-font nil t))
 
 (use-package base16-theme)
-;;(load-theme 'base16-gruvbox-dark-hard t)
-(load-theme 'wombat t)
+(load-theme 'base16-gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -65,23 +64,18 @@
 ;; always start emacsclient
 (server-start)
 
-;; 0 line buffer before/after cursor
-(setq scroll-margin 0)
-(setq smooth-scroll-margin 1)
+;; make scrolling work like it should
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
 
 ;; cursor always blinks
 (setq blink-cursor-blinks -1)
 
-;; inhibit startup screen
+;; visuals
 (setq inhibit-startup-screen t)
-
-;; no toolbar
 (tool-bar-mode -1)
-
-;; no scrollbar
 (scroll-bar-mode -1)
-
-;; no menubar
 (menu-bar-mode -1)
 
 ;; inhibit visual bells
@@ -92,7 +86,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; highlight current line
-(global-hl-line-mode t)
+(global-hl-line-mode -1)
 (defvar hl-line-face)
 (set-face-attribute hl-line-face nil :underline nil)
 
@@ -109,8 +103,11 @@
 (setq frame-title-format '((:eval (if (buffer-file-name)
 (abbreviate-file-name (buffer-file-name)) "%b"))))
 
-;; C-x w h REGEX <RET> <RET> to highlight all occurances of REGEX, and C-x w r REGEX <RET> to unhighlight them again.
+; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
+
+;; highlight TODOs
+(highlight-phrase "TODO" 'hi-yellow)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -165,10 +162,13 @@
     (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
     (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
     ;; easy window switching
-    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
+    (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
+    (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
+    (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
+    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)))
+
+;; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
 
 ;; evil bindings for occur mode
 (add-hook 'occur-mode-hook
@@ -180,14 +180,12 @@
               (kbd "C-d")     'evil-scroll-down
               (kbd "C-u")     'evil-scroll-up
               (kbd "C-w C-w") 'other-window)))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PACKAGES
 
 ;; ////////////////////////////////////////////////////////////
-
-;; Make horizontal movement cross lines
-(setq-default evil-cross-lines t)
 
 ;; modeline
 (use-package mood-line
@@ -199,18 +197,7 @@
   :config
   (global-git-gutter-mode t))
 
-;; magit- for git
 (use-package magit)
-
-;; hl-todo: easy find todo's
-(use-package hl-todo
-  :config
-  (global-hl-todo-mode t))
-
-;; smooth-scrolling
-(use-package smooth-scrolling
-  :config
-  (smooth-scrolling-mode 1))
 
 ;; highlight-symbol
 (use-package highlight-symbol
@@ -375,10 +362,6 @@
 (global-set-key (kbd "C-c f s") 'flyspell-buffer)
 (global-set-key (kbd "C-c f w") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-c f e") 'flyspell-goto-next-error)
-;; hl-todo(define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
-(define-key hl-todo-mode-map (kbd "C-c t n") 'hl-todo-next)
-(define-key hl-todo-mode-map (kbd "C-c t o") 'hl-todo-occur)
-(define-key hl-todo-mode-map (kbd "C-c t i") 'hl-todo-insert)
 ;; window management
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
