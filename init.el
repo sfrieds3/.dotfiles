@@ -99,6 +99,9 @@
 ;; turn on recent file mode
 (recentf-mode t)
 
+;; smart parens
+(electric-pair-mode t)
+
 ;; filename in titlebar
 (setq frame-title-format '((:eval (if (buffer-file-name)
 (abbreviate-file-name (buffer-file-name)) "%b"))))
@@ -253,11 +256,6 @@
 (use-package drag-stuff
   :config
   (drag-stuff-global-mode t))
-
-;; matching parenthesis
-(use-package smartparens
-  :config
-  (smartparens-global-mode t))
 
 ;; ////////////////////////////////////////////////////////////
 
