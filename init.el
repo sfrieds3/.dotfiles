@@ -106,7 +106,7 @@
 (setq frame-title-format '((:eval (if (buffer-file-name)
 (abbreviate-file-name (buffer-file-name)) "%b"))))
 
-; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
+;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
 
 ;; highlight TODOs
