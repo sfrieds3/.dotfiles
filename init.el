@@ -96,11 +96,11 @@
 ;; show matching parens
 (show-paren-mode 1)
 
-;; turn on recent file mode
-(recentf-mode t)
-
 ;; smart parens
 (electric-pair-mode t)
+
+;; turn on recent file mode
+(recentf-mode t)
 
 ;; filename in titlebar
 (setq frame-title-format '((:eval (if (buffer-file-name)
