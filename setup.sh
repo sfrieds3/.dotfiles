@@ -27,6 +27,7 @@ export LS_COLORS
 # cargo install racer
 
 # apt install packages for ubuntu
+sudo apt update
 sudo apt install exuberant-ctags
 sudo apt install leiningen
 sudo apt install postgresql
