@@ -41,16 +41,35 @@ sudo apt install libxml2-utils
 sudo apt install dconf-tools
 sudo apt install sbcl
 sudo apt install gnome-tweaks
+sudo apt install git
+sudo apt install python3-pip
+sudo apt install virtualenv
+sudo apt install virtualenvwrapper
 sudo snap install emacs
 sudo snap install spotify --classic
 
 # python pip installation
+python3 -m pip install pip
 #python3 -m pip install jedi
-#python3 -m pip install websocket-client sexpdata
-#python3 -m pip install virtualenv
+#python3 -m pip install --user 'python-language-server[all]'
 
-# add vimrc and tmux.conf
+# virtualenv
+source ~/.bashrc
+mkdir $WORKON_HOME
+mkvirtualenv -p python3 venv
+workon venv
+pip3 install 'python-language-server[all]'
+
+# link all the things, download all the git
 mkdir ~/.emacs.d
+mkdir ~/code
+mkdir ~/code/forked
+
+git clone git@github.com:thisnullptr/.dotfiles.git ~/.dotfiles
+git clone git@github.com:thisnullptr/AdventOfCode.git ~/code/AdventOfCode
+git clone git@github.com:thisnullptr/hackn.git ~/code/hackn
+git clone git@github.com:thisnullptr/noteit.git ~/code/noteit
+
 ln -s ~/.dotfiles/vimrc ~/.vimrc
 ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/.dotfiles/init.el ~/.emacs.d/init.el

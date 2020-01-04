@@ -44,11 +44,13 @@
 
 ;;;; THEME SETTINGS
 
+;; ////////////////////////////////////////////////////////////
+
 ;; set default preferred fonts
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Hack 11")
-            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 11")
+            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 10")
             (t nil)))
 
 (when platform-default-font
@@ -60,6 +62,8 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; STARTUP SETTINGS
+
+;; ////////////////////////////////////////////////////////////
 
 ;; always start emacsclient
 (server-start)
@@ -168,21 +172,27 @@
     (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
     (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)))
+    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right))
 
-;; Make horizontal movement cross lines
-(setq-default evil-cross-lines t)
+  ;; Make horizontal movement cross lines
+  (setq-default evil-cross-lines t)
 
-;; evil bindings for occur mode
-(add-hook 'occur-mode-hook
-          (lambda ()
-            (evil-add-hjkl-bindings occur-mode-map 'emacs
-              (kbd "/")       'evil-search-forward
-              (kbd "n")       'evil-search-next
-              (kbd "N")       'evil-search-previous
-              (kbd "C-d")     'evil-scroll-down
-              (kbd "C-u")     'evil-scroll-up
-              (kbd "C-w C-w") 'other-window)))
+  ;; evil bindings for occur mode
+  (add-hook 'occur-mode-hook
+            (lambda ()
+              (evil-add-hjkl-bindings occur-mode-map 'emacs
+                (kbd "/")       'evil-search-forward
+                (kbd "n")       'evil-search-next
+                (kbd "N")       'evil-search-previous
+                (kbd "C-d")     'evil-scroll-down
+                (kbd "C-u")     'evil-scroll-up
+                (kbd "C-w C-w") 'other-window))))
+
+;; make evil understand word correctly (i.e. include '-' and '_')
+(with-eval-after-load 'evil
+    (defalias #'forward-evil-word #'forward-evil-symbol)
+    ;; make evil-search-word look for symbol rather than word boundaries
+    (setq-default evil-symbol-word-search t))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -201,16 +211,6 @@
   (global-git-gutter-mode t))
 
 (use-package magit)
-
-;; highlight-symbol
-(use-package highlight-symbol
-  :config
-  (highlight-symbol-mode t))
-
-;; flycheck for syntax checking
-(use-package flycheck
-  :config
-  (global-flycheck-mode t))
 
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
@@ -259,71 +259,16 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; COMPANY MODE
-
-(use-package company
-  :commands company-mode
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  (global-company-mode '(not markdown-mode)))
-
-(with-eval-after-load 'company
-  (add-hook 'company-mode-hook (lambda ()
-                                 (add-to-list 'company-backends 'company-capf)))
-  (define-key company-active-map (kbd "<return>") nil)
-  (define-key company-active-map (kbd "RET") nil)
-  (define-key company-active-map (kbd "C-SPC") #'company-complete-selection))
-
-;; customize
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(company-tooltip ((t (:inherit default :background
-                                   ,(color-lighten-name bg 2)))))
-   `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-   `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-   `(company-tooltip-selection ((t (:inherit
-                                    font-lock-function-name-face))))
-   `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-
-(define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-(define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+;;;; LANGUAGE SETTINGS AND PACKAGES
 
 ;; ////////////////////////////////////////////////////////////
 
-;;;; LANGUAGE SETTINGS AND PACKAGES
-
-;; clang
-(use-package irony
-  :config
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
-
-(use-package company-irony)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-(use-package flycheck-irony)
-
+;; c++
 (defun my-c++-mode-hook ()
   (defvar c-basic-offset)
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
-
-;; GOLANG
-(use-package go-mode)
-(use-package company-go)
-(add-hook 'go-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-go))
-                          (company-mode)))
-;; python
-(use-package company-jedi)
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'my/python-mode-hook)
-(setq jedi:complete-on-dot t)
 
 ;; common lisp
 (use-package slime)
