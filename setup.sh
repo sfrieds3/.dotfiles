@@ -12,6 +12,9 @@ git config --global color.diff.old "yellow reverse dim"
 git config --global diff.tool meld
 git config --global difftool.prompt false
 
+# emacs as editor
+git config --global core.editor emacsclient
+
 # directory colors for ls
 LS_COLORS='ow=01;36;40'
 export LS_COLORS
