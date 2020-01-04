@@ -58,8 +58,7 @@ python3 -m pip install pip
 source ~/.bashrc
 mkdir $WORKON_HOME
 mkvirtualenv -p python3 venv
-workon venv
-pip3 install 'python-language-server[all]'
+workon venv && pip3 install 'python-language-server[all]'
 
 # link all the things, download all the git
 mkdir ~/.emacs.d
