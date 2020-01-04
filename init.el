@@ -271,9 +271,13 @@
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 ;; common lisp
-(use-package slime)
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
+(use-package slime
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
+
+;; clojure
+(use-package cider)
 
 ;; ////////////////////////////////////////////////////////////
 
