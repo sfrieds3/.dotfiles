@@ -40,18 +40,18 @@ sudo apt install vim-nox
 sudo apt install libxml2-utils
 sudo apt install dconf-tools
 sudo apt install sbcl
+sudo apt install clisp
 sudo apt install gnome-tweaks
 sudo apt install git
 sudo apt install python3-pip
 sudo apt install virtualenv
 sudo apt install virtualenvwrapper
+sudo apt install libreoffice
 sudo snap install emacs
 sudo snap install spotify --classic
 
 # python pip installation
 python3 -m pip install pip
-#python3 -m pip install jedi
-#python3 -m pip install --user 'python-language-server[all]'
 
 # virtualenv
 source ~/.bashrc
