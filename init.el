@@ -25,9 +25,10 @@
 ;;;; USE PACKAGE
 (eval-when-compile
   (add-to-list 'load-path "~/.emacs.d/elpa")
+  (add-to-list 'load-path "~/.emacs.d/elisp")
   (require 'use-package))
 
-;; always ensure packages are installed
+;; always ensure packages ar installed
 (setq use-package-always-ensure t)
 
 ;; backup settings
@@ -196,6 +197,40 @@
 
 ;; ////////////////////////////////////////////////////////////
 
+;; SMEX/IDO STUFF
+
+;; ////////////////////////////////////////////////////////////
+
+(use-package smex
+  :config
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;; This is your old M-x.
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-cannot-complete-command 'ido-next-match)
+(ido-mode 1)
+
+;; fix keymap for ido completion
+(defun ido-my-keys ()
+  "Add my keybindings for ido."
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "<tab>") 'ido-exit-minibuffer))
+
+(add-hook 'ido-setup-hook #'ido-my-keys)
+
+;; find recent files and show in ido
+(defun ido-open-recentf ()
+  "Use ido to select a recently visited file from the `recentf-list'"
+  (interactive)
+  (find-file (ido-completing-read "Open file: " recentf-list nil t)))
+
+;; ////////////////////////////////////////////////////////////
+
 ;; PACKAGES
 
 ;; ////////////////////////////////////////////////////////////
@@ -215,23 +250,6 @@
 ;; dumb jump- attempts to search for source like IDE
 (use-package dumb-jump
   :diminish dumb-jump-mode)
-
-;; ivy
-(use-package ivy
-  :demand
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-re-builders-alist
-        '((ivy-switch-buffer . ivy--regex-plus)
-          (swiper . regexp-quote)
-          (t . ivy--regex-fuzzy)))
-  (setq ivy-initial-inputs-alist nil))
-
-(use-package counsel
-  :config
-  (counsel-mode 1))
 
 ;; indent-guide
 (use-package indent-guide
@@ -301,14 +319,8 @@
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c L") 'goto-line)
-;; flycheck
-(global-set-key (kbd "C-c f n") 'flycheck-next-error)
-(global-set-key (kbd "C-c f p") 'flycheck-previous-error)
-(global-set-key (kbd "C-c f f") 'flycheck-list-errors)
-;; flyspell
-(global-set-key (kbd "C-c f s") 'flyspell-buffer)
-(global-set-key (kbd "C-c f w") 'flyspell-auto-correct-word)
-(global-set-key (kbd "C-c f e") 'flyspell-goto-next-error)
+;; easily find recent files
+(global-set-key (kbd "C-x f") 'ido-open-recentf)
 ;; window management
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -328,20 +340,6 @@
 ;; drag stuff
 (global-set-key (kbd "M-<up>") 'drag-stuff-up)
 (global-set-key (kbd "M-<down>") 'drag-stuff-down)
-;; counsel/ivy/swiper
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "C-c D") 'counsel-unicode-char)
-(global-set-key (kbd "C-c a") 'counsel-ag)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-c m") 'counsel-mark-ring)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 ;; ////////////////////////////////////////////////////////////
 
