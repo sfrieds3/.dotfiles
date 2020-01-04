@@ -50,6 +50,7 @@ sudo apt install virtualenvwrapper
 sudo apt install libreoffice
 sudo snap install emacs
 sudo snap install spotify --classic
+sudo snap install datagrip --classsic
 
 # python pip installation
 python3 -m pip install pip
