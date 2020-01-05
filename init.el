@@ -57,6 +57,8 @@
 (when platform-default-font
   (set-frame-font platform-default-font nil t))
 
+(require 'base16-theme)
+(require 'base16-gruvbox-dark-hard-theme)
 (load-theme 'base16-gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
@@ -118,7 +120,6 @@
 
 ;; keep isearch results always nightlighted
 (setq lazy-highlight-cleanup nil)
-
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -207,12 +208,7 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-(use-package smex
-  :init
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+(require 'smex)
 
 ;;(setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -242,14 +238,12 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; modeline
-(use-package mood-line
-  :init
-  (mood-line-mode 1))
+(require 'mood-line)
+(mood-line-mode 1)
 
 ;; git-gutter
-(use-package git-gutter
-  :init
-  (global-git-gutter-mode t))
+(require 'git-gutter)
+(global-git-gutter-mode t)
 
 (use-package magit)
 
@@ -261,9 +255,8 @@
 (use-package dumb-jump)
 
 ;; indent-guide
-(use-package indent-guide
-  :init
-  (indent-guide-global-mode))
+(require 'indent-guide)
+(indent-guide-global-mode)
 
 ;; which-key
 (use-package which-key
@@ -275,14 +268,12 @@
 (use-package avy)
 
 ;; ace window
-(use-package ace-window
-  :init
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+(require 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 ;; drag stuff mode (M-<arrow> to move lines of text)
-(use-package drag-stuff
-  :init
-  (drag-stuff-global-mode t))
+(require 'drag-stuff)
+(drag-stuff-global-mode t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -350,6 +341,10 @@
 ;; drag stuff
 (global-set-key (kbd "M-<up>") 'drag-stuff-up)
 (global-set-key (kbd "M-<down>") 'drag-stuff-down)
+;;smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; ////////////////////////////////////////////////////////////
 
