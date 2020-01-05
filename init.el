@@ -57,9 +57,7 @@
 (when platform-default-font
   (set-frame-font platform-default-font nil t))
 
-(use-package base16-theme
-  :config
-  (load-theme 'base16-gruvbox-dark-hard t))
+(load-theme 'base16-gruvbox-dark-hard t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -118,6 +116,10 @@
 ;; highlight TODOs
 (highlight-phrase "TODO" 'hi-yellow)
 
+;; keep isearch results always nightlighted
+(setq lazy-highlight-cleanup nil)
+
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PERSONAL FUNCTIONS
@@ -157,7 +159,8 @@
       (progn
         (evil-leader/set-leader ",")
         (evil-leader/set-key "," 'other-window)
-        (evil-leader/set-key "W" 'delete-trailing-whitespace)))
+        (evil-leader/set-key "W" 'delete-trailing-whitespace)
+        (evil-leader/set-key "RET" 'lazy-highlight-cleanup)))
 
 ;; evil mode
 (use-package evil
@@ -173,7 +176,10 @@
     (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
     (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right))
+    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)
+    (define-key evil-normal-state-map (kbd "/")   'isearch-forward)
+    (define-key evil-normal-state-map (kbd "n")   'isearch-repeat-forward)
+    (define-key evil-normal-state-map (kbd "N")   'isearch-repeat-backward))
 
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
