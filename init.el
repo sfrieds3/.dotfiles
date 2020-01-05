@@ -28,7 +28,7 @@
   (add-to-list 'load-path "~/.emacs.d/elisp")
   (require 'use-package))
 
-;; always ensure packages ar installed
+;; always ensure packages are installed
 (setq use-package-always-ensure t)
 
 ;; backup settings
@@ -57,8 +57,9 @@
 (when platform-default-font
   (set-frame-font platform-default-font nil t))
 
-(use-package base16-theme)
-(load-theme 'base16-gruvbox-dark-hard t)
+(use-package base16-theme
+  :config
+  (load-theme 'base16-gruvbox-dark-hard t))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -162,7 +163,6 @@
 (use-package evil
   :init
   (evil-mode)
-  :config
   (progn
     ;; Make movement keys work like they should
     (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -187,13 +187,13 @@
                 (kbd "N")       'evil-search-previous
                 (kbd "C-d")     'evil-scroll-down
                 (kbd "C-u")     'evil-scroll-up
-                (kbd "C-w C-w") 'other-window))))
-
-;; make evil understand word correctly (i.e. include '-' and '_')
-(with-eval-after-load 'evil
+                (kbd "C-w C-w") 'other-window)))
+  :config
+  ;; make evil understand word correctly (i.e. include '-' and '_')
+  (with-eval-after-load 'evil
     (defalias #'forward-evil-word #'forward-evil-symbol)
     ;; make evil-search-word look for symbol rather than word boundaries
-    (setq-default evil-symbol-word-search t))
+    (setq-default evil-symbol-word-search t)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -202,7 +202,7 @@
 ;; ////////////////////////////////////////////////////////////
 
 (use-package smex
-  :config
+  :init
   (global-set-key (kbd "M-x") 'smex)
   (global-set-key (kbd "M-X") 'smex-major-mode-commands)
   ;; This is your old M-x.
@@ -225,7 +225,7 @@
 
 ;; find recent files and show in ido
 (defun ido-open-recentf ()
-  "Use ido to select a recently visited file from the `recentf-list'"
+  "Use ido to select a recently visited file from the `recentf-list'."
   (interactive)
   (find-file (ido-completing-read "Open file: " recentf-list nil t)))
 
@@ -237,28 +237,31 @@
 
 ;; modeline
 (use-package mood-line
-  :config
+  :init
   (mood-line-mode 1))
 
 ;; git-gutter
 (use-package git-gutter
-  :config
+  :init
   (global-git-gutter-mode t))
 
 (use-package magit)
 
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
+
 ;; dumb jump- attempts to search for source like IDE
-(use-package dumb-jump
-  :diminish dumb-jump-mode)
+(use-package dumb-jump)
 
 ;; indent-guide
 (use-package indent-guide
-  :config
+  :init
   (indent-guide-global-mode))
 
 ;; which-key
 (use-package which-key
-  :config
+  :init
   (which-key-mode t)
   (which-key-setup-side-window-bottom))
 
@@ -267,12 +270,12 @@
 
 ;; ace window
 (use-package ace-window
-  :config
+  :init
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; drag stuff mode (M-<arrow> to move lines of text)
 (use-package drag-stuff
-  :config
+  :init
   (drag-stuff-global-mode t))
 
 ;; ////////////////////////////////////////////////////////////
@@ -283,6 +286,7 @@
 
 ;; c++
 (defun my-c++-mode-hook ()
+  "C++ mode stuff."
   (defvar c-basic-offset)
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
@@ -290,7 +294,7 @@
 
 ;; common lisp
 (use-package slime
-  :config
+  :init
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
