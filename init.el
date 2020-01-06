@@ -74,6 +74,9 @@
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-follow-mouse 't)
 
 ;; cursor always blinks
 (setq blink-cursor-blinks -1)
@@ -152,28 +155,24 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; evil leader
-(use-package evil-leader
-      :commands (evil-leader-mode)
-      :init
-      (global-evil-leader-mode)
-      :config
-      (progn
-        (evil-leader/set-leader ",")
-        (evil-leader/set-key "," 'other-window)
-        (evil-leader/set-key "W" 'delete-trailing-whitespace)
-        (evil-leader/set-key "RET" 'lazy-highlight-cleanup)))
+(require 'evil-leader)
+(evil-leader-mode)
+(global-evil-leader-mode)
+(progn
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key "," 'other-window)
+  (evil-leader/set-key "W" 'delete-trailing-whitespace)
+  (evil-leader/set-key "RET" 'lazy-highlight-cleanup))
 
 ;; evil mode
 (use-package evil
   :init
   (evil-mode)
   (progn
-    ;; Make movement keys work like they should
     (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
     (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
     (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
     (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    ;; easy window switching
     (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
     (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
@@ -259,13 +258,12 @@
 (indent-guide-global-mode)
 
 ;; which-key
-(use-package which-key
-  :init
-  (which-key-mode t)
-  (which-key-setup-side-window-bottom))
+(require 'which-key)
+(which-key-mode t)
+(which-key-setup-side-window-bottom)
 
 ;; avy - go to characters
-(use-package avy)
+(require 'avy)
 
 ;; ace window
 (require 'ace-window)
