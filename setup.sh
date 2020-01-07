@@ -82,3 +82,4 @@ ln -s ~/.dotfiles/bash_aliases ~/.bash_aliases
 ln -s ~/.dotfiles/gitattributes ~/.gitattributes
 ln -s ~/.dotfiles/inputrc ~/.inputrc
 ln -s ~/.dotfiles/_elisp ~/.emacs.d/elisp
+ln -s ~/.dotfiles/home.el ~/.emacs.d/home.el
