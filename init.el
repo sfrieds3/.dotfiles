@@ -10,11 +10,15 @@
 (setq package-archives
       '(("gnu-elpa"     . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("melpa"        . "https://melpa.org/packages/"))
-      package-archive-priorities
-      '(("melpa-stable" . 2)
-        ("gnu-elp"      . 1)
-        ("melpa"        . 0)))
+        ("melpa"        . "https://melpa.org/packages/")))
+
+;; set package archive priorities if version 26+
+(cond ((>= 26 emacs-major-version)
+       (setq package-archive-priorities
+             '(("melpa-stable" . 2)
+               ("gnu-elp"      . 1)
+               ("melpa"        . 0)))))
+
 (package-initialize)
 
 ;; bootstrap use-package
@@ -122,7 +126,7 @@
 (highlight-phrase "TODO" 'hi-yellow)
 
 ;; keep isearch results always nightlighted
-(setq lazy-highlight-cleanup nil)
+;;(setq lazy-highlight-cleanup nil)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -154,16 +158,6 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; evil leader
-(require 'evil-leader)
-(evil-leader-mode)
-(global-evil-leader-mode)
-(progn
-  (evil-leader/set-leader ",")
-  (evil-leader/set-key "," 'other-window)
-  (evil-leader/set-key "W" 'delete-trailing-whitespace)
-  (evil-leader/set-key "RET" 'lazy-highlight-cleanup))
-
 ;; evil mode
 (use-package evil
   :init
@@ -176,10 +170,7 @@
     (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
     (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
     (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)
-    (define-key evil-normal-state-map (kbd "/")   'isearch-forward)
-    (define-key evil-normal-state-map (kbd "n")   'isearch-repeat-forward)
-    (define-key evil-normal-state-map (kbd "N")   'isearch-repeat-backward))
+    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right))
 
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
@@ -201,6 +192,18 @@
     ;; make evil-search-word look for symbol rather than word boundaries
     (setq-default evil-symbol-word-search t)))
 
+;; evil leader
+(use-package evil-leader
+  :init
+  (evil-leader-mode)
+  (global-evil-leader-mode)
+  (progn
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key "," 'other-window)
+    (evil-leader/set-key "W" 'delete-trailing-whitespace)
+    (evil-leader/set-key "RET" 'lazy-highlight-cleanup)
+    (evil-leader/set-key "h" 'dired-jump)))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; SMEX/IDO STUFF
@@ -220,7 +223,9 @@
   "Add my keybindings for ido."
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-  (define-key ido-completion-map (kbd "<tab>") 'ido-exit-minibuffer))
+  (define-key ido-completion-map (kbd "<backtab") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "<tab>") 'ido-exit-minibuffer)
+  (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
 (add-hook 'ido-setup-hook #'ido-my-keys)
 
@@ -287,18 +292,11 @@
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
-;; common lisp
-(use-package slime
-  :init
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-  (setq slime-contribs '(slime-fancy)))
-
-;; clojure
-(use-package cider)
-
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; GENERAL KEY REMAPPINGS
+
+;; ////////////////////////////////////////////////////////////
 
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
@@ -343,13 +341,22 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; hippie expand
+(global-set-key (kbd "C-.") 'hippie-expand)
 
 ;; ////////////////////////////////////////////////////////////
 
 ;; platform specific files
+
+;; ////////////////////////////////////////////////////////////
+
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
   (when (file-exists-p local-settings)
     (load-file local-settings)))
+
+(let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
+  (when (file-exists-p home-settings)
+    (load-file home-settings)))
 
 ;; ////////////////////////////////////////////////////////////
 
