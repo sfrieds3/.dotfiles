@@ -95,9 +95,6 @@
 (setq visible-bell nil
       ring-bell-function #'ignore)
 
-;; use y/n for all yes/no prompts
-(fset 'yes-or-no-p 'y-or-n-p)
-
 ;; highlight current line
 (global-hl-line-mode -1)
 (defvar hl-line-face)
@@ -135,7 +132,7 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; grep in current directory
-(defun dir-grep ()
+(defun my-dir-grep ()
   "Run grep recursively from the directory of the current buffer or the default directory."
   (interactive)
   (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
@@ -144,13 +141,19 @@
       (grep command))))
 
 ;; grep in current file
-(defun file-grep ()
+(defun my-file-grep ()
   "Run grep in the current file."
   (interactive)
   (let ((fname (buffer-file-name)))
     (let ((command (read-from-minibuffer "Run grep (like this): "
                                          (cons (concat "grep --color --null -nH -ir -e  " fname) 32))))
       (grep command))))
+
+;; revert file without prompt
+(defun my-revert-buffer-noconfirm ()
+  "Call `revert-buffer' with the NOCONFIRM argument set."
+  (interactive)
+  (revert-buffer nil t))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -304,8 +307,8 @@
 (global-set-key (kbd "M-o") 'ace-window)
 ;; key customizations
 ;; custom functions
-(global-set-key (kbd "C-c g d") 'dir-grep)
-(global-set-key (kbd "C-c g s") 'file-grep)
+(global-set-key (kbd "C-c g d") 'my-dir-grep)
+(global-set-key (kbd "C-c g s") 'my-file-grep)
 (global-set-key (kbd "C-c g f") 'find-dired)
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
