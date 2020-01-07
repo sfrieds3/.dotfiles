@@ -114,16 +114,10 @@
 
 ;; filename in titlebar
 (setq frame-title-format '((:eval (if (buffer-file-name)
-(abbreviate-file-name (buffer-file-name)) "%b"))))
+                                      (abbreviate-file-name (buffer-file-name)) "%b"))))
 
 ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
-
-;; highlight TODOs
-(highlight-phrase "TODO" 'hi-yellow)
-
-;; keep isearch results always nightlighted
-;;(setq lazy-highlight-cleanup nil)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -266,16 +260,13 @@
 (indent-guide-global-mode)
 
 ;; which-key
-(require 'which-key)
-(which-key-mode t)
-(which-key-setup-side-window-bottom)
+(use-package which-key
+  :init
+  (which-key-mode t)
+  (which-key-setup-side-window-bottom))
 
 ;; avy - go to characters
-(require 'avy)
-
-;; ace window
-(require 'ace-window)
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(use-package avy)
 
 ;; drag stuff mode (M-<arrow> to move lines of text)
 (require 'drag-stuff)
