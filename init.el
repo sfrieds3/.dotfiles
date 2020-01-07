@@ -226,12 +226,6 @@
 
 (add-hook 'ido-setup-hook #'ido-my-keys)
 
-;; find recent files and show in ido
-(defun ido-open-recentf ()
-  "Use ido to select a recently visited file from the `recentf-list'."
-  (interactive)
-  (find-file (ido-completing-read "Open file: " recentf-list nil t)))
-
 ;; ////////////////////////////////////////////////////////////
 
 ;; PACKAGES
