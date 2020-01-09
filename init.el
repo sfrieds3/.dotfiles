@@ -5,35 +5,10 @@
 
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives
-      '(("gnu-elpa"     . "https://elpa.gnu.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("melpa"        . "https://melpa.org/packages/")))
 
-;; set package archive priorities if version 26+
-(cond ((>= 26 emacs-major-version)
-       (setq package-archive-priorities
-             '(("melpa-stable" . 2)
-               ("gnu-elp"      . 1)
-               ("melpa"        . 0)))))
-
-(package-initialize)
-
-;; bootstrap use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;;;; USE PACKAGE
 (eval-when-compile
   (add-to-list 'load-path "~/.emacs.d/elpa")
-  (add-to-list 'load-path "~/.emacs.d/elisp")
-  (require 'use-package))
-
-;; always ensure packages are installed
-(setq use-package-always-ensure t)
+  (add-to-list 'load-path "~/.emacs.d/elisp"))
 
 ;; backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -44,6 +19,10 @@
 
 ;; temp file for custom settings
 (setq custom-file (make-temp-file "emacs-custom"))
+
+(let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
+  (when (file-exists-p home-settings)
+    (load-file home-settings)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -61,9 +40,7 @@
 (when platform-default-font
   (set-frame-font platform-default-font nil t))
 
-(require 'base16-theme)
-(require 'base16-gruvbox-dark-hard-theme)
-(load-theme 'base16-gruvbox-dark-hard t)
+(load-theme 'wombat t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -111,6 +88,7 @@
 
 ;; turn on recent file mode
 (recentf-mode t)
+(setq recentf-max-saved-items 50)
 
 ;; filename in titlebar
 (setq frame-title-format '((:eval (if (buffer-file-name)
@@ -149,57 +127,12 @@
   (interactive)
   (revert-buffer nil t))
 
-;; ////////////////////////////////////////////////////////////
-
-;; EVIL CONFIG
-
-;; ////////////////////////////////////////////////////////////
-
-;; evil mode
-(use-package evil
-  :init
-  (evil-mode)
-  (progn
-    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
-    (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right))
-
-  ;; Make horizontal movement cross lines
-  (setq-default evil-cross-lines t)
-
-  ;; evil bindings for occur mode
-  (add-hook 'occur-mode-hook
-            (lambda ()
-              (evil-add-hjkl-bindings occur-mode-map 'emacs
-                (kbd "/")       'evil-search-forward
-                (kbd "n")       'evil-search-next
-                (kbd "N")       'evil-search-previous
-                (kbd "C-d")     'evil-scroll-down
-                (kbd "C-u")     'evil-scroll-up
-                (kbd "C-w C-w") 'other-window)))
-  :config
-  ;; make evil understand word correctly (i.e. include '-' and '_')
-  (with-eval-after-load 'evil
-    (defalias #'forward-evil-word #'forward-evil-symbol)
-    ;; make evil-search-word look for symbol rather than word boundaries
-    (setq-default evil-symbol-word-search t)))
-
-;; evil leader
-(use-package evil-leader
-  :init
-  (evil-leader-mode)
-  (global-evil-leader-mode)
-  (progn
-    (evil-leader/set-leader ",")
-    (evil-leader/set-key "," 'other-window)
-    (evil-leader/set-key "W" 'delete-trailing-whitespace)
-    (evil-leader/set-key "RET" 'lazy-highlight-cleanup)
-    (evil-leader/set-key "h" 'dired-jump)))
+(defun my-ido-open-recentf ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -232,39 +165,24 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; modeline
-(require 'mood-line)
-(mood-line-mode 1)
-
-;; git-gutter
-(require 'git-gutter)
-(global-git-gutter-mode t)
-
-(use-package magit)
-
-(use-package flycheck
-  :init
-  (global-flycheck-mode))
-
 ;; dumb jump- attempts to search for source like IDE
-(use-package dumb-jump)
+;;(require 'dumb-jump)
 
 ;; indent-guide
-(require 'indent-guide)
-(indent-guide-global-mode)
+;;(require 'indent-guide)
+;;(indent-guide-global-mode)
 
 ;; which-key
-(use-package which-key
-  :init
-  (which-key-mode t)
-  (which-key-setup-side-window-bottom))
+(require 'which-key)
+(which-key-mode t)
+(which-key-setup-side-window-bottom)
 
 ;; avy - go to characters
-(use-package avy)
+(require 'avy)
 
 ;; drag stuff mode (M-<arrow> to move lines of text)
-(require 'drag-stuff)
-(drag-stuff-global-mode t)
+;;(require 'drag-stuff)
+;;(drag-stuff-global-mode t)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -305,7 +223,7 @@
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c L") 'goto-line)
 ;; easily find recent files
-(global-set-key (kbd "C-x f") 'ido-open-recentf)
+(global-set-key (kbd "C-x f") 'my-ido-open-recentf)
 ;; window management
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -331,6 +249,10 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 ;; hippie expand
 (global-set-key (kbd "C-.") 'hippie-expand)
+;; string insert region
+(global-set-key (kbd "C-c I") 'string-insert-rectangle)
+;; remove whitespace
+(global-set-key (kbd "C-c W") 'delete-trailing-whitespace))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -342,9 +264,6 @@
   (when (file-exists-p local-settings)
     (load-file local-settings)))
 
-(let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
-  (when (file-exists-p home-settings)
-    (load-file home-settings)))
 
 ;; ////////////////////////////////////////////////////////////
 
