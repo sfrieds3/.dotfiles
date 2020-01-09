@@ -253,6 +253,8 @@
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
 ;; remove whitespace
 (global-set-key (kbd "C-c W") 'delete-trailing-whitespace))
+;; read only mode
+(global-set-key (kbd "C-c SPC") 'read-only-mode)
 
 ;; ////////////////////////////////////////////////////////////
 
