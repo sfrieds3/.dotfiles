@@ -330,6 +330,8 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "M-p") 'scroll-up-line)
 ;; smarter beginning of line
 (global-set-key (kbd "C-a") 'my-smarter-move-beginning-of-line)
+;; indent
+(global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -340,7 +342,6 @@ point reaches the beginning or end of the buffer, stop there."
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
   (when (file-exists-p local-settings)
     (load-file local-settings)))
-
 
 ;; ////////////////////////////////////////////////////////////
 
