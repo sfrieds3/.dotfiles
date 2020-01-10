@@ -247,7 +247,7 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-;; hippie expand
+;; hippie expand -- also C-M-i for completion mode
 (global-set-key (kbd "C-.") 'hippie-expand)
 ;; string insert region
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
