@@ -60,6 +60,7 @@ python3 -m pip install pip
 
 # virtualenv
 source ~/.bashrc
+pip3 install --user virtualenvwrapper
 mkdir $WORKON_HOME
 mkvirtualenv -p python3 venv
 workon venv && pip3 install 'python-language-server[all]'

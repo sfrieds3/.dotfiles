@@ -34,7 +34,7 @@
 (defvar platform-default-font)
 (setq platform-default-font
       (cond ((eq system-type 'windows-nt) "Hack 11")
-            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 10")
+            ((eq system-type 'gnu/linux) "DejaVu Sans Mono 11")
             (t nil)))
 
 (when platform-default-font
