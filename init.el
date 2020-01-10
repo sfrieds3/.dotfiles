@@ -96,8 +96,8 @@
 (setq recentf-max-saved-items 50)
 
 ;; filename in titlebar
-(setq frame-title-format '((:eval (if (buffer-file-name)
-                                      (abbreviate-file-name (buffer-file-name)) "%b"))))
+(setq frame-title-format
+      (concat "%f@" system-name))
 
 ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
