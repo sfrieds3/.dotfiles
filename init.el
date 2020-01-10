@@ -130,12 +130,10 @@
                "%b |"
                ;; current git branch
                '(vc-mode vc-mode)
+               ;; current line and column number
+               " | %l:%c"
                ;; % Buffer above top of window
                " | %P"
-               ;; current line number
-               " | l %l"
-               ;; current column number
-               " | c %c"
                ))
 
 ;; grep in current directory
