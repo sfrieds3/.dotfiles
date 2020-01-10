@@ -85,6 +85,11 @@
 
 ;; smart parens
 (electric-pair-mode t)
+;; dont use smart parens in mini-buffers
+(defun my-inhibit-electric-pair-mode (char)
+  (minibufferp))
+
+(setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-mode)
 
 ;; turn on recent file mode
 (recentf-mode t)
