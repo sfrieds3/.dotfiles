@@ -167,8 +167,6 @@
       (message "Opening file...")
     (message "Aborting")))
 
-
-
 (defun my-smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -191,6 +189,14 @@ point reaches the beginning or end of the buffer, stop there."
     (back-to-indentation)
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
+
+(defun my-goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert %.
+vi style of % jumping to matching brace."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -222,13 +228,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;; PACKAGES
 
 ;; ////////////////////////////////////////////////////////////
-
-;; dumb jump- attempts to search for source like IDE
-;;(require 'dumb-jump)
-
-;; indent-guide
-;;(require 'indent-guide)
-;;(indent-guide-global-mode)
 
 ;; which-key
 (require 'which-key)
@@ -332,6 +331,7 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-a") 'my-smarter-move-beginning-of-line)
 ;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
+(global-set-key (kbd "%") 'my-goto-match-paren)
 
 ;; ////////////////////////////////////////////////////////////
 
