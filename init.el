@@ -167,6 +167,31 @@
       (message "Opening file...")
     (message "Aborting")))
 
+
+
+(defun my-smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; SMEX/IDO STUFF
@@ -182,7 +207,7 @@
 (ido-mode 1)
 
 ;; fix keymap for ido completion
-(defun ido-my-keys ()
+(defun my-ido-keys ()
   "Add my keybindings for ido."
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
@@ -190,7 +215,7 @@
   (define-key ido-completion-map (kbd "<tab>") 'ido-exit-minibuffer)
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
-(add-hook 'ido-setup-hook #'ido-my-keys)
+(add-hook 'ido-setup-hook #'my-ido-keys)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -303,6 +328,8 @@
 ;;scroll screen
 (global-set-key (kbd "M-n") 'scroll-down-line)
 (global-set-key (kbd "M-p") 'scroll-up-line)
+;; smarter beginning of line
+(global-set-key (kbd "C-a") 'my-smarter-move-beginning-of-line)
 
 ;; ////////////////////////////////////////////////////////////
 
