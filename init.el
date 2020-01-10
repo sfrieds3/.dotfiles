@@ -100,11 +100,38 @@
 ;; stop asking about upcase region
 (put 'upcase-region 'disabled nil)
 
+;; advanced management of rectangles
+;; C-RET to mark a corner
+;; M-r to do revexp replace within marked rectange
+;; C-RET to unmark/exit rectangle editing
+(cua-selection-mode 1)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PERSONAL FUNCTIONS
 
 ;; ////////////////////////////////////////////////////////////
+
+;; mode line
+(setq-default mode-line-format
+              (list
+               ;; file status info
+               mode-line-mule-info
+               mode-line-modified
+               mode-line-frame-identification
+               ;; `mode-name'
+               "%m: "
+               ;; current buffer name
+               "%b |"
+               ;; current git branch
+               '(vc-mode vc-mode)
+               ;; % Buffer above top of window
+               " | %P"
+               ;; current line number
+               " | l %l"
+               ;; current column number
+               " | c %c"
+               ))
 
 ;; grep in current directory
 (defun my-dir-grep ()
@@ -183,7 +210,13 @@
 ;; avy - go to characters
 (require 'avy)
 
-;; drag stuff mode (M-<arrow> to move lines of text)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ;; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ;; dont change names of special buffers.
+
+;; Drag stuff mode (M-<arrow> to move lines of text)
 ;;(require 'drag-stuff)
 ;;(drag-stuff-global-mode t)
 
