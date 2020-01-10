@@ -234,9 +234,6 @@ vi style of % jumping to matching brace."
 (which-key-mode t)
 (which-key-setup-side-window-bottom)
 
-;; avy - go to characters
-(require 'avy)
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-separator "/")
