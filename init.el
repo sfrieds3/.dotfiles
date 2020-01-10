@@ -104,6 +104,9 @@
 ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
 
+;; stop asking about upcase region
+(put 'upcase-region 'disabled nil)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PERSONAL FUNCTIONS
@@ -268,6 +271,9 @@
 (global-set-key (kbd "C-c W") 'delete-trailing-whitespace)
 ;; read only mode
 (global-set-key (kbd "C-c SPC") 'read-only-mode)
+;;scroll screen
+(global-set-key (kbd "M-n") 'scroll-down-line)
+(global-set-key (kbd "M-p") 'scroll-up-line)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -284,3 +290,4 @@
 
 (provide 'init.el)
 ;;; init.el ends here
+
