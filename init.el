@@ -328,7 +328,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-a") 'my-smarter-move-beginning-of-line)
 ;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
-(global-set-key (kbd "%") 'my-goto-match-paren)
+(global-set-key (kbd "C-c %") 'my-goto-match-paren)
 
 ;; ////////////////////////////////////////////////////////////
 
