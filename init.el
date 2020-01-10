@@ -6,6 +6,13 @@
 ;;; Code:
 ;;;; GENERAL PACKAGE SETTINGS
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (eval-when-compile
   (add-to-list 'load-path "~/.emacs.d/elpa")
   (add-to-list 'load-path "~/.emacs.d/elisp"))
@@ -142,7 +149,7 @@
 
 (require 'smex)
 
-;;(setq ido-enable-flex-matching t)
+(setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-cannot-complete-command 'ido-next-match)
@@ -198,6 +205,11 @@
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
+;; eldoc mode
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
+(add-hook 'ielm-mode-hook 'eldoc-mode)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; GENERAL KEY REMAPPINGS
@@ -231,7 +243,8 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c D") 'delete-window)
 ;; avy
-(global-set-key (kbd "C-c c") 'avy-goto-char)
+(global-set-key (kbd "C-,") 'avy-goto-char)
+(global-set-key (kbd "C-c ,") 'avy-goto-char)
 (global-set-key (kbd "C-c C") 'avy-goto-char-2)
 (global-set-key (kbd "C-c l") 'avy-goto-line)
 ;; magit/git stuff
@@ -252,7 +265,7 @@
 ;; string insert region
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
 ;; remove whitespace
-(global-set-key (kbd "C-c W") 'delete-trailing-whitespace))
+(global-set-key (kbd "C-c W") 'delete-trailing-whitespace)
 ;; read only mode
 (global-set-key (kbd "C-c SPC") 'read-only-mode)
 
