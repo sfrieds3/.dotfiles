@@ -198,6 +198,13 @@ vi style of % jumping to matching brace."
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
+(define-key isearch-mode-map (kbd "<C-return>")
+  (defun my-isearch-done-opposite (&optional nopush edit)
+    "End current search in the opposite side of the match."
+    (interactive)
+    (funcall #'isearch-done nopush edit)
+    (when isearch-other-end (goto-char isearch-other-end))))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; SMEX/IDO STUFF
