@@ -240,10 +240,6 @@ vi style of % jumping to matching brace."
 (setq uniquify-after-kill-buffer-p t) ;; rename after killing uniquified
 (setq uniquify-ignore-buffers-re "^\\*") ;; dont change names of special buffers.
 
-;; Drag stuff mode (M-<arrow> to move lines of text)
-;;(require 'drag-stuff)
-;;(drag-stuff-global-mode t)
-
 ;; ////////////////////////////////////////////////////////////
 
 ;;;; LANGUAGE SETTINGS AND PACKAGES
@@ -272,7 +268,6 @@ vi style of % jumping to matching brace."
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-(global-set-key (kbd "M-o") 'ace-window)
 ;; key customizations
 ;; custom functions
 (global-set-key (kbd "C-c g d") 'my-dir-grep)
@@ -295,20 +290,6 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c D") 'delete-window)
-;; avy
-(global-set-key (kbd "C-,") 'avy-goto-char)
-(global-set-key (kbd "C-c ,") 'avy-goto-char)
-(global-set-key (kbd "C-c C") 'avy-goto-char-2)
-(global-set-key (kbd "C-c l") 'avy-goto-line)
-;; magit/git stuff
-(global-set-key (kbd "C-c \\") 'magit-diff-buffer-file)
-;; dumb jump
-(global-set-key (kbd "C-M-g") 'dumb-jump-go)
-(global-set-key (kbd "C-M-p") 'dumb-jump-back)
-(global-set-key (kbd "C-M-q") 'dumb-jump-quick-look)
-;; drag stuff
-(global-set-key (kbd "M-<up>") 'drag-stuff-up)
-(global-set-key (kbd "M-<down>") 'drag-stuff-down)
 ;;smex
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
