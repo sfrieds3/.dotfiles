@@ -69,6 +69,9 @@ workon venv && pip3 install 'python-language-server[all]'
 mkdir ~/.emacs.d
 mkdir ~/code
 mkdir ~/code/forked
+mkdir ~/.emacs.d/backups
+mkdir ~/.emacs.d/auto-save-list
+mkdir ~/.emacs.d/savehist
 
 git clone git@github.com:thisnullptr/.dotfiles.git ~/.dotfiles
 git clone git@github.com:thisnullptr/AdventOfCode.git ~/code/AdventOfCode
