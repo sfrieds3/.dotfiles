@@ -33,8 +33,16 @@
 ;; common lisp
 (use-package slime
   :init
-  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq inferior-lisp-program "/usr/bin/clisp")
   (setq slime-contribs '(slime-fancy)))
+
+;; slime key bindings
+(defun my/slime-keybindings ()
+  "keybindings for use in slime"
+  (local-set-key (kbd "C-c e") 'slime-eval-last-expression)
+  (local-set-key (kbd "C-c b") 'slime-eval-buffer))
+(add-hook 'slime-mode-hook #'my/slime-keybindings)
+(add-hook 'slime-repl-mode-hook #'my/slime-keybindings)
 
 ;; clojure
 (use-package cider)
