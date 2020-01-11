@@ -327,6 +327,9 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-M-<backspace>") 'my/kill-back-to-indent)
 ;; want to go to correct indentation on enter
 (global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-c %") 'my-goto-match-paren)
+;; no C-z
+(global-set-key (kbd "C-z") nil)
 
 ;; ////////////////////////////////////////////////////////////
 
