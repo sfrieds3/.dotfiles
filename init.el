@@ -137,7 +137,7 @@
                ))
 
 ;; grep in current directory
-(defun my-dir-grep ()
+(defun my/dir-grep ()
   "Run grep recursively from the directory of the current buffer or the default directory."
   (interactive)
   (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
@@ -146,7 +146,7 @@
       (grep command))))
 
 ;; grep in current file
-(defun my-file-grep ()
+(defun my/file-grep ()
   "Run grep in the current file."
   (interactive)
   (let ((fname (buffer-file-name)))
@@ -155,28 +155,28 @@
       (grep command))))
 
 ;; revert file without prompt
-(defun my-revert-buffer-noconfirm ()
+(defun my/revert-buffer-noconfirm ()
   "Call `revert-buffer' with the NOCONFIRM argument set."
   (interactive)
   (revert-buffer nil t))
 
-(defun my-ido-open-recentf ()
+(defun my/ido-open-recentf ()
   "Use `ido-completing-read' to \\[find-file] a recent file"
   (interactive)
   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
       (message "Opening file...")
     (message "Aborting")))
 
-(defun my-smarter-move-beginning-of-line (arg)
+(defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
-Move point to the first non-whitespace character on this line.
-If point is already there, move to the beginning of the line.
-Effectively toggle between the first non-whitespace character and
-the beginning of the line.
-
-If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-point reaches the beginning or end of the buffer, stop there."
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+  
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
   (interactive "^p")
   (setq arg (or arg 1))
 
@@ -190,7 +190,7 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
-(defun my-goto-match-paren (arg)
+(defun my/goto-match-paren (arg)
   "Go to the matching parenthesis if on parenthesis, otherwise insert %.
 vi style of % jumping to matching brace."
   (interactive "p")
@@ -199,11 +199,18 @@ vi style of % jumping to matching brace."
         (t (self-insert-command (or arg 1)))))
 
 (define-key isearch-mode-map (kbd "<C-return>")
-  (defun my-isearch-done-opposite (&optional nopush edit)
+  (defun my/isearch-done-opposite (&optional nopush edit)
     "End current search in the opposite side of the match."
     (interactive)
     (funcall #'isearch-done nopush edit)
     (when isearch-other-end (goto-char isearch-other-end))))
+
+(defun my/kill-back-to-indent ()
+  "Kill from point back to the first non-whitespace character on the line."
+  (interactive)
+  (let ((prev-pos (point)))
+    (back-to-indentation)
+    (kill-region (point) prev-pos)))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -220,7 +227,7 @@ vi style of % jumping to matching brace."
 (ido-mode 1)
 
 ;; fix keymap for ido completion
-(defun my-ido-keys ()
+(defun my/ido-keys ()
   "Add my keybindings for ido."
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
@@ -228,7 +235,7 @@ vi style of % jumping to matching brace."
   (define-key ido-completion-map (kbd "<tab>") 'ido-exit-minibuffer)
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
-(add-hook 'ido-setup-hook #'my-ido-keys)
+(add-hook 'ido-setup-hook #'my/ido-keys)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -254,12 +261,12 @@ vi style of % jumping to matching brace."
 ;; ////////////////////////////////////////////////////////////
 
 ;; c++
-(defun my-c++-mode-hook ()
+(defun my/c++-mode-hook ()
   "C++ mode stuff."
   (defvar c-basic-offset)
   (setq c-basic-offset 4)
   (c-set-offset 'substatement-open 0))
-(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+(add-hook 'c++-mode-hook 'my/c++-mode-hook)
 
 ;; eldoc mode
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
@@ -277,8 +284,8 @@ vi style of % jumping to matching brace."
   (windmove-default-keybindings))
 ;; key customizations
 ;; custom functions
-(global-set-key (kbd "C-c g d") 'my-dir-grep)
-(global-set-key (kbd "C-c g s") 'my-file-grep)
+(global-set-key (kbd "C-c g d") 'my/dir-grep)
+(global-set-key (kbd "C-c g s") 'my/file-grep)
 (global-set-key (kbd "C-c g f") 'find-dired)
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
@@ -290,7 +297,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c L") 'goto-line)
 ;; easily find recent files
-(global-set-key (kbd "C-x f") 'my-ido-open-recentf)
+(global-set-key (kbd "C-x f") 'my/ido-open-recentf)
 ;; window management
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -313,10 +320,13 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "M-n") 'scroll-down-line)
 (global-set-key (kbd "M-p") 'scroll-up-line)
 ;; smarter beginning of line
-(global-set-key (kbd "C-a") 'my-smarter-move-beginning-of-line)
+(global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
 ;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
-(global-set-key (kbd "C-c %") 'my-goto-match-paren)
+(global-set-key (kbd "C-c %") 'my/goto-match-paren)
+(global-set-key (kbd "C-M-<backspace>") 'my/kill-back-to-indent)
+;; want to go to correct indentation on enter
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -332,4 +342,3 @@ vi style of % jumping to matching brace."
 
 (provide 'init.el)
 ;;; init.el ends here
-
