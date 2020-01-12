@@ -295,9 +295,9 @@ vi style of % jumping to matching brace."
   (windmove-default-keybindings))
 ;; key customizations
 ;; custom functions
-(global-set-key (kbd "C-c g d") 'my/dir-grep)
-(global-set-key (kbd "C-c g s") 'my/file-grep)
-(global-set-key (kbd "C-c g f") 'find-dired)
+(global-set-key (kbd "C-c s d") 'my/dir-grep)
+(global-set-key (kbd "C-c s s") 'my/file-grep)
+(global-set-key (kbd "C-c s f") 'find-dired)
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
 (global-set-key (kbd "C-c ]") 'next-error)
@@ -342,6 +342,10 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c %") 'my-goto-match-paren)
 ;; no C-z
 (global-set-key (kbd "C-z") nil)
+;; version control
+(global-set-key (kbd "C-c g \\") 'vc-diff)
+(global-set-key (kbd "C-c g h") 'vc-region-history)
+(global-set-key (kbd "C-c g s") 'vc-dir)
 
 ;; ////////////////////////////////////////////////////////////
 
