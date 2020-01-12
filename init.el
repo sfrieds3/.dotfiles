@@ -293,11 +293,12 @@ vi style of % jumping to matching brace."
 ;; move between windows with shift-arrow keys
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-;; key customizations
+
 ;; custom functions
 (global-set-key (kbd "C-c s d") 'my/dir-grep)
 (global-set-key (kbd "C-c s s") 'my/file-grep)
 (global-set-key (kbd "C-c s f") 'find-dired)
+
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
 (global-set-key (kbd "C-c ]") 'next-error)
@@ -307,8 +308,10 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c L") 'goto-line)
+
 ;; easily find recent files
 (global-set-key (kbd "C-x f") 'my/ido-open-recentf)
+
 ;; window management
 (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
@@ -316,32 +319,43 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-S-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c D") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
+
 ;;smex
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
 ;; hippie expand -- also C-M-i for completion mode
 (global-set-key (kbd "C-.") 'hippie-expand)
+
 ;; string insert region
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
+
 ;; remove whitespace
 (global-set-key (kbd "C-c W") 'delete-trailing-whitespace)
+
 ;; read only mode
 (global-set-key (kbd "C-c SPC") 'read-only-mode)
+
 ;;scroll screen
 (global-set-key (kbd "M-n") 'scroll-down-line)
 (global-set-key (kbd "M-p") 'scroll-up-line)
+
 ;; smarter beginning of line
 (global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
+
 ;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
 (global-set-key (kbd "C-c %") 'my/goto-match-paren)
 (global-set-key (kbd "C-M-<backspace>") 'my/kill-back-to-indent)
+
 ;; want to go to correct indentation on enter
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-c %") 'my-goto-match-paren)
+
 ;; no C-z
 (global-set-key (kbd "C-z") nil)
+
 ;; version control
 (global-set-key (kbd "C-c g \\") 'vc-diff)
 (global-set-key (kbd "C-c g h") 'vc-region-history)
