@@ -141,10 +141,10 @@
                "%b |"
                ;; current git branch
                '(vc-mode vc-mode)
+               ;; mode-name
+               " [%m] "
                ;; current line and column number
-               " | %l:%c"
-               ;; % Buffer above top of window
-               " | %P"
+               "(%l:%c %P)"
                ))
 
 ;; grep in current directory
@@ -306,8 +306,8 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
-(global-set-key (kbd "C-c l") 'recentf-open-most-recent-file)
-(global-set-key (kbd "C-c L") 'goto-line)
+(global-set-key (kbd "C-c L") 'recentf-open-most-recent-file)
+(global-set-key (kbd "C-c l") 'goto-line)
 
 ;; easily find recent files
 (global-set-key (kbd "C-x f") 'my/ido-open-recentf)
