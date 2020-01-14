@@ -135,8 +135,6 @@
                mode-line-mule-info
                mode-line-modified
                mode-line-frame-identification
-               ;; `mode-name'
-               "%m: "
                ;; current buffer name
                "%b |"
                ;; current git branch
