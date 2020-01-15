@@ -221,6 +221,13 @@ vi style of % jumping to matching brace."
     (back-to-indentation)
     (kill-region (point) prev-pos)))
 
+(defun my/select-line ()
+  "Select entire line"
+  (interactive)
+  (beginning-of-line)
+  (cua-set-mark)
+  (end-of-line))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; SMEX/IDO STUFF
@@ -296,6 +303,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c s d") 'my/dir-grep)
 (global-set-key (kbd "C-c s s") 'my/file-grep)
 (global-set-key (kbd "C-c s f") 'find-dired)
+(global-set-key (kbd "C-c SPC") 'my/select-line)
 
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
@@ -331,9 +339,6 @@ vi style of % jumping to matching brace."
 
 ;; remove whitespace
 (global-set-key (kbd "C-c W") 'delete-trailing-whitespace)
-
-;; read only mode
-(global-set-key (kbd "C-c SPC") 'read-only-mode)
 
 ;;scroll screen
 (global-set-key (kbd "M-n") 'scroll-down-line)
