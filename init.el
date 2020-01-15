@@ -59,8 +59,8 @@
 
 ;; ////////////////////////////////////////////////////////////
 
-;; always start emacsclient
-(server-start)
+;; start emacsclient if server not running already
+(unless (server-running-p) (server-start))
 
 ;; make scrolling work like it should
 (setq scroll-step 1)
