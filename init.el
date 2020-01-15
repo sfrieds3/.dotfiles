@@ -314,6 +314,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-c L") 'recentf-open-most-recent-file)
 (global-set-key (kbd "C-c l") 'goto-line)
+(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
 ;; easily find recent files
 (global-set-key (kbd "C-x f") 'my/ido-open-recentf)
