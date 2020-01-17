@@ -33,7 +33,7 @@
 ;; common lisp
 (use-package slime
   :init
-  (setq inferior-lisp-program "/usr/bin/clisp")
+  (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-contribs '(slime-fancy)))
 
 ;; slime key bindings
