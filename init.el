@@ -60,6 +60,7 @@
 ;; ////////////////////////////////////////////////////////////
 
 ;; start emacsclient if server not running already
+(load "server")
 (unless (server-running-p) (server-start))
 
 ;; make scrolling work like it should
