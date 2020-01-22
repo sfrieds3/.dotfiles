@@ -96,7 +96,7 @@
 (show-paren-mode 1)
 
 ;; smart parens
-(electric-pair-mode t)
+(electric-pair-mode -1)
 ;; dont use smart parens in mini-buffers
 (defun my-inhibit-electric-pair-mode (char)
   (minibufferp))
