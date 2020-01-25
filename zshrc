@@ -100,8 +100,8 @@ alias gogit='~/go/src/github.com/sfrieds3/'
 # sudo alias
 alias sudo='sudo '
 
-# neovim alias
-alias vim='nvim'
+# emacs alias
+alias emacs='emacsclient'
 
 # show autocomplete options
 #setopt menu_complete
