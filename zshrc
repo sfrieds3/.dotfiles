@@ -9,7 +9,7 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
 #ZSH_THEME="kardan"
-ZSH_THEME="gallois"
+ZSH_THEME="blinks"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
