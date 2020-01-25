@@ -114,8 +114,9 @@
 ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
 (global-hi-lock-mode 1)
 
-;; stop asking about upcase region
+;; stop asking about upcase and downcase region
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; advanced management of rectangles
 ;; C-RET to mark a corner
@@ -380,3 +381,4 @@ vi style of % jumping to matching brace."
 
 (provide 'init.el)
 ;;; init.el ends here
+
