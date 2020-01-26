@@ -236,7 +236,7 @@ vi style of % jumping to matching brace."
 
 ;; ////////////////////////////////////////////////////////////
 
-(require 'smex)
+(icomplete-mode 1)
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -330,9 +330,9 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "M-o") 'other-window)
 
 ;;smex
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;;(global-set-key (kbd "M-x") 'smex)
+;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; hippie expand -- also C-M-i for completion mode
 (global-set-key (kbd "C-.") 'hippie-expand)
