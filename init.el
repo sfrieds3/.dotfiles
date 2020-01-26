@@ -247,6 +247,9 @@ vi style of % jumping to matching brace."
 ;; fix keymap for ido completion
 (defun my/ido-keys ()
   "Add my keybindings for ido."
+  (define-key ido-completion-map (kbd "C-.") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-,") 'ido-prev-match)
+  (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer)
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
   (define-key ido-completion-map (kbd "<backtab") 'ido-prev-match)
