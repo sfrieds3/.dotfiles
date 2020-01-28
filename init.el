@@ -237,12 +237,22 @@ vi style of % jumping to matching brace."
 ;; ////////////////////////////////////////////////////////////
 
 (icomplete-mode 1)
+(setq icomplete-hide-common-prefix nil)
+(setq icomplete-show-matches-on-no-input t)
+(setq icomplete-in-buffer t)
 
+;;(defun my/icomplete-keys ()
+;;  (define-key icomplete-minibuffer-map (kbd "C-,") 'icomplete-backward-completione)
+;;  (define-key icomplete-minibuffer-map (kbd "C-.") 'icomplete-forward-completion)
+;;  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit))
+;; 
+;;(add-hook 'icomplete-mode-hook #'my/icomplete-keys)
+
+(ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-cannot-complete-command 'ido-next-match)
-(ido-mode 1)
 
 ;; fix keymap for ido completion
 (defun my/ido-keys ()
