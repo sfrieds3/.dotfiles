@@ -273,6 +273,14 @@ vi style of % jumping to matching brace."
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
+;; keybindings
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PACKAGES
@@ -378,11 +386,6 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c g \\") 'vc-diff)
 (global-set-key (kbd "C-c g h") 'vc-region-history)
 (global-set-key (kbd "C-c g s") 'vc-dir)
-
-;; org mode
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; ////////////////////////////////////////////////////////////
 
