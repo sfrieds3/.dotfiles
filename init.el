@@ -124,6 +124,9 @@
 ;; C-RET to unmark/exit rectangle editing
 (cua-selection-mode 1)
 
+;; transient mark mode
+(transient-mark-mode 1)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; PERSONAL FUNCTIONS
@@ -241,13 +244,6 @@ vi style of % jumping to matching brace."
 (setq icomplete-show-matches-on-no-input t)
 (setq icomplete-in-buffer t)
 
-;;(defun my/icomplete-keys ()
-;;  (define-key icomplete-minibuffer-map (kbd "C-,") 'icomplete-backward-completione)
-;;  (define-key icomplete-minibuffer-map (kbd "C-.") 'icomplete-forward-completion)
-;;  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit))
-;; 
-;;(add-hook 'icomplete-mode-hook #'my/icomplete-keys)
-
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -267,6 +263,15 @@ vi style of % jumping to matching brace."
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
 (add-hook 'ido-setup-hook #'my/ido-keys)
+
+;; ////////////////////////////////////////////////////////////
+
+;; ORG MODE
+
+;; ////////////////////////////////////////////////////////////
+
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -327,8 +332,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
-(global-set-key (kbd "C-c L") 'recentf-open-most-recent-file)
-(global-set-key (kbd "C-c l") 'goto-line)
+(global-set-key (kbd "C-c g l") 'goto-line)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
 ;; easily find recent files
@@ -341,11 +345,6 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-S-<up>") 'enlarge-window)
 (global-set-key (kbd "C-c D") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
-
-;;smex
-;;(global-set-key (kbd "M-x") 'smex)
-;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; hippie expand -- also C-M-i for completion mode
 (global-set-key (kbd "C-.") 'hippie-expand)
@@ -379,6 +378,11 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c g \\") 'vc-diff)
 (global-set-key (kbd "C-c g h") 'vc-region-history)
 (global-set-key (kbd "C-c g s") 'vc-dir)
+
+;; org mode
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; ////////////////////////////////////////////////////////////
 
