@@ -7,8 +7,8 @@
 ;;;; GENERAL PACKAGE SETTINGS
 
 (eval-when-compile
-  (add-to-list 'load-path "~/.emacs.d/elpa")
-  (add-to-list 'load-path "~/.emacs.d/elisp"))
+  (add-to-list 'load-path (expand-file-name "elpa" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 
 ;; backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -27,6 +27,8 @@
       '(kill-ring
         search-ring
         regexp-search-ring))
+
+(expand-file-name "elpa" user-emacs-directory)
 
 ;; temp file for custom settings
 (setq custom-file (make-temp-file "emacs-custom"))
