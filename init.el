@@ -28,9 +28,6 @@
         search-ring
         regexp-search-ring))
 
-;; temp file for custom settings
-(setq custom-file (make-temp-file "emacs-custom"))
-
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
   (when (file-exists-p home-settings)
     (load-file home-settings)))
