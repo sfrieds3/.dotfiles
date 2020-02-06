@@ -34,8 +34,10 @@
 (use-package slime
   :init
   (setq inferior-lisp-program "/usr/bin/sbcl")
-  (setq slime-contribs '(slime-fancy))
-  (setq slime-repl-inputed-output-face 'yellow))
+  (setq slime-contribs '(slime-fancy)))
+
+(custom-set-faces
+ '(slime-repl-inputed-output-face ((t (:foreground "yellow")))))
 
 ;; slime key bindings
 (defun my/slime-keybindings ()
