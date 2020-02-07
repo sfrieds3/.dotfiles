@@ -284,11 +284,6 @@ vi style of % jumping to matching brace."
 
 ;; ////////////////////////////////////////////////////////////
 
-;; which-key
-(require 'which-key)
-(which-key-mode t)
-(which-key-setup-side-window-bottom)
-
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-separator "/")

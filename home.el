@@ -30,6 +30,11 @@
 ;; always ensure packages are installed
 (setq use-package-always-ensure t)
 
+;; which-key
+(require 'which-key)
+(which-key-mode t)
+(which-key-setup-side-window-bottom)
+
 ;; common lisp
 (use-package slime
   :init
