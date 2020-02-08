@@ -230,6 +230,12 @@ vi style of % jumping to matching brace."
   (cua-set-mark)
   (end-of-line))
 
+(defun my/delete-trailing-whitespace ()
+  "Delete trailing whitespace, and echo"
+  (interactive)
+  (delete-trailing-whitespace)
+  (message "trailing whitespace deleted..."))
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; SMEX/IDO STUFF
@@ -353,7 +359,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
 
 ;; remove whitespace
-(global-set-key (kbd "C-c W") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-c W") 'my/delete-trailing-whitespace)
 
 ;;scroll screen
 (global-set-key (kbd "M-n") 'scroll-down-line)
@@ -381,6 +387,9 @@ vi style of % jumping to matching brace."
 
 ;; indent-region fast
 (global-set-key (kbd "C-c i") 'indent-region)
+
+;; revert buffer
+(global-set-key (kbd "C-c .") 'revert-buffer)
 
 ;; ////////////////////////////////////////////////////////////
 
