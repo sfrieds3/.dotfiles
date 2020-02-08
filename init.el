@@ -379,6 +379,9 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c g h") 'vc-region-history)
 (global-set-key (kbd "C-c g s") 'vc-dir)
 
+;; indent-region fast
+(global-set-key (kbd "C-c i") 'indent-region)
+
 ;; ////////////////////////////////////////////////////////////
 
 ;; platform specific files
@@ -393,4 +396,3 @@ vi style of % jumping to matching brace."
 
 (provide 'init.el)
 ;;; init.el ends here
-
