@@ -329,7 +329,10 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c s d") 'my/dir-grep)
 (global-set-key (kbd "C-c s s") 'my/file-grep)
 (global-set-key (kbd "C-c s f") 'find-dired)
-(global-set-key (kbd "C-c SPC") 'my/select-line)
+
+;; SPC commands
+(global-set-key (kbd "C-c SPC l") 'my/select-line)
+(global-set-key (kbd "C-c SPC r") 'replace-regexp)
 
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
