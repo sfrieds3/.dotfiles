@@ -258,7 +258,6 @@ vi style of % jumping to matching brace."
   "Add my keybindings for ido."
   (define-key ido-completion-map (kbd "C-.") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-,") 'ido-prev-match)
-  (define-key ido-completion-map (kbd "C-j") 'ido-exit-minibuffer)
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
   (define-key ido-completion-map (kbd "<backtab") 'ido-prev-match)
@@ -333,6 +332,10 @@ vi style of % jumping to matching brace."
 ;; SPC commands
 (global-set-key (kbd "C-c SPC l") 'my/select-line)
 (global-set-key (kbd "C-c SPC r") 'replace-regexp)
+(global-set-key (kbd "C-c SPC i") 'indent-region)
+(global-set-key (kbd "C-c SPC W") 'my/delete-trailing-whitespace)
+(global-set-key (kbd "C-c SPC b") 'revert-buffer)
+(global-set-key (kbd "C-c SPC l") 'goto-line)
 
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
@@ -341,7 +344,6 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
-(global-set-key (kbd "C-c g l") 'goto-line)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
 ;; easily find recent files
@@ -360,9 +362,6 @@ vi style of % jumping to matching brace."
 
 ;; string insert region
 (global-set-key (kbd "C-c I") 'string-insert-rectangle)
-
-;; remove whitespace
-(global-set-key (kbd "C-c W") 'my/delete-trailing-whitespace)
 
 ;;scroll screen
 (global-set-key (kbd "M-n") 'scroll-down-line)
@@ -387,12 +386,6 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c g \\") 'vc-diff)
 (global-set-key (kbd "C-c g h") 'vc-region-history)
 (global-set-key (kbd "C-c g s") 'vc-dir)
-
-;; indent-region fast
-(global-set-key (kbd "C-c i") 'indent-region)
-
-;; revert buffer
-(global-set-key (kbd "C-c .") 'revert-buffer)
 
 ;; ////////////////////////////////////////////////////////////
 
