@@ -377,7 +377,9 @@ vi style of % jumping to matching brace."
 
 ;; want to go to correct indentation on enter
 (global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-c %") 'my/goto-match-paren)
+
+;; easily go to matched paren
+(global-set-key (kbd "C-<tab>") 'my/goto-match-paren)
 
 ;; no C-z
 (global-set-key (kbd "C-z") nil)
