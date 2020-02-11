@@ -205,8 +205,8 @@
   "Go to the matching parenthesis if on parenthesis, otherwise insert %.
 vi style of % jumping to matching brace."
   (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+  (cond ((looking-at "\\s\(") (forward-list 1))
+        ((looking-back "\\s\)") (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
 (define-key isearch-mode-map (kbd "<C-return>")
@@ -328,6 +328,10 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c s d") 'my/dir-grep)
 (global-set-key (kbd "C-c s s") 'my/file-grep)
 (global-set-key (kbd "C-c s f") 'find-dired)
+(global-set-key (kbd "C-x f") 'my/ido-open-recentf)
+(global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
+(global-set-key (kbd "C-<tab>") 'my/goto-match-paren)
+(global-set-key (kbd "%") 'my/goto-match-paren)
 
 ;; SPC commands
 (global-set-key (kbd "C-c SPC l") 'my/select-line)
@@ -341,13 +345,11 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c [") 'previous-error)
 (global-set-key (kbd "C-c ]") 'next-error)
 (global-set-key (kbd "C-c o") 'occur)
+(global-set-key (kbd "C-c O") 'multi-occur-in-matching-buffers)
 (global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
-
-;; easily find recent files
-(global-set-key (kbd "C-x f") 'my/ido-open-recentf)
 
 ;; window management
 (global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
@@ -367,19 +369,12 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "M-n") 'scroll-down-line)
 (global-set-key (kbd "M-p") 'scroll-up-line)
 
-;; smarter beginning of line
-(global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
-
 ;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
-(global-set-key (kbd "C-c %") 'my/goto-match-paren)
 (global-set-key (kbd "C-M-<backspace>") 'my/kill-back-to-indent)
 
 ;; want to go to correct indentation on enter
 (global-set-key (kbd "RET") 'newline-and-indent)
-
-;; easily go to matched paren
-(global-set-key (kbd "C-<tab>") 'my/goto-match-paren)
 
 ;; no C-z
 (global-set-key (kbd "C-z") nil)
