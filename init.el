@@ -238,7 +238,7 @@ vi style of % jumping to matching brace."
 
 ;; ////////////////////////////////////////////////////////////
 
-;; SMEX/IDO STUFF
+;; REQUIRE 'OTHERS
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -265,6 +265,8 @@ vi style of % jumping to matching brace."
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
 (add-hook 'ido-setup-hook #'my/ido-keys)
+
+(require 'dired-x)
 
 ;; ////////////////////////////////////////////////////////////
 
