@@ -338,15 +338,15 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c SPC r") 'replace-regexp)
 (global-set-key (kbd "C-c SPC i") 'indent-region)
 (global-set-key (kbd "C-c SPC W") 'my/delete-trailing-whitespace)
-(global-set-key (kbd "C-c SPC b") 'revert-buffer)
 (global-set-key (kbd "C-c SPC l") 'goto-line)
+(global-set-key (kbd "C-c SPC b e") 'eval-buffer)
+(global-set-key (kbd "C-c SPC b r") 'revert-buffer)
 
 ;; general customizations
 (global-set-key (kbd "C-c [") 'previous-error)
 (global-set-key (kbd "C-c ]") 'next-error)
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c O") 'multi-occur-in-matching-buffers)
-(global-set-key (kbd "C-c b") 'eval-buffer)
 (global-set-key (kbd "C-c e") 'eval-defun)
 (global-set-key (kbd "C-c r") 'recentf-open-files)
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
@@ -398,3 +398,15 @@ vi style of % jumping to matching brace."
 
 (provide 'init.el)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (use-package slime gruvbox-theme cider))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(slime-repl-inputed-output-face ((t (:foreground "yellow")))))
