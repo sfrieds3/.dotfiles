@@ -220,7 +220,7 @@ vi style of % jumping to matching brace."
   "Kill from point back to the first non-whitespace character on the line."
   (interactive)
   (let ((prev-pos (point)))
-    (back-to-indentation)
+    (my/smarter-move-beginning-of-line nil)
     (kill-region (point) prev-pos)))
 
 (defun my/select-line ()
@@ -238,7 +238,7 @@ vi style of % jumping to matching brace."
 
 ;; ////////////////////////////////////////////////////////////
 
-;; REQUIRE 'OTHERS
+;; SMEX/IDO STUFF
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -265,8 +265,6 @@ vi style of % jumping to matching brace."
   (define-key ido-completion-map (kbd "C-e") 'ido-exit-minibuffer))
 
 (add-hook 'ido-setup-hook #'my/ido-keys)
-
-(require 'dired-x)
 
 ;; ////////////////////////////////////////////////////////////
 
