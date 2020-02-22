@@ -15,6 +15,8 @@ call plug#begin('~/.vim/plugged')
 "plugins go here
 Plug 'kovisoft/slimv'
 Plug 'sjl/badwolf'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -192,7 +194,7 @@ set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
-"set statusline+=\%{fugitive#statusline()}
+set statusline+=\ \%{fugitive#statusline()}
 "set statusline+=%{LinterStatus()}
 
 " right section
@@ -367,7 +369,7 @@ nnoremap <silent> <Leader>n :set invnumber<cr>
 nnoremap <leader>mm :<C-u>marks<cr>:normal! `
 
 " show buffers and be ready to switch
-nnoremap <silent> <leader>bb :<C-u>:buffers<cr>:buffer<space>
+nnoremap <silent> <localleader>bb :<C-u>:buffers<cr>:buffer<space>
 
 " Disable highlight
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
@@ -508,19 +510,19 @@ nnoremap <C-S-Right> <C-w>>
 
 " buffers and tabs {{{
 " tab and buffer management
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>bd :bdelete<cr>
-nnoremap <leader>tp :tabprevious<cr>
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tt :tabnext<cr>
+nnoremap <localleader>bp :bprevious<cr>
+nnoremap <localleader>bn :bnext<cr>
+nnoremap <localleader>bd :bdelete<cr>
+nnoremap <localleader>tp :tabprevious<cr>
+nnoremap <localleader>tn :tabnext<cr>
+nnoremap <localleader>tt :tabnext<cr>
 
 " Useful mappings for managing tabs
-nnoremap <leader>tN :tabnew<cr>
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>th :-tabmove<cr>
-nnoremap <leader>tl :+tabmove<cr>
+nnoremap <localleader>tN :tabnew<cr>
+nnoremap <localleader>to :tabonly<cr>
+nnoremap <localleader>tc :tabclose<cr>
+nnoremap <localleader>th :-tabmove<cr>
+nnoremap <localleader>tl :+tabmove<cr>
 
 " }}}
 
