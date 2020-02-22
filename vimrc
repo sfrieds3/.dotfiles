@@ -1,8 +1,25 @@
 " vim settings {{{
 
-" initial settings {{{
+" plugins {{{
+" bootstrap vim plugged
+if has("unix")
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+endif
 
-execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+"plugins go here
+Plug 'kovisoft/slimv'
+
+call plug#end()
+
+" }}}
+
+" initial settings {{{
 
 let mapleader = ","
 let maplocalleader = "\\"
@@ -13,8 +30,8 @@ if !exists("g:syntax_on")
 endif
 
 set termguicolors
-set background=light
-colorscheme goodwolf
+set background=dark
+colorscheme badwolf
 "let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
@@ -33,7 +50,6 @@ set ttyfast
 set complete=.,w,b,u,t,i
 set completeopt=longest,menuone
 
-" allow recursive searching for find
 set path=,,
 
 if has('path_extra')
@@ -157,18 +173,18 @@ function! StatusLineFileName()
   return printf("%s", fname)
 endfunction
 
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? ' [OK]' : printf(
-                \   '[%dW %dE]',
-                \   all_non_errors,
-                \   all_errors
-                \)
-endfunction
+"function! LinterStatus() abort
+"    let l:counts = ale#statusline#Count(bufnr(''))
+"
+"    let l:all_errors = l:counts.error + l:counts.style_error
+"    let l:all_non_errors = l:counts.total - l:all_errors
+"
+"    return l:counts.total == 0 ? ' [OK]' : printf(
+"                \   '[%dW %dE]',
+"                \   all_non_errors,
+"                \   all_errors
+"                \)
+"endfunction
 
 " format the statusline
 set statusline=
@@ -176,7 +192,7 @@ set statusline+=%{StatusLineBuffNum()}
 set statusline+=\%{StatusLineFileName()}
 set statusline+=%m
 "set statusline+=\%{fugitive#statusline()}
-set statusline+=%{LinterStatus()}
+"set statusline+=%{LinterStatus()}
 
 " right section
 set statusline+=%=
@@ -185,11 +201,11 @@ set statusline+=%{StatusLineFormat()}
 " file type
 set statusline+=\ %{StatusLineFiletype()}
 " line number
-set statusline+=\ %l,
+set statusline+=\ [%l:
 " column number
-set statusline+=%2c
+set statusline+=%c
  "% of file
-set statusline+=\ %p%%
+set statusline+=\ %p%%]
 
 " }}}
 
@@ -197,25 +213,25 @@ set statusline+=\ %p%%
 
 " ale {{{
 
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-
-nnoremap <space>n :lnext<CR>
-nnoremap <space>p :lprevious<CR>
-nnoremap <space>r :lrewind<CR>
-
-" and use a simpler warning
-let g:ale_sign_warning = '∘'
-" set erorr sign
-let g:ale_sign_error = '●'
-
-" update error msg
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-" ignore annoying erorrs
-let g:ale_python_flake8_options = '--ignore=E501'
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_enter = 0
+"
+"nnoremap <space>n :lnext<CR>
+"nnoremap <space>p :lprevious<CR>
+"nnoremap <space>r :lrewind<CR>
+"
+"" and use a simpler warning
+"let g:ale_sign_warning = '∘'
+"" set erorr sign
+"let g:ale_sign_error = '●'
+"
+"" update error msg
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"
+"" ignore annoying erorrs
+"let g:ale_python_flake8_options = '--ignore=E501'
 
 " }}}
 
@@ -261,6 +277,11 @@ augroup END
 let g:jedi#show_call_signatures=2
 
 " }}}
+
+" vlime {{{
+
+
+"}}}
 
 " }}}
 
@@ -349,15 +370,15 @@ nnoremap <silent> <leader>bb :<C-u>:buffers<cr>:buffer<space>
 nnoremap <silent> <leader><cr> :nohlsearch<cr>
 
 " higlight whitespace, but do not highlight in insert mode
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-augroup hiwhitespace
-  autocmd!
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-  autocmd BufWinLeave * call clearmatches()
-augroup END
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"augroup hiwhitespace
+"  autocmd!
+"  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+"  autocmd BufWinLeave * call clearmatches()
+"augroup END
 
 " Clean trailing whitespace
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
