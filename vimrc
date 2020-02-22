@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
 
 "plugins go here
 Plug 'kovisoft/slimv'
+Plug 'sjl/badwolf'
 
 call plug#end()
 
@@ -278,8 +279,10 @@ let g:jedi#show_call_signatures=2
 
 " }}}
 
-" vlime {{{
-
+" slimv {{{
+let g:slimv_repl_split=0
+let g:slimv_repl_simple_eval=0
+let g:paredit_mode=0
 
 "}}}
 
@@ -384,7 +387,7 @@ nnoremap <silent> <leader><cr> :nohlsearch<cr>
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <localleader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Automatically cd into the directory that the file is in
 "autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
