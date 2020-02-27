@@ -192,7 +192,7 @@ endfunction
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
-set statusline+=\%{StatusLineFileName()}
+set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 set statusline+=\ \%{fugitive#statusline()}
 "set statusline+=%{LinterStatus()}
@@ -285,6 +285,8 @@ let g:jedi#show_call_signatures=2
 let g:slimv_repl_split=0
 let g:slimv_repl_simple_eval=0
 let g:paredit_mode=0
+" TODO: write function to allow us to change this on the fly
+let g:slimv_impl = 'clisp'
 
 "}}}
 
