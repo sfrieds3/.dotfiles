@@ -38,7 +38,6 @@ endif
 set termguicolors
 set background=dark
 colorscheme badwolf
-"let base16colorspace=256  " Access colors present in 256 colorspace
 
 noremap j gj
 noremap k gk
@@ -209,7 +208,7 @@ let g:jedi#show_call_signatures=2
 let g:slimv_repl_split=0
 let g:slimv_repl_simple_eval=0
 let g:paredit_mode=0
-" TODO: write function to allow us to change this on the fly
+
 let g:slimv_impl = 'clisp'
 
 "}}}
@@ -244,10 +243,6 @@ augroup END
 " {{{ HTML
 iabbrev </ </<C-X><C-O>
 imap <C-Space> <C-X><C-O>
-" }}}
-
-" {{{ clojure
-
 " }}}
 
 " }}}
@@ -353,6 +348,20 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " {{{ functions
+
+" change slimv repl
+if !exists('*ChangeSlimvImpl')
+  function! ChangeSlimvImpl()
+    if g:slimv_impl == "clisp"
+      let g:slimv_impl = "sbcl"
+      echo "slimv_impl = sbcl"
+    else
+      let g:slimv_impl = "clisp"
+      echo "slimv_impl = clisp"
+    endif
+  endfunction
+endif
+command ChangeSlimvImpl call ChangeSlimvImpl()
 
 " quick way to open quickfix window
 if !exists('*OpenQuickfix')
