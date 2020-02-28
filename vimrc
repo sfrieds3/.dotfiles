@@ -17,6 +17,9 @@ Plug 'kovisoft/slimv'
 Plug 'sjl/badwolf'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/lightline.vim'
+Plug 'majutsushi/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
@@ -79,6 +82,7 @@ endif
 " }}}
 
 " basic settings {{{
+set laststatus=2
 set backspace=2
 set matchtime=3
 set encoding=utf8
@@ -89,8 +93,10 @@ set clipboard=unnamed
 set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
+set colorcolumn=80
 
 set cursorline
+set showcmd
 set autoread
 set nomodeline
 set visualbell
@@ -154,65 +160,21 @@ endif
 
 " }}}
 
-" statusline {{{
-
-set laststatus=2
-
-function! StatusLineBuffNum()
-  let bnum = expand(bufnr('%'))
-  return printf("-%d-", bnum)
-endfunction
-
-function! StatusLineFiletype()
-  return winwidth(0) > 160 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! StatusLineFormat()
-  return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
-endfunction
-
-function! StatusLineFileName()
-  let fname = '' != expand('%:f') ? expand('%:f') : '[No Name]'
-  return printf("%s", fname)
-endfunction
-
-"function! LinterStatus() abort
-"    let l:counts = ale#statusline#Count(bufnr(''))
-"
-"    let l:all_errors = l:counts.error + l:counts.style_error
-"    let l:all_non_errors = l:counts.total - l:all_errors
-"
-"    return l:counts.total == 0 ? ' [OK]' : printf(
-"                \   '[%dW %dE]',
-"                \   all_non_errors,
-"                \   all_errors
-"                \)
-"endfunction
-
-" format the statusline
-set statusline=
-set statusline+=%{StatusLineBuffNum()}
-set statusline+=\ %{StatusLineFileName()}
-set statusline+=%m
-set statusline+=\ \%{fugitive#statusline()}
-"set statusline+=%{LinterStatus()}
-
-" right section
-set statusline+=%=
-" file format
-set statusline+=%{StatusLineFormat()}
-" file type
-set statusline+=\ %{StatusLineFiletype()}
-" line number
-set statusline+=\ [%l:
-" column number
-set statusline+=%c
- "% of file
-set statusline+=\ %p%%]
-
-" }}}
-
 " plugin configs {{{
+
+ " lightline {{{
+
+ let g:lightline = {
+             \ 'active': {
+             \   'left': [ [ 'mode', 'paste' ],
+             \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+             \ },
+             \ 'component_function': {
+             \   'gitbranch': 'fugitive#head'
+             \ },
+             \ }
+ 
+ " }}}
 
 " ale {{{
 
@@ -235,44 +197,6 @@ set statusline+=\ %p%%]
 "
 "" ignore annoying erorrs
 "let g:ale_python_flake8_options = '--ignore=E501'
-
-" }}}
-
-" go {{{
-" no warning for out of date vim
-let g:go_version_warning = 0
-
-" goimport on save
-let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_list_type = "quickfix"
-let g:go_term_mode = "split"
-let g:go_term_height = 10
-
-" show definition when hovering
-let g:go_auto_type_info = 1
-
-augroup go
-  autocmd!
-
-  autocmd FileType go set nolist
-
-  autocmd FileType go nmap <silent> <localleader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <silent> <localleader>s <Plug>(go-def-split)
-  autocmd FileType go nmap <silent> <localleader>d <Plug>(go-def-tab)
-
-  autocmd FileType go nmap <silent> <localleader>x <Plug>(go-doc-vertical)
-
-  autocmd FileType go nmap <silent> <localleader>i <Plug>(go-info)
-  autocmd FileType go nmap <silent> <localleader>l <Plug>(go-metalinter)
-
-  autocmd FileType go nmap <silent> <localleader>b :<C-u>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <localleader>t  <Plug>(go-test)
-  autocmd FileType go nmap <silent> <localleader>r  <Plug>(go-run)
-  autocmd FileType go nmap <silent> <localleader>e  <Plug>(go-install)
-
-  autocmd FileType go nmap <silent> <localleader>c <Plug>(go-coverage-toggle)
-augroup END
 
 " }}}
 
@@ -304,6 +228,9 @@ augroup lang
   autocmd FileType vim setlocal shiftwidth=2 softtabstop=2
   autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
   autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
+  
+  "autopep8 on gq
+  autocmd FileType python setlocal formatprg=autopep8\ -
 augroup END
 
 " python {{{
@@ -357,8 +284,7 @@ nnoremap <C-Up> mz:m-2<cr>`z
 vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" switch between files with \\
-nnoremap <localleader><localleader> <c-^>
+nnoremap <localleader><localleader> :exec("Tagbar")<cr>
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
 nnoremap / /\v
@@ -515,9 +441,13 @@ nnoremap <C-S-Right> <C-w>>
 nnoremap <localleader>bp :bprevious<cr>
 nnoremap <localleader>bn :bnext<cr>
 nnoremap <localleader>bd :bdelete<cr>
+nnoremap <C-left> :bprevios<cr>
+nnoremap <C-right> :bnext<cr>
 nnoremap <localleader>tp :tabprevious<cr>
 nnoremap <localleader>tn :tabnext<cr>
 nnoremap <localleader>tt :tabnext<cr>
+nnoremap <C-left> :tabprevious<cr>
+nnoremap <C-right> :tabnext<cr>
 
 " Useful mappings for managing tabs
 nnoremap <localleader>tN :tabnew<cr>

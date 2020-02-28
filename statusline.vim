@@ -98,3 +98,64 @@ set statusline+=\ %p%%
 " ASCII and byte code under cursor
 "set statusline+=\ [%03b][0x%04B]\
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SIMPLE STATUSLINE
+
+" statusline {{{
+
+set laststatus=2
+
+function! StatusLineBuffNum()
+  let bnum = expand(bufnr('%'))
+  return printf("-%d-", bnum)
+endfunction
+
+function! StatusLineFiletype()
+  return winwidth(0) > 160 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLineFormat()
+  return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
+endfunction
+
+function! StatusLineFileName()
+  let fname = '' != expand('%:f') ? expand('%:f') : '[No Name]'
+  return printf("%s", fname)
+endfunction
+
+"function! LinterStatus() abort
+"    let l:counts = ale#statusline#Count(bufnr(''))
+"
+"    let l:all_errors = l:counts.error + l:counts.style_error
+"    let l:all_non_errors = l:counts.total - l:all_errors
+"
+"    return l:counts.total == 0 ? ' [OK]' : printf(
+"                \   '[%dW %dE]',
+"                \   all_non_errors,
+"                \   all_errors
+"                \)
+"endfunction
+
+" format the statusline
+set statusline=
+set statusline+=%{StatusLineBuffNum()}
+set statusline+=\ %{StatusLineFileName()}
+set statusline+=%m
+set statusline+=\ \%{fugitive#statusline()}
+"set statusline+=%{LinterStatus()}
+
+" right section
+set statusline+=%=
+" file format
+set statusline+=%{StatusLineFormat()}
+" file type
+set statusline+=\ %{StatusLineFiletype()}
+" line number
+set statusline+=\ [%l:
+" column number
+set statusline+=%c
+ "% of file
+set statusline+=\ %p%%]
+
+" }}}
+
