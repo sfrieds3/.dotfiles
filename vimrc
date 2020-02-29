@@ -179,6 +179,16 @@ endif
 let g:ctrlp_map = '<C-S-p>'
 " }}}
 
+
+" tagbar {{{
+
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+let g:show_linenumbers = 1
+
+" }}}
+
+
 " ale {{{
 
 "let g:ale_lint_on_text_changed = 'never'
