@@ -13,13 +13,13 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "plugins go here
-Plug 'kovisoft/slimv'
 Plug 'sjl/badwolf'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'l04m33/vlime', {'rtp': 'vim/'}
 
 call plug#end()
 
@@ -172,8 +172,12 @@ endif
              \   'gitbranch': 'fugitive#head'
              \ },
              \ }
- 
+
  " }}}
+
+" ctrlp {{{
+let g:ctrlp_map = '<C-S-p>'
+" }}}
 
 " ale {{{
 
@@ -231,7 +235,7 @@ augroup lang
   autocmd FileType vim setlocal shiftwidth=2 softtabstop=2
   autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
   autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
-  
+
   "autopep8 on gq
   autocmd FileType python setlocal formatprg=autopep8\ -
 augroup END
@@ -265,8 +269,8 @@ cnoreabbrev E e
 nnoremap <localleader>D :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
-nnoremap <silent> <localleader>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <localleader>r :exec("set cursorline!")<cr>
+nnoremap <silent> <leader>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <leader>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -283,6 +287,7 @@ nnoremap <C-Up> mz:m-2<cr>`z
 vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
+" tagbar
 nnoremap <localleader><localleader> :exec("Tagbar")<cr>
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
@@ -313,7 +318,7 @@ nnoremap <silent> <leader><cr> :nohlsearch<cr>
 "augroup END
 
 " Clean trailing whitespace
-nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z :exec("echo \"Cleaned Whitespace..\"")<cr>
 
 " Switch CWD to the directory of the open buffer
 nnoremap <localleader>cd :cd %:p:h<cr>:pwd<cr>
