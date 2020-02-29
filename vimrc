@@ -205,13 +205,17 @@ let g:jedi#show_call_signatures=2
 " }}}
 
 " slimv {{{
-let g:slimv_repl_split=0
-let g:slimv_repl_simple_eval=0
-let g:paredit_mode=0
-
-let g:slimv_impl = 'clisp'
+"let g:slimv_repl_split=0
+"let g:slimv_repl_simple_eval=0
+"let g:paredit_mode=0
+"
+"let g:slimv_impl = 'clisp'
 
 "}}}
+
+" vlime {{{
+let g:vlime_cl_use_terminal = 1
+" }}}
 
 " }}}
 
@@ -348,20 +352,6 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 " }}}
 
 " {{{ functions
-
-" change slimv repl
-if !exists('*ChangeSlimvImpl')
-  function! ChangeSlimvImpl()
-    if g:slimv_impl == "clisp"
-      let g:slimv_impl = "sbcl"
-      echo "slimv_impl = sbcl"
-    else
-      let g:slimv_impl = "clisp"
-      echo "slimv_impl = clisp"
-    endif
-  endfunction
-endif
-command ChangeSlimvImpl call ChangeSlimvImpl()
 
 " quick way to open quickfix window
 if !exists('*OpenQuickfix')
