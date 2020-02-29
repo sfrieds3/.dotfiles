@@ -298,7 +298,7 @@ vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " tagbar
-nnoremap <localleader><localleader> :exec("Tagbar")<cr>
+nnoremap <silent> <localleader><localleader> :exec("Tagbar")<cr>
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
 nnoremap / /\v
