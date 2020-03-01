@@ -15,8 +15,9 @@ call plug#begin('~/.vim/plugged')
 "plugins go here
 Plug 'sjl/badwolf'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
