@@ -162,24 +162,14 @@ endif
 
 " plugin configs {{{
 
- " lightline {{{
-
- let g:lightline = {
-             \ 'active': {
-             \   'left': [ [ 'mode', 'paste' ],
-             \             [ 'pwd', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-             \ },
-             \ 'component_function': {
-             \   'gitbranch': 'fugitive#head'
-             \ },
-             \ }
-
- " }}}
+" airline {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" }}}
 
 " ctrlp {{{
 let g:ctrlp_map = '<C-S-p>'
 " }}}
-
 
 " tagbar {{{
 
@@ -188,7 +178,6 @@ let g:tagbar_autoclose = 1
 let g:show_linenumbers = 1
 
 " }}}
-
 
 " ale {{{
 
@@ -218,15 +207,6 @@ let g:show_linenumbers = 1
 let g:jedi#show_call_signatures=2
 
 " }}}
-
-" slimv {{{
-"let g:slimv_repl_split=0
-"let g:slimv_repl_simple_eval=0
-"let g:paredit_mode=0
-"
-"let g:slimv_impl = 'clisp'
-
-"}}}
 
 " vlime {{{
 let g:vlime_cl_use_terminal = 1
@@ -280,8 +260,8 @@ cnoreabbrev E e
 nnoremap <localleader>D :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
-nnoremap <silent> <leader>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <leader>r :exec("set cursorline!")<cr>
+nnoremap <silent> <leader><space>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <leader><space>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
@@ -360,7 +340,6 @@ if has('terminal')
     tnoremap <esc> <C-w>N
 endif
 " }}}
-
 
 " easy editing {{{
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
