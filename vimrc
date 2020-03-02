@@ -93,7 +93,7 @@ set clipboard=unnamed
 set foldmethod=marker
 set foldcolumn=0
 set formatoptions=qrn1j
-set colorcolumn=80
+"set colorcolumn=80
 
 set cursorline
 set showcmd
@@ -332,7 +332,7 @@ nnoremap <silent> <leader><cr> :nohlsearch<cr>
 nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z :exec("echo \"Cleaned Whitespace..\"")<cr>
 
 " Switch CWD to the directory of the open buffer
-nnoremap <localleader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>Cd :cd %:p:h<cr>:pwd<cr>
 
 " Automatically cd into the directory that the file is in
 "autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
@@ -352,6 +352,15 @@ let g:netrw_browse_split=4
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_winsize = 25
+
+
+" terminal mode {{{
+" easily get into terminal normal mode
+if has('terminal')
+    tnoremap <esc> <C-w>N
+endif
+" }}}
+
 
 " easy editing {{{
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
@@ -453,23 +462,23 @@ nnoremap <C-S-Right> <C-w>>
 
 " buffers and tabs {{{
 " tab and buffer management
-nnoremap <localleader>bp :bprevious<cr>
-nnoremap <localleader>bn :bnext<cr>
-nnoremap <localleader>bd :bdelete<cr>
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>bd :bdelete<cr>
 nnoremap <C-left> :bprevios<cr>
 nnoremap <C-right> :bnext<cr>
-nnoremap <localleader>tp :tabprevious<cr>
-nnoremap <localleader>tn :tabnext<cr>
-nnoremap <localleader>tt :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tt :tabnext<cr>
 nnoremap <C-left> :tabprevious<cr>
 nnoremap <C-right> :tabnext<cr>
 
 " Useful mappings for managing tabs
-nnoremap <localleader>tN :tabnew<cr>
-nnoremap <localleader>to :tabonly<cr>
-nnoremap <localleader>tc :tabclose<cr>
-nnoremap <localleader>th :-tabmove<cr>
-nnoremap <localleader>tl :+tabmove<cr>
+nnoremap <leader>tN :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>th :-tabmove<cr>
+nnoremap <leader>tl :+tabmove<cr>
 
 " }}}
 
