@@ -251,7 +251,7 @@ imap <C-Space> <C-X><C-O>
 " custom mappings and stuff {{{
 
 " view all todo in quickfix window                                   
-nnoremap <silent> <localleader>t :exec("vimgrep /todo/j %")<cr>:exec("copen")<cr>
+nnoremap <silent> <leader><space>t :exec("vimgrep /todo/j %")<cr>:exec("copen")<cr>
     
 " vimgrep for word under cursor in current fileand open in quickfix  
 nnoremap <silent> <leader>s :exec("vimgrep /".expand("<cword>")."/j %")<cr>:exec("copen")<cr>
