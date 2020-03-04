@@ -344,6 +344,8 @@ let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_winsize = 25
 
+" highlighting under cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " terminal mode {{{
 " easily get into terminal normal mode
