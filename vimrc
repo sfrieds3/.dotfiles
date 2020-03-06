@@ -43,6 +43,8 @@ colorscheme badwolf
 
 noremap j gj
 noremap k gk
+noremap gj j
+noremap gk k
 
 filetype plugin on
 filetype indent on
