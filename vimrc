@@ -17,11 +17,10 @@ Plug 'sjl/badwolf'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
+Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
@@ -144,32 +143,55 @@ endif
 
 "}}}
 
-" neovim settings {{{
+" statusline {{{
 
-if has('nvim')
-  " neovim commands
-  " show effects of command incrementally
-  set inccommand=split
+set laststatus=2
 
-  " neovim terminal - esc to exit terminal-mode
-  :tnoremap <Esc> <C-\><C-n>
+function! StatusLineBuffNum()
+  let bnum = expand(bufnr('%'))
+  return printf("-%d-", bnum)
+endfunction
 
-  " do not show line numbers in terminal mode
-  augroup termsettings
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber
-  augroup END
-endif
+function! StatusLineFiletype()
+  return winwidth(0) > 160 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLineFormat()
+  return winwidth(0) > 160 ? printf("%s | %s", &ff, &fenc) : ''
+endfunction
+
+function! StatusLineFileName()
+  let fname = '' != expand('%:f') ? expand('%:f') : '[No Name]'
+  return printf("%s", fname)
+endfunction
+
+" format the statusline
+set statusline=
+set statusline+=%{StatusLineBuffNum()}
+set statusline+=\ %{StatusLineFileName()}
+set statusline+=%m
+set statusline+=\ \%{fugitive#statusline()}
+
+" right section
+set statusline+=%=
+" file format
+set statusline+=%{StatusLineFormat()}
+" file type
+set statusline+=\ %{StatusLineFiletype()}
+" line number
+set statusline+=\ [%l:
+" column number
+set statusline+=%c
+ "% of file
+set statusline+=\ %p%%]
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " }}}
 
-" plugin configs {{{
-
-" airline {{{
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_theme='badwolf'
-" }}}
+" plugin config {{{
 
 " ctrlp {{{
 let g:ctrlp_map = '<C-S-p>'
@@ -215,6 +237,17 @@ let g:jedi#show_call_signatures=2
 " vlime {{{
 let g:vlime_cl_use_terminal = 1
 " }}}
+
+
+" syntastic {{{
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" }}}
+
 
 " }}}
 
