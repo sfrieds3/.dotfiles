@@ -149,7 +149,7 @@ set laststatus=2
 
 function! StatusLineBuffNum()
   let bnum = expand(bufnr('%'))
-  return printf("-%d-", bnum)
+  return printf("[%d]", bnum)
 endfunction
 
 function! StatusLineFiletype()
@@ -237,7 +237,6 @@ let g:jedi#show_call_signatures=2
 " vlime {{{
 let g:vlime_cl_use_terminal = 1
 " }}}
-
 
 " syntastic {{{
 
