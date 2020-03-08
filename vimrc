@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
 
 "plugins go here
 Plug 'sjl/badwolf'
+Plug 'scfri/dim.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
@@ -36,6 +37,7 @@ if !exists("g:syntax_on")
   syntax enable
 endif
 
+set t_Co=256
 set termguicolors
 set background=dark
 colorscheme badwolf
