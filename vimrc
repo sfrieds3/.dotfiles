@@ -287,7 +287,7 @@ imap <C-Space> <C-X><C-O>
 " custom mappings and stuff {{{
 
 " view all todo in quickfix window
-nnoremap <silent> <leader><space>t :exec("vimgrep /todo/j %")<cr>:exec("copen")<cr>
+nnoremap <silent> <leader><space>vt :exec("vimgrep /todo/j %")<cr>:exec("copen")<cr>
 
 " vimgrep for word under cursor in current fileand open in quickfix
 nnoremap <silent> <leader>s :exec("vimgrep /".expand("<cword>")."/j %")<cr>:exec("copen")<cr>
@@ -304,7 +304,7 @@ cnoreabbrev B b
 cnoreabbrev E e
 
 " show list of digraphs -- special symbols
-nnoremap <localleader>D :help digraphs<cr>:179<cr>zt
+nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
 nnoremap <silent> <leader><space>c :exec("set cursorcolumn!")<cr>
@@ -361,10 +361,6 @@ nnoremap <silent> <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z :exec("echo \"Clea
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>Cd :cd %:p:h<cr>:pwd<cr>
 
-" Automatically cd into the directory that the file is in
-"autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-"set autochdir
-
 " resize splits when window is resized
 augroup resize
   autocmd!
@@ -391,9 +387,8 @@ endif
 " }}}
 
 " easy editing {{{
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
-nnoremap <silent> <leader>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
-nnoremap <leader><space> :split ~/todo<cr>
+nnoremap <leader><space>ev :vsplit ~/.vimrc<cr>
+nnoremap <silent> <leader><space>es :source ~/.vimrc<cr> :echo "sourced ~/.vimrc"<cr>
 " }}}
 
 " operator mappings {{{
