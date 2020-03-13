@@ -99,7 +99,7 @@ set foldcolumn=0
 set formatoptions=qrn1j
 "set colorcolumn=80
 
-set cursorline
+"set cursorline
 set showcmd
 set autoread
 set nomodeline
@@ -476,10 +476,10 @@ nnoremap <leader>ww <C-w>w
 nmap <leader>w <C-W>
 
 " resize splits
-nnoremap <C-S-Left> <C-w><
-nnoremap <C-S-Up> <C-w>+
-nnoremap <C-S-Down> <C-w>-
-nnoremap <C-S-Right> <C-w>>
+nnoremap <A-h> <C-w><
+nnoremap <A-j> <C-w>-
+nnoremap <A-k> <C-w>+
+nnoremap <A-l> <C-w>>
 
 " }}}
 
