@@ -118,6 +118,7 @@ set showmatch
 set hlsearch
 set nonumber
 set nocompatible
+set novisualbell
 
 " }}}
 
