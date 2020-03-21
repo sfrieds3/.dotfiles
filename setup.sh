@@ -13,7 +13,7 @@ git config --global diff.tool meld
 git config --global difftool.prompt false
 
 # emacs as editor
-git config --global core.editor emacsclient
+git config --global core.editor vim
 
 # directory colors for ls
 LS_COLORS='ow=01;36;40'
