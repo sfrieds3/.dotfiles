@@ -31,26 +31,26 @@ export LS_COLORS
 
 # apt install packages for ubuntu
 sudo apt update
-sudo apt install exuberant-ctags
-sudo apt install leiningen
-sudo apt install postgresql
-sudo apt install tmux
-sudo apt install mysql-server
-sudo apt install libmysqlclient-dev
-sudo apt install rvm
-sudo apt install meld
-sudo apt install gitk
-sudo apt install vim-nox
-sudo apt install libxml2-utils
-sudo apt install dconf-tools
-sudo apt install sbcl
-sudo apt install clisp
-sudo apt install gnome-tweaks
-sudo apt install git
-sudo apt install python3-pip
-sudo apt install virtualenv
-sudo apt install virtualenvwrapper
-sudo apt install libreoffice
+sudo apt install -y exuberant-ctags
+sudo apt install -y leiningen
+sudo apt install -y postgresql
+sudo apt install -y tmux
+sudo apt install -y mysql-server
+sudo apt install -y libmysqlclient-dev
+sudo apt install -y rvm
+sudo apt install -y meld
+sudo apt install -y gitk
+sudo apt install -y vim-nox
+sudo apt install -y libxml2-utils
+sudo apt install -y dconf-tools
+sudo apt install -y sbcl
+sudo apt install -y clisp
+sudo apt install -y gnome-tweaks
+sudo apt install -y git
+sudo apt install -y python3-pip
+sudo apt install -y virtualenv
+sudo apt install -y virtualenvwrapper
+sudo apt install -y libreoffice
 sudo snap install emacs
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
