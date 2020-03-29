@@ -50,7 +50,8 @@ sudo apt install -y git
 sudo apt install -y python3-pip
 sudo apt install -y virtualenv
 sudo apt install -y virtualenvwrapper
-sudo apt install -y libreoffice
+sudo apt install -y curl
+#sudo apt install -y libreoffice
 sudo snap install emacs
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
