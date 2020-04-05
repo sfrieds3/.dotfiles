@@ -103,7 +103,6 @@ set formatoptions=qrn1j
 set showcmd
 set autoread
 set nomodeline
-set visualbell
 set ignorecase
 set smartcase
 set showmatch
