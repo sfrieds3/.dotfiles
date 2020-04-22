@@ -2,29 +2,20 @@
 
 " plugins {{{
 " bootstrap vim plugged
-if has("unix")
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  endif
-endif
 
-call plug#begin('~/.vim/plugged')
+execute pathogen#infect()
 
 "plugins go here
-Plug 'sjl/badwolf'
-Plug 'scfri/dim.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-rails'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'l04m33/vlime', {'rtp': 'vim/'}
-Plug 'vim-syntastic/syntastic'
-
-call plug#end()
+"Plug 'sjl/badwolf'
+"Plug 'scfri/dim.vim'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-rails'
+"Plug 'airblade/vim-gitgutter'
+"Plug 'majutsushi/tagbar'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'l04m33/vlime', {'rtp': 'vim/'}
+"Plug 'vim-syntastic/syntastic'
 
 " }}}
 
