@@ -279,13 +279,13 @@ imap <C-Space> <C-X><C-O>
 " custom mappings and stuff {{{
 
 " view all todo in quickfix window
-nnoremap <silent> <leader><space>vt :exec("vimgrep /todo/j %")<cr>:exec("copen")<cr>
+nnoremap <silent> <leader>vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
-" vimgrep for word under cursor in current fileand open in quickfix
-nnoremap <silent> <leader>s :exec("vimgrep /".expand("<cword>")."/j %")<cr>:exec("copen")<cr>
+" vimgrep for word under cursor in current file and open in quickfix
+nnoremap <silent> gr :exec("lvimgrep /".expand("<cword>")."/j %")<cr>:exec("lopen")<cr>
 
 " vimgrep for word under cursor in current directory open in quickfix
-nnoremap <silent> <leader>S :exec("vimgrep /".expand("<cword>")."/j *")<cr>:exec("copen")<cr>
+nnoremap <silent> gR :exec("vimgrep /".expand("<cword>")."/j **/*")<cr>:exec("copen")<cr>
 
 " various command shortcuts
 cnoreabbrev f find
@@ -299,8 +299,8 @@ cnoreabbrev E e
 nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
-nnoremap <silent> <leader><space>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <leader><space>r :exec("set cursorline!")<cr>
+nnoremap <silent> <leader>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <leader>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
