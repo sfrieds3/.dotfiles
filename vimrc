@@ -278,6 +278,9 @@ imap <C-Space> <C-X><C-O>
 
 " custom mappings and stuff {{{
 
+" echo current file full path
+nnoremap <leader>fp :echo expand("%:p")<cr>
+
 " view all todo in quickfix window
 nnoremap <silent> <leader>vt :exec("lvimgrep /todo/j %")<cr>:exec("lopen")<cr>
 
