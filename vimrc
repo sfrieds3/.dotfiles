@@ -85,6 +85,7 @@ set encoding=utf8
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set showtabline=3
 set clipboard=unnamed
 set foldmethod=marker
 set foldcolumn=0
@@ -171,7 +172,7 @@ set statusline+=%=
 " file format
 set statusline+=%{StatusLineFormat()}
 " file type
-set statusline+=\ %{StatusLineFiletype()}
+set statusline+=\ %<%{StatusLineFiletype()}
 " line number
 set statusline+=\ [%l:
 " column number
