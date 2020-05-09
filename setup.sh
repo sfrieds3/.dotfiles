@@ -75,10 +75,10 @@ mkdir ~/.emacs.d/backups
 mkdir ~/.emacs.d/auto-save-list
 mkdir ~/.emacs.d/savehist
 
-git clone git@github.com:scfri/.dotfiles.git ~/.dotfiles
-git clone git@github.com:scfri/AdventOfCode.git ~/code/AdventOfCode
-git clone git@github.com:scfri/hackn.git ~/code/hackn
-git clone git@github.com:scfri/noteit.git ~/code/noteit
+git clone git@github.com:scwfri/.dotfiles.git ~/.dotfiles
+git clone git@github.com:scwfri/AdventOfCode.git ~/code/AdventOfCode
+git clone git@github.com:scwfri/hackn.git ~/code/hackn
+git clone git@github.com:scwfri/noteit.git ~/code/noteit
 
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
