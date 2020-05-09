@@ -186,7 +186,6 @@ set statusline+=%*
 
 " }}}
 
-
 " tabline {{{
 
 function MyTabLabel(n)
@@ -225,7 +224,6 @@ endfunction
 
 set tabline=%!MyTabLine()
 " }}}
-
 
 " plugin config {{{
 
