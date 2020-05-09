@@ -239,30 +239,6 @@ let g:show_linenumbers = 1
 
 " }}}
 
-" ale {{{
-
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_enter = 0
-"
-"nnoremap <space>n :lnext<CR>
-"nnoremap <space>p :lprevious<CR>
-"nnoremap <space>r :lrewind<CR>
-"
-"" and use a simpler warning
-"let g:ale_sign_warning = '∘'
-"" set erorr sign
-"let g:ale_sign_error = '●'
-"
-"" update error msg
-"let g:ale_echo_msg_error_str = 'E'
-"let g:ale_echo_msg_warning_str = 'W'
-"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"
-"" ignore annoying erorrs
-"let g:ale_python_flake8_options = '--ignore=E501'
-
-" }}}
-
 " jedi {{{
 let g:jedi#show_call_signatures=2
 
@@ -280,7 +256,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " }}}
-
 
 " }}}
 
