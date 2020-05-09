@@ -607,11 +607,11 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 function! ToggleVerbose()
   if !&verbose
-      set verbosefile=~/.vim/log/verbose.log
-      set verbose=15
+    set verbosefile=~/.vim/log/verbose.log
+    set verbose=15
   else
-      set verbose=0
-      set verbosefile=
+    set verbose=0
+    set verbosefile=
   endif
 endfunction
 
