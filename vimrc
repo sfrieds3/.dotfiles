@@ -188,13 +188,13 @@ set statusline+=%*
 
 " tabline {{{
 
-function MyTabLabel(n)
+function! MyTabLabel(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n) 
   return bufname(buflist[winnr - 1])
 endfunction
 
-function MyTabLine()
+function! MyTabLine()
   let s = ''
   for i in range(tabpagenr('$'))
     " select the highlighting
@@ -317,8 +317,8 @@ cnoreabbrev E e
 nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
 
 " toggle line and column markers
-nnoremap <silent> <leader>c :exec("set cursorcolumn!")<cr>
-nnoremap <silent> <leader>r :exec("set cursorline!")<cr>
+nnoremap <silent> <localleader>c :exec("set cursorcolumn!")<cr>
+nnoremap <silent> <localleader>r :exec("set cursorline!")<cr>
 
 " upper case last word using ctrl+u
 inoremap <C-u> <esc>mzgUiw`za
