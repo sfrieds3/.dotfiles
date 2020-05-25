@@ -32,7 +32,7 @@ endif
 set t_Co=256
 set termguicolors
 set background=dark
-colorscheme badwolf
+colorscheme codedark
 
 "noremap j gj
 "noremap k gk
