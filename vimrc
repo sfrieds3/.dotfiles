@@ -289,6 +289,20 @@ iabbrev </ </<C-X><C-O>
 imap <C-Space> <C-X><C-O>
 " }}}
 
+" markdown {{{
+
+" some versions of vim think .md means modula2 source code..
+" thats not right, so fix it here
+" this really should go in ~/.vim/ftdetect/markdown.vim
+" but I'm too lazy
+augroup markdown
+  autocmd!
+  autocmd BufNewFile,BufRead *.md set filetype=markdown
+augroup END
+
+" }}}
+
+
 " }}}
 
 " custom mappings and stuff {{{
