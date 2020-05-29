@@ -257,6 +257,15 @@ let g:syntastic_check_on_wq = 0
 
 " }}}
 
+" codedark {{{
+
+" customizations for codedark colorscheme
+highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
+highlight Search term=reverse ctermbg=24 cterm=undercurl
+highlight Todo ctermbg=226 ctermfg=52
+
+" }}}
+
 " }}}
 
 " general language settings {{{
