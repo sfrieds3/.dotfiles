@@ -9,7 +9,8 @@
 (eval-when-compile
   (add-to-list 'load-path (expand-file-name "elpa" user-emacs-directory))
   (add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
-  (let ((default-directory  "~/.emacs.d/lisp/"))
+(let ((default-directory  "~/.emacs.d/lisp/"))
+  (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/vscode-dark-emacs-theme/")
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/vscode-dark-plus-emacs-theme/"))
@@ -35,6 +36,9 @@
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
   (when (file-exists-p home-settings)
     (load-file home-settings)))
+
+;; byte recompile everything
+(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0)
 
 ;; ////////////////////////////////////////////////////////////
 
@@ -259,33 +263,32 @@ vi style of % jumping to matching brace."
               (kbd "C-d")     'evil-scroll-down
               (kbd "C-u")     'evil-scroll-up
               (kbd "C-w C-w") 'other-window)))
-(with-eval-after-load 'evil
-  (defalias #'forward-evil-word #'forward-evil-symbol)
-  ;; make evil-search-word look for symbol rather than word boundaries
-  (setq-default evil-symbol-word-search t)
-  ;; Make horizontal movement cross lines
-  (setq-default evil-cross-lines t)
+(eval-after-load 'evil
   (progn
-    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
-    (define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
-    (define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
-    (define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)))
-
+    (defalias #'forward-evil-word #'forward-evil-symbol)
+    ;; make evil-search-word look for symbol rather than word boundaries
+    (setq-default evil-symbol-word-search t)
+    ;; Make horizontal movement cross lines
+    (setq-default evil-cross-lines t)))
+    ;;(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    ;;(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    ;;(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    ;;(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    ;;(define-key evil-normal-state-map (kbd "M-h") 'evil-window-left)
+    ;;(define-key evil-normal-state-map (kbd "M-j") 'evil-window-down)
+    ;;(define-key evil-normal-state-map (kbd "M-k") 'evil-window-up)
+    ;;(define-key evil-normal-state-map (kbd "M-l") 'evil-window-right)))
 
 ;; evil leader
 (require 'evil-leader)
 (global-evil-leader-mode 1)
-(with-eval-after-load 'evil-leader-mode
-(progn
-  (evil-leader/set-leader ",")
-  (evil-leader/set-key "," 'other-window)
-  (evil-leader/set-key "W" 'delete-trailing-whitespace)
-  (evil-leader/set-key "RET" 'lazy-highlight-cleanup)
-  (evil-leader/set-key "h" 'dired-jump)))
+(eval-after-load 'evil-leader-mode
+  (progn
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key "," 'other-window)
+    (evil-leader/set-key "W" 'delete-trailing-whitespace)
+    (evil-leader/set-key "RET" 'lazy-highlight-cleanup)
+    (evil-leader/set-key "h" 'dired-jump)))
 
 ;; ////////////////////////////////////////////////////////////
 
