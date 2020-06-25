@@ -163,16 +163,17 @@ endfunction
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
-set statusline+=\ %{StatusLineFileName()}
+set statusline+=\ %<%{StatusLineFileName()}
 set statusline+=%m
 set statusline+=\ \%{fugitive#statusline()}
+set statusline+=\ %{tagbar#currenttag('[%s]','')}
 
 " right section
 set statusline+=%=
 " file format
-set statusline+=%{StatusLineFormat()}
+set statusline+=\%{StatusLineFormat()}
 " file type
-set statusline+=\ %<%{StatusLineFiletype()}
+set statusline+=\ %{StatusLineFiletype()}
 " line number
 set statusline+=\ [%l:
 " column number
@@ -188,41 +189,45 @@ set statusline+=%*
 
 " tabline {{{
 
-function! MyTabLabel(n)
-  let buflist = tabpagebuflist(a:n)
-  let winnr = tabpagewinnr(a:n) 
-  return bufname(buflist[winnr - 1])
-endfunction
+"set tabline=
+"set tabline+=%{fugitive#statusline()}
+"set tabline+=%{tagbar#currenttag('[%s]','')}
 
-function! MyTabLine()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    " select the highlighting
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T'
-
-    " the label is made by MyTabLabel()
-    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-  endfor
-
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
-
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#%999Xclose'
-  endif
-
-  return s
-endfunction
-
-set tabline=%!MyTabLine()
+"function! MyTabLabel(n)
+"  let buflist = tabpagebuflist(a:n)
+"  let winnr = tabpagewinnr(a:n)
+"  return bufname(buflist[winnr - 1])
+"endfunction
+"
+"function! MyTabLine()
+"  let s = ''
+"  for i in range(tabpagenr('$'))
+"    " select the highlighting
+"    if i + 1 == tabpagenr()
+"      let s .= '%#TabLineSel#'
+"    else
+"      let s .= '%#TabLine#'
+"    endif
+"
+"    " set the tab page number (for mouse clicks)
+"    let s .= '%' . (i + 1) . 'T'
+"
+"    " the label is made by MyTabLabel()
+"    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+"  endfor
+"
+"  " after the last tab fill with TabLineFill and reset tab page nr
+"  let s .= '%#TabLineFill#%T'
+"
+"  " right-align the label to close the current tab page
+"  if tabpagenr('$') > 1
+"    let s .= '%=%#TabLine#%999Xclose'
+"  endif
+"
+"  return s
+"endfunction
+"
+"set tabline=%!MyTabLine()
 " }}}
 
 " plugin config {{{
@@ -311,6 +316,13 @@ augroup END
 
 " }}}
 
+" perl {{{
+augroup perl
+  autocmd!
+  " do not include ':' as part of word
+  autocmd FileType perl set iskeyword-=:
+augroup END
+" }}}
 
 " }}}
 
@@ -336,7 +348,7 @@ cnoreabbrev Q q
 cnoreabbrev B b
 cnoreabbrev E e
 
-" center when moving to function
+" auto center when going to prev/next function definition
 nnoremap [[ [[zz
 nnoremap ]] ]]zz
 
