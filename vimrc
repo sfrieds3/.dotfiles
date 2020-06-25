@@ -336,6 +336,10 @@ cnoreabbrev Q q
 cnoreabbrev B b
 cnoreabbrev E e
 
+" center when moving to function
+nnoremap [[ [[zz
+nnoremap ]] ]]zz
+
 " show list of digraphs -- special symbols
 nnoremap <leader>vd :help digraphs<cr>:179<cr>zt
 
@@ -359,7 +363,7 @@ vnoremap <C-Down> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " tagbar
-nnoremap <silent> <localleader><localleader> :exec("Tagbar")<cr>
+nnoremap <silent> <localleader><localleader> :exec("TagbarOpen('j')")<cr>
 
 " use sane regex (source: https://bitbucket.org/sjl/dotfiles/src/default/vim/vimrc)
 nnoremap / /\v
