@@ -54,10 +54,6 @@ set completeopt=longest,menuone
 
 set path=,,
 
-if has('path_extra')
-  setglobal tags-=./tags tags-=./tags; tags^=./tags;
-endif
-
 " do not close hidden buffers
 set hidden
 
@@ -163,7 +159,7 @@ endfunction
 " format the statusline
 set statusline=
 set statusline+=%{StatusLineBuffNum()}
-set statusline+=\ %<%{StatusLineFileName()}
+set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
 set statusline+=\ \%{fugitive#statusline()}
 set statusline+=\ %{tagbar#currenttag('[%s]','')}
