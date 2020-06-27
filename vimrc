@@ -25,11 +25,6 @@ set termguicolors
 set background=dark
 colorscheme codedark
 
-"noremap j gj
-"noremap k gk
-"noremap gj j
-"noremap gk k
-
 filetype plugin on
 filetype indent on
 
@@ -219,8 +214,15 @@ set statusline+=%*
 
 " plugin config {{{
 
-" ctrlp {{{
-let g:ctrlp_map = '<C-S-p>'
+" signify {{{
+highlight SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE gui=NONE
+highlight SignifySignDelete ctermfg=red    guifg=#ff0000 cterm=NONE gui=NONE
+highlight SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE gui=NONE
+
+" include bg highlights
+"highlight SignifySignAdd    ctermfg=black ctermbg=green  guifg=#000000 guibg=#00ff00
+"highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+"highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
 " }}}
 
 " tagbar {{{
