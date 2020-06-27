@@ -1,21 +1,12 @@
 " vim settings {{{
 
 " plugins {{{
-" bootstrap vim plugged
 
-execute pathogen#infect()
-
-"plugins go here
-"Plug 'sjl/badwolf'
-"Plug 'scfri/dim.vim'
-"Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-surround'
-"Plug 'tpope/vim-rails'
-"Plug 'airblade/vim-gitgutter'
-"Plug 'majutsushi/tagbar'
-"Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'l04m33/vlime', {'rtp': 'vim/'}
-"Plug 'vim-syntastic/syntastic'
+if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
+  " pathogen
+  execute pathogen#infect()
+  execute pathogen#helptags()
+endif
 
 " }}}
 
