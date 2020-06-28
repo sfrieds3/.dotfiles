@@ -274,8 +274,6 @@ augroup lang
   autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
   autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
 
-  "autopep8 on gq
-  autocmd FileType python setlocal formatprg=autopep8\ -
 augroup END
 
 " python {{{
@@ -283,6 +281,11 @@ augroup python
   autocmd!
   " open quickfix with list of functions
   nnoremap <silent> <localleader>f :exec("vimgrep /def /j %")<cr> :exec("copen")<cr>
+
+  if executable('autopep8')
+    "autopep8 on gq, if available
+    autocmd FileType python setlocal formatprg=autopep8\ -
+  endif
 augroup END
 " }}}
 
@@ -305,11 +308,23 @@ augroup END
 " }}}
 
 " perl {{{
+
 augroup perl
   autocmd!
   " do not include ':' as part of word
   autocmd FileType perl set iskeyword-=:
+
+  " if perltidy available, use that for formatting
+  if executable('perltidy')
+    autocmd FileType perl setlocal equalprg=perltidy\ -st
+  endif
 augroup END
+
+" settings for vim-perl
+let perl_include_pod = 1
+let perl_no_scope_in_variables = 0
+let perl_no_extended_vars = 0
+
 " }}}
 
 " }}}
