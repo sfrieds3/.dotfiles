@@ -147,7 +147,7 @@ set statusline=
 set statusline+=%{StatusLineBuffNum()}
 set statusline+=\ %{StatusLineFileName()}
 set statusline+=%m
-set statusline+=\ \%{fugitive#statusline()}
+"set statusline+=\ \%{fugitive#statusline()}
 set statusline+=\ %{tagbar#currenttag('[%s]','')}
 
 " right section
@@ -171,45 +171,40 @@ set statusline+=%*
 
 " tabline {{{
 
-"set tabline=
-"set tabline+=%{fugitive#statusline()}
-"set tabline+=%{tagbar#currenttag('[%s]','')}
+" a lot of this taken from https://github.com/mkitt/tabline.vim
+" with a few slight tweaks
+function! Tabline()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let tab = i + 1
+    let winnr = tabpagewinnr(tab)
+    let buflist = tabpagebuflist(tab)
+    let bufnr = buflist[winnr - 1]
+    let bufname = bufname(bufnr)
+    let bufmodified = getbufvar(bufnr, "&mod")
+    let gstatus = expand(fugitive#statusline())
+    let ostatus = expand(ObsessionStatus())
 
-"function! MyTabLabel(n)
-"  let buflist = tabpagebuflist(a:n)
-"  let winnr = tabpagewinnr(a:n)
-"  return bufname(buflist[winnr - 1])
-"endfunction
-"
-"function! MyTabLine()
-"  let s = ''
-"  for i in range(tabpagenr('$'))
-"    " select the highlighting
-"    if i + 1 == tabpagenr()
-"      let s .= '%#TabLineSel#'
-"    else
-"      let s .= '%#TabLine#'
-"    endif
-"
-"    " set the tab page number (for mouse clicks)
-"    let s .= '%' . (i + 1) . 'T'
-"
-"    " the label is made by MyTabLabel()
-"    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-"  endfor
-"
-"  " after the last tab fill with TabLineFill and reset tab page nr
-"  let s .= '%#TabLineFill#%T'
-"
-"  " right-align the label to close the current tab page
-"  if tabpagenr('$') > 1
-"    let s .= '%=%#TabLine#%999Xclose'
-"  endif
-"
-"  return s
-"endfunction
-"
-"set tabline=%!MyTabLine()
+    let s .= '%' . tab . 'T'
+    let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+    let s .= ' ' . tab .':'
+    let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . ']' : '[No Name]')
+    let s .= (tab == tabpagenr() ? printf('%s%s', gstatus, ostatus) : '')
+
+    if bufmodified
+      let s .= '[+] '
+    endif
+  endfor
+
+  let s .= '%#TabLineFill#'
+  if (exists("g:tablineclosebutton"))
+    let s .= '%=%999XX'
+  endif
+  return s
+endfunction
+
+set tabline=%!Tabline()
+
 " }}}
 
 " plugin config {{{
@@ -258,6 +253,10 @@ highlight IncSearch term=reverse ctermbg=24 cterm=undercurl
 highlight Search term=reverse ctermbg=24 cterm=undercurl
 highlight Todo ctermbg=226 ctermfg=52
 
+" }}}
+
+" obsession {{{
+nnoremap <leader>O :Obsession<cr>
 " }}}
 
 " }}}

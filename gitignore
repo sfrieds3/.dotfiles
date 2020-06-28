@@ -20,6 +20,9 @@
 **/Tags
 **/tags
 
+# vim session files
+*.vim
+
 # Python #
 ######################
  Byte-compiled / optimized / DLL files
