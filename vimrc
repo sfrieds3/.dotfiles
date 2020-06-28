@@ -2,11 +2,47 @@
 
 " plugins {{{
 
+" use pathogen if available
 if filereadable(glob('$HOME/.vim/autoload/pathogen.vim'))
-  " pathogen
   execute pathogen#infect()
   execute pathogen#helptags()
 endif
+
+" }}}
+
+" basic settings {{{
+set nocompatible
+set showcmd
+set autoread
+set nomodeline
+set ignorecase
+set smartcase
+set showmatch
+set splitbelow
+set splitright
+set autoindent
+set expandtab
+set smarttab
+set wrap
+set incsearch
+set showmatch
+set hlsearch
+set nonumber
+set novisualbell
+set magic
+
+set laststatus=2
+set backspace=2
+set matchtime=3
+set encoding=utf8
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set showtabline=3
+set clipboard=unnamed
+set foldmethod=marker
+set foldcolumn=0
+set formatoptions=qrn1j
 
 " }}}
 
@@ -56,43 +92,6 @@ set ttimeoutlen=10
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
-
-" }}}
-
-" basic settings {{{
-set laststatus=2
-set backspace=2
-set matchtime=3
-set encoding=utf8
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set showtabline=3
-set clipboard=unnamed
-set foldmethod=marker
-set foldcolumn=0
-set formatoptions=qrn1j
-"set colorcolumn=80
-
-"set cursorline
-set showcmd
-set autoread
-set nomodeline
-set ignorecase
-set smartcase
-set showmatch
-set splitbelow
-set splitright
-set autoindent
-set expandtab
-set smarttab
-set wrap
-set incsearch
-set showmatch
-set hlsearch
-set nonumber
-set nocompatible
-set novisualbell
 
 " }}}
 
