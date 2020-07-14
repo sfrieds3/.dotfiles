@@ -75,12 +75,12 @@ mkdir ~/.emacs.d/backups
 mkdir ~/.emacs.d/auto-save-list
 mkdir ~/.emacs.d/savehist
 
-git clone git@github.com:scwfri/.dotfiles.git ~/.dotfiles
+#git clone git@github.com:scwfri/.dotfiles.git ~/.dotfiles
 git clone git@github.com:scwfri/AdventOfCode.git ~/code/AdventOfCode
 git clone git@github.com:scwfri/hackn.git ~/code/hackn
 git clone git@github.com:scwfri/noteit.git ~/code/noteit
 
-ln -sf ~/.dotfiles/vimrc ~/.vimrc
+#ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
 ln -sf ~/.dotfiles/init.el ~/.emacs.d/init.el
 ln -sf ~/.dotfiles/bashrc ~/.bashrc
@@ -88,3 +88,5 @@ ln -sf ~/.dotfiles/bash_aliases ~/.bash_aliases
 ln -sf ~/.dotfiles/gitattributes ~/.gitattributes
 ln -sf ~/.dotfiles/inputrc ~/.inputrc
 ln -sf ~/.dotfiles/home.el ~/.emacs.d/home.el
+
+source ~/.bashrc
