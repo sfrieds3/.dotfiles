@@ -9,7 +9,8 @@ git config --global color.status.nobranch "red bold ul"
 git config --global color.diff.old "yellow reverse dim"
 
 # add difftool
-git config --global diff.tool meld
+git config --global diff.guitool meld
+git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 
 # emacs as editor
