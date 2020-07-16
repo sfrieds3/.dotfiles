@@ -10,8 +10,9 @@ alias l='ls -CF'
 alias open='xdg-open'
 
 # neovim
-#alias vim='nvim'
-#alias vi='nvim'
+alias nvim='~/vimconfig/nvim'
+alias vim='nvim'
+alias vi='nvim'
 
 # alias for sudo
 # to check for aliases after sudo
