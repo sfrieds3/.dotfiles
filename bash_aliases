@@ -11,8 +11,8 @@ alias open='xdg-open'
 
 # neovim
 alias nvim='~/vimconfig/nvim'
-alias vim='nvim'
-alias vi='nvim'
+alias vim='~/vimconfig/nvim'
+alias vi='~/vimconfig/nvim'
 
 # alias for sudo
 # to check for aliases after sudo
