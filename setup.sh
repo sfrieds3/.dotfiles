@@ -65,32 +65,33 @@ sudo snap install datagrip --classsic
 python3 -m pip install pip
 
 # virtualenv
-source ~/.bashrc
-pip3 install --user virtualenvwrapper
-mkdir $WORKON_HOME
-mkvirtualenv -p python3 venv
-workon venv && pip3 install 'python-language-server[all]'
+#source ~/.bashrc
+#pip3 install --user virtualenvwrapper
+#mkdir $WORKON_HOME
+#mkvirtualenv -p python3 venv
+#workon venv && pip3 install 'python-language-server[all]'
 
 # link all the things, download all the git
-mkdir ~/.emacs.d
-mkdir ~/code
-mkdir ~/code/forked
-mkdir ~/.emacs.d/backups
-mkdir ~/.emacs.d/auto-save-list
-mkdir ~/.emacs.d/savehist
+#mkdir ~/.emacs.d
+#mkdir ~/code
+#mkdir ~/code/forked
+#mkdir ~/.emacs.d/backups
+#mkdir ~/.emacs.d/auto-save-list
+#mkdir ~/.emacs.d/savehist
 
 #git clone git@github.com:scwfri/.dotfiles.git ~/.dotfiles
 git clone git@github.com:scwfri/AdventOfCode.git ~/code/AdventOfCode
 git clone git@github.com:scwfri/hackn.git ~/code/hackn
 git clone git@github.com:scwfri/noteit.git ~/code/noteit
 
+# TODO: only do this stuff if not already linked
 #ln -sf ~/.dotfiles/vimrc ~/.vimrc
-ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
-ln -sf ~/.dotfiles/init.el ~/.emacs.d/init.el
-ln -sf ~/.dotfiles/bashrc ~/.bashrc
-ln -sf ~/.dotfiles/bash_aliases ~/.bash_aliases
-ln -sf ~/.dotfiles/gitattributes ~/.gitattributes
-ln -sf ~/.dotfiles/inputrc ~/.inputrc
-ln -sf ~/.dotfiles/home.el ~/.emacs.d/home.el
+#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
+#ln -sf ~/.dotfiles/init.el ~/.emacs.d/init.el
+#ln -sf ~/.dotfiles/bashrc ~/.bashrc
+#ln -sf ~/.dotfiles/bash_aliases ~/.bash_aliases
+#ln -sf ~/.dotfiles/gitattributes ~/.gitattributes
+#ln -sf ~/.dotfiles/inputrc ~/.inputrc
+#ln -sf ~/.dotfiles/home.el ~/.emacs.d/home.el
 
 source ~/.bashrc

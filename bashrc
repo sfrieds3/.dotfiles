@@ -170,11 +170,11 @@ export PS1="\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[3
 
 # pip completion for bash
 #pip3 completion --bash
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source ~/.local/bin/virtualenvwrapper.sh
-export WORKON_HOME=~/.virtualenvs
-export WORKON_HOME=$WORKON_HOME
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
+#export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+#source ~/.local/bin/virtualenvwrapper.sh
+#export WORKON_HOME=~/.virtualenvs
+#export WORKON_HOME=$WORKON_HOME
+#export PIP_VIRTUALENV_BASE=$WORKON_HOME
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
