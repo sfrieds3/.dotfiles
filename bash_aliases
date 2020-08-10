@@ -1,5 +1,5 @@
 # python alias
-alias python='python3'
+#alias python='python3'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -11,8 +11,8 @@ alias open='xdg-open'
 
 # neovim
 alias nvim='~/vimconfig/nvim'
-alias vim='~/vimconfig/nvim'
-alias vi='~/vimconfig/nvim'
+#alias vim='~/vimconfig/nvim'
+#alias vi='~/vimconfig/nvim'
 
 # alias for sudo
 # to check for aliases after sudo
