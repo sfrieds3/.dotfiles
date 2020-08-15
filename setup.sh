@@ -34,10 +34,10 @@ export LS_COLORS
 sudo apt update
 sudo apt install -y exuberant-ctags
 sudo apt install -y leiningen
-sudo apt install -y postgresql
+#sudo apt install -y postgresql
 sudo apt install -y tmux
-sudo apt install -y mysql-server
-sudo apt install -y libmysqlclient-dev
+#sudo apt install -y mysql-server
+#sudo apt install -y libmysqlclient-dev
 sudo apt install -y rvm
 sudo apt install -y meld
 sudo apt install -y kdiff3
@@ -49,15 +49,15 @@ sudo apt install -y sbcl
 sudo apt install -y clisp
 sudo apt install -y gnome-tweaks
 sudo apt install -y git
-sudo apt install -y python3-pip
-sudo apt install -y virtualenv
-sudo apt install -y virtualenvwrapper
+#sudo apt install -y python3-pip
+#sudo apt install -y virtualenv
+#sudo apt install -y virtualenvwrapper
 sudo apt install -y curl
 sudo apt install -y cmake
 # neovim make dependencies
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+#sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 #sudo apt install -y libreoffice
-sudo snap install emacs
+#sudo snap install emacs
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
 
@@ -94,4 +94,4 @@ git clone git@github.com:scwfri/noteit.git ~/code/noteit
 #ln -sf ~/.dotfiles/inputrc ~/.inputrc
 #ln -sf ~/.dotfiles/home.el ~/.emacs.d/home.el
 
-source ~/.bashrc
+#source ~/.bashrc

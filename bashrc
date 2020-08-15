@@ -111,11 +111,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# nvim as editor
-export EDITOR=nvim
-
 # VcXsrv for emacs on WSL
-export DISPLAY=$( awk '/nameserver/ { print $2 }' /etc/resolv.conf ):0
+#export DISPLAY=$( awk '/nameserver/ { print $2 }' /etc/resolv.conf ):0
 
 # update bash prompt
 # get current branch in git repo
