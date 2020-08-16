@@ -42,7 +42,8 @@ sudo apt install -y rvm
 sudo apt install -y meld
 sudo apt install -y kdiff3
 sudo apt install -y gitk
-sudo apt install -y vim-nox
+#sudo apt install -y vim-nox
+sudo apt build-dep vim
 sudo apt install -y libxml2-utils
 sudo apt install -y dconf-tools
 sudo apt install -y sbcl
@@ -83,6 +84,7 @@ python3 -m pip install pip
 git clone git@github.com:scwfri/AdventOfCode.git ~/code/AdventOfCode
 git clone git@github.com:scwfri/hackn.git ~/code/hackn
 git clone git@github.com:scwfri/noteit.git ~/code/noteit
+git clone git@github.com:scwfri/vim.git ~/code/vim
 
 # TODO: only do this stuff if not already linked
 #ln -sf ~/.dotfiles/vimrc ~/.vimrc
