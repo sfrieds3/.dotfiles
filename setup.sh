@@ -55,9 +55,10 @@ sudo apt install -y git
 #sudo apt install -y virtualenvwrapper
 sudo apt install -y curl
 sudo apt install -y cmake
+sudo apt install -y fonts-font-awesome
 # neovim make dependencies
 #sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-#sudo apt install -y libreoffice
+sudo apt install -y libreoffice
 #sudo snap install emacs
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
