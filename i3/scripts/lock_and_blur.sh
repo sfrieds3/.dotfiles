@@ -5,6 +5,8 @@
 icon="$HOME/images/lock-icon-light.png"
 tmpbg='/tmp/screen.png'
 
+rm $tmpbg
+
 # take a screenshot
 scrot "$tmpbg"
 
