@@ -22,4 +22,7 @@ sudo apt install -y light # TODO: this may not work?
 sudo apt install -y playerctl
 sudo apt install -y arandr
 sudo apt install -y fonts-font-awesome
+sudo apt install -y rofi
+sudo apt install -y compton
+sudo apt install -y i3blocks
 
