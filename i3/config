@@ -227,7 +227,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-exec gnome-terminal
-exec firefox
-exec spotify
+exec --no-startup-id gnome-terminal
+exec --no-startup-id firefox
+exec --no-startup-id spotify
 for_window [class="Spotify"] move to workspace $ws10
