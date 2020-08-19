@@ -152,7 +152,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # xprop
 assign [class="Terminal"] $ws1
 assign [class="Firefox"] $ws2
-assign [class="Slack"] $ws3
+assign [class="Slack"] $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
