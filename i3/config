@@ -124,6 +124,7 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9: Slack "
 set $ws10 "10:Spotify "
+for_window [class="Gnome-calculator"] floating enable
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -153,6 +154,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 assign [class="Terminal"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Slack"] $ws9
+for_window [class="Gnome-calculator"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
