@@ -23,6 +23,8 @@ sudo apt install -y arandr
 sudo apt install -y fonts-font-awesome
 sudo apt install -y i3blocks
 sudo apt install -y brightnessctl
+sudo apt install -y rofi
+sudo apt install -y compton
 
 # configure light for backlight stuff
 echo "installing light: \

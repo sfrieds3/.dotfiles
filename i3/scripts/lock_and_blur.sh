@@ -11,7 +11,7 @@ rm $tmpbg
 scrot "$tmpbg"
 
 # blur the screenshot by resizing and scaling back up
-convert "$tmpbg" -filter Gaussian -thumbnail 10% -sample 1000% "$tmpbg"
+convert "$tmpbg" -filter Gaussian -thumbnail 5% -sample 2000% "$tmpbg"
 
 # overlay the icon onto the screenshot
 convert "$tmpbg" "$icon" -gravity center -composite "$tmpbg"
