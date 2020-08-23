@@ -25,6 +25,7 @@ sudo apt install -y i3blocks
 sudo apt install -y brightnessctl
 sudo apt install -y rofi
 sudo apt install -y compton
+sudo apt install -y feh
 
 # configure light for backlight stuff
 echo "installing light: \
