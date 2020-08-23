@@ -36,6 +36,7 @@ sudo apt install -y exuberant-ctags
 sudo apt install -y leiningen
 #sudo apt install -y postgresql
 sudo apt install -y tmux
+sudo apt install -y htop
 #sudo apt install -y mysql-server
 #sudo apt install -y libmysqlclient-dev
 sudo apt install -y rvm
