@@ -43,7 +43,8 @@ sudo apt install -y rvm
 sudo apt install -y meld
 sudo apt install -y kdiff3
 sudo apt install -y gitk
-#sudo apt install -y vim-nox
+sudo apt install -y rawtherapee
+sudo apt install -y vim-nox
 sudo apt build-dep vim
 sudo apt install -y libxml2-utils
 sudo apt install -y dconf-tools
