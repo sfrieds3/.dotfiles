@@ -222,6 +222,22 @@ bar {
 }
 hide_edge_borders both
 
+# suspend
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+Escape mode "$mode_system"
+
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
@@ -235,6 +251,6 @@ bindsym XF86AudioPrev exec playerctl previous
 exec --no-startup-id gnome-terminal
 exec --no-startup-id firefox
 exec --no-startup-id spotify
-exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper/cross.jpg
+exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper/ClemsonPaw.jpg
 exec_always --no-startup-id compton
 for_window [class="Spotify"] move to workspace $ws10

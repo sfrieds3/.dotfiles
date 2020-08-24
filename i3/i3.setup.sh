@@ -1,7 +1,7 @@
 #/bin/bash
 
 DATETIME="`date +%Y%m%d%H%M%S`"
-CONFIGDIR=$HOME/.CONFIG/i3
+CONFIGDIR=$HOME/.config/i3
 
 # see if we already have i3 config dir.. if we do, back it up
 if [ -d "$CONFIGDIR" ]; then
@@ -11,7 +11,7 @@ fi
 
 # link all the things
 echo "linking i3 config folder: ln -s $HOME/.dotfiles/i3/ $HOME/.config/i3/"
-ln -s $HOME/.dotfiles/i3/ $HOME/.config/i3/
+ln -s $HOME/.dotfiles/i3/ $HOME/.config/i3
 
 # get our required packages
 sudo apt update
@@ -26,6 +26,7 @@ sudo apt install -y brightnessctl
 sudo apt install -y rofi
 sudo apt install -y compton
 sudo apt install -y feh
+sudo apt install -y i3lock
 
 # configure light for backlight stuff
 echo "installing light: \
@@ -36,10 +37,10 @@ cd ~/.light \
 sudo make install"
 
 git clone https://github.com/haikarainen/light.git ~/.light \
-cd ~/.light \
-./autogen.sh \
-./configure && make \
-sudo make install
+&& cd ~/.light \
+&& ./autogen.sh \
+&& ./configure && make \
+&& sudo make install
 
 echo "Adding $USER to video group"
 sudo usermod -a -G video $USER
