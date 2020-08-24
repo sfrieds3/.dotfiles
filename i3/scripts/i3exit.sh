@@ -1,5 +1,6 @@
 #!/bin/sh
 lock() {
+    #~/.config/i3/scripts/lock_and_blur.sh
     i3lock
 }
 
