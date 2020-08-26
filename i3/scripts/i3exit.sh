@@ -1,7 +1,7 @@
 #!/bin/sh
 lock() {
     #~/.config/i3/scripts/lock_and_blur.sh
-    i3lock -i ~/.config/i3/wallpaper/guitar.png
+    i3lock -i ~/.config/i3/wallpaper/southwest_harbor_3200_1800.png
 }
 
 case "$1" in
