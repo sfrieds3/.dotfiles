@@ -1,7 +1,20 @@
 #!/bin/sh
 lock() {
+    HOSTNAME=$(uname -n)
     #~/.config/i3/scripts/lock_and_blur.sh
-    i3lock -i ~/.config/i3/wallpaper/southwest_harbor_3200_1800.png
+    wallpaperdir='$HOME/.config/i3/wallpaper'
+    case $HOSTNAME in
+        mixolydian) wallpaper=southwest_harbor_3200_1800.png
+            ;;
+        phrygian) wallpaper=southwest_harbor_3840_2160.png
+            ;;
+        *) wallpaper=southwest_harbor.png
+            ;;
+    esac
+    lockbg=$wallpaperdir/$wallpaper
+    i3lock -i "${lockbg}"
+    #echo $WALLPAPERDIR/$WALLPAPER
+    echo $lockbg
 }
 
 case "$1" in
