@@ -1,0 +1,44 @@
+/* Global properties section */
+* {
+    background-color:      #262626;
+    text-color:            #bcbcbc;
+    border-color:          #1c1c1c;
+font:            "System San Francisco Display 20";
+}
+
+/* Element theme section */
+window {
+anchor:     north;
+location:   north;
+width:      100%;
+padding:    4px;
+children:   [ horibox ];
+}
+
+horibox {
+orientation: horizontal;
+children:   [ prompt, entry, listview ];
+}
+
+listview {
+layout:     horizontal;
+spacing:    5px;
+lines:      10;
+}
+
+entry {
+expand:     false;
+width:      10em;
+}
+
+element {
+padding: 0px 2px;
+}
+
+element selected {
+    background-color: #585858;
+}
+
+prompt {
+    enabled: false;
+}

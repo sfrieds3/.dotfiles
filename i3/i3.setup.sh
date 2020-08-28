@@ -24,7 +24,6 @@ sudo apt install -y fonts-font-awesome
 sudo apt install -y i3blocks
 sudo apt install -y brightnessctl
 sudo apt install -y rofi
-sudo apt install -y compton
 sudo apt install -y feh
 sudo apt install -y i3lock
 
