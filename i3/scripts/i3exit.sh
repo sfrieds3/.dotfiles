@@ -2,7 +2,7 @@
 lock() {
     HOSTNAME=$(uname -n)
     #~/.config/i3/scripts/lock_and_blur.sh
-    wallpaperdir='$HOME/.config/i3/wallpaper'
+    wallpaperdir="${HOME}/.config/i3/wallpaper"
     case $HOSTNAME in
         mixolydian) wallpaper=southwest_harbor_3200_1800.png
             ;;
@@ -14,7 +14,7 @@ lock() {
     lockbg=$wallpaperdir/$wallpaper
     i3lock -i "${lockbg}"
     #echo $WALLPAPERDIR/$WALLPAPER
-    echo $lockbg
+    #echo $lockbg
 }
 
 case "$1" in
