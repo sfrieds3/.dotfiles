@@ -262,5 +262,5 @@ bindsym XF86AudioPrev exec playerctl previous
 exec --no-startup-id gnome-terminal
 exec --no-startup-id firefox
 exec --no-startup-id spotify
-exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper/sothwest_harbor.png
+exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper/southwest_harbor.png
 for_window [class="Spotify"] move to workspace $ws10
