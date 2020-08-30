@@ -28,11 +28,9 @@ font pango:RobotoMono 10
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-exec xautolock -detectsleep -time 5 -locker "~/.config/i3/scripts/lock_and_blur.sh" \
+exec_always xautolock -detectsleep -time 10 -corners +-0- -locker "~/.config/i3/scripts/lock_and_blur.sh" \
   -notify 30 \
   -notifier "notify-send -u critical -t 10000 -- 'locking screen in 30 seconds'" \
-  -corner ---- \
-  -cornersize 50
 
 # lock screen shortcut
 bindsym Control+Mod1+l exec ~/.config/i3/scripts/lock_and_blur.sh
