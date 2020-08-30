@@ -19,7 +19,7 @@ lock() {
 
 case "$1" in
     lock)
-        lock
+        $HOME/.config/i3/scripts/lock_and_blur.sh
         ;;
     logout)
         i3-msg exit
