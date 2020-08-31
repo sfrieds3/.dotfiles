@@ -1,5 +1,10 @@
 #!/bin/bash
 
+codedir=$HOME/code
+vimdir=$HOME/.vim
+datetime="`date +%Y%m%d%H%M%S`"
+dotfiles=$HOME/.dotfiles
+
 # update git color for untracked files to white
 git config --global color.status.untracked white
 git config --global color.status.changed "white normal dim"
@@ -20,25 +25,15 @@ git config --global core.editor vim
 LS_COLORS='ow=01;36;40'
 export LS_COLORS
 
-# go get -u github.com/jstemmer/gotags
-# go get -u github.com/nsf/gocode
-# go get github.com/rogpeppe/godef
-# go get -u github.com/derekparker/delve/cmd/dlv
-# go get -u github.com/sourcegraph/go-langserver
-# gometalinter --install
-# export PATH=$PATH:$(go env GOPATH)/bin
-
-# cargo install racer
-
 # apt install packages for ubuntu
 sudo apt update
 sudo apt install -y exuberant-ctags
 sudo apt install -y leiningen
-#sudo apt install -y postgresql
+sudo apt install -y postgresql
 sudo apt install -y tmux
 sudo apt install -y htop
-#sudo apt install -y mysql-server
-#sudo apt install -y libmysqlclient-dev
+sudo apt install -y mysql-server
+sudo apt install -y libmysqlclient-dev
 sudo apt install -y rvm
 sudo apt install -y meld
 sudo apt install -y kdiff3
@@ -52,51 +47,46 @@ sudo apt install -y sbcl
 sudo apt install -y clisp
 sudo apt install -y gnome-tweaks
 sudo apt install -y git
-#sudo apt install -y python3-pip
-#sudo apt install -y virtualenv
-#sudo apt install -y virtualenvwrapper
 sudo apt install -y curl
 sudo apt install -y cmake
 sudo apt install -y fonts-font-awesome
-# neovim make dependencies
-#sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 sudo apt install -y libreoffice
-#sudo snap install emacs
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
 
 # python pip installation
-python3 -m pip install pip
+/usr/bin/python3 -m pip install pip
 
-# virtualenv
-#source ~/.bashrc
-#pip3 install --user virtualenvwrapper
-#mkdir $WORKON_HOME
-#mkvirtualenv -p python3 venv
-#workon venv && pip3 install 'python-language-server[all]'
+echo "Checking to see if $codedir is already created"
+if ! [ -d "$codedir" ]; then
+    echo "it is not... calling mkdir $codedir"
+    mkdir $codedir
+fi
 
-# link all the things, download all the git
-#mkdir ~/.emacs.d
-#mkdir ~/code
-#mkdir ~/code/forked
-#mkdir ~/.emacs.d/backups
-#mkdir ~/.emacs.d/auto-save-list
-#mkdir ~/.emacs.d/savehist
+if [ -d "$vimdir" ]; then
+    echo "$vimdir already exists.. moving to $vimdir.$datetime"
+    mv $vimdir $vimdir.$datetime
+    echo "cloning vimconfig: git clone git@github.com:scwfri/vimconfig $vimdir"
+    git clone git@github.com:scwfri/vimconfig $vimdir
+fi
 
-#git clone git@github.com:scwfri/.dotfiles.git ~/.dotfiles
-git clone git@github.com:scwfri/AdventOfCode.git ~/code/AdventOfCode
-git clone git@github.com:scwfri/hackn.git ~/code/hackn
-git clone git@github.com:scwfri/noteit.git ~/code/noteit
-git clone git@github.com:scwfri/vim.git ~/code/vim
+for repo in AdventOfCode hackn noteit vim
+do
+    if ! [ -d "$codedir/$repo" ]; then
+        echo "cloning: git clone git@github.com:scwfri/$repo $codedir/$repo"
+        git clone git@github.com:scwfri/$repo $codedir/$repo
+    fi
+done
 
-# TODO: only do this stuff if not already linked
-#ln -sf ~/.dotfiles/vimrc ~/.vimrc
-#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
-#ln -sf ~/.dotfiles/init.el ~/.emacs.d/init.el
-#ln -sf ~/.dotfiles/bashrc ~/.bashrc
-#ln -sf ~/.dotfiles/bash_aliases ~/.bash_aliases
-#ln -sf ~/.dotfiles/gitattributes ~/.gitattributes
-#ln -sf ~/.dotfiles/inputrc ~/.inputrc
-#ln -sf ~/.dotfiles/home.el ~/.emacs.d/home.el
+for file in tmux.conf bashrc bash_aliases inputrc
+do 
+    if [ -f "$HOME/.$file" ]; then
+        echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
+    fi
 
-#source ~/.bashrc
+    echo "running: ln -s $dotfiles/$file $HOME/.$file..."
+    ln -s $dotfiles/$file $HOME/.$file
+done
+
+source ~/.bashrc
