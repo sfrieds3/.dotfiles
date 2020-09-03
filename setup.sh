@@ -51,6 +51,8 @@ sudo apt install -y cmake
 sudo apt install -y fonts-font-awesome
 sudo apt install -y libreoffice
 sudo apt install -y mutt
+sudo apt install -y chicken-bin
+
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
 
