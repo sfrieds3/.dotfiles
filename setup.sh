@@ -56,6 +56,7 @@ sudo apt install -y guile-3.0
 sudo apt install -y net-tools
 sudo apt install -y ufw
 sudo apt install -y openssh-server
+sudo apt install -y flatpak
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
@@ -64,6 +65,9 @@ sudo snap install datagrip --classsic
 sudo ufw enable
 sudo sfw logging on
 sudo ufw allow ssh
+
+# add flatpak source
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # install sbt
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
