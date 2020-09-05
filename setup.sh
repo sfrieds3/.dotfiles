@@ -55,12 +55,15 @@ sudo apt install -y chicken-bin
 sudo apt install -y guile-3.0
 sudo apt install -y net-tools
 sudo apt install -y ufw
+sudo apt install -y openssh-server
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
 
+# enable firewall
 sudo ufw enable
 sudo sfw logging on
+sudo ufw allow ssh
 
 # install sbt
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
