@@ -53,6 +53,7 @@ sudo apt install -y libreoffice
 sudo apt install -y mutt
 sudo apt install -y chicken-bin
 sudo apt install -y guile-3.0
+sudo apt install -y net-tools
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
