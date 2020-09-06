@@ -57,7 +57,8 @@ sudo apt install -y net-tools
 sudo apt install -y ufw
 sudo apt install -y openssh-server
 sudo apt install -y xdg-desktop-portal
-sudo apt install -y akregator
+sudo apt install -y obs-studio
+sudo apt install -y clang
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
