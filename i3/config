@@ -201,7 +201,7 @@ set $urgent-bg-color     #af5f5f
 # window colors
 #                       border              background         text                 indicator
 client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-color #00ff00
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
 client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #00ff00
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
 
@@ -213,7 +213,7 @@ bar {
     position bottom
     colors {
             background $bg-color
-            separator #757575
+            separator $text-color
             #                  border             background         text
             focused_workspace  $bg-color          $bg-color          $text-color
             inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
