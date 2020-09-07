@@ -210,7 +210,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 bar {
     font pango:System San Francisco Display Regular 9
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    position top
+    position bottom
     colors {
             background $bg-color
             separator #757575
