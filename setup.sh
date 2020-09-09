@@ -60,6 +60,8 @@ sudo apt install -y xdg-desktop-portal
 sudo apt install -y obs-studio
 sudo apt install -y clang
 sudo apt install -y python3-pip
+sudo apt install -y nnn
+
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
