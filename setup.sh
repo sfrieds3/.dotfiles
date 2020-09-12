@@ -61,7 +61,7 @@ sudo apt install -y obs-studio
 sudo apt install -y clang
 sudo apt install -y python3-pip
 sudo apt install -y nnn
-
+sudo apt install -y zsh
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
@@ -115,5 +115,11 @@ sudo apt-get update
 sudo apt-get install sbt
 
 chicken-install linenoise -s
+
+# install pure for zsh
+mkdir -p "$HOME/.zsh"
+git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+
+chsh -s /bin/zsh
 
 source ~/.bashrc
