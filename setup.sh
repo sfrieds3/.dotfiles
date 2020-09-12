@@ -92,7 +92,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc bash_aliases inputrc csirc
+for file in tmux.conf bashrc bash_aliases inputrc csirc zshrc
 do 
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
