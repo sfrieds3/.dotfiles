@@ -15,6 +15,9 @@ fi
 # Use vim keybindings
 bindkey -v
 
+# allow comments in interactive shells
+setopt interactive_comments
+
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
