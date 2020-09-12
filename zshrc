@@ -13,7 +13,7 @@ if [ -f $HOME/.bash_aliases ]; then
 fi
 
 # Use vim keybindings
-bindkey -v
+bindkey -e
 
 # allow comments in interactive shells
 setopt interactive_comments
