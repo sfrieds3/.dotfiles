@@ -1,38 +1,18 @@
 # python alias
-#alias python='python3'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-
-# use xdg-open
-alias open='xdg-open'
-
-# neovim
-alias nvim='~/vimconfig/nvim'
-#alias vim='~/vimconfig/nvim'
-#alias vi='~/vimconfig/nvim'
-
-# alias for sudo
-# to check for aliases after sudo
-alias sudo='sudo '
-
-# git aliases
-alias gs='git status'
-alias gd='git difftool'
-alias gca='git add -A && git commit'
-alias gp='git pull'
-alias gP='git push'
-alias gc='git checkout'
-alias gcb='git checkout branch'
-alias gcm='git checkout master'
-alias gm='git merge'
-alias gbd='git branch -d'
-alias gba='git branch -a'
-
-# Spotify alias
-alias spotify='spotify --force-device-scale-factor=2.0 &'
-
-# emacsclient alias
-alias emacs='emacsclient'
