@@ -248,6 +248,10 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# for i3 blocks caps/num lock keys
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+
 exec --no-startup-id gnome-terminal
 exec --no-startup-id firefox
 exec --no-startup-id spotify
