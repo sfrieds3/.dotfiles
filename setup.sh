@@ -18,8 +18,12 @@ git config --global diff.guitool meld
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 
-# emacs as editor
+# vim as editor
 git config --global core.editor vim
+
+# core excludes file
+git config --global core.excludesfile ~/.gitignore
+
 
 # directory colors for ls
 LS_COLORS='ow=01;36;40'
@@ -92,7 +96,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc bash_aliases inputrc csirc zshrc
+for file in tmux.conf bashrc bash_aliases inputrc csirc zshrc gitignore
 do 
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
