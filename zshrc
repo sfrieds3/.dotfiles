@@ -44,3 +44,15 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# completion keybindings
+bindkey '^n' expand-or-complete
+bindkey '^p' reverse-menu-complete
+bindkey '^[[Z' reverse-menu-complete
+
+# other keybindings
+bindkey '^k' up-history
+bindkey '^j' down-history
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
