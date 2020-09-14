@@ -1,4 +1,4 @@
 Xft.dpi: 192
 
-xterm*faceName: DejaVu Sans Mono
-xterm*fontSize: 11
+xterm*faceName: JetBrainsMono
+xterm*fontSize: 10
