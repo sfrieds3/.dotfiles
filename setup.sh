@@ -66,6 +66,7 @@ sudo apt install -y clang
 sudo apt install -y python3-pip
 sudo apt install -y nnn
 sudo apt install -y zsh
+sudo apt install -y cinnamon
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
