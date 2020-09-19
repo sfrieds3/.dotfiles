@@ -112,6 +112,7 @@ done
 /usr/bin/python3 -m pip install --user pylint
 /usr/bin/python3 -m pip install --user black
 /usr/bin/python3 -m pip install --user yapf
+/usr/bin/python3 -m pip install --user pycodestyle
 
 # install sbt
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
