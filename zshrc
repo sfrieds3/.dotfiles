@@ -51,8 +51,6 @@ bindkey '^p' reverse-menu-complete
 bindkey '^[[Z' reverse-menu-complete
 
 # other keybindings
-bindkey '^k' up-history
-bindkey '^j' down-history
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
+bindkey '^[k' up-history
+bindkey '^[j' down-history
 bindkey '^r' history-incremental-search-backward
