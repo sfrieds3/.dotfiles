@@ -122,8 +122,9 @@ function parse_git_branch() {
 	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 	if [ ! "${BRANCH}" == "" ]
 	then
-		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
+		#STAT=`parse_git_dirty`
+		#echo " (${BRANCH}${STAT})"
+        echo " (${BRANCH})"
 	else
 		echo ""
 	fi
@@ -165,7 +166,7 @@ function parse_git_dirty {
 }
 
 # Bash prompt
-export PS1="\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]\\$ "
+export PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]]$ "
 
 # pip completion for bash
 #pip3 completion --bash
