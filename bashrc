@@ -166,7 +166,8 @@ function parse_git_dirty {
 }
 
 # Bash prompt
-export PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]]$ "
+#export PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]]$ "
+PS1='[\u@\h \w\[\033[32m\]$(`parse_git_branch`)\[\033[0m\]]\$ '
 
 # pip completion for bash
 #pip3 completion --bash
