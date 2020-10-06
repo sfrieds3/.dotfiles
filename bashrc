@@ -165,7 +165,11 @@ function parse_git_dirty {
 }
 
 # Bash prompt
-PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m↪\]\`__git_ps1\`\[\e[m\]]$ "
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`__git_ps1\`\[\e[m\]]$ "
+
 #PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]]$ "
 #PS1="[\u@\h \w\[\033[32m\]\`parse_git_branch\`\[\033[0m\]]\$ "
 
