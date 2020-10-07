@@ -108,6 +108,11 @@ do
     ln -s $dotfiles/$file $HOME/.$file
 done
 
+if ! [ -d "$HOME/git" ]; then
+    echo "ln -s $home/.dotfiles/git $home/git"
+    ln -s $home/.dotfiles/git $home/git
+fi
+
 # python pip installation
 /usr/bin/python3 -m pip install --user autopep8
 /usr/bin/python3 -m pip install --user pylint
@@ -126,7 +131,5 @@ chicken-install linenoise -s
 # install pure for zsh
 mkdir -p "$HOME/.zsh"
 git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
-
-chsh -s /bin/zsh
 
 source ~/.bashrc
