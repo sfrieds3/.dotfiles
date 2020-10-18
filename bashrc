@@ -175,20 +175,12 @@ if [ -f $HOME/git/contrib/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`__git_ps1\`\[\e[m\]]$ "
+    PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`__git_ps1\`\[\e[m\]]\n$ "
 fi
 
 
 #PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`parse_git_branch\`\[\e[m\]]$ "
 #PS1="[\u@\h \w\[\033[32m\]\`parse_git_branch\`\[\033[0m\]]\$ "
-
-# pip completion for bash
-#pip3 completion --bash
-#export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-#source ~/.local/bin/virtualenvwrapper.sh
-#export WORKON_HOME=~/.virtualenvs
-#export WORKON_HOME=$WORKON_HOME
-#export PIP_VIRTUALENV_BASE=$WORKON_HOME
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
