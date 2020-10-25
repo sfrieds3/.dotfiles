@@ -72,6 +72,7 @@ sudo apt install -y 1password
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
+sudo snap install intellij-idea-ultimate --classic
 
 # enable firewall
 sudo ufw enable
