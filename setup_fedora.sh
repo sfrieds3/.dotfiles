@@ -31,6 +31,10 @@ export LS_COLORS
 
 sudo dnf install @cinnamon-desktop
 sudo dnf install vim-enhanced
+sudo dnf install chicken
+sudo dnf install redhat-rpm-config
+sudo dnf install nnn
+sudo dnf install guile
 
 # apt install packages for ubuntu
 #sudo apt update
@@ -58,24 +62,21 @@ sudo dnf install vim-enhanced
 #sudo apt install -y fonts-font-awesome
 #sudo apt install -y libreoffice
 #sudo apt install -y mutt
-#sudo apt install -y chicken-bin
 #sudo apt install -y guile-3.0
 #sudo apt install -y net-tools
 #sudo apt install -y ufw
 #sudo apt install -y openssh-server
 #sudo apt install -y xdg-desktop-portal
-#sudo apt install -y obs-studio
 #sudo apt install -y clang
 #sudo apt install -y python3-pip
-#sudo apt install -y nnn
-#sudo apt install -y zsh
-#sudo apt install -y cinnamon
-#sudo apt install -y vlc
 #sudo apt install -y 1password
 
-#sudo snap install spotify --classic
-#sudo snap install datagrip --classsic
-#sudo snap install intellij-idea-ultimate --classic
+flatpak install flathub com.spotify.Client
+flatpak install flathub org.videolan.VLC
+flatpak install flathub com.obsproject.Studio
+flatpak install flathub us.zoom.Zoom
+flatpak install flathub com.jetbrains.IntelliJ-IDEA-Ultimate
+flatpak install flathub com.jetbrains.DataGrip
 
 # enable firewall
 #sudo ufw enable
@@ -126,11 +127,10 @@ fi
 /usr/bin/python3 -m pip install --user pycodestyle
 
 # install sbt
-echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
-#sudo apt-get update
-#sudo apt-get install sbt
+curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
+sudo dnf install sbt
 
-chicken-install linenoise -s
+# install linenoise for chicken
+CSC_OPTIONS='-I/usr/include/chicken' chicken-install linenoise -s
 
 source ~/.bashrc
