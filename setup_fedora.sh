@@ -35,14 +35,14 @@ sudo dnf install chicken
 sudo dnf install redhat-rpm-config
 sudo dnf install nnn
 sudo dnf install guile
+sudo dnf install htop
+sudo dnf install sbcl
+sudo dnf install gitk
 
 # apt install packages for ubuntu
 #sudo apt update
-#sudo apt install -y exuberant-ctags
 #sudo apt install -y leiningen
 #sudo apt install -y postgresql
-#sudo apt install -y tmux
-#sudo apt install -y htop
 #sudo apt install -y mysql-server
 #sudo apt install -y libmysqlclient-dev
 #sudo apt install -y rvm
@@ -132,5 +132,12 @@ sudo dnf install sbt
 
 # install linenoise for chicken
 CSC_OPTIONS='-I/usr/include/chicken' chicken-install linenoise -s
+
+# install quicklisp
+curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
+sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
+       --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
+       --eval '(ql:add-to-init-file)' \
+       --quit
 
 source ~/.bashrc
