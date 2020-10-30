@@ -40,6 +40,9 @@ sudo dnf install sbcl
 sudo dnf install gitk
 sudo dnf install java-devel
 sudo dnf install dconf-editor
+sudo dnf install clisp
+sudo dnf install kdiff3
+sudo dnf install meld
 
 # apt install packages for ubuntu
 #sudo apt update
@@ -48,15 +51,8 @@ sudo dnf install dconf-editor
 #sudo apt install -y mysql-server
 #sudo apt install -y libmysqlclient-dev
 #sudo apt install -y rvm
-#sudo apt install -y meld
-#sudo apt install -y kdiff3
-#sudo apt install -y gitk
 #sudo apt install -y rawtherapee
 #sudo apt install -y libxml2-utils
-#sudo apt install -y sbcl
-#sudo apt install -y clisp
-#sudo apt install -y git
-#sudo apt install -y curl
 #sudo apt install -y cmake
 #sudo apt install -y fonts-font-awesome
 #sudo apt install -y libreoffice
