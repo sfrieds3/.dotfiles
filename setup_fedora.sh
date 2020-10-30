@@ -29,20 +29,20 @@ git config --global core.excludesfile ~/.gitignore
 LS_COLORS='ow=01;36;40'
 export LS_COLORS
 
-sudo dnf install @cinnamon-desktop
-sudo dnf install vim-enhanced
-sudo dnf install chicken
-sudo dnf install redhat-rpm-config
-sudo dnf install nnn
-sudo dnf install guile
-sudo dnf install htop
-sudo dnf install sbcl
-sudo dnf install gitk
-sudo dnf install java-devel
-sudo dnf install dconf-editor
-sudo dnf install clisp
-sudo dnf install kdiff3
-sudo dnf install meld
+sudo dnf install -y @cinnamon-desktop
+sudo dnf install -y vim-enhanced
+sudo dnf install -y chicken
+sudo dnf install -y redhat-rpm-config
+sudo dnf install -y nnn
+sudo dnf install -y guile
+sudo dnf install -y htop
+sudo dnf install -y sbcl
+sudo dnf install -y gitk
+sudo dnf install -y java-devel
+sudo dnf install -y dconf-editor
+sudo dnf install -y clisp
+sudo dnf install -y kdiff3
+sudo dnf install -y meld
 
 # apt install packages for ubuntu
 #sudo apt update
