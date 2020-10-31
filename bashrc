@@ -27,7 +27,6 @@ HISTFILESIZE=20000
 export HISTCONTROL=erasedups
 export EDITOR='vim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
 
 # User specific aliases and functions
 if [ -f ~/.bash_aliases ]; then

@@ -49,6 +49,7 @@ sudo dnf install -y meld
 sudo dnf install -y clang
 sudo dnf install -y libxml2
 sudo dnf install -y ffmpeg
+sudo dnf install -y openssh-server
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
@@ -67,7 +68,6 @@ sudo dnf install -y vim-enhanced
 #sudo apt install -y fonts-font-awesome
 #sudo apt install -y net-tools
 #sudo apt install -y ufw
-#sudo apt install -y openssh-server
 #sudo apt install -y xdg-desktop-portal
 #sudo apt install -y python3-pip
 #sudo apt install -y 1password
@@ -84,6 +84,15 @@ flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
 #sudo ufw enable
 #sudo sfw logging on
 #sudo ufw allow ssh
+
+# enable ssh
+# https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
+sudo systemctl enable sshd.service
+
+sudo systemctl disable telnet.service
+sudo systemctl disable rsh.service
+sudo systemctl disable rlogin.service
+sudo systemctl disable vsftpd.service
 
 echo "Checking to see if $codedir is already created"
 if ! [ -d "$codedir" ]; then
@@ -106,7 +115,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc bash_aliases csirc gitignore tmux.statusline
+for file in tmux.conf bashrc csirc gitignore tmux.statusline
 do 
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
