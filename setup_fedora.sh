@@ -106,7 +106,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc bash_aliases inputrc csirc zshrc gitignore
+for file in tmux.conf bashrc bash_aliases csirc gitignore tmux.statusline
 do 
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
@@ -116,9 +116,9 @@ do
     ln -s $dotfiles/$file $HOME/.$file
 done
 
-if ! [ -d "$HOME/git" ]; then
-    echo "ln -s $home/.dotfiles/git $home/git"
-    ln -s $home/.dotfiles/git $home/git
+if ! [ -d "$HOME/bin" ]; then
+    echo "ln -s $home/.dotfiles/bin $home/bin"
+    ln -s $home/.dotfiles/bin $home/bin
 fi
 
 # python pip installation
