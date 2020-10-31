@@ -1,5 +1,9 @@
 # .bashrc
 
+if [ -f $HOME/bin/bash_colors.sh ]; then
+    . $HOME/bin/bash_colors.sh
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -10,19 +14,20 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+
 export PATH
+export PATH=${PATH}:/usr/local/bin
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
+HISTSIZE=10000
+HISTFILESIZE=20000
+export HISTCONTROL=erasedups
 export EDITOR='vim'
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export GREP_OPTIONS="--color"
 
 # User specific aliases and functions
 if [ -f ~/.bash_aliases ]; then

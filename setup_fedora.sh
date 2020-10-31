@@ -29,6 +29,15 @@ git config --global core.excludesfile ~/.gitignore
 #LS_COLORS='ow=01;36;40'
 #export LS_COLORS
 
+# add rpmfusion, so we can install ffmpeg
+# free
+sudo dnf install \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+
+# non-free
+sudo dnf install \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 sudo dnf install -y @cinnamon-desktop
 sudo dnf install -y chicken
 sudo dnf install -y redhat-rpm-config
@@ -44,6 +53,7 @@ sudo dnf install -y kdiff3
 sudo dnf install -y meld
 sudo dnf install -y clang
 sudo dnf install -y libxml2
+sudo dnf install ffmpeg
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh

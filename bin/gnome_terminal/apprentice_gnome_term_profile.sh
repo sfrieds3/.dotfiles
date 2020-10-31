@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Base16 - Gnome Terminal color scheme install script
 
-[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="scwfri.profile"
-[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="scwri-dot-profile"
+[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="apprentice.profile"
+[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="aprentice-dot-profile"
 [[ -z "$DCONF" ]] && DCONF=dconf
 [[ -z "$UUIDGEN" ]] && UUIDGEN=uuidgen
 
