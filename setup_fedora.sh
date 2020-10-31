@@ -26,8 +26,8 @@ git config --global core.excludesfile ~/.gitignore
 
 
 # directory colors for ls
-LS_COLORS='ow=01;36;40'
-export LS_COLORS
+#LS_COLORS='ow=01;36;40'
+#export LS_COLORS
 
 sudo dnf install -y @cinnamon-desktop
 sudo dnf install -y vim-enhanced
@@ -43,6 +43,8 @@ sudo dnf install -y dconf-editor
 sudo dnf install -y clisp
 sudo dnf install -y kdiff3
 sudo dnf install -y meld
+sudo dnf install -y clang
+sudo dnf install -y libxml2
 
 # apt install packages for ubuntu
 #sudo apt update
@@ -52,26 +54,21 @@ sudo dnf install -y meld
 #sudo apt install -y libmysqlclient-dev
 #sudo apt install -y rvm
 #sudo apt install -y rawtherapee
-#sudo apt install -y libxml2-utils
 #sudo apt install -y cmake
 #sudo apt install -y fonts-font-awesome
-#sudo apt install -y libreoffice
-#sudo apt install -y mutt
-#sudo apt install -y guile-3.0
 #sudo apt install -y net-tools
 #sudo apt install -y ufw
 #sudo apt install -y openssh-server
 #sudo apt install -y xdg-desktop-portal
-#sudo apt install -y clang
 #sudo apt install -y python3-pip
 #sudo apt install -y 1password
 
-flatpak install flathub com.spotify.Client
-flatpak install flathub org.videolan.VLC
-flatpak install flathub com.obsproject.Studio
-flatpak install flathub us.zoom.Zoom
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Ultimate
-flatpak install flathub com.jetbrains.DataGrip
+flatpak install -y --noninteractive flathub com.spotify.Client
+flatpak install -y --noninteractive flathub org.videolan.VLC
+flatpak install -y --noninteractive flathub com.obsproject.Studio
+flatpak install -y --noninteractive flathub us.zoom.Zoom
+flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
+flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
 
 # enable firewall
 #sudo ufw enable
@@ -134,5 +131,10 @@ sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
        --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' \
        --eval '(ql:add-to-init-file)' \
        --quit
+
+# install 1password
+sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+sudo sh -c 'echo -e "[1password]\nname=1Password\nbaseurl=https://downloads.1password.com/linux/rpm\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://downloads.1password.com/linux/keys/1password.asc" > /etc/yum.repos.d/1password.repo'
+sudo dnf install 1password
 
 source ~/.bashrc
