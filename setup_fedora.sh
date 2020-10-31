@@ -67,6 +67,7 @@ sudo dnf install -y vim-enhanced
 #sudo apt install -y python3-pip
 #sudo apt install -y 1password
 
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install -y --noninteractive flathub com.spotify.Client
 flatpak install -y --noninteractive flathub org.videolan.VLC
 flatpak install -y --noninteractive flathub com.obsproject.Studio
