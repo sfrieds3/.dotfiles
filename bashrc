@@ -112,9 +112,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# VcXsrv for emacs on WSL
-#export DISPLAY=$( awk '/nameserver/ { print $2 }' /etc/resolv.conf ):0
-
 # update bash prompt
 # get current branch in git repo
 function parse_git_branch() {
@@ -165,12 +162,12 @@ function parse_git_dirty {
 }
 
 # bash prompt setup
-if [ -f $HOME/git/contrib/completion/git-completion.bash ]; then
-    . $HOME/git/contrib/completion/git-completion.bash
+if [ -f $HOME/bin/git/contrib/completion/git-completion.bash ]; then
+    . $HOME/bin/git/contrib/completion/git-completion.bash
 fi
 
-if [ -f $HOME/git/contrib/completion/git-prompt.sh ]; then
-    . $HOME/git/contrib/completion/git-prompt.sh
+if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
+    . $HOME/bin/git/contrib/completion/git-prompt.sh
 
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1

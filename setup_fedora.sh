@@ -30,7 +30,6 @@ git config --global core.excludesfile ~/.gitignore
 #export LS_COLORS
 
 sudo dnf install -y @cinnamon-desktop
-sudo dnf install -y vim-enhanced
 sudo dnf install -y chicken
 sudo dnf install -y redhat-rpm-config
 sudo dnf install -y nnn
@@ -45,6 +44,11 @@ sudo dnf install -y kdiff3
 sudo dnf install -y meld
 sudo dnf install -y clang
 sudo dnf install -y libxml2
+
+# cinnamon installs vim-powerline, which we dont want
+# which then removes vim-enhanced... ugh
+sudo dnf remove -y vim-powerline
+sudo dnf install -y vim-enhanced
 
 # apt install packages for ubuntu
 #sudo apt update
