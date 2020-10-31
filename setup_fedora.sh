@@ -24,11 +24,6 @@ git config --global core.editor vim
 # core excludes file
 git config --global core.excludesfile ~/.gitignore
 
-
-# directory colors for ls
-#LS_COLORS='ow=01;36;40'
-#export LS_COLORS
-
 # add rpmfusion, so we can install ffmpeg
 # free
 sudo dnf install \
@@ -53,7 +48,7 @@ sudo dnf install -y kdiff3
 sudo dnf install -y meld
 sudo dnf install -y clang
 sudo dnf install -y libxml2
-sudo dnf install ffmpeg
+sudo dnf install -y ffmpeg
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
