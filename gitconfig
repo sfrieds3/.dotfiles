@@ -1,0 +1,19 @@
+[color "status"]
+	untracked = white
+	changed = white normal dim
+	nobranch = red bold ul
+[color "diff"]
+	old = yellow reverse dim
+[diff]
+	guitool = meld
+	tool = vimdiff
+[difftool]
+	prompt = false
+[core]
+	editor = vim
+	excludesfile = /home/scwfri/.gitignore
+[user]
+	email = scwfri@gmail.com
+	name = scwfri
+[pull]
+	rebase = false
