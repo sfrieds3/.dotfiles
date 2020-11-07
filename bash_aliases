@@ -5,5 +5,5 @@ alias l='ls -CF'
 
 alias gg='$HOME/bin/git_recent.sh'
 
-alias grep='grep -In --exclude=tags --color=auto'
+alias grep='grep -PIn --exclude=tags --color=auto'
 alias tmux='tmux -2'
