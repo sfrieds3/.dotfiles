@@ -41,7 +41,8 @@ sudo dnf install -y guile
 sudo dnf install -y htop
 sudo dnf install -y sbcl
 sudo dnf install -y gitk
-sudo dnf install -y java-devel
+#sudo dnf install -y java-devel
+sudo dnf install -y java-11-openjdk-devel
 sudo dnf install -y dconf-editor
 sudo dnf install -y clisp
 sudo dnf install -y kdiff3
@@ -50,6 +51,8 @@ sudo dnf install -y clang
 sudo dnf install -y libxml2
 sudo dnf install -y ffmpeg
 sudo dnf install -y openssh-server
+sudo dnf install -y postgresql
+sudo dnf install -y postgresql-server
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
@@ -116,7 +119,7 @@ do
 done
 
 for file in tmux.conf bashrc csirc gitignore tmux.statusline
-do 
+do
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
     fi
@@ -159,5 +162,11 @@ sudo dnf install 1password
 # install nodejs
 curl -sL https://rpm.nodesource.com/setup_15.x | sudo bash -
 sudo yum install -y nodejs
+
+# set up postgresql (see https://developer.fedoraproject.org/tech/database/postgresql/about.html)
+# initialize PG cluster
+sudo postgresql-setup initdb
+# start cluster
+sudo systemctl start postgresql
 
 source ~/.bashrc
