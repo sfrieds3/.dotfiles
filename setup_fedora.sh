@@ -5,25 +5,6 @@ vimdir=$HOME/.vim
 datetime="`date +%Y%m%d%H%M%S`"
 dotfiles=$HOME/.dotfiles
 
-# update git color for untracked files to white
-git config --global color.status.untracked white
-git config --global color.status.changed "white normal dim"
-git config --global color.status.nobranch "red bold ul"
-
-# update git color for diff
-git config --global color.diff.old "yellow reverse dim"
-
-# add difftool
-git config --global diff.guitool meld
-git config --global diff.tool vimdiff
-git config --global difftool.prompt false
-
-# vim as editor
-git config --global core.editor vim
-
-# core excludes file
-git config --global core.excludesfile ~/.gitignore
-
 # add rpmfusion, so we can install ffmpeg
 # free
 sudo dnf install \
@@ -53,27 +34,12 @@ sudo dnf install -y ffmpeg
 sudo dnf install -y openssh-server
 sudo dnf install -y postgresql
 sudo dnf install -y postgresql-server
+sudo dnf install -y gparted
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
 sudo dnf remove -y vim-powerline
 sudo dnf install -y vim-enhanced
-
-# apt install packages for ubuntu
-#sudo apt update
-#sudo apt install -y leiningen
-#sudo apt install -y postgresql
-#sudo apt install -y mysql-server
-#sudo apt install -y libmysqlclient-dev
-#sudo apt install -y rvm
-#sudo apt install -y rawtherapee
-#sudo apt install -y cmake
-#sudo apt install -y fonts-font-awesome
-#sudo apt install -y net-tools
-#sudo apt install -y ufw
-#sudo apt install -y xdg-desktop-portal
-#sudo apt install -y python3-pip
-#sudo apt install -y 1password
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install -y --noninteractive flathub com.spotify.Client
@@ -82,11 +48,6 @@ flatpak install -y --noninteractive flathub com.obsproject.Studio
 flatpak install -y --noninteractive flathub us.zoom.Zoom
 flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
-
-# enable firewall
-#sudo ufw enable
-#sudo sfw logging on
-#sudo ufw allow ssh
 
 # enable ssh
 # https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
@@ -118,7 +79,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc csirc gitignore tmux.statusline
+for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig
 do
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
