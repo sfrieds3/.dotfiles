@@ -34,6 +34,7 @@ sudo dnf install -y ffmpeg
 sudo dnf install -y openssh-server
 sudo dnf install -y postgresql
 sudo dnf install -y postgresql-server
+sudo dnf install -y gparted
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
