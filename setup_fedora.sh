@@ -49,8 +49,6 @@ flatpak install -y --noninteractive flathub com.obsproject.Studio
 flatpak install -y --noninteractive flathub us.zoom.Zoom
 flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
-flatpak install -y --noninteractive flathub org.gnome.Boxes
-
 
 # enable ssh
 # https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
