@@ -14,6 +14,7 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+sudo dnf install -y @kde-desktop
 sudo dnf install -y @cinnamon-desktop
 sudo dnf install -y chicken
 sudo dnf install -y redhat-rpm-config
@@ -89,6 +90,12 @@ do
     echo "running: ln -s $dotfiles/$file $HOME/.$file..."
     ln -s $dotfiles/$file $HOME/.$file
 done
+
+# add konsole colorscheme
+if ! [[ -f "$HOME/.local/share/konsole/lucius_dark_konsole.colorscheme" ]]; then
+    echo "ln -s $HOME/.dotfiles/bin/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme"
+    ln -s $HOME/.dotfiles/bin/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme
+fi
 
 if ! [ -d "$HOME/bin" ]; then
     echo "ln -s $home/.dotfiles/bin $home/bin"
