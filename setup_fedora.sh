@@ -37,6 +37,7 @@ sudo dnf install -y postgresql
 sudo dnf install -y postgresql-server
 sudo dnf install -y gparted
 sudo dnf install -y scala
+sudo dnf install -y zsh
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
@@ -50,6 +51,9 @@ flatpak install -y --noninteractive flathub com.obsproject.Studio
 flatpak install -y --noninteractive flathub us.zoom.Zoom
 flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
+
+# set zsh default shell
+sudo lchsh $USER 
 
 # enable ssh
 # https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
@@ -81,7 +85,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig
+for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshrc
 do
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
