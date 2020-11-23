@@ -9,6 +9,7 @@ setopt AUTO_CD # assume cd if directory passed
 setopt CORRECT # try to correct spelling of commands
 setopt CORRECT_ALL # try to correct spelling of all arguments
 setopt PROMPT_SUBST # allow expansions in prompt (needed for __git_ps1)
+setopt COMPLETE_IN_WORD # allow tab completion in the middle of a word
 
 # keybindings
 # search for line up/down
@@ -25,6 +26,8 @@ bindkey "^j" down-line-or-beginning-search
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^X^e' edit-command-line
+
+autoload -U colors && colors
 
 # set prompt
 autoload -U promptinit && promptinit
