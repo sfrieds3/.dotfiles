@@ -28,7 +28,8 @@ bindkey '^X^e' edit-command-line
 
 # set prompt
 autoload -U promptinit && promptinit
-PROMPT='%F{117}%2~%f %# '
+# PROMPT='%F{117}%2~%f %# '
+PROMPT='%F{117}${PWD/#$HOME/~}%f %# '
 
 # git branch and status on right prompt, if available
 if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
