@@ -24,6 +24,11 @@ bindkey "^j" down-line-or-beginning-search
 autoload -U promptinit && promptinit
 PROMPT='%F{117}%2~%f %# '
 
+# allow ctrl-x ctrl-e to edit command in vim
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^X^e' edit-command-line
+
 # git branch and status on right prompt, if available
 if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
     . $HOME/bin/git/contrib/completion/git-prompt.sh
@@ -59,8 +64,10 @@ setopt HIST_FIND_NO_DUPS #ignore duplicates when searching
 setopt HIST_REDUCE_BLANKS # removes blank lines from history
 
 # completion
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
+# general completion
 zstyle ':completion:*' completer _complete _ignored
+# partial completion suggestions
+zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
 zstyle :compinstall filename '$HOME/.zshrc'
