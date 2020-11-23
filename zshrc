@@ -11,6 +11,7 @@ setopt CORRECT_ALL # try to correct spelling of all arguments
 setopt PROMPT_SUBST # allow expansions in prompt (needed for __git_ps1)
 
 # keybindings
+# search for line up/down
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -20,14 +21,14 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 bindkey "^k" up-line-or-beginning-search
 bindkey "^j" down-line-or-beginning-search
 
-# set prompt
-autoload -U promptinit && promptinit
-PROMPT='%F{117}%2~%f %# '
-
 # allow ctrl-x ctrl-e to edit command in vim
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^X^e' edit-command-line
+
+# set prompt
+autoload -U promptinit && promptinit
+PROMPT='%F{117}%2~%f %# '
 
 # git branch and status on right prompt, if available
 if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
