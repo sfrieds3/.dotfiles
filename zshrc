@@ -52,7 +52,7 @@ fi
 # set gnome terminal title to user@host:pwd
 DISABLE_AUTO_TITLE="true"
 function precmd () {
-  window_title="\033]0;$USER@$HOSTNAME:$PWD\007"
+  window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
   echo -ne "$window_title"
 }
 
