@@ -53,7 +53,7 @@ flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
 
 # set zsh default shell
-sudo lchsh $USER 
+#sudo lchsh $USER 
 
 # enable ssh
 # https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
