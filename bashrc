@@ -9,11 +9,14 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # append to the history file, don't overwrite it
-shopt -s histappend
-
+#shopt -s histappend
 # write to / reload from history after every command
 # this keeps command history in sync across shell sessions
-export PROMPT_COMMAND="history -a; history -n"
+#export PROMPT_COMMAND="history -a; history -n"
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
 
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
 
