@@ -14,7 +14,6 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install -y @kde-desktop
 sudo dnf install -y @cinnamon-desktop
 sudo dnf install -y chicken
 sudo dnf install -y redhat-rpm-config
@@ -37,7 +36,7 @@ sudo dnf install -y postgresql
 sudo dnf install -y postgresql-server
 sudo dnf install -y gparted
 sudo dnf install -y scala
-sudo dnf install -y build-essential
+sudo dnf groupinstall "Development Tools"
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
