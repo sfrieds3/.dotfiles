@@ -1,0 +1,18 @@
+XTerm*font:             -*-fixed-medium-r-*-*-13-*-*-*-*-60-iso10646-1
+XTerm*boldFont:         -*-fixed-medium-r-*-*-13-*-*-*-*-60-iso10646-1
+
+XTerm.termName: xterm-256color
+XTerm.vt100.locale: true
+XTerm.vt100.metaSendsEscape: true
+XTerm.vt100.saveLines: 4096
+XTerm.vt100.scrollBar: true
+XTerm.vt100.scrollbar.width: 8
+
+Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+XTerm.vt100.foreground: white
+XTerm.vt100.background: black
+!XTerm.vt100.color0: rgb:28/28/28
+! ...
+!XTerm.vt100.color15: rgb:e4/e4/e4
