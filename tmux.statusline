@@ -1,11 +1,11 @@
 set -g status-justify "left"
 set -g status "on"
-set-option -g status-bg colour236
+set-option -g status-bg colour232
 set-option -g status-fg colour254
 set -g status-left "#[fg=colour235,bg=colour220,bold] #S "
-set -g status-right "#[fg=colour235,bg=colour81] %Y-%m-%d  %H:%M #[fg=colour235,bg=colour220] #h "
-setw -g window-status-format "#[fg=colour244,bg=colour236] #I #[fg=colour254,bg=colour236] #W "
-setw -g window-status-current-format "#[fg=colour235,bg=colour81] #I #[fg=colour235,bg=colour81,bold] #W #[fg=colour81,bg=colour236,nobold,nounderscore,noitalics]"
+set -g status-right "#[fg=colour244,bg=colour236] %Y-%m-%d  %H:%M #[fg=colour235,bg=colour220] #h "
+setw -g window-status-format "#[fg=colour244,bg=colour232] #I #[fg=colour254,bg=colour232] #W "
+setw -g window-status-current-format "#[fg=colour244,bg=colour236] #I #[fg=colour244,bg=colour236,bold] #W #[fg=colour236,bg=colour232,nobold,nounderscore,noitalics]"
 
 #set -g status-left "#[fg=colour235,bg=colour252,bold] #S #[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]█"
 #set -g status-right "#[fg=colour31,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour254,bg=colour31] %Y-%m-%d  %H:%M #[fg=colour252,bg=colour31,nobold,nounderscore,noitalics]#[fg=colour235,bg=colour252] #h "
