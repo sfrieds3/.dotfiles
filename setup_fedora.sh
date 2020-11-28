@@ -1,4 +1,5 @@
 #!/bin/bash
+# to change display resolution: xrandr --output <display> --mode <resolution>
 
 codedir=$HOME/code
 vimdir=$HOME/.vim
