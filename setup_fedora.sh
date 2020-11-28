@@ -37,6 +37,7 @@ sudo dnf install -y postgresql
 sudo dnf install -y postgresql-server
 sudo dnf install -y gparted
 sudo dnf install -y scala
+sudo dnf install -y mercurial
 sudo dnf groupinstall "Development Tools"
 
 # cinnamon installs vim-powerline, which we dont want
