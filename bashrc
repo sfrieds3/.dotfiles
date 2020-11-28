@@ -9,14 +9,15 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # user@host:pwd in titlebar
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+# update history with each read/write
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"; history-a; history -n'
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
 HISTFILESIZE=20000
 # write to / reload from history after every command
 # this keeps command history in sync across shell sessions
-export PROMPT_COMMAND="history -a; history -n"
+#export PROMPT_COMMAND="history -a; history -n"
 export HISTCONTROL=erasedups
 shopt -s histappend
 
