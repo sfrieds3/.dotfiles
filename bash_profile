@@ -1,9 +1,7 @@
 # .bash_profile
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
-fi
+# source .bashrc only if interactive session
+test -t 0 && . ~/.bashrc
 
 # User specific environment and startup programs
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]

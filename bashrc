@@ -8,6 +8,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+export TERM=xterm-256color
+
 # user@host:pwd in titlebar
 # update history with each read/write
 PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"; history -a; history -n'
