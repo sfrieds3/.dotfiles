@@ -1,5 +1,5 @@
 # some more ls aliases
-alias ls='ls --color=auto'
+alias ls='ls --bcolor=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -15,3 +15,10 @@ alias tmux='tmux -2'
 
 # du -sh
 alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
+
+# default to terminal emacs
+alias emacs='emacs -nw'
+
+# handy cd aliases
+alias ...='cd ../..'
+alias ..='cd ..'
