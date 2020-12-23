@@ -16,9 +16,6 @@ alias tmux='tmux -2'
 # du -sh
 alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
 
-# default to terminal emacs
-alias emacs='emacs -nw'
-
 # handy cd aliases
 alias ...='cd ../..'
 alias ..='cd ..'
