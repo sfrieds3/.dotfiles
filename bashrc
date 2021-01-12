@@ -49,7 +49,8 @@ if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
     #PS1="[\[\e[33m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]:\w\[\e[37m\]\`__git_ps1\`\[\e[m\]]\n$ "
     #PS1="\h:\W\$(__git_ps1) \u\$ "
     #PS1="[\[\e[33m\]\h:\[\e[m\]\[\e[35m\]\W\[\e[31m\]\`__git_ps1\`\[\e[m\] \[\e[33m\]\u\[\e[m\]]$ "
-    PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]] \[\e[35m\](\D{%Y-%m-%d %H:%M:%S})\[\e[m\]\n$ "
+    #PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]] \[\e[35m\](\D{%Y-%m-%d %H:%M:%S})\[\e[m\]\n$ "
     #PS1="\[\e[33m\]\w\[\e[37m\]\`__git_ps1\`\[\e[m\] $ "
+    PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]] \[\e[35m\](\d | \t})\[\e[m\]\n$ "
 fi
 
