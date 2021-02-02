@@ -21,6 +21,7 @@
     st = status -sb
     sc = status -uno
     br = branch
+    bb = branch -v --sort=-committerdate
     la = log --graph --oneline --decorate --all
     llg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     lf = log -p --pretty=fuller --abbrev-commit
