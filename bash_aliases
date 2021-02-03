@@ -10,7 +10,7 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 alias s='echo "$USER@$HOSTNAME"'
 alias f="stat -c '%A %a %n'"
 
-alias grep='grep -PIn --exclude=tags --color=auto'
+alias grep='grep -HPIn --exclude=tags --color=auto'
 alias tmux='tmux -2'
 
 # du -sh
