@@ -69,6 +69,7 @@ sudo apt install -y zsh
 sudo apt install -y cinnamon
 sudo apt install -y vlc
 sudo apt install -y 1password
+sudo apy install -y bash-completion
 
 sudo snap install spotify --classic
 sudo snap install datagrip --classsic
