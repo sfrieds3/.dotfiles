@@ -40,7 +40,7 @@ sudo dnf install -y scala
 sudo dnf install -y mercurial
 sudo dnf install -y qemu
 sudo dnf install -y gimp
-sudo dnf groupinstall "Development Tools"
+sudo dnf groupinstall "Development Tools" "Development Libraries"
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
