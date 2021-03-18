@@ -27,6 +27,8 @@ HISTFILESIZE=20000
 export HISTCONTROL=erasedups
 shopt -s histappend
 
+set -o noclobber
+
 export EDITOR='vim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
