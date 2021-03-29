@@ -10,6 +10,9 @@ fi
 
 export TERM=xterm-256color
 
+# disable C-s/C-q behavior
+stty -ixon
+
 # user@host:pwd in titlebar
 # update history with each read/write
 if [ -n "$INSIDE_EMACS" ]; then
