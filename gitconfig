@@ -3,7 +3,7 @@
 	changed = white normal dim
 	nobranch = red bold ul
 [color "diff"]
-	old = yellow reverse dim
+	old = red reverse dim
 [diff]
 	guitool = meld
 	tool = vimdiff
