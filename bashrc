@@ -15,10 +15,11 @@ stty -ixon
 
 # user@host:pwd in titlebar
 # update history with each read/write
+# do this only when outside emacs, to allow for ansi-term to work
 if [ -n "$INSIDE_EMACS" ]; then
+    PROMPT_COMMAND='history -a; history -n'
+else
     PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"; history -a; history -n'
-#else
-    #PROMPT_COMMAND='history -a; history -n'
 fi
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
