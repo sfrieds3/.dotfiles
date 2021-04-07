@@ -23,8 +23,8 @@ else
 fi
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=1000000
+HISTFILESIZE=1000000
 # write to / reload from history after every command
 # this keeps command history in sync across shell sessions
 #export PROMPT_COMMAND="history -a; history -n"
