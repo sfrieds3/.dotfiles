@@ -13,6 +13,9 @@
 [core]
 	editor = vim
 	excludesfile = /home/scwfri/.gitignore
+[pull]
+	ff = only
+
 [user]
 	email = scwfri@gmail.com
 	name = scwfri
