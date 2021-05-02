@@ -42,6 +42,22 @@ sudo dnf install -y qemu
 sudo dnf install -y gimp
 sudo dnf groupinstall "Development Tools" "Development Libraries"
 
+# for compiling emacs from source
+sudo dnf install -y \
+        make \
+        automake \
+        gcc \
+        gcc-c++ \
+        kernel-devel \
+        gtk3-devel \
+        libjpeg-devel \
+        libXpm-devel \
+        giflib-devel \
+        libtiff-devel \
+        gnutls-devel \
+        ncurses-devel \
+        libgccjit-devel
+
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
 sudo dnf remove -y vim-powerline
