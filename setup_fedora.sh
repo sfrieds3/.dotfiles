@@ -42,7 +42,6 @@ sudo dnf install -y qemu
 sudo dnf install -y gimp
 sudo dnf groupinstall "Development Tools" "Development Libraries"
 
-# for compiling emacs from source
 sudo dnf install -y \
         make \
         automake \
