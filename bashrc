@@ -1,6 +1,6 @@
 # .bashrc
-if [ -f $HOME/bin/bash_colors.sh ]; then
-    . $HOME/bin/bash_colors.sh
+if [ -f $XDG_CONFIG_HOME/bin-scwfri/bash_colors.sh ]; then
+    . $XDG_CONFIG_HOME/bin-scwfri/bash_colors.sh
 fi
 
 # Source global definitions
@@ -27,7 +27,6 @@ HISTSIZE=1000000
 HISTFILESIZE=1000000
 # write to / reload from history after every command
 # this keeps command history in sync across shell sessions
-#export PROMPT_COMMAND="history -a; history -n"
 export HISTCONTROL=erasedups
 shopt -s histappend
 
@@ -42,12 +41,12 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # bash prompt setup
-if [ -f $HOME/bin/git/contrib/completion/git-completion.bash ]; then
-    . $HOME/bin/git/contrib/completion/git-completion.bash
+if [ -f $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-completion.bash ]; then
+    . $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-completion.bash
 fi
 
-if [ -f $HOME/bin/git/contrib/completion/git-prompt.sh ]; then
-    . $HOME/bin/git/contrib/completion/git-prompt.sh
+if [ -f $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-prompt.sh ]; then
+    . $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-prompt.sh
 
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
