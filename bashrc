@@ -1,6 +1,6 @@
 # .bashrc
-if [ -f $XDG_CONFIG_HOME/bin-scwfri/bash_colors.sh ]; then
-    . $XDG_CONFIG_HOME/bin-scwfri/bash_colors.sh
+if [ -f $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh ]; then
+    . $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh
 fi
 
 # Source global definitions
@@ -41,12 +41,12 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # bash prompt setup
-if [ -f $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-completion.bash ]; then
-    . $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-completion.bash
+if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash ]; then
+    . $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash
 fi
 
-if [ -f $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-prompt.sh ]; then
-    . $XDG_CONFIG_HOME/bin-scwfri/git/contrib/completion/git-prompt.sh
+if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
+    . $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh
 
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1

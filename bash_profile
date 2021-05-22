@@ -10,8 +10,8 @@ test -t 0 && . ~/.bashrc
 #fi
 
 # User specific environment and startup programs
-if ! [[ "$PATH" =~ "$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/bin:" ]]
+if ! [[ "$PATH" =~ "$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/lib-scwfri:" ]]
 then
-    PATH="$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/bin:$PATH"
+    PATH="$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/lib-scwfri:$PATH"
 fi
 export PATH
