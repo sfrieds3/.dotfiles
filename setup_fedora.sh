@@ -115,13 +115,13 @@ done
 
 # add konsole colorscheme
 if ! [[ -f "$HOME/.local/share/konsole/lucius_dark_konsole.colorscheme" ]]; then
-    echo "ln -s $HOME/.dotfiles/bin-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme"
-    ln -s $HOME/.dotfiles/bin-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme
+    echo "ln -s $HOME/.dotfiles/lib-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme"
+    ln -s $HOME/.dotfiles/lib-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme
 fi
 
-if ! [ -d "$XDG_CONFIG_HOME/bin-scwfri" ]; then
-    echo "ln -s $HOME/.dotfiles/bin-scwfri $XDG_CONFIG_HOME/bin-scwfri"
-    ln -s $HOME/.dotfiles/bin-scwfri $XDG_CONFIG_HOME/bin
+if ! [ -d "$XDG_CONFIG_HOME/lib-scwfri" ]; then
+    echo "ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri"
+    ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri
 fi
 
 # python pip installation
