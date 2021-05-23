@@ -15,47 +15,30 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install -y @cinnamon-desktop
-sudo dnf install -y chicken
-sudo dnf install -y redhat-rpm-config
-sudo dnf install -y nnn
-sudo dnf install -y guile
-sudo dnf install -y htop
-sudo dnf install -y sbcl
-sudo dnf install -y gitk
-#sudo dnf install -y java-devel
-sudo dnf install -y java-11-openjdk-devel
-sudo dnf install -y dconf-editor
-sudo dnf install -y clisp
-sudo dnf install -y kdiff3
-sudo dnf install -y meld
-sudo dnf install -y clang
-sudo dnf install -y libxml2
-sudo dnf install -y ffmpeg
-sudo dnf install -y openssh-server
-sudo dnf install -y postgresql
-sudo dnf install -y postgresql-server
-sudo dnf install -y gparted
-sudo dnf install -y scala
-sudo dnf install -y mercurial
-sudo dnf install -y qemu
-sudo dnf install -y gimp
-sudo dnf groupinstall "Development Tools" "Development Libraries"
+dnf_install=( 
+    @cinnamon-desktop automake chicken clang clisp
+    dconf-editor ffmpeg gcc gcc-c++
+    giflib-devel gimp gitk gnutls-devel
+    gparted gtk3-devel guile htop
+    java-11-openjdk-devel kdiff3 kernel-devel libXpm-devel
+    libgccjit-devel libjpeg-devel libtiff-devel libxml2
+    make meld mercurial ncurses-devel
+    nnn openssh-server postgresql postgresql-server
+    qemu redhat-rpm-config sbcl scala 
+)
 
-sudo dnf install -y \
-        make \
-        automake \
-        gcc \
-        gcc-c++ \
-        kernel-devel \
-        gtk3-devel \
-        libjpeg-devel \
-        libXpm-devel \
-        giflib-devel \
-        libtiff-devel \
-        gnutls-devel \
-        ncurses-devel \
-        libgccjit-devel
+group_install=( "Development Tools" "Development Libraries" )
+
+
+for i in "${dnf_install[@]}"
+do
+    sudo dnf install -y $i
+done
+
+for i in "${group_install[@]}"
+do 
+    sudo dnf groupinstall $i
+done
 
 # cinnamon installs vim-powerline, which we dont want
 # which then removes vim-enhanced... ugh
@@ -69,9 +52,6 @@ flatpak install -y --noninteractive flathub com.obsproject.Studio
 flatpak install -y --noninteractive flathub us.zoom.Zoom
 flatpak install -y --noninteractive flathub com.jetbrains.IntelliJ-IDEA-Ultimate
 flatpak install -y --noninteractive flathub com.jetbrains.DataGrip
-
-# set zsh default shell
-#sudo lchsh $USER 
 
 # enable ssh
 # https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd
