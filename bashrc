@@ -46,14 +46,14 @@ export EDITOR='vim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 # User specific aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
 
 # user specific functions
-if [ -f ~/.bash_functions ]
+if [ -f $HOME/.bash_functions ]
 then
-    . ~/.bash_functions
+    . $HOME/.bash_functions
 fi
 
 # bash prompt setup
@@ -74,4 +74,9 @@ then
     GIT_PS1_SHOWUNTRACKEDFILES=1
 
     PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]]\n$ " 
+fi
+
+if [ -f $HOME/bin/fzf-key-bindings.bash ]
+then
+    . $HOME/bin/fzf-key-bindings.bash
 fi
