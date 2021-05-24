@@ -18,7 +18,7 @@ rg_exec=$(which rg)
 if [ -x "$fzf_exec" ] && [ -x "$rg_exec" ]
 then
     # f3
-    bind -x '"\eOR":"vim $(find . -name \"*\" | fzf)"'
+    bind -x '"\eOR":"fda"'
     # f4
     bind -x '"\eOS":"history | fzf"'
 fi
