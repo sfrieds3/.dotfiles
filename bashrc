@@ -13,16 +13,6 @@ export TERM=xterm-256color
 # disable C-s/C-q behavior
 stty -ixon
 
-fzf_exec=$(which fzf)
-rg_exec=$(which rg)
-if [ -x "$fzf_exec" ] && [ -x "$rg_exec" ]
-then
-    # f3
-    bind -x '"\eOR":"fda"'
-    # f4
-    bind -x '"\eOS":"history | fzf"'
-fi
-
 # user@host:pwd in titlebar
 # update history with each read/write
 # do this only when outside emacs, to allow for ansi-term to work
@@ -74,9 +64,4 @@ then
     GIT_PS1_SHOWUNTRACKEDFILES=1
 
     PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]]\n$ " 
-fi
-
-if [ -f $HOME/bin/fzf-key-bindings.bash ]
-then
-    . $HOME/bin/fzf-key-bindings.bash
 fi

@@ -14,7 +14,7 @@ alias grep='grep -HPIn --exclude=tags --color=auto'
 alias tmux='tmux -2'
 
 # du -sh
-alias duh='du -sh -h * .[^.]* 2> /dev/null | sort -h'
+alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 
 # handy cd aliases
 alias ...='cd ../..'
