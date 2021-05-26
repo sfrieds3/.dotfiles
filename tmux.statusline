@@ -3,6 +3,6 @@ set -g status "on"
 set-option -g status-bg colour0
 set-option -g status-fg colour7
 set -g status-left "#[fg=colour0,bg=colour6] #S "
-set -g status-right "#[fg=colour7,bg=colour8] %Y-%m-%d | %H:%M #[fg=colour0,bg=colour6] #h "
+set -g status-right "#[fg=colour14,bg=colour8] %Y-%m-%d | %H:%M #[fg=colour0,bg=colour6] #h "
 setw -g window-status-format "#[fg=colour7,bg=colour0] #I: #W"
-setw -g window-status-current-format "#[fg=colour15,bg=colour0] #I:#[fg=colour15,bg=colour0] #W#[fg=colour15,bg=colour0]"
+setw -g window-status-current-format "#[fg=colour14,bg=colour0] #I:#[fg=colour14,bg=colour0] #W#[fg=colour14,bg=colour0]"
