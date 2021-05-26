@@ -8,8 +8,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-export TERM=xterm-256color
-
 # disable C-s/C-q behavior
 stty -ixon
 

@@ -4,10 +4,7 @@
 test -t 0 && . ~/.bashrc
 
 # set XDG_CONFIG_HOME if not already set
-if [ -n "$XDG_CONFIG_HOME" ]
-then
-    export XDG_CONFIG_HOME="$HOME/.config"
-fi
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
 
 # User specific environment and startup programs
 if ! [[ "$PATH" =~ "$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/lib-scwfri:" ]]
