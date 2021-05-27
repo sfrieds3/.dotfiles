@@ -14,18 +14,17 @@ echo "linking i3 config folder: ln -s $HOME/.dotfiles/i3/ $HOME/.config/i3/"
 ln -s $HOME/.dotfiles/i3/ $HOME/.config/i3
 
 # get our required packages
-sudo apt update
-sudo apt install -y imagemagick
-sudo apt install -y scrot
-sudo apt install -y xautolock
-sudo apt install -y playerctl
-sudo apt install -y arandr
-sudo apt install -y fonts-font-awesome
-sudo apt install -y i3blocks
-sudo apt install -y brightnessctl
-sudo apt install -y rofi
-sudo apt install -y feh
-sudo apt install -y i3lock
+sudo dnf install -y ImageMagick
+sudo dnf install -y scrot
+sudo dnf install -y xautolock
+sudo dnf install -y playerctl
+sudo dnf install -y arandr
+sudo dnf install -y fontawesome-fonts
+sudo dnf install -y i3blocks
+sudo dnf install -y brightnessctl
+sudo dnf install -y rofi
+sudo dnf install -y feh
+sudo dnf install -y i3lock
 
 # configure light for backlight stuff
 echo "installing light: \
@@ -41,5 +40,5 @@ git clone https://github.com/haikarainen/light.git ~/.light \
 && ./configure && make \
 && sudo make install
 
-echo "Adding $USER to video group"
-sudo usermod -a -G video $USER
+echo "Adding scwfri to video group"
+sudo usermod -a -G video scwfri
