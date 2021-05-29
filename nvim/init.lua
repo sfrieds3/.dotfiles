@@ -4,3 +4,4 @@ vim.cmd[[set shell=/usr/bin/zsh]]
 vim.cmd[[source ~/.vim/vimrc]]
 
 require('scwfri.colors')
+require('scwfri.config')
