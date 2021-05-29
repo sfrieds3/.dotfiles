@@ -7,11 +7,11 @@
 [diff]
 	guitool = meld
 	tool = vimdiff
-        colorMoved = zebra
+	colorMoved = zebra
 [difftool]
 	prompt = false
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = /home/scwfri/.gitignore
 [pull]
 	ff = only
@@ -20,14 +20,14 @@
 	email = scwfri@gmail.com
 	name = scwfri
 [alias]
-    st = status -sb
-    sc = status -uno
-    br = branch
-    bb = branch -vv --sort=-committerdate
-    la = log --graph --oneline --decorate --all
-    llg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    lf = log -p --pretty=fuller --abbrev-commit
-    lg = log --pretty=fuller --abbrev-commit --stat
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-    sp = stash show -p
+	st = status -sb
+	sc = status -uno
+	br = branch
+	bb = branch -vv --sort=-committerdate
+	la = log --graph --oneline --decorate --all
+	llg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lf = log -p --pretty=fuller --abbrev-commit
+	lg = log --pretty=fuller --abbrev-commit --stat
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	sp = stash show -p
