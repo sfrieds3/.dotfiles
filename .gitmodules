@@ -1,3 +1,6 @@
 [submodule "nvim/colors/tokyonight.nvim"]
 	path = nvim/colors/tokyonight.nvim
 	url = https://github.com/folke/tokyonight.nvim.git
+[submodule "zsh/custom/themes/spaceship-prompt"]
+	path = zsh/custom/themes/spaceship-prompt
+	url = https://github.com/denysdovhan/spaceship-prompt.git
