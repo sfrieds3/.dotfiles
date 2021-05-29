@@ -4,3 +4,6 @@
 [submodule "zsh/custom/themes/spaceship-prompt"]
 	path = zsh/custom/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule "nvim/pack/bundle/start/lualine.nvim"]
+	path = nvim/pack/bundle/start/lualine.nvim
+	url = https://github.com/hoob3rt/lualine.nvim.git
