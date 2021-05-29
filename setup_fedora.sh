@@ -15,7 +15,7 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf_install=( 
+dnf_install=(
     @cinnamon-desktop automake chicken clang clisp
     dconf-editor ffmpeg gcc gcc-c++
     giflib-devel gimp gitk gnutls-devel
@@ -24,7 +24,7 @@ dnf_install=(
     libgccjit-devel libjpeg-devel libtiff-devel libxml2
     make meld mercurial ncurses-devel
     nnn openssh-server postgresql postgresql-server
-    qemu redhat-rpm-config sbcl scala 
+    qemu redhat-rpm-config sbcl scala zsh
 )
 
 group_install=( "Development Tools" "Development Libraries" )
@@ -36,7 +36,7 @@ do
 done
 
 for i in "${group_install[@]}"
-do 
+do
     sudo dnf groupinstall $i
 done
 
@@ -104,6 +104,16 @@ if ! [ -d "$XDG_CONFIG_HOME/lib-scwfri" ]; then
     ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri
 fi
 
+if ! [ -d "$XDG_CONFIG_HOME/zsh" ]; then
+    echo "ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh"
+    ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh
+fi
+
+if ! [ -d "$XDG_CONFIG_HOME/kitty" ]; then
+    echo "ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty"
+    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty
+fi
+
 # python pip installation
 /usr/bin/python3 -m pip install --user autopep8
 /usr/bin/python3 -m pip install --user pylint
@@ -136,8 +146,8 @@ sudo yum install -y nodejs
 
 # set up postgresql (see https://developer.fedoraproject.org/tech/database/postgresql/about.html)
 # initialize PG cluster
-sudo postgresql-setup initdb
+#sudo postgresql-setup initdb
 # start cluster
-sudo systemctl start postgresql
+#sudo systemctl start postgresql
 
 source ~/.bashrc
