@@ -1,3 +1,4 @@
+Xft.dpi: 192
 XTerm*font:             -*-fixed-*-*-*-18-*
 
 XTerm.termName: xterm-256color
