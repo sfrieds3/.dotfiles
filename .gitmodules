@@ -22,3 +22,6 @@
 [submodule "nvim/colors/material.nvim"]
 	path = nvim/colors/material.nvim
 	url = https://github.com/marko-cerovac/material.nvim.git
+[submodule "zsh/zsh-autosuggestions"]
+	path = zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

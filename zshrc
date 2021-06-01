@@ -4,7 +4,7 @@ bindkey -e
 export EDITOR="nvim"
 
 export ZSH_CUSTOM=~/.config/zsh/custom/
-fpath=($XDG_CONFIG_HOME/zsh/custom/themes/ $fpath)
+fpath=($XDG_CONFIG_HOME/zsh/custom/themes/ $XDG_CONFIG_HOME/zsh/ $fpath)
 
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
@@ -80,3 +80,4 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
 zstyle :compinstall filename '$HOME/.zshrc'
 
+source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
