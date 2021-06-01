@@ -45,7 +45,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/scwfri/.config/awesome/themes/default/theme.lua")
+beautiful.init("/home/scwfri/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -326,7 +326,28 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+          awful.key({}, "XF86MonBrightnessUp",
+              function()
+                  os.execute("xbacklight -inc 5")
+              end, {description = "+5", group = "hotkeys"}),
+          awful.key({}, "XF86MonBrightnessDown",
+              function()
+                  os.execute("xbacklight -dec 5")
+              end, {description = "-5%", group = "hotkeys"}),
+          awful.key({}, "XF86AudioRaiseVolume",
+              function()
+                  os.execute("amixer set Master 5%+")
+              end, {description = "volume up", group = "hotkeys"}),
+          awful.key({}, "XF86AudioLowerVolume",
+              function()
+                  os.execute("amixer set Master 5%-")
+              end, {description = "volume down", group = "hotkeys"}),
+          awful.key({}, "XF86AudioMute",
+              function()
+                  os.execute("amixer -q set Master toggle")
+              end, {description = "toggle mute", group = "hotkeys"})
 )
 
 clientkeys = gears.table.join(
