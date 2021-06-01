@@ -7,3 +7,18 @@
 [submodule "nvim/pack/bundle/start/lualine.nvim"]
 	path = nvim/pack/bundle/start/lualine.nvim
 	url = https://github.com/hoob3rt/lualine.nvim.git
+[submodule "awesome/awesome-wm-widgets"]
+	path = awesome/awesome-wm-widgets
+	url = https://github.com/streetturtle/awesome-wm-widgets.git
+[submodule "nvim/pack/bundle/start/telescope.nvim"]
+	path = nvim/pack/bundle/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule "nvim/pack/bundle/start/popup.nvim"]
+	path = nvim/pack/bundle/start/popup.nvim
+	url = https://github.com/nvim-lua/popup.nvim.git
+[submodule "nvim/pack/bundle/start/plenary.nvim"]
+	path = nvim/pack/bundle/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "nvim/colors/falcon"]
+	path = nvim/colors/falcon
+	url = https://github.com/fenetikm/falcon.git

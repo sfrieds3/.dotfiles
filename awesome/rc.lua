@@ -14,6 +14,10 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+
+-- custom widgets
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -212,8 +216,9 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+            volume_widget{ widget_type = 'arc' },
             mytextclock,
-            s.mylayoutbox,
+            s.mylayoutbox
         },
     }
 end)
@@ -440,7 +445,10 @@ for i = 1, 9 do
                           end
                       end
                   end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+                  {description = "toggle focused client on tag #" .. i, group = "tag"}),
+    awful.key({ modkey }, "]", function() volume_widget:inc() end),
+    awful.key({ modkey }, "[", function() volume_widget:dec() end),
+    awful.key({ modkey }, "\\", function() volume_widget:toggle() end)
     )
 end
 
@@ -583,3 +591,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+--
+
