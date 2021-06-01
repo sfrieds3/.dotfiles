@@ -1,2 +1,2 @@
-vim.g.tokynight_style = 'night'
-vim.cmd[[colorscheme falcon]]
+vim.g.material_style = "deep_ocean"
+require('material').set()

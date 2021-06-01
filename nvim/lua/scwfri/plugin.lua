@@ -1,8 +1,9 @@
-require('lualine').setup({
+require('lualine').setup{
     options = {
         theme = 'auto'
     }
-})
+}
+vim.api.nvim_command('set noshowmode')
 
 require('popup')
 require('plenary')
@@ -24,6 +25,7 @@ require('telescope').setup{
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
+    scroll_strategy = "cycle",
     layout_strategy = "horizontal",
     layout_defaults = {
       horizontal = {

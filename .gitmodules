@@ -19,6 +19,6 @@
 [submodule "nvim/pack/bundle/start/plenary.nvim"]
 	path = nvim/pack/bundle/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule "nvim/colors/falcon"]
-	path = nvim/colors/falcon
-	url = https://github.com/fenetikm/falcon.git
+[submodule "nvim/colors/material.nvim"]
+	path = nvim/colors/material.nvim
+	url = https://github.com/marko-cerovac/material.nvim.git
