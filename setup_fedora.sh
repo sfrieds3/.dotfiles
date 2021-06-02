@@ -101,17 +101,17 @@ fi
 
 if ! [ -d "$XDG_CONFIG_HOME/lib-scwfri" ]; then
     echo "ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri"
-    ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri
+    ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME
 fi
 
 if ! [ -d "$XDG_CONFIG_HOME/zsh" ]; then
     echo "ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh"
-    ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh
+    ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME
 fi
 
 if ! [ -d "$XDG_CONFIG_HOME/kitty" ]; then
     echo "ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty"
-    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty
+    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOM/E
 fi
 
 # python pip installation
