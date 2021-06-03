@@ -1,3 +1,4 @@
+-- require {{{
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
@@ -18,6 +19,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+--- }}}
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -103,8 +105,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
+-- Keyboard map indicator and switcher {{{
 mykeyboardlayout = awful.widget.keyboardlayout()
+-- }}}
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -587,5 +590,18 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
---
 
+-- autorun programs {{{
+--awful.spawn("firefox", {
+--    tag = 1
+--  })
+--awful.spawn("kitty", {
+--    tag = 1
+--  })
+--awful.spawn("flatpak run com.spotify.Client", {
+--    tag = 2
+--  })
+--awful.spawn("pavucontrol", {
+--    tag = 9
+--  })
+-- }}}
