@@ -15,9 +15,6 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
--- custom widgets
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
-
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -65,8 +62,8 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
@@ -216,7 +213,6 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
-            volume_widget{ widget_type = 'arc' },
             mytextclock,
             s.mylayoutbox
         },
@@ -335,11 +331,11 @@ globalkeys = gears.table.join(
 
           awful.key({}, "XF86MonBrightnessUp",
               function()
-                  os.execute("xbacklight -inc 5")
+                  awful.util.spawn("light -A 5")
               end, {description = "+5", group = "hotkeys"}),
           awful.key({}, "XF86MonBrightnessDown",
               function()
-                  os.execute("xbacklight -dec 5")
+                  awful.util.spawn("light -U 5")
               end, {description = "-5%", group = "hotkeys"}),
           awful.key({}, "XF86AudioRaiseVolume",
               function()
@@ -519,7 +515,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

@@ -6,7 +6,9 @@ require('lualine').setup{
 vim.api.nvim_command('set noshowmode')
 
 require('popup')
+
 require('plenary')
+
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
