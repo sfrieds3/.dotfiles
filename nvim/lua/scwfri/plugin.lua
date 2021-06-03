@@ -1,7 +1,7 @@
 require('lualine').setup{
-    options = {
-        theme = 'auto'
-    }
+  options = {
+    theme = 'auto'
+  }
 }
 vim.api.nvim_command('set noshowmode')
 
