@@ -25,9 +25,6 @@
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "nvim/pack/bundle/start/nvim-cursorline"]
-	path = nvim/pack/bundle/start/nvim-cursorline
-	url = https://github.com/yamatsum/nvim-cursorline.git
 [submodule "nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf.git

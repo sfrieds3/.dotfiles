@@ -58,5 +58,4 @@ require('telescope').setup{
   }
 }
 
-require('nvim-cursorline')
 require('bqf')
