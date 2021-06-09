@@ -1,2 +1,2 @@
 vim.g.tokyonight_style = "night"
-vim.cmd[[colorscheme jellybeans]]
+vim.cmd[[colorscheme monokai]]

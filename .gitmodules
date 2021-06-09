@@ -25,3 +25,6 @@
 [submodule "nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf.git
+[submodule "nvim/colors/monokai.nvim"]
+	path = nvim/colors/monokai.nvim
+	url = https://github.com/tanvirtin/monokai.nvim.git
