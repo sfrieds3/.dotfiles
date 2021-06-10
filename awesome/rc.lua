@@ -19,6 +19,10 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+
+-- awesome widgets
+local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 --- }}}
 
 -- {{{ Error handling
@@ -112,6 +116,15 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+local cw = calendar_widget({
+    theme = 'dark',
+    placement = 'top_right',
+    radius = 8,
+  })
+mytextclock:connect_signal("button::press",
+  function(_, _, _, button)
+    if button == 1 then cw.toggle() end
+  end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -217,6 +230,7 @@ awful.screen.connect_for_each_screen(function(s)
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
+            logout_menu_widget(),
             s.mylayoutbox
         },
     }
