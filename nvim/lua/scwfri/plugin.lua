@@ -1,3 +1,10 @@
+require('lualine').setup{
+  options = {
+    theme = 'auto',
+    icons_enabled = false
+  }
+}
+
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
