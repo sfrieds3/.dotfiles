@@ -28,3 +28,12 @@
 [submodule "nvim/colors/monokai.nvim"]
 	path = nvim/colors/monokai.nvim
 	url = https://github.com/tanvirtin/monokai.nvim.git
+[submodule "nvim/colors/sonokai"]
+	path = nvim/colors/sonokai
+	url = https://github.com/sainnhe/sonokai.git
+[submodule "nvim/pack/bundle/start/lualine.nvim"]
+	path = nvim/pack/bundle/start/lualine.nvim
+	url = https://github.com/hoob3rt/lualine.nvim.git
+[submodule "nvim/pack/bundle/start/nvim-compe"]
+	path = nvim/pack/bundle/start/nvim-compe
+	url = https://github.com/hrsh7th/nvim-compe.git

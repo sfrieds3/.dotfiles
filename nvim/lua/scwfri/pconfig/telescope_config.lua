@@ -1,11 +1,4 @@
-require('lualine').setup{
-  options = {
-    theme = 'auto',
-    icons_enabled = false
-  }
-}
-
-require('telescope').setup{
+require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -56,4 +49,12 @@ require('telescope').setup{
   }
 }
 
-require('bqf')
+local map = vim.api.nvim_set_keymap
+local opts = {noremap = true}
+map('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
+map('n', '\\fr', '<cmd>lua require("telescope.builtin").oldfiles()<CR>', opts)
+map('n', '\\ft', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>', opts)
+map('n', '\\T', '<cmd>lua require("telescope.builtin").tags()<CR>', opts)
+map('n', '\\fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
+map('n', '\\R', '<cmd>lua require("telescope.builtin").registers()<CR>', opts)
+map('n', '\\<Space>', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', opts)
