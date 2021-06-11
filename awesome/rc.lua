@@ -23,6 +23,7 @@ require("awful.hotkeys_popup.keys")
 -- awesome widgets
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
+local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 --- }}}
 
 -- {{{ Error handling
@@ -115,7 +116,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock('<span color="#ffffff" font="Fira Code 10">  %h %d, %Y %H:%M </span>', 5)
 local cw = calendar_widget({
     theme = 'dark',
     placement = 'top_right',
@@ -213,7 +214,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 50  })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -230,8 +231,15 @@ awful.screen.connect_for_each_screen(function(s)
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
-            logout_menu_widget(),
-            s.mylayoutbox
+            batteryarc_widget {
+              show_current_level = true,
+              arc_thickness = 10,
+              size = 50
+            },
+            s.mylayoutbox,
+            logout_menu_widget {
+              onlock = function() awful.spawn.with_shell("~/.config/awesome/lockscreen.sh") end
+            }
         },
     }
 end)
@@ -247,6 +255,10 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    -- custom keybindings
+    awful.key({modkey, "Control"    }, "l", function() awful.spawn.with_shell("~/.config/awesome/lockscreen.sh") end,
+              {description = "lock screen with i3lock", group="custom"}),
+    -- end custom keybindings
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
