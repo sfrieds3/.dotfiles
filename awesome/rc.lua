@@ -259,7 +259,7 @@ globalkeys = gears.table.join(
     -- custom keybindings
     awful.key({modkey, "Control"    }, "l", function() awful.spawn.with_shell("~/.config/awesome/lockscreen.sh") end,
               {description = "lock screen with i3lock", group="custom"}),
-    awful.key({modkey, "Control"    }, "s", function() awful.spawn.with_shell("systemctl suspend") end,
+    awful.key({modkey, "Control"    }, "s", function() awful.spawn.with_shell("~/.config/awesome/lockscreen.sh && systemctl suspend") end,
               {description = "suspend", group="custom"}),
     -- end custom keybindings
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
