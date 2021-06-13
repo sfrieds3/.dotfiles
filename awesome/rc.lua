@@ -108,6 +108,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.menu_gen.all_menu_dirs = { "/usr/share/applications/", "~/.local/share/applications/" }
 -- }}}
 
 -- Keyboard map indicator and switcher {{{
@@ -359,27 +360,27 @@ globalkeys = gears.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
-
-          awful.key({}, "XF86MonBrightnessUp",
-              function()
-                  awful.util.spawn("light -A 5")
-              end, {description = "+5", group = "hotkeys"}),
-          awful.key({}, "XF86MonBrightnessDown",
-              function()
-                  awful.util.spawn("light -U 5")
-              end, {description = "-5%", group = "hotkeys"}),
-          awful.key({}, "XF86AudioRaiseVolume",
-              function()
-                  os.execute("amixer set Master 5%+")
-              end, {description = "volume up", group = "hotkeys"}),
-          awful.key({}, "XF86AudioLowerVolume",
-              function()
-                  os.execute("amixer set Master 5%-")
-              end, {description = "volume down", group = "hotkeys"}),
-          awful.key({}, "XF86AudioMute",
-              function()
-                  os.execute("amixer -q set Master toggle")
-              end, {description = "toggle mute", group = "hotkeys"})
+    -- utils
+    awful.key({}, "XF86MonBrightnessUp",
+        function()
+            awful.util.spawn("light -A 5")
+        end, {description = "+5", group = "hotkeys"}),
+    awful.key({}, "XF86MonBrightnessDown",
+        function()
+            awful.util.spawn("light -U 5")
+        end, {description = "-5%", group = "hotkeys"}),
+    awful.key({}, "XF86AudioRaiseVolume",
+        function()
+            os.execute("amixer set Master 5%+")
+        end, {description = "volume up", group = "hotkeys"}),
+    awful.key({}, "XF86AudioLowerVolume",
+        function()
+            os.execute("amixer set Master 5%-")
+        end, {description = "volume down", group = "hotkeys"}),
+    awful.key({}, "XF86AudioMute",
+        function()
+            os.execute("amixer -q set Master toggle")
+        end, {description = "toggle mute", group = "hotkeys"})
 )
 
 clientkeys = gears.table.join(
@@ -620,15 +621,10 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- autorun programs {{{
---awful.spawn("firefox", {
---    tag = 1
---  })
---awful.spawn("kitty", {
---    tag = 1
---  })
---awful.spawn("flatpak run com.spotify.Client", {
---    tag = 2
---  })
+-- xprop WM_CLASS
+-- awful.spawn.single_instance("firefox", { screen = 1, tag = "1" })
+--awful.spawn("kitty", { tag = 1 })
+-- awful.spawn.single_instance("flatpak run com.spotify.Client", { screen = 2, tag = "2" })
 --awful.spawn("pavucontrol", {
 --    tag = 9
 --  })
