@@ -37,3 +37,9 @@
 [submodule "nvim/pack/bundle/start/nvim-compe"]
 	path = nvim/pack/bundle/start/nvim-compe
 	url = https://github.com/hrsh7th/nvim-compe.git
+[submodule "nvim/pack/bundle/start/vim-qf"]
+	path = nvim/pack/bundle/start/vim-qf
+	url = https://github.com/romainl/vim-qf.git
+[submodule "nvim/pack/bundle/start/gitsigns.nvim"]
+	path = nvim/pack/bundle/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim.git
