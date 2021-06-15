@@ -1,4 +1,4 @@
-vim.g.tokyonight_style = "night"
+vim.g.tokyonight_style = 'night'
 vim.g.material_style = 'oceanic'
 vim.g.material_borders = true
 vim.g.material_contrast = true
