@@ -34,9 +34,7 @@ autoload -U colors && colors
 
 # set prompt
 autoload -U promptinit && promptinit
-prompt spaceship
-# PROMPT='%F{117}%2~%f %# '
-#PROMPT='%F{117}${PWD/#$HOME/~}%f %# '
+#prompt spaceship
 
 # git branch and status on right prompt, if available
 if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
@@ -44,8 +42,9 @@ if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    #RPROMPT='%F{203}$(__git_ps1) %F{217}%n%F{217}@%F{217}%M'
-    #PROMPT='[%F{green}%n@%m:%F{blue}${PWD/#$HOME/~}%f%F{red}$(__git_ps1)%f] %# '
+    PROMPT='
+[%F{green}%n@%m:%F{cyan}${PWD/#$HOME/~}%f%F{magenta}$(__git_ps1)%f]
+➜ '
 fi
 
 # source bash_aliases, if available
