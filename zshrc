@@ -35,6 +35,9 @@ bindkey -M vicmd '?' history-incremental-pattern-search-forward
 bindkey -M viins '^R' history-incremental-pattern-search-backward
 bindkey -M viins '^F' history-incremental-pattern-search-forward
 
+bindkey -M viins "^P" up-line-or-beginning-search              
+bindkey -M viins "^N" down-line-or-beginning-search
+
 # allow ctrl-x ctrl-e to edit command in vim
 autoload edit-command-line
 zle -N edit-command-line
