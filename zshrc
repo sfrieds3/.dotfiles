@@ -1,5 +1,5 @@
 # use emacs (readline) keybindings
-bindkey -e
+bindkey -v
 # vim as editor
 export EDITOR="nvim"
 
@@ -22,8 +22,18 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
-bindkey "^k" up-line-or-beginning-search
-bindkey "^j" down-line-or-beginning-search
+bindkey "^K" up-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search
+bindkey '^R' history-incremental-search-backward
+bindkey '^F' history-incremental-search-forward
+
+# Search backwards and forwards with a pattern
+bindkey -M vicmd '/' history-incremental-pattern-search-backward
+bindkey -M vicmd '?' history-incremental-pattern-search-forward
+
+# set up for insert mode too
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^F' history-incremental-pattern-search-forward
 
 # allow ctrl-x ctrl-e to edit command in vim
 autoload edit-command-line
