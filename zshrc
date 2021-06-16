@@ -43,7 +43,7 @@ if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
     PROMPT='
-[%F{green}%n@%m:%F{cyan}${PWD/#$HOME/~}%f%F{magenta}$(__git_ps1)%f]
+[%F{green}%n@%m:%F{white}${PWD/#$HOME/~}%f%F{cyan}$(__git_ps1)%f]
 ➜ '
 fi
 
