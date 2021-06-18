@@ -46,3 +46,6 @@
 [submodule "nvim/pack/bundle/start/nvim-colorizer.lua"]
 	path = nvim/pack/bundle/start/nvim-colorizer.lua
 	url = https://github.com/norcalli/nvim-colorizer.lua.git
+[submodule "nvim/pack/bundle/start/snap"]
+	path = nvim/pack/bundle/start/snap
+	url = https://github.com/camspiers/snap.git
