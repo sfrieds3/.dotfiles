@@ -55,7 +55,8 @@ if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    PROMPT='$prompt_newline%F{green}%n@%m:%F{white}${PWD/#$HOME/~}%f%F{cyan}$(__git_ps1)%f$prompt_newline➜ '
+    #PROMPT='$prompt_newline%F{cyan}%n@%m %F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
+    PROMPT='$prompt_newline%F{red}%n %F{white}at %F{green}%m %F{white}in %F{cyan}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
 fi
 
 # source bash_aliases, if available
