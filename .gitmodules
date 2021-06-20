@@ -49,3 +49,6 @@
 [submodule "nvim/pack/bundle/start/snap"]
 	path = nvim/pack/bundle/start/snap
 	url = https://github.com/camspiers/snap.git
+[submodule "nvim/pack/bundle/start/neogit"]
+	path = nvim/pack/bundle/start/neogit
+	url = https://github.com/TimUntersberger/neogit.git
