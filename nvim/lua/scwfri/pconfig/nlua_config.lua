@@ -1,6 +1,6 @@
 local lsp_config = require("scwfri.pconfig.lsp_config")
 
-if vim.fn.executable('lua-language-server')
+if (vim.fn.executable('lua-language-server') == 1)
   then
   require('nlua.lsp.nvim').setup(require('lspconfig'), {
       on_attach = lsp_config.on_attach
