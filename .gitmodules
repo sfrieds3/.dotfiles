@@ -52,3 +52,15 @@
 [submodule "nvim/pack/bundle/start/neogit"]
 	path = nvim/pack/bundle/start/neogit
 	url = https://github.com/TimUntersberger/neogit.git
+[submodule "nvim/pack/bundle/start/nlua.nvim"]
+	path = nvim/pack/bundle/start/nlua.nvim
+	url = https://github.com/tjdevries/nlua.nvim.git
+[submodule "nvim/pack/bundle/start/completion-nvim"]
+	path = nvim/pack/bundle/start/completion-nvim
+	url = https://github.com/nvim-lua/completion-nvim.git
+[submodule "nvim/pack/bundle/start/BetterLua.vim"]
+	path = nvim/pack/bundle/start/BetterLua.vim
+	url = https://github.com/euclidianAce/BetterLua.vim.git
+[submodule "nvim/pack/bundle/start/nvim-lspconfig"]
+	path = nvim/pack/bundle/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
