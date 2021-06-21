@@ -26,6 +26,8 @@ bindkey "^K" up-line-or-beginning-search
 bindkey "^J" down-line-or-beginning-search
 bindkey '^R' history-incremental-search-backward
 bindkey '^F' history-incremental-search-forward
+# <S-Tab> to reverse in completion menu
+bindkey '^[[Z' reverse-menu-complete
 
 # Search backwards and forwards with a pattern
 bindkey -M vicmd '/' history-incremental-pattern-search-backward
