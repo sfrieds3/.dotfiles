@@ -3,9 +3,6 @@ bindkey -v
 # vim as editor
 export EDITOR="nvim"
 
-export ZSH_CUSTOM=~/.config/zsh/custom/
-fpath=($XDG_CONFIG_HOME/zsh/custom/themes/ $XDG_CONFIG_HOME/zsh/ $fpath)
-
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
 setopt AUTO_CD # assume cd if directory passed

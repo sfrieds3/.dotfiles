@@ -25,7 +25,7 @@ dnf_install=(
     make meld mercurial ncurses-devel
     nnn openssh-server postgresql postgresql-server
     qemu redhat-rpm-config sbcl scala zsh kitty light
-    pavucontrol acpi libstdc++-static llvm
+    pavucontrol acpi libstdc++-static llvm lua
 )
 
 group_install=( "Development Tools" "Development Libraries" )
@@ -76,7 +76,7 @@ if [ -d "$vimdir" ]; then
     git clone git@github.com:scwfri/vimconfig $vimdir
 fi
 
-for repo in AdventOfCode hackn noteit vim
+for repo in AdventOfCode hackn noteit vim neovim
 do
     if ! [ -d "$codedir/$repo" ]; then
         echo "cloning: git clone git@github.com:scwfri/$repo $codedir/$repo"
@@ -84,7 +84,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshrc ctags sbclrc
+for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshenv ctags sbclrc
 do
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
@@ -93,12 +93,6 @@ do
     echo "running: ln -s $dotfiles/$file $HOME/.$file..."
     ln -s $dotfiles/$file $HOME/.$file
 done
-
-# add konsole colorscheme
-if ! [[ -f "$HOME/.local/share/konsole/lucius_dark_konsole.colorscheme" ]]; then
-    echo "ln -s $HOME/.dotfiles/lib-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme"
-    ln -s $HOME/.dotfiles/lib-scwfri/konsole/lucius_dark_konsole.colorscheme $HOME/.local/share/konsole/lucius_dark_konsole.colorscheme
-fi
 
 if ! [ -d "$XDG_CONFIG_HOME/lib-scwfri" ]; then
     echo "ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME/lib-scwfri"
@@ -150,5 +144,3 @@ sudo yum install -y nodejs
 #sudo postgresql-setup initdb
 # start cluster
 #sudo systemctl start postgresql
-
-source ~/.bashrc
