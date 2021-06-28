@@ -64,3 +64,6 @@
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "nvim/pack/bundle/start/orgmode.nvim"]
+	path = nvim/pack/bundle/start/orgmode.nvim
+	url = https://github.com/kristijanhusak/orgmode.nvim.git

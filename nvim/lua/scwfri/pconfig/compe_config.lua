@@ -23,6 +23,7 @@ require'compe'.setup {
     vsnip = true;
     ultisnips = true;
     ripgrep = true;
+    orgmode = true;
   };
 }
 

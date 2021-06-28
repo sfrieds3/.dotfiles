@@ -49,12 +49,16 @@ require('telescope').setup {
   }
 }
 
-local map = vim.api.nvim_set_keymap
-local opts = {noremap = true}
-map('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
-map('n', '\\fr', '<cmd>lua require("telescope.builtin").oldfiles()<CR>', opts)
-map('n', '\\ft', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>', opts)
-map('n', '\\T', '<cmd>lua require("telescope.builtin").tags()<CR>', opts)
-map('n', '\\fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
-map('n', '\\R', '<cmd>lua require("telescope.builtin").registers()<CR>', opts)
-map('n', '\\<Space>', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', opts)
+local mapper = function(mode, map, cmd)
+  local opts = {noremap = true}
+  vim.api.nvim_set_keymap(mode, map, cmd, opts)
+end
+
+mapper('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
+mapper('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
+mapper('n', '\\fr', '<cmd>lua require("telescope.builtin").oldfiles()<CR>')
+mapper('n', '\\ft', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>')
+mapper('n', '\\T', '<cmd>lua require("telescope.builtin").tags()<CR>')
+mapper('n', '\\fb', '<cmd>lua require("telescope.builtin").buffers()<CR>')
+mapper('n', '\\R', '<cmd>lua require("telescope.builtin").registers()<CR>')
+mapper('n', '\\<Space>', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>')
