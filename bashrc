@@ -30,7 +30,7 @@ shopt -s histappend
 
 set -o noclobber
 
-export EDITOR='vim'
+export EDITOR='neovim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 # User specific aliases
@@ -62,7 +62,7 @@ then
     GIT_PS1_SHOWUNTRACKEDFILES=1
 
     #PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]]\n$ "
-    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\] at \[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\] in \[\e[m\]\[\e[35m\]\w\[\e[m\]\[\e[31m\]\`__git_ps1\`\[\e[m\]\n→ "
+    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\] at \[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\] in \[\e[m\]\[\e[35m\]\w\[\e[m\]\[\e[31m\]\`__git_ps1\`\[\e[m\]\n$ "
 fi
 
 alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake

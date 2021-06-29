@@ -84,7 +84,7 @@ do
     fi
 done
 
-for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshenv ctags sbclrc
+for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshenv ctags sbclrc inputrc
 do
     if [ -f "$HOME/.$file" ]; then
         echo "$HOME/$file already exists.. moving to $HOME/.$file.$datetime"
