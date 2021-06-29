@@ -2,4 +2,4 @@
 
 C'est le dot files.
 
-Awesome wm + Neovim + Kitty + Zsh
+Awesome wm + Neovim + Kitty + Bash
