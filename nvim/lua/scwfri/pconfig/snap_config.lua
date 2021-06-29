@@ -35,7 +35,7 @@ snap.register.map({'n'}, {'\\fl'}, function()
 end)
 
 -- find git files
-snap.register.map({'n'}, {'\\fg'}, function()
+snap.register.map({'n'}, {'\\fG'}, function()
   snap.run {
   producer = snap.get'consumer.fzf'(snap.get'producer.git.file'),
   select = snap.get'select.file'.select,
@@ -50,5 +50,24 @@ snap.register.map({'n'}, {'\\fo'}, function()
     select = snap.get'select.file'.select,
     multiselect = snap.get'select.file'.multiselect,
     views = {snap.get'preview.file'}
+  }
+end)
+
+snap.register.map({'n'}, {'\\fg'}, function()
+  snap.run {
+    prompt = 'Grep',
+    initial_filter = vim.fn.expand('<cword>'),
+    producer = snap.get'producer.ripgrep.vimgrep',
+    select = snap.get'select.vimgrep'.select,
+    views = {snap.get'preview.vimgrep'}
+  }
+end)
+
+snap.register.map({'n'}, {'\\fj'}, function()
+  snap.run {
+    prompt = 'Jumplist',
+    producer = snap.get'consumer.fzf'(snap.get'producer.vim.jumplist'),
+    select = snap.get'select.jumplist'.select,
+    views = {snap.get'preview.jumplist'}
   }
 end)
