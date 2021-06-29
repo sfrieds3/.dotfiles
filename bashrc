@@ -1,12 +1,8 @@
 # .bashrc
-if [ -f $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh ]; then
-    . $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh
-fi
+[ -f $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh ] && . $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
+[ -f /etc/bashrc ] && . /etc/bashrc
 
 # disable C-s/C-q behavior
 stty -ixon
@@ -34,15 +30,10 @@ export EDITOR='neovim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 # User specific aliases
-if [ -f $HOME/.bash_aliases ]; then
-    . $HOME/.bash_aliases
-fi
+[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases
 
 # user specific functions
-if [ -f $HOME/.bash_functions ]
-then
-    . $HOME/.bash_functions
-fi
+[ -f $HOME/.bash_functions ] && . $HOME/.bash_functions
 
 # bash prompt setup
 if [ -f /usr/share/bash-completion/completions/git ]
