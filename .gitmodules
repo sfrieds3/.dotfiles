@@ -49,9 +49,6 @@
 [submodule "nvim/pack/bundle/start/nlua.nvim"]
 	path = nvim/pack/bundle/start/nlua.nvim
 	url = https://github.com/tjdevries/nlua.nvim.git
-[submodule "nvim/pack/bundle/start/completion-nvim"]
-	path = nvim/pack/bundle/start/completion-nvim
-	url = https://github.com/nvim-lua/completion-nvim.git
 [submodule "nvim/pack/bundle/start/BetterLua.vim"]
 	path = nvim/pack/bundle/start/BetterLua.vim
 	url = https://github.com/euclidianAce/BetterLua.vim.git
@@ -61,3 +58,6 @@
 [submodule "nvim/pack/bundle/start/orgmode.nvim"]
 	path = nvim/pack/bundle/start/orgmode.nvim
 	url = https://github.com/kristijanhusak/orgmode.nvim.git
+[submodule "nvim/pack/bundle/start/LuaSnip"]
+	path = nvim/pack/bundle/start/LuaSnip
+	url = https://github.com/L3MON4D3/LuaSnip.git
