@@ -117,13 +117,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock('<span color="#ffffff" font="Fira Code 10">  %h %d, %Y %H:%M </span>', 5)
+Mytextclock = wibox.widget.textclock('<span color="#ffffff" font="Fira Code 10">  %h %d, %Y %H:%M </span>', 5)
 local cw = calendar_widget({
     theme = 'dark',
     placement = 'top_right',
     radius = 8,
   })
-mytextclock:connect_signal("button::press",
+Mytextclock:connect_signal("button::press",
   function(_, _, _, button)
     if button == 1 then cw.toggle() end
   end)
@@ -231,7 +231,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
-            mytextclock,
+            Mytextclock,
             batteryarc_widget {
               show_current_level = true,
               arc_thickness = 10,
