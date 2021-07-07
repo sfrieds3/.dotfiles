@@ -61,3 +61,6 @@
 [submodule "nvim/pack/bundle/start/LuaSnip"]
 	path = nvim/pack/bundle/start/LuaSnip
 	url = https://github.com/L3MON4D3/LuaSnip.git
+[submodule "nvim/pack/bundle/start/registers.nvim"]
+	path = nvim/pack/bundle/start/registers.nvim
+	url = https://github.com/tversteeg/registers.nvim.git
