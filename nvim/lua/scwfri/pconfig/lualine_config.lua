@@ -12,4 +12,13 @@ require('lualine').setup {
       }
     }
   }
+  inactive_sections = {
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,
+        path = 2
+      }
+    }
+  }
 }
