@@ -1,4 +1,7 @@
 # .bashrc
+# set XDG_CONFIG_HOME if not already set
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
+
 [ -f $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh ] && . $XDG_CONFIG_HOME/lib-scwfri/bash_colors.sh
 
 # Source global definitions
