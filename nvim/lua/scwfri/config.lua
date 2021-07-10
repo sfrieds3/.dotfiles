@@ -3,4 +3,5 @@ vim.cmd([[
 ]])
 
 vim.opt.showmode = false
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
+vim.o.wildmode = "full"
