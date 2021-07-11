@@ -622,5 +622,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- autorun programs {{{
 awful.spawn.single_instance('nm-applet', awful.rules.rules)
-awful.spawn.single_instance('flatpak run org.spotify.Spotify', awful.rules.rules)
+awful.spawn.single_instance('flatpak run com.spotify.Client', awful.rules.rules)
 -- }}}
