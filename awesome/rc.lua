@@ -621,11 +621,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- autorun programs {{{
--- xprop WM_CLASS
--- awful.spawn.single_instance("firefox", { screen = 1, tag = "1" })
---awful.spawn("kitty", { tag = 1 })
--- awful.spawn.single_instance("flatpak run com.spotify.Client", { screen = 2, tag = "2" })
---awful.spawn("pavucontrol", {
---    tag = 9
---  })
+awful.spawn.single_instance('nm-applet', awful.rules.rules)
+awful.spawn.single_instance('flatpak run org.spotify.Spotify', awful.rules.rules)
 -- }}}
