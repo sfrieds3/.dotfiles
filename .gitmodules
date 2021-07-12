@@ -64,3 +64,6 @@
 [submodule "nvim/pack/bundle/start/registers.nvim"]
 	path = nvim/pack/bundle/start/registers.nvim
 	url = https://github.com/tversteeg/registers.nvim.git
+[submodule "nvim/pack/bundle/start/neorg"]
+	path = nvim/pack/bundle/start/neorg
+	url = https://github.com/vhyrro/neorg.git
