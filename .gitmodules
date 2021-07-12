@@ -1,5 +1,5 @@
 [submodule "nvim/colors/tokyonight.nvim"]
-	path = nvim/colors/tokyonight.nvim
+	path = nvim/lua/colors/tokyonight.nvim
 	url = https://github.com/folke/tokyonight.nvim.git
 [submodule "awesome/awesome-wm-widgets"]
 	path = awesome/awesome-wm-widgets
@@ -17,10 +17,10 @@
 	path = nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf.git
 [submodule "nvim/colors/monokai.nvim"]
-	path = nvim/colors/monokai.nvim
+	path = nvim/lua/colors/monokai.nvim
 	url = https://github.com/tanvirtin/monokai.nvim.git
 [submodule "nvim/colors/sonokai"]
-	path = nvim/colors/sonokai
+	path = nvim/lua/colors/sonokai
 	url = https://github.com/sainnhe/sonokai.git
 [submodule "nvim/pack/bundle/start/lualine.nvim"]
 	path = nvim/pack/bundle/start/lualine.nvim
