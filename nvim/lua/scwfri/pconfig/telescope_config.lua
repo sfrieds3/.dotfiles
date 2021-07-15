@@ -1,3 +1,6 @@
+local utils = require('scwfri.utils')
+local mapper = utils.mapper(nil)
+
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
@@ -46,11 +49,6 @@ require('telescope').setup {
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 }
-
-local mapper = function(mode, map, cmd)
-  local opts = {noremap = true}
-  vim.api.nvim_set_keymap(mode, map, cmd, opts)
-end
 
 mapper('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
 mapper('n', '\\ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
