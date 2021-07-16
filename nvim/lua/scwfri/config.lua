@@ -1,20 +1,16 @@
 vim.cmd([[ 
-  "source ~/.vim/vimrc
-
-  " neovim specific stuff
-  set termguicolors
   augroup Neovim
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { on_macro = true }
     augroup END
 
-  " packadd cfilter
   packadd cfilter
 ]])
 
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "_"
 
+vim.opt.termguicolors = true
 vim.opt.showmode = false
 vim.opt.inccommand = "split"
 vim.opt.wildmode = "full"
