@@ -31,7 +31,7 @@ local custom_attach = function(client, bufnr)
 
 end
 
-local servers = { "pyls", "clangd", }
+local servers = { "pylsp", "clangd", }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = custom_attach }
 end
