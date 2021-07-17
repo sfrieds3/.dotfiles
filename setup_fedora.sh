@@ -1,7 +1,7 @@
 #!/bin/bash
 # to change display resolution: xrandr --output <display> --mode <resolution>
 
-codedir=$HOME/code
+codedir=$HOME/src
 vimdir=$HOME/.vim
 datetime="`date +%Y%m%d%H%M%S`"
 dotfiles=$HOME/.dotfiles
@@ -111,6 +111,7 @@ if ! [ -d "$XDG_CONFIG_HOME/kitty" ]; then
 fi
 
 # python pip installation
+/usr/bin/python3 -m pip install --user 'python-lsp-server[all]'
 /usr/bin/python3 -m pip install --user autopep8
 /usr/bin/python3 -m pip install --user pylint
 /usr/bin/python3 -m pip install --user black
