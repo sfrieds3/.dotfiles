@@ -23,11 +23,11 @@ require('telescope').setup {
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    path_display = {"shorten"},
+    path_display = { "shorten", shorten = 3 },
     winblend = 0,
     layout_config = {
       width = 0.75,
-      prompt_position = "bottom",
+      prompt_position = "top",
       preview_cutoff = 120,
       horizontal = {
         mirror = false,
