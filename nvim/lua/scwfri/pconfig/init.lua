@@ -9,6 +9,7 @@ require('scwfri.pconfig.snap_config')
 require('scwfri.pconfig.neogit_config')
 require('scwfri.pconfig.orgmode_config')
 require('scwfri.pconfig.luasnip_config')
+require('scwfri.pconfig.markdown_config')
 
 require('scwfri.pconfig.lsp_config')
 require('scwfri.pconfig.nlua_config')
