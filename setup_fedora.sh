@@ -26,7 +26,7 @@ dnf_install=(
     nnn openssh-server postgresql postgresql-server
     qemu redhat-rpm-config sbcl scala zsh kitty light
     pavucontrol acpi libstdc++-static llvm lua awesome
-    fontawesome-fonts
+    fontawesome-fonts delta rust-fd-find ripgrep
 )
 
 group_install=( "Development Tools" "Development Libraries" )
