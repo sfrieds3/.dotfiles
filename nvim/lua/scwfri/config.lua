@@ -6,7 +6,7 @@ vim.cmd([[
   augroup Neovim
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-    augroup END
+  augroup END
 
   " packadd cfilter
   packadd cfilter
