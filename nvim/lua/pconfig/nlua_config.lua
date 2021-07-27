@@ -1,4 +1,4 @@
-local lsp_config = require("scwfri.pconfig.lsp_config")
+local lsp_config = require("pconfig.lsp_config")
 
 local cache_dir = vim.fn.stdpath('cache')
 local bin_folder = 'Linux'

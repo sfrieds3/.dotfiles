@@ -4,7 +4,7 @@ vim.cmd('let &packpath = &runtimepath')
 
 require('scwfri.utils')
 require('scwfri.config')
-require('scwfri.pconfig')
+require('pconfig')
 require('scwfri.colors')
 require('scwfri.keymap')
 require('scwfri.funcs')
