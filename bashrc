@@ -60,5 +60,6 @@ then
 fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export FZF_DEFAULT_COMMAND="rg --files"
 
 alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake
