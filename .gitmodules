@@ -4,9 +4,6 @@
 [submodule "awesome/awesome-wm-widgets"]
 	path = awesome/awesome-wm-widgets
 	url = https://github.com/streetturtle/awesome-wm-widgets.git
-[submodule "nvim/pack/bundle/start/telescope.nvim"]
-	path = nvim/pack/bundle/start/telescope.nvim
-	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule "nvim/pack/bundle/start/popup.nvim"]
 	path = nvim/pack/bundle/start/popup.nvim
 	url = https://github.com/nvim-lua/popup.nvim.git
@@ -22,9 +19,6 @@
 [submodule "nvim/colors/sonokai"]
 	path = nvim/colors/sonokai
 	url = https://github.com/sainnhe/sonokai.git
-[submodule "nvim/pack/bundle/start/lualine.nvim"]
-	path = nvim/pack/bundle/start/lualine.nvim
-	url = https://github.com/hoob3rt/lualine.nvim.git
 [submodule "nvim/pack/bundle/start/nvim-compe"]
 	path = nvim/pack/bundle/start/nvim-compe
 	url = https://github.com/hrsh7th/nvim-compe.git
@@ -34,15 +28,9 @@
 [submodule "nvim/pack/bundle/start/nvim-colorizer.lua"]
 	path = nvim/pack/bundle/start/nvim-colorizer.lua
 	url = https://github.com/norcalli/nvim-colorizer.lua.git
-[submodule "nvim/pack/bundle/start/snap"]
-	path = nvim/pack/bundle/start/snap
-	url = https://github.com/camspiers/snap.git
 [submodule "nvim/pack/bundle/start/nlua.nvim"]
 	path = nvim/pack/bundle/start/nlua.nvim
 	url = https://github.com/tjdevries/nlua.nvim.git
-[submodule "nvim/pack/bundle/start/BetterLua.vim"]
-	path = nvim/pack/bundle/start/BetterLua.vim
-	url = https://github.com/euclidianAce/BetterLua.vim.git
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
@@ -55,9 +43,6 @@
 [submodule "nvim/pack/bundle/start/registers.nvim"]
 	path = nvim/pack/bundle/start/registers.nvim
 	url = https://github.com/tversteeg/registers.nvim.git
-[submodule "nvim/pack/bundle/start/committia.vim"]
-	path = nvim/pack/bundle/start/committia.vim
-	url = https://github.com/rhysd/committia.vim.git
 [submodule "nvim/pack/bundle/start/vim-markdown"]
 	path = nvim/pack/bundle/start/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
