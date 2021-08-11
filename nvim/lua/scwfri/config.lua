@@ -12,6 +12,6 @@ vim.cmd([[
   packadd cfilter
   ]])
 
-vim.opt.showmode = false
+vim.opt.showmode = true
 vim.o.inccommand = "split"
 vim.o.wildmode = "full"
