@@ -46,3 +46,6 @@
 [submodule "nvim/pack/bundle/start/vim-qf"]
 	path = nvim/pack/bundle/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
+[submodule "nvim/colors/edge"]
+	path = nvim/colors/edge
+	url = https://github.com/sainnhe/edge.git
