@@ -49,3 +49,6 @@
 [submodule "nvim/colors/edge"]
 	path = nvim/colors/edge
 	url = https://github.com/sainnhe/edge.git
+[submodule "nvim/colors/vim-one"]
+	path = nvim/colors/vim-one
+	url = https://github.com/rakr/vim-one.git
