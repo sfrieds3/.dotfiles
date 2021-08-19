@@ -52,3 +52,6 @@
 [submodule "nvim/colors/vim-one"]
 	path = nvim/colors/vim-one
 	url = https://github.com/rakr/vim-one.git
+[submodule "nvim/colors/nightfox.nvim"]
+	path = nvim/colors/nightfox.nvim
+	url = https://github.com/EdenEast/nightfox.nvim.git
