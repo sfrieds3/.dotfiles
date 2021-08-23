@@ -2,7 +2,7 @@ local compe = require('compe')
 
 require'compe'.setup {
   enabled = true;
-  autocomplete = true;
+  autocomplete = false;
   debug = false;
   min_length = 1;
   preselect = 'disable';
@@ -25,6 +25,14 @@ require'compe'.setup {
     orgmode = true;
   };
 }
+
+vim.cmd [[
+  inoremap <silent><expr> <C-Space> compe#complete()
+  inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+  inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+  inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+  inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+]]
 
 -- source: https://github.com/kristijanhusak/neovim-config/blob/bleeding-edge/nvim/lua/partials/rg_source.lua
 local jobs = {}
