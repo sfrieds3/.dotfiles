@@ -3,6 +3,7 @@ vim.g.material_style = 'oceanic'
 vim.g.material_borders = true
 vim.g.material_contrast = true
 vim.g.sonokai_style = 'espresso'
+vim.g.nightfox_style = 'nordfox'
 
 vim.cmd[[colorscheme sonokai]]
 
