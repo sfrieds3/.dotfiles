@@ -61,7 +61,7 @@ snippets.python = make {
   main = { "def main():", newline "    ", i(1), newline "", newline "if __name_ == '__main_':", newline "    main()" },
   pd_print_df_full = { "with pd.option_context('display.max_rows', None, 'display.max_columns', None):", newline "    print(", i(1), ")", newline "" },
   pd_print_df_rows = { i(1), ".apply(lambda x: print(x), axis=1)", newline "" },
-  pdb_trace = { "__import__("pdb").set_trace()" },
+  pdb_trace = { "__import__('pdb').set_trace()" },
 }
 
 snippets.ruby = make {
