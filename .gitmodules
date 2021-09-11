@@ -1,6 +1,3 @@
-[submodule "nvim/colors/tokyonight.nvim"]
-	path = nvim/colors/tokyonight.nvim
-	url = https://github.com/folke/tokyonight.nvim.git
 [submodule "awesome/awesome-wm-widgets"]
 	path = awesome/awesome-wm-widgets
 	url = https://github.com/streetturtle/awesome-wm-widgets.git
@@ -13,12 +10,6 @@
 [submodule "nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf.git
-[submodule "nvim/colors/monokai.nvim"]
-	path = nvim/colors/monokai.nvim
-	url = https://github.com/tanvirtin/monokai.nvim.git
-[submodule "nvim/colors/sonokai"]
-	path = nvim/colors/sonokai
-	url = https://github.com/sainnhe/sonokai.git
 [submodule "nvim/pack/bundle/start/nvim-compe"]
 	path = nvim/pack/bundle/start/nvim-compe
 	url = https://github.com/hrsh7th/nvim-compe.git
@@ -34,9 +25,6 @@
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "nvim/pack/bundle/start/orgmode.nvim"]
-	path = nvim/pack/bundle/start/orgmode.nvim
-	url = https://github.com/kristijanhusak/orgmode.nvim.git
 [submodule "nvim/pack/bundle/start/LuaSnip"]
 	path = nvim/pack/bundle/start/LuaSnip
 	url = https://github.com/L3MON4D3/LuaSnip.git
@@ -46,12 +34,3 @@
 [submodule "nvim/pack/bundle/start/vim-qf"]
 	path = nvim/pack/bundle/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
-[submodule "nvim/colors/edge"]
-	path = nvim/colors/edge
-	url = https://github.com/sainnhe/edge.git
-[submodule "nvim/colors/vim-one"]
-	path = nvim/colors/vim-one
-	url = https://github.com/rakr/vim-one.git
-[submodule "nvim/colors/nightfox.nvim"]
-	path = nvim/colors/nightfox.nvim
-	url = https://github.com/EdenEast/nightfox.nvim.git
