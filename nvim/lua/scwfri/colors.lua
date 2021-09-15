@@ -5,8 +5,6 @@ vim.g.material_contrast = true
 vim.g.sonokai_style = 'espresso'
 vim.g.nightfox_style = 'nordfox'
 
-vim.cmd[[colorscheme sitrunna]]
-
 -- set terminal colors
 vim.g.terminal_color_0 = '#403e41'
 vim.g.terminal_color_8 = '#727072'
