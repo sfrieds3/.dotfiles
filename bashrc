@@ -32,11 +32,11 @@ set -o noclobber
 export EDITOR='neovim'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
-# User specific aliases
-[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases
-
 # user specific functions
 [ -f $HOME/.bash_functions ] && . $HOME/.bash_functions
+
+# User specific aliases
+[ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases
 
 # bash prompt setup
 if [ -f /usr/share/bash-completion/completions/git ]
