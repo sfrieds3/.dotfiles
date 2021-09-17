@@ -7,17 +7,24 @@ cmp.setup({
       end,
     },
     mapping = {
-      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
     },
     sources = {
-      { name = 'path'  },
-      { name = 'buffer'  },
       { name = 'nvim_lsp'  },
+      { name = 'buffer'  },
+      { name = 'path'  },
       { name = 'nvim_lua'  },
       { name = 'vsnip'  },
       -- { name = 'ripgrep' },
     },
-    completion = {completeopt = 'menu,menuone,noinsert'}
+    completion = {completeopt = 'menu,menuone,noinsert'}, --noselect is also nice..
+    -- Setup lspconfig.
+    --require('lspconfig')[nvim_lsp].setup {
+    --  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    --}
 })
 
 -- source: https://github.com/kristijanhusak/neovim-config/blob/bleeding-edge/nvim/lua/partials/rg_source.lua
