@@ -1,3 +1,7 @@
+# fzf alias
+# fuzzy find and open in nvim 
+bind -x '"\C-e":nvim_fuzzy'
+
 # some more ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -alF'
