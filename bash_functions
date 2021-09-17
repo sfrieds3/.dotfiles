@@ -1,8 +1,18 @@
+function nvim_fuzzy() {
+    TARGET=$(fzf)
+    if [ $? -eq 0 ]
+    then
+        echo "→ nvim $TARGET"
+        history -s "nvim $TARGET"
+        nvim "$TARGET"
+        READLINE_LINE=""
+    fi
+}
+
 fda() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
-
 
 # Path Management
 # source: https://github.com/camspiers/dotfiles/blob/master/files/.bashrc
