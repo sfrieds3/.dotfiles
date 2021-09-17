@@ -7,4 +7,3 @@ require('pconfig.luasnip_config')
 require('pconfig.markdown_config')
 
 require('pconfig.lsp_config')
-require('pconfig.nlua_config')

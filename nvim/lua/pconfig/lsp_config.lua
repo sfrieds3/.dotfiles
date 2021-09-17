@@ -36,6 +36,41 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = custom_attach }
 end
 
+-- config for sumneko lua-language-server
+local cache_dir = vim.fn.stdpath('cache')
+local bin_folder = 'Linux'
+local sumneko_binary = string.format(
+  "%s/nlua/sumneko_lua/lua-language-server/bin/%s/lua-language-server",
+  cache_dir,
+  bin_folder
+)
+
+local sumneko_root_path = string.format("%s/nlua/sumneko_lua/lua-language-server",
+  cache_dir
+)
+
+require'lspconfig'.sumneko_lua.setup {
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
+            }
+        }
+    }
+}
+
 return {
   on_attach = custom_attach
 }
