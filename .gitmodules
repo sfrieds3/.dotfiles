@@ -10,9 +10,6 @@
 [submodule "nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf.git
-[submodule "nvim/pack/bundle/start/nvim-compe"]
-	path = nvim/pack/bundle/start/nvim-compe
-	url = https://github.com/hrsh7th/nvim-compe.git
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
@@ -22,12 +19,33 @@
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "nvim/pack/bundle/start/LuaSnip"]
-	path = nvim/pack/bundle/start/LuaSnip
-	url = https://github.com/L3MON4D3/LuaSnip.git
 [submodule "nvim/pack/bundle/start/registers.nvim"]
 	path = nvim/pack/bundle/start/registers.nvim
 	url = https://github.com/tversteeg/registers.nvim.git
 [submodule "nvim/pack/bundle/start/vim-qf"]
 	path = nvim/pack/bundle/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
+[submodule "nvim/pack/bundle/start/nvim-cmp"]
+	path = nvim/pack/bundle/start/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule "nvim/pack/bundle/start/vim-vsnip"]
+	path = nvim/pack/bundle/start/vim-vsnip
+	url = https://github.com/hrsh7th/vim-vsnip.git
+[submodule "nvim/pack/bundle/start/cmp-buffer"]
+	path = nvim/pack/bundle/start/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule "nvim/pack/bundle/start/cmp-nvim-lsp"]
+	path = nvim/pack/bundle/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "nvim/pack/bundle/start/cmp-vsnip"]
+	path = nvim/pack/bundle/start/cmp-vsnip
+	url = https://github.com/hrsh7th/cmp-vsnip.git
+[submodule "nvim/pack/bundle/start/cmp-path"]
+	path = nvim/pack/bundle/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "nvim/pack/bundle/start/cmp-nvim-lua"]
+	path = nvim/pack/bundle/start/cmp-nvim-lua
+	url = https://github.com/hrsh7th/cmp-nvim-lua.git
+[submodule "nvim/pack/bundle/start/friendly-snippets"]
+	path = nvim/pack/bundle/start/friendly-snippets
+	url = https://github.com/rafamadriz/friendly-snippets.git
