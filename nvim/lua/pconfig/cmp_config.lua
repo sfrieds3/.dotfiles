@@ -19,7 +19,7 @@ cmp.setup({
       { name = 'vsnip'  },
       -- { name = 'ripgrep' },
     },
-    completion = {completeopt = 'menu,menuone,noinsert'}, --noselect is also nice..
+    completion = { autocomplete = false },
     -- Setup lspconfig.
     --require('lspconfig')[nvim_lsp].setup {
     --  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
