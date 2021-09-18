@@ -2,6 +2,7 @@ function nvim_fuzzy() {
     TARGET=$(fzf)
     if [ $? -eq 0 ]
     then
+        #echo "${PS1@P} nvim $TARGET"
         echo "→ nvim $TARGET"
         history -s "nvim $TARGET"
         nvim "$TARGET"

@@ -2,6 +2,9 @@
 # fuzzy find and open in nvim 
 bind -x '"\C-e":nvim_fuzzy'
 
+# bind ctrl-G to "directory up"
+bind '"\C-g":"cd ..\C-m"'
+
 # some more ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -alF'
