@@ -1,4 +1,4 @@
-function nvim_fuzzy() {
+function fzn() {
     TARGET=$(fzf)
     if [ $? -eq 0 ]
     then
