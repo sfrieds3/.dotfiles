@@ -1,6 +1,6 @@
 # fzf alias
 # fuzzy find and open in nvim 
-bind -x '"\C-e":nvim_fuzzy'
+bind -x '"\C-e":fzn'
 
 # bind ctrl-G to "directory up"
 bind '"\C-g":"cd ..\C-m"'
