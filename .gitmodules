@@ -13,9 +13,6 @@
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
-[submodule "nvim/pack/bundle/start/nvim-colorizer.lua"]
-	path = nvim/pack/bundle/start/nvim-colorizer.lua
-	url = https://github.com/norcalli/nvim-colorizer.lua.git
 [submodule "nvim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
