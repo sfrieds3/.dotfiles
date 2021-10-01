@@ -1,6 +1,6 @@
 # fzf alias
 # fuzzy find and open in nvim.. only if in interactive shell
-test -t 0 && bind -x '"\C-q":fzn'
+test -t 0 && bind -x '"\C-j":fzn'
 
 # bind ctrl-G to "directory up".. only if in interactive shell
 test -t 0 && bind '"\C-g":"cd ..\C-m"'
