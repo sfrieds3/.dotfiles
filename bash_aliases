@@ -26,3 +26,6 @@ alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 # handy cd aliases
 alias ...='cd ../..'
 alias ..='cd ..'
+
+# disk space
+alias dskspc='sudo du -h --max-depth=1 | sort -h'
