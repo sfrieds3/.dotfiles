@@ -1,9 +1,9 @@
 # fzf alias
-# fuzzy find and open in nvim 
-bind -x '"\C-q":fzn'
+# fuzzy find and open in nvim.. only if in interactive shell
+test -t 0 && bind -x '"\C-q":fzn'
 
-# bind ctrl-G to "directory up"
-bind '"\C-g":"cd ..\C-m"'
+# bind ctrl-G to "directory up".. only if in interactive shell
+test -t 0 && bind '"\C-g":"cd ..\C-m"'
 
 # some more ls aliases
 alias ls='ls --color=auto'
