@@ -46,3 +46,9 @@
 [submodule "nvim/pack/bundle/start/friendly-snippets"]
 	path = nvim/pack/bundle/start/friendly-snippets
 	url = https://github.com/rafamadriz/friendly-snippets.git
+[submodule "nvim/pack/bundle/start/cmp-omni"]
+	path = nvim/pack/bundle/start/cmp-omni
+	url = https://github.com/hrsh7th/cmp-omni.git
+[submodule "nvim/pack/bundle/start/cmp-nvim-tags"]
+	path = nvim/pack/bundle/start/cmp-nvim-tags
+	url = https://github.com/quangnguyen30192/cmp-nvim-tags.git
