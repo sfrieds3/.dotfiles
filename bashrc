@@ -61,6 +61,6 @@ fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_COMMAND="rg --files"
-export JDTLS_HOME="$HOME/bin/jdtls/"
+export JDTLS_HOME="$HOME/.local/bin/jdtls/"
 
 alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake

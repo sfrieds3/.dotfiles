@@ -7,7 +7,6 @@ source ~/.bash_functions
 
 USER_PATHS=(
     "$HOME/lib"
-    "$HOME/bin"
     "$HOME/.local/bin"
     "$XDG_CONFIG_HOME/lib-scwfri"
     "$HOME/.luarocks/bin"
