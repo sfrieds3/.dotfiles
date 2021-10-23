@@ -61,11 +61,6 @@ if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
     PROMPT='$prompt_newline%F{blue}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f%F{c...yan}$(__git_ps1) %F{red}[%20D %*]%f$prompt_newline➜ '
 fi
 
-# source bash_aliases, if available
-if [ -f $HOME/.bash_aliases ]; then
-    source $HOME/.bash_aliases
-fi
-
 # set gnome terminal title to user@host:pwd
 DISABLE_AUTO_TITLE="true"
 function precmd () {
@@ -94,4 +89,28 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
 zstyle :compinstall filename '$HOME/.zshrc'
 
-source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# aliases
+# some more ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias gg='$HOME/bin/git/git_recent.sh'
+alias cdr='cd $(git rev-parse --show-toplevel)'
+
+alias s='echo "$USER@$HOSTNAME"'
+alias f="stat -c '%A %a %n'"
+
+alias grep='grep -HPIn --exclude=tags --color=auto'
+alias tmux='tmux -2'
+
+# du -sh
+alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
+
+# handy cd aliases
+alias ...='cd ../..'
+alias ..='cd ..'
+
+# disk space
+alias dskspc='sudo du -h --max-depth=1 | sort -h'
