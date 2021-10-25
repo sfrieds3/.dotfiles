@@ -1,6 +1,7 @@
 vim.cmd([[ 
   source ~/.vim/vimrc
 
+  set shell=/usr/bin/zsh
   " neovim specific stuff
   "set termguicolors
   augroup Neovim
