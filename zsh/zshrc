@@ -6,8 +6,8 @@ export EDITOR="nvim"
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
 setopt AUTO_CD # assume cd if directory passed
-setopt CORRECT # try to correct spelling of commands
-setopt CORRECT_ALL # try to correct spelling of all arguments
+unsetopt CORRECT # try to correct spelling of commands
+unsetopt CORRECT_ALL # try to correct spelling of all arguments
 setopt PROMPT_SUBST # allow expansions in prompt (needed for __git_ps1)
 setopt COMPLETE_IN_WORD # allow tab completion in the middle of a word
 
@@ -69,8 +69,8 @@ function precmd () {
 }
 
 # history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=1000000
+SAVEHIST=1000000
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 setopt SHARE_HISTORY # share history across multiple zsh sessions
 setopt APPEND_HISTORY # append to history
@@ -114,6 +114,9 @@ alias ..='cd ..'
 
 # disk space
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
+
+# luamake
+alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
