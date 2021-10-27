@@ -7,9 +7,6 @@
 [submodule "nvim/pack/bundle/start/plenary.nvim"]
 	path = nvim/pack/bundle/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule "nvim/pack/bundle/start/nvim-bqf"]
-	path = nvim/pack/bundle/start/nvim-bqf
-	url = https://github.com/kevinhwang91/nvim-bqf.git
 [submodule "nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
