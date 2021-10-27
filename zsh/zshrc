@@ -21,8 +21,8 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 bindkey "^K" up-line-or-beginning-search
 bindkey "^J" down-line-or-beginning-search
-bindkey '^R' history-incremental-search-backward
-bindkey '^F' history-incremental-search-forward
+bindkey '^T' history-incremental-search-backward
+bindkey '^G' history-incremental-search-forward
 # <S-Tab> to reverse in completion menu
 bindkey '^[[Z' reverse-menu-complete
 # make delete key work
