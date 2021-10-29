@@ -1,5 +1,3 @@
-fpath=($XDG_CONFIG_HOME/zsh/custom/themes $XDG_CONFIG_HOME/zsh $fpath)
-
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
 export ZSH_CUSTOM=$HOME/.config/zsh/custom
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
@@ -12,3 +10,5 @@ typeset -U path
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_COMMAND="rg --files"
 export JDTLS_HOME="$HOME/bin/jdtls/"
+
+fpath=($XDG_CONFIG_HOME/zsh/custom/themes $XDG_CONFIG_HOME/zsh $fpath)
