@@ -11,4 +11,4 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_COMMAND="rg --files"
 export JDTLS_HOME="$HOME/bin/jdtls/"
 
-fpath=($XDG_CONFIG_HOME/zsh/custom/themes $XDG_CONFIG_HOME/zsh $fpath)
+fpath=($XDG_CONFIG_HOME/zsh $fpath)
