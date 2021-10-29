@@ -91,7 +91,7 @@ zstyle :compinstall filename '$HOME/.zshrc'
 
 # required for git-completion.zsh
 # git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
-zstyle ':completion:*:*:git:*' script $XDG_CONFIG/lib-scwfri/git/contrib/completion/git-completion.bash
+zstyle ':completion:*:*:git:*' script $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash
 
 # aliases
 # some more ls aliases
