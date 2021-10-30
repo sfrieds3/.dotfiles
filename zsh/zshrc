@@ -1,15 +1,19 @@
 # use emacs (readline) keybindings
-bindkey -e
+bindkey -v
+export KEYTIMEOUT=1
 # vim as editor
 export EDITOR="nvim"
 
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
-setopt AUTO_CD # assume cd if directory passed
-unsetopt CORRECT # try to correct spelling of commands
-unsetopt CORRECT_ALL # try to correct spelling of all arguments
-setopt PROMPT_SUBST # allow expansions in prompt (needed for __git_ps1)
-setopt COMPLETE_IN_WORD # allow tab completion in the middle of a word
+setopt AUTO_CD              # assume cd if directory passed
+unsetopt CORRECT            # try to correct spelling of commands
+unsetopt CORRECT_ALL        # try to correct spelling of all arguments
+setopt PROMPT_SUBST         # allow expansions in prompt (needed for __git_ps1)
+setopt COMPLETE_IN_WORD     # allow tab completion in the middle of a word
+setopt AUTO_PUSHD           # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
 # keybindings
 # search for line up/down
@@ -28,9 +32,15 @@ bindkey '^[[Z' reverse-menu-complete
 # make delete key work
 bindkey "\e[3~" delete-char 
 
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
 # Search backwards and forwards with a pattern
-bindkey -M vicmd '/' history-incremental-pattern-search-backward
-bindkey -M vicmd '?' history-incremental-pattern-search-forward
+bindkey -M vicmd '?' history-incremental-pattern-search-backward
+bindkey -M vicmd '/' history-incremental-pattern-search-forward
 
 # set up for insert mode too
 bindkey -M viins '^T' history-incremental-pattern-search-backward
@@ -43,6 +53,7 @@ bindkey -M viins "^N" down-line-or-beginning-search
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^X^e' edit-command-line
+bindkey -M vicmd v edit-command-line
 
 autoload -U colors && colors
 
@@ -68,10 +79,36 @@ function precmd () {
   echo -ne "$window_title"
 }
 
+cursor_mode() {
+    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
+    cursor_block='\e[2 q'
+    cursor_beam='\e[6 q'
+
+    function zle-keymap-select {
+        if [[ ${KEYMAP} == vicmd ]] ||
+            [[ $1 = 'block' ]]; then
+            echo -ne $cursor_block
+        elif [[ ${KEYMAP} == main ]] ||
+            [[ ${KEYMAP} == viins ]] ||
+            [[ ${KEYMAP} = '' ]] ||
+            [[ $1 = 'beam' ]]; then
+            echo -ne $cursor_beam
+        fi
+    }
+
+    zle-line-init() {
+        echo -ne $cursor_beam
+    }
+
+    zle -N zle-keymap-select
+    zle -N zle-line-init
+}
+
+cursor_mode
+
 # history
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 setopt SHARE_HISTORY # share history across multiple zsh sessions
 setopt APPEND_HISTORY # append to history
 setopt INC_APPEND_HISTORY # adds commands as they are typed, not at shell exit
@@ -86,8 +123,16 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 
+# show ls -alh output by default
+zstyle ':completion:*' file-list list=20 insert=10
+
 # general completion
 zstyle ':completion:*' completer _complete _ignored
+
+# use cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+
 # partial completion suggestions
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
 zstyle :compinstall filename '$HOME/.zshrc'
@@ -112,7 +157,14 @@ zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
+# group completions by name
+zstyle ':completion:*' group-name ''
+
 # aliases
+# aliases for directory stack
+alias d='dirs -v'
+for index ({0..9}) alias "$index"="cd +${index}"; unset index
+
 # some more ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -alF'

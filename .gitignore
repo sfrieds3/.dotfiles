@@ -1,2 +1,6 @@
 .zsh_history
+.zhistory
 .zcompdump
+*/shada/*
+nvim/log
+nvim/lsp.log
