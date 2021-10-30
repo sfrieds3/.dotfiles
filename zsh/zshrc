@@ -41,6 +41,8 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # Search backwards and forwards with a pattern
 bindkey -M vicmd '?' history-incremental-pattern-search-backward
 bindkey -M vicmd '/' history-incremental-pattern-search-forward
+bindkey -M vicmd '^T' history-incremental-pattern-search-backward
+bindkey -M vicmd '^G' history-incremental-pattern-search-forward
 
 # set up for insert mode too
 bindkey -M viins '^T' history-incremental-pattern-search-backward
