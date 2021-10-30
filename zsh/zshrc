@@ -120,6 +120,8 @@ setopt HIST_FIND_NO_DUPS #ignore duplicates when searching
 setopt HIST_REDUCE_BLANKS # removes blank lines from history
 
 # completion
+# format
+# :completion:<function>:<completer>:<command>:<argument>:<tag>
 autoload -Uz compinit && compinit
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
