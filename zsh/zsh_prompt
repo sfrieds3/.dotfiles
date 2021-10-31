@@ -1,0 +1,14 @@
+# set prompt
+autoload -U promptinit && promptinit
+#prompt spaceship
+
+# git branch and status on right prompt, if available
+if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
+    . $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWSTASHSTATE=1
+    GIT_PS1_SHOWUNTRACKEDFILES=1
+    #PROMPT='$prompt_newline%F{cyan}%n@%m %F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
+    #PROMPT='$prompt_newline%F{red}%n %F{white}at %F{green}%m %F{white}in %F{cyan}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
+    PROMPT='$prompt_newline%F{cyan}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1) %F{red}[20%D %*]%f$prompt_newline➜ '
+fi

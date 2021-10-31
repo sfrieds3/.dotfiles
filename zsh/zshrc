@@ -1,9 +1,3 @@
-# use emacs (readline) keybindings
-bindkey -v
-export KEYTIMEOUT=1
-# vim as editor
-export EDITOR="nvim"
-
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
 setopt AUTO_CD              # assume cd if directory passed
@@ -14,99 +8,6 @@ setopt COMPLETE_IN_WORD     # allow tab completion in the middle of a word
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
-
-# keybindings
-# search for line up/down
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
-bindkey "^K" up-line-or-beginning-search
-bindkey "^J" down-line-or-beginning-search
-bindkey '^T' history-incremental-search-backward
-bindkey '^G' history-incremental-search-forward
-# <S-Tab> to reverse in completion menu
-bindkey '^[[Z' reverse-menu-complete
-# make delete key work
-bindkey "\e[3~" delete-char 
-
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
-# Search backwards and forwards with a pattern
-bindkey -M vicmd '?' history-incremental-pattern-search-backward
-bindkey -M vicmd '/' history-incremental-pattern-search-forward
-bindkey -M vicmd '^T' history-incremental-pattern-search-backward
-bindkey -M vicmd '^G' history-incremental-pattern-search-forward
-
-# set up for insert mode too
-bindkey -M viins '^T' history-incremental-pattern-search-backward
-bindkey -M viins '^G' history-incremental-pattern-search-forward
-
-bindkey -M viins "^P" up-line-or-beginning-search              
-bindkey -M viins "^N" down-line-or-beginning-search
-
-# allow ctrl-x ctrl-e to edit command in vim
-autoload edit-command-line
-zle -N edit-command-line
-bindkey '^X^e' edit-command-line
-bindkey -M vicmd v edit-command-line
-
-autoload -U colors && colors
-
-# set prompt
-autoload -U promptinit && promptinit
-#prompt spaceship
-
-# git branch and status on right prompt, if available
-if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
-    . $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE=1
-    GIT_PS1_SHOWSTASHSTATE=1
-    GIT_PS1_SHOWUNTRACKEDFILES=1
-    #PROMPT='$prompt_newline%F{cyan}%n@%m %F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
-    #PROMPT='$prompt_newline%F{red}%n %F{white}at %F{green}%m %F{white}in %F{cyan}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
-    PROMPT='$prompt_newline%F{cyan}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1) %F{red}[20%D %*]%f$prompt_newline➜ '
-fi
-
-# set gnome terminal title to user@host:pwd
-DISABLE_AUTO_TITLE="true"
-function precmd () {
-  window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
-  echo -ne "$window_title"
-}
-
-cursor_mode() {
-    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
-    cursor_block='\e[2 q'
-    cursor_beam='\e[6 q'
-
-    function zle-keymap-select {
-        if [[ ${KEYMAP} == vicmd ]] ||
-            [[ $1 = 'block' ]]; then
-            echo -ne $cursor_block
-        elif [[ ${KEYMAP} == main ]] ||
-            [[ ${KEYMAP} == viins ]] ||
-            [[ ${KEYMAP} = '' ]] ||
-            [[ $1 = 'beam' ]]; then
-            echo -ne $cursor_beam
-        fi
-    }
-
-    zle-line-init() {
-        echo -ne $cursor_beam
-    }
-
-    zle -N zle-keymap-select
-    zle -N zle-line-init
-}
-
-cursor_mode
 
 # history
 HISTSIZE=1000000
@@ -119,83 +20,16 @@ setopt HIST_IGNORE_DUPS # do not store duplications
 setopt HIST_FIND_NO_DUPS #ignore duplicates when searching
 setopt HIST_REDUCE_BLANKS # removes blank lines from history
 
-# completion
-# format
-# :completion:<function>:<completer>:<command>:<argument>:<tag>
-autoload -Uz compinit && compinit
+autoload -U colors && colors
 
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+source $ZDOTDIR/zsh_bindings
+source $ZDOTDIR/zsh_prompt
+source $ZDOTDIR/zsh_aliases
+source $ZDOTDIR/zsh_completion
+source $ZDOTDIR/zsh_functions && cursor_mode
 
-# show ls -alh output by default
-zstyle ':completion:*' file-list list=20 insert=10
-
-# general completion
-zstyle ':completion:*' completer _complete _ignored
-
-# use cache
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-
-# partial completion suggestions
-zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
-zstyle :compinstall filename '$HOME/.zshrc'
-
-# required for git-completion.zsh
-# git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
-zstyle ':completion:*:*:git:*' script $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*:options' auto-description '%d'
-zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' verbose yes
-
-# Fuzzy match mistyped completions.
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-# group completions by name
-zstyle ':completion:*' group-name ''
-
-# aliases
-# aliases for directory stack
-alias d='dirs -v'
-for index ({0..9}) alias "$index"="cd +${index}"; unset index
-
-# some more ls aliases
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-alias gg='$HOME/bin/git/git_recent.sh'
-alias cdr='cd $(git rev-parse --show-toplevel)'
-
-alias s='echo "$USER@$HOSTNAME"'
-alias f="stat -c '%A %a %n'"
-
-alias grep='grep -HPIn --exclude=tags --color=auto'
-alias tmux='tmux -2'
-
-# du -sh
-alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
-
-# handy cd aliases
-alias ...='cd ../..'
-alias ..='cd ..'
-
-# disk space
-alias dskspc='sudo du -h --max-depth=1 | sort -h'
-
-# luamake
-alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake
+# vim as editor
+export EDITOR="nvim"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

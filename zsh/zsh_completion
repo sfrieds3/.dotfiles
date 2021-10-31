@@ -1,0 +1,45 @@
+# completion
+# format
+# :completion:<function>:<completer>:<command>:<argument>:<tag>
+autoload -Uz compinit && compinit
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+# show ls -alh output by default
+zstyle ':completion:*' file-list list=20 insert=10
+
+# general completion
+zstyle ':completion:*' completer _complete _ignored
+
+# use cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+
+# partial completion suggestions
+zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
+zstyle :compinstall filename '$HOME/.zshrc'
+
+# required for git-completion.zsh
+# git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
+zstyle ':completion:*:*:git:*' script $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+
+# Fuzzy match mistyped completions.
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+# group completions by name
+zstyle ':completion:*' group-name ''
+
