@@ -2,7 +2,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:=$XDG_CONFIG_HOME/local/share}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:=$XDG_CONFIG_HOME/cache}
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
-export HISTFILE="$ZDOTDIR/.zhistory" 
+export HISTFILE="$ZDOTDIR/zsh_history"
 
 # set path and stuff
 export PATH="$HOME/lib:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/lib-scwfri:$HOME/.luarocks/bin:$PATH"

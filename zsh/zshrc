@@ -9,6 +9,9 @@ setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
+# disable C-s/C-q behavior
+stty -ixon
+
 # history
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -22,10 +25,10 @@ setopt HIST_REDUCE_BLANKS # removes blank lines from history
 
 autoload -U colors && colors
 
+source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
 source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
-source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_functions && cursor_mode
 
 # vim as editor
