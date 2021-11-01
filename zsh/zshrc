@@ -29,7 +29,7 @@ source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
 source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
-source $ZDOTDIR/zsh_functions && cursor_mode
+source $ZDOTDIR/zsh_functions
 
 # vim as editor
 export EDITOR="nvim"
