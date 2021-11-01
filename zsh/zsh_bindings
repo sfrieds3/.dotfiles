@@ -1,6 +1,6 @@
-# vim keybindings
-bindkey -v
-export KEYTIMEOUT=1
+# emacs keybindings
+bindkey -e
+#export KEYTIMEOUT=1
 
 # keybindings
 # search for line up/down
