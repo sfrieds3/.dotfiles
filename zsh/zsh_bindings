@@ -12,35 +12,35 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 bindkey "^K" up-line-or-beginning-search
 bindkey "^J" down-line-or-beginning-search
-bindkey '^R' history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
-bindkey '^T' history-incremental-search-backward
-bindkey '^G' history-incremental-search-forward
+bindkey '^R' up-line-or-beginning-search
+bindkey '^S' down-line-or-beginning-search
+bindkey '^T' history-incremental-pattern-search-backward
+bindkey '^G' history-incremental-pattern-search-forward
 # <S-Tab> to reverse in completion menu
 bindkey '^[[Z' reverse-menu-complete
 # make delete key work
-bindkey "\e[3~" delete-char 
+bindkey "\e[3~" delete-char
 
+# use vim keys in completion menus
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Search backwards and forwards with a pattern
-bindkey -M vicmd '?' history-incremental-pattern-search-backward
-bindkey -M vicmd '/' history-incremental-pattern-search-forward
-bindkey -M vicmd '^T' history-incremental-pattern-search-backward
-bindkey -M vicmd '^G' history-incremental-pattern-search-forward
+#bindkey -M vicmd '?' history-incremental-pattern-search-backward
+#bindkey -M vicmd '/' history-incremental-pattern-search-forward
+#bindkey -M vicmd '^T' history-incremental-pattern-search-backward
+#bindkey -M vicmd '^G' history-incremental-pattern-search-forward
 
 # set up for insert mode too
-bindkey -M viins '^T' history-incremental-pattern-search-backward
-bindkey -M viins '^G' history-incremental-pattern-search-forward
-
-bindkey -M viins "^P" up-line-or-beginning-search              
-bindkey -M viins "^N" down-line-or-beginning-search
+#bindkey -M viins '^T' history-incremental-pattern-search-backward
+#bindkey -M viins '^G' history-incremental-pattern-search-forward
+#bindkey -M viins "^P" up-line-or-beginning-search              
+#bindkey -M viins "^N" down-line-or-beginning-search
 
 # allow ctrl-x ctrl-e to edit command in vim
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^X^e' edit-command-line
-bindkey -M vicmd v edit-command-line
+#bindkey -M vicmd v edit-command-line
