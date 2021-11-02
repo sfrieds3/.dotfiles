@@ -21,6 +21,9 @@ bindkey '^[[Z' reverse-menu-complete
 # make delete key work
 bindkey "\e[3~" delete-char
 
+# run command, but do not clear commandline
+bindkey '^\'    accept-and-hold
+
 # use vim keys in completion menus
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
