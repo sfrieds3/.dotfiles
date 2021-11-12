@@ -1,27 +1,39 @@
 set ignorecase
 set smartcase
 set incsearch
+set hlsearch
 
 set visualbell
 set surround
 set highlightedyank
 
-" plugin related stuff
 set ideamarks
 set ideajoin
 
+" Same as default IDEA action, but only in insert mode. Enter block-visual
+" mode in normal mode.
+sethandler <C-v> i:ide
+
+" https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug-'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'kana/vim-textobj-entire'
 Plug 'machakann/vim-highlightedyank'
 Plug 'dbakker/vim-paragraph-motion'
 Plug 'chrisbra/matchit'
 
-" Same as default IDEA action, but only in insert mode. Enter block-visual
-" mode in normal mode.
-sethandler <C-v> i:ide
+nnoremap <C-l> :nohlsearch<CR>
+nnoremap Y y$
+
+nnoremap <leader>W :action EditorToggleShowWhitespaces<cr>
+
+" easy system clipboard copy/paste
+noremap <leader>y "*y
+noremap <leader>yy "*Y
+noremap <leader>p "*p
+noremap <leader>P "*P
 
 " Jump to next/previous error, show error description
 " https://stackoverflow.com/questions/13346245/keyboard-shortcut-to-display-error-in-intellij
@@ -45,12 +57,18 @@ nnoremap g<C-i> <C-i>
 nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
 
-" vcs stuff
+" movements
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
 
 " default to build in find
-nnoremap / :action Find<CR>
-nnoremap ? :action Find<CR>
+map / <Action>(Find)
+map ? <Action>(Find)
 nnoremap g/ /
 nnoremap g? ?
+
+map <leader>z <Action>(ToggleDistractionFreeMode)
