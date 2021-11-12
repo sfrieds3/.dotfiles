@@ -14,14 +14,14 @@ set ideajoin
 sethandler <C-v> i:ide
 
 " https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'vim-scripts/argtextobj.vim'
-Plug 'kana/vim-textobj-entire'
-Plug 'machakann/vim-highlightedyank'
-Plug 'dbakker/vim-paragraph-motion'
-Plug 'chrisbra/matchit'
+set surround                                                                                                                                                                                     
+set commentary                                                                                                                                                                                   
+set ReplateWithRegister                                                                                                                                                                          
+set argtextobj                                                                                                                                                                                   
+set highlightedyank                                                                                                                                                                              
+set vim-paragraph-motion                                                                                                                                                                         
+set matchit                                                                                                                                                                                      
+set textobj-entire    
 
 nnoremap <C-l> :nohlsearch<CR>
 nnoremap Y y$
