@@ -71,3 +71,12 @@ nnoremap g/ /
 nnoremap g? ?
 
 map <leader>z <Action>(ToggleDistractionFreeMode)
+
+" stay where you are on *
+nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>
+
+" upcase last word in insert
+inoremap <C-u> <Esc>gUiwea
+
+" search for non-ASCII characters
+nnoremap \a /[^\x00-\x7F]<CR>
