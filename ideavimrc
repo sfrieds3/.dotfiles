@@ -65,8 +65,8 @@ nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
 
 " default to build in find
-map / <Action>(Find)
-map ? <Action>(Find)
+map / :action Find<CR>
+map ? :action Find<CR>
 nnoremap g/ /
 nnoremap g? ?
 
