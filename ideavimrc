@@ -2,11 +2,10 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-
+set showmatch
 set visualbell
-set surround
-set highlightedyank
 
+set highlightedyank
 set ideamarks
 set ideajoin
 
