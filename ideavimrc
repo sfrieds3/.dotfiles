@@ -64,13 +64,11 @@ nnoremap ]m :action MethodDown<cr>
 nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
 
-" default to build in find
-map / :action Find<CR>
-map ? :action Find<CR>
-nnoremap g/ /
-nnoremap g? ?
+" easy use built in find
+map g/ :action Find<CR>
+map g? :action Find<CR>
 
-map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>z :artion ToggleDistractionFreeMode<CR>
 
 " upcase last word in insert
 inoremap <C-u> <Esc>gUiwea
