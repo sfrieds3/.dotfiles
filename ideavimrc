@@ -1,0 +1,56 @@
+set ignorecase
+set smartcase
+set incsearch
+
+set visualbell
+set surround
+set highlightedyank
+
+" plugin related stuff
+set ideamarks
+set ideajoin
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug-'vim-scripts/ReplaceWithRegister'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+Plug 'machakann/vim-highlightedyank'
+Plug 'dbakker/vim-paragraph-motion'
+Plug 'chrisbra/matchit'
+
+" Same as default IDEA action, but only in insert mode. Enter block-visual
+" mode in normal mode.
+sethandler <C-v> i:ide
+
+" Jump to next/previous error, show error description
+" https://stackoverflow.com/questions/13346245/keyboard-shortcut-to-display-error-in-intellij
+nnoremap <Leader>e :Action ShowErrorDescription<CR>
+" Alt + F7 in idea.
+" Find usages in file is Ctrl + F7.
+" Alt + E, then F, then U (through the menu bar) also seems to work fine.
+nnoremap <Leader>f :action FindUsages<CR>
+nnoremap <Leader>F :action HighlightUsagesInFile<CR>
+
+nnoremap <Leader>pt :action GoToSymbol<CR>
+nnoremap <Leader>pr :action RecentFiles<CR>
+nnoremap <Leader>pb :action Switcher<CR>
+nnoremap <Leader>P :action SearchEverywhere<CR>
+
+" use jetbrains implementation of back/forward
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
+nnoremap g<C-o> <C-o>
+nnoremap g<C-i> <C-i>
+nnoremap g; :action JumpToLastChange<CR>
+nnoremap g, :action JumpToNextChange<CR>
+
+" vcs stuff
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+
+" default to build in find
+nnoremap / :action Find<CR>
+nnoremap ? :action Find<CR>
+nnoremap g/ /
+nnoremap g? ?
