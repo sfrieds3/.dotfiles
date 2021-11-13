@@ -15,3 +15,4 @@ USER_PATHS=(
 
 export PATH=$(dedup "$PATH:$(join USER_PATHS[@])")
 
+. "$HOME/.cargo/env"

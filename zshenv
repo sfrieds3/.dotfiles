@@ -14,3 +14,4 @@ export JDTLS_HOME=$HOME/bin/jdtls/
 export FZF_DEFAULT_COMMAND="rg --files"
 
 fpath=($XDG_CONFIG_HOME/zsh $fpath)
+. "$HOME/.cargo/env"
