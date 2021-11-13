@@ -1,7 +1,7 @@
 #!/bin/bash
 # to change display resolution: xrandr --output <display> --mode <resolution>
 
-codedir=$HOME/src
+codedir=$HOME/code
 vimdir=$HOME/.vim
 datetime="`date +%Y%m%d%H%M%S`"
 dotfiles=$HOME/.dotfiles
@@ -27,11 +27,13 @@ dnf_install=(
     qemu redhat-rpm-config sbcl scala zsh kitty light
     pavucontrol acpi libstdc++-static llvm lua awesome
     fontawesome-fonts fd-find ripgrep @virtualization
-    fzf bat
+    fzf bat dnf-plugins-core
 )
 
 group_install=( "Development Tools" "Development Libraries" )
 
+# python build deps
+sudo dnf builddep python3
 
 for i in "${dnf_install[@]}"
 do
