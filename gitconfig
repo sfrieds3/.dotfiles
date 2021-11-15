@@ -6,7 +6,7 @@
 	old = red
 [diff]
 	guitool = meld
-	tool = vimdiff
+	tool = meld
 	colorMoved = zebra
 [difftool]
 	prompt = false
@@ -15,7 +15,6 @@
 	excludesfile = /home/scwfri/.gitignore
 [pull]
 	ff = only
-
 [user]
 	email = scwfri@gmail.com
 	name = scwfri
