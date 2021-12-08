@@ -3,7 +3,8 @@
 	changed = white normal dim
 	nobranch = red bold ul
 [color "diff"]
-	old = red
+	old = blue
+	new = green
 [diff]
 	guitool = meld
 	tool = meld
@@ -19,6 +20,7 @@
 	email = scwfri@gmail.com
 	name = Scott F
 [alias]
+	ap = add --patch
 	st = status -sb
 	sc = status -uno
 	br = branch
