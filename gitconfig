@@ -18,7 +18,7 @@
 	ff = only
 [user]
 	email = scwfri@gmail.com
-	name = Scott F
+	name = scwfri
 [alias]
 	ap = add --patch
 	st = status -sb
