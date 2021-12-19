@@ -11,5 +11,6 @@ contains $HOME/bin $fish_user_paths; or set -U fish_user_paths $HOME/bin
 
 # aliases
 alias fd="fdfind"
+alias gap="git add --patch"
 
 starship init fish | source
