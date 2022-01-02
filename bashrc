@@ -57,6 +57,8 @@ then
 
     #PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]]\n$ "
     PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\[\e[31m\]\`__git_ps1\`\[\e[m\]\n→ "
+else
+    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\n→ "
 fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
@@ -69,3 +71,18 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "$HOME/.cargo/env"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/scott/bin/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/scott/bin/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/scott/bin/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/scott/bin/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
