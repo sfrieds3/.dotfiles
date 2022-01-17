@@ -20,6 +20,8 @@ alias f="stat -c '%A %a %n'"
 alias grep='grep -HPIn --exclude=tags --color=auto'
 alias tmux='tmux -2'
 
+alias gap='git add --patch'
+
 # du -sh
 alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 
