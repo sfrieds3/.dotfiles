@@ -3,6 +3,8 @@
 # source .bashrc only if interactive session
 test -t 0 && . ~/.bashrc
 
+source ~/.bash_functions
+
 USER_PATHS=(
     "$HOME/lib"
     "$HOME/bin"
