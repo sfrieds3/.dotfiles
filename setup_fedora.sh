@@ -1,33 +1,32 @@
 #!/bin/bash
 # to change display resolution: xrandr --output <display> --mode <resolution>
 
-codedir=$HOME/code
+codedir=$HOME/dev
 vimdir=$HOME/.vim
 datetime="`date +%Y%m%d%H%M%S`"
 dotfiles=$HOME/.dotfiles
 
 # add rpmfusion, so we can install ffmpeg
 # free
-sudo dnf install \
-  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+#sudo dnf install \
+#  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
 # non-free
-sudo dnf install \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#sudo dnf install \
+#  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 dnf_install=(
-    @cinnamon-desktop automake chicken clang clisp
-    dconf-editor ffmpeg gcc gcc-c++
-    giflib-devel gimp gitk gnutls-devel
-    gparted gtk3-devel guile htop
-    java-11-openjdk-devel kdiff3 kernel-devel libXpm-devel
-    libgccjit-devel libjpeg-devel libtiff-devel libxml2
-    make meld mercurial ncurses-devel
-    nnn openssh-server postgresql postgresql-server
-    qemu redhat-rpm-config sbcl scala zsh kitty light
-    pavucontrol acpi libstdc++-static llvm lua awesome
-    fontawesome-fonts fd-find ripgrep @virtualization
-    fzf bat dnf-plugins-core
+    @cinnamon-desktop neovim git ripgrep fd-find bat
+    fzf gitk clang clang-tools clang-tools-extra htop
+    ShellCheck llvm libgcrypt-devel git-core automake
+    binutils-devel curl cmake mpfr-devel libmpc-devel
+    gmp-devel e2f sprogs ninja-build patch ccache rsync
+    @"C Development Tools and Libraries" @Virtualization
+    git-core zlib zlib-devel gcc-c++ patch readline
+    readline-devel libyaml-devel libffi-devel openssl-devel
+    make bzip2 autoconf automake libtool bison curl 
+    sqlite-devel perl-core guile chicken gcc lua
+    java-11-openjdk-devel
 )
 
 group_install=( "Development Tools" "Development Libraries" )
@@ -80,14 +79,6 @@ if [ -d "$vimdir" ]; then
     git clone git@github.com:scwfri/vimconfig $vimdir
 fi
 
-for repo in AdventOfCode hackn noteit vim neovim
-do
-    if ! [ -d "$codedir/$repo" ]; then
-        echo "cloning: git clone git@github.com:scwfri/$repo $codedir/$repo"
-        git clone git@github.com:scwfri/$repo $codedir/$repo
-    fi
-done
-
 for file in tmux.conf bashrc csirc gitignore tmux.statusline gitconfig zshenv ctags sbclrc inputrc ripgreprc
 do
     if [ -f "$HOME/.$file" ]; then
@@ -103,15 +94,15 @@ if ! [ -d "$XDG_CONFIG_HOME/lib-scwfri" ]; then
     ln -s $HOME/.dotfiles/lib-scwfri $XDG_CONFIG_HOME
 fi
 
-if ! [ -d "$XDG_CONFIG_HOME/zsh" ]; then
-    echo "ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh"
-    ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME
-fi
+#if ! [ -d "$XDG_CONFIG_HOME/zsh" ]; then
+#    echo "ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME/zsh"
+#    ln -s $HOME/.dotfiles/zsh $XDG_CONFIG_HOME
+#fi
 
-if ! [ -d "$XDG_CONFIG_HOME/kitty" ]; then
-    echo "ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty"
-    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOM/E
-fi
+#if ! [ -d "$XDG_CONFIG_HOME/kitty" ]; then
+#    echo "ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOME/kitty"
+#    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOM/E
+#fi
 
 # python pip installation
 /usr/bin/python3 -m pip install --user 'python-lsp-server[all]'
@@ -120,6 +111,16 @@ fi
 /usr/bin/python3 -m pip install --user black
 /usr/bin/python3 -m pip install --user yapf
 /usr/bin/python3 -m pip install --user pycodestyle
+/usr/bin/python3 -m pip install --user compiledb
+/usr/bin/python3 -m pip install --user pre-commit
+
+# install rbenv and ruby-build
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+mkdir -p "$(rbenv root)"/plugins
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # install sbt
 curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
@@ -135,17 +136,3 @@ sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
        --eval '(ql:add-to-init-file)' \
        --quit
 
-# install 1password
-sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
-sudo sh -c 'echo -e "[1password]\nname=1Password\nbaseurl=https://downloads.1password.com/linux/rpm\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://downloads.1password.com/linux/keys/1password.asc" > /etc/yum.repos.d/1password.repo'
-sudo dnf install 1password
-
-# install nodejs
-curl -sL https://rpm.nodesource.com/setup_15.x | sudo bash -
-sudo yum install -y nodejs
-
-# set up postgresql (see https://developer.fedoraproject.org/tech/database/postgresql/about.html)
-# initialize PG cluster
-#sudo postgresql-setup initdb
-# start cluster
-#sudo systemctl start postgresql
