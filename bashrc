@@ -56,9 +56,9 @@ then
     GIT_PS1_SHOWUNTRACKEDFILES=1
 
     #PS1="[\[\e[33m\]\u@\h:\[\e[m\]\[\e[37m\]\w\[\e[31m\]\`__git_ps1\`\[\e[m\]]\n$ "
-    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\[\e[31m\]\`__git_ps1\`\[\e[m\]\n→ "
+    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\[\e[31m\]\`__git_ps1\`\[\e[m\]\n$ "
 else
-    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\n→ "
+    PS1="\n\[\e[34m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[33m\]\h\[\e[m\]\[\e[37m\]: \[\e[m\]\[\e[35m\]\w\[\e[m\]\n$ "
 fi
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
@@ -71,11 +71,6 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 . "$HOME/.cargo/env"
-
-if [ -f $HOME/bin/starship ]
-then
-    eval "$(starship init bash)"
-fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
