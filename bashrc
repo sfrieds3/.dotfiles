@@ -38,6 +38,12 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 # User specific aliases
 [ -f $HOME/.bash_aliases ] && . $HOME/.bash_aliases
 
+# tmux completion
+if [ -f $XDG_CONFIG_HOME/lib-scwfri/completions/tmux-completion.bash ]
+then
+    . $XDG_CONFIG_HOME/lib-scwfri/completions/tmux-completion.bash
+fi
+
 # bash prompt setup
 if [ -f /usr/share/bash-completion/completions/git ]
 then
