@@ -1,6 +1,6 @@
 # setops
 setopt INTERACTIVE_COMMENTS # allow comments even in interactive shells
-setopt AUTO_CD              # assume cd if directory passed
+unsetopt AUTO_CD            # assume cd if directory passed
 unsetopt CORRECT            # try to correct spelling of commands
 unsetopt CORRECT_ALL        # try to correct spelling of all arguments
 setopt PROMPT_SUBST         # allow expansions in prompt (needed for __git_ps1)
