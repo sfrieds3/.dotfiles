@@ -9,6 +9,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias gap='git add --patch'
+
 alias gg='$HOME/bin/git/git_recent.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
