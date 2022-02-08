@@ -8,4 +8,4 @@ set-option -g status-fg colour7
 set -g status-left "#[fg=colour0,bg=colour6] #S "
 set -g status-right "#[fg=colour6,bg=colour8] %Y-%m-%d | %H:%M #[fg=colour0,bg=colour6] #h "
 set-window-option -g window-status-format "#[fg=colour7,bg=colour0] #I: #W "
-set-window-option -g window-status-current-format "#[fg=colour0,bg=colour1] #I:#[fg=colour0,bg=colour1] #W #[fg=colour0,bg=colour1]"
+set-window-option -g window-status-current-format "#[fg=colour1,bg=colour0] #I:#[fg=colour1,bg=colour0] #W #[fg=colour1,bg=colour0]"
