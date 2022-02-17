@@ -19,3 +19,7 @@ export FZF_DEFAULT_COMMAND="rg --files"
 
 fpath=($XDG_CONFIG_HOME/zsh $fpath)
 . "$HOME/.cargo/env"
+
+if [[ $TERM =~ konsole.* ]]; then
+    export FZF_DEFAULT_OPTS='--color fg+:5,hl+:6'
+fi
