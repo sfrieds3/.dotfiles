@@ -1,7 +1,7 @@
 # Example of using a shell command in the status line
 #set -g status-right "#[fg=yellow]#(uptime | cut -d ',' -f 2-)"
 
-set -g status-justify "centre"
+set -g status-justify "left"
 set -g status "on"
 set-option -g status-bg colour0
 set-option -g status-fg colour7
