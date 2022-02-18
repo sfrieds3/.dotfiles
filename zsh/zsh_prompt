@@ -14,6 +14,6 @@ if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
-    #RPROMPT='%F{blue}$(__git_ps1)'
-    RPROMPT='%F{blue}$(__git_ps1) %F{cyan}%n@%F{green}%m'
+    #RPROMPT='%F{blue}$(__git_ps1) %F{cyan}%n@%F{green}%m'
+    RPROMPT='%F{blue}$(__git_ps1) %F{cyan}[%m]'
 fi
