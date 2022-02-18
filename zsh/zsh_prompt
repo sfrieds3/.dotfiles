@@ -1,6 +1,5 @@
 # set prompt
 autoload -U promptinit && promptinit
-#prompt spaceship
 
 #PROMPT='$prompt_newline%F{cyan}%n@%m %F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
 #PROMPT='$prompt_newline%F{red}%n %F{white}at %F{green}%m %F{white}in %F{cyan}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
@@ -8,12 +7,19 @@ autoload -U promptinit && promptinit
 #PROMPT='$prompt_newline%F{cyan}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f %F{red}[20%D %*]%f$prompt_newline〉'
 PROMPT='$prompt_newline%F{red}[20%D %*]$prompt_newline%F{cyan}${PWD/#$HOME/~} 〉%f'
 
-# git branch and status on right prompt, if available
-if [ -f $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh ]; then
-    . $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE=1
-    GIT_PS1_SHOWSTASHSTATE=1
-    GIT_PS1_SHOWUNTRACKEDFILES=1
-    #RPROMPT='%F{blue}$(__git_ps1) %F{cyan}%n@%F{green}%m'
-    RPROMPT='%F{blue}$(__git_ps1) %F{cyan}[%m]'
-fi
+# a lot of this from https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git··
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
+zstyle ':vcs_info:*' use-simple true
+zstyle ':vcs_info:git+set-message:*' hooks git-untracked
+zstyle ':vcs_info:git*:*' formats '%F{cyan}[%b%m%c%u%F{cyan}]%f ' # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '%F{cyan}[%b|%a%m%c%u%F{cyan}]%f ' # default ' (%s)-[%b|%a]%...c%u-'
+
+function prompt_precmd() { vcs_info }
+function set_rprompt { RPROMPT="${vcs_info_msg_0_}%F{blue}[%m]%f" }
+autoload -U add-zsh-hook
+add-zsh-hook precmd prompt_precmd
+add-zsh-hook precmd set_rprompt
