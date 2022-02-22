@@ -30,7 +30,7 @@ function +vi-git-untracked() {
 function +vi-git-stashed() {
   emulate -L zsh
   if [[ -n $(git stash list 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{yellow}◎%f"
+    hook_com[unstaged]+="%F{red}◎%f"
   fi
 }
 
