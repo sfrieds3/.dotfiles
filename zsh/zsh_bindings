@@ -13,6 +13,7 @@ bindkey '^T' up-line-or-beginning-search
 bindkey '^G' down-line-or-beginning-search
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
+bindkey '^k' kill-whole-line
 # <S-Tab> to reverse in completion menu
 bindkey '^[[Z' reverse-menu-complete
 # make delete key work

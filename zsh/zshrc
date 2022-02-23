@@ -8,9 +8,8 @@ setopt COMPLETE_IN_WORD     # allow tab completion in the middle of a word
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+unsetopt FLOW_CONTROL       # disable C-s/C-q behavior
 
-# disable C-s/C-q behavior
-stty -ixon
 
 # history
 HISTSIZE=1000000
