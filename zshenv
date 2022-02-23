@@ -1,3 +1,6 @@
+# turn off default <C-s> behavior
+test -t 0 && stty -ixon
+
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:=$XDG_CONFIG_HOME/local/share}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:=$XDG_CONFIG_HOME/cache}
@@ -11,6 +14,7 @@ export PERL_LOCAL_LIB_ROOT="/$HOME/perl5"
 export PERL_MB_OPT="--install_base \"/$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/$HOME/perl5"
 typeset -U path
+typeset -U fpath
 
 # set other env vars
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
