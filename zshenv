@@ -1,6 +1,3 @@
-# turn off default <C-s> behavior
-test -t 0 && stty -ixon
-
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:=$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:=$XDG_CONFIG_HOME/local/share}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:=$XDG_CONFIG_HOME/cache}
