@@ -27,7 +27,6 @@ zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suff
 
 # required for git-completion.zsh
 # git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
-zstyle ':completion:*:*:git:*' script $XDG_CONFIG_HOME/lib-scwfri/git/contrib/completion/git-completion.bash
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
