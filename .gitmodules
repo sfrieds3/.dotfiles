@@ -49,3 +49,6 @@
 [submodule "nvim/pack/bundle/start/cmp-nvim-tags"]
 	path = nvim/pack/bundle/start/cmp-nvim-tags
 	url = https://github.com/quangnguyen30192/cmp-nvim-tags.git
+[submodule "zsh/plugins/zsh-completions"]
+	path = zsh/plugins/zsh-completions
+	url = git://github.com/zsh-users/zsh-completions.git
