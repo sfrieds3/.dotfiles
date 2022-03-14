@@ -23,7 +23,7 @@ dnf_install=(
     zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel
     openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
     perl-core guile chicken gcc lua java-11-openjdk-devel texinfo ruby-devel
-    gimp
+    gimp nasm
 )
 
 # python build deps
