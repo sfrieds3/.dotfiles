@@ -98,14 +98,18 @@ flatpak install -y --noninteractive flathub us.zoom.Zoom
 /usr/bin/python3 -m pip install --user pycodestyle
 /usr/bin/python3 -m pip install --user compiledb
 /usr/bin/python3 -m pip install --user pre-commit
-
-# install rbenv and ruby-build
-#git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-#mkdir -p "$(rbenv root)"/plugins
-#git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+/usr/bin/python3 -m pip install --user virtualenv
 
 # install nvm
-#curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+# install python pyright language server
+npm install -g pyright
+
+# install rbenv and ruby-build
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+mkdir -p "$(rbenv root)"/plugins
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
 # install sbt
 #curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
