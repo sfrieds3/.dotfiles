@@ -33,6 +33,7 @@ source $ZDOTDIR/zsh_bindings
 source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 source $ZDOTDIR/zsh_functions
+test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
 # vim as editor
 export EDITOR="nvim"

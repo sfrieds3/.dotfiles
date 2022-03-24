@@ -1,7 +1,7 @@
 # completion
 # format
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
-# omplist autoloaded before compinit
+# complist autoloaded before compinit
 zmodload zsh/complist
 autoload -Uz compinit && compinit
 
