@@ -9,7 +9,8 @@ setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 unsetopt FLOW_CONTROL       # disable C-s/C-q behavior
-
+setopt CHECK_JOBS           # check for running jobs on exit and warn (default behavior)
+setopt NO_HUP               # but do not send HUP signal to bg jobs on exit
 
 # history
 HISTSIZE=1000000
