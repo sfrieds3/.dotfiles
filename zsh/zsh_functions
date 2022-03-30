@@ -30,3 +30,25 @@ cursor_mode() {
     zle -N zle-line-init
 }
 
+lazy_load_nvm() {
+    unset -f node
+    unset -f nvm
+    unset -f npm
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+}
+
+node() {
+    lazy_load_nvm
+    node $@
+}
+
+nvm() {
+    lazy_load_nvm
+    nvm $@
+}
+
+npm() {
+    lazy_load_nvm
+    npm $@
+}

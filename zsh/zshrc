@@ -36,8 +36,5 @@ source $ZDOTDIR/zsh_aliases
 source $ZDOTDIR/zsh_functions
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
-# vim as editor
+# nvim as editor
 export EDITOR="nvim"
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
