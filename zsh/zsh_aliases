@@ -10,7 +10,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias gap='git add --patch'
-alisd gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
 
 alias gg='$HOME/bin/git/git_recent.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
