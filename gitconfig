@@ -21,6 +21,7 @@
 	name = scwfri
 [alias]
 	ap = add --patch
+	blm = blame -wM
 	st = status -sb
 	sc = status -uno
 	br = branch
