@@ -1,11 +1,50 @@
 # set prompt
 autoload -U promptinit && promptinit
 
-#PROMPT='$prompt_newline%F{cyan}%n@%m %F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
-#PROMPT='$prompt_newline%F{red}%n %F{white}at %F{green}%m %F{white}in %F{cyan}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1)%f$prompt_newline➜ '
-#PROMPT='$prompt_newline%F{cyan}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f%F{blue}$(__git_ps1) %F{red}[20%D %*]%f$prompt_newline➜ '
-#PROMPT='$prompt_newline%F{cyan}%n@%F{green}%m:%F{white}${PWD/#$HOME/~}%f %F{red}[20%D %*]%f$prompt_newline〉'
 PROMPT='$prompt_newline%F{red}[20%D %*]$prompt_newline%F{cyan}${PWD/#$HOME/~} 〉%f'
+
+# lazy reload git stuff to speed up prompt in large repos
+# (from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples)
+FORCE_RUN_VCS_INFO=1
+zstyle ':vcs_info:*+pre-get-data:*' hooks pre-get-data
++vi-pre-get-data() {
+    # Only Git and Mercurial support and need caching. Abort if any other
+    # VCS is used.
+    [[ "$vcs" != git && "$vcs" != hg ]] && return
+
+    # If the shell just started up or we changed directories (or for other
+    # custom reasons) we must run vcs_info.
+    if [[ -n $FORCE_RUN_VCS_INFO ]]; then
+        FORCE_RUN_VCS_INFO=
+        return
+    fi
+
+    # If we got to this point, running vcs_info was not forced, so now we
+    # default to not running it and selectively choose when we want to run
+    # it (ret=0 means run it, ret=1 means don't).
+    ret=1
+    # If a git/hg command was run then run vcs_info as the status might
+    # need to be updated.
+    case "$(fc -ln $(($HISTCMD-1)))" in
+        git*)
+            ret=0
+            ;;
+        hg*)
+            ret=0
+            ;;
+    esac
+}
+
+# Call vcs_info as precmd before every prompt.
+prompt_precmd() {
+    vcs_info
+}
+add-zsh-hook precmd prompt_precmd
+
+# Must run vcs_info when changing directories.
+prompt_chpwd() {
+    FORCE_RUN_VCS_INFO=1
+}
 
 # a lot of this from https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
 # # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
