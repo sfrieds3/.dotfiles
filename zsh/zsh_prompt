@@ -79,5 +79,6 @@ function set_rprompt() {
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd prompt_precmd
+add-zsh-hook chpwd prompt_chpwd
 add-zsh-hook precmd set_prompt
 add-zsh-hook precmd set_rprompt
