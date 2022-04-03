@@ -11,6 +11,7 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 unsetopt FLOW_CONTROL       # disable C-s/C-q behavior
 setopt CHECK_JOBS           # check for running jobs on exit and warn (default behavior)
 setopt NO_HUP               # but do not send HUP signal to bg jobs on exit
+setopt HISTVERIFY           # show history expansions
 
 # history
 HISTSIZE=1000000
