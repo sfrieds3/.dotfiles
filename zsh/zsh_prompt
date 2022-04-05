@@ -31,7 +31,11 @@ function prompt_precmd() {
   vcs_info
 }
 
-PROMPT='$prompt_newline%F{red}[20%D %*]$prompt_newline%F{cyan}${PWD/#$HOME/~} 〉%f'
+function python_venv() {
+    [ $VIRTUAL_ENV ] && echo ' ('`basename $VIRTUAL_ENV`')'
+}
+
+PROMPT='$prompt_newline%F{red}[20%D %*]$prompt_newline%F{cyan}${PWD/#$HOME/~}%F{red}$(python_venv)%F{cyan} 〉%f'
 
 function set_rprompt() {
   RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
