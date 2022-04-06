@@ -19,7 +19,11 @@ bindkey '^[[Z' reverse-menu-complete
 # make delete key work
 bindkey '\e[3~' delete-char
 # run command, but do not clear commandline
-bindkey '^\'    accept-and-hold
+bindkey '^\' accept-and-hold
+
+# home/end to move to beginning/end of line
+bindkey '^[[F' end-of-line
+bindkey '^[[H' beginning-of-line
 
 # use vim keys in completion menus
 bindkey -M menuselect 'h' vi-backward-char
