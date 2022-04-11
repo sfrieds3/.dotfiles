@@ -105,6 +105,7 @@ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # install python pyright language server
 npm install -g pyright
+npm install -g vim-language-server
 
 # install rbenv and ruby-build
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
