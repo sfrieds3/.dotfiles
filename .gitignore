@@ -5,3 +5,4 @@ zsh_history
 */shada/*
 nvim/log
 nvim/lsp.log
+packer_compiled.lua
