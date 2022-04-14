@@ -13,7 +13,12 @@ require('config')
 local utils = require('utils/utils')
 local set = vim.opt
 
+if vim.fn.executable('rg') then
+  set.grepprg = 'rg -HS --no-heading --vimgrep'
+end
+
 set.shell = '/usr/bin/zsh'
+set.termguicolors = true
 set.hidden = true
 set.autoread = true
 set.modeline = false
@@ -61,18 +66,14 @@ set.ttimeoutlen = 10
 set.wildmenu = true
 set.wildignorecase = true
 set.wildignore = '*.o,*.pyc'
--- set.wildcharm = [[<C-z>]]
+set.wildcharm = 26 -- <C-z>
 set.tags = './tags;,tags;'
 set.completeopt = 'menu,menuone,noselect'
 set.path = '.,,'
 
 set.undofile = true
 set.backup = true
-local backup_dir = string.format('%s/backup', data_dir)
-if vim.fn.isdirectory(backup_dir) == 0 then
-  vim.fn.mkdir(backup_dir, 'p')
-end
-set.backupdir = backup_dir
+set.backupdir = vim.opt.backupdir - '.'
 set.backupext = '.bak'
 set.swapfile = false
 set.shada = [['1000,f1,<1000,/10000,:10000]]

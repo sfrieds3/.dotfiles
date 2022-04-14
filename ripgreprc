@@ -13,3 +13,6 @@
 
 # match case... smartly
 --smart-case
+
+# search in hidden files/directories
+--hidden

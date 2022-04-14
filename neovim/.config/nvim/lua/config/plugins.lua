@@ -9,10 +9,7 @@ return require('packer').startup(function(use)
 
   -- git
   use {
-    { 'airblade/vim-gitgutter',
-       config = [[ vim.g.gitgutter_set_sign_backgrounds = 1
-                   vim.g.gitgutter_use_location_list = 1 ]]
-    },
+    { 'lewis6991/gitsigns.nvim' },
     { 'tpope/vim-fugitive', cmd = 'Git' },
   }
 
@@ -23,8 +20,12 @@ return require('packer').startup(function(use)
     { 'junegunn/vim-easy-align', keys = { 'gl' } },
     { 'justinmk/vim-dirvish' },
     { 'kevinhwang91/nvim-bqf' },
-    { 'ludovicchabant/vim-gutentags' },
-    { 'majutsushi/tagbar', cmd = 'TagbarToggle' },
+    { 'ludovicchabant/vim-gutentags',
+      config = function()
+        vim.g.gutentags_cache_dir = vim.fn.stdpath('data') .. '/tags'
+      end
+    },
+    { 'preservim/tagbar' },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
     { 'romainl/vim-qf' },
     { 'romainl/vim-qlist' },
@@ -63,7 +64,8 @@ return require('packer').startup(function(use)
     { 'hrsh7th/cmp-vsnip' },
     { 'hrsh7th/nvim-cmp' },
     { 'hrsh7th/vim-vsnip' },
-    { 'neovim/nvim-lspconfig' },
+    { 'neovim/nvim-lspconfig', },
+    { 'nvim-lua/lsp-status.nvim' },
     { 'quangnguyen30192/cmp-nvim-tags' },
     { 'rafamadriz/friendly-snippets' },
   }
@@ -82,7 +84,6 @@ return require('packer').startup(function(use)
     { 'sainnhe/edge' },
     { 'sainnhe/gruvbox-material' },
     { 'sainnhe/sonokai' },
-    { 'vim-airline/vim-airline' },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim

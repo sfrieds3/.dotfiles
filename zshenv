@@ -17,7 +17,7 @@ typeset -U path
 typeset -U fpath
 
 # set other env vars
-export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/.ripgreprc
 export JDTLS_HOME=$HOME/bin/jdtls/
 export FZF_DEFAULT_COMMAND="rg --files"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
