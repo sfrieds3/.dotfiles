@@ -87,18 +87,32 @@ flatpak install -y --noninteractive flathub us.zoom.Zoom
 #    ln -s $HOME/.dotfiles/kitty $XDG_CONFIG_HOM/E
 #fi
 
-# python pip installation
+# setup main python venv install python stuff
+if ! [ -d "$HOME/.venv" ]; then
+    echo "mkdir $HOME/.venv"
+    mkdir $HOME/.venv
+fi
+
 /usr/bin/python3 -m ensurepip
-/usr/bin/python3 -m pip install --upgrade pip
-/usr/bin/python3 -m pip install --user 'python-lsp-server[all]'
-/usr/bin/python3 -m pip install --user autopep8
-/usr/bin/python3 -m pip install --user pylint
-/usr/bin/python3 -m pip install --user black
-/usr/bin/python3 -m pip install --user yapf
-/usr/bin/python3 -m pip install --user pycodestyle
-/usr/bin/python3 -m pip install --user compiledb
-/usr/bin/python3 -m pip install --user pre-commit
 /usr/bin/python3 -m pip install --user virtualenv
+/usr/bin/python3 -m pip install --user ipython
+/usr/bin/python3 -m venv $HOME/.venv/venv
+
+$HOME/.venv/venv/bin/python3 -m pip install --upgrade pip
+$HOME/.venv/venv/bin/python3 -m pip install 'python-lsp-server[all]'
+$HOME/.venv/venv/bin/python3 -m pip install autopep8
+$HOME/.venv/venv/bin/python3 -m pip install pylint
+$HOME/.venv/venv/bin/python3 -m pip install black
+$HOME/.venv/venv/bin/python3 -m pip install yapf
+$HOME/.venv/venv/bin/python3 -m pip install pylsp-mypy
+$HOME/.venv/venv/bin/python3 -m pip install python-lsp-black
+$HOME/.venv/venv/bin/python3 -m pip install pyls-isort
+$HOME/.venv/venv/bin/python3 -m pip install pycodestyle
+$HOME/.venv/venv/bin/python3 -m pip install compiledb
+$HOME/.venv/venv/bin/python3 -m pip install pre-commit
+$HOME/.venv/venv/bin/python3 -m pip install ipython
+$HOME/.venv/venv/bin/python3 -m pip install pandas
+$HOME/.venv/venv/bin/python3 -m pip install mypy
 
 # install nvm
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
