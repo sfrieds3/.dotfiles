@@ -51,10 +51,11 @@ local mode_table = {
   ['r?'] = 'Confirm',
   ['!'] = 'Shell',
   t = 'Terminal',
+  nt = 'N·Terminal',
 }
 
 local function mode_name(mode)
-  return string.upper(mode_table[mode] or 'V-Block')
+  return string.upper(mode_table[mode] or 'Normal')
 end
 
 local function filename(buf_name, win_id)
