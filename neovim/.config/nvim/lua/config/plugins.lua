@@ -64,7 +64,7 @@ return require('packer').startup(function(use)
     { 'hrsh7th/cmp-vsnip' },
     { 'hrsh7th/nvim-cmp' },
     { 'hrsh7th/vim-vsnip' },
-    { 'neovim/nvim-lspconfig', },
+    { 'neovim/nvim-lspconfig' },
     { 'nvim-lua/lsp-status.nvim' },
     { 'quangnguyen30192/cmp-nvim-tags' },
     { 'rafamadriz/friendly-snippets' },
