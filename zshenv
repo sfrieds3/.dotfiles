@@ -19,7 +19,7 @@ typeset -U fpath
 # set other env vars
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/.ripgreprc
 export JDTLS_HOME=$HOME/bin/jdtls/
-export FZF_DEFAULT_COMMAND="rg --files"
+export FZF_DEFAULT_COMMAND="rg --files --hidden"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON3_VENV="$HOME/.venv/venv/bin/python3"
 
