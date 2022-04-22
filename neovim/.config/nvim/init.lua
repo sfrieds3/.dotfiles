@@ -14,7 +14,9 @@ local utils = require('utils/utils')
 local set = vim.opt
 
 if vim.fn.executable('rg') then
-  set.grepprg = 'rg -HS --no-heading --vimgrep'
+  set.grepprg = 'rg -HS --no-heading --hidden --vimgrep'
+else
+  set.grepprg='git grep -in $*'
 end
 
 set.shell = '/usr/bin/zsh'
