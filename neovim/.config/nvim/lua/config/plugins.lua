@@ -76,6 +76,7 @@ return require('packer').startup(function(use)
     { 'fatih/vim-go', ft = 'go' },
     { 'rust-lang/rust.vim', ft= 'rust', config = [[vim.g.rustfmt_autosave = 1]] },
     { 'mfulz/cscope.nvim', ft = { 'c', 'cop' } },
+    { 'psf/black', ft = { 'python' } },
     { 'tpope/vim-rails', ft = { 'ruby', 'eruby' } },
   }
 

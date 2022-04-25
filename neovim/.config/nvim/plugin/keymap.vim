@@ -17,6 +17,9 @@ nnoremap <BS> <C-^>
 " default Y mapping is just.. wrong
 nnoremap Y y$
 
+" format with black
+xnoremap _k :Black -q -<CR>
+
 " easy access to black hole register
 nnoremap \d "_d
 xnoremap \d "_d
