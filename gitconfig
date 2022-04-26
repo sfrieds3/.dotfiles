@@ -5,6 +5,7 @@
 [color "diff"]
 	old = blue
 	new = green
+	whitespace = red reverse
 [diff]
 	guitool = meld
 	tool = meld
