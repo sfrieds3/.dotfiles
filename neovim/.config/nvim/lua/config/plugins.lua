@@ -17,17 +17,24 @@ return require('packer').startup(function(use)
     }
   }
 
+  -- testing
+  use {
+    'nvim-telescope/telescope.nvim',
+      cmd = { 'Telescope' },
+      config = function()
+        require('config.telescope')
+      end,
+      requires = {
+        'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-fzy-native.nvim'
+      }
+  }
+
   -- quality of life
   use {
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
-    { 'folke/trouble.nvim',
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = function()
-        require('trouble').setup {
-        }
-      end
-    },
     { 'ggandor/lightspeed.nvim',
       keys = { 'f', 'F', 't', 'T' },
       config = function()
@@ -86,6 +93,13 @@ return require('packer').startup(function(use)
 
   -- lsp, completion
   use {
+    { 'folke/trouble.nvim',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function()
+        require('trouble').setup {
+        }
+      end
+    },
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-cmdline' },
     { 'hrsh7th/cmp-nvim-lsp' },
