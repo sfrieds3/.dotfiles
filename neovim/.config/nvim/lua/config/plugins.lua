@@ -11,6 +11,10 @@ return require('packer').startup(function(use)
   use {
     { 'lewis6991/gitsigns.nvim' },
     { 'tpope/vim-fugitive', cmd = 'Git' },
+    { 'sindrets/diffview.nvim',
+       requires = 'nvim-lua/plenary.nvim',
+       cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" }
+    }
   }
 
   -- quality of life
