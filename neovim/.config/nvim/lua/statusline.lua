@@ -8,6 +8,18 @@ local fnamemodify = vim.fn.fnamemodify
 local get_window_width = vim.api.nvim_win_get_width
 local pathshorten = vim.fn.pathshorten
 
+--local M = {}
+
+--StatusLine = setmetatable(M, {
+--  __call = function(statusline, mode) 
+--    if statusline == 'active' then return statusline:active() end
+--    if statusline == 'inactive' then return statusline:inactive() end
+--    if statusline == 'dirvish' then return statusline:dirvish() end
+--  end
+--})
+
+--return statuslines[win_id]
+
 local function vcs()
   local branch_sign = 'λ'
   local git_info = vim.b.gitsigns_status_dict

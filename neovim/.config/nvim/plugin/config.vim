@@ -6,6 +6,6 @@ augroup END
 
 augroup Neovim
     autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 augroup END
 packadd cfilter

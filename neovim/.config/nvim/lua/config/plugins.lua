@@ -21,6 +21,22 @@ return require('packer').startup(function(use)
   use {
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
+    { 'folke/trouble.nvim',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function()
+        require('trouble').setup {
+        }
+      end
+    },
+    { 'ggandor/lightspeed.nvim',
+      keys = { 'f', 'F', 't', 'T' },
+      config = function()
+        require('lightspeed').setup({
+          repeat_ft_with_target_char = true,
+          ignore_case = true,
+        })
+      end,
+    },
     { 'junegunn/vim-easy-align', keys = { 'gl' } },
     { 'justinmk/vim-dirvish' },
     { 'kevinhwang91/nvim-bqf' },
@@ -31,6 +47,16 @@ return require('packer').startup(function(use)
     },
     { 'preservim/tagbar' },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
+    { 'phaazon/hop.nvim',
+      keys = { 'gh' },
+      cmd = { 'HopWord', 'HopChar1' },
+      config = function()
+        vim.api.nvim_set_keymap('n', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN })<cr>", {})
+        vim.api.nvim_set_keymap('v', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN })<cr>", {})
+        vim.api.nvim_set_keymap('o', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN, inclusive_jump = true })<cr>", {})
+        require('hop').setup({})
+      end,
+    },
     { 'romainl/vim-qf' },
     { 'romainl/vim-qlist' },
     { 'tpope/vim-scriptease', cmd = {
@@ -43,7 +69,7 @@ return require('packer').startup(function(use)
     { 'tpope/vim-surround' },
     { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } },
     { 'wellle/targets.vim' },
-  }
+ }
 
   -- objects and stuf
   use {
