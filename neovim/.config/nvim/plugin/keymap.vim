@@ -91,7 +91,7 @@ nnoremap \> :<C-U>'[,']><CR>
 nnoremap \b :B<CR>
 
 " find in path
-nnoremap \fd :find **/*
+" nnoremap \fd :find **/*
 
 " redraw screen
 nnoremap \! :redraw!<CR>

@@ -1,12 +1,12 @@
 set rtp+=~/bin/fzf
 
-nnoremap \ff :Files<CR>
-nnoremap \fr :History<CR>
-nnoremap \fb :Buffers<CR>
-nnoremap \ft :BTags<CR>
-nnoremap \fg :Tags<CR>
-nnoremap \fl :Lines<CR>
-nnoremap \fm :Marks<CR>
+" nnoremap \ff :Files<CR>
+" nnoremap \fr :History<CR>
+" nnoremap \fb :Buffers<CR>
+" nnoremap \ft :BTags<CR>
+" nnoremap \fg :Tags<CR>
+" nnoremap \fl :Lines<CR>
+" nnoremap \fm :Marks<CR>
 
 "let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_layout = { 'down': '~40%' }

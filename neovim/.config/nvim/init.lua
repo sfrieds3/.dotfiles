@@ -9,8 +9,9 @@ local config_path = vim.fn.stdpath('config')
 
 vim.g.python3_host_prog = '$PYTHON3_VENV'
 
+require('plugins')
 require('config')
-local utils = require('utils/utils')
+local utils = require('utils')
 local set = vim.opt
 
 if vim.fn.executable('rg') then

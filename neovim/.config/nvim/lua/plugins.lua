@@ -13,26 +13,40 @@ return require('packer').startup(function(use)
     { 'tpope/vim-fugitive', cmd = 'Git' },
     { 'sindrets/diffview.nvim',
        requires = 'nvim-lua/plenary.nvim',
-       cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" }
+       cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
     }
   }
 
   -- testing
   use {
     'nvim-telescope/telescope.nvim',
-      cmd = { 'Telescope' },
+    cmd = { 'Telescope' },
+    keys = { '<leader>ff', '<leader>fg', '<leader>fb', '<leader>fh', },
+    config = function()
+      require('config.telescope')
+    end,
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-lua/popup.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim',
+      { 'nvim-treesitter/nvim-treesitter',
       config = function()
-        require('config.telescope')
-      end,
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-fzy-native.nvim'
-      }
+        require('config.treesitter')
+      end
+    }
   }
+}
 
   -- quality of life
   use {
+    { 'AckslD/nvim-neoclip.lua',
+      requires = {
+        { 'nvim-telescope/telescope.nvim' },
+      },
+      config = function()
+        require('neoclip').setup()
+      end,
+    },
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
     { 'ggandor/lightspeed.nvim',
