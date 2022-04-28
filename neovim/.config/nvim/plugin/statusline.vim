@@ -1,7 +1,3 @@
-scriptencoding utf-8
-set noshowmode
-set laststatus=2
-
 " Setup the colors
 function! s:setup_colors() abort
   hi StatuslineSeparator guifg=#3a3a3a gui=none guibg=none

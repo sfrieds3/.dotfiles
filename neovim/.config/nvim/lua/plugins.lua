@@ -17,32 +17,31 @@ return require('packer').startup(function(use)
     }
   }
 
-  -- testing
+  -- nvim niceties
   use {
-    'nvim-telescope/telescope.nvim',
-    cmd = { 'Telescope' },
-    keys = { '<leader>ff', '<leader>fg', '<leader>fb', '<leader>fh', },
-    config = function()
-      require('config.telescope')
-    end,
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-lua/popup.nvim',
-      'nvim-telescope/telescope-fzy-native.nvim',
-      { 'nvim-treesitter/nvim-treesitter',
+    { 'nvim-telescope/telescope.nvim',
+      cmd = { 'Telescope' },
+      keys = { '<Leader>ff', '<Leader>fg', '<Leader>fb', '<Leader>fh', '<Leader>fr', '<leader>f<Space>', },
+      config = function()
+        require('config.telescope')
+      end,
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-lua/popup.nvim',
+        'nvim-telescope/telescope-fzy-native.nvim',
+      }
+    },
+    { 'nvim-treesitter/nvim-treesitter',
       config = function()
         require('config.treesitter')
       end
-    }
+    },
+    { 'nvim-treesitter/playground' },
   }
-}
 
   -- quality of life
   use {
     { 'AckslD/nvim-neoclip.lua',
-      requires = {
-        { 'nvim-telescope/telescope.nvim' },
-      },
       config = function()
         require('neoclip').setup()
       end,
@@ -99,12 +98,6 @@ return require('packer').startup(function(use)
     { 'tpope/vim-unimpaired' },
   }
 
-  -- other utils
-  use {
-    { 'junegunn/fzf' },
-    { 'junegunn/fzf.vim' },
-  }
-
   -- lsp, completion
   use {
     { 'folke/trouble.nvim',
@@ -114,19 +107,28 @@ return require('packer').startup(function(use)
         }
       end
     },
-    { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-cmdline' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-    { 'hrsh7th/cmp-path' },
-    { 'hrsh7th/cmp-vsnip' },
-    { 'hrsh7th/nvim-cmp' },
-    --{ 'hrsh7th/vim-vsnip' },
-    { 'L3MON4D3/LuaSnip' },
-    { 'neovim/nvim-lspconfig' },
-    { 'nvim-lua/lsp-status.nvim' },
-    { 'quangnguyen30192/cmp-nvim-tags' },
-    { 'rafamadriz/friendly-snippets' },
+    { 'hrsh7th/nvim-cmp',
+      requires = {
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-cmdline' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+        { 'hrsh7th/cmp-path' },
+        { 'quangnguyen30192/cmp-nvim-tags' },
+        { 'L3MON4D3/LuaSnip',
+          config = function()
+            require('luasnip.loaders.from_vscode').lazy_load()
+          end,
+          requires = {
+            { 'rafamadriz/friendly-snippets' },
+            { 'saadparwaiz1/cmp_luasnip' },
+          },
+        },
+      },
+    },
+    { 'neovim/nvim-lspconfig',
+      requires = { 'nvim-lua/lsp-status.nvim' },
+    },
   }
 
   -- languages

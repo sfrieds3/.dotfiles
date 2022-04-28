@@ -46,8 +46,7 @@ set.shiftwidth = 4
 set.softtabstop = 4
 set.scrolloff = 3
 
-set.laststatus = 2
-set.laststatus = 2
+set.laststatus = 3
 set.backspace = 'indent,eol,start'
 set.encoding = 'utf8'
 set.fileencoding = 'utf8'
