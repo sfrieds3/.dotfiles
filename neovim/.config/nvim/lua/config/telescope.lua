@@ -10,9 +10,9 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
   map(mode, key, command)
 end
 
+map('n', '<Leader>ff', "<cmd>lua require('telescope.builtin').find_files({ hidden=true }, require('telescope.themes').get_ivy())<cr>")
 map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
-map_telescope('<Leader>ff', 'find_files', 'ivy')
 map_telescope('<Leader>fg', 'live_grep', 'ivy')
 map_telescope('<Leader>fb', 'buffers', 'dropdown', "previewer = false")
 map_telescope('<Leader>fr', 'oldfiles', 'ivy')

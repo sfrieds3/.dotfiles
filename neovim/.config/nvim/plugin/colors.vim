@@ -18,7 +18,7 @@ function! s:setup_colors() abort
     hi! AquaHover guifg=#8ec07c ctermfg=108 gui=NONE cterm=NONE
     hi! WhiteHover guifg=#ffffff ctermfg=108 gui=NONE cterm=NONE
 
-    let sign_col_bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'gui') 
+    let sign_col_bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'gui')
     let sign_col_bg = empty(sign_col_bg) ? synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'cterm') : sign_col_bg
     exec 'hi RedSign guifg=#cc241d ctermfg=124 gui=NONE cterm=NONE guibg=' . sign_col_bg
     exec 'hi YellowSign guifg=#fabd2f ctermfg=214 gui=NONE cterm=NONE guibg=' . sign_col_bg
@@ -42,7 +42,7 @@ function! s:setup_colors() abort
 
     hi! DiagnosticUnderlineError guifg=#ff727b ctermfg=NONE guibg=NONE ctermbg=NONE guisp=#9d0006
     hi! DiagnosticUnderlineWarn guifg=#fabd2f ctermfg=NONE guibg=NONE ctermbg=NONE guisp=#b57614
-    hi! DiagnosticUnderlineInfo guifg=#83a598 ctermfg=NONE guibg=NONE ctermbg=NONE 
+    hi! DiagnosticUnderlineInfo guifg=#83a598 ctermfg=NONE guibg=NONE ctermbg=NONE
     hi! DiagnosticUnderlineHint guifg=#83a5cb ctermfg=NONE guibg=NONE ctermbg=NONE guisp=#83a5cb
 
     hi! link SignifySignAdd GreenSign

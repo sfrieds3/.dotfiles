@@ -1,4 +1,4 @@
-# source: https://github.com/camspiers/dotfiles 
+# source: https://github.com/camspiers/dotfiles
 # Set the default readline mode as vi
 set editing-mode vi
 

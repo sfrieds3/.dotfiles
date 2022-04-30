@@ -26,7 +26,7 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 
 # partial completion suggestions
-zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix 
+zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
 
 # required for git-completion.zsh
 # git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
