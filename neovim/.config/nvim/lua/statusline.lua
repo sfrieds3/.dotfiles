@@ -139,7 +139,7 @@ local function get_readonly_space()
 end
 
 local statusline_format =
-  '%%#%s# %s %%#StatuslineModified#%s%%#%s# %s %%#%s#%s%s%%<%%#%s# %s%s%%<%%=%%#StatuslineVC#%s %%#StatuslineLint#%s%%#StatuslineFiletype#'
+  '%%#%s# %s %%#StatuslineModified#%s%%#%s# %s %%#%s#%s%s%%<%%#%s# %s%s%%<%%#%s#%s%%<%%=%%#StatuslineVC#%s %%#StatuslineLint#%s%%#StatuslineFiletype#'
 
 local statuslines = {}
 local function status()
@@ -150,6 +150,7 @@ local function status()
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
     local filetype_segment = '%y'
+    local treesitter_segment = vim.fn['nvim_treesitter#statusline']()
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c ' or ''
     statuslines[win_id] = string.format(
@@ -165,6 +166,8 @@ local function status()
       filename_color,
       get_paste(),
       get_readonly_space(),
+      filetype_color,
+      treesitter_segment,
       vcs(),
       lint_lsp(buf_nr)
     )
