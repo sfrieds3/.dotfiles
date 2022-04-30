@@ -42,13 +42,15 @@ local servers = {
     'vimls',
 }
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in pairs(servers) do
   if vim.fn.executable(lsp) == 1 then
     require('lspconfig')[lsp].setup {
       on_attach = on_attach,
       flags = {
         debounce_text_changes = 150,
-      }
+      },
+      capabilities = capabilities
     }
   end
 end
@@ -59,7 +61,7 @@ if vim.fn.executable('lua-language-server') == 1 then
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  require'lspconfig'.sumneko_lua.setup {
+  require('lspconfig').sumneko_lua.setup {
     settings = {
       Lua = {
         runtime = {

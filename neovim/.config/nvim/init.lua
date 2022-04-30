@@ -55,6 +55,7 @@ set.formatoptions = 'qrn1j'
 set.mouse = 'a'
 set.redrawtime = 50000
 set.showbreak = '...'
+set.foldenable = false
 set.foldmethod = 'expr'
 set.foldexpr = 'nvim_treesitter#foldexpr()'
 set.foldcolumn = '0'
