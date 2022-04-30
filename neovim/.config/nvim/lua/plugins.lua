@@ -20,8 +20,8 @@ return require('packer').startup(function(use)
   -- nvim niceties
   use {
     { 'nvim-telescope/telescope.nvim',
-      cmd = { 'Telescope' },
-      keys = { '<Leader>ff', '<Leader>fg', '<Leader>fb', '<Leader>fh', '<Leader>fr', '<leader>f<Space>', },
+      -- cmd = { 'Telescope' },
+      -- keys = { '<Leader>ff', '<Leader>fg', '<Leader>fb', '<Leader>fh', '<Leader>fr', '<leader>f<Space>', },
       config = function()
         require('config.telescope')
       end,
@@ -113,6 +113,7 @@ return require('packer').startup(function(use)
         { 'hrsh7th/cmp-cmdline' },
         { 'hrsh7th/cmp-nvim-lsp' },
         { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+        { 'hrsh7th/cmp-nvim-lua' },
         { 'hrsh7th/cmp-path' },
         { 'quangnguyen30192/cmp-nvim-tags' },
         { 'L3MON4D3/LuaSnip',

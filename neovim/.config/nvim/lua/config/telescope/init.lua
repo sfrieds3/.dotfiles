@@ -1,6 +1,7 @@
 local map = require('utils').mapper(opts)
-require('telescope').setup { }
+local telescope_config = require('config.telescope.telescope_config')
 
+require('telescope').setup { }
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
@@ -10,7 +11,7 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
   map(mode, key, command)
 end
 
-map('n', '<Leader>ff', "<cmd>lua require('telescope.builtin').find_files({ hidden=true }, require('telescope.themes').get_ivy())<cr>")
+map('n', '<Leader>ff', "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
 map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map_telescope('<Leader>fg', 'live_grep', 'ivy')
@@ -30,3 +31,6 @@ map_telescope('<Leader>tm', 'marks', 'dropdown')
 map_telescope('<Leader>tr', 'registers', 'dropdown')
 
 require('telescope').load_extension('fzy_native')
+
+return M
+
