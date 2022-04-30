@@ -3,8 +3,6 @@ setlocal iskeyword-=:
 
 setlocal shiftwidth=4 softtabstop=4 expandtab
 
-setlocal foldmethod=indent nofoldenable
-
 function! perl#Format() abort
     let fp = exists("g:pl_formatprg") ? g:pl_formatprg : 'perltidy\ -st'
     let lst = v:lnum + v:count - 1
@@ -27,4 +25,4 @@ setlocal errorformat=%f:%l:\ %m
 "let g:perl_no_extended_vars = 0
 
 " undo changes
-let b:undo_ftplugin = "setlocal sw< sts< fdm< fen< isk< mp< et< fex< efm<"
+let b:undo_ftplugin = "setlocal sw< sts< fdm< fen< isk< mp< et<"

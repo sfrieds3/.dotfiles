@@ -1,4 +1,4 @@
-setlocal shiftwidth=4 softtabstop=4 foldmethod=indent nofoldenable
+setlocal shiftwidth=4 softtabstop=4 nofoldenable
 
 function! PythonFuncGrep() abort
     exec("vimgrep /def /j %")
@@ -43,4 +43,4 @@ function! InsertPdOptionContext()
 endfunction
 
 " undo changes
-let b:undo_ftplugin = "setlocal sw< sts< fdm< fen< ofu< sua< inc< mp< efm< def< fex< kp<"
+let b:undo_ftplugin = "setlocal sw< sts< fen< ofu< sua< inc< mp< efm< def< fex< kp<"

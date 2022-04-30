@@ -15,7 +15,6 @@ nnoremap <buffer> \<Space>k :FSSplitAbove<CR>
 nnoremap <buffer> \<Space>l :FSSplitRight<CR>
 
 setlocal shiftwidth=4 softtabstop=4
-setlocal foldmethod=syntax
 setlocal nofoldenable
 
-let b:undo_ftplugin = "setlocal sw< sts< fdm< fen sua< mp"
+let b:undo_ftplugin = "setlocal sw< sts< fen sua< mp"

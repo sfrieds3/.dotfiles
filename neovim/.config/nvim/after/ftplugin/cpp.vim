@@ -1,7 +1,6 @@
 setlocal suffixesadd=.h,.hpp
 
 setlocal shiftwidth=4 softtabstop=4
-setlocal foldmethod=syntax
 setlocal nofoldenable
 
 nnoremap <buffer> \<Space><Space> :FSHere<CR>
@@ -17,4 +16,4 @@ function! cpp#Format() abort
 endfunction
 setlocal formatexpr=cpp#Format()
 
-let b:undo_ftplugin = "setlocal sw< sts< fdm< fen< sua< fex<"
+let b:undo_ftplugin = "setlocal sw< sts< fen< sua< fex<"
