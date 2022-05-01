@@ -152,7 +152,7 @@ local function status()
     local filetype_segment = '%y'
     local treesitter_segment = vim.fn['nvim_treesitter#statusline']()
     local mode_color, filename_color, filetype_color = update_colors(mode)
-    local line_col_segment = filename_segment ~= '' and ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c ' or ''
+    local line_col_segment = filename_segment ~= '' and ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c |' or ''
     statuslines[win_id] = string.format(
       statusline_format,
       mode_color,

@@ -28,6 +28,12 @@ return require('packer').startup(function(use)
       requires = {
         'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',
+        { 'nvim-telescope/telescope-frecency.nvim',
+          config = function()
+            require('telescope').load_extension('frecency')
+          end,
+          requires = { 'tami5/sqlite.lua' }
+        },
         'nvim-telescope/telescope-fzy-native.nvim',
       }
     },

@@ -9,3 +9,4 @@ nvim/log
 nvim/lsp.log
 packer_compiled.lua
 neovim/.config/nvim/config/*
+neovim/.config/nvim/lua/config/telescope/local/*
