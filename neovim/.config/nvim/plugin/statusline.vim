@@ -3,7 +3,7 @@ function! s:setup_colors() abort
   hi StatuslineSeparator guifg=#3a3a3a gui=none guibg=none
   hi StatuslinePercentage guibg=#3a3a3a gui=none guifg=#dab997
   hi StatuslineNormal guibg=#3a3a3a gui=none guifg=#e9e9e9
-  hi StatuslineVC guibg=#3a3a3a gui=none guifg=#a9a9a9
+  hi StatuslineVC guibg=#3a3a3a gui=none guifg=#e9e9e9
   hi StatuslineLintWarn guibg=#3a3a3a gui=none guifg=#ffcf00
   hi StatuslineLintChecking guibg=#3a3a3a gui=none guifg=#458588
   hi StatuslineLintError guibg=#3a3a3a gui=none guifg=#d75f5f

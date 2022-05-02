@@ -10,7 +10,6 @@ local config_path = vim.fn.stdpath('config')
 vim.g.python3_host_prog = '$PYTHON3_VENV'
 
 require('plugins')
-require('config')
 local utils = require('utils')
 local set = vim.opt
 
@@ -63,7 +62,8 @@ set.foldcolumn = '0'
 set.listchars = { tab = '» ', extends = '›', precedes = '‹', nbsp = '␣', trail = '·' }
 set.list = true
 
-set.timeout = false
+set.timeout = true
+set.timeoutlen = 500
 set.ttimeout = true
 set.ttimeoutlen = 10
 
