@@ -6,8 +6,8 @@ autoload -U promptinit && promptinit
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
-zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
+zstyle ':vcs_info:*' stagedstr "%F{green}+%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr "%F{red}!%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed
 zstyle ':vcs_info:git*:*' formats '(%F{yellow}λ:%F{blue}%b%m%c%u%F{blue})%f ' # default ' (%s)-[%b]%c%u-'
@@ -16,14 +16,14 @@ zstyle ':vcs_info:git*:*' actionformats '(%F{yellow}λ:%F{blue}%b|%a%m%c%u%F{blu
 function +vi-git-untracked() {
   emulate -L zsh
   if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{red}○%f"
+    hook_com[unstaged]+="%F{red}?%f"
   fi
 }
 
 function +vi-git-stashed() {
   emulate -L zsh
   if [[ -n $(git stash list 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{cyan}◆%f"
+    hook_com[unstaged]+="%F{cyan}$%f"
   fi
 }
 
