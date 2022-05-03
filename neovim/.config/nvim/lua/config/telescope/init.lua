@@ -1,4 +1,4 @@
-local map = require('utils').mapper(opts)
+local map = require('utils').mapper()
 local telescope_config = require('config.telescope.telescope_config')
 
 require('telescope').setup{
@@ -26,7 +26,7 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
 end
 
 map('n', '<Leader>ff', "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
-map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map_telescope('<Leader>fb', 'buffers', 'dropdown', "previewer = false")
 map_telescope('<Leader>fr', 'oldfiles', 'ivy')
@@ -43,9 +43,9 @@ map_telescope('<Leader>t<Space>', 'current_buffer_fuzzy_find', 'ivy')
 map_telescope('<Leader>tm', 'marks', 'dropdown')
 map_telescope('<Leader>tr', 'registers', 'dropdown')
 
-map('n', '<leader>tv', "<cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
-map('n', '<leader>tw', "<cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
-map('n', '<leader>fg', "<cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
+map('n', '<Leader>tv', "<cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
+map('n', '<Leader>tw', "<cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
+map('n', '<Leader>fg', "<cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 
 require('telescope').load_extension('fzy_native')
 
