@@ -128,5 +128,8 @@ function M.vim_options()
   }
 end
 
-return M
+function M.recent_files()
+  require("telescope").extensions.frecency.frecency(themes.get_ivy { })
+end
 
+return M
