@@ -26,10 +26,10 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
 end
 
 map('n', '<Leader>ff', "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
+map('n', '<Leader>fr', "<cmd>lua require('config.telescope.telescope_config').recent_files()<CR>")
 map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map_telescope('<Leader>fb', 'buffers', 'dropdown', "previewer = false")
-map_telescope('<Leader>fr', 'oldfiles', 'ivy')
 map_telescope('<Leader>f<Space>', 'oldfiles', 'ivy')
 map_telescope('<Leader>tt', 'treesitter', 'ivy')
 map_telescope('<Leader>tk', 'keymaps', 'dropdown')
