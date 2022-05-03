@@ -18,15 +18,13 @@ function! s:setup_colors() abort
     hi! AquaHover guifg=#8ec07c ctermfg=108 gui=NONE cterm=NONE
     hi! WhiteHover guifg=#ffffff ctermfg=108 gui=NONE cterm=NONE
 
-    let sign_col_bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'gui')
-    let sign_col_bg = empty(sign_col_bg) ? synIDattr(synIDtrans(hlID('SignColumn')), 'bg#', 'cterm') : sign_col_bg
-    exec 'hi RedSign guifg=#cc241d ctermfg=124 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi YellowSign guifg=#fabd2f ctermfg=214 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi GreenSign guifg=#b8cc26 ctermfg=142 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi BlueSign guifg=#83a5cb ctermfg=109 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi PurpleSign guifg=#a3a5eb ctermfg=109 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi AquaSign guifg=#8ec07c ctermfg=108 gui=NONE cterm=NONE guibg=' . sign_col_bg
-    exec 'hi WhiteSign guifg=#ffffff gui=NONE cterm=NONE guibg=' . sign_col_bg
+    execute 'hi YellowSign guifg=#fabd2f ctermfg=214 gui=NONE cterm=NONE guibg=NONE'
+    execute 'hi GreenSign guifg=#b8cc26 ctermfg=142 gui=NONE cterm=NONE guibg=NONE'
+    execute 'hi BlueSign guifg=#83a5cb ctermfg=109 gui=NONE cterm=NONE guibg=NONE'
+    execute 'hi PurpleSign guifg=#a3a5eb ctermfg=109 gui=NONE cterm=NONE guibg=NONE'
+    execute 'hi AquaSign guifg=#8ec07c ctermfg=108 gui=NONE cterm=NONE guibg=NONE'
+    execute 'hi WhiteSign guifg=#ffffff gui=NONE cterm=NONE guibg=NONE'
+
 
     hi! HintHighlight guifg=#83a5cb gui=undercurl guisp=#83a5cb
 
