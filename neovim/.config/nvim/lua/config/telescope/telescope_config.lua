@@ -1,39 +1,62 @@
 local M = {}
-local themes = require('telescope.themes')
+local themes = require("telescope.themes")
 
 M.repo_files = function()
-  require('telescope.builtin').git_files(themes.get_ivy())
+  local opts = themes.get_ivy { }
+  require("telescope.builtin").git_files(opts)
 end
 
 M.project_files = function()
-  require('telescope.builtin').find_files(themes.get_ivy({ hidden = true }))
+  local opts = themes.get_ivy {
+    hidden = true,
+  }
+
+  require("telescope.builtin").find_files(opts)
 end
 
 function M.wiki_search()
-  require('telescope.builtin').find_files {
+  local opts = {
     prompt_title = "~ wiki ~",
-    path_display = { 'shorten' },
+    path_display = { "shorten" },
     cwd = "~/wiki/",
 
-    layout_strategy = 'horizontal',
+    layout_strategy = "horizontal",
     layout_config = {
       preview_width = 0.35,
     },
   }
+
+  require("telescope.builtin").find_files(opts)
 end
 
 function M.edit_dotfiles()
-  require('telescope.builtin').find_files {
-    path_display = { 'shorten' },
+  local opts = {
+    path_display = { "shorten" },
     cwd = "~/.dotfiles/",
     prompt = "~ dotfiles ~",
     hidden = true,
 
-    layout_strategy = 'horizontal',
+    layout_strategy = "horizontal",
     layout_config = {
       preview_width = 0.55,
     },
   }
+  require("telescope.builtin").find_files(opts)
+end
+
+function M.edit_nvim_config()
+  local opts = themes.get_ivy {
+    path_display = { "shorten" },
+    cwd = "~/.config/nvim/",
+    prompt = "~ nvim ~",
+    hidden = true,
+
+    layout_config = {
+      preview_width = 0.55,
+    },
+  }
+  
+  require("telescope.builtin").find_files(opts)
 end
 
 function M.lsp_code_actions()
@@ -41,29 +64,44 @@ function M.lsp_code_actions()
     winblend = 10,
     border = true,
     previewer = false,
-    path_display = { 'shorten' },
+    path_display = { "shorten" },
   }
 
-  require('telescope.builtin').lsp_code_actions(opts)
+  require("telescope.builtin").lsp_code_actions(opts)
+end
+
+function M.grep_wiki()
+  local opts = themes.get_dropdown {
+    path_display = { "shorten" },
+    cwd = "~/wiki/",
+    prompt = "~ wiki live_grep ~",
+    hidden = true,
+  }
+
+  require("telescope.builtin").live_grep(opts)
 end
 
 function M.live_grep()
-  require('telescope.builtin').live_grep(themes.get_ivy {
-    path_display = { 'shorten' },
+  local opts = themes.get_ivy {
+    path_display = { "shorten" },
     previewer = false,
     fzf_separator = "|>",
     hidden = true,
     layout_config = {
-      prompt_position = 'bottom'
+      prompt_position = "bottom"
     }
-  })
+  }
+
+  require("telescope.builtin").live_grep(opts)
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string {
-    path_display = { 'shorten' },
+  local opts = {
+    path_display = { "shorten" },
     search = vim.fn.input "Grep String > ",
   }
+
+  require("telescope.builtin").grep_string(opts)
 end
 
 function M.grep_last_search(opts)
@@ -73,7 +111,7 @@ function M.grep_last_search(opts)
   -- -> Subs out the search things
   local register = vim.fn.getreg("/"):gsub("\\<", ""):gsub("\\>", ""):gsub("\\C", "")
 
-  opts.path_display = { 'shorten' }
+  opts.path_display = { "shorten" }
   opts.word_match = "-w"
   opts.search = register
 
@@ -81,55 +119,84 @@ function M.grep_last_search(opts)
 end
 
 function M.search_all_files()
-  require("telescope.builtin").find_files {
+ local opts = {
     find_command = { "rg", "--no-ignore", "--files" },
   }
+
+  require("telescope.builtin").find_files(opts)
 end
 
 function M.search_only_certain_files()
-  require('telescope.builtin').find_files {
+  local opts = {
     find_command = {
-      'rg',
-      '--files',
-      '--type',
+      "rg",
+      "--files",
+      "--type",
       vim.fn.input "Type: ",
     },
   }
+
+  require('telescope.builtin').find_files(opts)
 end
 
 function M.lsp_references()
-  require('telescope.builtin').lsp_references {
-    layout_strategy = 'vertical',
+  local opts = {
+    layout_strategy = "vertical",
     layout_config = {
-      prompt_position = 'top',
+      prompt_position = "top",
     },
-    sorting_strategy = 'ascending',
+    sorting_strategy = "ascending",
     ignore_filename = false,
   }
+
+  require('telescope.builtin').lsp_references(opts)
 end
 
 function M.lsp_implementations()
-  require('telescope.builtin').lsp_implementations {
-    layout_strategy = 'vertical',
+  local opts = {
+    layout_strategy = "vertical",
     layout_config = {
-      prompt_position = 'top',
+      prompt_position = "top",
     },
-    sorting_strategy = 'ascending',
+    sorting_strategy = "ascending",
     ignore_filename = false,
   }
+
+  require("telescope.builtin").lsp_implementations(opts)
 end
 
 function M.vim_options()
-  require('telescope.builtin').vim_options {
+  local opts = {
     layout_config = {
       width = 0.5,
     },
-    sorting_strategy = 'ascending',
+    sorting_strategy = "ascending",
   }
+
+  require("telescope.builtin").vim_options(opts)
+end
+
+function M.old_files()
+  local opts = themes.get_ivy { }
+  
+  require("telescope.builtin").oldfiles(opts)
 end
 
 function M.recent_files()
-  require("telescope").extensions.frecency.frecency(themes.get_ivy { })
+  local opts = themes.get_ivy { }
+
+  require("telescope").extensions.frecency.frecency(opts)
+end
+
+function M.buffer_tags()
+  local opts = themes.get_dropdown { }
+
+  require("telescope.builtin").current_buffer_tags(opts)
+end
+
+function M.project_tags()
+  local opts = themes.get_dropdown { }
+  require("telescope.builtin").tags(opts)
 end
 
 return M

@@ -31,7 +31,7 @@ function M.source_dir(dir)
   -- inspiration: https://github.com/tjdevries/astronauta.nvim/blob/master/lua/astronauta/plugin.lua
   local source_path = string.format("%s/**/*.lua", dir)
   for _, mod in ipairs(vim.api.nvim_get_runtime_file(source_path, true)) do
-    local ok, msg = pcall(loadfile(mod))
+    local ok, msg = pcall(loadfile, mod)
     if not ok then
       print("Failed to load: ", mod)
       print("\t", msg)

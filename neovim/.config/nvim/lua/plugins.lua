@@ -16,10 +16,21 @@ return require('packer').startup(function(use)
       end
     },
     { "tpope/vim-fugitive", cmd = "Git" },
+    { "TimUntersberger/neogit",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim",
+      },
+      config = function()
+        require("neogit").setup {
+          integrations = { diffview = true },
+        }
+      end,
+    },
     { "sindrets/diffview.nvim",
        requires = "nvim-lua/plenary.nvim",
        cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" }
-    }
+    },
   }
 
   -- nvim niceties
@@ -33,13 +44,12 @@ return require('packer').startup(function(use)
         "nvim-lua/plenary.nvim",
         "nvim-lua/popup.nvim",
         { "nvim-telescope/telescope-frecency.nvim",
-          event = "CmdLineEnter",
           config = function()
             require("telescope").load_extension("frecency")
           end,
           requires = { "tami5/sqlite.lua" }
         },
-        "nvim-telescope/telescope-fzy-native.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       }
     },
     { "nvim-treesitter/nvim-treesitter",
@@ -52,19 +62,20 @@ return require('packer').startup(function(use)
         { "nvim-treesitter/nvim-treesitter-refactor" },
       },
     },
-    { "folke/todo-comments.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("todo-comments").setup { }
-      end
-    },
   }
 
   -- quality of life
   use {
     { 'AckslD/nvim-neoclip.lua',
+      requires = {
+        { "nvim-telescope/telescope.nvim" },
+        {'tami5/sqlite.lua', module = 'sqlite'}
+      },
       config = function()
-        require('neoclip').setup()
+        require("neoclip").setup {
+          enable_macro_history = true,
+          enable_persistent_history = true,
+        }
       end,
     },
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
@@ -82,6 +93,7 @@ return require('packer').startup(function(use)
     { 'junegunn/vim-easy-align', keys = { 'gl' } },
     { 'justinmk/vim-dirvish' },
     { 'kevinhwang91/nvim-bqf',
+      ft = "qf",
       config = function()
         require("config.bqf_config")
       end
@@ -115,20 +127,21 @@ return require('packer').startup(function(use)
     },
     { 'tpope/vim-surround' },
     { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } },
-    { 'wellle/targets.vim' },
- }
-
-  -- objects and stuf
-  use {
-    { 'tpope/vim-commentary' },
+    { "numToStr/Comment.nvim",
+    config = function()
+        require('Comment').setup()
+    end
+    },
+    { "andymass/vim-matchup" },
     { 'tpope/vim-repeat' },
-    { 'tpope/vim-unimpaired' },
+    { "wellle/targets.vim" },
   }
 
   -- lsp, completion
   use {
     { 'folke/trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
+      cmd = { "Trouble", "TroublToggle", "TroubleRefresh", },
       config = function()
         require('trouble').setup {
         }
@@ -181,16 +194,17 @@ return require('packer').startup(function(use)
 
   -- visuals
   use {
-    { 'sainnhe/edge' },
-    { 'sainnhe/gruvbox-material' },
-    { 'sainnhe/sonokai' },
-    { 'EdenEast/nightfox.nvim' },
-    { 'folke/tokyonight.nvim' },
+    { "sainnhe/edge" },
+    { "sainnhe/gruvbox-material" },
+    { "sainnhe/sonokai" },
+    { "EdenEast/nightfox.nvim" },
+    { "folke/tokyonight.nvim" },
+    { "joshdick/onedark.vim" },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
-    require('packer').sync()
+    require("packer").sync()
   end
 end)

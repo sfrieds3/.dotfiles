@@ -39,7 +39,7 @@ require('nvim-treesitter.configs').setup {
     smart_rename = {
       enable = true,
       keymaps = {
-        smart_rename = "grr",
+        smart_rename = "<F6>",
       },
     },
     navigation = {
@@ -52,5 +52,8 @@ require('nvim-treesitter.configs').setup {
         goto_previous_usage = "<a-#>",
       },
     },
+  },
+  matchup = {
+    enable = true,
   },
 }

@@ -1,47 +1,4 @@
-nnoremap j gj
-nnoremap k gk
-nnoremap ^ g^
-nnoremap $ g$
-nnoremap gj j
-nnoremap gk k
-nnoremap g^ ^
-nnoremap g$ $
 
-" allow c-j/c-k for cycling through insert mode completions
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
-
-" easy switch to prev buffer
-nnoremap <BS> <C-^>
-
-" default Y mapping is just.. wrong
-nnoremap Y y$
-
-" format with black
-xnoremap _k :Black -q -<CR>
-
-" easy access to black hole register
-nnoremap \d "_d
-xnoremap \d "_d
-xnoremap \p "_dP
-
-" don't clobber unnamed register when pasting over text
-xnoremap <silent> p p:if v:register == '"'<Bar>let @@=@0<Bar>endif<cr>
-
-" change word under cursor and set as last search pattern
-nnoremap <silent> c<Tab> :let @/=expand('<cword>')<cr>cgn
-
-" insert current line into command line
-if !has('patch-8.0.1787')
-    cnoremap <C-r><C-l> <C-r>=getline('.')<CR>
-endif
-
-" easy switch to split by \<number>
-let i = 1
-while i <= 9
-    execute 'nnoremap <Leader>' . i . ' :' . i . 'wincmd w<CR>'
-    let i = i + 1
-endwhile
 
 " buffer/tab switching
 nnoremap gb :bnext<CR>
@@ -285,8 +242,8 @@ nnoremap \rp :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>//gc<Left><Left><Left>
 nnoremap \ra :%s/\<<C-r>=expand('<cword>')<CR>\>//gc<Left><Left><Left>
 
 " replace next/previous occurrence (. to repeat)
-nnoremap \rn *``cgn
-nnoremap \rp #``cgN
+" nnoremap \rn *``cgn
+" nnoremap \rp #``cgN
 
 " replace last search term
 nnoremap <expr>  _R  ':%s/' . @/ . '//gc<Left><Left><Left>'
@@ -315,8 +272,8 @@ inoremap <S-Tab> <C-v><Tab>
 " stay where you are on *
 nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>
 
-" Do a bunch of stuff on c-l
-nnoremap <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+" clear hlsearch highlights
+nnoremap <C-l> :nohlsearch<cr>
 
 " last changed text as an object
 onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>

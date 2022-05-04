@@ -64,7 +64,6 @@ function! s:setup_colors() abort
     hi! link LspSagaDiagnosticBorder IndentBlanklineChar
     hi! link LspSagaDiagnosticTruncateLine IndentBlanklineChar
 endfunction
-call s:setup_colors()
 
 augroup CustomizeTheme
     autocmd!

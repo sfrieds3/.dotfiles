@@ -80,17 +80,6 @@ local function filename(buf_name, win_id)
   end
 end
 
-vim.cmd [[hi StatuslineNormalAccent guibg=#d75f5f gui=bold guifg=#e9e9e9]]
-vim.cmd [[hi StatuslineInsertAccent guifg=#e9e9e9 gui=bold guibg=#dab997]]
-vim.cmd [[hi StatuslineReplaceAccent guifg=#e9e9e9 gui=bold guibg=#afaf00]]
-vim.cmd [[hi StatuslineConfirmAccent guifg=#e9e9e9 gui=bold guibg=#83adad]]
-vim.cmd [[hi StatuslineTerminalAccent guifg=#e9e9e9 gui=bold guibg=#6f6f6f]]
-vim.cmd [[hi StatuslineMiscAccent guifg=#e9e9e9 gui=bold guibg=#f485dd]]
-vim.cmd [[hi StatuslineFilenameModified guifg=#d75f5f gui=bold,italic guibg=#3a3a3a]]
-vim.cmd [[hi StatuslineFilenameNoMod guifg=#e9e9e9 gui=bold guibg=#3a3a3a]]
-vim.cmd [[hi StatuslineFiletypeModified guifg=#d75f5f gui=italic guibg=#3a3a3a]]
-vim.cmd [[hi StatuslineFiletypeNoMod guifg=#878787 gui=italic guibg=#3a3a3a]]
-
 local function update_colors(mode)
   local mode_color = 'StatuslineMiscAccent'
   if mode == 'n' then
@@ -150,7 +139,7 @@ local function status()
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
     local filetype_segment = '%y'
-    local treesitter_segment = vim.fn['nvim_treesitter#statusline']()
+    local treesitter_segment = vim.fn['nvim_treesitter#statusline']({ type_patterns = { "function" } })
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c |' or ''
     statuslines[win_id] = string.format(
