@@ -1,11 +1,15 @@
 # Example of using a shell command in the status line
 #set -g status-right "#[fg=yellow]#(uptime | cut -d ',' -f 2-)"
 
-set -g status-justify "left"
+set -g status-justify "centre"
 set -g status "on"
-set-option -g status-bg colour0
-set-option -g status-fg colour7
-set -g status-left "#[fg=colour0,bg=colour4] #S "
-set -g status-right "#[fg=colour4,bg=colour0] %Y-%m-%d | %H:%M #[fg=colour0,bg=colour4] #h "
-set-window-option -g window-status-format "#[fg=colour8,bg=colour0] #I: #W "
-set-window-option -g window-status-current-format "#[fg=colour4,bg=colour0] #I:#[fg=colour4,bg=colour0] #W #[fg=colour4,bg=colour0]"
+set-option -g status-bg terminal
+set-option -g status-fg colour67
+set -g status-left "#[fg=colour131]#S#[fg=colour131]"
+set -g status-right "#[fg=colour131]%Y-%m-%d | %H:%M"
+set-window-option -g window-status-format "#I: #W "
+set-window-option -g window-status-current-format "#I: #W*"
+# set -g status-left "#[fg=colour0,bg=colour4] #S "
+# set -g status-right "#[fg=colour4,bg=colour0] %Y-%m-%d | %H:%M #[fg=colour0,bg=colour4] #h "
+# set-window-option -g window-status-format "#[fg=colour8,bg=colour0] #I: #W "
+# set-window-option -g window-status-current-format "#[fg=colour4,bg=colour0] #I:#[fg=colour4,bg=colour0] #W #[fg=colour4,bg=colour0]"
