@@ -1,34 +1,5 @@
 
 
-" buffer/tab switching
-nnoremap gb :bnext<CR>
-nnoremap gB :bprevious<CR>
-nnoremap ]b :bnext<CR>
-nnoremap [b :bprevious<CR>
-nnoremap ]t :tabnext<CR>
-nnoremap [t :tabprevious<CR>
-
-" arglist / quickfix / location list shortcuts
-nnoremap ]a :next<CR>
-nnoremap [a :previous<CR>
-nnoremap [A :first<CR>
-nnoremap ]A :last<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
-nnoremap \q :cclose<CR>
-nnoremap ]l :lnext<CR>
-nnoremap [l :lprevious<CR>
-nnoremap [L :lfirst<CR>
-nnoremap ]L :llast<CR>
-nnoremap \l :lclose<CR>
-nnoremap \<BS> :cclose<Bar>lclose<CR>
-nnoremap <UP> :cprev<CR>
-nnoremap <DOWN> :cnext<CR>
-nnoremap <LEFT> :colder<CR>
-nnoremap <RIGHT> :cnewer<CR>
-
 " Leader,{ and Leader,} move to top and bottom of indent region
 nmap \{ <Plug>(VerticalRegionUp)
 nmap \} <Plug>(VerticalRegionDown)
@@ -38,28 +9,6 @@ if exists(':xmap')
     xmap \{ <Plug>(VerticalRegionUp)
     xmap \} <Plug>(VerticalRegionDown)
 endif
-
-" adjust indent of last edit
-nnoremap \< :<C-U>'[,']<<CR>
-nnoremap \> :<C-U>'[,']><CR>
-
-" buffers and ready to switch
-" nnoremap \b :buffers<CR>:b<Space>
-nnoremap \b :B<CR>
-
-" find in path
-" nnoremap \fd :find **/*
-
-" redraw screen
-nnoremap \! :redraw!<CR>
-
-" highlight interesting words
-nnoremap _1 :call hiwords#HiInterestingWord(1)<cr>
-nnoremap _2 :call hiwords#HiInterestingWord(2)<cr>
-nnoremap _3 :call hiwords#HiInterestingWord(3)<cr>
-nnoremap _4 :call hiwords#HiInterestingWord(4)<cr>
-nnoremap _5 :call hiwords#HiInterestingWord(5)<cr>
-nnoremap _6 :call hiwords#HiInterestingWord(6)<cr>
 
 " trim trailing whitespace
 command! StripTrailingWhitespace call whitespace#StripTrailingWhitespace()
