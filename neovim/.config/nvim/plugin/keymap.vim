@@ -1,5 +1,3 @@
-
-
 " Leader,{ and Leader,} move to top and bottom of indent region
 nmap \{ <Plug>(VerticalRegionUp)
 nmap \} <Plug>(VerticalRegionDown)

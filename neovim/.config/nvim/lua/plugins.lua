@@ -80,6 +80,7 @@ return require('packer').startup(function(use)
     },
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
+    { 'christoomey/vim-tmux-navigator' },
     { 'folke/lua-dev.nvim' },
     { 'ggandor/lightspeed.nvim',
       keys = { 'f', 'F', 't', 'T' },

@@ -1,5 +1,11 @@
 local map = require("utils").mapper()
 
+vim.g.tmux_navigator_no_mappings = 1
+map("n", "<M-h>", "<Cmd>TmuxNavigateLeft<CR>")
+map("n", "<M-j>", "<Cmd>TmuxNavigateDown<CR>")
+map("n", "<M-k>", "<Cmd>TmuxNavigateUp<CR>")
+map("n", "<M-l>", "<Cmd>TmuxNavigateRight<CR>")
+
 map("n", "j", "gj")
 map("n", "k", "gk")
 map("n", "^", "g^")
