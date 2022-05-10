@@ -4,7 +4,7 @@
 	nobranch = 131 bold ul
 [color "diff"]
 	old = 67
-	new = 65
+	new = 101
 	whitespace = 131 reverse
 [diff]
 	guitool = meld
