@@ -31,7 +31,3 @@ export GREP_COLORS
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
-
-if [[ $TERM =~ konsole.* ]]; then
-    export FZF_DEFAULT_OPTS='--color fg+:5,hl+:6'
-fi
