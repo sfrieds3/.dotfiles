@@ -1,11 +1,11 @@
 [color "status"]
 	untracked = white
 	changed = white normal dim
-	nobranch = red bold ul
+	nobranch = 131 bold ul
 [color "diff"]
-	old = blue
-	new = green
-	whitespace = red reverse
+	old = 67
+	new = 65
+	whitespace = 131 reverse
 [diff]
 	guitool = meld
 	tool = meld
