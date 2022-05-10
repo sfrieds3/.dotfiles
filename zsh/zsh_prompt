@@ -1,29 +1,45 @@
 # set prompt
 autoload -U promptinit && promptinit
+# '#1c1c1c' 234: Grey11
+# '#af5f5f' 131: IndianRed
+# '#5f875f' 65: DarkSeaGreen4
+# '#87875f' 101: Wheat4
+# '#5f87af' 67: SteelBlue
+# '#5f5f87' 60: MediumPurple4
+# '#5f8787' 66: PaleTurquoise4
+# '#6c6c6c' 242: Grey42
+# '#444444' 238: Grey27
+# '#ff8700' 208: DarkOrange
+# '#87af87' 108: DarkSeaGreen
+# '#ffffaf' 229: Wheat1
+# '#87afd7' 110: LightSkyBlue3
+# '#8787af' 103: LightSlateGrey
+# '#5fafaf' 73: CadetBlue
+# '#ffffff' 15: white
 
 # a lot of this from https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
 # # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}+%f" # default 'S'
-zstyle ':vcs_info:*' unstagedstr "%F{red}*%f" # default 'U'
+zstyle ':vcs_info:*' stagedstr "%F{108}+%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr "%F{131}*%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed
-zstyle ':vcs_info:git*:*' formats '(%F{yellow}λ:%F{blue}%b%m%c%u%F{blue})%f ' # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats '(%F{yellow}λ:%F{blue}%b|%a%m%c%u%F{blue})%f ' # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git*:*' formats '%F{103}(%F{208}λ:%F{67}%b%m%c%u%F{103})%f ' # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '(%F{208}λ:%F{67}%b|%a%m%c%u%F{67})%f ' # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
   emulate -L zsh
   if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{red}!%f"
+    hook_com[unstaged]+="%F{131}!%f"
   fi
 }
 
 function +vi-git-stashed() {
   emulate -L zsh
   if [[ -n $(git stash list 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{cyan}$%f"
+    hook_com[unstaged]+="%F{103}$%f"
   fi
 }
 
@@ -35,10 +51,10 @@ function python_venv() {
     [ $VIRTUAL_ENV ] && echo ' ('`basename $VIRTUAL_ENV`')'
 }
 
-PROMPT='$prompt_newline%F{red}[20%D %*]$prompt_newline%F{cyan}${PWD/#$HOME/~}%F{red}$(python_venv)%F{cyan} 〉%f'
+PROMPT='$prompt_newline%F{131}[20%D %*]$prompt_newline%F{103}${PWD/#$HOME/~}%F{131}$(python_venv)%F{103} 〉%f'
 
 function set_rprompt() {
-  RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
+  RPROMPT="${vcs_info_msg_0_}%F{101}[%m]%f"
 }
 
 autoload -U add-zsh-hook
