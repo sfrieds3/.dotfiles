@@ -1,5 +1,3 @@
 # dotfiles
 
-C'est le dot files.
-
-Awesome wm + Neovim + Kitty + Bash
+C'est les dot files.
