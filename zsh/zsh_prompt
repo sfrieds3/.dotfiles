@@ -26,8 +26,8 @@ zstyle ':vcs_info:*' stagedstr "%F{108}+%f" # default 'S'
 zstyle ':vcs_info:*' unstagedstr "%F{131}*%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed
-zstyle ':vcs_info:git*:*' formats '%F{131}(%F{208}λ:%F{103}%b%m%c%u%F{131})%f ' # default ' (%s)-[%b]%c%u-'                       
-zstyle ':vcs_info:git*:*' actionformats '%F{131}(%F{208}λ:%F{103}%b|%a%m%c%u%F{131})%f ' # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git*:*' formats '%F{131}(%F{208}λ:%F{67}%b%m%c%u%F{131})%f ' # default ' (%s)-[%b]%c%u-'                       
+zstyle ':vcs_info:git*:*' actionformats '%F{131}(%F{208}λ:%F{67}%b|%a%m%c%u%F{131})%f ' # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
   emulate -L zsh
@@ -39,7 +39,7 @@ function +vi-git-untracked() {
 function +vi-git-stashed() {
   emulate -L zsh
   if [[ -n $(git stash list 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{103}$%f"
+    hook_com[unstaged]+="%F{66}$%f"
   fi
 }
 
