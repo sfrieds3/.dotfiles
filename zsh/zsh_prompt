@@ -26,7 +26,7 @@ zstyle ':vcs_info:*' stagedstr "%F{108}+%f" # default 'S'
 zstyle ':vcs_info:*' unstagedstr "%F{131}*%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed
-zstyle ':vcs_info:git*:*' formats '%F{131}(%F{208}λ:%F{67}%b%m%c%u%F{131})%f ' # default ' (%s)-[%b]%c%u-'                       
+zstyle ':vcs_info:git*:*' formats '%F{131}(%F{208}λ:%F{67}%b%m%c%u%F{131})%f ' # default ' (%s)-[%b]%c%u-'
 zstyle ':vcs_info:git*:*' actionformats '%F{131}(%F{208}λ:%F{67}%b|%a%m%c%u%F{131})%f ' # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
