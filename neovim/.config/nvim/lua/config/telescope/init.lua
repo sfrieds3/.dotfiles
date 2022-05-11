@@ -40,7 +40,7 @@ map("n", "<Leader>ft", "<cmd>lua require('config.telescope.telescope_config').bu
 map("n", "<Leader>fT", "<cmd>lua require('config.telescope.telescope_config').project_tags()<CR>")
 map("n", "<Leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
-map_telescope("<Leader>b", "buffers", "dropdown", "previewer = false")
+map_telescope("<Leader>fb", "buffers", "dropdown", "previewer = false")
 map_telescope("<Leader>f<Space>", "oldfiles", "ivy")
 map_telescope("<Leader>tt", "treesitter", "ivy")
 map_telescope("<Leader>tk", "keymaps", "dropdown")
