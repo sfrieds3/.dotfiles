@@ -200,7 +200,7 @@ return require('packer').startup(function(use)
     { "sainnhe/sonokai" },
     { "EdenEast/nightfox.nvim" },
     { "folke/tokyonight.nvim" },
-    { "joshdick/onedark.vim" },
+    { "navarasu/onedark.nvim" },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
