@@ -1,22 +1,48 @@
 #!/bin/sh
-#
-# Attach or create tmux session named the same as current directory.
 
-session_name="$(basename "$PWD" | tr -d -- .)"
-
-session_exists() {
-  tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$session_name$"
-}
+SESSION_NAME=$1
+CURRENT_DIR="$(basename "$PWD" | tr -d -- .)"
 
 not_in_tmux() {
   [ -z "$TMUX" ]
 }
 
-if not_in_tmux; then
-  tmux new-session -As "$session_name"
+dwim_session() {
+    if tmux info &> /dev/null; then
+        SESSION_NAME=$(tmux list-sessions -F '#{?session_attached,#{session_name} (attached),#{session_name}}' |\
+            sed '/^$/d' |\
+            fzy |\
+            awk '{print $1}')
+        if [ -z "$SESSION_NAME" ]; then
+            echo "No existing session selected, exiting.."
+            exit
+        fi
+    else
+        SESSION_NAME=$CURRENT_DIR
+    fi
+    create_session
+}
+
+session_exists() {
+    tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$SESSION_NAME$"
+}
+
+create_session() {
+    if not_in_tmux; then
+        tmux new-session -As "$SESSION_NAME"
+    else
+        if ! session_exists; then
+            (TMUX='' tmux new-session -Ad -s "$SESSION_NAME")
+        fi
+        tmux switch-client -t "$SESSION_NAME"
+    fi
+}
+
+if [ -n "$SESSION_NAME" ]; then
+    if [ "$SESSION_NAME" == "--new" ]; then
+        SESSION_NAME=$CURRENT_DIR
+    fi
+    create_session
 else
-  if ! session_exists; then
-    (TMUX='' tmux new-session -Ad -s "$session_name")
-  fi
-  tmux switch-client -t "$session_name"
+    dwim_session
 fi
