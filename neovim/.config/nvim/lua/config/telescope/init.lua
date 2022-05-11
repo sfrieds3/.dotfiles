@@ -3,11 +3,15 @@ local telescope_config = require('config.telescope.telescope_config')
 
 require('telescope').setup{
   extensions = {
-    fzf = {
-      fuzzy = true,
+    -- fzf = {
+    --   fuzzy = true,
+    --   override_generic_sorter = true,
+    --   override_file_sorter = true,
+    --   case_mode = "smart_case",
+    -- },
+    fzy = {
       override_generic_sorter = true,
       override_file_sorter = true,
-      case_mode = "smart_case",
     },
   },
   defaults = {
@@ -24,6 +28,9 @@ require('telescope').setup{
     }
   }
 }
+
+require("telescope").load_extension("fzy_native")
+require("telescope").load_extension("neoclip")
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
@@ -60,9 +67,6 @@ map("n", "<Leader>tw", "<cmd>lua require('config.telescope.telescope_config').wi
 map("n", "<Leader>tc", "<cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
 map("n", "<Leader>fg", "<cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 map("n", "<Leader>tgw", "<cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
-
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("neoclip")
 
 -- load local telescope config, if exists
 pcall(require, "config.telescope.local")
