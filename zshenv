@@ -6,10 +6,10 @@ export HISTFILE=$ZDOTDIR/zsh_history
 
 # set path and stuff
 export PATH=$HOME/.local/bin:$XDG_CONFIG_HOME/lib-scwfri:$HOME/.luarocks/bin:$HOME/perl5/bin:$HOME/.rbenv/bin:/usr/local/go/bin:$XDG_CONFIG_HOME/local/share/coursier/bin:$PATH
-export PERL5LIB="/$HOME/perl5/lib/perl5"
-export PERL_LOCAL_LIB_ROOT="/$HOME/perl5"
-export PERL_MB_OPT="--install_base \"/$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=/$HOME/perl5"
+export PERL5LIB="$HOME/perl5/lib/perl5"
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 fpath=($XDG_CONFIG_HOME/zsh/plugins/zsh-completions/src $fpath)
 fpath=($HOME/.local/share/zsh-completions $fpath)
 fpath=($XDG_CONFIG_HOME/zsh $fpath)
