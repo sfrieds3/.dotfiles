@@ -45,7 +45,7 @@ map("n", "[t", "<Cmd>tabprevious<CR>")
 
 -- arglist / quickfix / location list shortcuts
 map("n", "]a", "<Cmd>next<CR>")
-map("n", "[a", "<Cmd>previousp<CR>")
+map("n", "[a", "<Cmd>previous<CR>")
 map("n", "[A", "<Cmd>first<CR>")
 map("n", "]A", "<Cmd>last<CR>")
 map("n", "]q", "<Cmd>cnext<CR>")

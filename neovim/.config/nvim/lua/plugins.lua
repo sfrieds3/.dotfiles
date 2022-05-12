@@ -82,6 +82,7 @@ return require('packer').startup(function(use)
         require("neoclip").setup {
           enable_macro_history = true,
           enable_persistent_history = true,
+          continuous_sync = true,
         }
       end,
     },
