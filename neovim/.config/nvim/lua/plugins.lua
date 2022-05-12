@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
         pcall(require, "config.telescope.local")
       end,
       requires = {
+        "nvim-telescope/telescope-rg.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-lua/popup.nvim",
         { "nvim-telescope/telescope-frecency.nvim",
@@ -63,6 +64,11 @@ return require('packer').startup(function(use)
         { "nvim-treesitter/nvim-treesitter-refactor" },
       },
     },
+    { "norcalli/nvim-colorizer.lua",
+      config = function()
+        require'colorizer'.setup()
+      end
+    }
   }
 
   -- quality of life

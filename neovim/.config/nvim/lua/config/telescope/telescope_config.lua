@@ -55,7 +55,7 @@ function M.edit_nvim_config()
       preview_width = 0.55,
     },
   }
-  
+
   require("telescope.builtin").find_files(opts)
 end
 
@@ -93,6 +93,15 @@ function M.live_grep()
   }
 
   require("telescope.builtin").live_grep(opts)
+end
+
+function M.rg_raw_grep()
+  local opts = themes.get_ivy {
+    path_display = { "shorten" },
+    hidden = true
+  }
+
+  require("telescope").extensions.live_grep_raw.live_grep_raw(opts)
 end
 
 function M.grep_prompt()
@@ -178,7 +187,7 @@ end
 
 function M.old_files()
   local opts = themes.get_ivy { }
-  
+
   require("telescope.builtin").oldfiles(opts)
 end
 

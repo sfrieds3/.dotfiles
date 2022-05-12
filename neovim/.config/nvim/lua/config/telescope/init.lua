@@ -67,6 +67,7 @@ map("n", "<Leader>tw", "<cmd>lua require('config.telescope.telescope_config').wi
 map("n", "<Leader>tc", "<cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
 map("n", "<Leader>fg", "<cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 map("n", "<Leader>tgw", "<cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
+map("n", "<Leader>tgg", "<cmd>lua require('config.telescope.telescope_config').rg_raw_grep()<CR>")
 
 -- load local telescope config, if exists
 pcall(require, "config.telescope.local")
