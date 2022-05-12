@@ -33,7 +33,8 @@ alias ..='cd ..'
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
 
 # fuzzy kill tmux sessions
-alias tmk="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
+alias tk="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
 
-# luamake
-alias luamake=/home/scwfri/.cache/nvim/nlua/sumneko_lua/lua-language-server/3rd/luamake/luamake
+# git aliases
+alias gcba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
+alias gcb='git branch | fzy | sed s/^\*// | xargs git checkout'
