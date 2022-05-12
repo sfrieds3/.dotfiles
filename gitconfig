@@ -3,9 +3,10 @@
 	changed = white normal dim
 	nobranch = 131 bold ul
 [color "diff"]
-	old = 67
+	old = 131
 	new = 101
 	whitespace = 131 reverse
+	context = default
 [diff]
 	guitool = meld
 	tool = meld
