@@ -27,6 +27,10 @@ setopt EXTENDED_HISTORY  # Include more information about when the command was e
 setopt HIST_IGNORE_SPACE  # Don't enter commands into history if they start with a space
 setopt HIST_VERIFY  # nicer substitution commands
 
+# set up fzf completion/keybindings
+source $HOME/.config/fzf/completion.zsh
+source $HOME/.config/fzf/key-bindings.zsh
+bindkey -M emacs '^J' fzf-history-widget
 
 autoload -U colors && colors
 
