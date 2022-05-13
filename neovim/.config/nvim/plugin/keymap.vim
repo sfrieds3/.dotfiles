@@ -26,8 +26,8 @@ nnoremap _n :ToggleLineNum<cr>
 
 " show declaration
 " from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
-nnoremap sd :call showdecl#ShowDeclaration(0)<CR>
-nnoremap sD :call showdecl#ShowDeclaration(1)<CR>
+" nnoremap sd :call showdecl#ShowDeclaration(0)<CR>
+" nnoremap sD :call showdecl#ShowDeclaration(1)<CR>
 
 " substitute operator
 nmap <silent> \s  m':set operatorfunc=substitute#Substitute<CR>g@

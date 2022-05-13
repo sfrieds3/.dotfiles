@@ -90,16 +90,13 @@ return require('packer').startup(function(use)
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
     { 'christoomey/vim-tmux-navigator' },
     { 'folke/lua-dev.nvim' },
-    { 'ggandor/lightspeed.nvim',
-      keys = { 'f', 'F', 't', 'T' },
+    { "ggandor/leap.nvim",
+      keys = { "s", "S" },
       config = function()
-        require('lightspeed').setup({
-          repeat_ft_with_target_char = true,
-          ignore_case = true,
-        })
+        require("leap").set_default_keymaps()
       end,
     },
-    { 'junegunn/vim-easy-align', keys = { 'gl' } },
+    { "RRethy/nvim-align" },
     { 'justinmk/vim-dirvish' },
     { 'kevinhwang91/nvim-bqf',
       ft = "qf",
@@ -115,16 +112,6 @@ return require('packer').startup(function(use)
     { 'preservim/tagbar' },
     { "dstein64/vim-startuptime", cmd = "StartupTime", },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
-    { 'phaazon/hop.nvim',
-      keys = { 'gh' },
-      cmd = { 'HopWord', 'HopChar1' },
-      config = function()
-        vim.api.nvim_set_keymap('n', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN })<cr>", {})
-        vim.api.nvim_set_keymap('v', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN })<cr>", {})
-        vim.api.nvim_set_keymap('o', 'gh', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.BEGIN, inclusive_jump = true })<cr>", {})
-        require('hop').setup({})
-      end,
-    },
     { 'romainl/vim-qf' },
     { 'romainl/vim-qlist' },
     { 'tpope/vim-scriptease', cmd = {
