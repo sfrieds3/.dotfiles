@@ -183,7 +183,7 @@ return require('packer').startup(function(use)
     { 'chrisbra/csv.vim', ft = 'csv' },
     { 'fatih/vim-go', ft = 'go' },
     { 'rust-lang/rust.vim', ft= 'rust', config = [[vim.g.rustfmt_autosave = 1]] },
-    { 'mfulz/cscope.nvim', ft = { 'c', 'cop' } },
+    { 'mfulz/cscope.nvim', ft = { 'c', 'cpp' } },
     { 'psf/black', ft = { 'python' } },
     { 'tpope/vim-rails', ft = { 'ruby', 'eruby' } },
   }
