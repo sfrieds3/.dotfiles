@@ -1,0 +1,48 @@
+---
+- name: Install dnf packages
+  become: yes
+  package:
+    name:
+      - bat
+      - chicken
+      - clang
+      - clang-tools-extra
+      - cmake
+      - curl
+      - fd-find
+      - fzf
+      - gimp
+      - git-core
+      - gitk
+      - guile
+      - htop
+      - java-11-openjdk-devel
+      - kitty
+      - llvm
+      - llvm
+      - lua
+      - nasm
+      - neovim
+      - ninja-build
+      - perl-core
+      - ripgrep
+      - rsync
+      - ruby-devel
+      - ShellCheck
+      - zsh
+    state: latest
+- name: Install C Devleopment Tools
+  become: yes
+  package:
+    name: '@C Development Tools and Libraries'
+    state: latest
+- name: Install Virtualization
+  become: yes
+  package:
+    name: '@Virtualization'
+    state: latest
+- name: Install Development Toools
+  become: yes
+  package:
+    name: '@Development Tools'
+    state: latest

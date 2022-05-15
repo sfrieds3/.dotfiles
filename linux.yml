@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  roles:
+    - { role: packages, tag: packages }
+    - { role: dotfiles, tag: dotfiles }

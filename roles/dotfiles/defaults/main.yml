@@ -1,0 +1,14 @@
+---
+dotfile_config_directories:
+  - nvim
+  - zsh
+  - tmux
+  - kitty
+  - yapf
+dotfile_config_files:
+  - pycodestyle
+  - ripgreprc
+dotfile_homedir_files:
+  - zshenv
+  - gitconfig
+  - gitignore
