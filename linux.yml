@@ -3,3 +3,5 @@
   roles:
     - { role: packages, tag: packages }
     - { role: dotfiles, tag: dotfiles }
+    - { role: flatpak, tag: flatpak }
+    - { role: python, tag: python }

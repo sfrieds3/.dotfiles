@@ -5,6 +5,7 @@ dotfile_config_directories:
   - tmux
   - kitty
   - yapf
+  - fish
 dotfile_config_files:
   - pycodestyle
   - ripgreprc
@@ -12,3 +13,14 @@ dotfile_homedir_files:
   - zshenv
   - gitconfig
   - gitignore
+  - ctags
+  - csirc
+  - sbclrc
+archive_homedir_files:
+  - bash_aliases
+  - bash_functions
+  - bash_profile
+  - bashrc
+  - ideavimrc
+  - inputrc
+  - Xresources

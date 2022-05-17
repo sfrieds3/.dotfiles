@@ -1,0 +1,27 @@
+---
+pip_user_packages:
+  - virtualenv
+  - ipython
+
+pip_venv_packages:
+  - python-lsp-server
+  - rope
+  - pyflakes
+  - mccabe
+  - pycodestyle
+  - pydocstyle
+  - autopep8
+  - yapf
+  - pyls-flake8
+  - pylsp-mypy
+  - pyls-isort
+  - python-lsp-black
+  - pyls-memestra
+  - pylsp-rope
+  - pylint
+  - black
+  - compiledb
+  - pre-commit
+  - ipython
+  - pandas
+  - mypy

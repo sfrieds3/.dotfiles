@@ -1,0 +1,16 @@
+---
+- name: Install user packages
+  pip: 
+    name: "{{ item }}"
+    extra_args: --user
+  loop: "{{ pip_user_packages }}"
+  loop_control:
+      label: "{{ item }}"
+
+- name: Install venv packages
+  pip:
+    name: "{{ item }}"
+    virtualenv: "$HOME/.venv/venv"
+  loop: "{{ pip_venv_packages }}"
+  loop_control:
+    label: "{{ item }}"

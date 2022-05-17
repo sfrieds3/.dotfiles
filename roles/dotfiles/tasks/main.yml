@@ -63,7 +63,6 @@
 - name: symlink files/directories to $HOME
   file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/{{ item }}"
-    dest: "~/{{ item }}"
+    dest: "~/.{{ item }}"
     state: link
   loop: "{{ dotfile_homedir_files }}"
-

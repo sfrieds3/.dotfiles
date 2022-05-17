@@ -30,6 +30,7 @@
       - ruby-devel
       - ShellCheck
       - zsh
+      - util-linux-user
     state: latest
 - name: Install C Devleopment Tools
   become: yes
