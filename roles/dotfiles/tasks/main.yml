@@ -66,3 +66,9 @@
     dest: "~/.{{ item }}"
     state: link
   loop: "{{ dotfile_homedir_files }}"
+
+- name: symlink $XDG_CONFIG_HOME/zsh/zshrc -> $XGD_CONFIG_HOME/zsh/.zshrc
+  file:
+    src: $XDG_CONFIG_HOME/zsh/zshrc
+    dest: $XDG_CONFIG_HOME/zsh/.zshrc
+    state: link

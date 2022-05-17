@@ -1,0 +1,35 @@
+---
+dnf_packages:
+  - bat
+  - chicken
+  - clang
+  - clang-tools-extra
+  - cmake
+  - curl
+  - fd-find
+  - fzf
+  - gimp
+  - git-core
+  - gitk
+  - guile
+  - htop
+  - java-11-openjdk-devel
+  - kitty
+  - llvm
+  - llvm
+  - lua
+  - nasm
+  - neovim
+  - ninja-build
+  - perl-core
+  - ripgrep
+  - rsync
+  - ruby-devel
+  - ShellCheck
+  - zsh
+  - util-linux-user
+
+dnf_group_packages:
+  - "@C Development Tools and Libraries"
+  - "@virtualization"
+  - "@Development Tools"

@@ -1,11 +1,11 @@
 #!/bin/sh
 
 install_ansible() {
-    command -v ansilbe-playbook 2>&1 /dev/null || sudo dnf install -y ansible
+    command -v ansible-playbook > /dev/null || sudo dnf install -y ansible
 }
 
 run_playbook() {
-    ansible-playbook -K ./linux.yml
+    ansible-playbook -K ./linux.yml -i ./ansible_hosts
 }
 
 install_ansible

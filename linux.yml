@@ -1,7 +1,22 @@
 ---
 - hosts: localhost
+  connection: local
   roles:
-    - { role: packages, tag: packages }
-    - { role: dotfiles, tag: dotfiles }
-    - { role: flatpak, tag: flatpak }
-    - { role: python, tag: python }
+    - role: packages
+      tags: 
+        - packages
+    - role: dotfiles
+      tags:
+        - dotfiles
+    - role: python
+      tags:
+        - python
+    # - role: other
+    #   tags:
+    #     - other
+    # - role: flatpak
+    #   tags:
+    #     - flatpak
+    # - role: git
+    #   tags:
+    #     - git

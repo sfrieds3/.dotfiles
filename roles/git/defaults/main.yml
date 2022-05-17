@@ -1,0 +1,16 @@
+---
+github_dev_http:
+  - junegunn/fzf
+  - jhawthorn/fzy
+  - asottile/babi
+
+github_dev_ssh:
+  - scwfri/serenity
+  - scwfri/neovim
+  - scwfri/es
+  - scwfri/class
+  - scwfri/compiler-explorer
+  - scwfri/ray-tracer-5k
+  - scwfri/natalie
+  - scwfri/hackerrank
+  - scwfri/flamenco

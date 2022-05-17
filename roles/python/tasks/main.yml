@@ -1,4 +1,18 @@
 ---
+- name: Install pip
+  command:
+    cmd: /usr/bin/python3 -m ensurepip
+
+- name: Create $HOME/.venv folder
+  command:
+    cmd: mkdir $HOME/.venv
+    creates: $HOME/.venv
+
+- name: Create default venv
+  command:
+    cmd: /usr/bin/python3 -m venv $HOME/.venv/venv
+    creates: $HOME/.venv/venv
+
 - name: Install user packages
   pip: 
     name: "{{ item }}"

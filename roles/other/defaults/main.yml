@@ -1,0 +1,4 @@
+---
+npm_packages:
+  - pyright
+  - vim-language-server

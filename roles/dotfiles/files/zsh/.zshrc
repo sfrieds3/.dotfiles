@@ -1,1 +1,1 @@
-./zshrc
+/home/scott/.config/zsh/zshrc
