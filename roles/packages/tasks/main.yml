@@ -1,12 +1,46 @@
 ---
+- name: Upgrade all dnf packages
+  become: yes
+  dnf:
+    name: "*"
+    state: latest
+
 - name: Install dnf packages
   become: yes
-  package:
-    name: "{{ item }}"
+  dnf:
+    name:
+      - bat
+      - chicken
+      - clang
+      - clang-tools-extra
+      - cmake
+      - curl
+      - fd-find
+      - fzf
+      - gimp
+      - git-core
+      - gitk
+      - guile
+      - htop
+      - java-11-openjdk-devel
+      - kitty
+      - llvm
+      - llvm
+      - lua
+      - nasm
+      - neovim
+      - ninja-build
+      - perl-core
+      - ripgrep
+      - rsync
+      - ruby-devel
+      - ShellCheck
+      - zsh
+      - util-linux-user
+      - '@C Development Tools and Libraries'
+      - '@virtualization'
+      - '@Development Tools'
     state: latest
-  loop: "{{ dnf_packages + dnf_group_packages }}"
-  loop_control:
-    label: "{{ item }}"
 
 - name: Ensure $HOME/dev/utils folder is created
   command:
