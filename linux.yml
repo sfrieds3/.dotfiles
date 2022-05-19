@@ -11,9 +11,9 @@
     - role: python
       tags:
         - python
-    # - role: other
-    #   tags:
-    #     - other
+    - role: other
+      tags:
+        - other
     # - role: flatpak
     #   tags:
     #     - flatpak

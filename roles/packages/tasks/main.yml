@@ -1,10 +1,4 @@
 ---
-- name: Upgrade all dnf packages
-  become: yes
-  dnf:
-    name: "*"
-    state: latest
-
 - name: Install dnf packages
   become: yes
   dnf:

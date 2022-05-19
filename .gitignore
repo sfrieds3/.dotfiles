@@ -8,5 +8,6 @@ zsh_history
 nvim/log
 nvim/lsp.log
 packer_compiled.lua
-neovim/.config/nvim/config/*
-neovim/.config/nvim/lua/config/telescope/local/*
+roles/dotfiles/files/nvim/config/*
+roles/dotfiles/files/nvim/lua/config/telescope/local/*
+roles/dotfiles/files/zsh/.zshrc

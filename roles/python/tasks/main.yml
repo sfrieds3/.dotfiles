@@ -1,8 +1,4 @@
 ---
-- name: Install pip
-  command:
-    cmd: /usr/bin/python3 -m ensurepip
-
 - name: Create $HOME/.venv folder
   command:
     cmd: mkdir $HOME/.venv

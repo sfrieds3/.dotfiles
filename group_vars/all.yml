@@ -1,0 +1,4 @@
+---
+node_version: v16.14.0
+
+rbenv_root: $HOME/.rbenv

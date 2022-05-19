@@ -6,9 +6,11 @@ dotfile_config_directories:
   - kitty
   - yapf
   - fish
+
 dotfile_config_files:
   - pycodestyle
   - ripgreprc
+
 dotfile_homedir_files:
   - zshenv
   - gitconfig
@@ -16,6 +18,7 @@ dotfile_homedir_files:
   - ctags
   - csirc
   - sbclrc
+
 archive_homedir_files:
   - bash_aliases
   - bash_functions
@@ -24,3 +27,7 @@ archive_homedir_files:
   - ideavimrc
   - inputrc
   - Xresources
+
+zsh_fzf_completion:
+  - completion.zsh
+  - key-bindings.zsh

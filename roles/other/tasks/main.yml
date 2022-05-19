@@ -1,12 +1,15 @@
 ---
 - name: Install nvm
   command:
-    command -v nvm 2>&1 && wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    creates: $XDG_CONFIG_HOME/nvm
 
 - name: Install npm packages
   npm:
     name: "{{ item }}"
     global: yes
+    executable: "$XDG_CONFIG_HOME/nvm/versions/node/{{ node_version }}/bin/npm"
+    state: present
   loop: "{{ npm_packages }}"
   loop_control:
     label: "{{ item }}"
@@ -18,10 +21,10 @@
 
 - name: Create rbenv plugins dir
   command:
-    cmd: mkdir -p "$(rbenv root)"/plugins
-    creates: $(rbenv root)/plugins
+    cmd: mkdir -p $(rbenv root)/plugins
+    creates: "{{ rbenv_root }}/plugins"
 
 - name: Install ruby-build
   command:
-    cmd: git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
-    creates: $(rbenv root)/plugins
+    cmd: git clone https://github.com/rbenv/ruby-build.git $(rbenv root)/plugins/ruby-build
+    creates: "{{ rbenv_root}}/plugins/ruby-build"

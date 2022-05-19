@@ -1,1 +1,0 @@
-/home/scott/.config/zsh/zshrc
