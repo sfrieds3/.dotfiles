@@ -38,3 +38,6 @@ alias tk="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy
 # git aliases
 alias gcba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
 alias gcb='git branch | fzy | sed s/^\*// | xargs git checkout'
+
+# python virtualenv
+alias workon_venv='source $HOME/.venv/venv/bin/activate'
