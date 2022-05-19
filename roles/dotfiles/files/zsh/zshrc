@@ -43,3 +43,7 @@ test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
 # nvim as editor
 export EDITOR="nvim"
+
+if [ -z "$TMUX_PANE" ]; then
+    tmux attach
+fi

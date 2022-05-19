@@ -8,7 +8,7 @@ not_in_tmux() {
 }
 
 dwim_session() {
-    if tmux info &> /dev/null; then
+    if tmux info > /dev/null; then
         SESSION_NAME=$(tmux list-sessions -F '#{?session_attached,#{session_name} (attached),#{session_name}}' |\
             sed '/^$/d' |\
             fzy |\
@@ -39,7 +39,7 @@ create_session() {
 }
 
 if [ -n "$SESSION_NAME" ]; then
-    if [ "$SESSION_NAME" == "--new" ]; then
+    if [ "$SESSION_NAME" = "--new" ]; then
         SESSION_NAME=$CURRENT_DIR
     fi
     create_session
