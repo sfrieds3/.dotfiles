@@ -6,7 +6,7 @@
 	old = 131
 	new = 101
 	whitespace = 131 reverse
-	context = 248
+	context = 243
 [diff]
 	guitool = meld
 	tool = meld
