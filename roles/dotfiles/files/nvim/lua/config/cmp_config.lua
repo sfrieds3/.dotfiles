@@ -20,11 +20,13 @@ cmp.setup({
       { name = 'nvim_lsp_signature_help' },
       { name = 'luasnip' },
       { name = 'nvim_lua' },
+      { name = 'path', max_item_count = 5 },
       -- { name = 'ripgrep' },
     }, {
-      { name = 'buffer', max_item_count = 10},
-      { name = 'path' },
-      { name = 'tags' },
+      { name = 'buffer', max_item_count = 10 },
+    }, {
+
+      { name = 'tags', max_item_count = 10 },
     }),
 
     experimental = {
