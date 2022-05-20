@@ -35,6 +35,7 @@ function M.edit_dotfiles()
     cwd = "~/.dotfiles/",
     prompt = "~ dotfiles ~",
     hidden = true,
+    no_ignore = true,
 
     layout_strategy = "horizontal",
     layout_config = {
@@ -50,6 +51,7 @@ function M.edit_nvim_config()
     cwd = "~/.config/nvim/",
     prompt = "~ nvim ~",
     hidden = true,
+    no_ignore = true,
 
     layout_config = {
       preview_width = 0.55,
