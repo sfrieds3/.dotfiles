@@ -14,8 +14,8 @@ setopt NO_HUP               # but do not send HUP signal to bg jobs on exit
 setopt HISTVERIFY           # show history expansions
 
 # history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000000
+SAVEHIST=100000000
 setopt SHARE_HISTORY  # share history across multiple zsh sessions
 setopt APPEND_HISTORY  # append to history
 setopt INC_APPEND_HISTORY  # adds commands as they are typed, not at shell exit
