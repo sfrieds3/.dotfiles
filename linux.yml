@@ -2,6 +2,9 @@
 - hosts: localhost
   connection: local
   roles:
+    - role: meta
+      tags:
+        - meta
     - role: packages
       tags: 
         - packages

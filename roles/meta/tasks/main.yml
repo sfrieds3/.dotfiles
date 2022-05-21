@@ -1,0 +1,4 @@
+---
+- name: Init submodules in $HOME/.dotfiles repo
+  command:
+    cmd: git submodule update --init

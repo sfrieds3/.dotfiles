@@ -1,17 +1,17 @@
 ---
-- name: make ~/.config directories
+- name: make $HOME/.config directories
   file:
-    path: ~/.config
+    path: $HOME/.config
     state: directory
 
-- name: make ~/.backups directory
+- name: make $HOME/.backups directory
   file:
-    path: ~/.backup
+    path: $HOME/.backups
     state: directory
 
-- name: get list of non-symlink originals in ~/.config
+- name: get list of non-symlink originals in $HOME/.config
   stat:
-    path: "~/.config/{{ item }}"
+    path: "$HOME/.config/{{ item }}"
   register: stat_config
   loop: "{{ (dotfile_config_directories + dotfile_config_files) }}"
   changed_when: stat_config.stat.exists and not stat_config.stat.islnk
@@ -21,26 +21,26 @@
     var: stat_config
     verbosity: 2
 
-- name: backup existing (non-symlink) dotfiles in ~/.config
+- name: backup existing (non-symlink) dotfiles in $HOME/.config
   command:
-    mv ~/.config/{{ item.0 }} ~/.backups/
-    creates=~/.backups/{{ item.0 }}
-    removes=~/.config/{{ item.0 }}
+    cmd: "mv $HOME/.config/{{ item.0 }} $HOME/.backups/{{ item.0 }}"
+    creates: "$HOME/.backups/{{ item.0 }}"
+    removes: "$HOME/.config/{{ item.0 }}"
   loop: "{{ (dotfile_config_directories + dotfile_config_files) | zip(stat_config.results) | list }}"
   when: item.1.stat.exists and not item.1.stat.islnk
   loop_control:
     label: "{{ item.0 }}"
 
-- name: symlink files/directories to ~/.config
+- name: symlink files/directories to $HOME/.config
   file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/{{ item }}"
-    dest: "~/.config/{{ item }}"
+    dest: "$HOME/.config/{{ item }}"
     state: link
   loop: "{{ (dotfile_config_directories + dotfile_config_files) }}"
 
 - name: get list of non-symlink originals in $HOME
   stat:
-    path: "~/{{ item }}"
+    path: "$HOME/.{{ item }}"
   register: stat_home
   loop: "{{ dotfile_homedir_files }}"
   changed_when: stat_home.stat.exists and not stat_home.stat.islnk
@@ -52,9 +52,9 @@
 
 - name: backup existing (non-symlink) dotfiles in $HOME
   command:
-    mv ~/{{ item.0 }} ~/.backups/
-    creates=~/.backups/{{ item.0 }}
-    removes=~/{{ item.0 }}
+    cmd: "mv $HOME/.{{ item.0 }} $HOME/.backups/.{{ item.0 }}"
+    creates: "$HOME/.backups/{{ item.0 }}"
+    removes: "$HOME/.{{ item.0 }}"
   loop: "{{ dotfile_homedir_files | zip(stat_home.results) | list }}"
   when: item.1.stat.exists and not item.1.stat.islnk
   loop_control:
@@ -63,7 +63,7 @@
 - name: symlink files/directories to $HOME
   file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/{{ item }}"
-    dest: "~/.{{ item }}"
+    dest: "$HOME/.{{ item }}"
     state: link
   loop: "{{ dotfile_homedir_files }}"
 

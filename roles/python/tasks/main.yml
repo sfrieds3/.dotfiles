@@ -1,8 +1,8 @@
 ---
 - name: Create $HOME/.venv folder
-  command:
-    cmd: mkdir $HOME/.venv
-    creates: $HOME/.venv
+  file:
+    path: $HOME/.venv
+    state: directory
 
 - name: Create default venv
   command:
