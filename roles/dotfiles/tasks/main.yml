@@ -23,7 +23,7 @@
 
 - name: backup existing (non-symlink) dotfiles in $HOME/.config
   command:
-    cmd: "mv $HOME/.config/{{ item.0 }} $HOME/.backups/{{ item.0 }}"
+    cmd: "mv $HOME/.config/{{ item.0 }} $HOME/.backups/{{ item.0 }}.{{ ansible_date_time }}"
     creates: "$HOME/.backups/{{ item.0 }}"
     removes: "$HOME/.config/{{ item.0 }}"
   loop: "{{ (dotfile_config_directories + dotfile_config_files) | zip(stat_config.results) | list }}"
@@ -52,7 +52,7 @@
 
 - name: backup existing (non-symlink) dotfiles in $HOME
   command:
-    cmd: "mv $HOME/.{{ item.0 }} $HOME/.backups/.{{ item.0 }}"
+    cmd: "mv $HOME/.{{ item.0 }} $HOME/.backups/.{{ item.0 }}.{{ ansible_date_time }}"
     creates: "$HOME/.backups/{{ item.0 }}"
     removes: "$HOME/.{{ item.0 }}"
   loop: "{{ dotfile_homedir_files | zip(stat_home.results) | list }}"
