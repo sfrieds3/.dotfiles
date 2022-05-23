@@ -46,6 +46,7 @@ set.softtabstop = 4
 set.scrolloff = 3
 
 set.laststatus = 3
+set.winbar = "%=%m %F"
 set.backspace = "indent,eol,start"
 set.encoding = "utf8"
 set.fileencoding = "utf8"
@@ -70,7 +71,7 @@ set.ttimeoutlen = 10
 
 set.wildmenu = true
 set.wildignorecase = true
-set.wildignore = "*.o,*.pyc"
+set.wildignore = "*.o,*.pyc,__pycache__/*,.venv/*,.*"
 set.wildcharm = 26 -- <C-z>
 set.tags = "./tags;,tags;"
 set.completeopt = "menu,menuone,noselect"
