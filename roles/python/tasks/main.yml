@@ -40,4 +40,6 @@
       - ipython
       - pandas
       - mypy
+      - jupyterlab
+      - notebook
     virtualenv: "$HOME/.venv/venv"
