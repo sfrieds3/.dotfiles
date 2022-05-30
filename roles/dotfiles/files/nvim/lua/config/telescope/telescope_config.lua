@@ -1,17 +1,14 @@
 local M = {}
 local themes = require("telescope.themes")
 
-M.repo_files = function()
-  local opts = themes.get_ivy { }
-  require("telescope.builtin").git_files(opts)
-end
+M.project_files = function(show_hidden)
+  local hidden = show_hidden or false
+  local opts = themes.get_ivy({
+    hidden = hidden,
+  })
 
-M.project_files = function()
-  local opts = themes.get_ivy {
-    hidden = true,
-  }
-
-  require("telescope.builtin").find_files(opts)
+  local ok = pcall(require("telescope.builtin").git_files, opts)
+  if not ok then require("telescope.builtin").find_files(opts) end
 end
 
 function M.wiki_search()
@@ -46,7 +43,7 @@ function M.edit_dotfiles()
 end
 
 function M.edit_nvim_config()
-  local opts = themes.get_ivy {
+  local opts = themes.get_ivy({
     path_display = { "shorten" },
     cwd = "~/.config/nvim/",
     prompt = "~ nvim ~",
@@ -56,52 +53,52 @@ function M.edit_nvim_config()
     layout_config = {
       preview_width = 0.55,
     },
-  }
+  })
 
   require("telescope.builtin").find_files(opts)
 end
 
 function M.lsp_code_actions()
-  local opts = themes.get_dropdown {
+  local opts = themes.get_dropdown({
     winblend = 10,
     border = true,
     previewer = false,
     path_display = { "shorten" },
-  }
+  })
 
   require("telescope.builtin").lsp_code_actions(opts)
 end
 
 function M.grep_wiki()
-  local opts = themes.get_dropdown {
+  local opts = themes.get_dropdown({
     path_display = { "shorten" },
     cwd = "~/wiki/",
     prompt = "~ wiki live_grep ~",
     hidden = true,
-  }
+  })
 
   require("telescope.builtin").live_grep(opts)
 end
 
 function M.live_grep()
-  local opts = themes.get_ivy {
+  local opts = themes.get_ivy({
     path_display = { "shorten" },
     previewer = false,
     fzf_separator = "|>",
     hidden = true,
     layout_config = {
       prompt_position = "bottom"
-    }
-  }
+    },
+  })
 
   require("telescope.builtin").live_grep(opts)
 end
 
 function M.rg_raw_grep()
-  local opts = themes.get_ivy {
+  local opts = themes.get_ivy({
     path_display = { "shorten" },
     hidden = true
-  }
+  })
 
   require("telescope").extensions.live_grep_raw.live_grep_raw(opts)
 end
@@ -188,25 +185,25 @@ function M.vim_options()
 end
 
 function M.old_files()
-  local opts = themes.get_ivy { }
+  local opts = themes.get_ivy()
 
   require("telescope.builtin").oldfiles(opts)
 end
 
 function M.recent_files()
-  local opts = themes.get_ivy { }
+  local opts = themes.get_ivy()
 
   require("telescope").extensions.frecency.frecency(opts)
 end
 
 function M.buffer_tags()
-  local opts = themes.get_dropdown { }
+  local opts = themes.get_dropdown()
 
   require("telescope.builtin").current_buffer_tags(opts)
 end
 
 function M.project_tags()
-  local opts = themes.get_dropdown { }
+  local opts = themes.get_dropdown()
   require("telescope.builtin").tags(opts)
 end
 
