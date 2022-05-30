@@ -9,7 +9,7 @@ dotfile_config_directories:
 
 dotfile_config_files:
   - pycodestyle
-  - ripgreprc
+  - ripgrep
 
 dotfile_homedir_files:
   - zshenv
