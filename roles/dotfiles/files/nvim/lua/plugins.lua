@@ -73,10 +73,10 @@ return require('packer').startup(function(use)
 
   -- quality of life
   use {
-    { 'AckslD/nvim-neoclip.lua',
+    { "AckslD/nvim-neoclip.lua",
       requires = {
         { "nvim-telescope/telescope.nvim" },
-        {'tami5/sqlite.lua', module = 'sqlite'}
+        { "tami5/sqlite.lua", module = "sqlite"}
       },
       config = function()
         require("neoclip").setup {
@@ -86,10 +86,10 @@ return require('packer').startup(function(use)
         }
       end,
     },
-    { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
-    { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
-    { 'christoomey/vim-tmux-navigator' },
-    { 'folke/lua-dev.nvim' },
+    { "AndrewRadev/linediff.vim", cmd = "LineDiffAdd" },
+    { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
+    { "christoomey/vim-tmux-navigator" },
+    { "folke/lua-dev.nvim" },
     { "ggandor/leap.nvim",
       keys = { "s", "S" },
       config = function()
@@ -97,39 +97,39 @@ return require('packer').startup(function(use)
       end,
     },
     { "RRethy/nvim-align" },
-    { 'justinmk/vim-dirvish' },
-    { 'kevinhwang91/nvim-bqf',
+    { "justinmk/vim-dirvish" },
+    { "kevinhwang91/nvim-bqf",
       ft = "qf",
       config = function()
         require("config.bqf_config")
       end
     },
-    { 'ludovicchabant/vim-gutentags',
+    { "ludovicchabant/vim-gutentags",
       config = function()
         vim.g.gutentags_cache_dir = vim.fn.stdpath('data') .. '/tags'
       end
     },
-    { 'preservim/tagbar' },
+    { "preservim/tagbar" },
     { "dstein64/vim-startuptime", cmd = "StartupTime", },
-    { 'mbbill/undotree', cmd = 'UndotreeToggle' },
-    { 'romainl/vim-qf' },
-    { 'romainl/vim-qlist' },
-    { 'tpope/vim-scriptease', cmd = {
-        'Messages',
-        'Verbose',
-        'Time',
-        'Scriptnames',
+    { "mbbill/undotree", cmd = "UndotreeToggle" },
+    { "romainl/vim-qf" },
+    { "romainl/vim-qlist" },
+    { "tpope/vim-scriptease", cmd = {
+        "Messages",
+        "Verbose",
+        "Time",
+        "Scriptnames",
       },
     },
-    { 'tpope/vim-surround' },
-    { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } },
+    { "tpope/vim-surround" },
+    { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } },
     { "numToStr/Comment.nvim",
     config = function()
-        require('Comment').setup()
+        require("Comment").setup()
     end
     },
     { "andymass/vim-matchup" },
-    { 'tpope/vim-repeat' },
+    { "tpope/vim-repeat" },
     { "wellle/targets.vim" },
   }
 
@@ -180,12 +180,12 @@ return require('packer').startup(function(use)
 
   -- languages
   use {
-    { 'chrisbra/csv.vim', ft = 'csv' },
-    { 'fatih/vim-go', ft = 'go' },
-    { 'rust-lang/rust.vim', ft= 'rust', config = [[vim.g.rustfmt_autosave = 1]] },
-    { 'mfulz/cscope.nvim', ft = { 'c', 'cpp' } },
-    { 'psf/black', ft = { 'python' } },
-    { 'tpope/vim-rails', ft = { 'ruby', 'eruby' } },
+    { "chrisbra/csv.vim", ft = "csv" },
+    { "fatih/vim-go", ft = "go" },
+    { "rust-lang/rust.vim", ft= "rust", config = [[vim.g.rustfmt_autosave = 1]] },
+    { "mfulz/cscope.nvim", ft = { "c", "cpp" } },
+    { "psf/black", ft = { "python" } },
+    { "tpope/vim-rails", ft = { "ruby", "eruby" } },
   }
 
   -- visuals
