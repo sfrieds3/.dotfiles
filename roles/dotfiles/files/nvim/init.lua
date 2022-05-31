@@ -50,7 +50,7 @@ set.winbar = "%=%m %F"
 set.backspace = "indent,eol,start"
 set.encoding = "utf8"
 set.fileencoding = "utf8"
-set.showtabline = 3
+set.showtabline = 1
 set.formatoptions = "qrn1j"
 set.mouse = "a"
 set.redrawtime = 50000

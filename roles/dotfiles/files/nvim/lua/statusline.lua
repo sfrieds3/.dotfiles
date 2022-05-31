@@ -31,7 +31,7 @@ local function vcs()
   local removed = git_info.removed and ('-' .. git_info.removed .. ' ') or ''
   local pad = ((added ~= '') or (removed ~= '') or (modified ~= '')) and ' ' or ''
   local diff_str = string.format('%s%s%s%s', added, removed, modified, pad)
-  return string.format('%s(%s:%s) ', diff_str, branch_sign, git_info.head)
+  return string.format('%s(%s:%s) |', diff_str, branch_sign, git_info.head)
 end
 
 local function lint_lsp(buf)
@@ -139,18 +139,17 @@ build_statusline("%%#%s#")                    -- filename_color
 build_statusline(" %s ")                      -- filename_segment
 build_statusline("%%#%s#")                    -- filetype_color
 build_statusline("%s")                        -- filetype_segment
-build_statusline("%s")                        -- line_col_segment
 build_statusline("%%<")
 build_statusline("%%#%s# ")                   -- filename_color
 build_statusline("%s")                        -- get_paste
 build_statusline("%s")                        -- get_readonly_space
 build_statusline("%%<")
 build_statusline("%%#%s#")                    -- treesitter_color
-build_statusline("%s")                        -- treesitter_Segment
+build_statusline("| %s")                      -- treesitter_segment
 build_statusline("%%<")
 build_statusline("%%=")
-build_statusline("%%#StatuslineVC#%s ")       -- vcs
-build_statusline("%%#StatuslineLint#%s")      -- lint
+build_statusline("%%#StatuslineVC#%s")        -- vcs
+build_statusline("%s")                        -- line_col_segment
 build_statusline("%%#StatuslineFiletype#")
 
 local statuslines = {}
@@ -161,11 +160,11 @@ local function status()
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
-    local filetype_segment = '%y'
+    local filetype_segment = "%y"
     local treesitter_color = "StatuslineLineCol"
     local treesitter_segment = vim.fn['nvim_treesitter#statusline']({ type_patterns = { "function" } })
     local mode_color, filename_color, filetype_color = update_colors(mode)
-    local line_col_segment = filename_segment ~= '' and ' %#StatuslineLineCol#| %l:%#StatuslineLineCol#%c |' or ''
+    local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
     statuslines[win_id] = string.format(
       statusline_format,
       mode_color,
@@ -175,14 +174,13 @@ local function status()
       filename_segment,
       filetype_color,
       filetype_segment,
-      line_col_segment,
       filename_color,
       get_paste(),
       get_readonly_space(),
       treesitter_color,
       treesitter_segment,
       vcs(),
-      lint_lsp(buf_nr)
+      line_col_segment
     )
   else
     -- print(vim.g.statusline_winid, win_getid(winnr()))
