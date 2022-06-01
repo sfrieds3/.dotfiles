@@ -1,12 +1,5 @@
-[color "status"]
-	untracked = white
-	changed = white normal dim
-	nobranch = 131 bold ul
-[color "diff"]
-	old = 131
-	new = 101
-	whitespace = 131 reverse
-	context = 243
+[init]
+	defaultBranch = main
 [diff]
 	guitool = meld
 	tool = meld
@@ -36,3 +29,11 @@
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 	sp = stash show -p
 	ri = "!sh -c 't=\"${1:-master}\"; s=\"${2:-HEAD}\"; mb=\"$(git merge-base \"$t\" \"$s\")\"; if test \"x$mb\" = x ; then o=\"$t\"; else lm=\"$(git log -n1 --merges \"$t..$s\" --pretty=%H)\"; if test \"x$lm\" = x ; then o=\"$mb\"; else o=\"$lm\"; fi; fi; test $# -gt 0 && shift; test $# -gt 0 && shift; git rebase --interactive \"$o\" \"$@\"'"
+[color "status"]
+	untracked = white
+	changed = white normal dim
+	nobranch = 131 bold ul
+[color "diff"]
+	old = 131
+	new = 101
+	whitespace = 131 reverse
