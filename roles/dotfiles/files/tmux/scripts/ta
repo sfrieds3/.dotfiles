@@ -1,10 +1,12 @@
 #!/bin/sh
 
-SESSION_NAME=$1
+set -euo pipefail
+
+SESSION_NAME=${1-}
 CURRENT_DIR="$(basename "$PWD" | tr -d -- .)"
 
 not_in_tmux() {
-    [ -z "$TMUX" ]
+    [ -z "${TMUX-}" ]
 }
 
 dwim_session() {
