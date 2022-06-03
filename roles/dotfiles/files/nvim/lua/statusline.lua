@@ -1,3 +1,4 @@
+local M = {}
 local lsp_status = require('lsp-status')
 
 local get_mode = vim.api.nvim_get_mode
@@ -145,7 +146,7 @@ build_statusline("%s")                        -- get_paste
 build_statusline("%s")                        -- get_readonly_space
 build_statusline("%%<")
 build_statusline("%%#%s#")                    -- treesitter_color
-build_statusline("| %s")                      -- treesitter_segment
+build_statusline("%s")                        -- treesitter_segment
 build_statusline("%%<")
 build_statusline("%%=")
 build_statusline("%%#StatuslineVC#%s")        -- vcs
@@ -153,7 +154,7 @@ build_statusline("%s")                        -- line_col_segment
 build_statusline("%%#StatuslineFiletype#")
 
 local statuslines = {}
-local function status()
+M.status = function()
   local win_id = vim.g.statusline_winid
   if win_id == get_current_win() or statuslines[win_id] == nil then
     local mode = get_mode().mode
@@ -162,7 +163,7 @@ local function status()
     local filename_segment = filename(bufname, win_id)
     local filetype_segment = "%y"
     local treesitter_color = "StatuslineLineCol"
-    local treesitter_segment = vim.fn['nvim_treesitter#statusline']({ type_patterns = { "function" } })
+    local treesitter_segment = string.format("| %s", vim.fn['nvim_treesitter#statusline']({ type_patterns = { "function" } }))
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
     statuslines[win_id] = string.format(
@@ -189,5 +190,5 @@ local function status()
   return statuslines[win_id]
 end
 
-return { status = status }
+return M
 
