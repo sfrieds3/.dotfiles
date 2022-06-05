@@ -97,7 +97,8 @@ end
 function M.rg_raw_grep()
   local opts = themes.get_ivy({
     path_display = { "shorten" },
-    hidden = true
+    hidden = true,
+    previewer = false,
   })
 
   require("telescope").extensions.live_grep_raw.live_grep_raw(opts)
@@ -126,9 +127,24 @@ function M.grep_last_search(opts)
   require("telescope.builtin").grep_string(opts)
 end
 
+function M.grep_in_file()
+  local opts = themes.get_ivy({})
+
+  require("telescope.builtin").grep_string(opts)
+end
+
 function M.search_all_files()
- local opts = {
-    find_command = { "rg", "--no-ignore", "--files" },
+  local opts = {
+    find_command = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim"
+    },
   }
 
   require("telescope.builtin").find_files(opts)

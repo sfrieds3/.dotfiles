@@ -1,7 +1,7 @@
 local map = require('utils').mapper()
 local telescope_config = require('config.telescope.telescope_config')
 
-require('telescope').setup{
+require('telescope').setup({
   extensions = {
     -- fzf = {
     --   fuzzy = true,
@@ -15,6 +15,7 @@ require('telescope').setup{
     },
   },
   defaults = {
+    file_ignore_patterns = { "tags", "TAGS", ".git" },
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -27,7 +28,7 @@ require('telescope').setup{
       '--hidden'
     }
   }
-}
+})
 
 require("telescope").load_extension("fzy_native")
 require("telescope").load_extension("neoclip")
@@ -67,6 +68,7 @@ map("n", "<Leader>tc", "<Cmd>lua require('config.telescope.telescope_config').ed
 map("n", "<Leader>fg", "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 map("n", "<Leader>tgw", "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
 map("n", "<Leader>tgg", "<Cmd>lua require('config.telescope.telescope_config').rg_raw_grep()<CR>")
+map("n", "<Leader>t/", "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
 map("n", "<Leader>tp", "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
 
 -- load local telescope config, if exists
