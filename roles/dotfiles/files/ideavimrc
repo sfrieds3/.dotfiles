@@ -2,7 +2,6 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-set showmatch
 set visualbell
 
 set highlightedyank
@@ -12,11 +11,13 @@ set ideajoin
 " Same as default IDEA action, but only in insert mode. Enter block-visual
 " mode in normal mode.
 sethandler <C-v> i:ide
+sethandler <C-\\> a:ide
 
 " https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
+set easymotion
 set surround
 set commentary
-set ReplateWithRegister
+set ReplaceWithRegister
 set argtextobj
 set highlightedyank
 set vim-paragraph-motion
@@ -44,9 +45,9 @@ nnoremap <Leader>f :action FindUsages<CR>
 nnoremap <Leader>F :action HighlightUsagesInFile<CR>
 
 nnoremap <Leader>pt :action GoToSymbol<CR>
-nnoremap <Leader>pr :action RecentFiles<CR>
-nnoremap <Leader>pb :action Switcher<CR>
-nnoremap <Leader>P :action SearchEverywhere<CR>
+nnoremap <Leader>fo :action RecentFiles<CR>
+nnoremap <Leader>fb :action Switcher<CR>
+nnoremap <Leader>ff :action SearchEverywhere<CR>
 
 " use jetbrains implementation of back/forward
 nnoremap <C-o> :action Back<CR>
