@@ -107,7 +107,7 @@ return require('packer').startup(function(use)
     { "ludovicchabant/vim-gutentags",
       config = function()
         vim.g.gutentags_cache_dir = vim.fn.stdpath('data') .. '/tags'
-        vim.g.gutentags_modules = { "ctags", "cscope", "pycscope" }
+        --vim.g.gutentags_modules = { "ctags", "cscope", "pycscope" }
       end
     },
     { "preservim/tagbar" },
