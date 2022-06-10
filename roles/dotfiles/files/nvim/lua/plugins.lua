@@ -205,6 +205,7 @@ return require('packer').startup(function(use)
     { "EdenEast/nightfox.nvim" },
     { "folke/tokyonight.nvim" },
     { "navarasu/onedark.nvim" },
+    { "arcticicestudio/nord-vim" },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
