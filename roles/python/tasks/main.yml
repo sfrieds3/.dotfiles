@@ -12,34 +12,40 @@
 - name: Install user packages
   pip: 
     name:
-      - virtualenv
+      - compiledb
       - ipython
+      - precommit
+      - virtualenv
+      - pynvim
     extra_args: --user
 
 - name: Install venv packages
   pip:
     name:
-      - python-lsp-server
-      - rope
-      - pyflakes
-      - mccabe
-      - pycodestyle
-      - pydocstyle
       - autopep8
-      - yapf
-      - pyls-flake8
-      - pylsp-mypy
-      - pyls-isort
-      - python-lsp-black
-      - pyls-memestra
-      - pylsp-rope
-      - pylint
       - black
       - compiledb
-      - pre-commit
       - ipython
-      - pandas
-      - mypy
       - jupyterlab
+      - matplotlib
+      - mccabe
+      - mypy
       - notebook
+      - pandas
+      - pre-commit
+      - pycodestyle
+      - pydocstyle
+      - pyflakes
+      - pylint
+      - pyls-flake8
+      - pyls-isort
+      - pyls-memestra
+      - pylsp-mypy
+      - pylsp-rope
+      - pytest
+      - python-lsp-black
+      - python-lsp-server
+      - rope
+      - scikit-learn
+      - yapf
     virtualenv: "$HOME/.venv/venv"
