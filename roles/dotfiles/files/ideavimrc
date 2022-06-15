@@ -11,6 +11,7 @@ set ideajoin
 " Same as default IDEA action, but only in insert mode. Enter block-visual
 " mode in normal mode.
 sethandler <C-v> i:ide
+sethandler <C-q> n:ide
 sethandler <C-\\> a:ide
 
 " https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
