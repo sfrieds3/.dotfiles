@@ -21,7 +21,7 @@ local pathshorten = vim.fn.pathshorten
 
 --return statuslines[win_id]
 
-local function vcs()
+local function vcs(win_id)
   local branch_sign = 'λ'
   local git_info = vim.b.gitsigns_status_dict
   if not git_info or git_info.head == '' then
@@ -32,7 +32,12 @@ local function vcs()
   local removed = git_info.removed and ('-' .. git_info.removed .. ' ') or ''
   local pad = ((added ~= '') or (removed ~= '') or (modified ~= '')) and ' ' or ''
   local diff_str = string.format('%s%s%s%s', added, removed, modified, pad)
-  return string.format('%s(%s:%s) |', diff_str, branch_sign, git_info.head)
+  local max_size = math.min(75, math.floor(0.33 * get_window_width(win_id)))
+  local git_str =  string.format('%s(%s:%s) |', diff_str, branch_sign, git_info.head)
+  if string.len(git_str) > max_size then
+    git_str = string.format("(%s:%s) |", branch_sign, git_info.head)
+  end
+  return git_str
 end
 
 local function lint_lsp(buf)
@@ -163,7 +168,7 @@ M.status = function()
     local filename_segment = filename(bufname, win_id)
     local filetype_segment = "%y"
     local treesitter_color = "StatuslineLineCol"
-    local treesitter_segment = string.format("| %s", vim.fn['nvim_treesitter#statusline']({ type_patterns = { "function" } }))
+    local treesitter_segment = string.format("| %s", vim.fn['nvim_treesitter#statusline']({ indicator_size = 25, type_patterns = { "function" }, separator = '->' }))
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
     statuslines[win_id] = string.format(
@@ -180,7 +185,7 @@ M.status = function()
       get_readonly_space(),
       treesitter_color,
       treesitter_segment,
-      vcs(),
+      vcs(win_id),
       line_col_segment
     )
   else
