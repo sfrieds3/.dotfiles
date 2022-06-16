@@ -154,7 +154,7 @@ return require('packer').startup(function(use)
     },
     { 'hrsh7th/nvim-cmp',
       config = function()
-        require("config.cmp_config")
+        require("config.cmp.cmp_config")
       end,
       requires = {
         { 'hrsh7th/cmp-buffer' },
