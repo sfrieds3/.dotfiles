@@ -20,7 +20,7 @@ end
 function M.mapper(opts)
   -- return function with default opts to map keybindings
   -- opts default to noremap if opts=nil
-  opts = opts or {noremap = true}
+  opts = opts or { noremap = true }
   local map = function(mode, map, cmd)
     vim.api.nvim_set_keymap(mode, map, cmd, opts)
   end
@@ -29,13 +29,26 @@ end
 
 function M.source_dir(dir)
   -- inspiration: https://github.com/tjdevries/astronauta.nvim/blob/master/lua/astronauta/plugin.lua
-  local source_path = string.format("%s/**/*.lua", dir)
+  local source_path = string.format('%s/**/*.lua', dir)
   for _, mod in ipairs(vim.api.nvim_get_runtime_file(source_path, true)) do
     local ok, msg = pcall(loadfile, mod)
     if not ok then
-      print("Failed to load: ", mod)
-      print("\t", msg)
+      print('Failed to load: ', mod)
+      print('\t', msg)
     end
+  end
+end
+
+function M.isempty(s)
+  return s == nil or s == ''
+end
+
+function M.get_buf_option(opt)
+  local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
+  if not status_ok then
+    return nil
+  else
+    return buf_option
   end
 end
 

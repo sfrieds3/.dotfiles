@@ -68,7 +68,7 @@ return require('packer').startup(function(use)
       config = function()
         require'colorizer'.setup()
       end
-    }
+    },
   }
 
   -- quality of life
