@@ -35,7 +35,7 @@ local function vcs(win_id)
   local max_size = math.min(75, math.floor(0.33 * get_window_width(win_id)))
   local git_str =  string.format('%s(%s:%s) |', diff_str, branch_sign, git_info.head)
   if string.len(git_str) > max_size then
-    git_str = string.format("(%s:%s) |", branch_sign, git_info.head)
+    git_str = string.format('(%s:%s) |', branch_sign, git_info.head)
   end
   return git_str
 end
@@ -133,30 +133,30 @@ local function get_readonly_space()
   return ((vim.o.paste and vim.bo.readonly) and ' ' or '') and '%r' .. (vim.bo.readonly and ' ' or '')
 end
 
-local statusline_format = ""
+local statusline_format = '' 
 local function build_statusline(section)
   statusline_format = statusline_format .. section
 end
 
-build_statusline("%%#%s#")                    -- mode_color
-build_statusline(" %s ")                      -- mode_name
-build_statusline("%%#StatuslineModified#%s")  -- modified symbol
-build_statusline("%%#%s#")                    -- filename_color
-build_statusline(" %s ")                      -- filename_segment
-build_statusline("%%#%s#")                    -- filetype_color
-build_statusline("%s")                        -- filetype_segment
-build_statusline("%%<")
-build_statusline("%%#%s# ")                   -- filename_color
-build_statusline("%s")                        -- get_paste
-build_statusline("%s")                        -- get_readonly_space
-build_statusline("%%<")
-build_statusline("%%#%s#")                    -- treesitter_color
-build_statusline("%s")                        -- treesitter_segment
-build_statusline("%%<")
-build_statusline("%%=")
-build_statusline("%%#StatuslineVC#%s")        -- vcs
-build_statusline("%s")                        -- line_col_segment
-build_statusline("%%#StatuslineFiletype#")
+build_statusline('%%#%s#')                    -- mode_color
+build_statusline(' %s ')                      -- mode_name
+build_statusline('%%#StatuslineModified#%s')  -- modified symbol
+build_statusline('%%#%s#')                    -- filename_color
+build_statusline(' %s ')                      -- filename_segment
+build_statusline('%%#%s#')                    -- filetype_color
+build_statusline('%s')                        -- filetype_segment
+build_statusline('%%<')
+build_statusline('%%#%s# ')                   -- filename_color
+build_statusline('%s')                        -- get_paste
+build_statusline('%s')                        -- get_readonly_space
+build_statusline('%%<')
+build_statusline('%%#%s#')                    -- treesitter_color
+build_statusline('%s')                        -- treesitter_segment
+build_statusline('%%<')
+build_statusline('%%=')
+build_statusline('%%#StatuslineVC#%s')        -- vcs
+build_statusline('%s')                        -- line_col_segment
+build_statusline('%%#StatuslineFiletype#')
 
 local statuslines = {}
 M.status = function()
@@ -166,9 +166,9 @@ M.status = function()
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
-    local filetype_segment = "%y"
-    local treesitter_color = "StatuslineLineCol"
-    local treesitter_segment = string.format("| %s", vim.fn['nvim_treesitter#statusline']({ indicator_size = 25, type_patterns = { "function" }, separator = '->' }))
+    local filetype_segment = '%y'
+    local treesitter_color = 'StatuslineLineCol'
+    local treesitter_segment = string.format('| %s', vim.fn['nvim_treesitter#statusline']({ indicator_size = 25, type_patterns = { 'function' }, separator = '->' }))
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
     statuslines[win_id] = string.format(

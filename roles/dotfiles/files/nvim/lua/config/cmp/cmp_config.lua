@@ -1,4 +1,4 @@
-local cmp = require("cmp")
+local cmp = require('cmp')
 
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -11,7 +11,7 @@ cmp.setup {
     end,
   },
   mapping = {
-    ["<Tab>"] = cmp.mapping({
+    ['<Tab>'] = cmp.mapping({
       c = function()
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
@@ -20,7 +20,7 @@ cmp.setup {
         end
       end,
       i = function(fallback)
-        local luasnip = require("luasnip")
+        local luasnip = require('luasnip')
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
         elseif luasnip.expand_or_jumpable() then
@@ -30,7 +30,7 @@ cmp.setup {
         end
       end,
       s = function(fallback)
-        local luasnip = require("luasnip")
+        local luasnip = require('luasnip')
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         else
@@ -38,7 +38,7 @@ cmp.setup {
         end
       end
     }),
-    ["<S-Tab>"] = cmp.mapping({
+    ['<S-Tab>'] = cmp.mapping({
       c = function()
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
@@ -47,7 +47,7 @@ cmp.setup {
         end
       end,
       i = function(fallback)
-        local luasnip = require("luasnip")
+        local luasnip = require('luasnip')
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
         elseif luasnip.jumpable(-1) then
@@ -57,7 +57,7 @@ cmp.setup {
         end
       end,
       s = function(fallback)
-        local luasnip = require("luasnip")
+        local luasnip = require('luasnip')
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
