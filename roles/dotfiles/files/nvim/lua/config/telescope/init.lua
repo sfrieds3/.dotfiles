@@ -15,7 +15,7 @@ require('telescope').setup({
     },
   },
   defaults = {
-    file_ignore_patterns = { 'tags', 'TAGS', '.git' },
+    file_ignore_patterns = { 'tags', 'TAGS' },
     vimgrep_arguments = {
       'rg',
       '--color=never',
