@@ -46,7 +46,7 @@ set.softtabstop = 4
 set.scrolloff = 3
 
 set.laststatus = 3
-set.winbar = "%=%m %F"
+-- set.winbar = "%=%m %F"
 set.backspace = "indent,eol,start"
 set.encoding = "utf8"
 set.fileencoding = "utf8"

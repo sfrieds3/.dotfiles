@@ -36,6 +36,8 @@ local get_filename = function()
     end
 
     return ' ' .. '%#' .. hl_group .. '#' .. file_icon .. '%*' .. ' ' .. '%#LineNr#' .. filename .. '%*'
+  else
+    return ''
   end
 end
 
@@ -59,15 +61,11 @@ M.get_winbar = function()
     value = value .. mod
   end
 
-  if not f.isempty(value) then
-    value = string.format('%%=%s', value)
-  end
-
-  local status_ok, _ = pcall(vim.api.nvim_set_option_value, 'winbar', value, { scope = 'local' })
+  local winbar_format = string.format('%%=%s', value)
+  local status_ok, _ = pcall(vim.api.nvim_set_option_value, 'winbar', winbar_format, { scope = 'local' })
   if not status_ok then
     return
   end
 end
 
 return M
-
