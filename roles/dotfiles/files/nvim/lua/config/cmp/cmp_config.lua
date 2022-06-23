@@ -117,7 +117,7 @@ cmp.setup {
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'luasnip' },
+    { name = 'luasnip', max_item_count = 10 },
     { name = 'nvim_lua' },
     -- { name = 'path', max_item_count = 5 },
     -- { name = 'ripgrep' },

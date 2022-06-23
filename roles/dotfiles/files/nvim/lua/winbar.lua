@@ -57,7 +57,7 @@ M.get_winbar = function()
 
   local f = require('utils')
   if not f.isempty(value) and f.get_buf_option 'mod' then
-    local mod = '%#LineNr#' .. require('icons').ui.Circle .. '%*'
+    local mod = '%#LineNr#' .. ' ●' .. '%*'
     value = value .. mod
   end
 
