@@ -227,6 +227,15 @@ return require('packer').startup(function(use)
     { 'folke/tokyonight.nvim' },
     { 'navarasu/onedark.nvim' },
     { 'arcticicestudio/nord-vim' },
+    { 'projekt0n/github-nvim-theme',
+      config = function()
+        require('github-theme').setup({
+          theme_style = 'dark',
+          function_style = 'italic',
+          sidebars = { 'qf', 'terminal', 'packer' },
+          dark_sidebar = true,
+        })
+      end},
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
