@@ -219,6 +219,7 @@ return require('packer').startup(function(use)
 
   -- visuals
   use {
+    { 'wincent/pinnacle' },
     { 'sainnhe/edge' },
     { 'sainnhe/gruvbox-material' },
     { 'sainnhe/sonokai' },
