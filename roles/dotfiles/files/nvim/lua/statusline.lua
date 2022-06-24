@@ -150,8 +150,6 @@ build_statusline('%%#%s# ')                   -- filename_color
 build_statusline('%s')                        -- get_paste
 build_statusline('%s')                        -- get_readonly_space
 build_statusline('%%<')
-build_statusline('%%#%s#')                    -- treesitter_color
-build_statusline('%s')                        -- treesitter_segment
 build_statusline('%%<')
 build_statusline('%%=')
 build_statusline('%%#StatuslineVC#%s')        -- vcs
@@ -167,8 +165,6 @@ M.status = function()
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
     local filetype_segment = '%y'
-    local treesitter_color = 'StatuslineLineCol'
-    local treesitter_segment = string.format('| %s', vim.fn['nvim_treesitter#statusline']({ indicator_size = 25, type_patterns = { 'function' }, separator = '->' }))
     local mode_color, filename_color, filetype_color = update_colors(mode)
     local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
     statuslines[win_id] = string.format(
@@ -183,8 +179,6 @@ M.status = function()
       filename_color,
       get_paste(),
       get_readonly_space(),
-      treesitter_color,
-      treesitter_segment,
       vcs(win_id),
       line_col_segment
     )
