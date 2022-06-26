@@ -35,6 +35,11 @@ return require('packer').startup(function(use)
 
   -- nvim niceties
   use {
+    { 'akinsho/toggleterm.nvim',
+      config = function()
+        require('toggleterm').setup()
+      end
+    },
     { 'nvim-lualine/lualine.nvim',
       config = function()
        require('config.lualine')
@@ -116,7 +121,11 @@ return require('packer').startup(function(use)
         --vim.g.gutentags_modules = { 'ctags', 'cscope', 'pycscope' }
       end
     },
-    { 'preservim/tagbar' },
+    { 'stevearc/aerial.nvim',
+      config = function()
+        require('aerial').setup()
+      end
+    },
     { 'dstein64/vim-startuptime', cmd = 'StartupTime', },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
     { 'romainl/vim-qf' },
