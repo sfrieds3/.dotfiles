@@ -7,8 +7,8 @@ M.project_files = function(show_hidden)
     hidden = hidden,
   })
 
-  local ok = pcall(require('telescope.builtin').git_files, opts)
-  if not ok then require('telescope.builtin').find_files(opts) end
+  -- local ok = pcall(require('telescope.builtin').git_files, opts)
+  require('telescope.builtin').find_files(opts)
 end
 
 function M.wiki_search()

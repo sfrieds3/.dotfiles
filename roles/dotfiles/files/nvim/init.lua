@@ -1,87 +1,82 @@
 vim.cmd [[ runtime! config/pre*.vim ]]
 vim.g.do_filetype_lua = 1
-local g = vim.g
-local cmd = vim.cmd
-local o, wo, bo = vim.o, vim.wo, vim.bo
+
+local utils = require("utils.utils")
 local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
 local data_dir = vim.fn.stdpath("data")
 local config_path = vim.fn.stdpath("config")
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
-require("plugins")
-local utils = require("utils")
-local set = vim.opt
-
 if vim.fn.executable("rg") then
-  set.grepprg = "rg -HS --no-heading --hidden --vimgrep"
+  vim.opt.grepprg = "rg -HS --no-heading --hidden --vimgrep"
 else
-  set.grepprg="git grep -in $*"
+  vim.opt.grepprg="git grep -in $*"
 end
 
-set.shell = "/usr/bin/zsh"
-set.termguicolors = true
-set.hidden = true
-set.autoread = true
-set.modeline = false
-set.ignorecase = true
-set.infercase = true
-set.smartcase = true
-set.showmatch = true
-set.splitbelow = true
-set.splitright = true
-set.incsearch = true
-set.hlsearch = true
-set.exrc = true
-set.secure = true
-set.showmode = false
+vim.opt.shell = "/usr/bin/zsh"
+vim.opt.termguicolors = true
+vim.opt.hidden = true
+vim.opt.autoread = true
+vim.opt.modeline = false
+vim.opt.ignorecase = true
+vim.opt.infercase = true
+vim.opt.smartcase = true
+vim.opt.showmatch = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.exrc = true
+vim.opt.secure = true
+vim.opt.showmode = false
 
 --indentation
-set.shiftround = true
-set.expandtab = true
-set.smarttab = true
-set.tabstop = 8
-set.shiftwidth = 4
-set.softtabstop = 4
-set.scrolloff = 3
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.tabstop = 8
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.scrolloff = 3
 
-set.laststatus = 3
--- set.winbar = "%=%m %F"
-set.backspace = "indent,eol,start"
-set.encoding = "utf8"
-set.fileencoding = "utf8"
-set.showtabline = 1
-set.formatoptions = "qrn1j"
-set.mouse = "a"
-set.redrawtime = 50000
-set.showbreak = "..."
-set.foldenable = false
-set.foldmethod = "expr"
-set.foldexpr = "nvim_treesitter#foldexpr()"
-set.foldcolumn = "0"
-set.signcolumn = "yes"
+vim.opt.laststatus = 3
+-- vim.opt.winbar = "%=%m %F"
+vim.opt.backspace = "indent,eol,start"
+vim.opt.encoding = "utf8"
+vim.opt.fileencoding = "utf8"
+vim.opt.showtabline = 1
+vim.opt.formatoptions = "qrn1j"
+vim.opt.mouse = "a"
+vim.opt.redrawtime = 50000
+vim.opt.showbreak = "..."
+vim.opt.foldenable = false
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.signcolumn = "yes"
 
-set.listchars = { tab = '» ', extends = '›', precedes = '‹', nbsp = '␣', trail = '·' }
-set.list = true
+vim.opt.listchars = { tab = '» ', extends = '›', precedes = '‹', nbsp = '␣', trail = '·' }
+vim.opt.list = true
 
-set.timeout = true
-set.timeoutlen = 500
-set.ttimeout = true
-set.ttimeoutlen = 10
+vim.opt.timeout = true
+vim.opt.timeoutlen = 500
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 10
 
-set.wildmenu = true
-set.wildignorecase = true
-set.wildignore = "*.o,*.pyc,__pycache__/*,.venv/*,.*"
-set.wildcharm = 26 -- <C-z>
-set.tags = "./tags;,tags;"
-set.completeopt = "menu,menuone,noselect"
-set.path = ".,,"
+vim.opt.wildmenu = true
+vim.opt.wildignorecase = true
+vim.opt.wildignore = "*.o,*.pyc,__pycache__/*,.venv/*,.*"
+vim.opt.wildcharm = 26 -- <C-z>
+vim.opt.tags = "./tags;,tags;"
+vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.path = ".,,"
 
-set.undofile = true
-set.backup = true
-set.backupdir = vim.opt.backupdir - "."
-set.backupext = ".bak"
-set.swapfile = false
-set.shada = [['1000,f1,<1000,/10000,:10000]]
+vim.opt.undofile = true
+vim.opt.backup = true
+vim.opt.backupdir = vim.opt.backupdir - "."
+vim.opt.backupext = ".bak"
+vim.opt.swapfile = false
+vim.opt.shada = [['1000,f1,<1000,/10000,:10000]]
 
 vim.cmd [[ runtime! config/post*.vim ]]

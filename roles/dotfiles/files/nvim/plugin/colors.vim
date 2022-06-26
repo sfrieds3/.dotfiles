@@ -72,4 +72,4 @@ augroup CustomizeTheme
 augroup END
 
 let g:sonokai_style = 'espresso'
-colorscheme gruvbox-material
+colorscheme github_dark

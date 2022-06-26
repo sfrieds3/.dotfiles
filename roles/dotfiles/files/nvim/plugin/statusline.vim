@@ -24,12 +24,12 @@ function! s:setup_colors() abort
     highlight StatuslineFiletypeNoMod guifg=#878787 gui=italic guibg=#3a3a3a
 endfunction
 
-augroup statusline_colors
-  au!
-  au ColorScheme * call s:setup_colors()
-augroup END
-
-call s:setup_colors()
-
-au VimEnter * ++once lua statusline = require('statusline')
-au VimEnter * ++once lua vim.o.statusline = '%!v:lua.statusline.status()'
+" augroup statusline_colors
+"   au!
+"   au ColorScheme * call s:setup_colors()
+" augroup END
+"
+" call s:setup_colors()
+"
+" au VimEnter * ++once lua statusline = require('scwfri.statusline')
+" au VimEnter * ++once lua vim.o.statusline = '%!v:lua.statusline.status()'

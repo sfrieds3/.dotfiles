@@ -35,6 +35,11 @@ return require('packer').startup(function(use)
 
   -- nvim niceties
   use {
+    { 'nvim-lualine/lualine.nvim',
+      config = function()
+       require('config.lualine')
+      end
+    },
     { 'nvim-telescope/telescope.nvim',
       config = function()
         require('config.telescope')
@@ -98,25 +103,6 @@ return require('packer').startup(function(use)
     },
     { 'RRethy/nvim-align' },
     { 'kyazdani42/nvim-tree.lua',
-      config = function()
-        require('nvim-tree').setup({
-          sort_by = 'case_sensitive',
-          view = {
-            adaptive_size = true,
-            mappings = {
-              list = {
-                { key = '-', action = 'dir_up' },
-              },
-            },
-          },
-          renderer = {
-            group_empty = true,
-          },
-          filters = {
-            dotfiles = false,
-          },
-        })
-      end
     },
     { 'kevinhwang91/nvim-bqf',
       ft = 'qf',

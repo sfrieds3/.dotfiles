@@ -1,4 +1,4 @@
-local map = require('utils').mapper()
+local map = require('utils.utils').mapper()
 
 vim.g.tmux_navigator_no_mappings = 1
 map('n', '<M-h>', '<Cmd>TmuxNavigateLeft<CR>')

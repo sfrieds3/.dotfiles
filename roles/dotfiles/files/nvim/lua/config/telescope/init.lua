@@ -1,4 +1,4 @@
-local map = require('utils').mapper()
+local map = require('utils.utils').mapper()
 local telescope_config = require('config.telescope.telescope_config')
 
 require('telescope').setup({
