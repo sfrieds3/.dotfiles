@@ -56,11 +56,6 @@ M.get_winbar = function()
   local value = get_filename()
 
   local f = require('utils.utils')
-  if not f.isempty(value) and f.get_buf_option 'mod' then
-    local mod = '%#LineNr#' .. ' ●' .. '%*'
-    value = value .. mod
-  end
-
   local winbar_format = string.format('%%=%s', value)
   local status_ok, _ = pcall(vim.api.nvim_set_option_value, 'winbar', winbar_format, { scope = 'local' })
   if not status_ok then
