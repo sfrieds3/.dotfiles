@@ -37,7 +37,9 @@ return require('packer').startup(function(use)
   use {
     { 'akinsho/toggleterm.nvim',
       config = function()
-        require('toggleterm').setup()
+        require('toggleterm').setup({
+          shade_terminals = true,
+        })
       end
     },
     { 'nvim-lualine/lualine.nvim',
@@ -51,13 +53,9 @@ return require('packer').startup(function(use)
         pcall(require, 'config.telescope.local')
       end,
       requires = {
-        'nvim-telescope/telescope-rg.nvim',
         'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',
         { 'nvim-telescope/telescope-frecency.nvim',
-          config = function()
-            require('telescope').load_extension('frecency')
-          end,
           requires = { 'tami5/sqlite.lua' }
         },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', disable = true },
