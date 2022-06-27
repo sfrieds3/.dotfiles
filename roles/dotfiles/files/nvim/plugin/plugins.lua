@@ -55,6 +55,7 @@ return require('packer').startup(function(use)
       requires = {
         'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',
+        'nvim-telescope/telescope-live-grep-args.nvim',
         { 'nvim-telescope/telescope-frecency.nvim',
           requires = { 'tami5/sqlite.lua' }
         },
