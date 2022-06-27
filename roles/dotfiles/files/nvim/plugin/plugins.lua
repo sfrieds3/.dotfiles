@@ -222,10 +222,11 @@ return require('packer').startup(function(use)
     { 'folke/tokyonight.nvim' },
     { 'navarasu/onedark.nvim' },
     { 'arcticicestudio/nord-vim' },
+    { 'catppuccin/nvim' },
     { 'projekt0n/github-nvim-theme',
       config = function()
         require('github-theme').setup({
-          theme_style = 'dark',
+          theme_style = 'dark_default',
           function_style = 'italic',
           sidebars = { 'qf', 'terminal', 'packer' },
           dark_sidebar = true,
