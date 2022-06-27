@@ -30,8 +30,10 @@ require('telescope').setup({
   }
 })
 
+require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('neoclip')
+require('telescope').load_extension('live_grep_args')
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or 'previewer = false'
@@ -48,7 +50,7 @@ map('n', '<Leader>ft', "<cmd>lua require('config.telescope.telescope_config').bu
 map('n', '<Leader>fT', "<cmd>lua require('config.telescope.telescope_config').project_tags()<CR>")
 map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
-map_telescope('<Leader>fb', 'buffers', 'dropdown', 'previewer = false')
+map_telescope('<Leader>fb', 'buffers', 'ivy')
 map_telescope('<Leader>f<Space>', 'oldfiles', 'ivy')
 map_telescope('<Leader>tt', 'treesitter', 'ivy')
 map_telescope('<Leader>tk', 'keymaps', 'dropdown')
@@ -67,7 +69,7 @@ map('n', '<Leader>tw', "<Cmd>lua require('config.telescope.telescope_config').wi
 map('n', '<Leader>tc', "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
 map('n', '<Leader>fg', "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 map('n', '<Leader>tgw', "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
-map('n', '<Leader>tgg', "<Cmd>lua require('config.telescope.telescope_config').rg_raw_grep()<CR>")
+map('n', '<Leader>tgg', "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")
 map('n', '<Leader>t/', "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
 map('n', '<Leader>tp', "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
 
