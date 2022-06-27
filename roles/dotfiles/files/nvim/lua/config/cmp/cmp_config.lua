@@ -11,108 +11,15 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
-      end,
-      i = function(fallback)
-        local luasnip = require('luasnip')
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end,
-      s = function(fallback)
-        local luasnip = require('luasnip')
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end
-    }),
-    ['<S-Tab>'] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        else
-          cmp.complete()
-        end
-      end,
-      i = function(fallback)
-        local luasnip = require('luasnip')
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end,
-      s = function(fallback)
-        local luasnip = require('luasnip')
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end
-    }),
-    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
-    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
-    ['<C-n>'] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
-      end
-    }),
-    ['<C-p>'] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
-      end
-    }),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-    ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
-    ['<CR>'] = cmp.mapping({
-      i = cmp.mapping.confirm({ select = false }),
-      c = function(fallback)
-        if cmp.visible() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end
-    }),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
