@@ -35,13 +35,7 @@ return require('packer').startup(function(use)
 
   -- nvim niceties
   use {
-    { 'akinsho/toggleterm.nvim',
-      config = function()
-        require('toggleterm').setup({
-          shade_terminals = true,
-        })
-      end
-    },
+    { 'akinsho/toggleterm.nvim' },
     { 'nvim-lualine/lualine.nvim',
       config = function()
        require('config.lualine')
@@ -64,9 +58,6 @@ return require('packer').startup(function(use)
       }
     },
     { 'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('config.treesitter')
-      end,
       requires = {
         { 'nvim-treesitter/playground' },
         { 'nvim-treesitter/nvim-treesitter-textobjects' },
@@ -76,7 +67,7 @@ return require('packer').startup(function(use)
     },
     { 'norcalli/nvim-colorizer.lua',
       config = function()
-        require'colorizer'.setup()
+        require('colorizer').setup()
       end
     },
   }
@@ -98,8 +89,7 @@ return require('packer').startup(function(use)
     },
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
-    { 'christoomey/vim-tmux-navigator' },
-    { 'aserowy/tmux.nvim', disable = true },
+    { 'aserowy/tmux.nvim' },
     { 'folke/lua-dev.nvim' },
     { 'ggandor/leap.nvim',
       keys = { 's', 'S' },
