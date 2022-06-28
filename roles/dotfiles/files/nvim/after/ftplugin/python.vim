@@ -1,15 +1,8 @@
 setlocal shiftwidth=4 softtabstop=4 nofoldenable
 
-function! PythonFuncGrep() abort
-    exec("vimgrep /def /j %")
-    exec("copen")
-endfunction
-
 if has('python')
     setlocal omnifunc=pythoncomplete#Complete
 endif
-" open quickfix with list of functions
-nnoremap <buffer> <silent> _F call PythonFuncGrep()
 
 function! python#Format() abort
     let fp = exists("g:py_formatprg") ? g:py_formatprg : 'yapf'
