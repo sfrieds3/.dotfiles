@@ -1,4 +1,3 @@
-local map = require('utils.utils').mapper()
 local telescope_config = require('config.telescope.telescope_config')
 
 require('telescope').setup({
@@ -40,15 +39,15 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
   mode = mode or 'n'
   local base_command = "<cmd> lua require('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
   local command = string.format(base_command, cmd, theme, theme_config)
-  map(mode, key, command)
+  vim.keymap.set(mode, key, command)
 end
 
-map('n', '<Leader>ff', "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
-map('n', '<Leader>fo', "<cmd>lua require('config.telescope.telescope_config').old_files()<CR>")
-map('n', '<Leader>fr', "<cmd>lua require('config.telescope.telescope_config').recent_files()<CR>")
-map('n', '<Leader>ft', "<cmd>lua require('config.telescope.telescope_config').buffer_tags()<CR>")
-map('n', '<Leader>fT', "<cmd>lua require('config.telescope.telescope_config').project_tags()<CR>")
-map('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+vim.keymap.set('n', '<Leader>ff', "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
+vim.keymap.set('n', '<Leader>fo', "<cmd>lua require('config.telescope.telescope_config').old_files()<CR>")
+vim.keymap.set('n', '<Leader>fr', "<cmd>lua require('config.telescope.telescope_config').recent_files()<CR>")
+vim.keymap.set('n', '<Leader>ft', "<cmd>lua require('config.telescope.telescope_config').buffer_tags()<CR>")
+vim.keymap.set('n', '<Leader>fT', "<cmd>lua require('config.telescope.telescope_config').project_tags()<CR>")
+vim.keymap.set('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map_telescope('<Leader>fb', 'buffers', 'ivy')
 map_telescope('<Leader>f<Space>', 'oldfiles', 'ivy')
@@ -64,14 +63,14 @@ map_telescope('<Leader>t<Space>', 'current_buffer_fuzzy_find', 'ivy')
 map_telescope('<Leader>tm', 'marks', 'dropdown')
 map_telescope('<Leader>tr', 'registers', 'dropdown')
 
-map('n', '<Leader>tv', "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
-map('n', '<Leader>tw', "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
-map('n', '<Leader>tc', "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
-map('n', '<Leader>fg', "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
-map('n', '<Leader>tgw', "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
-map('n', '<Leader>tgg', "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")
-map('n', '<Leader>t/', "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
-map('n', '<Leader>tp', "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
+vim.keymap.set('n', '<Leader>tv', "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
+vim.keymap.set('n', '<Leader>tw', "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
+vim.keymap.set('n', '<Leader>tc', "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
+vim.keymap.set('n', '<Leader>fg', "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
+vim.keymap.set('n', '<Leader>tgw', "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
+vim.keymap.set('n', '<Leader>tgg', "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")
+vim.keymap.set('n', '<Leader>t/', "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
+vim.keymap.set('n', '<Leader>tp', "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
 
 -- load local telescope config, if exists
 pcall(require, 'config.telescope.local')

@@ -1,37 +1,3 @@
-" Leader,{ and Leader,} move to top and bottom of indent region
-nmap \{ <Plug>(VerticalRegionUp)
-nmap \} <Plug>(VerticalRegionDown)
-omap \{ <Plug>(VerticalRegionUp)
-omap \} <Plug>(VerticalRegionDown)
-if exists(':xmap')
-    xmap \{ <Plug>(VerticalRegionUp)
-    xmap \} <Plug>(VerticalRegionDown)
-endif
-
-" trim trailing whitespace
-command! StripTrailingWhitespace call whitespace#StripTrailingWhitespace()
-command! -range=% StripTrailingWhitespaceVisual '<,'> call whitespace#StripTrailingWhitespaceVisual()
-nnoremap \w :StripTrailingWhitespace<CR>
-xnoremap \w :StripTrailingWhitespaceVisual<CR>
-
-" toggle list
-nnoremap _L :<C-U>setlocal list! list?<CR>
-if exists(':xnoremap')
-    xnoremap _L :<C-U>setlocal list! list?<CR>gv
-endif
-
-" line number management
-command! ToggleLineNum call lnum#ToggleLineNum()
-nnoremap _n :ToggleLineNum<cr>
-
-" show declaration
-" from https://gist.github.com/romainl/a11c6952f012f1dd32c26fad4fa82e43
-" nnoremap sd :call showdecl#ShowDeclaration(0)<CR>
-" nnoremap sD :call showdecl#ShowDeclaration(1)<CR>
-
-" substitute operator
-nmap <silent> \s  m':set operatorfunc=substitute#Substitute<CR>g@
-
 " grepping {{{
 function! Grep(...)
     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
@@ -62,20 +28,6 @@ nnoremap gr :execute('FGrep ' . expand('<cword>'))<CR>
 nnoremap gR :exec('Grep ' . expand('<cword>'))<CR>
 " }}}
 
-" cdo/cfdo if not available
-" from: https://www.reddit.com/r/vim/comments/iiatq6/is_there_a_good_way_to_do_vim_global_find_and/
-if !exists(':cdo')
-    command! -nargs=1 -complete=command Cdo try | sil cfirst |
-                \ while 1 | exec <q-args> | sil cn | endwhile |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-            \ endtry
-
-    command! -nargs=1 -complete=command Cfdo try | sil cfirst |
-                \ while 1 | exec <q-args> | sil cnf | endwhile |
-            \ catch /^Vim\%((\a\+)\)\=:E\%(553\|42\):/ |
-            \ endtry
-endif
-
 " better scrolling
 nnoremap <expr> <C-b> max([winheight(0) - 2, 1]) . '<C-u>' . (line('.') < 1         + winheight(0) ? 'H' : 'L')
 nnoremap <expr> <C-f> max([winheight(0) - 2, 1]) . '<C-d>' . (line('.') > line('$') - winheight(0) ? 'L' : 'H')
@@ -85,36 +37,6 @@ command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q
 
 " quickly edit recorded macros (https://github.com/mhinz/vim-galore#quickly-edit-your-macros)
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
-
-" toggle paste mode and enter insert mode
-nnoremap _p :set paste! paste?<CR>i
-" just toggle paste..
-nnoremap _P :set paste! paste?<CR>
-
-" toggle spell checking
-nnoremap _s :<C-u>setlocal spell! spell?<CR>
-
-" echo filetype
-nnoremap _t :<C-u>set filetype?<CR>
-
-" reload filetype plugins
-nnoremap _T :<C-u>doautocmd filetypedetect BufRead<CR>
-
-" echo current file full path
-nnoremap _f :echo expand('%:p')<cr>
-
-" git and diff shortcuts
-nnoremap _gg :echo system('git branch && git status')<CR>
-nnoremap _gd :echo system('git diff ' . expand('%'))<CR>
-nnoremap _gD :!clear && git diff %<CR>
-nnoremap _gb :GitBranch<CR>
-nnoremap _dh :Diff HEAD<CR>
-nnoremap _dd :Diff<CR>
-nnoremap _do :diffoff<CR>
-nnoremap <expr> _<space> ":\<C-u>".(&diff ? 'diffoff' : 'diffthis') . "\<CR>"
-
-" quick shell command
-nnoremap _! :!<Space>
 
 " show all registers
 nnoremap \y :<C-u>registers<CR>
@@ -219,16 +141,5 @@ inoremap <S-Tab> <C-v><Tab>
 " stay where you are on *
 nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>
 
-" clear hlsearch highlights
-nnoremap <C-l> :nohlsearch<cr>
-
 " last changed text as an object
 onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>
-
-if has('terminal') || has('nvim')
-    " easy terminal exit
-    tnoremap <esc> <C-\><C-n>
-endif
-
-nnoremap \ev :vsplit $MYVIMRC<cr>
-nnoremap \es :source $MYVIMRC<cr> :echo 'sourced ' . $MYVIMRC<cr>

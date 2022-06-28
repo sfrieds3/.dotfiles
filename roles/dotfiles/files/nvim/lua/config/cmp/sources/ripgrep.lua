@@ -3,6 +3,7 @@ local jobs = {}
 local result = {}
 local notified_missing_executable = false
 local base_args = {'--trim', '--vimgrep', '--no-line-number', '--no-column', '--smart-case'}
+local cmp = require('cmp')
 
 local function trigger_callback(context)
   local items = vim.tbl_map(function(item) return {word = item} end, vim.tbl_keys(result))
@@ -93,7 +94,7 @@ function Source.get_metadata(self)
 end
 
 function Source.determine(_, context)
-  return compe.helper.determine(context)
+  return cmp.helper.determine(context)
 end
 
 function Source.complete(self, context)
