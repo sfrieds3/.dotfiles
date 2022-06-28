@@ -38,26 +38,6 @@ command! -nargs=1 -complete=command -bar -range Redir silent call redir#Redir(<q
 " quickly edit recorded macros (https://github.com/mhinz/vim-galore#quickly-edit-your-macros)
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
-" show all registers
-nnoremap \y :<C-u>registers<CR>
-" show marks
-nnoremap \k :<C-u>marks<CR>
-" command history
-nnoremap \H :<C-u>history :<CR>
-nnoremap \h q:
-" search history
-nnoremap \/ q/
-
-" toggle showing tab, end-of-line, and trailing whitespace
-nnoremap _l :<C-u>setlocal list! list?<CR>
-if exists(':xnoremap')
-    xnoremap _l :<C-u>setlocal list! list?<CR>gv
-endif
-
-" normal maps
-nnoremap _m :<C-u>map<CR>
-" buffer-local normal maps
-nnoremap _M :<C-u>map <buffer><CR>
 " show global variables
 nnoremap _v :<C-u>let g: v:<CR>
 " show local variables
@@ -66,19 +46,11 @@ nnoremap _V :<C-u>let b: t: w:<CR>
 " echo current highlight
 nnoremap _h :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 
-" toggle line and column markers
-nnoremap <F3> :set cursorline! cursorcolumn!<CR>
-nnoremap \c :set cursorline! cursorline?<cr>
-nnoremap \C :set cursorcolumn! cursorcolumn?<cr>
-
 " Switch CWD to the directory of the open buffer
 nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " open scratch buffers
 nnoremap \` :<C-U>Scratch<CR>
-
-" search for non-ASCII characters
-nnoremap \a /[^\x00-\x7F]<CR>
 
 " poor man's c_CTRL-G/c_CTRL-T.. use c-j/c-k to move thru search res as typing
 cnoremap <expr> <C-g> getcmdtype() =~ '[\/?]' ? '<CR>/<C-r>/' : '<C-g>'
@@ -131,12 +103,6 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 
 " show list of digraphs -- special symbols
 nnoremap \vd :help digraphs<cr>:179<cr>zt
-
-" upper case last word using ctrl+u
-inoremap <C-u> <Esc>gUiwea
-
-" Shift-Tab enters actual tab
-inoremap <S-Tab> <C-v><Tab>
 
 " stay where you are on *
 nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>

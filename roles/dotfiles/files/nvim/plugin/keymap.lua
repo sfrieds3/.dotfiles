@@ -99,3 +99,17 @@ vim.keymap.set('n', '_f', "<Cmd>echo expand('%:p')<CR>")
 
 -- clear hlsearch highlights
 vim.keymap.set('n', '<C-l>', '<Cmd>nohlsearch<CR>')
+
+-- toggle line and column markers
+vim.keymap.set('n', '<F3>', '<Cmd>set cursorline! cursorcolumn!<CR>')
+vim.keymap.set('n', '<Leader>c', '<Cmd>set cursorline! cursorline?<cr>')
+vim.keymap.set('n', '<Leader>C', '<Cmd>set cursorcolumn! cursorcolumn?<cr>')
+
+-- search for non-ASCII characters
+vim.keymap.set('n', '<Leader>a', [[/[^\x00-\x7F]<CR>]])
+
+-- upper case last word using ctrl+u
+vim.keymap.set('i', '<C-u>', '<Esc>gUiwea')
+
+-- Shift-Tab enters actual tab
+vim.keymap.set('i', '<S-Tab>', '<C-v><Tab>')
