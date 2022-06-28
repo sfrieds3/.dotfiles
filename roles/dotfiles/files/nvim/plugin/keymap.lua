@@ -1,10 +1,4 @@
 -- general nvim keymaps
-vim.g.tmux_navigator_no_mappings = 1
-vim.keymap.set('n', '<M-h>', '<Cmd>TmuxNavigateLeft<CR>')
-vim.keymap.set('n', '<M-j>', '<Cmd>TmuxNavigateDown<CR>')
-vim.keymap.set('n', '<M-k>', '<Cmd>TmuxNavigateUp<CR>')
-vim.keymap.set('n', '<M-l>', '<Cmd>TmuxNavigateRight<CR>')
-
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '^', 'g^')
