@@ -65,7 +65,7 @@ map_telescope('<Leader>tr', 'registers', 'dropdown')
 
 vim.keymap.set('n', '<Leader>tv', "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
 vim.keymap.set('n', '<Leader>tw', "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
-vim.keymap.set('n', '<Leader>tc', "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
+vim.keymap.set('n', '<Leader>tn', "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
 vim.keymap.set('n', '<Leader>fg', "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
 vim.keymap.set('n', '<Leader>tgw', "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
 vim.keymap.set('n', '<Leader>tgg', "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")

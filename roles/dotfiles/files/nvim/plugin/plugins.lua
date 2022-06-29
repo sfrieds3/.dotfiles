@@ -17,6 +17,7 @@ return require('packer').startup(function(use)
     },
     { 'tpope/vim-fugitive', cmd = 'Git' },
     { 'TimUntersberger/neogit',
+      cmd = { 'Neogit' },
       requires = {
         'nvim-lua/plenary.nvim',
         'sindrets/diffview.nvim',
@@ -65,11 +66,7 @@ return require('packer').startup(function(use)
         { 'nvim-treesitter/nvim-treesitter-context' },
       },
     },
-    { 'norcalli/nvim-colorizer.lua',
-      config = function()
-        require('colorizer').setup()
-      end
-    },
+    { 'norcalli/nvim-colorizer.lua' },
   }
 
   -- quality of life
@@ -89,7 +86,7 @@ return require('packer').startup(function(use)
     },
     { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
     { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
-    { 'aserowy/tmux.nvim' },
+    { 'numToStr/Navigator.nvim' },
     { 'folke/lua-dev.nvim' },
     { 'ggandor/leap.nvim',
       keys = { 's', 'S' },
@@ -112,11 +109,7 @@ return require('packer').startup(function(use)
         --vim.g.gutentags_modules = { 'ctags', 'cscope', 'pycscope' }
       end
     },
-    { 'stevearc/aerial.nvim',
-      config = function()
-        require('aerial').setup()
-      end
-    },
+    { 'stevearc/aerial.nvim' },
     { 'dstein64/vim-startuptime', cmd = 'StartupTime', },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
     { 'romainl/vim-qf' },
@@ -214,15 +207,9 @@ return require('packer').startup(function(use)
     { 'navarasu/onedark.nvim' },
     { 'arcticicestudio/nord-vim' },
     { 'catppuccin/nvim' },
-    { 'projekt0n/github-nvim-theme',
-      config = function()
-        require('github-theme').setup({
-          theme_style = 'dark_default',
-          function_style = 'italic',
-          sidebars = { 'qf', 'terminal', 'packer' },
-          dark_sidebar = true,
-        })
-      end},
+    { 'marko-cerovac/material.nvim' },
+    { 'RRethy/nvim-base16' },
+    { 'projekt0n/github-nvim-theme' },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim

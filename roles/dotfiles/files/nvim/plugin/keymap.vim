@@ -47,7 +47,8 @@ nnoremap _V :<C-u>let b: t: w:<CR>
 nnoremap _h :echo synIDattr(synID(line('.'), col('.'), 1), 'name')<CR>
 
 " Switch CWD to the directory of the open buffer
-nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
+" TODO make into cmd
+" nnoremap _Cd :cd %:p:h<cr>:pwd<cr>
 
 " open scratch buffers
 nnoremap \` :<C-U>Scratch<CR>

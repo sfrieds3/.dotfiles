@@ -51,7 +51,7 @@ function python_venv() {
     [ $VIRTUAL_ENV ] && echo ' ('`basename $VIRTUAL_ENV`')'
 }
 
-PROMPT='$prompt_newline%F{131}[20%D %*]$prompt_newline%F{108}${PWD/#$HOME/~}%F{131}$(python_venv)%F{108} 〉%f'
+PROMPT='$prompt_newline%F{131}∷ 20%D %* ∷$prompt_newline%F{108}${PWD/#$HOME/~}%F{131}$(python_venv)%F{108} 〉%f'
 
 function set_rprompt() {
   RPROMPT="${vcs_info_msg_0_}%F{101}[%m]%f"

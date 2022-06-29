@@ -106,7 +106,7 @@ vim.keymap.set('n', '<Leader>c', '<Cmd>set cursorline! cursorline?<cr>')
 vim.keymap.set('n', '<Leader>C', '<Cmd>set cursorcolumn! cursorcolumn?<cr>')
 
 -- search for non-ASCII characters
-vim.keymap.set('n', '<Leader>a', [[/[^\x00-\x7F]<CR>]])
+vim.keymap.set('n', '_a', [[/[^\x00-\x7F]<CR>]])
 
 -- upper case last word using ctrl+u
 vim.keymap.set('i', '<C-u>', '<Esc>gUiwea')
