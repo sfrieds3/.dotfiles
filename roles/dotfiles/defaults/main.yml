@@ -6,6 +6,7 @@ dotfile_config_directories:
   - kitty
   - yapf
   - fish
+  - python
 
 dotfile_config_files:
   - pycodestyle
