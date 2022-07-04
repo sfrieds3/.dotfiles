@@ -70,7 +70,7 @@
 - name: symlink $XDG_CONFIG_HOME/zsh/zshrc -> $XGD_CONFIG_HOME/zsh/.zshrc
   file:
     src: $XDG_CONFIG_HOME/zsh/zshrc
-    dest: $XDG_CONFIG_HOME/zsh/.zshrc
+    path: $XDG_CONFIG_HOME/zsh/.zshrc
     state: link
 
 - name: make $XDG_CONFIG_HOME/fzf folder
@@ -81,6 +81,6 @@
 - name: symlink fzf/completion.zsh and fzf/key-bindings.zsh to .config/fzf
   file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/zsh/plugins/fzf/shell/{{ item }}"
-    dest: "$XDG_CONFIG_HOME/fzf/{{ item }}"
+    path: "$XDG_CONFIG_HOME/fzf/{{ item }}"
     state: link
   loop: "{{ zsh_fzf_completion }}"

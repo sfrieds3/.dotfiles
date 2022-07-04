@@ -10,7 +10,10 @@
       - cmake
       - curl
       - fd-find
+      - freetype-devel
+      - fontconfig-devel
       - fzf
+      - g++
       - gimp
       - git-core
       - gitk
@@ -18,6 +21,8 @@
       - htop
       - java-11-openjdk-devel
       - kitty
+      - libxcb-devel
+      - libxkbcommon-devel
       - llvm
       - llvm
       - lua
@@ -36,15 +41,20 @@
       - '@Development Tools'
     state: latest
 
+- name: Ensure $XDG_CONFIG_HOME folder is created
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config"
+    state: directory
+
 - name: Ensure $HOME/dev/utils folder is created
-  command:
-    cmd: mkdir -p $HOME/dev/utils
-    creates: $HOME/dev/utils
+  file:
+    path: "{{ lookup('env', 'HOME') }}/dev/utils"
+    state: directory
 
 - name: Ensure $HOME/.local/bin folder is created
-  command:
-    cmd: mkdir -p $HOME/.local/bin
-    creates: $HOME/.local/bin
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    state: directory
 
 - name: Git clone fzy
   git:
@@ -63,3 +73,26 @@
     src: $HOME/dev/utils/fzy/fzy
     dest: $HOME/.local/bin/fzy
     state: link
+
+- name: Check if cargo is installed
+  shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: yes
+  tags:
+    rust
+
+- name: Download cargo installer
+  when: cargo_exists is failed
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: '0755'
+    force: 'yes'
+  tags:
+    rust
+
+- name: install rust/cargo
+  when: cargo_exists is failed
+  shell: /tmp/sh.rustup.rs -y
+  tags:
+    - rust

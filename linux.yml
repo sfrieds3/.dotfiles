@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   connection: local
+  environment:
+    XDG_CONFIG_HOME: $HOME/.config
   roles:
     - role: meta
       tags:
@@ -17,6 +19,9 @@
     - role: other
       tags:
         - other
+    - role: fonts
+      tags:
+        - fonts
     # - role: flatpak
     #   tags:
     #     - flatpak
