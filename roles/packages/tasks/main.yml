@@ -41,6 +41,11 @@
     cmd: mkdir -p $HOME/dev/utils
     creates: $HOME/dev/utils
 
+- name: Ensure $HOME/.local/bin folder is created
+  command:
+    cmd: mkdir -p $HOME/.local/bin
+    creates: $HOME/.local/bin
+
 - name: Git clone fzy
   git:
     repo: https://github.com/jhawthorn/fzy.git
