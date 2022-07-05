@@ -3,4 +3,5 @@ require('github-theme').setup({
   function_style = 'italic',
   sidebars = { 'qf', 'terminal', 'packer' },
   dark_sidebar = true,
+  dark_float = true,
 })
