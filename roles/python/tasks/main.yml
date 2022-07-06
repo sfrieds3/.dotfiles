@@ -12,31 +12,24 @@
 - name: Install venv packages
   pip:
     name:
-      - autopep8
-      - black
+      - python-lsp-server
+      - pyls-flake8
+      - pyls-isort
+      - pylsp-mypy
+      - pylsp-rope
       - compiledb
       - ipython
       - jupyterlab
       - matplotlib
-      - mccabe
       - mypy
       - notebook
       - pandas
+      - pipx
+      - pls
       - pre-commit
-      - pycodestyle
       - pydocstyle
-      - pyflakes
-      - pylint
-      - pyls-flake8
-      - pyls-isort
-      - pyls-memestra
-      - pylsp-mypy
-      - pylsp-rope
       - pynvim
       - pytest
-      - python-lsp-black
-      - python-lsp-server
-      - rope
       - scikit-learn
       - virtualenv
       - yapf
