@@ -25,6 +25,7 @@ vim.keymap.set('n', 'c<Tab>', ":let @/=expand('<cword>')<cr>cgn")
 -- insert current line into command line
 vim.keymap.set('c', '<C-r><C-l>', "<C-r>=getline('.')<CR>")
 
+-- easy window switching
 local i = 1
 while (i <= 9) do
   vim.cmd("execute 'nnoremap <Leader>" .. i .. " :" .. i .. "wincmd w<CR>'")

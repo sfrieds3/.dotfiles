@@ -37,6 +37,10 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '_ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '_gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '_F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  --
+  require('aerial').on_attach(client, bufnr)
+  require('illuminate').on_attach(client)
 end
 
 local servers = {

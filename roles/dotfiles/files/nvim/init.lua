@@ -1,7 +1,7 @@
 vim.cmd [[ runtime! config/pre*.vim ]]
 vim.g.do_filetype_lua = 1
 
-local utils = require("utils.utils")
+local utils = require("utils")
 local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
 local data_dir = vim.fn.stdpath("data")
 local config_path = vim.fn.stdpath("config")
@@ -63,6 +63,7 @@ vim.opt.timeout = true
 vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 10
+vim.opt.updatetime = 500
 
 vim.opt.wildmenu = true
 vim.opt.wildignorecase = true

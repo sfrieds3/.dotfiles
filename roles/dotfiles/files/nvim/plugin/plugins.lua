@@ -7,6 +7,25 @@ end
 return require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
 
+  -- local dev plugins
+  local use_local = function(use_path)
+    local local_path = vim.fn.expand('$HOME/dev/plugins_nvim')
+    local repo = use_path
+    for _, repo_name in string.gmatch(use_path, '(%w+)/([%w%W]+)') do
+      repo = repo_name
+    end
+
+    local local_dir = string.format('%s/%s', local_path, repo)
+    if vim.fn.isdirectory(local_dir) == 1 then
+      use_path = local_dir
+    end
+
+    use { use_path }
+  end
+
+  -- local plugins
+  use_local('scwfri/pynvenv.nvim')
+
   -- git
   use {
     { 'lewis6991/gitsigns.nvim',
@@ -18,25 +37,40 @@ return require('packer').startup(function(use)
     { 'tpope/vim-fugitive', cmd = 'Git' },
     { 'TimUntersberger/neogit',
       cmd = { 'Neogit' },
+      keys = { '_G' },
       requires = {
         'nvim-lua/plenary.nvim',
         'sindrets/diffview.nvim',
       },
       config = function()
-        require('neogit').setup {
-          integrations = { diffview = true },
-        }
+        require('config.neogit')
       end,
     },
     { 'sindrets/diffview.nvim',
        requires = 'nvim-lua/plenary.nvim',
-       cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
+       cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffViewLog', 'DiffViewFileHistory' },
+       keys = { '_Dd', '_Dh', '_Dl' },
+       config = function()
+        require('config.diffview')
+       end
     },
   }
 
   -- nvim niceties
   use {
-    { 'akinsho/toggleterm.nvim' },
+    { 'RRethy/vim-illuminate',
+        event = 'CursorMoved',
+        config = function()
+          vim.g.Illuminate_delay = 2500
+        end,
+    },
+    { 'akinsho/toggleterm.nvim',
+      keys = { [[<C-\>]] },
+      cmd = { 'ToggleTerm' },
+      config = function()
+        require('config.toggleterm')
+      end
+    },
     { 'nvim-lualine/lualine.nvim',
       config = function()
        require('config.lualine')
@@ -66,7 +100,13 @@ return require('packer').startup(function(use)
         { 'nvim-treesitter/nvim-treesitter-context' },
       },
     },
-    { 'norcalli/nvim-colorizer.lua' },
+    { 'norcalli/nvim-colorizer.lua',
+      ft = { 'html', 'css', 'javascript', 'vim' },
+      cmd = { 'ColorizerToggle', 'ColorizerAttachToBuffer' },
+      config = function()
+        require('config.colorizer')
+      end
+    },
   }
 
   -- quality of life
@@ -84,21 +124,26 @@ return require('packer').startup(function(use)
         }
       end,
     },
-    { 'AndrewRadev/linediff.vim', cmd = 'LineDiffAdd' },
-    { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' } },
+    { 'AndrewRadev/linediff.vim', cmd = { 'LineDiffAdd' }, },
+    { 'chrisbra/NrrwRgn', cmd = { 'NR', 'NarrowRegion' }, },
     { 'numToStr/Navigator.nvim' },
-    { 'folke/lua-dev.nvim' },
+    { 'folke/lua-dev.nvim', ft = { 'lua' }, },
     { 'ggandor/leap.nvim',
       keys = { 's', 'S' },
       config = function()
         require('leap').set_default_keymaps()
       end,
     },
-    { 'RRethy/nvim-align' },
+    { 'RRethy/nvim-align', cmd = { 'Align' }, },
     { 'kyazdani42/nvim-tree.lua',
+      cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFindFile' },
+      keys = { '<Leader><Space>' },
+      config = function()
+        require('config.nvim_tree')
+      end
     },
     { 'kevinhwang91/nvim-bqf',
-      ft = 'qf',
+      ft = { 'qf' },
       config = function()
         require('config.bqf_config')
       end
@@ -109,10 +154,14 @@ return require('packer').startup(function(use)
         --vim.g.gutentags_modules = { 'ctags', 'cscope', 'pycscope' }
       end
     },
-    { 'stevearc/aerial.nvim' },
+    { 'stevearc/aerial.nvim',
+      config = function()
+        require('config.aerial')
+      end,
+    },
     { 'dstein64/vim-startuptime', cmd = 'StartupTime', },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
-    { 'romainl/vim-qf' },
+    { 'romainl/vim-qf', ft = { 'qf' }, },
     { 'romainl/vim-qlist' },
     { 'tpope/vim-scriptease', cmd = {
         'Messages',
@@ -184,31 +233,35 @@ return require('packer').startup(function(use)
         { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       },
     },
+    { 'j-hui/fidget.nvim' },
   }
 
   -- languages
   use {
     { 'chrisbra/csv.vim', ft = 'csv' },
     { 'fatih/vim-go', ft = 'go' },
-    { 'rust-lang/rust.vim', ft= 'rust', config = [[vim.g.rustfmt_autosave = 1]] },
+    { 'rust-lang/rust.vim', ft= 'rust',
+      config = function()
+        vim.g.rustfmt_autosave = 1
+      end
+    },
     { 'mfulz/cscope.nvim', ft = { 'c', 'cpp' } },
-    { 'psf/black', ft = { 'python' } },
     { 'tpope/vim-rails', ft = { 'ruby', 'eruby' } },
   }
 
   -- visuals
   use {
-    { 'wincent/pinnacle' },
-    { 'sainnhe/edge' },
-    { 'sainnhe/gruvbox-material' },
-    { 'sainnhe/sonokai' },
-    { 'EdenEast/nightfox.nvim' },
-    { 'folke/tokyonight.nvim' },
-    { 'navarasu/onedark.nvim' },
-    { 'arcticicestudio/nord-vim' },
-    { 'catppuccin/nvim' },
-    { 'marko-cerovac/material.nvim' },
-    { 'RRethy/nvim-base16' },
+    { 'wincent/pinnacle', opt = true },
+    { 'sainnhe/edge', opt = true },
+    { 'sainnhe/gruvbox-material', opt = true },
+    { 'sainnhe/sonokai', opt = true },
+    { 'EdenEast/nightfox.nvim', opt = true },
+    { 'folke/tokyonight.nvim', opt = true },
+    { 'navarasu/onedark.nvim', opt = true },
+    { 'arcticicestudio/nord-vim', opt = true },
+    { 'catppuccin/nvim', as = 'catppuccin', opt = true },
+    { 'marko-cerovac/material.nvim', opt = true },
+    { 'RRethy/nvim-base16', opt = true },
     { 'projekt0n/github-nvim-theme' },
   }
 
