@@ -7,9 +7,14 @@ function M.opt(o, v, scopes)
   for _, s in ipairs(scopes) do s[o] = v end
 end
 
-function _G.dump(...)
+function _G.Dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
   print(unpack(objects))
+end
+
+P = function(v)
+  print(vim.inspect(v))
+  return v
 end
 
 function M.t(str)
