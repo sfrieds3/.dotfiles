@@ -23,6 +23,7 @@
       - matplotlib
       - mypy
       - notebook
+      - numpy
       - pandas
       - pipx
       - pls
