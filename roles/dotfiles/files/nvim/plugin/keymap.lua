@@ -13,6 +13,9 @@ vim.keymap.set('n', '<Leader>d', '"_d')
 vim.keymap.set('x', '<Leader>d', '"_d')
 vim.keymap.set('x', '<Leader>p', '"_dP')
 
+-- quick source of current file
+vim.keymap.set('n', '<Leader><Leader>x', '<Cmd>write<CR><Cmd>source %<CR>')
+
 -- don't clobber unnamed register when pasting over text
 vim.keymap.set('x', 'p', "p:if v:register == '\"'<Bar>let @@=@0<Bar>endif<cr>")
 
