@@ -1,5 +1,4 @@
 vim.cmd [[ runtime! config/pre*.vim ]]
-vim.g.do_filetype_lua = 1
 
 local utils = require("utils")
 local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
