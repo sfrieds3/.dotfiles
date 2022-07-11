@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: local
   environment:
     XDG_CONFIG_HOME: $HOME/.config
   roles:
