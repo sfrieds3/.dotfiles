@@ -122,6 +122,7 @@ function M.grep_last_search(opts)
   opts.path_display = { 'shorten' }
   opts.word_match = '-w'
   opts.search = register
+  opts.previewer = false
 
   require('telescope.builtin').grep_string(opts)
 end
