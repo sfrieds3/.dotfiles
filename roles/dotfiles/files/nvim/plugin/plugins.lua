@@ -88,8 +88,7 @@ return require('packer').startup(function(use)
         { 'nvim-telescope/telescope-frecency.nvim',
           requires = { 'tami5/sqlite.lua' }
         },
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', disable = true },
-        { 'nvim-telescope/telescope-fzy-native.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
       }
     },
     { 'nvim-treesitter/nvim-treesitter',

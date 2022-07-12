@@ -2,15 +2,11 @@ local telescope_config = require('config.telescope.telescope_config')
 
 require('telescope').setup({
   extensions = {
-    -- fzf = {
-    --   fuzzy = true,
-    --   override_generic_sorter = true,
-    --   override_file_sorter = true,
-    --   case_mode = 'smart_case',
-    -- },
-    fzy = {
+    fzf = {
+      fuzzy = true,
       override_generic_sorter = true,
       override_file_sorter = true,
+      case_mode = 'smart_case',
     },
   },
   defaults = {
@@ -30,7 +26,7 @@ require('telescope').setup({
 })
 
 require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('fzf')
 require('telescope').load_extension('neoclip')
 require('telescope').load_extension('live_grep_args')
 
