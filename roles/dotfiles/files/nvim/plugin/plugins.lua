@@ -100,7 +100,7 @@ return require('packer').startup(function(use)
       },
     },
     { 'norcalli/nvim-colorizer.lua',
-      ft = { 'html', 'css', 'javascript', 'vim' },
+      ft = { 'html', 'css', 'javascript', 'vim', 'eruby' },
       cmd = { 'ColorizerToggle', 'ColorizerAttachToBuffer' },
       config = function()
         require('config.colorizer')
