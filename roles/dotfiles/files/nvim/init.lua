@@ -7,12 +7,6 @@ local config_path = vim.fn.stdpath("config")
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
-if vim.fn.executable("rg") then
-  vim.opt.grepprg = "rg --no-heading --hidden --vimgrep"
-else
-  vim.opt.grepprg="git grep -in $*"
-end
-
 vim.opt.shell = "/usr/bin/zsh"
 vim.opt.termguicolors = true
 vim.opt.hidden = true
