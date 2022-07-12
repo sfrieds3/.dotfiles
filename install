@@ -1,12 +1,29 @@
 #!/bin/sh
 
+have() {
+    command -v "$1" &> /dev/null
+}
+
 install_ansible() {
-    command -v ansible-playbook > /dev/null || sudo dnf install -y ansible
+    have ansible || sudo dnf install -y ansible
+}
+
+install_homebrew() {
+    if ! have "brew"; then
+        sudo dnf group install -y 'Development Tools'
+        sudo dnf install -y procps-ng curl file git libxcrypt-compat
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 }
 
 run_playbook() {
     ansible-playbook -K ./linux.yml -i ./ansible_hosts
 }
 
-install_ansible
+install_deps() {
+    install_ansible
+    install_homebrew
+}
+
+install_deps
 run_playbook

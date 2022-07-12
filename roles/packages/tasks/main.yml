@@ -74,8 +74,8 @@
     dest: $HOME/.local/bin/fzy
     state: link
 
-- name: Check if cargo is installed
-  shell: command -v cargo
+- name: Check if rust is installed
+  shell: command -v rustc
   register: cargo_exists
   ignore_errors: yes
   tags:
@@ -91,7 +91,7 @@
   tags:
     rust
 
-- name: install rust/cargo
+- name: install rust
   when: cargo_exists is failed
   shell: /tmp/sh.rustup.rs -y
   tags:
