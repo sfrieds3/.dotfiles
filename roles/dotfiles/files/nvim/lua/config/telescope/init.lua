@@ -43,7 +43,6 @@ vim.keymap.set('n', '<Leader>fo', "<cmd>lua require('config.telescope.telescope_
 vim.keymap.set('n', '<Leader>fr', "<cmd>lua require('config.telescope.telescope_config').recent_files()<CR>")
 vim.keymap.set('n', '<Leader>ft', "<cmd>lua require('config.telescope.telescope_config').buffer_tags()<CR>")
 vim.keymap.set('n', '<Leader>fT', "<cmd>lua require('config.telescope.telescope_config').project_tags()<CR>")
-vim.keymap.set('n', '<Leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map_telescope('<Leader>fb', 'buffers', 'ivy')
 map_telescope('<Leader>f<Space>', 'oldfiles', 'ivy')
@@ -58,6 +57,7 @@ map_telescope('<Leader>tl', 'lsp_document_symbols', 'ivy')
 map_telescope('<Leader>t<Space>', 'current_buffer_fuzzy_find', 'ivy')
 map_telescope('<Leader>tm', 'marks', 'dropdown')
 map_telescope('<Leader>tr', 'registers', 'dropdown')
+map_telescope('<Leader>th', 'help_Tags', 'dropdown')
 
 vim.keymap.set('n', '<Leader>tv', "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
 vim.keymap.set('n', '<Leader>tw', "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")

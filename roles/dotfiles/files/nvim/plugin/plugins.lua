@@ -262,6 +262,7 @@ return require('packer').startup(function(use)
     { 'marko-cerovac/material.nvim', opt = true },
     { 'RRethy/nvim-base16', opt = true },
     { 'projekt0n/github-nvim-theme' },
+    { 'Shatur/neovim-ayu' },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
