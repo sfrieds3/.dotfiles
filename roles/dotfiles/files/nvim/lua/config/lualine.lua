@@ -72,20 +72,20 @@ require('lualine').setup {
     lualine_z = {}
   },
   tabline = {
-    lualine_a = {'buffers'},
+    lualine_a = {'tabs'},
     lualine_b = {
-      { 'filename',
-        path = 0,
-        symbols = {
-          modified = ' ●',
-          readonly = ' ✘',
-        },
-      },
+      -- { 'filename',
+      --   path = 0,
+      --   symbols = {
+      --     modified = ' ●',
+      --     readonly = ' ✘',
+      --   },
+      -- },
     },
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = {'tabs'}
+    lualine_z = {'buffers'}
   },
-  extensions = { 'aerial', 'nvim-tree', 'symbols-outline', 'quickfix', 'fugitive' },
+  extensions = { 'aerial', 'nvim-tree', 'symbols-outline', 'quickfix', 'fugitive', 'toggleterm' },
 }

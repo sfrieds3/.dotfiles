@@ -70,6 +70,3 @@ augroup CustomizeTheme
     autocmd ColorScheme * call s:setup_colors()
     autocmd ColorScheme * call s:MyHighlights()
 augroup END
-
-let g:sonokai_style = 'espresso'
-colorscheme github_dark
