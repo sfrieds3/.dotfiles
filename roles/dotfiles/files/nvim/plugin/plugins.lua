@@ -59,7 +59,7 @@ return require('packer').startup(function(use)
   -- nvim niceties
   use {
     { 'RRethy/vim-illuminate',
-        event = 'CursorMoved',
+        event = 'BufReadPre',
         config = function()
           vim.g.Illuminate_delay = 2500
         end,
@@ -187,6 +187,7 @@ return require('packer').startup(function(use)
     },
     { 'tpope/vim-repeat' },
     { 'wellle/targets.vim' },
+    { 'milisims/nvim-luaref' },
   }
 
   -- lsp, completion
