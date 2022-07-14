@@ -169,7 +169,7 @@ return require('packer').startup(function(use)
         'Scriptnames',
       },
     },
-    { 'tpope/vim-surround' },
+    { 'kylechui/nvim-surround' },
     { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } },
     { 'numToStr/Comment.nvim',
     config = function()
