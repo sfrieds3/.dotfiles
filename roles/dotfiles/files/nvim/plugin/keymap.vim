@@ -11,7 +11,7 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'LG
 
 " FGrep <pattern> -> quickfix
 command! -nargs=1 FGrep lgetexpr system(&grepprg . ' ' . <q-args> . ' ' . expand('%'))
-nnoremap <Space> :FGrep<Space>
+nnoremap <Space>g :FGrep<Space>
 
 " Grep <pattern> -> quickfix
 "command! -nargs=1 Grep cgetexpr system(&grepprg . ' ' . <q-args>) | copen

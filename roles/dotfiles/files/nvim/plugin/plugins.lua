@@ -185,7 +185,6 @@ return require('packer').startup(function(use)
         vim.g.matchup_matchparen_deferred = 1
       end
     },
-    { 'tpope/vim-repeat' },
     { 'wellle/targets.vim' },
     { 'milisims/nvim-luaref' },
   }
