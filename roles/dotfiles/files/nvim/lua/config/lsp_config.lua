@@ -45,7 +45,7 @@ local lsp_flags = {
 
 }
 
-if vim.fn.executable('pylsp') then
+if vim.fn.executable('pylsp') == 1 then
   require('lspconfig')['pylsp'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -53,7 +53,7 @@ if vim.fn.executable('pylsp') then
   })
 end
 
-if vim.fn.executable('clangd') then
+if vim.fn.executable('clangd') == 1 then
   require('lspconfig')['clangd'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -61,7 +61,7 @@ if vim.fn.executable('clangd') then
   })
 end
 
-if vim.fn.executable('rust_analyzer') then
+if vim.fn.executable('rust_analyzer') == 1 then
   require('lspconfig')['rust_analyzer'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -69,7 +69,7 @@ if vim.fn.executable('rust_analyzer') then
   })
 end
 
-if vim.fn.executable('tsserver') then
+if vim.fn.executable('tsserver') == 1 then
   require('lspconfig')['tsserver'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -77,7 +77,7 @@ if vim.fn.executable('tsserver') then
   })
 end
 
-if vim.fn.executable('vimls') then
+if vim.fn.executable('vimls') == 1 then
   require('lspconfig')['vimls'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
