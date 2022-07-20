@@ -40,11 +40,4 @@ create_session() {
     fi
 }
 
-if [ -n "$SESSION_NAME" ]; then
-    if [ "$SESSION_NAME" = "--new" ]; then
-        SESSION_NAME=$CURRENT_DIR
-    fi
-    create_session
-else
-    dwim_session
-fi
+dwim_session
