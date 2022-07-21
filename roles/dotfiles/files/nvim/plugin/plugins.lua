@@ -4,7 +4,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-return require('packer').startup(function(use)
+return require('packer').startup({function(use)
   use { 'wbthomason/packer.nvim' }
 
   -- local dev plugins
@@ -133,7 +133,7 @@ return require('packer').startup(function(use)
         require('leap').set_default_keymaps()
       end,
     },
-    { 'RRethy/nvim-align', cmd = { 'Align' }, },
+    { 'RRethy/nvim-align' },
     { 'kyazdani42/nvim-tree.lua',
       cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFindFile' },
       keys = { '<Leader><Space>' },
@@ -270,4 +270,5 @@ return require('packer').startup(function(use)
   if PACKER_BOOTSTRAP then
     require('packer').sync()
   end
-end)
+end,
+})
