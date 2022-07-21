@@ -153,11 +153,7 @@ return require('packer').startup({function(use)
         --vim.g.gutentags_modules = { 'ctags', 'cscope', 'pycscope' }
       end
     },
-    { 'stevearc/aerial.nvim',
-      config = function()
-        require('config.aerial')
-      end,
-    },
+    { 'stevearc/aerial.nvim' },
     { 'dstein64/vim-startuptime', cmd = 'StartupTime', },
     { 'mbbill/undotree', cmd = 'UndotreeToggle' },
     { 'romainl/vim-qf', ft = { 'qf' }, },
