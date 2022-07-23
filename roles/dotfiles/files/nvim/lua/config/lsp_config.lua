@@ -1,5 +1,6 @@
 vim.diagnostic.config({
  virtual_text = { source = true },
+ float = { source = true },
 })
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

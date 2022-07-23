@@ -42,3 +42,24 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
   pattern = 'l*',
   command = [[lwindow]],
 })
+
+vim.api.nvim_create_augroup('WindowCursorLine', { clear = true })
+vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+  group = 'WindowCursorLine',
+  pattern = '*',
+  command = [[set cursorline]],
+})
+vim.api.nvim_create_autocmd({ 'WinLeave' }, {
+  group = 'WindowCursorLine',
+  pattern = '*',
+  command = [[set nocursorline]],
+})
+
+vim.api.nvim_create_augroup('LspAutocmd', { clear = true })
+vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  group = 'LspAutocmd',
+  pattern = '*',
+  callback = function()
+    vim.diagnostic.open_float({ focusable = false })
+  end
+})
