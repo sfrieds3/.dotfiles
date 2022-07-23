@@ -9,9 +9,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias gap='git add --patch'
-alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
-
 alias gg='$HOME/bin/git/git_recent.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
@@ -22,7 +19,6 @@ alias grep='grep -HPIn0 --exclude=tags --color=auto'
 alias rgrep='grep -r'
 alias tmux='tmux -2'
 
-# du -sh
 alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 
 # handy cd aliases
@@ -36,8 +32,14 @@ alias dskspc='sudo du -h --max-depth=1 | sort -h'
 alias tk="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
 
 # git aliases
-alias gcba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
-alias gcb='git branch | fzy | sed s/^\*// | xargs git checkout'
+alias gba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
+alias gb='git branch | fzy | sed s/^\*// | xargs git checkout'
+alias gap='git add --patch'
+alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gbp='git checkout -'
 
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
+
+# luamake
+alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
