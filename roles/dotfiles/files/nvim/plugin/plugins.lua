@@ -4,7 +4,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-return require('packer').startup({function(use)
+return require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
 
   -- local dev plugins
@@ -25,6 +25,16 @@ return require('packer').startup({function(use)
 
   -- local plugins
   use_local('scwfri/pynvenv.nvim')
+
+  -- testing
+  use {
+    'wincent/command-t',
+    branch = 'pu',
+    run = 'cd lua/wincent/commandt/lib && make',
+    config = function()
+      require('wincent.commandt').setup()
+    end,
+  }
 
   -- git
   use {
@@ -266,5 +276,4 @@ return require('packer').startup({function(use)
   if PACKER_BOOTSTRAP then
     require('packer').sync()
   end
-end,
-})
+end)

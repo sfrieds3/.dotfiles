@@ -41,5 +41,9 @@ alias gbp='git checkout -'
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
 
+# test nvim
+alias testnvim='nvim --clean -u $HOME/dev/minimal_init.vim'
+alias testnvimlua='nvim --clean -u $HOME/dev/minimal_init.lua'
+
 # luamake
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
