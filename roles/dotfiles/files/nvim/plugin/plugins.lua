@@ -26,16 +26,6 @@ return require('packer').startup(function(use)
   -- local plugins
   use_local('scwfri/pynvenv.nvim')
 
-  -- testing
-  use {
-    'wincent/command-t',
-    branch = 'pu',
-    run = 'cd lua/wincent/commandt/lib && make',
-    config = function()
-      require('wincent.commandt').setup()
-    end,
-  }
-
   -- git
   use {
     { 'lewis6991/gitsigns.nvim',
