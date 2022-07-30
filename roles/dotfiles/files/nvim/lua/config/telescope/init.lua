@@ -11,18 +11,24 @@ require('telescope').setup({
   },
   defaults = {
     file_ignore_patterns = { 'tags', 'TAGS' },
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--no-ignore',
-      '--hidden'
-    }
-  }
+  },
+  pickers = {
+      find_files = {
+        find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
+        layout_config = {
+          height = 0.70
+        },
+        theme = 'ivy',
+        follow = true,
+      },
+      buffers = {
+        show_all_buffers = true
+      },
+      live_grep = {
+        previewer = false,
+        theme = "dropdown",
+      },
+  },
 })
 
 require('telescope').load_extension('frecency')
