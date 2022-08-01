@@ -105,8 +105,9 @@ command! -nargs=+ Calc :r! python3 -c 'from math import *; print (<args>)'
 " show list of digraphs -- special symbols
 nnoremap \vd :help digraphs<cr>:179<cr>zt
 
-" stay where you are on *
+" stay where you are on * and #
 nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>
+nnoremap <silent> # :let lloc = winsaveview()<cr>#:call winrestview(lloc)<cr>
 
 " last changed text as an object
 onoremap \_ :<C-U>execute 'normal! `[v`]'<CR>
