@@ -29,7 +29,7 @@ alias ..='cd ..'
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
 
 # fuzzy kill tmux sessions
-alias tk="for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
+alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
 
 # git aliases
 alias gba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
@@ -40,6 +40,9 @@ alias gbp='git checkout -'
 
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
+
+# nvim diff
+nvim diff='nvim -d'
 
 # test nvim
 alias testnvim='nvim --clean -u $HOME/dev/minimal_init.vim'
