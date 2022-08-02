@@ -274,19 +274,14 @@ return require('packer').startup(function(use)
 
   -- visuals
   use {
-    { 'NTBBloodbath/doom-one.nvim', opt = true },
-    { 'wincent/pinnacle', opt = true },
+    { 'NTBBloodbath/doom-one.nvim' },
     { 'sainnhe/edge', opt = true },
     { 'sainnhe/gruvbox-material', opt = true },
     { 'sainnhe/sonokai', opt = true },
     { 'EdenEast/nightfox.nvim', opt = true },
-    { 'folke/tokyonight.nvim', opt = true },
     { 'navarasu/onedark.nvim', opt = true },
-    { 'arcticicestudio/nord-vim', opt = true },
     { 'catppuccin/nvim', as = 'catppuccin', opt = true },
-    { 'marko-cerovac/material.nvim', opt = true },
     { 'projekt0n/github-nvim-theme' },
-    { 'Shatur/neovim-ayu' },
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
