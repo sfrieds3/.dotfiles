@@ -145,7 +145,6 @@ return require('packer').startup(function(use)
         'nvim-lua/plenary.nvim',
         'kyazdani42/nvim-web-devicons',
         'MunifTanjim/nui.nvim',
-        "MunifTanjim/nui.nvim",
       {
         's1n7ax/nvim-window-picker',
         tag = "v1.*",
