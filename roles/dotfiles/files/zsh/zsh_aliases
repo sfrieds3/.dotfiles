@@ -42,7 +42,7 @@ alias gbp='git checkout -'
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
 
 # nvim diff
-nvim diff='nvim -d'
+nvimdiff='nvim -d'
 
 # test nvim
 alias testnvim='nvim --clean -u $HOME/dev/minimal_init.vim'

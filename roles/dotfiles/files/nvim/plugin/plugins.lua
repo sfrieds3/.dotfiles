@@ -134,12 +134,40 @@ return require('packer').startup(function(use)
       end,
     },
     { 'RRethy/nvim-align' },
-    { 'kyazdani42/nvim-tree.lua',
-      cmd = { 'NvimTreeOpen', 'NvimTreeToggle', 'NvimTreeFindFile' },
-      keys = { '<Leader><Space>' },
+    { 'nvim-neo-tree/neo-tree.nvim',
+      cmd = { 'Neotree', 'NeoTreeRevealToggle' },
+      keys = '<Leader><Space>',
       config = function()
-        require('config.nvim_tree')
-      end
+        require('config.neotree')
+      end,
+      branch = 'v2.x',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'kyazdani42/nvim-web-devicons',
+        'MunifTanjim/nui.nvim',
+        "MunifTanjim/nui.nvim",
+      {
+        's1n7ax/nvim-window-picker',
+        tag = "v1.*",
+        config = function()
+          require'window-picker'.setup({
+            autoselect_one = true,
+            include_current = false,
+            filter_rules = {
+              -- filter using buffer options
+              bo = {
+                -- if the file type is one of following, the window will be ignored
+                filetype = { 'neo-tree', "neo-tree-popup", "notify", "quickfix" },
+
+                -- if the buffer type is one of following, the window will be ignored
+                buftype = { 'terminal' },
+              },
+            },
+            other_win_hl_color = '#e35e4f',
+          })
+        end,
+      }
+      },
     },
     { 'kevinhwang91/nvim-bqf',
       ft = { 'qf' },
@@ -246,6 +274,7 @@ return require('packer').startup(function(use)
 
   -- visuals
   use {
+    { 'NTBBloodbath/doom-one.nvim', opt = true },
     { 'wincent/pinnacle', opt = true },
     { 'sainnhe/edge', opt = true },
     { 'sainnhe/gruvbox-material', opt = true },
@@ -256,7 +285,6 @@ return require('packer').startup(function(use)
     { 'arcticicestudio/nord-vim', opt = true },
     { 'catppuccin/nvim', as = 'catppuccin', opt = true },
     { 'marko-cerovac/material.nvim', opt = true },
-    { 'RRethy/nvim-base16', opt = true },
     { 'projekt0n/github-nvim-theme' },
     { 'Shatur/neovim-ayu' },
   }

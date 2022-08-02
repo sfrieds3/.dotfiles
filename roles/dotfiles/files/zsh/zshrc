@@ -47,3 +47,5 @@ export EDITOR="nvim"
 # if [ -z "$TMUX_PANE" ]; then
 #     tmux attach
 # fi
+
+alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
