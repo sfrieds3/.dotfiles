@@ -34,11 +34,14 @@ bindkey -M emacs '^J' fzf-history-widget
 
 autoload -U colors && colors
 
+# https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
+autoload zmv
+
+source $ZDOTDIR/zsh_functions
 source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
 source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
-source $ZDOTDIR/zsh_functions
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
 # nvim as editor
