@@ -85,20 +85,79 @@ function +vi-git-remotebranch() {
     fi
 }
 
-function prompt_precmd() {
+function __prompt_precmd() {
   vcs_info
 }
 
-function python_venv() {
+function __python_venv() {
     [ $VIRTUAL_ENV ] && echo ' ('`basename $VIRTUAL_ENV`')'
 }
 
-PROMPT='$prompt_newline%F{131}∷ 20%D %* ∷$prompt_newline%F{108}${PWD/#$HOME/~}%F{131}$(python_venv)%F{108} 〉%f'
+PROMPT='$prompt_newline%F{131}∷ 20%D %* ∷$prompt_newline%F{108}${PWD/#$HOME/~}%F{131}$(__python_venv)%F{108} 〉%f'
 
-function set_rprompt() {
-  RPROMPT="${vcs_info_msg_0_}%F{101}[%m]%f"
+function __set_rprompt() {
+  RPROMPT="${_git_status_prompt:-$placeholder}%F{101}[%m]%f"
 }
 
 autoload -U add-zsh-hook
-add-zsh-hook precmd prompt_precmd
-add-zsh-hook precmd set_rprompt
+add-zsh-hook precmd __prompt_precmd
+add-zsh-hook precmd __set_rprompt
+add-zsh-hook precmd __async_vcs_start
+add-zsh-hook chpwd () {
+    _git_status_prompt=""
+}
+
+# source: https://github.com/akinsho/dotfiles/blob/main/.config/zsh/.zshrc
+# Async prompt in Zsh
+# Rather than using zpty (a pseudo terminal) under the hood
+# as is the case with zsh-async this method forks a process sends
+# it the command to evaluate which is written to a file descriptor
+#
+# terminology:
+# exec - replaces the current shell. This means no subshell is
+# created and the current process is replaced with this new command.
+# fd/FD - file descriptor
+# &- closes a FD e.g. "exec 3<&-" closes FD 3
+# file descriptor 0 is stdin (the standard input),
+# 1 is stdout (the standard output),
+# 2 is stderr (the standard error).
+#
+# https://www.zsh.org/mla/users/2018/msg00424.html
+# https://github.com/sorin-ionescu/prezto/pull/1805/files#diff-6a24e7644c4c0969110e86872283ec82L79
+# https://github.com/zsh-users/zsh-autosuggestions/pull/338/files
+__async_vcs_start() {
+  # Close the last file descriptor to invalidate old requests
+  if [[ -n "$__prompt_async_fd" ]] && { true <&$__prompt_async_fd } 2>/dev/null; then
+    exec {__prompt_async_fd}<&-
+    zle -F $__prompt_async_fd
+  fi
+  # fork a process to fetch the vcs status and open a pipe to read from it
+  exec {__prompt_async_fd}< <(
+    __async_vcs_info $PWD
+  )
+
+  # When the fd is readable, call the response handler
+  zle -F "$__prompt_async_fd" __async_vcs_info_done
+}
+
+__async_vcs_info() {
+  cd -q "$1"
+  vcs_info
+  print ${vcs_info_msg_0_}
+}
+
+# Called when new data is ready to be read from the pipe
+__async_vcs_info_done() {
+  # Read everything from the fd
+  _git_status_prompt="$(<&$1)"
+  # check if vcs info is returned, if not set the prompt
+  # to a non visible character to clear the placeholder
+  # NOTE: -z returns true if a string value has a length of 0
+  if [[ -z $_git_status_prompt ]]; then
+    _git_status_prompt=" "
+  fi
+  # remove the handler and close the file descriptor
+  zle -F "$1"
+  exec {1}<&-
+  zle && zle reset-prompt
+}
