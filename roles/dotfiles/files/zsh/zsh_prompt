@@ -12,8 +12,8 @@ zstyle ':vcs_info:*' stagedstr "%F{green} %f"  # nf-fa-check (default 'S')
 zstyle ':vcs_info:*' unstagedstr "%F{red} %f"  # nf-fa-close (default 'U')
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed git-compare git-remotebranch
-zstyle ':vcs_info:git*:*' formats '%F{red} %{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{cyan}(%b) %{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats '%F{red} %{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{cyan}(%b|%a) %{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git*:*' formats '%F{red} %{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{cyan}(%b)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '%F{red} %{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{cyan}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
   emulate -L zsh
@@ -81,78 +81,14 @@ function __python_venv() {
 PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %F{red}$(__python_venv)%F{green}〉%f'
 
 function __set_rprompt() {
-    local placeholder='%F{red}%{$__DOTS[ITALIC_ON]%}(…)%{$__DOTS[ITALIC_OFF]%}%f '
-    RPROMPT="${_git_status_prompt:-$placeholder}%F{cyan}[%m]%f"
+    RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
 }
 
 autoload -U add-zsh-hook
-# add-zsh-hook precmd __prompt_precmd
+add-zsh-hook precmd __prompt_precmd
 add-zsh-hook precmd __set_rprompt
-add-zsh-hook precmd __async_vcs_start
 add-zsh-hook precmd __timings_precmd
 add-zsh-hook preexec __timings_preexec
-
-add-zsh-hook chpwd () {
-    _git_status_prompt=""
-}
-
-#-------------------------------------------------------------------------------
-#           Async VCS
-#-------------------------------------------------------------------------------
-# source: https://github.com/akinsho/dotfiles/blob/main/.config/zsh/.zshrc
-# Async prompt in Zsh
-# Rather than using zpty (a pseudo terminal) under the hood
-# as is the case with zsh-async this method forks a process sends
-# it the command to evaluate which is written to a file descriptor
-#
-# terminology:
-# exec - replaces the current shell. This means no subshell is
-# created and the current process is replaced with this new command.
-# fd/FD - file descriptor
-# &- closes a FD e.g. "exec 3<&-" closes FD 3
-# file descriptor 0 is stdin (the standard input),
-# 1 is stdout (the standard output),
-# 2 is stderr (the standard error).
-#
-# https://www.zsh.org/mla/users/2018/msg00424.html
-# https://github.com/sorin-ionescu/prezto/pull/1805/files#diff-6a24e7644c4c0969110e86872283ec82L79
-# https://github.com/zsh-users/zsh-autosuggestions/pull/338/files
-__async_vcs_start() {
-  # Close the last file descriptor to invalidate old requests
-  if [[ -n "$__prompt_async_fd" ]] && { true <&$__prompt_async_fd } 2>/dev/null; then
-    exec {__prompt_async_fd}<&-
-    zle -F $__prompt_async_fd
-  fi
-  # fork a process to fetch the vcs status and open a pipe to read from it
-  exec {__prompt_async_fd}< <(
-    __async_vcs_info $PWD
-  )
-
-  # When the fd is readable, call the response handler
-  zle -F "$__prompt_async_fd" __async_vcs_info_done
-}
-
-__async_vcs_info() {
-  cd -q "$1"
-  vcs_info
-  print ${vcs_info_msg_0_}
-}
-
-# Called when new data is ready to be read from the pipe
-__async_vcs_info_done() {
-  # Read everything from the fd
-  _git_status_prompt="$(<&$1)"
-  # check if vcs info is returned, if not set the prompt
-  # to a non visible character to clear the placeholder
-  # NOTE: -z returns true if a string value has a length of 0
-  if [[ -z $_git_status_prompt ]]; then
-    _git_status_prompt=" "
-  fi
-  # remove the handler and close the file descriptor
-  zle -F "$1"
-  exec {1}<&-
-  zle && zle reset-prompt
-}
 
 #-------------------------------------------------------------------------------
 #           Execution time
