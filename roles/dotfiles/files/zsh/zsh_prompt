@@ -12,8 +12,8 @@ zstyle ':vcs_info:*' stagedstr "%F{green} %f"  # nf-fa-check (default 'S')
 zstyle ':vcs_info:*' unstagedstr "%F{red} %f"  # nf-fa-close (default 'U')
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed git-compare git-remotebranch
-zstyle ':vcs_info:git*:*' formats '%F{red} %{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{cyan}(%b)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats '%F{red} %{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{cyan}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git*:*' formats '%{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{magenta}(%b)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '%{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{magenta}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%m%c%u%F{red}%f '  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
   emulate -L zsh
