@@ -4,6 +4,13 @@
     path: $HOME/.venv
     state: directory
 
+- name: Install global pip packages
+  pip:
+    name:
+      - tox
+      - pre-commit
+      - pipx
+
 - name: Create default venv
   command:
     cmd: /usr/bin/python3 -m venv $HOME/.venv/venv
@@ -32,6 +39,7 @@
       - pynvim
       - pytest
       - scikit-learn
+      - tox
       - virtualenv
       - yapf
     virtualenv: "$HOME/.venv/venv"
