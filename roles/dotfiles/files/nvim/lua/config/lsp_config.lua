@@ -46,8 +46,18 @@ local lsp_flags = {
 
 }
 
+local using_pylsp = 0
 if vim.fn.executable('pylsp') == 1 then
+  using_pylsp = 1
   require('lspconfig')['pylsp'].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+end
+
+if vim.fn.executable('pyright') == 1 and using_pylsp == 0 then
+  require('lspconfig')['pyright'].setup({
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
