@@ -1,10 +1,10 @@
-require('github-theme').setup({
-  theme_style = 'dimmed',
-  function_style = 'italic',
-  sidebars = { 'qf', 'terminal', 'packer' },
-  dark_sidebar = true,
-  dark_float = true,
-})
+-- require('github-theme').setup({
+--   theme_style = 'dimmed',
+--   function_style = 'italic',
+--   sidebars = { 'qf', 'terminal', 'packer' },
+--   dark_sidebar = true,
+--   dark_float = true,
+-- })
 
 -- require('doom-one').setup({
 --   terminal_colors = false,
