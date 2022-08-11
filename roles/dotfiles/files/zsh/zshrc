@@ -40,7 +40,7 @@ autoload zmv
 source $ZDOTDIR/zsh_functions
 source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
-source $ZDOTDIR/zsh_prompt
+# source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
@@ -52,3 +52,5 @@ export EDITOR="nvim"
 # fi
 
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
+
+eval "$(starship init zsh)"
