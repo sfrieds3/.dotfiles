@@ -17,13 +17,6 @@ require("neo-tree").setup({
   enable_git_status = true,
   enable_diagnostics = true,
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = function (a,b)
-          if a.type == b.type then
-              return a.path > b.path
-          else
-              return a.type > b.type
-          end
-      end ,
     default_component_configs = {
       container = {
         enable_character_fade = true
