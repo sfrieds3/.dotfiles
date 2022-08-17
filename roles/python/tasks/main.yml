@@ -10,6 +10,8 @@
       - tox
       - pre-commit
       - pipx
+      - twine
+      - flake8
 
 - name: Create default venv
   command:

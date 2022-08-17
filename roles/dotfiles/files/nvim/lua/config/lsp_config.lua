@@ -64,6 +64,56 @@ if vim.fn.executable('pyright') == 1 and using_pylsp == 0 then
   })
 end
 
+if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
+  require('lspconfig')['gopls'].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+
+    lspconfig = require "lspconfig"
+  util = require "lspconfig/util"
+
+  lspconfig.gopls.setup {
+    cmd = {"gopls", "serve"},
+    filetypes = {"go", "gomod"},
+    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
+  }
+
+  function OrgImports(wait_ms)
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+    for _, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          vim.lsp.util.apply_workspace_edit(r.edit, "UTF-8")
+        else
+          vim.lsp.buf.execute_command(r.command)
+        end
+      end
+    end
+  end
+
+  vim.api.nvim_create_augroup('Golang', { clear = true })
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = 'Golang',
+    callback = function()
+      vim.cmd(":call LanguageClient#textDocument_formatting_sync()")
+      OrgImports(1000)
+    end,
+    pattern = '*.go',
+  })
+end
+
 if vim.fn.executable('clangd') == 1 then
   require('lspconfig')['clangd'].setup({
     on_attach = on_attach,
