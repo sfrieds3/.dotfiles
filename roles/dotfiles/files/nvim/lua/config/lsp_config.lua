@@ -1,6 +1,6 @@
 vim.diagnostic.config({
- virtual_text = { source = true },
- float = { source = true },
+  virtual_text = { source = true },
+  float = { source = true },
 })
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -71,8 +71,8 @@ if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
     capabilities = capabilities,
   })
 
-    lspconfig = require "lspconfig"
-  util = require "lspconfig/util"
+  local lspconfig = require "lspconfig"
+  local util = require "lspconfig/util"
 
   lspconfig.gopls.setup {
     cmd = {"gopls", "serve"},
@@ -106,11 +106,11 @@ if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
   vim.api.nvim_create_augroup('Golang', { clear = true })
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = 'Golang',
+    pattern = '*.go',
     callback = function()
-      vim.cmd(":call LanguageClient#textDocument_formatting_sync()")
+      vim.lsp.buf.formatting_sync(nil, 1000)
       OrgImports(1000)
     end,
-    pattern = '*.go',
   })
 end
 
