@@ -1,51 +1,52 @@
 format = '$time$docker_context$c$cmake$conda$container$go$python$conda$nodejs$package$cmd_duration$memory_usage$line_break$jobs$status$sudo$directory$character'
-right_format = '$git_branch$git_status$git_commit$username$hostname'
+right_format = '$git_commit$git_branch$git_status$username$hostname'
 continuation_prompt = ''
 
 [character]
-success_symbol = '[❯](dimmed green)'
+success_symbol = '[❯](bold dimmed green)'
 error_symbol = '[❯](bold dimmed red)'
 
 [time]
 disabled = false
 format = '[∷ $time ∷ ]($style)'
 time_format = '%Y-%m-%d %H:%M:%S'
-style = 'dimmed red'
+style = 'bold dimmed red'
 
 [cmd_duration]
 format = '[$duration]($style)'
 show_milliseconds = false
-style = 'italic dimmed yellow'
+style = 'bold italic dimmed yellow'
 
 [hostname]
 ssh_only = false
 format = '[$hostname]($style)'
-style = 'dimmed green'
+style = 'bold dimmed green'
 
 [username]
 format = '[$user]($style):'
-style_user = 'dimmed blue'
+style_user = 'bold dimmed blue'
 
 [git_commit]
 tag_symbol = '  '
-style = 'green'
+tag_disabled = false
+style = 'bold green'
 
 [directory]
 fish_style_pwd_dir_length = 3
 read_only = ' '
-style = 'green'
+style = 'bold green'
 
 [git_branch]
 symbol = 'λ:'
 format = '[$symbol](italic yellow)[\($branch(:$remote_branch)\)]($style) '
-style = 'italic dimmed red'
+style = 'bold italic dimmed red'
 
 [git_status]
 ahead = '⇡${count}'
 diverged = '⇕⇡${ahead_count}⇣${behind_count}'
 behind = '⇣${count}'
 deleted = 'x'
-style = 'dimmed red'
+style = 'bold dimmed red'
 
 [memory_usage]
 disabled = false
