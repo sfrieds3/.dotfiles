@@ -1,5 +1,5 @@
-require('fidget').setup({
+require("fidget").setup({
   text = {
-    spinner = 'bouncing_ball',
-  }
+    spinner = "bouncing_ball",
+  },
 })

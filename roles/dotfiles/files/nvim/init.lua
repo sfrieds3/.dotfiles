@@ -1,4 +1,4 @@
-vim.cmd [[ runtime! config/pre*.vim ]]
+vim.cmd([[ runtime! config/pre*.vim ]])
 
 require("utils")
 local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
@@ -50,7 +50,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.signcolumn = "yes"
 
-vim.opt.listchars = { tab = '» ', extends = '›', precedes = '‹', nbsp = '␣', trail = '·' }
+vim.opt.listchars = { tab = "» ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·" }
 vim.opt.list = true
 
 vim.opt.timeout = true
@@ -74,4 +74,4 @@ vim.opt.backupext = ".bak"
 vim.opt.swapfile = false
 vim.opt.shada = [['1000,f1,<1000,/10000,:10000]]
 
-vim.cmd [[ runtime! config/post*.vim ]]
+vim.cmd([[ runtime! config/post*.vim ]])

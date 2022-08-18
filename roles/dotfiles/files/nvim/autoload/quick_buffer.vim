@@ -21,4 +21,3 @@ function! quick_buffer#QuickBuffer(pattern) abort
     call feedkeys(':B ' . l:globbed . "\<C-d>\<C-u>B " . a:pattern)
   endtry
 endfun
-

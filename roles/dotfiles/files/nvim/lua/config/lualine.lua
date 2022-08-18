@@ -6,9 +6,10 @@
 local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
   return function(str)
     local win_width = vim.fn.winwidth(0)
-    if hide_width and win_width < hide_width then return ''
+    if hide_width and win_width < hide_width then
+      return ""
     elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
-      return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
+      return str:sub(1, trunc_len) .. (no_ellipsis and "" or "...")
     end
     return str
   end
@@ -20,56 +21,59 @@ local function diff_source()
     return {
       added = gitsigns.added,
       modified = gitsigns.changed,
-      removed = gitsigns.removed
+      removed = gitsigns.removed,
     }
   end
 end
 
-require('lualine').setup {
+require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = 'auto',
-    section_separators = { left = '', right = '' },
-    component_separators = { left = '', right = '' },
+    theme = "auto",
+    section_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "" },
     disabled_filetypes = {},
     always_divide_middle = true,
     globalstatus = true,
   },
   sections = {
-    lualine_a = {'mode'},
+    lualine_a = { "mode" },
     lualine_b = {
-      { 'b:gitsigns_head', icon = 'λ', fmt = trunc(50, 15, 50) },
-      { 'diff', source = diff_source, fmt = trunc(80, 10, 80, true) },
-      { 'diagnostics', fmt = trunc(80, 15, 80) },
+      { "b:gitsigns_head", icon = "λ", fmt = trunc(50, 15, 50) },
+      { "diff", source = diff_source, fmt = trunc(80, 10, 80, true) },
+      { "diagnostics", fmt = trunc(80, 15, 80) },
     },
     lualine_c = {
-      { 'filename',
-      path = 1,
-      symbols = {
-        modified = ' ●',
-        readonly = ' ✘',
+      {
+        "filename",
+        path = 1,
+        symbols = {
+          modified = " ●",
+          readonly = " ✘",
+        },
       },
     },
+    lualine_x = {
+      { "encoding", fmt = trunc(80, 10, 80, true) },
+      { "fileformat", fmt = trunc(80, 10, 80, true) },
+      { "filetype", fmt = trunc(40, 10, 40, true) },
+    },
+    lualine_y = { "progress" },
+    lualine_z = {
+      function()
+        return "ℓ:%l 𝚌:%c"
+      end,
+    },
   },
-  lualine_x = {
-    { 'encoding', fmt = trunc(80, 10, 80, true) },
-    { 'fileformat', fmt = trunc(80, 10, 80, true) },
-    { 'filetype', fmt = trunc(40, 10, 40, true) },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
+      { "filename", path = 2 },
+    },
+    lualine_x = { "location" },
+    lualine_y = {},
+    lualine_z = {},
   },
-  lualine_y = { 'progress' },
-  lualine_z = { function() return 'ℓ:%l 𝚌:%c' end }
-},
-inactive_sections = {
-  lualine_a = {},
-  lualine_b = {},
-  lualine_c = {
-    { 'filename',
-    path = 2,
-  },
-},
-lualine_x = {'location'},
-lualine_y = {},
-lualine_z = {}
-  },
-  extensions = { 'aerial', 'neo-tree', 'symbols-outline', 'quickfix', 'fugitive', 'toggleterm' },
-}
+  extensions = { "aerial", "neo-tree", "symbols-outline", "quickfix", "fugitive", "toggleterm" },
+})

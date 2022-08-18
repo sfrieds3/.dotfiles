@@ -10,4 +10,3 @@ function! lnum#ToggleLineNum()
         set number relativenumber number?
     endif
 endfunction
-

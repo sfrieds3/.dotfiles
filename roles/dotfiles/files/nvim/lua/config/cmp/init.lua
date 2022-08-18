@@ -1,1 +1,1 @@
-require('config.cmp.cmp_config')
+require("config.cmp.cmp_config")

@@ -1,5 +1,5 @@
 local M = {}
-local lsp_status = require('lsp-status')
+local lsp_status = require("lsp-status")
 
 local get_mode = vim.api.nvim_get_mode
 local get_current_win = vim.api.nvim_get_current_win
@@ -22,26 +22,26 @@ local pathshorten = vim.fn.pathshorten
 --return statuslines[win_id]
 
 local function vcs(win_id)
-  local branch_sign = 'λ'
+  local branch_sign = "λ"
   local git_info = vim.b.gitsigns_status_dict
-  if not git_info or git_info.head == '' then
-    return ''
+  if not git_info or git_info.head == "" then
+    return ""
   end
-  local added = git_info.added and ('+' .. git_info.added .. ' ') or ''
-  local modified = git_info.changed and ('~' .. git_info.changed .. ' ') or ''
-  local removed = git_info.removed and ('-' .. git_info.removed .. ' ') or ''
-  local pad = ((added ~= '') or (removed ~= '') or (modified ~= '')) and ' ' or ''
-  local diff_str = string.format('%s%s%s%s', added, removed, modified, pad)
+  local added = git_info.added and ("+" .. git_info.added .. " ") or ""
+  local modified = git_info.changed and ("~" .. git_info.changed .. " ") or ""
+  local removed = git_info.removed and ("-" .. git_info.removed .. " ") or ""
+  local pad = ((added ~= "") or (removed ~= "") or (modified ~= "")) and " " or ""
+  local diff_str = string.format("%s%s%s%s", added, removed, modified, pad)
   local max_size = math.min(75, math.floor(0.33 * get_window_width(win_id)))
-  local git_str =  string.format('%s(%s:%s) |', diff_str, branch_sign, git_info.head)
+  local git_str = string.format("%s(%s:%s) |", diff_str, branch_sign, git_info.head)
   if string.len(git_str) > max_size then
-    git_str = string.format('(%s:%s) |', branch_sign, git_info.head)
+    git_str = string.format("(%s:%s) |", branch_sign, git_info.head)
   end
   return git_str
 end
 
 local function lint_lsp(buf)
-  local result = ''
+  local result = ""
   if #vim.lsp.buf_get_clients(buf) > 0 then
     result = result .. lsp_status.status()
   end
@@ -49,31 +49,31 @@ local function lint_lsp(buf)
 end
 
 local mode_table = {
-  n = 'Normal',
-  no = 'N·Operator Pending',
-  v = 'Visual',
-  V = 'V·Line',
-  ['^V'] = 'V·Block',
-  s = 'Select',
-  S = 'S·Line',
-  ['^S'] = 'S·Block',
-  i = 'Insert',
-  ic = 'Insert',
-  R = 'Replace',
-  Rv = 'V·Replace',
-  c = 'Command',
-  cv = 'Vim Ex',
-  ce = 'Ex',
-  r = 'Prompt',
-  rm = 'More',
-  ['r?'] = 'Confirm',
-  ['!'] = 'Shell',
-  t = 'Terminal',
-  nt = 'N·Terminal',
+  n = "Normal",
+  no = "N·Operator Pending",
+  v = "Visual",
+  V = "V·Line",
+  ["^V"] = "V·Block",
+  s = "Select",
+  S = "S·Line",
+  ["^S"] = "S·Block",
+  i = "Insert",
+  ic = "Insert",
+  R = "Replace",
+  Rv = "V·Replace",
+  c = "Command",
+  cv = "Vim Ex",
+  ce = "Ex",
+  r = "Prompt",
+  rm = "More",
+  ["r?"] = "Confirm",
+  ["!"] = "Shell",
+  t = "Terminal",
+  nt = "N·Terminal",
 }
 
 local function mode_name(mode)
-  return string.upper(mode_table[mode] or 'Normal')
+  return string.upper(mode_table[mode] or "Normal")
 end
 
 local function filename(buf_name, win_id)
@@ -87,29 +87,29 @@ local function filename(buf_name, win_id)
 end
 
 local function update_colors(mode)
-  local mode_color = 'StatuslineMiscAccent'
-  if mode == 'n' then
-    mode_color = 'StatuslineNormalAccent'
-  elseif mode == 'i' or mode == 'ic' then
-    mode_color = 'StatuslineInsertAccent'
-  elseif mode == 'R' then
-    mode_color = 'StatuslineReplaceAccent'
-  elseif mode == 'c' then
-    mode_color = 'StatuslineConfirmAccent'
-  elseif mode == 't' then
-    mode_color = 'StatuslineTerminalAccent'
+  local mode_color = "StatuslineMiscAccent"
+  if mode == "n" then
+    mode_color = "StatuslineNormalAccent"
+  elseif mode == "i" or mode == "ic" then
+    mode_color = "StatuslineInsertAccent"
+  elseif mode == "R" then
+    mode_color = "StatuslineReplaceAccent"
+  elseif mode == "c" then
+    mode_color = "StatuslineConfirmAccent"
+  elseif mode == "t" then
+    mode_color = "StatuslineTerminalAccent"
   else
-    mode_color = 'StatuslineMiscAccent'
+    mode_color = "StatuslineMiscAccent"
   end
 
   local filename_color
   local filetype_color
   if vim.bo.modified then
-    filename_color = 'StatuslineFilenameModified'
-    filetype_color = 'StatuslineFiletypeModified'
+    filename_color = "StatuslineFilenameModified"
+    filetype_color = "StatuslineFiletypeModified"
   else
-    filename_color = 'StatuslineFilenameNoMod'
-    filetype_color = 'StatuslineFiletypeNoMod'
+    filename_color = "StatuslineFilenameNoMod"
+    filetype_color = "StatuslineFiletypeNoMod"
   end
 
   return mode_color, filename_color, filetype_color
@@ -117,44 +117,44 @@ end
 
 local function set_modified_symbol(modified)
   if modified then
-    vim.cmd [[hi StatuslineModified guibg=#3a3a3a gui=bold guifg=#d75f5f]]
-    return '  ●'
+    vim.cmd([[hi StatuslineModified guibg=#3a3a3a gui=bold guifg=#d75f5f]])
+    return "  ●"
   else
-    vim.cmd [[ hi StatuslineModified guibg=#3a3a3a gui=bold guifg=#afaf00]]
-    return ''
+    vim.cmd([[ hi StatuslineModified guibg=#3a3a3a gui=bold guifg=#afaf00]])
+    return ""
   end
 end
 
 local function get_paste()
-  return vim.o.paste and 'PASTE ' or ''
+  return vim.o.paste and "PASTE " or ""
 end
 
 local function get_readonly_space()
-  return ((vim.o.paste and vim.bo.readonly) and ' ' or '') and '%r' .. (vim.bo.readonly and ' ' or '')
+  return ((vim.o.paste and vim.bo.readonly) and " " or "") and "%r" .. (vim.bo.readonly and " " or "")
 end
 
-local statusline_format = '' 
+local statusline_format = ""
 local function build_statusline(section)
   statusline_format = statusline_format .. section
 end
 
-build_statusline('%%#%s#')                    -- mode_color
-build_statusline(' %s ')                      -- mode_name
-build_statusline('%%#StatuslineModified#%s')  -- modified symbol
-build_statusline('%%#%s#')                    -- filename_color
-build_statusline(' %s ')                      -- filename_segment
-build_statusline('%%#%s#')                    -- filetype_color
-build_statusline('%s')                        -- filetype_segment
-build_statusline('%%<')
-build_statusline('%%#%s# ')                   -- filename_color
-build_statusline('%s')                        -- get_paste
-build_statusline('%s')                        -- get_readonly_space
-build_statusline('%%<')
-build_statusline('%%<')
-build_statusline('%%=')
-build_statusline('%%#StatuslineVC#%s')        -- vcs
-build_statusline('%s')                        -- line_col_segment
-build_statusline('%%#StatuslineFiletype#')
+build_statusline("%%#%s#") -- mode_color
+build_statusline(" %s ") -- mode_name
+build_statusline("%%#StatuslineModified#%s") -- modified symbol
+build_statusline("%%#%s#") -- filename_color
+build_statusline(" %s ") -- filename_segment
+build_statusline("%%#%s#") -- filetype_color
+build_statusline("%s") -- filetype_segment
+build_statusline("%%<")
+build_statusline("%%#%s# ") -- filename_color
+build_statusline("%s") -- get_paste
+build_statusline("%s") -- get_readonly_space
+build_statusline("%%<")
+build_statusline("%%<")
+build_statusline("%%=")
+build_statusline("%%#StatuslineVC#%s") -- vcs
+build_statusline("%s") -- line_col_segment
+build_statusline("%%#StatuslineFiletype#")
 
 local statuslines = {}
 M.status = function()
@@ -164,9 +164,10 @@ M.status = function()
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
     local filename_segment = filename(bufname, win_id)
-    local filetype_segment = '%y'
+    local filetype_segment = "%y"
     local mode_color, filename_color, filetype_color = update_colors(mode)
-    local line_col_segment = filename_segment ~= '' and '%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c ' or ' '
+    local line_col_segment = filename_segment ~= "" and "%#StatuslineLineCol# ℓ:%l %#StatuslineLineCol#𝚌:%c "
+      or " "
     statuslines[win_id] = string.format(
       statusline_format,
       mode_color,
@@ -190,4 +191,3 @@ M.status = function()
 end
 
 return M
-

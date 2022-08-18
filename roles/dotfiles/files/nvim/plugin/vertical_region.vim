@@ -25,4 +25,3 @@ xnoremap <silent> <Plug>(VerticalRegionUp)
       \ :<C-U>call vertical_region#(v:count1, 1, 'x')<CR>
 xnoremap <silent> <Plug>(VerticalRegionDown)
       \ :<C-U>call vertical_region#(v:count1, 0, 'x')<CR>
-

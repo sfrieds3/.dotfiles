@@ -21,4 +21,3 @@ function! funcs#save_and_exec() abort
 endfunction
 
 nnoremap \\x :call funcs#save_and_exec()<CR>
-

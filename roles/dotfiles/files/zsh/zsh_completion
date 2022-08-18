@@ -44,7 +44,7 @@ zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
-# format group names 
+# format group names
 # zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
 
@@ -62,4 +62,3 @@ zstyle ':completion:*' matcher-list '' '+m:{[:lower:]}={[:upper:]}' '+m:{[:upper
 
 # group completions by name
 zstyle ':completion:*' group-name ''
-

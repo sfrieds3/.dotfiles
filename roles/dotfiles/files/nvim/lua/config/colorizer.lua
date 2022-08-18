@@ -1,7 +1,7 @@
-require('colorizer').setup({
+require("colorizer").setup({
   default_options = {
     RGB = false,
   },
 })
 
-vim.keymap.set('n', '_C', '<Cmd>ColorizerToggle<CR>')
+vim.keymap.set("n", "_C", "<Cmd>ColorizerToggle<CR>")

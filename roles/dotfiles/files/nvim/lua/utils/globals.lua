@@ -4,6 +4,6 @@ P = function(v)
 end
 
 Dump = function(...)
-  local objects = vim.tbl_map(vim.inspect, {...})
+  local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))
 end

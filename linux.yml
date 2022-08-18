@@ -7,7 +7,7 @@
       tags:
         - meta
     - role: packages
-      tags: 
+      tags:
         - packages
     - role: dotfiles
       tags:
