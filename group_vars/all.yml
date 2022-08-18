@@ -1,4 +1,6 @@
 ---
-node_version: v16.14.0
+node_version: 18.7.0
+
+nvm_dir: $HOME/.config/nvm
 
 rbenv_root: $HOME/.rbenv

@@ -21,9 +21,13 @@
     - role: fonts
       tags:
         - fonts
-    # - role: flatpak
-    #   tags:
-    #     - flatpak
+    - role: flatpak
+      tags:
+        - flatpak
     # - role: git
     #   tags:
     #     - git
+    - role: brew
+      tags:
+        - brew
+        - homebrew

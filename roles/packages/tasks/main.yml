@@ -24,7 +24,6 @@
       - libxcb-devel
       - libxkbcommon-devel
       - llvm
-      - llvm
       - lua
       - nasm
       - neovim
@@ -81,18 +80,6 @@
   tags:
     rust
 
-- name: Download cargo installer
+- name: Install Rust
   when: cargo_exists is failed
-  get_url:
-    url: https://sh.rustup.rs
-    dest: /tmp/sh.rustup.rs
-    mode: '0755'
-    force: 'yes'
-  tags:
-    rust
-
-- name: install rust
-  when: cargo_exists is failed
-  shell: /tmp/sh.rustup.rs -y
-  tags:
-    - rust
+  shell: "curl https://sh.rustup.rs -sSf | sh -s -- -y"

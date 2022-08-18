@@ -4,7 +4,7 @@
     state: directory
 
 - name: Hack exists
-  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
+  shell: "ls $HOME/.fonts/Hack*Nerd*Font*Complete*"
   register: hack_exists
   ignore_errors: yes
 

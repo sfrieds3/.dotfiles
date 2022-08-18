@@ -7,10 +7,11 @@ dotfile_config_directories:
   - yapf
   - fish
   - python
+  - ripgrep
 
 dotfile_config_files:
   - pycodestyle
-  - ripgrep
+  - starship.toml
 
 dotfile_homedir_files:
   - zshenv
@@ -19,6 +20,7 @@ dotfile_homedir_files:
   - ctags
   - csirc
   - sbclrc
+  - ideavimrc
 
 archive_homedir_files:
   - bash_aliases

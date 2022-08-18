@@ -6,7 +6,7 @@
 
 - name: Clone ssh git repos to $HOME/dev
   git:
-    repo: "https://www.github.com/{{ item }}".git
+    repo: "git@github.com:{{ item }}.git"
     dest: "$HOME/dev/{{ item }}"
     update: no
   loop: "{{ github_dev_ssh }}"
@@ -15,7 +15,7 @@
 
 - name: Clone https git repos to $HOME/dev
   git:
-    repo: "https://www.github.com/{{ item }}".git
+    repo: "https://www.github.com/{{ item }}.git"
     dest: "$HOME/dev/{{ item }}"
     update: no
   loop: "{{ github_dev_http }}"

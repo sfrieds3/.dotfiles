@@ -2,13 +2,25 @@
 - name: Install nvm
   command:
     cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    creates: $XDG_CONFIG_HOME/nvm
+    creates: $HOME/.config/nvm
+
+- name: symlink node to ~/.local/bin
+  file:
+    src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
+    dest: "$HOME/.local/bin/node"
+    state: link
+
+- name: symlink npm to ~/.local/bin
+  file:
+    src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/npm"
+    dest: "$HOME/.local/bin/npm"
+    state: link
 
 - name: Install npm packages
   npm:
     name: "{{ item }}"
     global: yes
-    executable: "$XDG_CONFIG_HOME/nvm/versions/node/{{ node_version }}/bin/npm"
+    executable: "$HOME/.config/nvm/versions/node/v{{ node_version }}/bin/npm"
     state: present
   loop: "{{ npm_packages }}"
   loop_control:

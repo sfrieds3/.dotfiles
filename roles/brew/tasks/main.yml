@@ -1,0 +1,27 @@
+---
+- name: Install homebrew packages
+  community.general.homebrew:
+    name:
+      - bat
+      - chicken
+      - fd
+      - fzf
+      - fzy
+      - gopls
+      - guile
+      - lua-language-server
+      - luarocks
+      - neovim
+      - perl
+      - pipx
+      - pyright
+      - ripgrep
+      - shellcheck
+      - stylua
+      - zsh
+    state: present
+
+- name: Upgrade homebrew packages
+  community.general.homebrew:
+    upgrade_all: yes
+    upgrade_options: ignore-pinned

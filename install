@@ -18,6 +18,7 @@ install_homebrew() {
 
 run_playbook() {
     ansible-playbook -K ./linux.yml -i ./ansible_hosts
+    ansible-galaxy collection install community.general
 }
 
 install_deps() {
