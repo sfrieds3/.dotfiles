@@ -43,7 +43,6 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_flags = {
   debounce_text_changes = 150
-
 }
 
 local using_pylsp = 0
@@ -69,24 +68,28 @@ if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
-  })
-
-  local lspconfig = require "lspconfig"
-  local util = require "lspconfig/util"
-
-  lspconfig.gopls.setup {
     cmd = {"gopls", "serve"},
     filetypes = {"go", "gomod"},
-    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
     settings = {
       gopls = {
         analyses = {
           unusedparams = true,
         },
         staticcheck = true,
+        linksInHover = true,
+        usePlaceholders = true,
+        codelenses = {
+          generate = true,
+          gc_details = true,
+          regenerate_cgo = true,
+          tidy = true,
+          upgrade_dependency = true,
+          vendor = true,
+        },
       },
-    },
-  }
+    }
+  })
 
   function OrgImports(wait_ms)
     local params = vim.lsp.util.make_range_params()
@@ -103,10 +106,10 @@ if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
     end
   end
 
-  vim.api.nvim_create_augroup('Golang', { clear = true })
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    group = 'Golang',
-    pattern = '*.go',
+  vim.api.nvim_create_augroup("Golang", { clear = true })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = "Golang",
+    pattern = "*.go",
     callback = function()
       vim.lsp.buf.formatting_sync(nil, 1000)
       OrgImports(1000)
@@ -114,8 +117,8 @@ if vim.fn.executable('gopls') == 1 and using_pylsp == 0 then
   })
 end
 
-if vim.fn.executable('clangd') == 1 then
-  require('lspconfig')['clangd'].setup({
+if vim.fn.executable("clangd") == 1 then
+  require("lspconfig")["clangd"].setup({
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
