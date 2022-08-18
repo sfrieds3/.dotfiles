@@ -25,5 +25,6 @@ install_deps() {
     install_homebrew
 }
 
+pre-commit install
 install_deps
 run_playbook
