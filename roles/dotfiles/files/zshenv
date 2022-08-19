@@ -6,9 +6,14 @@ export HISTFILE=$ZDOTDIR/zsh_history
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 BREWPATH=/home/linuxbrew/.linuxbrew/bin
+LUAROCKSBIN=$HOME/.luarocks/bin
+PERL5BIN=$HOME/perl5/bin
+SYSGOBIN=/usr/local/go/bin
+RBENVBIN=$HOME/.rbenv/bin
+LOCALBIN=$HOME/.local/bin
 
 # set path and stuff
-export PATH=$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/perl5/bin:$HOME/.rbenv/bin:$GOBIN:/usr/local/go/bin:$BREWPATH:$PATH
+export PATH=$LOCALBIN:$GOBIN:$SYSGOBIN:$BREWPATH:$PERL5BIN:$RBENVBIN:$LUAROCKSBIN:$PATH
 export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/python_startup.py
 export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
 export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
