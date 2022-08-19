@@ -5,7 +5,7 @@ let g:loaded_tabline = 1
 
 " a lot of this taken from https://github.com/mkitt/tabline.vim
 " with a few slight tweaks
-function! tabline#Tabline()
+function! Tabline()
     let s = ''
     for i in range(tabpagenr('$'))
         let tab = i + 1
@@ -32,3 +32,5 @@ function! tabline#Tabline()
 
     return s
 endfunction
+
+set tabline=%!Tabline()
