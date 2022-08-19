@@ -36,7 +36,7 @@ vim.opt.scrolloff = 3
 
 vim.opt.laststatus = 3
 -- vim.opt.winbar = "%=%m %F"
-vim.opt.backspace = "indent,eol,start"
+vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.encoding = "utf8"
 vim.opt.fileencoding = "utf8"
 vim.opt.showtabline = 1
@@ -61,10 +61,10 @@ vim.opt.updatetime = 500
 
 vim.opt.wildmenu = true
 vim.opt.wildignorecase = true
-vim.opt.wildignore = "*.o,*.pyc,__pycache__/*,.venv/*,.*"
+vim.opt.wildignore = { "*.o", "*.pyc", "__pycache__/*", ".venv/*,.*" }
 vim.opt.wildcharm = 26 -- <C-z>
 vim.opt.tags = "./tags;,tags;"
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.path = ".,,"
 
 vim.opt.undofile = true
