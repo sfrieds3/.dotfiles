@@ -7,11 +7,13 @@
 - name: Install global pip packages
   pip:
     name:
-      - tox
-      - pre-commit
       - pipx
       - twine
       - flake8
+
+- name: Install pipx packages
+  community.general.pipx:
+    name: ansible-lint
 
 - name: Create default venv
   command:
