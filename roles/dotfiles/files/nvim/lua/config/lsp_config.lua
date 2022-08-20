@@ -151,6 +151,14 @@ if vim.fn.executable("vimls") == 1 then
   })
 end
 
+if vim.fn.executable("ansiblels") == 1 then
+  require("lspconfig")["ansiblels"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+end
+
 -- sumneko
 if vim.fn.executable("lua-language-server") == 1 then
   local runtime_path = vim.split(package.path, ";")

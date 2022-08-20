@@ -327,6 +327,7 @@ return require("packer").startup(function(use)
         vim.g.doom_one_plugin_neogit = true
         vim.g.doom_one_plugin_nvim_tree = true
         vim.g.doom_one_plugin_vim_illuminate = true
+        vim.g.doom_one_plugin_neo_tree = true
 
         -- Pumblend transparency
         vim.g.doom_one_pumblend_enable = true
