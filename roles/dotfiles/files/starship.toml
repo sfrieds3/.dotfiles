@@ -8,12 +8,12 @@ error_symbol = '[❯](bold dimmed red)'
 
 [time]
 disabled = false
-format = '[∷ $time ∷ ]($style)'
+format = '[∷ $time ∷ ]($style) '
 time_format = '%Y-%m-%d %H:%M:%S'
 style = 'bold dimmed red'
 
 [cmd_duration]
-format = '[$duration]($style)'
+format = '[$duration]($style) '
 show_milliseconds = false
 style = 'bold italic dimmed yellow'
 
