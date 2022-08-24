@@ -10,7 +10,7 @@ require("telescope").setup({
     },
   },
   defaults = {
-    file_ignore_patterns = { "tags", "TAGS" },
+    file_ignore_patterns = { "tags", "TAGS", ".git" },
   },
   pickers = {
     find_files = {
