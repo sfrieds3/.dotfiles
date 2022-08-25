@@ -10,7 +10,7 @@ require("telescope").setup({
     },
   },
   defaults = {
-    file_ignore_patterns = { "tags", "TAGS", ".git" },
+    file_ignore_patterns = { "tags", "TAGS", "^.git/" },
   },
   pickers = {
     find_files = {
@@ -64,6 +64,7 @@ map_telescope("<Leader>t<Space>", "current_buffer_fuzzy_find", "ivy")
 map_telescope("<Leader>tm", "marks", "dropdown")
 map_telescope("<Leader>tr", "registers", "dropdown")
 map_telescope("<Leader>th", "help_tags", "dropdown")
+map_telescope("<Leader>td", "diagnostics", "dropdown")
 
 vim.keymap.set("n", "<Leader>tv", "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
 vim.keymap.set("n", "<Leader>tw", "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
