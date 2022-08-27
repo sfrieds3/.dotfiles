@@ -1,11 +1,12 @@
 ---
 - name: Create $HOME/.venv folder
-  file:
+  ansible.builtin.file:
     path: $HOME/.venv
     state: directory
+    mode: '0755'
 
 - name: Install global pip packages
-  pip:
+  ansible.builtin.pip:
     name:
       - pipx
       - twine
@@ -16,12 +17,12 @@
     name: ansible-lint
 
 - name: Create default venv
-  command:
+  ansible.builtin.command:
     cmd: /usr/bin/python3 -m venv $HOME/.venv/venv
     creates: $HOME/.venv/venv
 
 - name: Install venv packages
-  pip:
+  ansible.builtin.pip:
     name:
       - python-lsp-server
       - pyls-flake8

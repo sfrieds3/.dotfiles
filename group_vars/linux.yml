@@ -1,2 +1,2 @@
 ---
-XDG_CONFIG_HOME: $HOME/.config
+xdg_config_home: $HOME/.config

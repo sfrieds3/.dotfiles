@@ -304,6 +304,7 @@ return require("packer").startup(function(use)
   use({
     {
       "NTBBloodbath/doom-one.nvim",
+      opt = true,
       setup = function()
         -- Add color to cursor
         vim.g.doom_one_cursor_coloring = false
@@ -333,12 +334,9 @@ return require("packer").startup(function(use)
         vim.g.doom_one_pumblend_enable = true
         vim.g.doom_one_pumblend_transparency = 20
       end,
-      config = function()
-        vim.cmd("colorscheme doom-one")
-      end,
     },
     { "sainnhe/edge", opt = true },
-    { "sainnhe/gruvbox-material", opt = true },
+    { "sainnhe/gruvbox-material" },
     { "sainnhe/sonokai", opt = true },
     { "EdenEast/nightfox.nvim", opt = true },
     { "navarasu/onedark.nvim", opt = true },

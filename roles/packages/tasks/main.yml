@@ -1,7 +1,7 @@
 ---
 - name: Install dnf packages
-  become: yes
-  dnf:
+  become: true
+  ansible.builtin.dnf:
     name:
       - bat
       - chicken
@@ -38,48 +38,51 @@
       - '@C Development Tools and Libraries'
       - '@virtualization'
       - '@Development Tools'
-    state: latest
+    state: present
 
 - name: Ensure $XDG_CONFIG_HOME folder is created
-  file:
+  ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.config"
     state: directory
+    mode: '0775'
 
 - name: Ensure $HOME/dev/utils folder is created
-  file:
+  ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/dev/utils"
     state: directory
+    mode: '0755'
 
 - name: Ensure $HOME/.local/bin folder is created
-  file:
+  ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
+    mode: '0755'
 
 - name: Git clone fzy
-  git:
+  ansible.builtin.git:
     repo: https://github.com/jhawthorn/fzy.git
     dest: $HOME/dev/utils/fzy
-    update: no
+    update: false
 
 - name: Install fzy
-  command:
+  ansible.builtin.command:
     cmd: make
     chdir: $HOME/dev/utils/fzy
     creates: $HOME/dev/utils/fzy/fzy
 
 - name: Symlink fzy to $HOME/.local/bin/fzy
-  file:
+  ansible.builtin.file:
     src: $HOME/dev/utils/fzy/fzy
     dest: $HOME/.local/bin/fzy
     state: link
 
 - name: Check if rust is installed
-  shell: command -v rustc
+  ansible.builtin.shell: command -v rustc
   register: cargo_exists
-  ignore_errors: yes
+  ignore_errors: true
   tags:
     rust
 
 - name: Install Rust
+  ansible.builtin.shell: set -o pipefail && curl https://sh.rustup.rs -sSf | sh -s -- -y
   when: cargo_exists is failed
-  shell: "curl https://sh.rustup.rs -sSf | sh -s -- -y"

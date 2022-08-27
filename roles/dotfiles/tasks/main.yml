@@ -1,28 +1,28 @@
 ---
 - name: make $HOME/.config directories
-  file:
+  ansible.builtin.file:
     path: $HOME/.config
     state: directory
 
 - name: make $HOME/.backups directory
-  file:
+  ansible.builtin.file:
     path: $HOME/.backups
     state: directory
 
 - name: get list of non-symlink originals in $HOME/.config
-  stat:
+  ansible.builtin.stat:
     path: "$HOME/.config/{{ item }}"
   register: stat_config
   loop: "{{ (dotfile_config_directories + dotfile_config_files) }}"
   changed_when: stat_config.stat.exists and not stat_config.stat.islnk
 
 - name: debug stat_config
-  debug:
+  ansible.builtin.debug:
     var: stat_config
     verbosity: 2
 
 - name: backup existing (non-symlink) dotfiles in $HOME/.config
-  command:
+  ansible.builtin.command:
     cmd: "mv $HOME/.config/{{ item.0 }} $HOME/.backups/{{ item.0 }}.{{ ansible_date_time }}"
     creates: "$HOME/.backups/{{ item.0 }}"
     removes: "$HOME/.config/{{ item.0 }}"
@@ -32,26 +32,26 @@
     label: "{{ item.0 }}"
 
 - name: symlink files/directories to $HOME/.config
-  file:
+  ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/{{ item }}"
     dest: "$HOME/.config/{{ item }}"
     state: link
   loop: "{{ (dotfile_config_directories + dotfile_config_files) }}"
 
 - name: get list of non-symlink originals in $HOME
-  stat:
+  ansible.builtin.stat:
     path: "$HOME/.{{ item }}"
   register: stat_home
   loop: "{{ dotfile_homedir_files }}"
   changed_when: stat_home.stat.exists and not stat_home.stat.islnk
 
 - name: debug stat_home
-  debug:
+  ansible.builtin.debug:
     var: stat_home
     verbosity: 2
 
 - name: backup existing (non-symlink) dotfiles in $HOME
-  command:
+  ansible.builtin.command:
     cmd: "mv $HOME/.{{ item.0 }} $HOME/.backups/.{{ item.0 }}.{{ ansible_date_time }}"
     creates: "$HOME/.backups/{{ item.0 }}"
     removes: "$HOME/.{{ item.0 }}"
@@ -61,25 +61,25 @@
     label: "{{ item.0 }}"
 
 - name: symlink files/directories to $HOME
-  file:
+  ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/{{ item }}"
     dest: "$HOME/.{{ item }}"
     state: link
   loop: "{{ dotfile_homedir_files }}"
 
 - name: zshrc -> $XGD_CONFIG_HOME/zsh/.zshrc
-  file:
+  ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/zsh/zshrc"
     dest: "$HOME/.config/zsh/.zshrc"
     state: link
 
 - name: make $XDG_CONFIG_HOME/fzf folder
-  file:
+  ansible.builtin.file:
     path: "$HOME/.config/fzf"
     state: directory
 
 - name: symlink fzf/completion.zsh and fzf/key-bindings.zsh to .config/fzf
-  file:
+  ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/roles/dotfiles/files/zsh/plugins/fzf/shell/{{ item }}"
     path: "$HOME/.config/fzf/{{ item }}"
     state: link

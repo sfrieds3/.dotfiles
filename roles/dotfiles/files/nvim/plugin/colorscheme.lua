@@ -6,23 +6,8 @@
 --   dark_float = true,
 -- })
 
--- require('doom-one').setup({
---   terminal_colors = false,
---   italic_comments = false,
---   enable_treesitter = true,
---   plugins_integrations = {
---     neorg = false,
---     barbar = false,
---     bufferline = false,
---     gitsigns = true,
---     telescope = true,
---     neogit = true,
---     nvim_tree = false,
---     dashboard = false,
---     startify = false,
---     whichkey = false,
---     indent_blankline = false,
---     vim_illuminate = true,
---     lspsaga = false,
---   },
--- })
+vim.g.gruvbox_material_background = "hard"
+vim.g.gruvbox_material_foreground = "material"
+vim.g.gruvbox_material_statusline_stype = "material"
+vim.g.gruvbox_better_performance = 1
+vim.cmd([[ colorscheme gruvbox-material ]])

@@ -1,11 +1,11 @@
 ---
 - name: Create $HOME/dev folder
-  command:
+  ansible.builtin.command:
     cmd: mkdir $HOME/dev
     creates: $HOME/dev
 
 - name: Clone ssh git repos to $HOME/dev
-  git:
+  ansible.builtin.git:
     repo: "git@github.com:{{ item }}.git"
     dest: "$HOME/dev/{{ item }}"
     update: no
@@ -14,7 +14,7 @@
     label: "{{ item }}"
 
 - name: Clone https git repos to $HOME/dev
-  git:
+  ansible.builtin.git:
     repo: "https://www.github.com/{{ item }}.git"
     dest: "$HOME/dev/{{ item }}"
     update: no

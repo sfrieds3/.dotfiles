@@ -1,23 +1,23 @@
 ---
 - name: Install nvm
-  command:
+  ansible.builtin.command:
     cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     creates: $HOME/.config/nvm
 
 - name: symlink node to ~/.local/bin
-  file:
+  ansible.builtin.file:
     src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
     dest: "$HOME/.local/bin/node"
     state: link
 
 - name: symlink npm to ~/.local/bin
-  file:
+  ansible.builtin.file:
     src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/npm"
     dest: "$HOME/.local/bin/npm"
     state: link
 
 - name: Install npm packages
-  npm:
+  community.general.npm:
     name: "{{ item }}"
     global: yes
     executable: "$HOME/.config/nvm/versions/node/v{{ node_version }}/bin/npm"
@@ -27,16 +27,16 @@
     label: "{{ item }}"
 
 - name: Install rbenv
-  command:
+  ansible.builtin.command:
     cmd: git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     creates: $HOME/.rbenv
 
 - name: Create rbenv plugins dir
-  command:
-    cmd: mkdir -p $(rbenv root)/plugins
+  ansible.builtin.file:
+    path: '$(rbenv root)/plugins'
     creates: "{{ rbenv_root }}/plugins"
 
 - name: Install ruby-build
-  command:
+  ansible.builtin.command:
     cmd: git clone https://github.com/rbenv/ruby-build.git $(rbenv root)/plugins/ruby-build
-    creates: "{{ rbenv_root}}/plugins/ruby-build"
+    creates: "{{ rbenv_root }}/plugins/ruby-build"

@@ -25,5 +25,5 @@
 
 - name: Upgrade homebrew packages
   community.general.homebrew:
-    upgrade_all: yes
+    upgrade_all: true
     upgrade_options: ignore-pinned
