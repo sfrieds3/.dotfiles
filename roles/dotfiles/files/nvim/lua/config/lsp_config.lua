@@ -129,7 +129,7 @@ if vim.fn.executable("gopls") == 1 and using_pylsp == 0 then
     group = "Golang",
     pattern = "*.go",
     callback = function()
-      vim.lsp.buf.formatting_sync(nil, 1000)
+      vim.lsp.buf.format(nil, 1000)
       OrgImports(1000)
     end,
   })

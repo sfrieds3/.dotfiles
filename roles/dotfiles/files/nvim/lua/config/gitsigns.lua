@@ -6,6 +6,7 @@ require("gitsigns").setup({
     topdelete = { hl = "RedSign", text = "▔", numhl = "GitSignsDeleteNr" },
     changedelete = { hl = "PurpleSign", text = "~", numhl = "GitSignsChangeNr" },
   },
+  signcolumn = false,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -14,6 +15,8 @@ require("gitsigns").setup({
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
+
+    vim.keymap.set("n", "<Space>G", "<Cmd>Gitsigns toggle_signs<CR>")
 
     -- Navigation
     map("n", "]c", function()

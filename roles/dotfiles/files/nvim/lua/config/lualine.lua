@@ -75,5 +75,5 @@ require("lualine").setup({
     lualine_y = {},
     lualine_z = {},
   },
-  extensions = { "aerial", "neo-tree", "symbols-outline", "quickfix", "fugitive", "toggleterm" },
+  extensions = { "aerial", "neo-tree", "symbols-outline", "fugitive", "toggleterm" },
 })

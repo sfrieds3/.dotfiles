@@ -71,7 +71,6 @@ return require("packer").startup(function(use)
   use({
     {
       "RRethy/vim-illuminate",
-      event = "BufReadPre",
       config = function()
         vim.g.Illuminate_delay = 2500
       end,
@@ -288,7 +287,7 @@ return require("packer").startup(function(use)
   -- languages
   use({
     { "chrisbra/csv.vim", ft = "csv" },
-    { "fatih/vim-go", ft = "go" },
+    { "fatih/vim-go", ft = "go", disable = true },
     {
       "rust-lang/rust.vim",
       ft = "rust",
