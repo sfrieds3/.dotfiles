@@ -17,6 +17,7 @@
       - pipx
       - pyright
       - ripgrep
+      - sbcl
       - shellcheck
       - stylua
       - yamllint

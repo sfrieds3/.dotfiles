@@ -4,3 +4,6 @@
 [submodule "roles/dotfiles/files/zsh/plugins/fzf"]
 	path = roles/dotfiles/files/zsh/plugins/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "roles/dotfiles/files/kitty/colors/kitty-themes"]
+	path = roles/dotfiles/files/kitty/colors/kitty-themes
+	url = https://github.com/dexpota/kitty-themes.git
