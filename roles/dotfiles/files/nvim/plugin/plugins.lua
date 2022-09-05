@@ -70,6 +70,15 @@ return require("packer").startup(function(use)
   -- nvim niceties
   use({
     {
+      "sidebar-nvim/sidebar.nvim",
+      config = function()
+        require("sidebar-nvim").setup({
+          open = false,
+        })
+        vim.keymap.set("n", "<Space>s", "<Cmd>SidebarNvimToggle<CR>")
+      end,
+    },
+    {
       "RRethy/vim-illuminate",
       config = function()
         vim.g.Illuminate_delay = 2500
@@ -341,6 +350,7 @@ return require("packer").startup(function(use)
     { "navarasu/onedark.nvim", opt = true },
     { "catppuccin/nvim", as = "catppuccin", opt = true },
     { "projekt0n/github-nvim-theme" },
+    { "marko-cerovac/material.nvim" },
   })
 
   -- Automatically set up your configuration after cloning packer.nvim
