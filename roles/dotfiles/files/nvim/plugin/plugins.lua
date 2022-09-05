@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
         require("config.neogit")
       end,
     },
+    { "rhysd/git-messenger.vim" },
     {
       "sindrets/diffview.nvim",
       requires = "nvim-lua/plenary.nvim",
