@@ -32,8 +32,7 @@ require("nvim-treesitter.configs").setup({
   refactor = {
     highlight_current_scope = { enable = false },
     highlight_definitions = {
-      enable = true,
-      -- Set to false if you have an `updatetime` of ~100.
+      enable = false,
       clear_on_cursor_move = true,
     },
     smart_rename = {
