@@ -79,12 +79,7 @@ return require("packer").startup(function(use)
         vim.keymap.set("n", "<Space>s", "<Cmd>SidebarNvimToggle<CR>")
       end,
     },
-    {
-      "RRethy/vim-illuminate",
-      config = function()
-        vim.g.Illuminate_delay = 2500
-      end,
-    },
+    { "RRethy/vim-illuminate" },
     {
       "akinsho/toggleterm.nvim",
       keys = { [[<C-\>]] },
