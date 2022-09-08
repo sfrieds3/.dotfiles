@@ -1,4 +1,4 @@
 require("illuminate").configure({
   providers = { "treesitter", "lsp", "reflex" },
-  delay = 500,
+  delay = 750,
 })
