@@ -148,10 +148,10 @@ return require("packer").startup(function(use)
     { "numToStr/Navigator.nvim" },
     { "folke/lua-dev.nvim", ft = { "lua" } },
     {
-      "ggandor/leap.nvim",
+      "rlane/pounce.nvim",
       keys = { "s", "S" },
       config = function()
-        require("leap").set_default_keymaps()
+        require("config.pounce")
       end,
     },
     { "RRethy/nvim-align" },
