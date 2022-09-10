@@ -79,7 +79,7 @@ return require("packer").startup(function(use)
         vim.keymap.set("n", "<Space>s", "<Cmd>SidebarNvimToggle<CR>")
       end,
     },
-    { 
+    {
       "RRethy/vim-illuminate",
       config = function()
         require("config.illuminate")

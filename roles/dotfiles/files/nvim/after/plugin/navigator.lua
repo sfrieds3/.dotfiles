@@ -1,5 +1,5 @@
 -- Configuration
-require("Navigator").setup()
+require("Navigator").setup({})
 
 -- Keybindings
 vim.keymap.set("n", "<A-h>", "<CMD>NavigatorLeft<CR>")

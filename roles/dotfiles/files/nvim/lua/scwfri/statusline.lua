@@ -42,7 +42,7 @@ end
 
 local function lint_lsp(buf)
   local result = ""
-  if #vim.lsp.buf_get_clients(buf) > 0 then
+  if #vim.lsp.get_active_clients(buf) > 0 then
     result = result .. lsp_status.status()
   end
   return result
