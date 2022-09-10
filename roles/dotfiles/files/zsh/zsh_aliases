@@ -29,11 +29,11 @@ alias ..='cd ..'
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
 
 # fuzzy kill tmux sessions
-alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzy); do tmux kill-session -t \$s; done;"
+alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do tmux kill-session -t \$s; done;"
 
 # git aliases
-alias gba='git branch -a | fzy | sed s/^\*// | xargs git checkout'
-alias gb='git branch | fzy | sed s/^\*// | xargs git checkout'
+alias gba='git branch -a | fzf | sed s/^\*// | xargs git checkout'
+alias gb='git branch | fzf | sed s/^\*// | xargs git checkout'
 alias gap='git add --patch'
 alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gbp='git checkout -'

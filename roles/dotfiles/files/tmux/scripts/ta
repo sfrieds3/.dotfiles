@@ -13,7 +13,7 @@ dwim_session() {
     if tmux info > /dev/null; then
         SESSION_NAME=$(tmux list-sessions -F '#{?session_attached,#{session_name} (attached),#{session_name}}' |\
             sed '/^$/d' |\
-            fzy |\
+            fzf |\
             awk '{print $1}')
         if [ -z "$SESSION_NAME" ]; then
             echo "No existing session selected, exiting.."
