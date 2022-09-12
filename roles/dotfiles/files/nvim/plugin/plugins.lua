@@ -148,7 +148,7 @@ return require("packer").startup(function(use)
         })
       end,
     },
-    { "AndrewRadev/linediff.vim", cmd = { "LineDiffAdd" } },
+    { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
     { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
     { "numToStr/Navigator.nvim" },
     { "folke/lua-dev.nvim", ft = { "lua" } },
