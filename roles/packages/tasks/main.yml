@@ -33,6 +33,7 @@
       - rsync
       - ruby-devel
       - ShellCheck
+      - zig
       - zsh
       - util-linux-user
       - '@C Development Tools and Libraries'

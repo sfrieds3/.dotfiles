@@ -21,6 +21,7 @@
       - shellcheck
       - stylua
       - yamllint
+      - zig
       - zsh
     state: present
 
