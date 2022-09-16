@@ -22,7 +22,7 @@ cmp.setup({
     ["<C-e>"] = cmp.mapping.abort(),
     ["<Tab>"] = cmp.mapping(function(fallback)
       local luasnip = require("luasnip")
-      if luasnip.expand_or_jumpable() then
+      if luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       elseif cmp.visible() then
         cmp.confirm({ select = true })
@@ -32,7 +32,7 @@ cmp.setup({
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       local luasnip = require("luasnip")
-      if luasnip.jumpable(-1) then
+      if luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       elseif cmp.visible() then
         cmp.confirm({ select = true })
