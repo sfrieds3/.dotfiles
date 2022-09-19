@@ -1,5 +1,11 @@
 local M = {}
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("WinbarColors", { clear = true }),
+  once = true,
+  command = "highlight WinbarFilename guibg=#3a3a3a gui=bold guifg=#d75f5f",
+})
+
 M.winbar_filetype_exclude = {
   "help",
   "startify",
@@ -32,7 +38,15 @@ local get_filename = function()
       file_icon_color = ""
     end
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#LineNr#" .. filename .. "%*"
+    modified_ = ""
+    if vim.bo.modified then
+      filename_hl_group = "WinbarFilename" 
+      modified_ = " "  -- nf-fa-circle (0xf111)
+    else
+      filename_hl_group = "LineNr" 
+    end
+
+    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#" .. filename_hl_group .. "#" .. filename .. modified_ .. "%*"
   else
     return ""
   end
