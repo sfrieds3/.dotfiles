@@ -1,8 +1,12 @@
-;;; init.el --- scwfri init.el ;;; Commentary:
+;;; init.el --- scwfri init.el
+;;; Commentary:
 ;;     place 'local-settings.el' file (provide 'local-settings)
 ;;     in .emacs.d directory to overwrite settings (loaded at end)
 
 ;;; Code:
+
+;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
+(setq straight-check-for-modifications '(check-on-save find-when-checking))
 
 ;;; bootstrap straight.el
 (defvar bootstrap-version)
@@ -73,9 +77,6 @@
 ;;; allow recursive minibuffers
 (setq enable-recursive-minibuffers t)
 
-;;; overwrite highlighted text
-(add-hook 'after-init-hook 'delete-selection-mode)
-
 ;;; allow disabled emacs commands (mainly for narrowing)
 (setq disabled-command-function nil)
 
@@ -144,16 +145,29 @@
   ($set-preferred-font)
   :custom
   (custom-safe-themes t)
-  (fringe-mode 0)
-  :hook
-  (after-init-hook . $set-preferred-theme))
+  (fringe-mode 0))
+
+(use-package doom-modeline
+  :hook (after-init-hook . doom-modeline-mode))
+(use-package all-the-icons)
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (load-theme 'doom-material t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  (setq doom-themes-treemacs-theme "doom-atom")
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (use-package scwfri-config
   :straight nil)
-(use-package modeline
-  :straight nil)
-;;;(use-package keybindings
-;;;  :straight nil)
+;; (use-package modeline
+;;   :straight nil)
+;; (use-package keybindings
+;;   :straight nil)
 (use-package tramp-config
   :straight nil)
 (use-package s)
@@ -172,25 +186,6 @@
   :custom
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
-
-;;; themes
-(use-package color-theme-sanityinc-tomorrow)
-(use-package material-theme
-  :straight (material-theme :type git
-                            :host github
-                            :repo "cpaulik/emacs-material-theme"))
-
-;;; ir-black theme
-(use-package ir-black-theme
-  :config
-  (with-eval-after-load "ir-black-theme"
-    (custom-theme-set-faces
-     'ir-black
-     '(cursor ((t (:background "white"))))
-     '(highlight ((t (:background "grey"))))
-     '(italic ((t (:slant italic))))
-     '(cperl-array-face ((t (:inherit font-lock-keyword-face))))
-     '(cperl-hash-face ((t (:inherit font-lock-variable-name-face)))))))
 
 ;;; evil
 (use-package evil
@@ -218,14 +213,30 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook (
-         (python . lsp)
-         (go . lsp)
+  (defun $orderless-dispatch-flex-first (_pattern index _total)
+    (and (eq index 0) 'orderless-flex))
+
+  (defun $lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless)))
+
+  ;; Optionally configure the first word as flex filtered.
+  (add-hook 'orderless-style-dispatchers #'$orderless-dispatch-flex-first nil 'local)
+  :custom
+  (lsp-completion-provider :none)
+  :hook ((lsp-completion-mode . $lsp-mode-setup-completion)
+         (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp)))
+         (go-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands
+  lsp)
+(use-package lsp-pyright)
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 (use-package consult-lsp)
+(use-package cape)
 
 ;;; treesitter
 (use-package tree-sitter
@@ -234,13 +245,6 @@
   :hook
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 (use-package tree-sitter-langs)
-
-;;; pyright
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
 
 ;;; golang
 (use-package go-mode)
@@ -291,6 +295,115 @@
 ;;; org-table
 (use-package org-table
   :straight nil)
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay        0.5
+          treemacs-directory-name-transformer      #'identity
+          treemacs-display-in-side-window          t
+          treemacs-eldoc-display                   'simple
+          treemacs-file-event-delay                2000
+          treemacs-file-extension-regex            treemacs-last-period-regex-value
+          treemacs-file-follow-delay               0.2
+          treemacs-file-name-transformer           #'identity
+          treemacs-follow-after-init               t
+          treemacs-expand-after-init               t
+          treemacs-find-workspace-method           'find-for-file-or-pick-first
+          treemacs-git-command-pipe                ""
+          treemacs-goto-tag-strategy               'refetch-index
+          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+          treemacs-hide-dot-git-directory          t
+          treemacs-indentation                     2
+          treemacs-indentation-string              " "
+          treemacs-is-never-other-window           nil
+          treemacs-max-git-entries                 5000
+          treemacs-missing-project-action          'ask
+          treemacs-move-forward-on-expand          nil
+          treemacs-no-png-images                   nil
+          treemacs-no-delete-other-windows         t
+          treemacs-project-follow-cleanup          nil
+          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                        'left
+          treemacs-read-string-input               'from-child-frame
+          treemacs-recenter-distance               0.1
+          treemacs-recenter-after-file-follow      nil
+          treemacs-recenter-after-tag-follow       nil
+          treemacs-recenter-after-project-jump     'always
+          treemacs-recenter-after-project-expand   'on-distance
+          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+          treemacs-show-cursor                     nil
+          treemacs-show-hidden-files               t
+          treemacs-silent-filewatch                nil
+          treemacs-silent-refresh                  nil
+          treemacs-sorting                         'alphabetic-asc
+          treemacs-select-when-already-in-treemacs 'move-back
+          treemacs-space-between-root-nodes        t
+          treemacs-tag-follow-cleanup              t
+          treemacs-tag-follow-delay                1.5
+          treemacs-text-scale                      nil
+          treemacs-user-mode-line-format           nil
+          treemacs-user-header-line-format         nil
+          treemacs-wide-toggle-width               70
+          treemacs-width                           35
+          treemacs-width-increment                 1
+          treemacs-width-is-initially-locked       t
+          treemacs-workspace-switch-cleanup        nil)
+
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    ;;(treemacs-resize-icons 44)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode 'always)
+    (when treemacs-python-executable
+      (treemacs-git-commit-diff-mode t))
+
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple)))
+
+    (treemacs-hide-gitignored-files-mode nil))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t d"   . treemacs-select-directory)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
+(use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
+  :after (treemacs)
+  :ensure t
+  :config (treemacs-set-scope-type 'Tabs))
 
 ;;; projectile
 (use-package projectile
@@ -360,6 +473,17 @@
   (corfu-separator ?\s)          ;; Orderless field separator
   :init
   (global-corfu-mode))
+(use-package corfu-doc
+  :hook
+  (corfu-mode-hook . corfu-doc-mode))
+
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
