@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: railscontroller
+# key: rc
+# --
+class ${1:class_name} < ${2:ApplicationController}
+  $3
+end

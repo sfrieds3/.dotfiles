@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: class
+# key: cls
+# --
+def ${1:classname}(object):
+    \"\"\"$2
+    \"\"\"
+
+    def __init__(self, ${3:args}):
+        $4

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pd.option context display all
+# key: pdoc
+# --
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+     print(${df_name})

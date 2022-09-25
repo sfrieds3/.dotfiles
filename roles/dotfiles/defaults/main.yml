@@ -21,6 +21,7 @@ dotfile_homedir_files:
   - csirc
   - sbclrc
   - ideavimrc
+  - emacs.d
 
 archive_homedir_files:
   - bash_aliases
@@ -30,6 +31,7 @@ archive_homedir_files:
   - ideavimrc
   - inputrc
   - Xresources
+  - emacs.d
 
 zsh_fzf_completion:
   - completion.zsh

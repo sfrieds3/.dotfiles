@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# expand-env: ((yas-indent-line 'fixed))
+# name: main
+# key: main
+# --
+
+def ${1:main}(${2:args}):
+    $0
+
+if __name__ == '__main__':
+    ${1:main}()

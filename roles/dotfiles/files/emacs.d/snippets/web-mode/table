@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: table
+# key: table
+# --
+<table>
+  <thead>
+    <tr>
+      <th width=\"${1:10}%\">${2:heading}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for ${3:iter} in ${4:iterable} %>
+      <tr>
+        <td><%= ${5:cell} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: railsdebug
+# key: rd
+# --
+<%= debug $1 %>
