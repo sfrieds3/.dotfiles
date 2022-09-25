@@ -40,13 +40,25 @@ local get_filename = function()
 
     modified_ = ""
     if vim.bo.modified then
-      filename_hl_group = "WinbarFilename" 
-      modified_ = " "  -- nf-fa-circle (0xf111)
+      filename_hl_group = "WinbarFilename"
+      modified_ = " " -- nf-fa-circle (0xf111)
     else
-      filename_hl_group = "LineNr" 
+      filename_hl_group = "LineNr"
     end
 
-    return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#" .. filename_hl_group .. "#" .. filename .. modified_ .. "%*"
+    return " "
+      .. "%#"
+      .. hl_group
+      .. "#"
+      .. file_icon
+      .. "%*"
+      .. " "
+      .. "%#"
+      .. filename_hl_group
+      .. "#"
+      .. filename
+      .. modified_
+      .. "%*"
   else
     return ""
   end
