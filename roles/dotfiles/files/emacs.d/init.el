@@ -190,8 +190,22 @@
 ;;; evil
 (use-package evil
   :init
-  (evil-mode 1)
-  (setq evil-undo-system 'undo-fu))
+  (setq evil-undo-system 'undo-fu)
+  (setq evil-want-integration t)
+  (setq evil-want keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump t)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
+(use-package evil-nerd-commenter
+  :after evil
+  :bind ("M-;" . evilnc-comment-or-uncomment-lines))
 
 ;;; goto-chg
 (use-package goto-chg)
@@ -210,6 +224,7 @@
 
 ;;; lsp
 (use-package lsp-mode
+  :commands (lsp lsp-deferred)
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
@@ -227,15 +242,18 @@
   :hook ((lsp-completion-mode . $lsp-mode-setup-completion)
          (python-mode . (lambda ()
                           (require 'lsp-pyright)
-                          (lsp)))
-         (go-mode . lsp)
+                          (lsp-deferred)))
+         (go-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands
   lsp)
 (use-package lsp-pyright)
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-(use-package consult-lsp)
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode))
+(use-package lsp-treemacs
+  :after lsp)
+(use-package consult-lsp
+  :after lsp)
 (use-package cape)
 
 ;;; treesitter
