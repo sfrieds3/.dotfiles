@@ -486,7 +486,6 @@
   :init
   (projectile-mode)
   :custom
-  (projectile-use-git-grep t)
   (projectile-project-search-path '("~/.dotfiles/" ("~/dev" . 2)))
   :config
   (setf projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
@@ -651,8 +650,13 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
+(use-package consult-yasnippet
+  :after (consult yasnippet))
+(use-package consult-projectile
+  :after (projectile consult))
 ;;; consult-flycheck
 (use-package consult-flycheck
+  :after (consult flycheck)
   :bind (:map flycheck-command-map
               ("!" . consult-flycheck)))
 
@@ -701,7 +705,9 @@ no matter what."
                  (window-height . 0.4))))
 
 (use-package git-messenger)
-(use-package )
+(use-package git-gutter
+  :init
+  (global-git-gutter-mode t))
 
 ;;; compile
 (use-package compile
