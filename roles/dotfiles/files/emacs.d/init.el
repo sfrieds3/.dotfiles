@@ -192,7 +192,7 @@
   :init
   (setq evil-undo-system 'undo-fu)
   (setq evil-want-integration t)
-  (setq evil-want keybinding nil)
+  (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
   :config
@@ -206,6 +206,11 @@
 (use-package evil-nerd-commenter
   :after evil
   :bind ("M-;" . evilnc-comment-or-uncomment-lines))
+
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode t))
 
 ;;; goto-chg
 (use-package goto-chg)
@@ -494,14 +499,6 @@
 (use-package corfu-doc
   :hook
   (corfu-mode-hook . corfu-doc-mode))
-
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
