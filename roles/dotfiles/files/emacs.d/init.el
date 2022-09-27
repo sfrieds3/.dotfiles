@@ -173,6 +173,11 @@
   :straight nil)
 (use-package s)
 
+;;; match env to shell
+(use-package exec-path-from-shell
+  :init
+  (exec-path-from-shell-initialize))
+
 ;;; auto-revert everything
 (use-package autorevert
   :commands (global-auto-revert-mode)
@@ -215,6 +220,8 @@
   (evil-want-integration t)
   (evil-want-C-u-scroll t)
   (evil-want-C-i-jump t)
+  (evil-want-Y-yank-to-eol t)
+  (evil-search-module 'evil-search)
   :config
   (evil-mode 1))
 
@@ -232,6 +239,19 @@
   :after evil
   :config
   (global-evil-surround-mode t))
+
+(use-package format-all
+  :commands (format-all-buffer)
+  :config
+  (evil-define-operator evil-format (beg end)
+    "Format selected text."
+    :move-point nil
+    :type line
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+        (format-all-buffer))))
+  (evil-global-set-key 'normal "gq" #'evil-format))
 
 ;;; goto-chg
 (use-package goto-chg)
@@ -339,6 +359,13 @@
      (sequence "NEW(n)" "WORK(k!)" "PUSH-DEV(p!)" "REOPENED(r@/!)" "|" "STAGED(S!)" "RELEASED(R!)" "WONTFIX(w@)")))
   :hook
   (org-mode-hook . org-indent-mode))
+
+(use-package evil-org-mode
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 ;;; org-table
 (use-package org-table
@@ -672,6 +699,9 @@ no matter what."
                '("magit.*"
                  (display-buffer-at-bottom)
                  (window-height . 0.4))))
+
+(use-package git-messenger)
+(use-package )
 
 ;;; compile
 (use-package compile
