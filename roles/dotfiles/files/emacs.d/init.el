@@ -84,7 +84,7 @@
 (setf large-file-warning-threshold nil)
 
 ;;; show garbage collection messages in minbuffer
-(setq garbage-collection-messages t)
+(setq garbage-collection-messages nil)
 
 ;;; disable insert keys automatically for read-only buffers
 (setq view-read-only t)
@@ -151,14 +151,15 @@
   :hook (after-init-hook . doom-modeline-mode))
 (use-package all-the-icons)
 (use-package doom-themes
+  :custom
+  (doom-themes-treemacs-theme "doom-atom")
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
   :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
   (load-theme 'doom-material t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  (setq doom-themes-treemacs-theme "doom-atom")
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
@@ -187,14 +188,33 @@
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
 
+;;; general
+(use-package general
+  :config
+  (general-create-definer $localleader :prefix "_")
+  ($localleader
+    :keymaps 'normal
+    "D" 'magit-diff
+    "G" 'magit
+    "e" 'eval-buffer
+    "x" 'eval-last-sexp)
+  (general-create-definer $leader :prefix "SPC")
+  ($leader
+    :keymaps 'normal
+    "f" 'projectile-find-file
+    "b" 'consult-buffer
+    "g" 'consult-ripgrep
+    "l" 'consult-line))
+
 ;;; evil
 (use-package evil
   :init
-  (setq evil-undo-system 'undo-fu)
-  (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump t)
+  :custom
+  (evil-undo-system 'undo-fu)
+  (evil-want-integration t)
+  (evil-want-C-u-scroll t)
+  (evil-want-C-i-jump t)
   :config
   (evil-mode 1))
 
@@ -205,7 +225,8 @@
 
 (use-package evil-nerd-commenter
   :after evil
-  :bind ("M-;" . evilnc-comment-or-uncomment-lines))
+  :bind (:map evil-normal-state-map
+              ("gc" . evilnc-comment-or-uncomment-lines)))
 
 (use-package evil-surround
   :after evil
@@ -217,22 +238,23 @@
 
 ;;; undo stuff
 (use-package undo-fu
-  :init
-  (setq undo-limit 6710886400)
-  (setq undo-strong-limit 100663296)
-  (setq undo-outer-limit 1006632960))
+  :custom
+  (undo-limit 6710886400)
+  (undo-strong-limit 100663296)
+  (undo-outer-limit 1006632960))
 (use-package undo-fu-session
-  :config
-  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  :custom
+  (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   :init
   (global-undo-fu-session-mode))
 
 ;;; lsp
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
+  :custom
+  (lsp-keymap-prefix "C-c l")
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
   (defun $orderless-dispatch-flex-first (_pattern index _total)
     (and (eq index 0) 'orderless-flex))
 
@@ -245,10 +267,12 @@
   :custom
   (lsp-completion-provider :none)
   :hook ((lsp-completion-mode . $lsp-mode-setup-completion)
+         (c-mode . lsp-deferred)
+         (c++-mode . lsp-deferred)
+         (go-mode . lsp-deferred)
          (python-mode . (lambda ()
                           (require 'lsp-pyright)
                           (lsp-deferred)))
-         (go-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands
   lsp)
@@ -274,8 +298,9 @@
 
 ;;; avy
 (use-package avy
-  :bind (("C-;" . avy-goto-word-1)
-         ("s-;" . avy-goto-char-timer)))
+  :bind
+  (:map evil-normal-state-map
+        ("s" . avy-goto-word-1)))
 
 ;;; hideshow
 (use-package hideshow
@@ -435,6 +460,7 @@
   (projectile-mode)
   :custom
   (projectile-use-git-grep t)
+  (projectile-project-search-path '("~/.dotfiles/" ("~/dev" . 2)))
   :config
   (setf projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
   :bind (("C-c f" . projectile-find-file)
@@ -462,10 +488,11 @@
   (marginalia-mode))
 
 (use-package vertico
+  :custom
+  (vertico-cycle t)
+  (vertioc-resize t)
   :init
-  (vertico-mode)
-  (setq vertico-cycle t)
-  (setq vertioc-resize t))
+  (vertico-mode))
 
 (use-package savehist
   :init
@@ -779,6 +806,10 @@ no matter what."
   :init
   (eldoc-mode 1))
 
+(use-package pyvenv
+  :init
+  (setenv "WORKON_HOME" "~/.venv"))
+
 ;;; cperl-mode
 (use-package cperl-mode
   :commands (cperl-mode)
@@ -1037,6 +1068,10 @@ questions.  Else use completion to select the tab to switch to."
   (delete-old-versions -1)
   (version-control t)
   (vc-make-backup-files t)
+  (backup-by-copying t)
+  (backup-directory-alist '(("." . (expand-file-name "backup" use-emacs-directory))))
+  (kept-new-versions 50)
+  (kept-old-versions 50)
 
   ;; history settings
   (history-length t)
@@ -1051,18 +1086,6 @@ questions.  Else use completion to select the tab to switch to."
 (use-package etags
   :custom
   (tags-revert-without-query 1))
-
-;;; visual-regexp
-(use-package visual-regexp
-  :bind (("C-c r" . vr/replace)
-         ("C-c q" . vr/query-replace)))
-
-;;; rectangle-mark
-(use-package rect
-  :straight (:type built-in)
-  :bind (:map rectangle-mark-mode-map
-              ("C-x r I" . string-insert-rectangle)
-              ("C-x r R" . replace-rectangle)))
 
 ;;; deft
 (use-package deft
