@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
-(setq straight-check-for-modifications '(check-on-save find-when-checking))
+(setf straight-check-for-modifications '(check-on-save find-when-checking))
 
 ;;; bootstrap straight.el
 (defvar bootstrap-version)
@@ -41,7 +41,7 @@
 (eval-when-compile
   (require 'use-package)
   ;; do not add -hook suffix automatically in use-package :hook
-  (setq use-package-hook-name-suffix nil))
+  (setf use-package-hook-name-suffix nil))
 
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
@@ -49,21 +49,21 @@
     (load-file home-settings)))
 
 ;;; shared config not in init.el
-(setq custom-file (expand-file-name "custom.el" temporary-file-directory))
+(setf custom-file (expand-file-name "custom.el" temporary-file-directory))
 
 ;;; make scrolling more logical
-(setq scroll-conservatively 25)
-(setq auto-window-vscroll nil)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-progressive-speed nil)
-(setq mouse-wheel-follow-mouse 't)
+(setf scroll-conservatively 25)
+(setf auto-window-vscroll nil)
+(setf mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setf mouse-wheel-progressive-speed nil)
+(setf mouse-wheel-follow-mouse 't)
 
 ;; cursor blinks n times
-(setq blink-cursor-blinks 0)
+(setf blink-cursor-blinks 0)
 
 ;;; inhibit visual bells
-(setq visible-bell nil)
-(setq ring-bell-function #'ignore)
+(setf visible-bell nil)
+(setf ring-bell-function #'ignore)
 
 ;;; transient-mark-mode
 (setf transient-mark-mode t)
@@ -72,28 +72,28 @@
 (setq-default indent-tabs-mode nil)
 
 ;;; ask about adding a final newline
-(setq require-final-newline 'ask)
+(setf require-final-newline 'ask)
 
 ;;; allow recursive minibuffers
-(setq enable-recursive-minibuffers t)
+(setf enable-recursive-minibuffers t)
 
 ;;; allow disabled emacs commands (mainly for narrowing)
-(setq disabled-command-function nil)
+(setf disabled-command-function nil)
 
 ;;; do not ask about opening large files
 (setf large-file-warning-threshold nil)
 
 ;;; show garbage collection messages in minbuffer
-(setq garbage-collection-messages nil)
+(setf garbage-collection-messages nil)
 
 ;;; disable insert keys automatically for read-only buffers
-(setq view-read-only t)
+(setf view-read-only t)
 
 ;;; debug on error -- off for now
-(setq debug-on-error nil)
+(setf debug-on-error nil)
 
 ;;; filename in titlebar
-(setq frame-title-format
+(setf frame-title-format
       (concat user-login-name "@" system-name ":%f [%m]"))
 
 ;;; set completing-read-multiple separator to '#'
@@ -106,10 +106,10 @@
 (advice-add #'completing-read-multiple :filter-args #'$crm-indicator)
 
 ;;; Grow and shrink minibuffer
-(setq resize-mini-windows t)
+(setf resize-mini-windows t)
 
 ;;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
+(setf minibuffer-prompt-properties
       '(read-only t cursor-intangible t face minibuffer-prompt))
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
@@ -214,7 +214,7 @@
 ;;; evil
 (use-package evil
   :init
-  (setq evil-want-keybinding nil)
+  (setf evil-want-keybinding nil)
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -380,7 +380,7 @@
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
   (progn
-    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+    (setf treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
           treemacs-deferred-git-apply-delay        0.5
           treemacs-directory-name-transformer      #'identity
           treemacs-display-in-side-window          t
@@ -674,7 +674,7 @@
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
-  (setq register-preview-delay 0.5
+  (setf register-preview-delay 0.5
         register-preview-function #'consult-register-format)
 
   ;; Optionally tweak the register preview window.
@@ -682,7 +682,7 @@
   (advice-add #'register-preview :override #'consult-register-window)
 
   ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
+  (setf xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
   :config
@@ -695,12 +695,12 @@
    consult--source-project-recent-file
    :preview-key (kbd "M-."))
 
-  (setq consult-narrow-key (kbd "C-+"))
+  (setf consult-narrow-key (kbd "C-+"))
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
   ;; use projectile
   (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root))))
+  (setf consult-project-function (lambda (_) (projectile-project-root))))
 
 (use-package consult-yasnippet
   :after (consult yasnippet))
@@ -791,7 +791,7 @@ no matter what."
   (defun $inhibit-electric-pair-mode (char)
     "Do not use smart parens in mini-buffers.  Params: CHAR."
     (minibufferp))
-  (setq electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode))
+  (setf electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode))
 
 ;;; highlight current line
 (use-package hl-line
@@ -844,7 +844,7 @@ no matter what."
     (local-set-key (kbd "C-c b") 'slime-eval-buffer))
   (add-hook 'slime-mode-hook #'$slime-keybindings)
   (add-hook 'slime-repl-mode-hook #'$slime-keybindings)
-  (setq slime-contribs '(slime-fancy))
+  (setf slime-contribs '(slime-fancy))
   :hook
   (slime-mode-hook . (lambda ()
                        (load (expand-file-name "~/quicklisp/slime-helper.el"))
@@ -873,7 +873,7 @@ no matter what."
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setq markdown-command "multimarkdown"))
+  (setf markdown-command "multimarkdown"))
 
 ;;; web-mode
 (use-package web-mode
@@ -1086,9 +1086,9 @@ questions.  Else use completion to select the tab to switch to."
     (interactive)
     (if (bound-and-true-p tab-bar-mode)
         (progn
-          (setq tab-bar-show nil)
+          (setf tab-bar-show nil)
           (tab-bar-mode -1))
-      (setq tab-bar-show t)
+      (setf tab-bar-show t)
       (tab-bar-mode 1)))
 
   :bind (("C-x t h" . tab-bar-history-forward)
@@ -1116,9 +1116,9 @@ questions.  Else use completion to select the tab to switch to."
   :config
   ;; make hl-lock play nice with idle-highlight-mode
   (defun $enable-idle-highlight-mode ()
-    (setq idle-highlight-mode t))
+    (setf idle-highlight-mode t))
   (defun $disable-idle-highlight-mode ()
-    (setq idle-highlight-mode nil))
+    (setf idle-highlight-mode nil))
   ;;(advice-add 'highlight-symbol-at-point :before '$disable-idle-highlight-mode)
   ;;(advice-add 'highlight-symbol-at-point :after '$enable-idle-highlight-mode)
   ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
@@ -1128,7 +1128,7 @@ questions.  Else use completion to select the tab to switch to."
 (use-package hl-todo
   :hook (prog-mode-hook . hl-todo-mode)
   :config
-  (setq hl-todo-keyword-faces
+  (setf hl-todo-keyword-faces
         '(("TODO"   . "#FFFF00")
           ("FIXME"  . "#FFFFFF")
           ("NOTE"   . "#F56600")
