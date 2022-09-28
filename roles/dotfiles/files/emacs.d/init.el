@@ -235,6 +235,11 @@
   :bind (:map evil-normal-state-map
               ("gc" . evilnc-comment-or-uncomment-lines)))
 
+(use-package evil-matchit
+  :after evil
+  :config
+  (global-evil-matchit-mode t))
+
 (use-package evil-surround
   :after evil
   :config
