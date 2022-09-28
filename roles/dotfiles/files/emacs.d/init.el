@@ -293,6 +293,8 @@
          (python-mode . (lambda ()
                           (require 'lsp-pyright)
                           (lsp-deferred)))
+         (typescript-mode . lsp-deferred)
+         (javascript-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands
   lsp)
@@ -303,7 +305,6 @@
   :after lsp)
 (use-package consult-lsp
   :after lsp)
-(use-package cape)
 
 ;;; treesitter
 (use-package tree-sitter
@@ -547,11 +548,62 @@
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
   (corfu-separator ?\s)          ;; Orderless field separator
+  :config
+  (defun corfu-move-to-minibuffer ()
+    (interactive)
+    (let ((completion-extra-properties corfu--extra)
+          completion-cycle-threshold completion-cycling)
+      (apply #'consult-completion-in-region completion-in-region--data)))
+  :bind (:map corfu-map
+         ("\M-m" . corfu-move-to-minibuffer))
   :init
   (global-corfu-mode))
+
 (use-package corfu-doc
   :hook
   (corfu-mode-hook . corfu-doc-mode))
+
+(use-package kind-icon
+  :after (corfu)
+  :custom
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(use-package cape
+  ;; Bind dedicated completion commands
+  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+  :bind (("M-+ p" . completion-at-point) ;; capf
+         ("M-+ t" . complete-tag)        ;; etags
+         ("M-+ d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("M-+ h" . cape-history)
+         ("M-+ f" . cape-file)
+         ("M-+ k" . cape-keyword)
+         ("M-+ s" . cape-symbol)
+         ("M-+ a" . cape-abbrev)
+         ("M-+ i" . cape-ispell)
+         ("M-+ l" . cape-line)
+         ("M-+ w" . cape-dict)
+         ("M-+ \\" . cape-tex)
+         ("M-+ _" . cape-tex)
+         ("M-+ ^" . cape-tex)
+         ("M-+ &" . cape-sgml)
+         ("M-+ r" . cape-rfc1345))
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+)
 
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -1147,6 +1199,40 @@ questions.  Else use completion to select the tab to switch to."
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
   (yas-reload-all))
+
+;;; TODO investigate tempel
+(use-package tempel
+  :disabled
+  ;; Require trigger prefix before template name when completing.
+  ;; :custom
+  ;; (tempel-trigger-prefix "<")
+
+  :bind (("M-=" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
+
+  :init
+
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+)
 
 ;;; load local settings
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
