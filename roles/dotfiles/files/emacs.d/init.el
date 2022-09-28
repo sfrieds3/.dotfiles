@@ -778,10 +778,13 @@ no matter what."
   (global-flycheck-mode))
 
 ;;; slime
+;;; TODO check out sly
+(use-package sly
+  :disabled)
 (use-package slime
   :commands (slime)
-  :init
-  (setq inferior-lisp-program "/usr/bin/sbcl")
+  :custom
+  (inferior-lisp-program "/usr/bin/sbcl")
   :config
   (defun $slime-keybindings ()
     "keybindings for use in slime"
