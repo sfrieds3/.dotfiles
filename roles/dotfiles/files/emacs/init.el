@@ -1196,7 +1196,7 @@ questions.  Else use completion to select the tab to switch to."
   (version-control t)
   (vc-make-backup-files t)
   (backup-by-copying t)
-  (backup-directory-alist '(("." . (expand-file-name "backup" use-emacs-directory))))
+  (backup-directory-alist '(("." . (expand-file-name "backup" user-emacs-directory))))
   (kept-new-versions 50)
   (kept-old-versions 50)
 

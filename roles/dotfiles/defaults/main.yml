@@ -8,6 +8,7 @@ dotfile_config_directories:
   - fish
   - python
   - ripgrep
+  - emacs
 
 dotfile_config_files:
   - pycodestyle
@@ -21,7 +22,6 @@ dotfile_homedir_files:
   - csirc
   - sbclrc
   - ideavimrc
-  - emacs.d
 
 archive_homedir_files:
   - bash_aliases
