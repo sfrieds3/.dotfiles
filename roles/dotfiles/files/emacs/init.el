@@ -568,13 +568,6 @@
   :hook
   (corfu-mode-hook . corfu-doc-mode))
 
-(use-package kind-icon
-  :after (corfu)
-  :custom
-  (kind-icon-default-face 'corfu-default)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-
 (use-package cape
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
@@ -1196,7 +1189,7 @@ questions.  Else use completion to select the tab to switch to."
   (version-control t)
   (vc-make-backup-files t)
   (backup-by-copying t)
-  (backup-directory-alist '(("." . (expand-file-name "backup" user-emacs-directory))))
+  (backup-directory-alist `(("." . ,(expand-file-name "backup" user-emacs-directory))))
   (kept-new-versions 50)
   (kept-old-versions 50)
 
@@ -1238,10 +1231,8 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; TODO investigate tempel
 (use-package tempel
-  :disabled
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
+  :custom
+  (tempel-trigger-prefix "<")
 
   :bind (("M-=" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
