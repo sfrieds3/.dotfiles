@@ -215,6 +215,10 @@
 (use-package evil
   :init
   (setf evil-want-keybinding nil)
+  (defun $evil-nohl ()
+    (progn
+      ('redraw-frame)
+      ('evil-ex-nohighlight)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -224,7 +228,9 @@
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  :bind (:map evil-normal-state-map
+              ("C-l" . evil-ex-nohighlight)))
 
 (use-package evil-collection
   :after evil
