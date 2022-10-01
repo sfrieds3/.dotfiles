@@ -30,7 +30,7 @@ setopt HIST_VERIFY  # nicer substitution commands
 # set up fzf completion/keybindings
 source $HOME/.config/fzf/completion.zsh
 source $HOME/.config/fzf/key-bindings.zsh
-bindkey -M emacs '^J' fzf-history-widget
+bindkey -M emacs '^A' fzf-history-widget
 
 autoload -U colors && colors
 
@@ -47,9 +47,11 @@ test -f $HOME/.zsh_local && source $HOME/.zsh_local
 # nvim as editor
 export EDITOR="nvim"
 
-# if [ -z "$TMUX_PANE" ]; then
-#     tmux attach
-# fi
+if [[ "$INSIDE_EMACS" = 'vterm' ]] \
+    && [[ -n ${EMACS_VTERM_PATH} ]] \
+    && [[ -f ${EMACS_VTERM_PATH}/src/etc/emacs-vterm-bash.sh ]]; then
+        source ${EMACS_VTERM_PATH}/src/etc/emacs-vterm-bash.sh
+fi
 
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
 

@@ -5,6 +5,7 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export HISTFILE=$ZDOTDIR/zsh_history
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
+export EMACS_VTERM_PATH=$XDG_CONFIG_DIR/emacs/straight/repos/emacs/libvterm
 BREWPATH=/home/linuxbrew/.linuxbrew/bin
 LUAROCKSBIN=$HOME/.luarocks/bin
 PERL5BIN=$HOME/perl5/bin

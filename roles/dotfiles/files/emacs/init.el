@@ -222,6 +222,7 @@
   (evil-want-C-i-jump t)
   (evil-want-Y-yank-to-eol t)
   (evil-search-module 'evil-search)
+  (scroll-margin 3) ; set scrolloff=3
   :config
   (evil-mode 1))
 
@@ -744,6 +745,8 @@
 ;;; ctags
 (use-package ctags
   :bind (("s-." . ctags-find)))
+
+(use-package vterm)
 
 ;;; ansi-term
 (use-package term
