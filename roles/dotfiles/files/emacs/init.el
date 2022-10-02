@@ -96,8 +96,8 @@
 (setf frame-title-format
       (concat user-login-name "@" system-name ":%f [%m]"))
 
-;;; set completing-read-multiple separator to '#'
-(setf crm-separator "#")
+;;; set completing-read-multiple separator to ','
+(setf crm-separator ",")
 
 ;;; Add prompt indicator to `completing-read-multiple'.
 (defun $crm-indicator (args)
