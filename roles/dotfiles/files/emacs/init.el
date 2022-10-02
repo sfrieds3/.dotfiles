@@ -25,7 +25,7 @@
 ;;; use straight.el with use-package
 (straight-use-package 'use-package)
 (use-package straight
-             :custom (straight-use-package-by-default t))
+  :custom (straight-use-package-by-default t))
 
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
@@ -219,6 +219,29 @@
     (progn
       ('redraw-frame)
       ('evil-ex-nohighlight)))
+  (defun $evil-ex-mode-map (cmd)
+    (let ((binding (car cmd))
+          (fn (cdr cmd)))
+      (evil-ex-define-cmd binding fn)))
+  (mapc '$evil-ex-mode-map
+        '(("!" . shell-command)
+          ("W" . evil-write)
+          ("Wq" . evil-save-and-quit)
+          ("WQ" . evil-save-and-quit)
+          ("E" . evil-edit)
+          ("Q" . evil-quit)
+          ("QA" . evil-quit-all)
+          ("Qa" . evil-quit-all)
+          ("CQ" . evil-quit-all-with-error-code)
+          ("Cq" . evil-quit-all-with-error-code)
+          ("WA" . evil-write-all)
+          ("Wa" . evil-write-all)
+          ("Git" . magit)
+          ("Git diff" . magit-diff)
+          ("Grep" . consult-ripgrep)
+          ("Occur" . occur)
+          ("Align" . align-regexp)
+          ("Git log" magit-file-log)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -567,7 +590,7 @@
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
   :bind (:map corfu-map
-         ("\M-m" . corfu-move-to-minibuffer))
+              ("\M-m" . corfu-move-to-minibuffer))
   :init
   (global-corfu-mode))
 
@@ -608,7 +631,7 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
+  )
 
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -752,8 +775,22 @@
 (use-package ctags
   :bind (("s-." . ctags-find)))
 
-(use-package vterm)
+(use-package vterm
+  :config
+  (defun $verm-mode-hook ()
+    (setq-local evil-insert-state-cursor 'box)
+    (evil-insert-state))
+  :custom
+  (vterm-max-scrollback 100000)
+  :hook
+  (vterm-mode-hook . $vterm-mode-hook))
 
+(use-package multi-vterm)
+(use-package vterm-toggle
+  :init
+  (global-set-key [f2] 'vterm-toggle)
+  (global-set-key [C-f2] 'vterm-toggle-cd)
+  (define-key vterm-mode-map [(control return)]   #'vterm-toggle-insert-cd))
 ;;; ansi-term
 (use-package term
   :config
@@ -1268,7 +1305,7 @@ questions.  Else use completion to select the tab to switch to."
   ;; either locally or globally. `expand-abbrev' is bound to C-x '.
   ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
   ;; (global-tempel-abbrev-mode)
-)
+  )
 
 ;;; load local settings
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
