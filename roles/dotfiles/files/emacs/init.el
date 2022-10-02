@@ -741,10 +741,11 @@
               ("!" . consult-flycheck)))
 
 (use-package embark
-  :ensure t
+  :after (embark-defun)
 
   :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
+  (("C-," . embark-act)         ;; pick some comfortable binding
+   ("C-." . $embark-act-noquit)
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
@@ -754,6 +755,13 @@
   (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
+
+  (add-hook 'embark-target-finders #'$current-candidate+category)
+    (setq embark-action-indicator
+          (lambda (map)
+            (which-key--show-keymap "Embark" map nil nil 'no-paging)
+            #'which-key--hide-popup-ignore-command)
+          embark-become-indicator embark-action-indicator)
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
