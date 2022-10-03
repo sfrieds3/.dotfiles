@@ -21,6 +21,8 @@
       - htop
       - java-11-openjdk-devel
       - kitty
+      - libtool
+      - libvterm
       - libxcb-devel
       - libxkbcommon-devel
       - llvm

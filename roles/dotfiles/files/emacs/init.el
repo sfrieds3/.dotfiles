@@ -213,12 +213,15 @@
 
 ;;; evil
 (use-package evil
+  :demand t
   :init
   (setf evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
   (defun $evil-nohl ()
     (progn
-      ('redraw-frame)
-      ('evil-ex-nohighlight)))
+      (redraw-frame)
+      (evil-ex-nohighlight)))
   (defun $evil-ex-mode-map (cmd)
     (let ((binding (car cmd))
           (fn (cdr cmd)))
@@ -250,8 +253,6 @@
   (evil-want-Y-yank-to-eol t)
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
-  :config
-  (evil-mode 1)
   :bind (:map evil-normal-state-map
               ("C-l" . evil-ex-nohighlight)))
 
@@ -303,43 +304,22 @@
   :init
   (global-undo-fu-session-mode))
 
-;;; lsp
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :custom
-  (lsp-keymap-prefix "C-c l")
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (defun $orderless-dispatch-flex-first (_pattern index _total)
-    (and (eq index 0) 'orderless-flex))
-
-  (defun $lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless)))
-
-  ;; Optionally configure the first word as flex filtered.
-  (add-hook 'orderless-style-dispatchers #'$orderless-dispatch-flex-first nil 'local)
-  :custom
-  (lsp-completion-provider :none)
-  :hook ((lsp-completion-mode . $lsp-mode-setup-completion)
-         (c-mode . lsp-deferred)
-         (c++-mode . lsp-deferred)
-         (go-mode . lsp-deferred)
-         (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp-deferred)))
-         (typescript-mode . lsp-deferred)
-         (javascript-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
+;;; eglot
+(use-package eglot
   :commands
-  lsp)
-(use-package lsp-pyright)
-(use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode))
-(use-package lsp-treemacs
-  :after lsp)
-(use-package consult-lsp
-  :after lsp)
+  eglot
+  :bind (:map eglot-mode-map
+              ("C-c l a" . eglot-code-actions)
+              ("C-c l r" . eglot-rename)
+              ("C-c l f" . eglot-format)
+              ("C-c l d" . eldoc))
+  :custom
+  (read-process-output-max (* 1024 1024))
+  (eglot-events-buffer-size 0)
+  (completion-category-overrides '((eglot (styles orderless)))))
+
+(use-package consult-eglot
+  :after eglot)
 
 ;;; treesitter
 (use-package tree-sitter
