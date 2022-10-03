@@ -25,6 +25,11 @@
 ;;; use straight.el with use-package
 (straight-use-package 'use-package)
 (use-package straight
+  :config
+  (defun $straight-update-all ()
+      (interactive)
+      (straight-pull-all)
+      (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
 ;;; add everything in lisp/ dir to load path
@@ -240,11 +245,12 @@
           ("WA" . evil-write-all)
           ("Wa" . evil-write-all)
           ("Git" . magit)
-          ("Git diff" . magit-diff)
+          ("Gdiff" . magit-diff)
           ("Grep" . consult-ripgrep)
           ("Occur" . occur)
           ("Align" . align-regexp)
-          ("Git log" magit-file-log)))
+          ("Glog" . magit-log)
+          ("Gstatus" . magit-status)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
