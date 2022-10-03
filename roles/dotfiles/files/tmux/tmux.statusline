@@ -4,7 +4,7 @@
 set-option -g status-justify "left"
 set-option -g status "on"
 set-option -g status-left-length 20
-set-option -g status-bg terminal
+set-option -g status-bg black
 set-option -g status-fg colour67
 set-option -g status-left "#[fg=colour131]#S § #[fg=colour131]"
 set-option -g status-right "#[fg=colour131]%Y-%m-%d | %H:%M"
