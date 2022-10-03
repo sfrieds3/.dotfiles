@@ -3,6 +3,7 @@
   become: true
   ansible.builtin.dnf:
     name:
+      - ShellCheck
       - bat
       - chicken
       - clang
@@ -10,17 +11,24 @@
       - cmake
       - curl
       - fd-find
-      - freetype-devel
       - fontconfig-devel
+      - freetype-devel
       - fzf
       - g++
+      - giflib-devel
       - gimp
       - git-core
       - gitk
+      - gnutls-devel
+      - gtk2-devel
       - guile
       - htop
       - java-11-openjdk-devel
       - kitty
+      - libX11-devel
+      - libXpm-devel
+      - libpng-devel
+      - libtiff-devel
       - libtool
       - libvterm
       - libxcb-devel
@@ -28,16 +36,17 @@
       - llvm
       - lua
       - nasm
+      - ncurses-devel
       - neovim
       - ninja-build
+      - openjpeg-devel
       - perl-core
       - ripgrep
       - rsync
       - ruby-devel
-      - ShellCheck
+      - util-linux-user
       - zig
       - zsh
-      - util-linux-user
       - '@C Development Tools and Libraries'
       - '@virtualization'
       - '@Development Tools'
