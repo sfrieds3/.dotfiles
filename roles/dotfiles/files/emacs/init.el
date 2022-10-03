@@ -308,6 +308,10 @@
 (use-package eglot
   :commands
   eglot
+  :config
+  (defun $eglot-current-server ()
+    (interactive)
+    (print (process-command (jsonrpc--process (eglot-current-server)))))
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
               ("C-c l r" . eglot-rename)
