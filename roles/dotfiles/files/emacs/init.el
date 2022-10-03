@@ -336,6 +336,17 @@
 ;;; golang
 (use-package go-mode)
 
+;; rust
+(use-package rust-mode
+  :config
+  (rust-format-on-save t)
+  :hook
+  (rust-mode-hook . prettify-symbols-mode)
+  (rust-mode-hook . (lambda () (setf indent-tabs-mode nil))))
+
+;; zig
+(use-package zig-mode)
+
 ;;; avy
 (use-package avy
   :bind
