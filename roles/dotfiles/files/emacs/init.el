@@ -617,7 +617,7 @@
 (use-package orderless
   :after (orderless-defun)
   :custom
-  (completion-styles '(orderless))
+  (completion-styles '(orderless basic))
   (orderless-matching-styles '(orderless-flex))
   (orderless-style-dispatchers '($orderless-literal
                                  $orderless-strict-leading-initialism
@@ -625,6 +625,13 @@
                                  $orderless-regexp
                                  $orderless-flex
                                  $orderless-without-literal))
+   (completion-category-overrides
+        '((file (styles . (basic partial-completion orderless)))
+          (project-file (styles . (basic substring partial-completion orderless)))
+          (imenu (styles . (basic substring orderless)))
+          (kill-ring (styles . (basic substring orderless)))
+          (consult-location (styles . (basic substring orderless)))))
+
   :config
   (define-key minibuffer-local-map (kbd "C-l")
     #'$match-components-literally))
