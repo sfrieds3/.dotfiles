@@ -48,4 +48,4 @@
   (setq-local orderless-style-dispatchers nil))
 
 (provide 'orderless-defun)
-;;; orderless-defun ends here
+;;; orderless-defun.el ends here

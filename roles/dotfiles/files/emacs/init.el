@@ -27,9 +27,9 @@
 (use-package straight
   :config
   (defun $straight-update-all ()
-      (interactive)
-      (straight-pull-all)
-      (straight-prune-build))
+    (interactive)
+    (straight-pull-all)
+    (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
 ;;; add everything in lisp/ dir to load path
@@ -559,13 +559,13 @@
   :config
   ;; prefix cutrent candidate with "» "
   (advice-add #'vertico--format-candidate :around
-            (lambda (orig cand prefix suffix index _start)
-              (setq cand (funcall orig cand prefix suffix index _start))
-              (concat
-               (if (= vertico--index index)
-                   (propertize "» " 'face 'vertico-current)
-                 "  ")
-               cand)))
+              (lambda (orig cand prefix suffix index _start)
+                (setq cand (funcall orig cand prefix suffix index _start))
+                (concat
+                 (if (= vertico--index index)
+                     (propertize "» " 'face 'vertico-current)
+                   "  ")
+                 cand)))
   ;; custom colors for files and dir
   (defvar +vertico-transform-functions nil)
 
@@ -587,25 +587,23 @@
            (+vertico-transform-functions . +vertico-highlight-directory))))
 
   (defun down-from-outside ()
-  "Move to next candidate in minibuffer, even when minibuffer isn't selected."
-  (interactive)
-  (with-selected-window (active-minibuffer-window)
-    (execute-kbd-macro [down])))
+    "Move to next candidate in minibuffer, even when minibuffer isn't selected."
+    (interactive)
+    (with-selected-window (active-minibuffer-window)
+      (execute-kbd-macro [down])))
 
-(defun up-from-outside ()
-  "Move to previous candidate in minibuffer, even when minibuffer isn't selected."
-  (interactive)
-  (with-selected-window (active-minibuffer-window)
-    (execute-kbd-macro [up])))
+  (defun up-from-outside ()
+    "Move to previous candidate in minibuffer, even when minibuffer isn't selected."
+    (interactive)
+    (with-selected-window (active-minibuffer-window)
+      (execute-kbd-macro [up])))
 
-(defun to-and-fro-minibuffer ()
-  "Go back and forth between minibuffer and other window."
-  (interactive)
-  (if (window-minibuffer-p (selected-window))
-      (select-window (minibuffer-selected-window))
-    (select-window (active-minibuffer-window))))
-
-)
+  (defun to-and-fro-minibuffer ()
+    "Go back and forth between minibuffer and other window."
+    (interactive)
+    (if (window-minibuffer-p (selected-window))
+        (select-window (minibuffer-selected-window))
+      (select-window (active-minibuffer-window)))))
 
 (use-package savehist
   :init
@@ -619,7 +617,6 @@
   :custom
   (completion-styles '(orderless basic))
   (orderless-matching-styles '(orderless-prefixes
-                               orderless-strict-leading-initialism
                                orderless-flex
                                orderless-regexp))
   (orderless-style-dispatchers '($orderless-literal
@@ -628,13 +625,12 @@
                                  $orderless-regexp
                                  $orderless-flex
                                  $orderless-without-literal))
-   (completion-category-overrides
-        '((file (styles . (basic partial-completion orderless)))
-          (project-file (styles . (basic substring partial-completion orderless)))
-          (imenu (styles . (basic substring orderless)))
-          (kill-ring (styles . (basic substring orderless)))
-          (consult-location (styles . (basic substring orderless)))))
-
+  (completion-category-overrides
+   '((file (styles . (basic partial-completion orderless)))
+     (project-file (styles . (basic substring partial-completion orderless)))
+     (imenu (styles . (basic substring orderless)))
+     (kill-ring (styles . (basic substring orderless)))
+     (consult-location (styles . (basic substring orderless)))))
   :config
   (define-key minibuffer-local-map (kbd "C-l")
     #'$match-components-literally))
@@ -819,11 +815,11 @@
   :config
 
   (add-hook 'embark-target-finders #'$current-candidate+category)
-    (setq embark-action-indicator
-          (lambda (map)
-            (which-key--show-keymap "Embark" map nil nil 'no-paging)
-            #'which-key--hide-popup-ignore-command)
-          embark-become-indicator embark-action-indicator)
+  (setq embark-action-indicator
+        (lambda (map)
+          (which-key--show-keymap "Embark" map nil nil 'no-paging)
+          #'which-key--hide-popup-ignore-command)
+        embark-become-indicator embark-action-indicator)
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
@@ -860,7 +856,7 @@
   :init
   (global-set-key [f2] 'vterm-toggle)
   (global-set-key [C-f2] 'vterm-toggle-cd)
-  (define-key vterm-mode-map [(control return)]   #'vterm-toggle-insert-cd))
+  (define-key vterm-mode-map [(control return)] #'vterm-toggle-insert-cd))
 ;;; ansi-term
 (use-package term
   :config
