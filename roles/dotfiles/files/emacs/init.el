@@ -555,7 +555,57 @@
   (vertico-cycle t)
   (vertioc-resize t)
   :init
-  (vertico-mode))
+  (vertico-mode)
+  :config
+  ;; prefix cutrent candidate with "» "
+  (advice-add #'vertico--format-candidate :around
+            (lambda (orig cand prefix suffix index _start)
+              (setq cand (funcall orig cand prefix suffix index _start))
+              (concat
+               (if (= vertico--index index)
+                   (propertize "» " 'face 'vertico-current)
+                 "  ")
+               cand)))
+  ;; custom colors for files and dir
+  (defvar +vertico-transform-functions nil)
+
+  (defun +vertico-transform (args)
+    (dolist (fun (ensure-list +vertico-transform-functions) args)
+      (setcar args (funcall fun (car args)))))
+
+  (advice-add #'vertico--format-candidate :filter-args #'+vertico-transform)
+
+  (defun +vertico-highlight-directory (file)
+    "Highlight FILE if it ends with a slash."
+    (if (string-suffix-p "/" file)
+        (propertize file 'face 'marginalia-file-priv-dir)
+      file))
+
+  (setq vertico-multiform-commands
+        '(("find-file" flat
+           (vertico-sort-function . sort-directories-first)
+           (+vertico-transform-functions . +vertico-highlight-directory))))
+
+  (defun down-from-outside ()
+  "Move to next candidate in minibuffer, even when minibuffer isn't selected."
+  (interactive)
+  (with-selected-window (active-minibuffer-window)
+    (execute-kbd-macro [down])))
+
+(defun up-from-outside ()
+  "Move to previous candidate in minibuffer, even when minibuffer isn't selected."
+  (interactive)
+  (with-selected-window (active-minibuffer-window)
+    (execute-kbd-macro [up])))
+
+(defun to-and-fro-minibuffer ()
+  "Go back and forth between minibuffer and other window."
+  (interactive)
+  (if (window-minibuffer-p (selected-window))
+      (select-window (minibuffer-selected-window))
+    (select-window (active-minibuffer-window))))
+
+)
 
 (use-package savehist
   :init
