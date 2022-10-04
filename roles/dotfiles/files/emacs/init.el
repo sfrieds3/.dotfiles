@@ -618,7 +618,10 @@
   :after (orderless-defun)
   :custom
   (completion-styles '(orderless basic))
-  (orderless-matching-styles '(orderless-flex))
+  (orderless-matching-styles '(orderless-prefixes
+                               orderless-strict-leading-initialism
+                               orderless-flex
+                               orderless-regexp))
   (orderless-style-dispatchers '($orderless-literal
                                  $orderless-strict-leading-initialism
                                  $orderless-initialism
