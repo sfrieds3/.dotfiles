@@ -1,4 +1,4 @@
-;;;; orderless-defun --- defun used with orderless
+;;;; orderless-defun --- defun used with orderless -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     defun used with orderless
