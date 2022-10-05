@@ -876,7 +876,7 @@ no matter what."
     (let ((abuf "*ansi-term*"))
       (cond
        (arg
-        (ansi-term "/bin/bash"))
+        (ansi-term "/usr/bin/zsh"))
        ((string= abuf (buffer-name))
         (previous-buffer))
        ((try-completion abuf (mapcar #'buffer-name (buffer-list)))
