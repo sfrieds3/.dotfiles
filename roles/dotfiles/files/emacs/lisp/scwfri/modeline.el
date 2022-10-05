@@ -1,4 +1,4 @@
-;;;; package --- summary
+;;;; package --- (old) modeline config -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     modeline
