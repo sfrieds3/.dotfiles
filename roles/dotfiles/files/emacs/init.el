@@ -29,11 +29,13 @@
   (defun $straight-update-all ()
     (interactive)
     (straight-pull-all)
+    (striaght-check-all)
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
+
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -47,6 +49,7 @@
   (require 'use-package)
   ;; do not add -hook suffix automatically in use-package :hook
   (setf use-package-hook-name-suffix nil))
+
 
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
@@ -205,17 +208,36 @@
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
-    "D" 'magit-diff
+    "D" 'magit-diff-dwim
+    "F" 'eglot-format
     "G" 'magit
     "e" 'eval-buffer
+    "r" 'eglot-rename
     "x" 'eval-last-sexp)
   (general-create-definer $leader :prefix "SPC")
   ($leader
     :keymaps 'normal
     "f" 'projectile-find-file
     "b" 'consult-buffer
+    "d" 'consult-flycheck
     "g" 'consult-ripgrep
-    "l" 'consult-line))
+    "l" 'consult-line
+    "r" 'consult-recent-file
+    "t" 'consult-eglot-symbols)
+  (general-create-definer $next :prefix "]")
+  ($next
+   :keymaps 'normal
+   "b" 'next-buffer
+   "c" 'magit-blob-next
+   "d" 'flycheck-next-error
+   "t" 'tab-next)
+  (general-create-definer $previou :prefix "[")
+  ($next
+   :keymaps 'normal
+   "b" 'previous-buffer
+   "c" 'magit-blob-previous
+   "d" 'flycheck-previous-error
+   "t" 'tab-previous))
 
 ;;; evil
 (use-package evil
@@ -253,11 +275,13 @@
           ("Glog" . magit-log)
           ("Gstatus" . magit-status)))
   :custom
-  (evil-undo-system 'undo-fu)
+  (evil-undo-system undo-fu)
   (evil-want-integration t)
   (evil-want-C-u-scroll t)
   (evil-want-C-i-jump t)
   (evil-want-Y-yank-to-eol t)
+  (evil-split-window-below t)
+  (evil-split-window-right t)
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :bind (:map evil-normal-state-map
@@ -319,11 +343,12 @@
   (defun $eglot-current-server ()
     (interactive)
     (print (process-command (jsonrpc--process (eglot-current-server)))))
-  :bind (:map eglot-mode-map
-              ("C-c l a" . eglot-code-actions)
-              ("C-c l r" . eglot-rename)
-              ("C-c l f" . eglot-format)
-              ("C-c l d" . eldoc))
+  :bind (([f12] . eglot)
+         :map eglot-mode-map
+         ("C-c l a" . eglot-code-actions)
+         ("C-c l r" . eglot-rename)
+         ("C-c l f" . eglot-format)
+         ("C-c l d" . eldoc))
   :custom
   (read-process-output-max (* 1024 1024))
   (eglot-events-buffer-size 0)
@@ -556,7 +581,7 @@
   ;; prefix cutrent candidate with "» "
   (advice-add #'vertico--format-candidate :around
               (lambda (orig cand prefix suffix index _start)
-                (setq cand (funcall orig cand prefix suffix index _start))
+                (setf cand (funcall orig cand prefix suffix index _start))
                 (concat
                  (if (= vertico--index index)
                      (propertize "» " 'face 'vertico-current)
@@ -577,7 +602,7 @@
         (propertize file 'face 'marginalia-file-priv-dir)
       file))
 
-  (setq vertico-multiform-commands
+  (setf vertico-multiform-commands
         '(("find-file" flat
            (vertico-sort-function . sort-directories-first)
            (+vertico-transform-functions . +vertico-highlight-directory))))
@@ -801,24 +826,37 @@
 
 (use-package embark
   :after (embark-defun)
-  :bind
-  (("C-," . embark-act)         ;; pick some comfortable binding
-   ("C-." . $embark-act-noquit)
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :bind (("C-," . embark-act)         ;; pick some comfortable binding
+         ("C-." . $embark-act-noquit)
+         ("C-;" . embark-dwim)        ;; good alternative: M-.
+         ("C-h B" . embark-bindings)
+         :map embark-identifier-map
+         ("y" . symbol-overlay-put))
   :init
-  (setq prefix-help-command #'embark-prefix-help-command)
+  (setf prefix-help-command #'embark-prefix-help-command)
+  :custom
+  (embark-indicators '($embark-which-key-indicator
+                       embark-highlight-indicator
+                       embark-isearch-highlight-indicator))
+  (embark-action-indicator (lambda (map)
+                             (which-key--show-keymap "Embark" map nil nil 'no-paging)
+                             #'which-key--hide-popup-ignore-command)
+                           embark-become-indicator embark-action-indicator)
   :config
-  (setq embark-action-indicator
-        (lambda (map)
-          (which-key--show-keymap "Embark" map nil nil 'no-paging)
-          #'which-key--hide-popup-ignore-command)
-        embark-become-indicator embark-action-indicator)
+  (advice-add #'embark-completing-read-prompter
+              :around #'$embark-hide-which-key-indicator)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
+
+(use-package symbol-overlay
+  :bind
+  ("M-n" . symbol-overlay-switch-forward)
+  ("M-p" . symbol-overlay-switch-backward)
+  ([f7] . symbol-overlay-put)
+  ([control f8] . symbol-overlay-remove-all))
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -841,7 +879,9 @@
   :custom
   (vterm-max-scrollback 100000)
   :hook
-  (vterm-mode-hook . $vterm-mode-hook))
+  (vterm-mode-hook . $vterm-mode-hook)
+  :bind (:map vterm-mode-map
+              ("C-q" . vterm-send-next-key)))
 
 (use-package multi-vterm
   :after vterm
@@ -972,10 +1012,17 @@ no matter what."
   (global-flycheck-mode))
 
 ;;; slime
-;;; TODO check out sly
 (use-package sly
-  :custom
-  (inferior-lisp-program "/usr/bin/sbcl"))
+  :init
+  (with-eval-after-load 'sly
+    (let ((map sly-editing-mode-map))
+      (define-key map [remap display-local-help] #'sly-describe-symbol)
+      (define-key map [remap embark-pp-eval-defun] #'sly-compile-defun)
+      (define-key map [remap pp-macroexpand-expression] #'sly-expand-1)
+      (define-key map [remap pp-eval-expression] #'sly-interactive-eval)
+      (define-key map [remap xref-find-definitions] #'sly-edit-definition))
+    :custom
+    (inferior-lisp-program "/usr/bin/sbcl"))
 
 (use-package slime
   :disabled
