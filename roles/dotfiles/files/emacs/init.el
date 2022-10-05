@@ -846,7 +846,7 @@
 
 (use-package vterm
   :config
-  (defun $verm-mode-hook ()
+  (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
     (evil-insert-state))
   :custom
@@ -859,7 +859,9 @@
   :init
   (global-set-key [f2] 'vterm-toggle)
   (global-set-key [C-f2] 'vterm-toggle-cd)
-  (define-key vterm-mode-map [(control return)] #'vterm-toggle-insert-cd))
+  (define-key vterm-mode-map [(control return)] #'vterm-toggle-insert-cd)
+  :bind (:map vterm-mode-map
+              ("f2" . vterm-toggle)))
 ;;; ansi-term
 (use-package term
   :config
@@ -976,11 +978,12 @@ no matter what."
 ;;; slime
 ;;; TODO check out sly
 (use-package sly
-  :disabled)
-(use-package slime
-  :commands (slime)
   :custom
-  (inferior-lisp-program "/usr/bin/sbcl")
+  (inferior-lisp-program "/usr/bin/sbcl"))
+
+(use-package slime
+  :disabled
+  :commands (slime)
   :config
   (defun $slime-keybindings ()
     "keybindings for use in slime"
