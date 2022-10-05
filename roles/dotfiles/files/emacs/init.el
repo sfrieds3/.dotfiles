@@ -410,7 +410,6 @@
   :straight nil)
 
 (use-package treemacs
-  :ensure t
   :defer t
   :init
   (with-eval-after-load 'winum
@@ -498,27 +497,23 @@
         ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
+  :after (treemacs evil))
 
 (use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
+  :after (treemacs projectile))
 
 (use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
+  :hook (dired-mode . treemacs-icons-dired-enable-once))
 
 (use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
+  :after (treemacs magit))
 
 (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
   :after (treemacs)
-  :ensure t
   :config (treemacs-set-scope-type 'Tabs))
 
 ;;; projectile
+(use-package rg)
 (use-package projectile
   :commands (projectile-mode)
   :init
@@ -801,29 +796,25 @@
   :bind (:map flycheck-command-map
               ("!" . consult-flycheck)))
 
+(use-package embark-defun
+  :straight (:type built-in))
+
 (use-package embark
   :after (embark-defun)
-
   :bind
   (("C-," . embark-act)         ;; pick some comfortable binding
    ("C-." . $embark-act-noquit)
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
-
-  ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
-
   :config
-
   (add-hook 'embark-target-finders #'$current-candidate+category)
   (setq embark-action-indicator
         (lambda (map)
           (which-key--show-keymap "Embark" map nil nil 'no-paging)
           #'which-key--hide-popup-ignore-command)
         embark-become-indicator embark-action-indicator)
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -832,7 +823,6 @@
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :ensure t
   :after (embark consult)
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
@@ -854,7 +844,12 @@
   :hook
   (vterm-mode-hook . $vterm-mode-hook))
 
-(use-package multi-vterm)
+(use-package multi-vterm
+  :commands (multi-vterm
+             multi-vterm-project
+             multi-vterm-dedicated-open
+             multi-vterm-dedicated-select
+             mult-vterm-dedicated-toggle))
 (use-package vterm-toggle
   :init
   (global-set-key [f2] 'vterm-toggle)
