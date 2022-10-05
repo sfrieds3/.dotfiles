@@ -1,4 +1,4 @@
-;;;; scwfri-config --- summary
+;;;; scwfri-config --- other config stuff -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     scwfri-settings
