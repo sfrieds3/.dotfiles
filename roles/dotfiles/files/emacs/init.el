@@ -628,7 +628,8 @@
                                  $orderless-without-literal))
   (completion-category-defaults nil)
   (completion-category-overrides
-   '((file (styles . (basic partial-completion orderless)))
+   '((eglot (styles . (orderless)))
+     (file (styles . (basic partial-completion orderless)))
      (project-file (styles . (basic substring partial-completion orderless)))
      (imenu (styles . (basic substring orderless)))
      (kill-ring (styles . (basic substring orderless)))
