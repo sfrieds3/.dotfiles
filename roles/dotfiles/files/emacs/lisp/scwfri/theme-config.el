@@ -1,4 +1,4 @@
-;;;; theme-config --- configure theme-related items
+;;;; theme-config --- configure theme-related items -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     theme configurations
