@@ -826,9 +826,9 @@
 
 (use-package embark
   :after (embark-defun)
-  :bind (("C-," . embark-act)         ;; pick some comfortable binding
-         ("C-." . $embark-act-noquit)
-         ("C-;" . embark-dwim)        ;; good alternative: M-.
+  :bind (("C-." . embark-act)
+         ("C-," . $embark-act-noquit)
+         ("M-." . embark-dwim)
          ("C-h B" . embark-bindings)
          :map embark-identifier-map
          ("y" . symbol-overlay-put))
