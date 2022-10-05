@@ -809,7 +809,6 @@
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :config
-  (add-hook 'embark-target-finders #'$current-candidate+category)
   (setq embark-action-indicator
         (lambda (map)
           (which-key--show-keymap "Embark" map nil nil 'no-paging)
@@ -845,18 +844,20 @@
   (vterm-mode-hook . $vterm-mode-hook))
 
 (use-package multi-vterm
+  :after vterm
   :commands (multi-vterm
              multi-vterm-project
              multi-vterm-dedicated-open
              multi-vterm-dedicated-select
              mult-vterm-dedicated-toggle))
 (use-package vterm-toggle
-  :init
-  (global-set-key [f2] 'vterm-toggle)
-  (global-set-key [control f2] 'vterm-toggle-cd)
-  (define-key vterm-mode-map [(control return)] #'vterm-toggle-insert-cd)
-  :bind (:map vterm-mode-map
-              ([f2] . vterm-toggle)))
+  :after vterm
+  :bind (([f2] . vterm-toggle)
+         ([C-f2] . vterm-toggle-cd)
+         :map vterm-mode-map
+         ([f2] . vterm-toggle)
+         ([(control return)] . vterm-toggle-insert-cd)))
+
 ;;; ansi-term
 (use-package term
   :config

@@ -18,31 +18,5 @@
   (let ((embark-quit-after-action nil))
     (embark-act)))
 
-(defun $current-candidate+category ()
-  "TODO: add docstring."
-  (when (defvar selectrum-active-p)
-    (cons (selectrum--get-meta 'category)
-          (selectrum-get-current-candidate))))
-
-;;;###autoload
-(defun $current-candidates+category ()
-  "TODO: add docstring."
-  (when (defvar selectrum-active-p)
-    (cons (selectrum--get-meta 'category)
-          (selectrum-get-current-candidates
-           ;; Pass relative file names for dired.
-           minibuffer-completing-file-name))))
-
-;;;###autoload
-(defun $embark-shrink-selectrum ()
-  "Shrink selectrum to one line when embark-collect-live enabled."
-  (when (eq (defvar embark-collect--kind) :live)
-    (with-selected-window (active-minibuffer-window)
-      (setq-local selectrum-num-candidates-displayed 1)
-      (setq-local selectrum-display-style
-                  '(horizontal :before-candidates "["
-                               :after-candidates "]"
-                               :more-candidates ""
-                               :candidates-separator "")))))
 (provide 'embark-defun)
-;;; embark-defun ends here
+;;; embark-defun.el ends here
