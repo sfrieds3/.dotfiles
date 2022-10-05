@@ -1,4 +1,4 @@
-;;; init.el --- scwfri init.el
+;;; init.el --- scwfri init.el -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;     place 'local-settings.el' file (provide 'local-settings)
 ;;     in .emacs.d directory to overwrite settings (loaded at end)
@@ -152,6 +152,7 @@
   (custom-safe-themes t)
   (fringe-mode 0))
 
+(use-package ef-themes)
 (use-package doom-modeline
   :hook (after-init-hook . doom-modeline-mode))
 (use-package all-the-icons)
