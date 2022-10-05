@@ -858,10 +858,10 @@
 (use-package vterm-toggle
   :init
   (global-set-key [f2] 'vterm-toggle)
-  (global-set-key [C-f2] 'vterm-toggle-cd)
+  (global-set-key [control f2] 'vterm-toggle-cd)
   (define-key vterm-mode-map [(control return)] #'vterm-toggle-insert-cd)
   :bind (:map vterm-mode-map
-              ("f2" . vterm-toggle)))
+              ([f2] . vterm-toggle)))
 ;;; ansi-term
 (use-package term
   :config
