@@ -637,6 +637,7 @@
   :after (orderless-defun)
   :custom
   (completion-styles '(orderless basic))
+  (orderless-component-separator #'orderless-escapable-split-on-space) ;; allow escaping space with backslash
   (orderless-matching-styles '(orderless-prefixes
                                orderless-flex
                                orderless-regexp))
