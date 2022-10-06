@@ -5,6 +5,14 @@
 ;;; Code:
 
 ;;;###autoload
+(defun $embark-on-last-message (arg)
+    "Act on the last message displayed in the echo area."
+    (interactive "P")
+    (with-current-buffer "*Messages*"
+      (goto-char (1- (point-max)))
+      (embark-act arg)))
+
+;;;###autoload
 (defun $embark-collect-live-shrink-to-fit (&rest _)
   "Fit live updating collect bufferst to fit contents."
   (when (memq (defvar embark-collect--kind) '(:live :completions))
