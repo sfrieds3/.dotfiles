@@ -528,8 +528,11 @@
   :after (treemacs)
   :config (treemacs-set-scope-type 'Tabs))
 
-;;; projectile
-(use-package rg)
+(use-package rg
+  :init
+  (rg-enable-default-bindings)
+  (rg-enable-menu))
+
 (use-package projectile
   :commands (projectile-mode)
   :init
