@@ -164,6 +164,9 @@
   (doom-themes-treemacs-theme "doom-atom")
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
+  (doom-modeline-indent-info t)
+  (size-indication-mode t)
+  (column-number-mode t)
   :config
   (load-theme 'doom-material t)
 
