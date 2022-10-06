@@ -211,6 +211,8 @@
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
+    "Ag" 'affe-grep
+    "Af" 'affe-find
     "D" 'magit-diff-dwim
     "F" 'eglot-format
     "G" 'magit
@@ -220,8 +222,6 @@
   (general-create-definer $leader :prefix "SPC")
   ($leader
     :keymaps 'normal
-    "Ag" 'affe-feel
-    "Af" 'affe-find
     "b" 'consult-buffer
     "d" 'consult-flycheck
     "f" 'projectile-find-file
@@ -280,7 +280,7 @@
           ("Glog" . magit-log)
           ("Gstatus" . magit-status)))
   :custom
-  (evil-undo-system undo-fu)
+  (evil-undo-system 'undo-fu)
   (evil-want-integration t)
   (evil-want-C-u-scroll t)
   (evil-want-C-i-jump t)
@@ -646,12 +646,13 @@
   (orderless-matching-styles '(orderless-prefixes
                                orderless-flex
                                orderless-regexp))
-  (orderless-style-dispatchers '($orderless-literal
-                                 $orderless-strict-leading-initialism
-                                 $orderless-initialism
-                                 $orderless-regexp
-                                 $orderless-flex
-                                 $orderless-without-literal))
+  (orderless-style-dispatchers '($dispatch:literal
+                                 $dispatch:initialism
+                                 $dispatch:regexp
+                                 $dispatch:flex
+                                 $dispatch:without-literal
+                                 $dispatch:flex
+                                 $dispatch:prefixes))
   (completion-category-defaults nil)
   (completion-category-overrides
    '((eglot (styles . (orderless)))
@@ -661,8 +662,7 @@
      (kill-ring (styles . (basic substring orderless)))
      (consult-location (styles . (basic substring orderless)))))
   :config
-  (define-key minibuffer-local-map (kbd "C-l")
-    #'$match-components-literally))
+  (define-key minibuffer-local-map (kbd "C-l") #'$match-components-literally))
 
 (use-package corfu
   :custom
@@ -1039,7 +1039,7 @@ no matter what."
       (define-key map [remap pp-eval-expression] #'sly-interactive-eval)
       (define-key map [remap xref-find-definitions] #'sly-edit-definition))
     :custom
-    (inferior-lisp-program "/usr/bin/sbcl"))
+    (defvar inferior-lisp-program "/usr/bin/sbcl")))
 
 (use-package slime
   :disabled
