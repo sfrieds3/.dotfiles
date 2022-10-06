@@ -269,7 +269,11 @@
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :bind (:map evil-normal-state-map
-              ("C-l" . evil-ex-nohighlight)))
+              ("C-l" . evil-ex-nohighlight)
+              ("j" . evil-next-visual-line)
+              ("k" . evil-previous-visual-line)
+              ("gj" . evil-next-line)
+              ("gk" . evil-previous-line)))
 
 (use-package evil-collection
   :after evil

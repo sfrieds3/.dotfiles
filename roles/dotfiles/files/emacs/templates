@@ -22,6 +22,14 @@
 ;;;    (FORM ...) Other Lisp forms are evaluated. Named fields are lexically bound.
 ;;;    q Quits the containing template when jumped to.
 
+python-mode
+
+(class "def " (s classname) "():" n> "\"\"\"" (s docstring) n> "\"\"\"" n n> "def __init__(self, " (s args) "):" n> r> n n)
+(def "def " (s func) "(" (s args) "):" n> "\"\"\"" (s docstring) n> "\"\"\"" n> r> n)
+(pp "import pprint" n "pp = pprint.PrettyPrinter(indent=4)")
+(pprint "pp.pprint(" p ")")
+(logger "logger = logging.getLogger(__name__)" n "_log_handler = logging.StreamHandler(stream=sys.stdout)" n "_log_formatter = logging.Formatter(fmt='%(asctime)s - %(funcName)s - %(levelname)s - %(message)s')" n "_log_handler.setFormatter(_log_formatter)" n "logger.addHandler(_log_handler)" n)
+(pdoc "with pd.option_context('display.max_rows', None, 'display.max_columns', None):" n> "print(${df_name})")
 
 fundamental-mode ;; Available everywhere
 
