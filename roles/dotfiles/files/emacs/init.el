@@ -832,11 +832,16 @@
   :after (consult yasnippet))
 (use-package consult-projectile
   :after (projectile consult))
-;;; consult-flycheck
 (use-package consult-flycheck
   :after (consult flycheck)
   :bind (:map flycheck-command-map
               ("!" . consult-flycheck)))
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map minibuffer-local-completion-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
 
 (use-package affe
   :config
@@ -878,6 +883,10 @@
                  nil
                  (window-parameters (mode-line-format . none)))))
 
+(use-package embark-this-buffer
+  :straight nil
+  :after embark)
+
 (use-package symbol-overlay
   :bind
   ("M-n" . symbol-overlay-switch-forward)
@@ -888,7 +897,7 @@
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :after (embark consult)
-  :demand t ; only necessary if you have the hook below
+  :demand t
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
   :hook
