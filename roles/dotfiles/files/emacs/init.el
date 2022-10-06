@@ -98,7 +98,7 @@
 
 ;;; filename in titlebar
 (setf frame-title-format
-      (concat user-login-name "@" system-name ":%f [%m]"))
+      (concat user-login-name "@" system-name ":%f"))
 
 ;;; scwfri-defun
 (use-package scwfri-defun
@@ -210,18 +210,18 @@
     "t" 'consult-eglot-symbols)
   (general-create-definer $next :prefix "]")
   ($next
-   :keymaps 'normal
-   "b" 'next-buffer
-   "c" 'magit-blob-next
-   "d" 'flycheck-next-error
-   "t" 'tab-next)
+    :keymaps 'normal
+    "b" 'next-buffer
+    "c" 'magit-blob-next
+    "d" 'flycheck-next-error
+    "t" 'tab-next)
   (general-create-definer $previou :prefix "[")
   ($next
-   :keymaps 'normal
-   "b" 'previous-buffer
-   "c" 'magit-blob-previous
-   "d" 'flycheck-previous-error
-   "t" 'tab-previous))
+    :keymaps 'normal
+    "b" 'previous-buffer
+    "c" 'magit-blob-previous
+    "d" 'flycheck-previous-error
+    "t" 'tab-previous))
 
 ;;; evil
 (use-package evil
@@ -562,7 +562,7 @@
   (defun $crm-indicator (args)
     "Add indicator when in CRM prompt and reading ARGS."
     (cons (concat "[CRM] " (car args) crm-separator) (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'$crm-indicator) 
+  (advice-add #'completing-read-multiple :filter-args #'$crm-indicator)
 
   ;;; Do not allow the cursor in the minibuffer prompt
   (setf minibuffer-prompt-properties
@@ -839,8 +839,7 @@
     (setq input (orderless-pattern-compiler input))
     (cons input (lambda (str) (orderless--highlight input str))))
   :custom
-  (affe-regexp-compiler #'affe-orderless-regexp-compiler)
-)
+  (affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
 (use-package embark-defun
   :straight (:type built-in))
