@@ -33,6 +33,9 @@
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
+(use-package bind-key
+  :bind ("C-h y" . describe-personal-keybindings))
+
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
 
