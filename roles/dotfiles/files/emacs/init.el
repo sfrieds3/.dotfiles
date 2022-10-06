@@ -217,9 +217,11 @@
   (general-create-definer $leader :prefix "SPC")
   ($leader
     :keymaps 'normal
-    "f" 'projectile-find-file
+    "Ag" 'affe-feel
+    "Af" 'affe-find
     "b" 'consult-buffer
     "d" 'consult-flycheck
+    "f" 'projectile-find-file
     "g" 'consult-ripgrep
     "l" 'consult-line
     "r" 'consult-recent-file
@@ -821,6 +823,17 @@
   :after (consult flycheck)
   :bind (:map flycheck-command-map
               ("!" . consult-flycheck)))
+
+(use-package affe
+  :config
+  ;; Manual preview key for `affe-grep'
+  (consult-customize affe-grep :preview-key (kbd "M-."))
+  (defun affe-orderless-regexp-compiler (input _type _ignorecase)
+    (setq input (orderless-pattern-compiler input))
+    (cons input (lambda (str) (orderless--highlight input str))))
+  :custom
+  (affe-regexp-compiler #'affe-orderless-regexp-compiler)
+)
 
 (use-package embark-defun
   :straight (:type built-in))
