@@ -29,7 +29,7 @@
   (defun $straight-update-all ()
     (interactive)
     (straight-pull-all)
-    (striaght-check-all)
+    (straight-check-all)
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
