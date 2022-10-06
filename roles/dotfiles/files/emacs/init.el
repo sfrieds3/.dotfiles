@@ -50,7 +50,6 @@
   ;; do not add -hook suffix automatically in use-package :hook
   (setf use-package-hook-name-suffix nil))
 
-
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
   (when (file-exists-p home-settings)
@@ -82,9 +81,6 @@
 ;;; ask about adding a final newline
 (setf require-final-newline 'ask)
 
-;;; allow recursive minibuffers
-(setf enable-recursive-minibuffers t)
-
 ;;; allow disabled emacs commands (mainly for narrowing)
 (setf disabled-command-function nil)
 
@@ -103,23 +99,6 @@
 ;;; filename in titlebar
 (setf frame-title-format
       (concat user-login-name "@" system-name ":%f [%m]"))
-
-;;; set completing-read-multiple separator to ','
-(setf crm-separator ",")
-
-;;; Add prompt indicator to `completing-read-multiple'.
-(defun $crm-indicator (args)
-  "Add indicator when in CRM prompt and reading ARGS."
-  (cons (concat "[CRM] " (car args) crm-separator) (cdr args)))
-(advice-add #'completing-read-multiple :filter-args #'$crm-indicator)
-
-;;; Grow and shrink minibuffer
-(setf resize-mini-windows t)
-
-;;; Do not allow the cursor in the minibuffer prompt
-(setf minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 ;;; scwfri-defun
 (use-package scwfri-defun
@@ -575,6 +554,31 @@
               ("C-M-a" . marginalia-cycle))
   :init
   (marginalia-mode))
+
+(use-package minibuffer
+  :straight (:type built-in)
+  :config
+  ;;; Add prompt indicator to `completing-read-multiple'.
+  (defun $crm-indicator (args)
+    "Add indicator when in CRM prompt and reading ARGS."
+    (cons (concat "[CRM] " (car args) crm-separator) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'$crm-indicator) 
+
+  ;;; Do not allow the cursor in the minibuffer prompt
+  (setf minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  :init
+  (minibuffer-depth-indicate-mode)
+  (minibuffer-electric-default-mode)
+  :custom
+  (crm-separator ",")
+  (resize-mini-windows t)
+  (enable-recursive-minibuffers t)
+  (read-file-name-completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
+  (completion-ignore-case t))
 
 (use-package vertico
   :custom
