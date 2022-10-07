@@ -1069,9 +1069,9 @@ no matter what."
       (define-key map [remap embark-pp-eval-defun] #'sly-compile-defun)
       (define-key map [remap pp-macroexpand-expression] #'sly-expand-1)
       (define-key map [remap pp-eval-expression] #'sly-interactive-eval)
-      (define-key map [remap xref-find-definitions] #'sly-edit-definition))
-    :custom
-    (defvar inferior-lisp-program "/usr/bin/sbcl")))
+      (define-key map [remap xref-find-definitions] #'sly-edit-definition)))
+  :custom
+  (inferior-lisp-program "/usr/bin/sbcl"))
 
 (use-package slime
   :disabled
