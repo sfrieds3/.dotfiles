@@ -118,13 +118,16 @@
                             rectangle-mark-mode))
   (mapc (lambda (command) ($remap-mark-command command))
         $remap-commands)
+  (defun $activate-mark ()
+    (interactive)
+    (activate-mark))
   (with-eval-after-load 'org
     ($remap-mark-command 'org-mark-element org-mode-map)
     ($remap-mark-command 'org-mark-subtree org-mode-map))
-  :bind (("M-i" . (lambda () (interactive) (activate-mark)))
-         ("M-S-i" . tab-to-tab-stop)
+  :bind (([(meta i)] . $activate-mark)
+         ([(meta shift i)] . tab-to-tab-stop)
          :map isearch-mode-map
-         ("C-q" . $isearch-highlight-phrase)))
+         ([(control q)] . $isearch-highlight-phrase))
 
 ;;; theme config
 (use-package theme-config
@@ -278,7 +281,7 @@
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :bind (:map evil-normal-state-map
-              ("C-l" . evil-ex-nohighlight)
+              ([(control l)] . evil-ex-nohighlight)
               ("j" . evil-next-visual-line)
               ("k" . evil-previous-visual-line)
               ("gj" . evil-next-line)
@@ -690,9 +693,9 @@
 
 (use-package corfu
   :custom
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-separator ?\s)          ;; Orderless field separator
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-quit-at-boundary 'separator)
   :config
   (defun corfu-move-to-minibuffer ()
     (interactive)
@@ -700,7 +703,10 @@
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
   :bind (:map corfu-map
-              ("\M-m" . corfu-move-to-minibuffer))
+              ([(meta m)] . corfu-move-to-minibuffer)
+              ([(meta space)] . corfu-insert-separator)
+              ([(shift return)] . corfu-insert)
+              ([return] . nil))
   :init
   (global-corfu-mode))
 
