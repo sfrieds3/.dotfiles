@@ -1,5 +1,9 @@
 ;;; embark-this-buffer.el --- Embark whole buffer target & actions   -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Embark commands for current buffer
 ;;; source: https://github.com/oantolin/emacs-config/blob/12a5ca1c379625aa2409af9be21a7ccf70eabc28/my-lisp/embark-this-buffer.el
+
+;;; Code:
 
 (require 'embark)
 

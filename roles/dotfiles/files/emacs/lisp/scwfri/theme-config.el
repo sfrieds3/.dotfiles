@@ -1,4 +1,4 @@
-;;;; theme-config --- configure theme-related items -*- lexical-binding: t -*-
+;;; theme-config --- configure theme-related items -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     theme configurations
@@ -24,17 +24,11 @@
     "Iosevka Fixed SS14"
     "DejaVu Sans Mono"))
 
-;;; current font name.. set by $set-current-font
-(defvar $current-font nil)
-
 ;;;###autoload
 (defun $set-frame-font--update-current (font &optional keep-size frames)
   "TODO: docstring FONT KEEP-SIZE FRAMES."
   ;; TODO: strip trailing size to *really* set the font
   (setf $current-font font))
-
-;;; make sure we update the current font after set-frame-font called
-(advice-add 'set-frame-font :after #'$set-frame-font--update-current)
 
 ;;;###autoload
 (defun $set-current-font (font &optional size)

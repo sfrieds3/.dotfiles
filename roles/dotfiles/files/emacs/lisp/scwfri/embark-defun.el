@@ -1,4 +1,5 @@
-;;;; embark-defun --- defun used with embark -*- lexical-binding: t -*-
+;;; embark-defun
+;;; --- defun used with embark -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     defun used with embark

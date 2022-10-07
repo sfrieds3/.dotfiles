@@ -1,4 +1,4 @@
-;;;; scwfri-defun --- org mode personal functions -*- lexical-binding: t -*-
+;;; scwfri-defun --- org mode personal functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;;     personal functions for org mode
 ;;; Code:

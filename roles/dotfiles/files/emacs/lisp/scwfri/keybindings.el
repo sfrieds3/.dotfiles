@@ -1,4 +1,4 @@
-;;;; keybindings.el --- general keybindings -*- lexical-binding: t -*-
+;;; keybindings.el --- general keybindings -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     keybindings

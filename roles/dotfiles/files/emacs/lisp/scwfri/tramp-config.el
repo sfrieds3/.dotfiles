@@ -1,4 +1,4 @@
-;;;; tramp-config --- configure tramp -*- lexical-binding: t -*-
+;;; tramp-config --- configure tramp -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     configuration for tramp

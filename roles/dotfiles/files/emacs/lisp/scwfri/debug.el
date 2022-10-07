@@ -1,4 +1,4 @@
-;;;; debug --- some debug tools -*- lexical-binding: t -*-
+;;; debug --- some debug tools -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     debug.el

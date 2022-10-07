@@ -1,4 +1,4 @@
-;;;; scwfri-defun --- personal functions -*- lexical-binding: t -*-
+;;; scwfri-defun --- personal functions -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     personal functions

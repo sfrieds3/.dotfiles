@@ -137,6 +137,9 @@
   (custom-safe-themes t)
   (fringe-mode 0))
 
+(use-package toggle-commands
+  :straight nil)
+
 (use-package ef-themes)
 (use-package doom-modeline
   :hook (after-init-hook . doom-modeline-mode))
@@ -198,6 +201,8 @@
     "D" 'magit-diff-dwim
     "F" 'eglot-format
     "G" 'magit
+    "cf" '$cycle-font
+    "cc" '$cycle-colorscheme
     "e" 'eval-buffer
     "r" 'eglot-rename
     "x" 'eval-last-sexp)
