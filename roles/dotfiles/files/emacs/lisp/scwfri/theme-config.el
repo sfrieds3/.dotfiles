@@ -5,30 +5,16 @@
 
 ;;; Code:
 
-;;(advice-add 'load-theme :before #'$load-theme--disable-current-theme)
-
-;; define theme here
-(defun $set-preferred-theme ()
-  "Set theme here.. loaded after init."
-  (load-theme 'material t))
+;;; disable existing themes before loading new themes
+(defadvice load-theme
+  (before theme-dont-propagate activate)
+  (mapcar #'disable-theme custom-enabled-themes))
 
 ;;; default preferred font-sizes
 (defvar $default-font-size
   (cond ((string= (system-name) "mixolydian") "10")
         ((string= (system-name) "phrygian") "14")
         (t "12")))
-
-;;; list of preferred fonts
-(defvar $preferred-font
-  '("SauceCodePro Nerd Font Mono"
-    "Iosevka Fixed SS14"
-    "DejaVu Sans Mono"))
-
-;;;###autoload
-(defun $set-frame-font--update-current (font &optional keep-size frames)
-  "TODO: docstring FONT KEEP-SIZE FRAMES."
-  ;; TODO: strip trailing size to *really* set the font
-  (setf $current-font font))
 
 ;;;###autoload
 (defun $set-current-font (font &optional size)

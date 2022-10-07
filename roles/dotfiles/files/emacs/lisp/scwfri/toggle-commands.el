@@ -12,29 +12,31 @@
 
 ;;; idea: http://xahlee.info/emacs/emacs/elisp_toggle_command.html
 ;;;###autoload
-(defun $cycle-colorscheme (@e)
-  "Cycle colorschemes through preset list.  @E is prefix argument, default 1."
+(defun $cycle-colorscheme (arg)
+  "Cycle colorschemes through preset list.  ARG is prefix argument, default 1."
   (interactive "p")
   (let*
-      ((colorschemes ["doom-nord" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
+      ((colorschemes ["doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
        (idx (if (get '$cycle-colorscheme 'state)
                 (get '$cycle-colorscheme 'state)
               0))
-       (next-idx (% (+ idx @e (length colorschemes)) (length colorschemes)))
+       (next-idx (% (+ idx arg (length colorschemes)) (length colorschemes)))
+       (current-colorscheme (aref colorschemes idx))
        (new-colorscheme (aref colorschemes next-idx)))
     (put '$cycle-colorscheme 'state next-idx)
+    ;;(disable-theme (car (read-from-string current-colorscheme))) ; we advised load-theme to disable other themes first
     (load-theme (car (read-from-string new-colorscheme)) t)
     (message "Loaded colorscheme: %s" new-colorscheme)))
 
-;;;###autoload
-(defun $cycle-font (@e)
-  "Cycle through fonts.  @E is prefix arg, default 1."
+;;;###Autoload
+(defun $cycle-font (arg)
+  "Cycle through fonts.  ARG is prefix arg, default 1."
   (interactive "p")
   (let* ((fonts ["SauceCodePro Nerd Font Mono" "Hack Nerd Font Mono" "FiraMono Nerd Font" "JetBrainsMono Nerd Font" "mplus Nerd Font"])
          (idx (if (get '$cycle-font 'state)
                   (get '$cycle-font 'state)
                 0))
-         (next-idx (% (+ idx @e (length fonts)) (length fonts)))
+         (next-idx (% (+ idx arg (length fonts)) (length fonts)))
          (next-font (aref fonts next-idx)))
     (put '$cycle-font 'state next-idx)
     ($set-current-font next-font)

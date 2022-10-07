@@ -132,13 +132,9 @@
   :demand
   :config
   ($set-path)
-  ($set-preferred-font)
   :custom
   (custom-safe-themes t)
   (fringe-mode 0))
-
-(use-package toggle-commands
-  :straight nil)
 
 (use-package ef-themes)
 (use-package doom-modeline
@@ -153,12 +149,17 @@
   (size-indication-mode t)
   (column-number-mode t)
   :config
-  (load-theme 'doom-material t)
-
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
+
+(use-package toggle-commands
+  :straight nil
+  :after (theme-config ef-themes doom-themes)
+  :config
+  ($cycle-font 0)
+  ($cycle-colorscheme 0))
 
 (use-package scwfri-config
   :straight nil)
@@ -368,9 +369,11 @@
 (use-package rust-mode
   :config
   (rust-format-on-save t)
+  (defun $rust-mode-hook ()
+    (setf indent-tabs-mode nil))
   :hook
   (rust-mode-hook . prettify-symbols-mode)
-  (rust-mode-hook . (lambda () (setf indent-tabs-mode nil))))
+  (rust-mode-hook . $rust-mode-hook))
 
 ;; zig
 (use-package zig-mode)
@@ -421,10 +424,12 @@
 
 (use-package evil-org-mode
   :after org
-  :hook (org-mode . (lambda () evil-org-mode))
   :config
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (evil-org-agenda-set-keys)
+  (defun $org-mode-hook ()
+    (evil-org-mode))
+  :hook (org-mode-hook . $org-mode-hook))
 
 ;;; org-table
 (use-package org-table
@@ -1078,12 +1083,14 @@ no matter what."
     (local-set-key (kbd "C-c b") 'slime-eval-buffer))
   (add-hook 'slime-mode-hook #'$slime-keybindings)
   (add-hook 'slime-repl-mode-hook #'$slime-keybindings)
+  (defun $slime-mode-hook ()
+    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    (add-to-list 'slime-contribs 'slime-fancy)
+    (add-to-list 'slime-contribs 'inferior-slime))
+
   (setf slime-contribs '(slime-fancy))
   :hook
-  (slime-mode-hook . (lambda ()
-                       (load (expand-file-name "~/quicklisp/slime-helper.el"))
-                       (add-to-list 'slime-contribs 'slime-fancy)
-                       (add-to-list 'slime-contribs 'inferior-slime))))
+  (slime-mode-hook . $slime-mode-hook))
 
 ;;; eldoc mode
 (use-package eldoc-mode
