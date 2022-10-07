@@ -127,7 +127,7 @@
   :bind (([(meta i)] . $activate-mark)
          ([(meta shift i)] . tab-to-tab-stop)
          :map isearch-mode-map
-         ([(control q)] . $isearch-highlight-phrase))
+         ([(control q)] . $isearch-highlight-phrase)))
 
 ;;; theme config
 (use-package theme-config
@@ -213,10 +213,12 @@
   (general-create-definer $leader :prefix "SPC")
   ($leader
     :keymaps 'normal
+    "RET" 'execute-extended-command
     "b" 'consult-buffer
     "d" 'consult-flycheck
     "f" 'projectile-find-file
     "g" 'consult-ripgrep
+    "G" 'rg
     "l" 'consult-line
     "r" 'consult-recent-file
     "t" 'consult-eglot-symbols)
