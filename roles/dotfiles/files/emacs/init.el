@@ -938,7 +938,7 @@
   :hook
   (vterm-mode-hook . $vterm-mode-hook)
   :bind (:map vterm-mode-map
-              ("C-q" . vterm-send-next-key)))
+              ([(control q)] . vterm-send-next-key)))
 
 (use-package multi-vterm
   :after vterm
@@ -950,7 +950,7 @@
 (use-package vterm-toggle
   :after vterm
   :bind (([f2] . vterm-toggle)
-         ([C-f2] . vterm-toggle-cd)
+         ([control f2] . vterm-toggle-cd)
          :map vterm-mode-map
          ([f2] . vterm-toggle)
          ([(control return)] . vterm-toggle-insert-cd)))
