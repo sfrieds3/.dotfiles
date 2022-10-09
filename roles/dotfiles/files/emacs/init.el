@@ -553,7 +553,7 @@
   :init
   (projectile-mode)
   :custom
-  (projectile-project-search-path '("~/.dotfiles/" ("~/dev" . 2)))
+  (projectile-project-search-path '("~/.dotfiles/" ("~/dev" . 2) (expand-file-name "straight/repos" user-emacs-directory))))
   :config
   (setf projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
   :bind (("C-c f" . projectile-find-file)
