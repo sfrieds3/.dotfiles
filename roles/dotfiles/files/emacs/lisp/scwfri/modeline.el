@@ -18,7 +18,7 @@
 (setq-default mode-line-format
               '((:eval ($simple-mode-line-render
                         ;; Left.
-                        (quote ("%e "
+                        (quote ("%e"
                                 evil-mode-line-format
                                 evil-mode-line-tag
                                 mode-line-mule-info

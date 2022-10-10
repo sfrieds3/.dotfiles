@@ -883,12 +883,13 @@
 
 (use-package embark
   :after (embark-defun)
-  :bind (("C-." . #'embark-act)
-         ("C-," . #'$embark-act-noquit)
-         ("M-." . #'embark-dwim)
-         ("C-h B" . #'embark-bindings)
-         :map embark-identifier-map
-         ("y" . #'symbol-overlay-put))
+  :bind (("C-," . #'embark-act)
+         ("M-," . #'$embark-act-noquit)
+         ("C-M-," . #'embark-dwim)
+         :map embark-general-map
+         ([(control y)] . #'symbol-overlay-put)
+         ([(control g)] . #'projectile-ripgrep)
+         ([(control G)] . #'rg))
   :init
   (setf prefix-help-command #'embark-prefix-help-command)
   :custom
@@ -931,6 +932,7 @@
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
     (evil-insert-state))
+  (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :custom
   (vterm-max-scrollback 100000)
   :hook
@@ -940,8 +942,6 @@
 
 (use-package multi-vterm
   :after vterm
-  :config
-  (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :commands (multi-vterm
              multi-vterm-project
              multi-vterm-dedicated-open
@@ -1404,7 +1404,7 @@ questions.  Else use completion to select the tab to switch to."
   ("M-n" . #'symbol-overlay-switch-forward)
   ("M-p" . #'symbol-overlay-switch-backward)
   ([f7] . #'symbol-overlay-put)
-  ([control f8] . #'symbol-overlay-remove-all))
+  ([(control shift f7)] . #'symbol-overlay-remove-all))
 
 ;;; hi-lock
 (use-package hi-lock
