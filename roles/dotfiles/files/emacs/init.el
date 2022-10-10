@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
-(setf straight-check-for-modifications '(check-on-save find-when-checking))
+(defvar straight-check-for-modifications '(check-on-save find-when-checking))
 
 ;;; bootstrap straight.el
 (defvar bootstrap-version)
@@ -34,7 +34,7 @@
   :custom (straight-use-package-by-default t))
 
 (use-package bind-key
-  :bind ("C-h y" . describe-personal-keybindings))
+  :bind ("C-h y" . #'describe-personal-keybindings))
 
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
@@ -140,6 +140,9 @@
   (fringe-mode 0))
 
 (use-package ef-themes)
+(use-package zerodark
+  :straight (:host github :repo "NicolasPetton/zerodark-theme")
+  :no-require t)
 (use-package doom-modeline
   :hook (after-init-hook . doom-modeline-mode))
 (use-package all-the-icons)
@@ -253,25 +256,25 @@
           (fn (cdr cmd)))
       (evil-ex-define-cmd binding fn)))
   (mapc '$evil-ex-mode-map
-        '(("!" . #'shell-command)
-          ("W" . #'evil-write)
-          ("Wq" . #'evil-save-and-quit)
-          ("WQ" . #'evil-save-and-quit)
-          ("E" . #'evil-edit)
-          ("Q" . #'evil-quit)
-          ("QA" . #'evil-quit-all)
-          ("Qa" . #'evil-quit-all)
-          ("CQ" . #'evil-quit-all-with-error-code)
-          ("Cq" . #'evil-quit-all-with-error-code)
-          ("WA" . #'evil-write-all)
-          ("Wa" . #'evil-write-all)
-          ("Git" . #'magit)
-          ("Gdiff" . #'magit-diff)
-          ("Grep" . #'consult-ripgrep)
-          ("Occur" . #'occur)
-          ("Align" . #'align-regexp)
-          ("Glog" . #'magit-log)
-          ("Gstatus" . #'magit-status)))
+        '(("!" . shell-command)
+          ("W" . evil-write)
+          ("Wq" . evil-save-and-quit)
+          ("WQ" . evil-save-and-quit)
+          ("E" . evil-edit)
+          ("Q" . evil-quit)
+          ("QA" . evil-quit-all)
+          ("Qa" . evil-quit-all)
+          ("CQ" . evil-quit-all-with-error-code)
+          ("Cq" . evil-quit-all-with-error-code)
+          ("WA" . evil-write-all)
+          ("Wa" . evil-write-all)
+          ("Git" . magit)
+          ("Gdiff" . magit-diff)
+          ("Grep" . consult-ripgrep)
+          ("Occur" . occur)
+          ("Align" . align-regexp)
+          ("Glog" . magit-log)
+          ("Gstatus" . magit-status)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -284,6 +287,8 @@
   (scroll-margin 3) ; set scrolloff=3
   :bind (:map evil-normal-state-map
               ([(control l)] . #'evil-ex-nohighlight)
+              ([(control j)] . #'evil-next-visual-line)
+              ([(control k)] . #'evil-previous-visual-line)
               ("j" . #'evil-next-visual-line)
               ("k" . #'evil-previous-visual-line)
               ("gj" . #'evil-next-line)
@@ -347,10 +352,10 @@
     (print (process-command (jsonrpc--process (eglot-current-server)))))
   :bind (([f12] . eglot)
          :map eglot-mode-map
-         ("C-c l a" . eglot-code-actions)
-         ("C-c l r" . eglot-rename)
-         ("C-c l f" . eglot-format)
-         ("C-c l d" . eldoc))
+         ("C-c l a" . #'eglot-code-actions)
+         ("C-c l r" . #'eglot-rename)
+         ("C-c l f" . #'eglot-format)
+         ("C-c l d" . #'eldoc))
   :custom
   (read-process-output-max (* 1024 1024))
   (eglot-events-buffer-size 0)
@@ -367,31 +372,15 @@
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 (use-package tree-sitter-langs)
 
-;;; golang
-(use-package go-mode)
-
-;; rust
-(use-package rust-mode
-  :config
-  (rust-format-on-save t)
-  (defun $rust-mode-hook ()
-    (setf indent-tabs-mode nil))
-  :hook
-  (rust-mode-hook . prettify-symbols-mode)
-  (rust-mode-hook . $rust-mode-hook))
-
-;; zig
-(use-package zig-mode)
-
 ;;; avy
 (use-package avy
   :bind
   (:map evil-normal-state-map
-        ("s" . avy-goto-word-1)))
+        ("s" . #'avy-goto-word-1)))
 
 ;;; hideshow
 (use-package hideshow
-  :bind ("C-c h" . hs-toggle-hiding)
+  :bind ("C-c h" . #'hs-toggle-hiding)
   :commands hs-toggle-hiding
   :hook
   (prog-mode-hook . hs-minor-mode))
@@ -399,7 +388,7 @@
 ;;; org-defun
 (use-package org-defun
   :straight nil
-  :bind (("s-SPC" . $org-table--mark-field)))
+  :bind (("s-SPC" . #'$org-table--mark-field)))
 
 ;;; org-mode
 (use-package org
@@ -407,10 +396,10 @@
   :commands (org-mode
              org-capture)
   :defer t
-  :bind (("C-c N" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c I" . org-id-copy))
+  :bind (("C-c N" . #'org-store-link)
+         ("C-c a" . #'org-agenda)
+         ("C-c c" . #'org-capture)
+         ("C-c I" . #'org-id-copy))
   :config
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
   :custom
@@ -434,10 +423,11 @@
   (evil-org-agenda-set-keys)
   (defun $org-mode-hook ()
     (evil-org-mode))
-  :hook (org-mode-hook . $org-mode-hook))
+  :hook (org-mode-hook . #'$org-mode-hook))
 
 ;;; org-table
 (use-package org-table
+  :after org
   :straight nil)
 
 (use-package treemacs
@@ -519,13 +509,13 @@
     (treemacs-hide-gitignored-files-mode nil))
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+        ("M-0"       . #'treemacs-select-window)
+        ("C-x t 1"   . #'treemacs-delete-other-windows)
+        ("C-x t t"   . #'treemacs)
+        ("C-x t d"   . #'treemacs-select-directory)
+        ("C-x t B"   . #'treemacs-bookmark)
+        ("C-x t C-t" . #'treemacs-find-file)
+        ("C-x t M-t" . #'treemacs-find-tag)))
 
 (use-package treemacs-evil
   :after (treemacs evil))
@@ -544,6 +534,7 @@
   :config (treemacs-set-scope-type 'Tabs))
 
 (use-package rg
+  :commands (rg)
   :init
   (rg-enable-default-bindings)
   (rg-enable-menu))
@@ -553,13 +544,13 @@
   :init
   (projectile-mode)
   :custom
-  (projectile-project-search-path '("~/.dotfiles/" ("~/dev" . 2) (expand-file-name "straight/repos" user-emacs-directory))))
+  (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "straight/repos" user-emacs-directory)))
   :config
   (setf projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
-  :bind (("C-c f" . projectile-find-file)
-         ("C-c b" . projectile-switch-to-buffer)
+  :bind (("C-c f" . #'projectile-find-file)
+         ("C-c b" . #'projectile-switch-to-buffer)
          :map projectile-mode-map
-         ("C-c p" . projectile-command-map)))
+         ("C-c p" . #'projectile-command-map)))
 
 ;;; project
 (use-package project
@@ -576,7 +567,7 @@
 (use-package marginalia
   ;; Either bind `marginalia-cycle' globally or only in the minibuffer
   :bind (:map minibuffer-local-map
-              ("C-M-a" . marginalia-cycle))
+              ("C-M-a" . #'marginalia-cycle))
   :init
   (marginalia-mode))
 
@@ -705,36 +696,37 @@
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
   :bind (:map corfu-map
-              ([(meta m)] . corfu-move-to-minibuffer)
-              ([(meta space)] . corfu-insert-separator)
-              ([(shift return)] . corfu-insert)
+              ([(meta m)] . #'corfu-move-to-minibuffer)
+              ([(meta space)] . #'corfu-insert-separator)
+              ([(shift return)] . #'corfu-insert)
               ([return] . nil))
   :init
   (global-corfu-mode))
 
 (use-package corfu-doc
+  :after corfu
   :hook
   (corfu-mode-hook . corfu-doc-mode))
 
 (use-package cape
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("M-+ p" . completion-at-point) ;; capf
-         ("M-+ t" . complete-tag)        ;; etags
-         ("M-+ d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("M-+ h" . cape-history)
-         ("M-+ f" . cape-file)
-         ("M-+ k" . cape-keyword)
-         ("M-+ s" . cape-symbol)
-         ("M-+ a" . cape-abbrev)
-         ("M-+ i" . cape-ispell)
-         ("M-+ l" . cape-line)
-         ("M-+ w" . cape-dict)
-         ("M-+ \\" . cape-tex)
-         ("M-+ _" . cape-tex)
-         ("M-+ ^" . cape-tex)
-         ("M-+ &" . cape-sgml)
-         ("M-+ r" . cape-rfc1345))
+  :bind (("M-+ p" . #'completion-at-point) ;; capf
+         ("M-+ t" . #'complete-tag)        ;; etags
+         ("M-+ d" . #'cape-dabbrev)        ;; or dabbrev-completion
+         ("M-+ h" . #'cape-history)
+         ("M-+ f" . #'cape-file)
+         ("M-+ k" . #'cape-keyword)
+         ("M-+ s" . #'cape-symbol)
+         ("M-+ a" . #'cape-abbrev)
+         ("M-+ i" . #'cape-ispell)
+         ("M-+ l" . #'cape-line)
+         ("M-+ w" . #'cape-dict)
+         ("M-+ \\" . #'cape-tex)
+         ("M-+ _" . #'cape-tex)
+         ("M-+ ^" . #'cape-tex)
+         ("M-+ &" . #'cape-sgml)
+         ("M-+ r" . #'cape-rfc1345))
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
@@ -754,56 +746,56 @@
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
-         ("C-c h" . consult-history)
-         ("C-c m" . consult-mode-command)
-         ("C-c k" . consult-kmacro)
+         ("C-c h" . #'consult-history)
+         ("C-c m" . #'consult-mode-command)
+         ("C-c k" . #'consult-kmacro)
          ;; C-x bindings (ctl-x-map)
-         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-         ("C-x f" . consult-recent-file)
-         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ("C-x M-:" . #'consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . #'consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x f" . #'consult-recent-file)
+         ("C-x 4 b" . #'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . #'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . #'consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . #'consult-project-buffer)      ;; orig. project-switch-to-buffer
          ;; Custom M-# bindings for fast register access
-         ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-         ("C-M-#" . consult-register)
+         ("M-#" . #'consult-register-load)
+         ("M-'" . #'consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . #'consult-register)
          ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+         ("M-y" . #'consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . #'consult-apropos)            ;; orig. apropos-command
          ;; M-g bindings (goto-map)
-         ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flycheck)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
+         ("M-g e" . #'consult-compile-error)
+         ("M-g f" . #'consult-flycheck)               ;; Alternative: consult-flycheck
+         ("M-g g" . #'consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . #'consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . #'consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . #'consult-mark)
+         ("M-g k" . #'consult-global-mark)
+         ("M-g i" . #'consult-imenu)
+         ("M-g I" . #'consult-imenu-multi)
          ;; M-s bindings (search-map)
-         ("M-s d" . consult-find)
-         ("M-s D" . consult-locate)
-         ("M-s g" . consult-grep)
-         ("M-s G" . consult-git-grep)
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ("M-s m" . consult-multi-occur)
-         ("M-s k" . consult-keep-lines)
-         ("M-s u" . consult-focus-lines)
+         ("M-s d" . #'consult-find)
+         ("M-s D" . #'consult-locate)
+         ("M-s g" . #'consult-grep)
+         ("M-s G" . #'consult-git-grep)
+         ("M-s r" . #'consult-ripgrep)
+         ("M-s l" . #'consult-line)
+         ("M-s L" . #'consult-line-multi)
+         ("M-s m" . #'consult-multi-occur)
+         ("M-s k" . #'consult-keep-lines)
+         ("M-s u" . #'consult-focus-lines)
          ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
+         ("M-s e" . #'consult-isearch-history)
          :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ("M-e" . #'consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . #'consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . #'consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . #'consult-line-multi)            ;; needed by consult-line to detect isearch
          ;; Minibuffer history
          :map minibuffer-local-map
-         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+         ("M-s" . #'consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . #'consult-history))                ;; orig. previous-matching-history-element
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
@@ -856,15 +848,16 @@
 (use-package consult-flycheck
   :after (consult flycheck)
   :bind (:map flycheck-command-map
-              ("!" . consult-flycheck)))
+              ("!" . #'consult-flycheck)))
 (use-package consult-dir
   :ensure t
-  :bind (("C-x C-d" . consult-dir)
+  :bind (("C-x C-d" . #'consult-dir)
          :map minibuffer-local-completion-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file)))
+         ("C-x C-d" . #'consult-dir)
+         ("C-x C-j" . #'consult-dir-jump-file)))
 
 (use-package affe
+  :defer t
   :config
   ;; Manual preview key for `affe-grep'
   (consult-customize affe-grep :preview-key (kbd "M-."))
@@ -879,12 +872,12 @@
 
 (use-package embark
   :after (embark-defun)
-  :bind (("C-." . embark-act)
-         ("C-," . $embark-act-noquit)
-         ("M-." . embark-dwim)
-         ("C-h B" . embark-bindings)
+  :bind (("C-." . #'embark-act)
+         ("C-," . #'$embark-act-noquit)
+         ("M-." . #'embark-dwim)
+         ("C-h B" . #'embark-bindings)
          :map embark-identifier-map
-         ("y" . symbol-overlay-put))
+         ("y" . #'symbol-overlay-put))
   :init
   (setf prefix-help-command #'embark-prefix-help-command)
   :custom
@@ -908,13 +901,6 @@
   :straight nil
   :after embark)
 
-(use-package symbol-overlay
-  :bind
-  ("M-n" . symbol-overlay-switch-forward)
-  ("M-p" . symbol-overlay-switch-backward)
-  ([f7] . symbol-overlay-put)
-  ([control f8] . symbol-overlay-remove-all))
-
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :after (embark consult)
@@ -924,11 +910,19 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package symbol-overlay
+  :bind
+  ("M-n" . #'symbol-overlay-switch-forward)
+  ("M-p" . #'symbol-overlay-switch-backward)
+  ([f7] . #'symbol-overlay-put)
+  ([control f8] . #'symbol-overlay-remove-all))
+
 ;;; ctags
 (use-package ctags
-  :bind (("s-." . ctags-find)))
+  :bind (("s-." . #'ctags-find)))
 
 (use-package vterm
+  :commands vterm
   :config
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
@@ -938,7 +932,7 @@
   :hook
   (vterm-mode-hook . $vterm-mode-hook)
   :bind (:map vterm-mode-map
-              ([(control q)] . vterm-send-next-key)))
+              ([(control q)] . #'vterm-send-next-key)))
 
 (use-package multi-vterm
   :after vterm
@@ -951,11 +945,11 @@
              mult-vterm-dedicated-toggle))
 (use-package vterm-toggle
   :after vterm
-  :bind (([f2] . vterm-toggle)
-         ([control f2] . vterm-toggle-cd)
+  :bind (([f2] . #'vterm-toggle)
+         ([control f2] . #'vterm-toggle-cd)
          :map vterm-mode-map
-         ([f2] . vterm-toggle)
-         ([(control return)] . vterm-toggle-insert-cd)))
+         ([f2] . #'vterm-toggle)
+         ([(control return)] . #'vterm-toggle-insert-cd)))
 
 ;;; ansi-term
 (use-package term
@@ -977,27 +971,34 @@ no matter what."
        ((try-completion abuf (mapcar #'buffer-name (buffer-list)))
         (switch-to-buffer abuf))
        (t (ansi-term "/bin/bash")))))
-  :bind (("C-x T" . $ansi-term-dwim)
-         ("C-`" . $ansi-term-dwim)))
+  :bind (("C-`" . #'$ansi-term-dwim)))
 
 ;; magit
 (use-package magit
-  :defer t
-  :commands (magit-status
+  :commands (magit
+             magit-status
              magit-diff-dwim
              magit-blame
              magit=diff-range)
   :init
-  :bind (("C-x g" . magit-status)
-         ("C-c g d" . magit-diff-range)
-         ("C-c g b" . magit-blame))
+  :bind (("C-x g" . #'magit-status)
+         ("C-c g d" . #'magit-diff-range)
+         ("C-c g b" . #'magit-blame))
   :config
   (add-to-list 'display-buffer-alist
                '("magit.*"
                  (display-buffer-at-bottom)
                  (window-height . 0.4))))
 
-(use-package git-messenger)
+(use-package git-messenger
+  :commands (git-messenger:popup-message
+             git-messenger:popup-diff
+             git-messenger:popup-show
+             git-messenger:popup-close
+             git-messenger:show-parent
+             git-messenger:copy-message
+             git-messenger:copy-commit-id
+             git-messenger:popup-show-verbose))
 (use-package git-gutter
   :init
   (global-git-gutter-mode t))
@@ -1013,10 +1014,10 @@ no matter what."
     (set (make-local-variable 'compile-command)
          (format "perl -c %s" (buffer-name))))
   :hook
-  (python-mode-hook . $python-compile-hook)
-  (perl-mode-hook . $perl-compile-hook)
-  (cperl-mode-hook . $perl-compile-hook)
-  :bind ("<f5>" . recompile))
+  (python-mode-hook . #'$python-compile-hook)
+  (perl-mode-hook . #'$perl-compile-hook)
+  (cperl-mode-hook . #'$perl-compile-hook)
+  :bind ("<f5>" . #'recompile))
 
 ;;; show matching parens
 (use-package paren
@@ -1039,11 +1040,11 @@ no matter what."
   :config
   (global-hl-line-mode nil)
   (set-face-attribute hl-line-face nil :underline nil)
-  :bind (("<f9> l". hl-line-mode)))
+  :bind (("<f9> l". #'hl-line-mode)))
 
 ;;; expand-region
 (use-package expand-region
-  :bind (("C-=" . er/expand-region)))
+  :bind (("C-=" . #'er/expand-region)))
 
 ;;; nXml-mode
 (use-package nxml-mode
@@ -1089,8 +1090,8 @@ no matter what."
   :config
   (defun $slime-keybindings ()
     "keybindings for use in slime"
-    (local-set-key (kbd "C-c e") 'slime-eval-last-expression)
-    (local-set-key (kbd "C-c b") 'slime-eval-buffer))
+    (local-set-key (kbd "C-c e") #'slime-eval-last-expression)
+    (local-set-key (kbd "C-c b") #'slime-eval-buffer))
   (add-hook 'slime-mode-hook #'$slime-keybindings)
   (add-hook 'slime-repl-mode-hook #'$slime-keybindings)
   (defun $slime-mode-hook ()
@@ -1100,7 +1101,7 @@ no matter what."
 
   (setf slime-contribs '(slime-fancy))
   :hook
-  (slime-mode-hook . $slime-mode-hook))
+  (slime-mode-hook . #'$slime-mode-hook))
 
 ;;; eldoc mode
 (use-package eldoc-mode
@@ -1113,6 +1114,7 @@ no matter what."
 
 ;;; yaml-mode
 (use-package yaml-mode
+  :commands (yaml-mode)
   :config
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
@@ -1128,6 +1130,7 @@ no matter what."
 
 ;;; web-mode
 (use-package web-mode
+  :defer t
   :custom
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
@@ -1149,11 +1152,30 @@ no matter what."
   (eldoc-mode 1))
 
 (use-package pyvenv
+  :after (python-mode)
   :init
   (setenv "WORKON_HOME" "~/.venv")
   :config
   (defun $python-venv-or-none ()
     (setq-local global-mode-string (concat "venv: [" pyvenv-virtual-env-name "]")))
+  :hook
+  (python-mode-hook . #'$python-venv-or-none))
+
+;;; golang
+(use-package go-mode)
+
+;; rust
+(use-package rust-mode
+  :config
+  (rust-format-on-save t)
+  (defun $rust-mode-hook ()
+    (setf indent-tabs-mode nil))
+  :hook
+  (rust-mode-hook . prettify-symbols-mode)
+  (rust-mode-hook . $rust-mode-hook))
+
+;; zig
+(use-package zig-mode)
 
 ;;; cperl-mode
 (use-package cperl-mode
@@ -1173,7 +1195,7 @@ no matter what."
   :config
   (modify-syntax-entry ?: "-" cperl-mode-syntax-table)
   :bind ((:map cperl-mode-map
-               ("<tab>" . indent-for-tab-command))))
+               ("<tab>" . #'indent-for-tab-command))))
 
 ;;; ruby-mode
 (use-package ruby-mode
@@ -1189,13 +1211,15 @@ no matter what."
   :config
   (c-set-offset 'substatement-open 0)
   :bind ((:map c-mode-base-map
-               ("<tab>" . indent-for-tab-command))))
+               ("<tab>" . #'indent-for-tab-command))))
 
 ;;; projectile-rails
 (use-package projectile-rails
+  :mode "\\.rb\\'"
+  :interpreter "ruby"
   :commands (projectile-rails-mode
              projectile-rails-command-map)
-  :bind (("C-c R" . projectile-rails-command-map))
+  :bind (("C-c R" . #'projectile-rails-command-map))
   :config
   (projectile-rails-global-mode)
   :hook
@@ -1280,23 +1304,23 @@ no matter what."
   (switch-to-buffer-in-dedicated-window 'pop)
   :hook
   (help-mode-hook . visual-line-mode)
-  :bind (("M-o" . other-window)))
+  :bind (("M-o" . #'other-window)))
 
 ;;; winner-mode
 (use-package winner
   :hook
   (after-init-hook . winner-mode)
-  :bind(("s-<" . winner-undo)
-        ("s->" . winner-redo)))
+  :bind(("s-<" . #'winner-undo)
+        ("s->" . #'winner-redo)))
 
 ;;; windmove
 (use-package windmove
   :custom
   (windmove-create-window nil)
-  :bind (("C-c <up>" . windmove-up)
-         ("C-c <down>" . windmove-down)
-         ("C-c <left>" . windmove-left)
-         ("C-c <right>" . windmove-right)))
+  :bind (("C-c <up>" . #'windmove-up)
+         ("C-c <down>" . #'windmove-down)
+         ("C-c <left>" . #'windmove-left)
+         ("C-c <right>" . #'windmove-right)))
 
 ;;; tab-bar (again, most/all of this taken from prot)
 (use-package tab-bar
@@ -1345,17 +1369,17 @@ questions.  Else use completion to select the tab to switch to."
       (setf tab-bar-show t)
       (tab-bar-mode 1)))
 
-  :bind (("C-x t h" . tab-bar-history-forward)
-         ("C-x t l" . tab-bar-history-back)
-         ("C-x t n" . tab-next)
-         ("C-x t p" . tab-previous)
-         ("<s-tab>" . tab-next)
-         ("<S-s-iso-lefttab>" . tab-previous)
-         ("<f8>" . $tab-tab-bar-toggle)
-         ("C-x t k" . tab-close)
-         ("C-x t c" . tab-new)
-         ("C-x t t" . $tab-select-tab-dwim)
-         ("s-t" . $tab-select-tab-dwim)))
+  :bind (("C-x T h" . #'tab-bar-history-forward)
+         ("C-x T l" . #'tab-bar-history-back)
+         ("C-x T n" . #'tab-next)
+         ("C-x T p" . #'tab-previous)
+         ("<s-tab>" . #'tab-next)
+         ("<S-s-iso-lefttab>" . #'tab-previous)
+         ("<f8>" . #'$tab-tab-bar-toggle)
+         ("C-x T k" . #'tab-close)
+         ("C-x T c" . #'tab-new)
+         ("C-x T t" . #'$tab-select-tab-dwim)
+         ("s-t" . #'$tab-select-tab-dwim)))
 
 ;;; which-key
 (use-package which-key
@@ -1388,21 +1412,22 @@ questions.  Else use completion to select the tab to switch to."
           ("NOTE"   . "#F56600")
           ("WORK"   . "#522D80")))
   :bind (:map hl-todo-mode-map
-              ("C-c t p" . hl-todo-previous)
-              ("C-c t n" . hl-todo-next)
-              ("C-c t o" . hl-todo-occur)
-              ("C-c t i" . hl-todo-insert)))
+              ("C-c t p" . #'hl-todo-previous)
+              ("C-c t n" . #'hl-todo-next)
+              ("C-c t o" . #'hl-todo-occur)
+              ("C-c t i" . #'hl-todo-insert)))
 
 ;;; helpful
 (use-package helpful
-  :bind (("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)))
+  :bind (("C-h f" . #'helpful-callable)
+         ("C-h v" . #'helpful-variable)
+         ("C-h k" . #'helpful-key)))
 
 ;;; no-littering
 (use-package no-littering
   :config
   (recentf-mode t)
+  (add-hook 'buffer-list-update-hook 'recentf-track-opened-file) ; add buffer visits to recentf list
   (add-to-list 'recentf-exclude "*/.ido.last")
   (add-to-list 'recentf-exclude "*/TAGS")
   (add-to-list 'recentf-exclude no-littering-var-directory)
@@ -1410,16 +1435,18 @@ questions.  Else use completion to select the tab to switch to."
   ;; backup settings
   :custom
   (recentf-max-saved-items 1000)
-  (delete-old-versions -1)
+  (delete-old-versions nil)
   (version-control t)
+  (auto-save-default nil) ; no autosave files
+  (create-lockfiles nil) ; no lockfiles
+  (make-backup-files t)
   (vc-make-backup-files t)
   (backup-by-copying t)
   (backup-directory-alist `(("." . ,(expand-file-name "backup" user-emacs-directory))))
-  (kept-new-versions 50)
-  (kept-old-versions 50)
-
+  (kept-new-versions 1000)
+  (kept-old-versions 1000)
   ;; history settings
-  (history-length t)
+  (history-length 1000)
   (history-delete-duplicates t)
   (savehist-save-minibuffer-history 1)
   (savehist-additional-variables
@@ -1434,7 +1461,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; deft
 (use-package deft
-  :bind ("C-c \\" . deft)
+  :bind ("C-c \\" . #'deft)
   :commands (deft)
   :custom
   (deft-directory "~/ref")
@@ -1459,8 +1486,8 @@ questions.  Else use completion to select the tab to switch to."
   :custom
   (tempel-trigger-prefix "<")
 
-  :bind (("M-=" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
+  :bind (("M-=" . #'tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . #'tempel-insert))
 
   :init
 

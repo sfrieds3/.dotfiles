@@ -21,6 +21,7 @@ roles/dotfiles/files/emacs/history
 roles/dotfiles/files/emacs/projectile-bookmarks.eld
 roles/dotfiles/files/emacs/straight/*
 roles/dotfiles/files/emacs/themes/*
+roles/dotfiles/files/emacs/transient/*
 roles/dotfiles/files/emacs/undo-fu-session/*
 roles/dotfiles/files/emacs/var/*
 \#*\#
