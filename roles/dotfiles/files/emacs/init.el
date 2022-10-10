@@ -124,10 +124,10 @@
   (with-eval-after-load 'org
     ($remap-mark-command 'org-mark-element org-mode-map)
     ($remap-mark-command 'org-mark-subtree org-mode-map))
-  :bind (([(meta i)] . $activate-mark)
-         ([(meta shift i)] . tab-to-tab-stop)
+  :bind (([(meta i)] . #'$activate-mark)
+         ([(meta shift i)] . #'tab-to-tab-stop)
          :map isearch-mode-map
-         ([(control q)] . $isearch-highlight-phrase)))
+         ([(control q)] . #'$isearch-highlight-phrase)))
 
 ;;; theme config
 (use-package theme-config
@@ -200,42 +200,42 @@
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
-    "Ag" 'affe-grep
-    "Af" 'affe-find
-    "D" 'magit-diff-dwim
-    "F" 'eglot-format
-    "G" 'magit
-    "cf" '$cycle-font
-    "cc" '$cycle-colorscheme
-    "e" 'eval-buffer
-    "r" 'eglot-rename
-    "x" 'eval-last-sexp)
+    "Ag" #'affe-grep
+    "Af" #'affe-find
+    "D" #'magit-diff-dwim
+    "F" #'eglot-format
+    "G" #'magit
+    "cf" #'$cycle-font
+    "cc" #'$cycle-colorscheme
+    "e" #'eval-buffer
+    "r" #'eglot-rename
+    "x" #'eval-last-sexp)
   (general-create-definer $leader :prefix "SPC")
   ($leader
     :keymaps 'normal
-    "RET" 'execute-extended-command
-    "b" 'consult-buffer
-    "d" 'consult-flycheck
-    "f" 'projectile-find-file
-    "g" 'consult-ripgrep
-    "G" 'rg
-    "l" 'consult-line
-    "r" 'consult-recent-file
-    "t" 'consult-eglot-symbols)
+    "RET" #'execute-extended-command
+    "b" #'consult-buffer
+    "d" #'consult-flycheck
+    "f" #'projectile-find-file
+    "g" #'consult-ripgrep
+    "G" #'rg
+    "l" #'consult-line
+    "r" #'consult-recent-file
+    "t" #'consult-eglot-symbols)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
-    "b" 'next-buffer
-    "c" 'magit-blob-next
-    "d" 'flycheck-next-error
-    "t" 'tab-next)
+    "b" #'next-buffer
+    "c" #'magit-blob-next
+    "d" #'flycheck-next-error
+    "t" #'tab-next)
   (general-create-definer $previou :prefix "[")
   ($next
     :keymaps 'normal
-    "b" 'previous-buffer
-    "c" 'magit-blob-previous
-    "d" 'flycheck-previous-error
-    "t" 'tab-previous))
+    "b" #'previous-buffer
+    "c" #'magit-blob-previous
+    "d" #'flycheck-previous-error
+    "t" #'tab-previous))
 
 ;;; evil
 (use-package evil
@@ -253,25 +253,25 @@
           (fn (cdr cmd)))
       (evil-ex-define-cmd binding fn)))
   (mapc '$evil-ex-mode-map
-        '(("!" . shell-command)
-          ("W" . evil-write)
-          ("Wq" . evil-save-and-quit)
-          ("WQ" . evil-save-and-quit)
-          ("E" . evil-edit)
-          ("Q" . evil-quit)
-          ("QA" . evil-quit-all)
-          ("Qa" . evil-quit-all)
-          ("CQ" . evil-quit-all-with-error-code)
-          ("Cq" . evil-quit-all-with-error-code)
-          ("WA" . evil-write-all)
-          ("Wa" . evil-write-all)
-          ("Git" . magit)
-          ("Gdiff" . magit-diff)
-          ("Grep" . consult-ripgrep)
-          ("Occur" . occur)
-          ("Align" . align-regexp)
-          ("Glog" . magit-log)
-          ("Gstatus" . magit-status)))
+        '(("!" . #'shell-command)
+          ("W" . #'evil-write)
+          ("Wq" . #'evil-save-and-quit)
+          ("WQ" . #'evil-save-and-quit)
+          ("E" . #'evil-edit)
+          ("Q" . #'evil-quit)
+          ("QA" . #'evil-quit-all)
+          ("Qa" . #'evil-quit-all)
+          ("CQ" . #'evil-quit-all-with-error-code)
+          ("Cq" . #'evil-quit-all-with-error-code)
+          ("WA" . #'evil-write-all)
+          ("Wa" . #'evil-write-all)
+          ("Git" . #'magit)
+          ("Gdiff" . #'magit-diff)
+          ("Grep" . #'consult-ripgrep)
+          ("Occur" . #'occur)
+          ("Align" . #'align-regexp)
+          ("Glog" . #'magit-log)
+          ("Gstatus" . #'magit-status)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -283,11 +283,11 @@
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :bind (:map evil-normal-state-map
-              ([(control l)] . evil-ex-nohighlight)
-              ("j" . evil-next-visual-line)
-              ("k" . evil-previous-visual-line)
-              ("gj" . evil-next-line)
-              ("gk" . evil-previous-line)))
+              ([(control l)] . #'evil-ex-nohighlight)
+              ("j" . #'evil-next-visual-line)
+              ("k" . #'evil-previous-visual-line)
+              ("gj" . #'evil-next-line)
+              ("gk" . #'evil-previous-line)))
 
 (use-package evil-collection
   :after evil
@@ -297,7 +297,7 @@
 (use-package evil-nerd-commenter
   :after evil
   :bind (:map evil-normal-state-map
-              ("gc" . evilnc-comment-or-uncomment-lines)))
+              ("gc" . #'evilnc-comment-or-uncomment-lines)))
 
 (use-package evil-matchit
   :after evil
