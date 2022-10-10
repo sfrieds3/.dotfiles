@@ -1152,14 +1152,9 @@ no matter what."
   (eldoc-mode 1))
 
 (use-package pyvenv
-  :after (python-mode)
   :init
   (setenv "WORKON_HOME" "~/.venv")
-  :config
-  (defun $python-venv-or-none ()
-    (setq-local global-mode-string (concat "venv: [" pyvenv-virtual-env-name "]")))
-  :hook
-  (python-mode-hook . #'$python-venv-or-none))
+  (pyvenv-mode t))
 
 ;;; golang
 (use-package go-mode)
