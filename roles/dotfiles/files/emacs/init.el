@@ -942,6 +942,8 @@
 
 (use-package multi-vterm
   :after vterm
+  :config
+  (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :commands (multi-vterm
              multi-vterm-project
              multi-vterm-dedicated-open
@@ -1148,7 +1150,10 @@ no matter what."
 
 (use-package pyvenv
   :init
-  (setenv "WORKON_HOME" "~/.venv"))
+  (setenv "WORKON_HOME" "~/.venv")
+  :config
+  (defun $python-venv-or-none ()
+    (setq-local global-mode-string (concat "venv: [" pyvenv-virtual-env-name "]")))
 
 ;;; cperl-mode
 (use-package cperl-mode

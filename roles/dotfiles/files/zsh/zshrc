@@ -33,6 +33,7 @@ source $HOME/.config/fzf/key-bindings.zsh
 bindkey -M emacs '^A' fzf-history-widget
 
 autoload -U colors && colors
+autoload -U add-zsh-hook
 
 # https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
 autoload zmv
@@ -56,3 +57,9 @@ fi
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
 
 eval "$(starship init zsh)"
+
+setopt PROMPT_SUBST
+
+# for emacs vterm
+PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+add-zsh-hook -Uz chpwd (){ vterm_set_directory }
