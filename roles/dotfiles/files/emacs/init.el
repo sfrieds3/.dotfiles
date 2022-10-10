@@ -879,7 +879,7 @@
   (affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
 (use-package embark-defun
-  :straight (:type built-in))
+  :straight nil)
 
 (use-package embark
   :after (embark-defun)
