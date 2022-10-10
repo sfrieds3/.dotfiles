@@ -33,6 +33,8 @@
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
+(use-package blackout)
+
 (use-package bind-key
   :bind ("C-h y" . #'describe-personal-keybindings))
 
@@ -144,6 +146,7 @@
   :straight (:host github :repo "NicolasPetton/zerodark-theme")
   :no-require t)
 (use-package doom-modeline
+  :disabled
   :hook (after-init-hook . doom-modeline-mode))
 (use-package all-the-icons)
 (use-package doom-themes
@@ -169,8 +172,8 @@
 
 (use-package scwfri-config
   :straight nil)
-;; (use-package modeline
-;;   :straight nil)
+(use-package modeline
+  :straight nil)
 ;; (use-package keybindings
 ;;   :straight nil)
 (use-package tramp-config
@@ -297,7 +300,8 @@
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (blackout 'evil-collection-unimpaired-mode))
 
 (use-package evil-nerd-commenter
   :after evil
@@ -368,6 +372,8 @@
 (use-package tree-sitter
   :init
   (global-tree-sitter-mode)
+  :config
+  (blackout 'tree-sitter-mode)
   :hook
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 (use-package tree-sitter-langs)
@@ -382,6 +388,8 @@
 (use-package hideshow
   :bind ("C-c h" . #'hs-toggle-hiding)
   :commands hs-toggle-hiding
+  :config
+  (blackout 'hs-minor-mode)
   :hook
   (prog-mode-hook . hs-minor-mode))
 
@@ -699,7 +707,7 @@
               ([(meta m)] . #'corfu-move-to-minibuffer)
               ([(meta space)] . #'corfu-insert-separator)
               ([(shift return)] . #'corfu-insert)
-              ([return] . nil))
+              ("RET". nil))
   :init
   (global-corfu-mode))
 
@@ -1000,6 +1008,7 @@ no matter what."
              git-messenger:copy-commit-id
              git-messenger:popup-show-verbose))
 (use-package git-gutter
+  :blackout
   :init
   (global-git-gutter-mode t))
 
@@ -1062,6 +1071,7 @@ no matter what."
 ;;; flycheck
 (use-package flycheck
   :defer 5
+  :blackout
   :commands (flycheck-mode
              global-flycheck-mode)
   :custom
@@ -1103,14 +1113,19 @@ no matter what."
   :hook
   (slime-mode-hook . #'$slime-mode-hook))
 
-;;; eldoc mode
-(use-package eldoc-mode
+;;; eldoc
+(use-package eldoc
+  :blackout t
+  :straight (:type built-in))
+
+(use-package elisp-mode
   :straight (:type built-in)
-  :commands (eldoc-mode)
-  :hook
-  (emacs-lisp-mode-hook . eldoc-mode)
-  (lisp-interaction-mode-hook . eldoc-mode)
-  (ielm-mode-hook . eldoc-mode))
+  :blackout ((lisp-interaction-mode . "Lisp-Interaction")
+             (emacs-lisp-mode . `("ELisp"
+                                  (lexical-binding
+                                   ""
+                                   (:propertize
+                                    "/d" face warning))))))
 
 ;;; yaml-mode
 (use-package yaml-mode
@@ -1127,21 +1142,6 @@ no matter what."
          ("\\.markdown\\'" . markdown-mode))
   :init
   (setf markdown-command "multimarkdown"))
-
-;;; web-mode
-(use-package web-mode
-  :defer t
-  :custom
-  (web-mode-markup-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  (web-mode-code-indent-offset 2)
-  :mode ("\\.phtml\\'"
-         "\\.tpl\\.php\\'"
-         "\\.[agj]sp\\'"
-         "\\.as[cp]x\\'"
-         "\\.erb\\'"
-         "\\.mustache\\'"
-         "\\.djhtml\\'"))
 
 ;;; python-mode
 (use-package python-mode
@@ -1201,6 +1201,21 @@ no matter what."
 (use-package ruby-mode
   :custom
   (ruby-deep-indent-paren nil))
+
+;;; web-mode
+(use-package web-mode
+  :defer t
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  :mode ("\\.phtml\\'"
+         "\\.tpl\\.php\\'"
+         "\\.[agj]sp\\'"
+         "\\.as[cp]x\\'"
+         "\\.erb\\'"
+         "\\.mustache\\'"
+         "\\.djhtml\\'"))
 
 ;;; c++-mode
 (use-package c++-mode
@@ -1383,6 +1398,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; which-key
 (use-package which-key
+  :blackout
   :config
   (which-key-mode))
 
@@ -1469,11 +1485,13 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; ws-butler
 (use-package ws-butler
+  :blackout
   :hook
   (prog-mode-hook . ws-butler-mode))
 
 ;;; yasnippet
 (use-package yasnippet
+  :disabled
   :commands (yas-global-mode)
   :init
   (yas-global-mode)

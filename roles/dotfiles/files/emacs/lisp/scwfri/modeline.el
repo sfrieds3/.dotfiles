@@ -24,10 +24,12 @@
                                 mode-line-mule-info
                                 mode-line-modified
                                 " %b"
-                                vc-mode))
+                                vc-mode
+                                " "
+                                mode-line-modes))
                         ;; Right.
                         (quote (
-                                "[%m] (%l:%c %p) "
+                                "(%l:%c %p) "
                                 mode-line-misc-info))))))
 
 ;  (defun with-face (str &rest face-plist)
