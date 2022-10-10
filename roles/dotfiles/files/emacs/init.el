@@ -431,7 +431,7 @@
   (evil-org-agenda-set-keys)
   (defun $org-mode-hook ()
     (evil-org-mode))
-  :hook (org-mode-hook . #'$org-mode-hook))
+  :hook (org-mode-hook . $org-mode-hook))
 
 ;;; org-table
 (use-package org-table
@@ -918,13 +918,6 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package symbol-overlay
-  :bind
-  ("M-n" . #'symbol-overlay-switch-forward)
-  ("M-p" . #'symbol-overlay-switch-backward)
-  ([f7] . #'symbol-overlay-put)
-  ([control f8] . #'symbol-overlay-remove-all))
-
 ;;; ctags
 (use-package ctags
   :bind (("s-." . #'ctags-find)))
@@ -1023,9 +1016,9 @@ no matter what."
     (set (make-local-variable 'compile-command)
          (format "perl -c %s" (buffer-name))))
   :hook
-  (python-mode-hook . #'$python-compile-hook)
-  (perl-mode-hook . #'$perl-compile-hook)
-  (cperl-mode-hook . #'$perl-compile-hook)
+  (python-mode-hook . $python-compile-hook)
+  (perl-mode-hook . $perl-compile-hook)
+  (cperl-mode-hook . $perl-compile-hook)
   :bind ("<f5>" . #'recompile))
 
 ;;; show matching parens
@@ -1047,9 +1040,9 @@ no matter what."
 ;;; highlight current line
 (use-package hl-line
   :config
-  (global-hl-line-mode nil)
+  (hl-line-mode nil)
   (set-face-attribute hl-line-face nil :underline nil)
-  :bind (("<f9> l". #'hl-line-mode)))
+  :bind (([f9]. #'hl-line-mode)))
 
 ;;; expand-region
 (use-package expand-region
@@ -1111,7 +1104,7 @@ no matter what."
 
   (setf slime-contribs '(slime-fancy))
   :hook
-  (slime-mode-hook . #'$slime-mode-hook))
+  (slime-mode-hook . $slime-mode-hook))
 
 ;;; eldoc
 (use-package eldoc
@@ -1398,7 +1391,17 @@ questions.  Else use completion to select the tab to switch to."
   (which-key-mode))
 
 ;;; idle-highlight-mode
-(use-package idle-highlight-mode)
+(use-package idle-highlight-mode
+  :custom
+  (idle-highlight-idle-time 1.0)
+  :bind (([(control f7)] . idle-highlight-mode)))
+
+(use-package symbol-overlay
+  :bind
+  ("M-n" . #'symbol-overlay-switch-forward)
+  ("M-p" . #'symbol-overlay-switch-backward)
+  ([f7] . #'symbol-overlay-put)
+  ([control f8] . #'symbol-overlay-remove-all))
 
 ;;; hi-lock
 (use-package hi-lock

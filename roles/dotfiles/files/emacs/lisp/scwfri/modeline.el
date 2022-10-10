@@ -23,10 +23,12 @@
                                 evil-mode-line-tag
                                 mode-line-mule-info
                                 mode-line-modified
-                                " %b"
+                                " %b "
+                                ;; (format " %s " (replace-regexp-in-string "Git:" " λ: " vc-mode))
                                 vc-mode
                                 " "
-                                mode-line-modes))
+                                mode-line-modes
+                                mode-line-misc-info))
                         ;; Right.
                         (quote (
                                 "(%l:%c %p) "
