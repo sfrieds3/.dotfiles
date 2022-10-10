@@ -98,6 +98,9 @@
 ;;; disable insert keys automatically for read-only buffers
 (setf view-read-only t)
 
+;;; https://irreal.org/blog/?p=10824
+(setq dictionary-server "dict.org")
+
 ;;; debug on error -- off for now
 (setf debug-on-error nil)
 
