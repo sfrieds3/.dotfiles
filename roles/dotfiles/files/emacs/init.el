@@ -61,52 +61,58 @@
     (load-file home-settings)))
 
 ;;; shared config not in init.el
-(setf custom-file (expand-file-name "custom.el" temporary-file-directory))
+(setq custom-file (expand-file-name "custom.el" temporary-file-directory))
 
 ;;; make scrolling more logical
-(setf scroll-conservatively 25)
-(setf auto-window-vscroll nil)
-(setf mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setf mouse-wheel-progressive-speed nil)
-(setf mouse-wheel-follow-mouse 't)
+(setq scroll-conservatively 25)
+(setq auto-window-vscroll nil)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-follow-mouse 't)
 
 ;; cursor blinks n times
-(setf blink-cursor-blinks 0)
+(setq blink-cursor-blinks 0)
 
 ;;; inhibit visual bells
-(setf visible-bell nil)
-(setf ring-bell-function #'ignore)
+(setq visible-bell nil)
+(setq ring-bell-function #'ignore)
 
 ;;; transient-mark-mode
-(setf transient-mark-mode t)
+(setq transient-mark-mode t)
 
 ;;; spaces by default instead of tabs!
 (setq-default indent-tabs-mode nil)
 
 ;;; ask about adding a final newline
-(setf require-final-newline 'ask)
+(setq require-final-newline 'ask)
 
 ;;; allow disabled emacs commands (mainly for narrowing)
-(setf disabled-command-function nil)
+(setq disabled-command-function nil)
 
 ;;; do not ask about opening large files
-(setf large-file-warning-threshold nil)
+(setq large-file-warning-threshold nil)
 
 ;;; show garbage collection messages in minbuffer
-(setf garbage-collection-messages nil)
+(setq garbage-collection-messages nil)
 
 ;;; disable insert keys automatically for read-only buffers
-(setf view-read-only t)
+(setq view-read-only t)
 
 ;;; https://irreal.org/blog/?p=10824
 (setq dictionary-server "dict.org")
 
 ;;; debug on error -- off for now
-(setf debug-on-error nil)
+(setq debug-on-error nil)
 
 ;;; filename in titlebar
-(setf frame-title-format
+(setq frame-title-format
       (concat user-login-name "@" system-name ":%f"))
+
+;;; sayonara
+(global-so-long-mode +1)
+
+;;; pretty symbols
+(prettify-symbols-mode +1)
 
 ;;; scwfri-defun
 (use-package scwfri-defun
@@ -247,40 +253,20 @@
     "t" #'tab-previous))
 
 ;;; evil
+(use-package evil-config
+  :after (evil)
+  :straight nil)
+
 (use-package evil
   :demand t
   :init
-  (setf evil-want-keybinding nil)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (defun $evil-nohl ()
     (progn
       (redraw-frame)
       (evil-ex-nohighlight)))
-  (defun $evil-ex-mode-map (cmd)
-    (let ((binding (car cmd))
-          (fn (cdr cmd)))
-      (evil-ex-define-cmd binding fn)))
-  (mapc '$evil-ex-mode-map
-        '(("!" . shell-command)
-          ("W" . evil-write)
-          ("Wq" . evil-save-and-quit)
-          ("WQ" . evil-save-and-quit)
-          ("E" . evil-edit)
-          ("Q" . evil-quit)
-          ("QA" . evil-quit-all)
-          ("Qa" . evil-quit-all)
-          ("CQ" . evil-quit-all-with-error-code)
-          ("Cq" . evil-quit-all-with-error-code)
-          ("WA" . evil-write-all)
-          ("Wa" . evil-write-all)
-          ("Git" . magit)
-          ("Gdiff" . magit-diff)
-          ("Grep" . consult-ripgrep)
-          ("Occur" . occur)
-          ("Align" . align-regexp)
-          ("Glog" . magit-log)
-          ("Gstatus" . magit-status)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -307,10 +293,16 @@
   (evil-collection-init)
   (blackout 'evil-collection-unimpaired-mode))
 
-(use-package evil-nerd-commenter
+(use-package evil-commentary
   :after evil
-  :bind (:map evil-normal-state-map
-              ("gc" . #'evilnc-comment-or-uncomment-lines)))
+  :blackout
+  :init
+  (evil-commentary-mode))
+
+(use-package evil-lion
+  :ensure t
+  :config
+  (evil-lion-mode))
 
 (use-package evil-matchit
   :after evil
@@ -1071,7 +1063,6 @@ no matter what."
 ;;; flycheck
 (use-package flycheck
   :defer 5
-  :blackout
   :commands (flycheck-mode
              global-flycheck-mode)
   :custom
