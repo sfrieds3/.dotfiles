@@ -295,6 +295,7 @@
               ([(control l)] . #'evil-ex-nohighlight)
               ([(control j)] . #'evil-next-visual-line)
               ([(control k)] . #'evil-previous-visual-line)
+              ("C-<return>" . #'eval-last-sexp)
               ("j" . #'evil-next-visual-line)
               ("k" . #'evil-previous-visual-line)
               ("gj" . #'evil-next-line)
@@ -1092,25 +1093,6 @@ no matter what."
       (define-key map [remap xref-find-definitions] #'sly-edit-definition)))
   :custom
   (inferior-lisp-program "/usr/bin/sbcl"))
-
-(use-package slime
-  :disabled
-  :commands (slime)
-  :config
-  (defun $slime-keybindings ()
-    "keybindings for use in slime"
-    (local-set-key (kbd "C-c e") #'slime-eval-last-expression)
-    (local-set-key (kbd "C-c b") #'slime-eval-buffer))
-  (add-hook 'slime-mode-hook #'$slime-keybindings)
-  (add-hook 'slime-repl-mode-hook #'$slime-keybindings)
-  (defun $slime-mode-hook ()
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))
-    (add-to-list 'slime-contribs 'slime-fancy)
-    (add-to-list 'slime-contribs 'inferior-slime))
-
-  (setf slime-contribs '(slime-fancy))
-  :hook
-  (slime-mode-hook . $slime-mode-hook))
 
 ;;; eldoc
 (use-package eldoc
