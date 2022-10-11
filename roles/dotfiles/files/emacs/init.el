@@ -1484,7 +1484,7 @@ questions.  Else use completion to select the tab to switch to."
   :bind ("C-c \\" . #'deft)
   :commands (deft)
   :custom
-  (deft-directory "~/ref")
+  (deft-directory "~/wiki")
   (deft-extensions '("md" "org")))
 
 ;;; ws-butler
