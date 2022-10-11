@@ -935,6 +935,7 @@
   (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :custom
   (vterm-max-scrollback 100000)
+  (vterm-buffer-name-string "*vterm* %s")
   :hook
   (vterm-mode-hook . $vterm-mode-hook)
   :bind (:map vterm-mode-map
@@ -942,6 +943,8 @@
 
 (use-package multi-vterm
   :after vterm
+  :custom
+  (multi-vterm-buffer-name vterm-buffer-name-string)
   :commands (multi-vterm
              multi-vterm-project
              multi-vterm-dedicated-open
