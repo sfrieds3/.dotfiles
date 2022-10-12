@@ -177,9 +177,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                   mode-line-mule-info
                   mode-line-modified
                   " "
-                  my-mode-line-buffer-identification
-                  " "
-                  my-mode-line-git-status)
+                  my-mode-line-buffer-identification)
 
                  ;; centre
                  (list
@@ -188,6 +186,8 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
 
                  ;; right hand side
                  (list
+                  my-mode-line-git-status
+                  " "
                   my-mode-line-position
                   " "
                   my-mode-line-buffer-size
