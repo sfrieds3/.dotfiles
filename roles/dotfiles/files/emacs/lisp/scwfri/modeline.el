@@ -1,12 +1,13 @@
 ;;; modeline.el --- modeline config -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;;     modeline.. mostly from https://github.com/peterwu/dotfiles/blob/9ac6c212f6a57650e39703ad79c5d45592deabe3/emacs/mine/my-mode-line.el
+;;;     modeline.. mostly from:
+;;;     https://github.com/peterwu/dotfiles/blob/9ac6c212f6a57650e39703ad79c5d45592deabe3/emacs/mine/my-mode-line.el
 
 ;;; Code:
 
 ;; mode-line
-(defun my-ellipsize-file-name (file-name max-length)
+(defun $ellipsize-file-name (file-name max-length)
   "Elipsize FILE-NAME if over MAX-LENGTH."
   (let* ((ellipsis (if (char-displayable-p ?…) "…" "..."))
          (left (/ max-length 2))
@@ -21,7 +22,7 @@
          (substring file-name (- (length file-name) (1- right))))
       file-name)))
 
-(defun my-mode-line-render (left centre right)
+(defun $mode-line-render (left centre right)
   "Return a string of `window-total-width' length.
 Containing LEFT, CENTRE and RIGHT aligned respectively."
   (let* ((left-width (string-width (format-mode-line left)))
@@ -44,7 +45,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
             (list (format (format "%%%ds" available-width-right) ""))
             right)))
 
-(defvar-local my-mode-line-tab-bar-indicator
+(defvar-local $mode-line-tab-bar-indicator
   '(:eval
     (let ((tab-name (alist-get 'name (assq 'current-tab (funcall tab-bar-tabs-function)))))
       (propertize
@@ -52,11 +53,11 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
        'help-echo "Tab name"
        'face '(:inherit mode-line-buffer-id)
        'mouse-face 'mode-line-highlight))))
-(put 'my-mode-line-tab-bar-indicator 'risky-local-variable t)
+(put '$mode-line-tab-bar-indicator 'risky-local-variable t)
 
-(defvar-local my-mode-line-buffer-identification
+(defvar-local $mode-line-buffer-identification
   '(:eval (if (buffer-file-name)
-              (propertize (my-ellipsize-file-name
+              (propertize ($ellipsize-file-name
                            (file-name-nondirectory (buffer-file-name))
                            36)
                           'help-echo (abbreviate-file-name (buffer-file-name))
@@ -66,9 +67,9 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                         'help-echo "Buffer name"
                         'face '(:inherit mode-line-buffer-id)
                         'mouse-face 'mode-line-highlight))))
-(put 'my-mode-line-buffer-identification 'risky-local-variable t)
+(put '$mode-line-buffer-identification 'risky-local-variable t)
 
-(defvar-local my-mode-line-git-status
+(defvar-local $mode-line-git-status
   ;; Format: (defun vc-default-mode-line-string (backend file) in vc-hooks.el
   ;;   \"BACKEND-REV\"        if the file is up-to-date
   ;;   \"BACKEND:REV\"        if the file is edited (or locked by the calling user)
@@ -90,68 +91,57 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                    (branch
                     (if locked?  (match-string 1 status)
                       (substring status 1)))
-                   (git-mode-line-status (concat "λ: " branch)))
+                   (git-mode-line-status (concat " λ: " branch " ")))
               (cond
                ;; up-to-date
                ((string-equal "-" class)
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-up-to-date-state :weight bold)
+                            'face '(:foreground "dark cyan" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; locked
                (locked?
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-locked-state :weight bold)
+                            'face '(:foreground "dark orange" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; edited
                ((string-equal ":" class)
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-edited-state :weight bold)
+                            'face '(:foreground "yellow" :weight bold-italic)
                             'mouse-face 'mode-line-highlight))
                ;; locally added
                ((string-equal "@" class)
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-locally-added-state :weight bold)
+                            'face '(:foreground "dark blue" :weight bold-italic)
                             'mouse-face 'mode-line-highlight))
                ;; removed or conflicting
                ((string-equal "!" class)
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-removed-state :weight bold)
+                            'face '(:background "yellow" :foreground "dark red" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; missing
                ((string-equal "?" class)
                 (propertize git-mode-line-status
-                            'face '(:inherit vc-missing-state :weight bold)
+                            'face '(:foreground "dark red" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ((t git-mode-line-status)))))))
-(put 'my-mode-line-git-status 'risky-local-variable t)
+(put '$mode-line-git-status 'risky-local-variable t)
 
-(defvar-local my-mode-line-centre-placeholder "")
-(put 'my-mode-line-centre-placeholder 'risky-local-variable t)
+(defvar-local $mode-line-centre-placeholder "")
+(put '$mode-line-centre-placeholder 'risky-local-variable t)
 
-(defvar-local my-mode-line-position
+(defvar-local $mode-line-position
   '(:propertize "(%l,%C)"
                 help-echo "(Line,Column)"
                 mouse-face mode-line-highlight))
-(put 'my-mode-line-position 'risky-local-variable t)
+(put '$mode-line-position 'risky-local-variable t)
 
-(defvar-local my-mode-line-buffer-size
+(defvar-local $mode-line-buffer-size
   '(:propertize "%I"
                 help-echo "Size"
                 mouse-face mode-line-highlight))
-(put 'my-mode-line-buffer-size 'risky-local-variable t)
+(put '$mode-line-buffer-size 'risky-local-variable t)
 
-(defvar-local my-mode-line-modes
-  '(:eval (and (or (and (consp mode-name)
-                        (setcar mode-name
-                                (propertize (car mode-name)
-                                            'face '(:inherit mode-line-emphasis))))
-                   (setq mode-name
-                         (propertize mode-name
-                                     'face '(:inherit mode-line-emphasis))))
-               minions-mode-line-modes)))
-(put 'my-mode-line-modes 'risky-local-variable t)
-
-(defvar-local my-mode-line-percent-position
+(defvar-local $mode-line-percent-position
   '(:eval (let ((p (format-mode-line "%p")))
             (cond
              ((string-equal p "All")
@@ -164,11 +154,11 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
               (propertize (concat p  "%%")
                           'help-echo "Position"
                           'mouse-face 'mode-line-highlight))))))
-(put 'my-mode-line-percent-position 'risky-local-variable t)
+(put '$mode-line-percent-position 'risky-local-variable t)
 
 (setq-default mode-line-format
               '(:eval
-                (my-mode-line-render
+                ($mode-line-render
                  ;; left hand side
                  (list
                   "%e"
@@ -177,7 +167,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                   mode-line-mule-info
                   mode-line-modified
                   " "
-                  my-mode-line-buffer-identification)
+                  $mode-line-buffer-identification)
 
                  ;; centre
                  (list
@@ -186,14 +176,12 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
 
                  ;; right hand side
                  (list
-                  my-mode-line-git-status
+                  $mode-line-git-status
+                  $mode-line-position
                   " "
-                  my-mode-line-position
+                  $mode-line-buffer-size
                   " "
-                  my-mode-line-buffer-size
-                  " "
-                  my-mode-line-modes
-                  my-mode-line-percent-position
+                  $mode-line-percent-position
                   " "))))
 
 ;; (defun $simple-mode-line-render (left right)
@@ -215,8 +203,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
 ;;                                 mode-line-mule-info
 ;;                                 mode-line-modified
 ;;                                 " %b "
-;;                                 (:eval (my-mode-line-vc-info))
-;;                                 ;; vc-mode
+;;                                 vc-mode
 ;;                                 " "
 ;;                                 mode-line-modes
 ;;                                 mode-line-misc-info))
