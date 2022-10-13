@@ -156,9 +156,6 @@
 (use-package zerodark
   :straight (:host github :repo "NicolasPetton/zerodark-theme")
   :no-require t)
-(use-package doom-modeline
-  :disabled
-  :hook (after-init-hook . doom-modeline-mode))
 (use-package all-the-icons)
 (use-package doom-themes
   :custom
