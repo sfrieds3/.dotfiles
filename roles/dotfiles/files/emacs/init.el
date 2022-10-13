@@ -33,7 +33,9 @@
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
-(use-package blackout)
+(use-package blackout
+  :config
+  (blackout 'abbrev-mode))
 
 (use-package bind-key
   :bind ("C-h y" . #'describe-personal-keybindings))
@@ -313,6 +315,13 @@
   :after evil
   :config
   (global-evil-surround-mode t))
+
+(use-package evil-visualstar
+  :after evil
+  :config
+  (global-evil-visualstar-mode)
+  :custom
+  (evil-visualstar/persist t))
 
 (use-package format-all
   :commands (format-all-buffer)
@@ -1089,6 +1098,22 @@ no matter what."
 (use-package eldoc
   :blackout t
   :straight (:type built-in))
+
+(use-package eldoc-box
+  :blackout 'eldoc-box-hover-mode
+  :commands (eldoc-box-hover-mode
+             eldoc-box-eglot-help-at-point
+             eldoc-box-helpful-callable
+             eldoc-box-helpful-variable
+             eldoc-box-helpful-key)
+  ;; :init
+  ;; (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-mode t)
+  :custom
+  (eldoc-box-cleanup-interval 0.2)
+  (eldoc-box-clear-with-C-g t)
+  (eldoc-box-doc-fold-threshold 200)
+  :config
+  (set-face-attribute 'eldoc-box-body nil :family "Hack"))
 
 (use-package elisp-mode
   :straight (:type built-in)
