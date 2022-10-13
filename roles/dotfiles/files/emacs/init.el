@@ -176,7 +176,7 @@
   :after (theme-config ef-themes doom-themes)
   :config
   ($cycle-font 0)
-  ($cycle-colorscheme 0))
+  ($cycle-theme 0))
 
 (use-package scwfri-config
   :straight nil)
@@ -220,7 +220,7 @@
     "F" #'eglot-format
     "G" #'magit
     "cf" #'$cycle-font
-    "cc" #'$cycle-colorscheme
+    "ct" #'$cycle-theme
     "e" #'eval-buffer
     "r" #'eglot-rename
     "x" #'eval-last-sexp)
