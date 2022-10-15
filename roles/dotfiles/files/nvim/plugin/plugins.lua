@@ -49,7 +49,7 @@ return require("packer").startup(function(use)
         require("config.neogit")
       end,
     },
-    { "rhysd/git-messenger.vim" },
+    { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
     {
       "sindrets/diffview.nvim",
       requires = "nvim-lua/plenary.nvim",
@@ -72,11 +72,12 @@ return require("packer").startup(function(use)
   use({
     {
       "sidebar-nvim/sidebar.nvim",
+      keys = { "<Leader>s" },
       config = function()
         require("sidebar-nvim").setup({
           open = false,
         })
-        vim.keymap.set("n", "<Space>s", "<Cmd>SidebarNvimToggle<CR>")
+        vim.keymap.set("n", "<Leader>s", "<Cmd>SidebarNvimToggle<CR>")
       end,
     },
     {
@@ -159,7 +160,7 @@ return require("packer").startup(function(use)
         require("config.pounce")
       end,
     },
-    { "RRethy/nvim-align" },
+    { "RRethy/nvim-align", cmd = { "Align" } },
     {
       "nvim-neo-tree/neo-tree.nvim",
       cmd = { "Neotree", "NeoTreeRevealToggle" },
@@ -242,7 +243,7 @@ return require("packer").startup(function(use)
       end,
     },
     { "wellle/targets.vim" },
-    { "milisims/nvim-luaref" },
+    { "milisims/nvim-luaref", ft = { "lua" } },
   })
 
   -- lsp, completion
@@ -250,7 +251,7 @@ return require("packer").startup(function(use)
     {
       "folke/trouble.nvim",
       requires = "kyazdani42/nvim-web-devicons",
-      cmd = { "Trouble", "TroublToggle", "TroubleRefresh" },
+      cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
       config = function()
         require("trouble").setup({})
       end,
