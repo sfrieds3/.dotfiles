@@ -11,6 +11,7 @@
       - pipx
       - twine
       - flake8
+      - pre-commit
 
 - name: Install pipx packages
   community.general.pipx:

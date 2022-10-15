@@ -11,6 +11,30 @@
 - name: Download Hack
   when: hack_exists is failed
   ansible.builtin.unarchive:
-    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/Hack.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: true
+
+- name: Victor Mono exists
+  shell: "ls $HOME/.fonts/Victor*Mono*Nerd*Font*Complete*"
+  register: hack_exists
+  ignore_errors: true
+
+- name: Download Victor Mono
+  when: hack_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/VictorMono.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: true
+
+- name: JetBrains Mono exists
+  shell: "ls $HOME/.fonts/Victor*Mono*Nerd*Font*Complete*"
+  register: hack_exists
+  ignore_errors: true
+
+- name: Download JetBrains Mono
+  when: hack_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
     dest: "{{ lookup('env', 'HOME') }}/.fonts/"
     remote_src: true

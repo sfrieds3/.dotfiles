@@ -44,6 +44,8 @@
       - ripgrep
       - rsync
       - ruby-devel
+      - sqlite
+      - sqlite-devel
       - util-linux-user
       - zig
       - zsh

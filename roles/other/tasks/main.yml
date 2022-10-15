@@ -25,18 +25,3 @@
   loop: "{{ npm_packages }}"
   loop_control:
     label: "{{ item }}"
-
-- name: Install rbenv
-  ansible.builtin.command:
-    cmd: git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-    creates: $HOME/.rbenv
-
-- name: Create rbenv plugins dir
-  ansible.builtin.file:
-    path: '$(rbenv root)/plugins'
-    creates: "{{ rbenv_root }}/plugins"
-
-- name: Install ruby-build
-  ansible.builtin.command:
-    cmd: git clone https://github.com/rbenv/ruby-build.git $(rbenv root)/plugins/ruby-build
-    creates: "{{ rbenv_root }}/plugins/ruby-build"

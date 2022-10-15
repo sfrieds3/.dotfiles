@@ -1,3 +1,6 @@
+-- space as leader
+vim.g.mapleader = " "
+
 -- general nvim keymaps
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
@@ -12,6 +15,9 @@ vim.keymap.set("n", "g$", "$")
 vim.keymap.set("n", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>p", '"_dP')
+
+-- map esc in :terminal
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 -- quick source of current file
 vim.keymap.set("n", "<Leader><Leader>x", "<Cmd>write<CR><Cmd>source %<CR>")
