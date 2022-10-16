@@ -207,7 +207,6 @@ return require("packer").startup(function(use)
       "ludovicchabant/vim-gutentags",
       config = function()
         vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
-        --vim.g.gutentags_modules = { 'ctags', 'cscope', 'pycscope' }
       end,
     },
     { "stevearc/aerial.nvim" },
@@ -306,7 +305,6 @@ return require("packer").startup(function(use)
         vim.g.rustfmt_autosave = 1
       end,
     },
-    { "mfulz/cscope.nvim", ft = { "c", "cpp" } },
     { "tpope/vim-rails", ft = { "ruby", "eruby" } },
   })
 
