@@ -224,7 +224,14 @@ return require("packer").startup(function(use)
         vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
       end,
     },
-    { "stevearc/aerial.nvim" },
+    {
+      "stevearc/aerial.nvim",
+      cmd = { "AerialOpen", "AerialToggle" },
+      keys = { "<Leader>a" },
+      config = function()
+        require("config.aerial")
+      end,
+    },
     { "dstein64/vim-startuptime", cmd = "StartupTime" },
     { "mbbill/undotree", cmd = "UndotreeToggle" },
     { "romainl/vim-qf", ft = { "qf" } },
