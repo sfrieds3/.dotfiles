@@ -106,6 +106,7 @@ return require("packer").startup(function(use)
         vim.keymap.set("n", "[T", function()
           require("todo-comments").jump_prev()
         end, { desc = "Previous todo comment" })
+        vim.keymap.set("n", "<Leader>vt", "<Cmd>TodoTelescope<CR>")
       end,
     },
     {
