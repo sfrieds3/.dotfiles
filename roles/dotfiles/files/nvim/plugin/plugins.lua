@@ -10,7 +10,7 @@ return require("packer").startup(function(use)
 
   -- local dev plugins
   local use_local = function(use_path)
-    local local_path = vim.fn.expand("$HOME/dev/plugins_nvim")
+    local local_path = vim.fn.expand("$HOME/dev/local_plugins")
     local repo = use_path
     for _, repo_name in string.gmatch(use_path, "(%w+)/([%w%W]+)") do
       repo = repo_name
@@ -25,7 +25,7 @@ return require("packer").startup(function(use)
   end
 
   -- local plugins
-  -- use_local('scwfri/pynvenv.nvim')
+  use_local("sfrieds3/pynvenv.nvim")
 
   -- git
   use({
