@@ -32,7 +32,7 @@
 (defun $cycle-font (arg)
   "Cycle through fonts.  ARG is prefix arg, default 1."
   (interactive "p")
-  (let* ((fonts ["VictorMono Nerd Font Mono" "SauceCodePro Nerd Font Mono" "Hack Nerd Font Mono" "FiraMono Nerd Font" "JetBrainsMono Nerd Font"])
+  (let* ((fonts ["VictorMono Nerd Font Mono" "SauceCodePro Nerd Font Mono" "Hack Nerd Font Mono" "JetBrainsMono Nerd Font Mono"])
          (idx (if (get '$cycle-font 'state)
                   (get '$cycle-font 'state)
                 0))
