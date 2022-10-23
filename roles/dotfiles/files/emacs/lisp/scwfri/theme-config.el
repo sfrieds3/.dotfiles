@@ -14,7 +14,7 @@
 (defvar $default-font-size
   (cond ((string= (system-name) "mixolydian") "10")
         ((string= (system-name) "phrygian") "14")
-        (t "12")))
+        (t "10")))
 
 ;;;###autoload
 (defun $set-current-font (font &optional size)

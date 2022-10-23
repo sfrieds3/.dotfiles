@@ -3,6 +3,8 @@ if not pcall(require, "pynvenv") then
 end
 
 require("pynvenv").setup({
-  default_venv = "$HOME/.venv/venv",
-  -- auto_venv = true
+  -- default_venv = "$HOME/.venv/venv",
+  workon_home = "$HOME/.venv",
 })
+
+P(require("pynvenv.config"))

@@ -30,7 +30,7 @@ setopt HIST_VERIFY  # nicer substitution commands
 # set up fzf completion/keybindings
 source $HOME/.config/fzf/completion.zsh
 source $HOME/.config/fzf/key-bindings.zsh
-bindkey -M emacs '^A' fzf-history-widget
+bindkey -M emacs '^O' fzf-history-widget
 
 autoload -U colors && colors
 autoload -U add-zsh-hook

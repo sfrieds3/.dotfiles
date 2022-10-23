@@ -14,65 +14,65 @@ vim.g.gruvbox_better_performance = 1
 vim.g.material_style = "darker"
 
 require("material").setup({
+
   contrast = {
+    terminal = false, -- Enable contrast for the built-in terminal
     sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
     floating_windows = false, -- Enable contrast for floating windows
-    line_numbers = true, -- Enable contrast background for line numbers
-    sign_column = true, -- Enable contrast background for the sign column
     cursor_line = true, -- Enable darker background for the cursor line
     non_current_windows = true, -- Enable darker background for non-current windows
-    popup_menu = true, -- Enable lighter background for the popup menu
+    filetypes = { "terminal", "packer", "qf" }, -- Specify which filetypes get the contrasted (darker) background
   },
 
-  italics = {
-    comments = false, -- Enable italic comments
-    keywords = false, -- Enable italic keywords
-    functions = false, -- Enable italic functions
-    strings = false, -- Enable italic strings
-    variables = false, -- Enable italic variables
+  styles = { -- Give comments style such as bold, italic, underline etc.
+    comments = { italic = true },
+    strings = {},
+    keywords = {},
+    functions = { bold = true },
+    variables = {},
+    operators = {},
+    types = {},
   },
 
-  contrast_filetypes = { -- Specify which filetypes get the contrasted (darker) background
-    "terminal", -- Darker terminal background
-    "packer", -- Darker packer background
-    "qf", -- Darker qf list background
-  },
-
-  high_visibility = {
-    darker = true, -- Enable higher contrast text for darker style
+  plugins = { -- Uncomment the plugins that you use to highlight them
+    -- Available plugins:
+    -- "dap",
+    -- "dashboard",
+    "gitsigns",
+    -- "hop",
+    -- "indent-blankline",
+    -- "lspsaga",
+    -- "mini",
+    "neogit",
+    "nvim-cmp",
+    -- "nvim-navic",
+    "nvim-tree",
+    -- "sneak",
+    "telescope",
+    "trouble",
+    -- "which-key",
   },
 
   disable = {
-    colored_cursor = true, -- Disable the colored cursor
+    colored_cursor = false, -- Disable the colored cursor
     borders = false, -- Disable borders between verticaly split windows
     background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
     term_colors = false, -- Prevent the theme from setting terminal colors
     eob_lines = false, -- Hide the end-of-buffer lines
   },
 
+  high_visibility = {
+    lighter = false, -- Enable higher contrast text for lighter style
+    darker = true, -- Enable higher contrast text for darker style
+  },
+
   lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
 
   async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
 
-  plugins = { -- Here, you can disable(set to false) plugins that you don't use or don't want to apply the theme to
-    trouble = true,
-    nvim_cmp = true,
-    neogit = true,
-    gitsigns = true,
-    git_gutter = true,
-    telescope = true,
-    nvim_tree = true,
-    sidebar_nvim = true,
-    lsp_saga = false,
-    nvim_dap = false,
-    nvim_navic = false,
-    which_key = false,
-    sneak = false,
-    hop = true,
-    indent_blankline = false,
-    nvim_illuminate = true,
-    mini = false,
-  },
+  custom_colors = nil, -- If you want to everride the default colors, set this to a function
+
+  custom_highlights = {}, -- Overwrite highlights with your own
 })
 
 vim.cmd([[ colorscheme material ]])

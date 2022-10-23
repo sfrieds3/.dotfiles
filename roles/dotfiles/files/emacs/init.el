@@ -854,7 +854,8 @@
 (use-package consult-yasnippet
   :after (consult yasnippet))
 (use-package consult-projectile
-  :after (projectile consult))
+  :after (projectile consult)
+  :bind ("C-c P" . #'consult-projectile))
 (use-package consult-flycheck
   :after (consult flycheck)
   :bind (:map flycheck-command-map
