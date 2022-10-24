@@ -56,17 +56,20 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
 (put '$mode-line-tab-bar-indicator 'risky-local-variable t)
 
 (defvar-local $mode-line-buffer-identification
-  '(:eval (if (buffer-file-name)
-              (propertize ($ellipsize-file-name
-                           (file-name-nondirectory (buffer-file-name))
-                           36)
-                          'help-echo (abbreviate-file-name (buffer-file-name))
-                          'face '(:inherit mode-line-emphasis)
-                          'mouse-face 'mode-line-highlight)
-            (propertize (buffer-name)
+  '(:eval (cond ((buffer-file-name)
+              (let* (($buffer-name (cond ((projectile-project-root)
+                                        (file-relative-name buffer-file-name (projectile-project-root)))
+                                       (t ($ellipsize-file-name
+                                           (abbreviate-file-name (buffer-file-name))
+                                           36)))))
+                                       (propertize $buffer-name
+                                                   'help-echo (abbreviate-file-name (buffer-file-name))
+                                                   'face '(:inherit mode-line-emphasis)
+                                                   'mouse-face 'mode-line-highlight)))
+            (t (propertize (buffer-name)
                         'help-echo "Buffer name"
                         'face '(:inherit mode-line-buffer-id)
-                        'mouse-face 'mode-line-highlight))))
+                        'mouse-face 'mode-line-highlight)))))
 (put '$mode-line-buffer-identification 'risky-local-variable t)
 
 (defvar-local $mode-line-git-status
@@ -106,12 +109,12 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                ;; edited
                ((string-equal ":" class)
                 (propertize git-mode-line-status
-                            'face '(:foreground "yellow" :weight bold-italic)
+                            'face '(:foreground "yellow" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; locally added
                ((string-equal "@" class)
                 (propertize git-mode-line-status
-                            'face '(:foreground "dark blue" :weight bold-italic)
+                            'face '(:foreground "dark blue" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; removed or conflicting
                ((string-equal "!" class)
