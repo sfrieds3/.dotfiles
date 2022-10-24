@@ -234,20 +234,21 @@
     "g" #'consult-ripgrep
     "G" #'rg
     "l" #'consult-line
+    "P" #'consult-projectile
     "r" #'consult-recent-file
     "t" #'consult-eglot-symbols)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
     "b" #'next-buffer
-    "c" #'magit-blob-next
+    "c" #'git-gutter:next-hunk
     "d" #'flycheck-next-error
     "t" #'tab-next)
-  (general-create-definer $previou :prefix "[")
-  ($next
+  (general-create-definer $previous :prefix "[")
+  ($previous
     :keymaps 'normal
     "b" #'previous-buffer
-    "c" #'magit-blob-previous
+    "c" #'git-gutter:previous-hunk
     "d" #'flycheck-previous-error
     "t" #'tab-previous))
 
@@ -347,6 +348,8 @@
   (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   :init
   (global-undo-fu-session-mode))
+(use-package vundo
+  :commands vundo)
 
 ;;; eglot
 (use-package eglot
@@ -915,10 +918,6 @@
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :after (embark consult)
-  :demand t
-  ;; if you want to have consult previews as you move around an
-  ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -1104,8 +1103,8 @@ no matter what."
              eldoc-box-helpful-callable
              eldoc-box-helpful-variable
              eldoc-box-helpful-key)
-  ;; :init
-  ;; (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-mode t)
+  :init
+  (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-at-point-mode t)
   :custom
   (eldoc-box-cleanup-interval 0.2)
   (eldoc-box-clear-with-C-g t)
@@ -1142,9 +1141,7 @@ no matter what."
 (use-package python-mode
   :commands (python-mode)
   :custom
-  (python-shell-interpreter "python3")
-  :init
-  (eldoc-mode 1))
+  (python-shell-interpreter "python3"))
 
 (use-package pyvenv
   :init

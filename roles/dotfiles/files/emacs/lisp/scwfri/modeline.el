@@ -99,31 +99,37 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                ;; up-to-date
                ((string-equal "-" class)
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": up-to-date")
                             'face '(:foreground "dark cyan" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; locked
                (locked?
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": locked")
                             'face '(:foreground "dark orange" :weight bold)
                             'mouse-face 'mode-line-highlight))
-               ;; edited
+               ;; modified
                ((string-equal ":" class)
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": modified")
                             'face '(:foreground "yellow" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; locally added
                ((string-equal "@" class)
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": locally added file")
                             'face '(:foreground "dark blue" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; removed or conflicting
                ((string-equal "!" class)
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": removed file or conflicts")
                             'face '(:background "yellow" :foreground "dark red" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; missing
                ((string-equal "?" class)
                 (propertize git-mode-line-status
+                            'help-echo (concat branch ": missing")
                             'face '(:foreground "dark red" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ((t git-mode-line-status)))))))
@@ -186,35 +192,6 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                   " "
                   $mode-line-percent-position
                   " "))))
-
-;; (defun $simple-mode-line-render (left right)
-;;   "Return a string of `window-width' length.
-;; Containing LEFT, and RIGHT aligned respectively."
-;;   (let ((available-width
-;;          (- (window-total-width)
-;;             (+ (length (format-mode-line left))
-;;                (length (format-mode-line right))))))
-;;     (append left
-;;             (list (format (format "%%%ds" available-width) ""))
-;;             right)))
-
-;; (setq-default mode-line-format
-;;               '((:eval ($simple-mode-line-render
-;;                         ;; Left.
-;;                         (quote ("%e"
-;;                                 evil-mode-line-tag
-;;                                 mode-line-mule-info
-;;                                 mode-line-modified
-;;                                 " %b "
-;;                                 vc-mode
-;;                                 " "
-;;                                 mode-line-modes
-;;                                 mode-line-misc-info))
-;;                         ;; Right.
-;;                         (quote (
-;;                                 "(%l:%c %p) "
-;;                                 mode-line-misc-info))))))
-
 
 (provide 'modeline)
 ;;; modeline.el ends here

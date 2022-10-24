@@ -8,7 +8,7 @@
 ;;; disable existing themes before loading new themes
 (defadvice load-theme
   (before theme-dont-propagate activate)
-  (mapcar #'disable-theme custom-enabled-themes))
+  (mapc #'disable-theme custom-enabled-themes))
 
 ;;; default preferred font-sizes
 (defvar $default-font-size
