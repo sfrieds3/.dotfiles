@@ -547,5 +547,21 @@ If a MAP is passed, update for that map."
   (interactive)
   (pulse-momentary-highlight-one-line (point)))
 
+(defun $native-comp-available ()
+  "Return message if compiled with --with-native-compilation."
+  (interactive)
+  (if (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+      (message "Native compilation is available")
+    (message "Native complation is *not* available")))
+
+(defun $json-available ()
+  "Return message if compiled with --with-json."
+  (interactive)
+  (if (functionp 'json-serialize)
+      (message "Native JSON is available")
+    (message "Native JSON is *not* available")))
+
+
 (provide 'scwfri-defun)
 ;;; scwfri-defun.el ends here

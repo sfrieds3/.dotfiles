@@ -5,6 +5,11 @@
 
 ;;; Code:
 
+;;; built-in libraries
+(require 'cl-lib)
+(require 'map)
+(require 'subr-x)
+
 ;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
 (defvar straight-check-for-modifications '(check-on-save find-when-checking))
 
@@ -1093,11 +1098,12 @@ no matter what."
 
 ;;; eldoc
 (use-package eldoc
-  :blackout t
+  :blackout
   :straight (:type built-in))
 
 (use-package eldoc-box
-  :blackout 'eldoc-box-hover-mode
+  :blackout ((eldoc-box-hover-mode . "")
+             (eldoc-box-hover-at-point-mode . ""))
   :commands (eldoc-box-hover-mode
              eldoc-box-eglot-help-at-point
              eldoc-box-helpful-callable
@@ -1315,15 +1321,6 @@ no matter what."
   :bind(("s-<" . #'winner-undo)
         ("s->" . #'winner-redo)))
 
-;;; windmove
-(use-package windmove
-  :custom
-  (windmove-create-window nil)
-  :bind (("C-c <up>" . #'windmove-up)
-         ("C-c <down>" . #'windmove-down)
-         ("C-c <left>" . #'windmove-left)
-         ("C-c <right>" . #'windmove-right)))
-
 ;;; tab-bar (again, most/all of this taken from prot)
 (use-package tab-bar
   :custom
@@ -1383,7 +1380,7 @@ questions.  Else use completion to select the tab to switch to."
          ("C-x T t" . #'$tab-select-tab-dwim)
          ("s-t" . #'$tab-select-tab-dwim)))
 
-;;; which-key
+;; which-key
 (use-package which-key
   :blackout
   :config

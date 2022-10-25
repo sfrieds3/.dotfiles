@@ -12,6 +12,7 @@
 (menu-bar-mode -1)
 (setq package-enable-at-startup nil)
 (setq frame-inhibit-implied-resize t)
+(customize-set-variable 'warning-minimum-level :error)
 
 ;;; try not to gc during emacs startup... set to 10MB from 800kb
 (setq gc-cons-threshold 100000000)

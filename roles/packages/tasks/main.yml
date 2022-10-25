@@ -23,8 +23,10 @@
       - gtk2-devel
       - guile
       - htop
+      - jansson-devel
       - java-11-openjdk-devel
       - kitty
+      - libgccjit-devel
       - libX11-devel
       - libXpm-devel
       - libpng-devel

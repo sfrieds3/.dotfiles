@@ -28,7 +28,7 @@
     (load-theme (car (read-from-string new-colorscheme)) t)
     (message "Loaded colorscheme: %s" new-colorscheme)))
 
-;;;###Autoload
+;;;###autoload
 (defun $cycle-font (arg)
   "Cycle through fonts.  ARG is prefix arg, default 1."
   (interactive "p")
