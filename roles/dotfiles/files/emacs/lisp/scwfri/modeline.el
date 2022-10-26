@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-;; mode-line
+;;; mode-line
 (defun $ellipsize-file-name (file-name max-length)
   "Elipsize FILE-NAME if over MAX-LENGTH."
   (let* ((ellipsis (if (char-displayable-p ?…) "…" "..."))
@@ -21,6 +21,17 @@
          " "
          (substring file-name (- (length file-name) (1- right))))
       file-name)))
+
+(defun $left-right-mode-line-render (left right)
+  "Return a string of `window-width' length.
+Containing LEFT, and RIGHT aligned respectively."
+  (let ((available-width
+         (- (window-total-width)
+            (+ (length (format-mode-line left))
+               (length (format-mode-line right))))))
+    (append left
+            (list (format (format "%%%ds" available-width) ""))
+            right)))
 
 (defun $mode-line-render (left centre right)
   "Return a string of `window-total-width' length.
@@ -39,11 +50,15 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
              available-width-left
              centre-width
              right-width)))
-    (append left
-            (list (format (format "%%%ds" available-width-left) ""))
-            centre
-            (list (format (format "%%%ds" available-width-right) ""))
-            right)))
+    (cond ((> (+ left-width right-width) (window-total-width))
+           left)
+          ((> (+ left-width centre-width right-width) (window-total-width))
+           ($left-right-mode-line-render left right))
+          (t (append left
+                     (list (format (format "%%%ds" available-width-left) ""))
+                     centre
+                     (list (format (format "%%%ds" available-width-right) ""))
+                     right)))))
 
 (defvar-local $mode-line-tab-bar-indicator
   '(:eval
