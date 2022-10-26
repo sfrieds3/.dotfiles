@@ -210,7 +210,9 @@
   (blackout 'abbrev-mode))
 
 (use-package bind-key
-  :bind ("C-h y" . #'describe-personal-keybindings))
+  :bind (("C-h y" . #'describe-personal-keybindings)
+         ("C-<tab>" . #'next-buffer)
+         ("C-<iso-lefttab>" . #'previous-buffer)))
 
 ;;; general
 (use-package general
@@ -289,7 +291,11 @@
               ("j" . #'evil-next-visual-line)
               ("k" . #'evil-previous-visual-line)
               ("gj" . #'evil-next-line)
-              ("gk" . #'evil-previous-line)))
+              ("gk" . #'evil-previous-line)
+              ([(meta h)] . #'evil-window-left)
+              ([(meta j)] . #'evil-window-down)
+              ([(meta k)] . #'evil-window-up)
+              ([(meta l)] . #'evil-window-right)))
 
 (use-package evil-collection
   :after evil
@@ -930,7 +936,7 @@
   :bind (("s-." . #'ctags-find)))
 
 (use-package vterm
-  :commands vterm
+  :demand t
   :config
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
@@ -1049,8 +1055,9 @@ no matter what."
 ;;; highlight current line
 (use-package hl-line
   :config
-  (hl-line-mode nil)
   (set-face-attribute hl-line-face nil :underline nil)
+  :custom
+  (global-hl-line-mode nil)
   :bind (([f9]. #'hl-line-mode)))
 
 ;;; expand-region
@@ -1072,14 +1079,13 @@ no matter what."
 
 ;;; flycheck
 (use-package flycheck
-  :defer 5
   :commands (flycheck-mode
              global-flycheck-mode)
   :custom
   (flycheck-standard-error-navigation nil)
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-python-pycompile-executable "python3")
-  :config
+  :init
   (global-flycheck-mode))
 
 ;;; slime
@@ -1372,8 +1378,6 @@ questions.  Else use completion to select the tab to switch to."
          ("C-x T l" . #'tab-bar-history-back)
          ("C-x T n" . #'tab-next)
          ("C-x T p" . #'tab-previous)
-         ("<s-tab>" . #'tab-next)
-         ("<S-s-iso-lefttab>" . #'tab-previous)
          ("<f8>" . #'$tab-tab-bar-toggle)
          ("C-x T k" . #'tab-close)
          ("C-x T c" . #'tab-new)
