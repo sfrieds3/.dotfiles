@@ -10,6 +10,7 @@
       - clang-tools-extra
       - cmake
       - curl
+      - dconf
       - fd-find
       - fontconfig-devel
       - freetype-devel
@@ -19,6 +20,7 @@
       - gimp
       - git-core
       - gitk
+      - gnome-tweaks
       - gnutls-devel
       - gtk2-devel
       - guile
@@ -48,6 +50,7 @@
       - ruby-devel
       - sqlite
       - sqlite-devel
+      - texinfo
       - util-linux-user
       - zig
       - zsh

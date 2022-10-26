@@ -19,6 +19,7 @@
       - ripgrep
       - sbcl
       - shellcheck
+      - starship
       - stylua
       - yamllint
       - zig

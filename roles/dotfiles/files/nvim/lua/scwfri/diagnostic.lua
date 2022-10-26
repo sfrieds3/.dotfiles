@@ -10,13 +10,11 @@ local function any(items, predicate)
   return false
 end
 
-
 local function has_severity(severity)
   return function(diagnostic)
     return diagnostic.severity == severity
   end
 end
-
 
 function M.set_loclist(bufnr, diagnostics)
   local win = api.nvim_get_current_win()
@@ -29,11 +27,10 @@ function M.set_loclist(bufnr, diagnostics)
   elseif any(diagnostics, has_severity(vim.diagnostic.severity.WARN)) then
     diagnostics = vim.tbl_filter(has_severity(vim.diagnostic.severity.WARN), diagnostics)
   end
-  vim.fn.setloclist(0, {}, 'r', {
-    title = 'Language Server',
-    items = vim.diagnostic.toqflist(diagnostics)
+  vim.fn.setloclist(0, {}, "r", {
+    title = "Language Server",
+    items = vim.diagnostic.toqflist(diagnostics),
   })
 end
-
 
 return M

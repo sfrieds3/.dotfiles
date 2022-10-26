@@ -18,9 +18,9 @@
     - role: other
       tags:
         - other
-    - role: fonts
-      tags:
-        - fonts
+    # - role: fonts
+    #   tags:
+    #     - fonts
     # - role: flatpak
     #   tags:
     #     - flatpak
