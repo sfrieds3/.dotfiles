@@ -2,12 +2,12 @@
 - name: Install homebrew packages
   community.general.homebrew:
     name:
+      - ag
       - ansible-language-server
       - bat
       - chicken
       - fd
       - fzf
-      - fzy
       - gopls
       - guile
       - lua-language-server
