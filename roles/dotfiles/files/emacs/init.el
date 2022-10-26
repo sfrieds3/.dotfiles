@@ -38,13 +38,6 @@
     (straight-prune-build))
   :custom (straight-use-package-by-default t))
 
-(use-package blackout
-  :config
-  (blackout 'abbrev-mode))
-
-(use-package bind-key
-  :bind ("C-h y" . #'describe-personal-keybindings))
-
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
 
@@ -60,7 +53,7 @@
 (eval-when-compile
   (require 'use-package)
   ;; do not add -hook suffix automatically in use-package :hook
-  (setf use-package-hook-name-suffix nil))
+  (setq use-package-hook-name-suffix nil))
 
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
@@ -105,9 +98,6 @@
 ;;; disable insert keys automatically for read-only buffers
 (setq view-read-only t)
 
-;;; https://irreal.org/blog/?p=10824
-(setq dictionary-server "dict.org")
-
 ;;; debug on error -- off for now
 (setq debug-on-error nil)
 
@@ -115,11 +105,14 @@
 (setq frame-title-format
       (concat user-login-name "@" system-name ":%f"))
 
+;;; https://irreal.org/blog/?p=10824
+(defvar dictionary-server "dict.org")
+
 ;;; sayonara
-(global-so-long-mode +1)
+(global-so-long-mode t)
 
 ;;; pretty symbols
-(prettify-symbols-mode +1)
+(prettify-symbols-mode nil)
 
 ;;; scwfri-defun
 (use-package scwfri-defun
@@ -212,6 +205,13 @@
   :custom
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
+
+(use-package blackout
+  :config
+  (blackout 'abbrev-mode))
+
+(use-package bind-key
+  :bind ("C-h y" . #'describe-personal-keybindings))
 
 ;;; general
 (use-package general
@@ -455,7 +455,7 @@
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
   (progn
-    (setf treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
           treemacs-deferred-git-apply-delay        0.5
           treemacs-directory-name-transformer      #'identity
           treemacs-display-in-side-window          t
@@ -564,7 +564,7 @@
   :custom
   (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "straight/repos" user-emacs-directory)))
   :config
-  (setf projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
+  (setq projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
   :bind (("C-c f" . #'projectile-find-file)
          ("C-c b" . #'projectile-switch-to-buffer)
          :map projectile-mode-map
@@ -599,7 +599,7 @@
   (advice-add #'completing-read-multiple :filter-args #'$crm-indicator)
 
   ;;; Do not allow the cursor in the minibuffer prompt
-  (setf minibuffer-prompt-properties
+  (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
@@ -624,7 +624,7 @@
   ;; prefix cutrent candidate with "» "
   (advice-add #'vertico--format-candidate :around
               (lambda (orig cand prefix suffix index _start)
-                (setf cand (funcall orig cand prefix suffix index _start))
+                (setq cand (funcall orig cand prefix suffix index _start))
                 (concat
                  (if (= vertico--index index)
                      (propertize "» " 'face 'vertico-current)
@@ -645,7 +645,7 @@
         (propertize file 'face 'marginalia-file-priv-dir)
       file))
 
-  (setf vertico-multiform-commands
+  (setq vertico-multiform-commands
         '(("find-file" flat
            (vertico-sort-function . sort-directories-first)
            (+vertico-transform-functions . +vertico-highlight-directory))))
@@ -830,7 +830,7 @@
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
-  (setf register-preview-delay 0.5
+  (setq register-preview-delay 0.5
         register-preview-function #'consult-register-format)
 
   ;; Optionally tweak the register preview window.
@@ -838,7 +838,7 @@
   (advice-add #'register-preview :override #'consult-register-window)
 
   ;; Use Consult to select xref locations with preview
-  (setf xref-show-xrefs-function #'consult-xref
+  (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
   :config
@@ -852,12 +852,12 @@
    consult--source-project-recent-file consult-line
    :preview-key (kbd "M-."))
 
-  (setf consult-narrow-key (kbd "C-+"))
+  (setq consult-narrow-key (kbd "C-+"))
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
   ;; use projectile
   (autoload 'projectile-project-root "projectile")
-  (setf consult-project-function (lambda (_) (projectile-project-root))))
+  (setq consult-project-function (lambda (_) (projectile-project-root))))
 
 (use-package consult-yasnippet
   :after (consult yasnippet))
@@ -899,7 +899,7 @@
          ([(control g)] . #'projectile-ripgrep)
          ([(control G)] . #'rg))
   :init
-  (setf prefix-help-command #'embark-prefix-help-command)
+  (setq prefix-help-command #'embark-prefix-help-command)
   :custom
   (embark-indicators '($embark-which-key-indicator
                        embark-highlight-indicator
@@ -1045,7 +1045,7 @@ no matter what."
   (defun $inhibit-electric-pair-mode (char)
     "Do not use smart parens in mini-buffers.  Params: CHAR."
     (minibufferp))
-  (setf electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode))
+  (setq electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode))
 
 ;;; highlight current line
 (use-package hl-line
@@ -1141,7 +1141,7 @@ no matter what."
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setf markdown-command "multimarkdown"))
+  (setq markdown-command "multimarkdown"))
 
 ;;; python-mode
 (use-package python-mode
@@ -1160,9 +1160,10 @@ no matter what."
 ;; rust
 (use-package rust-mode
   :config
-  (rust-format-on-save t)
   (defun $rust-mode-hook ()
-    (setf indent-tabs-mode nil))
+    (setq indent-tabs-mode nil))
+  :custom
+  (rust-format-on-save t)
   :hook
   (rust-mode-hook . prettify-symbols-mode)
   (rust-mode-hook . $rust-mode-hook))
@@ -1363,9 +1364,9 @@ questions.  Else use completion to select the tab to switch to."
     (interactive)
     (if (bound-and-true-p tab-bar-mode)
         (progn
-          (setf tab-bar-show nil)
+          (setq tab-bar-show nil)
           (tab-bar-mode -1))
-      (setf tab-bar-show t)
+      (setq tab-bar-show t)
       (tab-bar-mode 1)))
 
   :bind (("C-x T h" . #'tab-bar-history-forward)
@@ -1404,9 +1405,9 @@ questions.  Else use completion to select the tab to switch to."
   :config
   ;; make hl-lock play nice with idle-highlight-mode
   (defun $enable-idle-highlight-mode ()
-    (setf idle-highlight-mode t))
+    (setq idle-highlight-mode t))
   (defun $disable-idle-highlight-mode ()
-    (setf idle-highlight-mode nil))
+    (setq idle-highlight-mode nil))
   ;;(advice-add 'highlight-symbol-at-point :before '$disable-idle-highlight-mode)
   ;;(advice-add 'highlight-symbol-at-point :after '$enable-idle-highlight-mode)
   ;; C-x w h [REGEX] <RET> <RET> to highlight all occurances of [REGEX], and C-x w r [REGEX] <RET> to unhighlight them again.
@@ -1416,7 +1417,7 @@ questions.  Else use completion to select the tab to switch to."
 (use-package hl-todo
   :hook (prog-mode-hook . hl-todo-mode)
   :config
-  (setf hl-todo-keyword-faces
+  (setq hl-todo-keyword-faces
         '(("TODO"   . "#FFFF00")
           ("FIXME"  . "#FFFFFF")
           ("NOTE"   . "#F56600")

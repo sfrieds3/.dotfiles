@@ -160,7 +160,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
              ((string-equal p "Bottom")
               (propertize "Bot" 'help-echo p 'mouse-face 'mode-line-highlight))
              (t
-              (propertize (concat p  "%%")
+              (propertize (concat p "%%")
                           'help-echo "Position"
                           'mouse-face 'mode-line-highlight))))))
 (put '$mode-line-percent-position 'risky-local-variable t)
