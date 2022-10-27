@@ -9,11 +9,12 @@
 (setq display-time-world-list
   '(("America/Los_Angeles" "Los Angeles")
     ("America/New_York" "New York")
-    ("Europe/Athens" "Athens")
+    ("Europe/Amsterdam" "Amsterdam")
     ("Europe/Berlin" "Berlin")
     ("Asia/Tokyo" "Tokyo")
     ("Europe/London" "London")
     ("Pacific/Auckland" "Auckland")
+    ("Pacific/Sydney" "Sydney")
     ("Asia/Shanghai" "Shanghai")))
 (setq display-time-world-time-format "%a, %d %b %I:%M %p %Z")
 
