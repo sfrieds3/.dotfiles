@@ -36,7 +36,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<Space>r", vim.lsp.buf.references, bufopts)
   vim.keymap.set("n", "<Space>F", vim.lsp.buf.format, bufopts)
 
-  require("aerial").on_attach(client, bufnr)
   require("illuminate").on_attach(client)
 end
 

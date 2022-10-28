@@ -1,5 +1,5 @@
 ---
-node_version: 18.12.0
+node_version: 18.11.0
 
 nvm_dir: $HOME/.config/nvm
 

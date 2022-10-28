@@ -4,10 +4,11 @@
     cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     creates: $HOME/.config/nvm
 
-- name: Install lts node
-  ansible.builtin.command:
-    cmd: ". {{ nvm_dir }}/nvm.sh && nvm install --lts"
-    creates: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
+# - name: Install lts node
+#   become: true
+#   ansible.builtin.command:
+#     cmd: ". {{ nvm_dir }}/nvm.sh && nvm install --lts"
+#     creates: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
 
 - name: symlink node to ~/.local/bin
   ansible.builtin.file:

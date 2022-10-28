@@ -6,12 +6,12 @@
     - role: meta
       tags:
         - meta
-    - role: packages
-      tags:
-        - packages
     - role: dotfiles
       tags:
         - dotfiles
+    - role: packages
+      tags:
+        - packages
     - role: python
       tags:
         - python
