@@ -363,6 +363,7 @@
 
 ;;; eglot
 (use-package eglot
+  :straight (:type built-in)
   :commands
   eglot
   :config
