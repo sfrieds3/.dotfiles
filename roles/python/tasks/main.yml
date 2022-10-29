@@ -8,6 +8,7 @@
 - name: Install global pip packages
   ansible.builtin.pip:
     name:
+      - compiledb
       - pipx
       - twine
       - flake8
