@@ -4,3 +4,5 @@ npm_packages:
   - vim-language-server
   - typescript
   - ts-server
+  - eslint
+  - prettier

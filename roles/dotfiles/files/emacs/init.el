@@ -223,7 +223,7 @@
     "Ag" #'affe-grep
     "Af" #'affe-find
     "D" #'magit-diff-dwim
-    "F" #'eglot-format
+    "F" #'format-all-buffer
     "G" #'magit
     "cf" #'$cycle-font
     "ct" #'$cycle-theme
@@ -1086,8 +1086,11 @@ no matter what."
   (flycheck-standard-error-navigation nil)
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-python-pycompile-executable "python3")
+  :config
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
   :init
-  (global-flycheck-mode))
+  (global-flycheck-mode t))
 
 ;;; slime
 (use-package sly
@@ -1197,6 +1200,25 @@ no matter what."
   :bind ((:map cperl-mode-map
                ("<tab>" . #'indent-for-tab-command))))
 
+;;; javacsript
+(use-package js
+  :straight (:type built-in)
+  :custom
+  (js-indent-level 2))
+
+;; typescript
+(use-package tide
+  :config
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (tide-hl-identifier-mode t))
+  :hook
+  (before-save-hook . tide-format-before-save)
+  (typescript-mode-hook . setup-tide-mode)
+  )
+
 ;;; ruby-mode
 (use-package ruby-mode
   :custom
@@ -1205,6 +1227,13 @@ no matter what."
 ;;; web-mode
 (use-package web-mode
   :defer t
+  :config
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (defun $tide-web-mode-hook ()
+      (when (string-equal "tsx" (file-name-extension buffer-file-name))
+        (setup-tide-mode)))
+  :hook
+  (web-mode-hook . $tide-web-mode-hook)
   :custom
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
@@ -1214,6 +1243,8 @@ no matter what."
          "\\.[agj]sp\\'"
          "\\.as[cp]x\\'"
          "\\.erb\\'"
+         "\\.jsx?$"
+         "\\.tsx\\'"
          "\\.mustache\\'"
          "\\.djhtml\\'"))
 
@@ -1398,9 +1429,8 @@ questions.  Else use completion to select the tab to switch to."
   :bind (([(control f7)] . idle-highlight-mode)))
 
 (use-package symbol-overlay
-  :bind
-  ("M-n" . #'symbol-overlay-switch-forward)
-  ("M-p" . #'symbol-overlay-switch-backward)
+  :bind (("M-n" . #'symbol-overlay-jump-next)
+         ("M-p" . #'symbol-overlay-jump-prev))
   ([f7] . #'symbol-overlay-put)
   ([(control shift f7)] . #'symbol-overlay-remove-all))
 
@@ -1497,6 +1527,18 @@ questions.  Else use completion to select the tab to switch to."
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
   (yas-reload-all))
+
+(use-package auto-yasnippet
+  :bind (("C-c C-y w" . #'aya-create)
+         ("C-c C-y TAB" . #'aya-expand)
+         ("C-c C-y SPC" . #'aya-expand-from-history)
+         ("C-c C-y d" . #'aya-delete-from-history)
+         ("C-c C-y c" . #'aya-clear-history)
+         ("C-c C-y n" . #'aya-next-in-history)
+         ("C-c C-y p" . #'aya-previous-in-history)
+         ("C-c C-y s" . #'aya-persist-snippet)
+         ("C-c C-y o" . #'aya-open-line)))
+
 
 ;;; TODO investigate tempel
 (use-package tempel
