@@ -237,7 +237,7 @@
     "b" #'consult-buffer
     "d" #'consult-flycheck
     "f" #'projectile-find-file
-    "g" #'consult-ripgrep
+    "g" #'deadgrep
     "G" #'rg
     "l" #'consult-line
     "P" #'consult-projectile
@@ -892,6 +892,9 @@
   :custom
   (affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
+(use-package deadgrep
+  :bind ("<F6>" . #'deadgrep))
+
 (use-package embark-defun
   :straight nil)
 
@@ -1228,7 +1231,7 @@ no matter what."
 (use-package web-mode
   :defer t
   :config
-  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (add-to-list 'web-mode-content-types-alist '("jsx" . "\\.js[x]?\\'"))
   (defun $tide-web-mode-hook ()
       (when (string-equal "tsx" (file-name-extension buffer-file-name))
         (setup-tide-mode)))
