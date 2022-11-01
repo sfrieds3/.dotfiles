@@ -268,6 +268,7 @@
   :demand t
   :init
   (setq evil-want-keybinding nil)
+  (setq evil-disable-insert-state-bindings t)
   :config
   (evil-mode 1)
   (defun $evil-nohl ()
@@ -284,19 +285,26 @@
   (evil-split-window-right t)
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
-  :bind (:map evil-normal-state-map
-              ([(control l)] . #'evil-ex-nohighlight)
-              ([(control j)] . #'evil-next-visual-line)
-              ([(control k)] . #'evil-previous-visual-line)
-              ("C-<return>" . #'eval-last-sexp)
-              ("j" . #'evil-next-visual-line)
-              ("k" . #'evil-previous-visual-line)
-              ("gj" . #'evil-next-line)
-              ("gk" . #'evil-previous-line)
-              ([(meta h)] . #'evil-window-left)
-              ([(meta j)] . #'evil-window-down)
-              ([(meta k)] . #'evil-window-up)
-              ([(meta l)] . #'evil-window-right)))
+  :bind ((:map evil-normal-state-map
+               ([(control l)] . #'evil-ex-nohighlight)
+               ([(control j)] . #'evil-next-visual-line)
+               ([(control k)] . #'evil-previous-visual-line)
+               ([(control return)] . #'eval-last-sexp)
+               ("j" . #'evil-next-visual-line)
+               ("k" . #'evil-previous-visual-line)
+               ("gj" . #'evil-next-line)
+               ("gk" . #'evil-previous-line)
+               ([(control shift v)] . #'evil-paste-after)
+               ([(meta h)] . #'evil-window-left)
+               ([(meta j)] . #'evil-window-down)
+               ([(meta k)] . #'evil-window-up)
+               ([(meta l)] . #'evil-window-right))
+         (:map evil-insert-state-map
+               ([(control shift c)] . #'evil-yank)
+               ([(control shift v)] . #'yank))
+         (:map evil-visual-state-map
+               ([(control shift c)] . #'evil-yank)
+               ([(control shift v)] . #'evil-visual-paste))))
 
 (use-package evil-collection
   :after evil
@@ -1232,7 +1240,6 @@ no matter what."
 (use-package web-mode
   :defer t
   :config
-  (add-to-list 'web-mode-content-types-alist '("jsx" . "\\.js[x]?\\'"))
   (defun $tide-web-mode-hook ()
       (when (string-equal "tsx" (file-name-extension buffer-file-name))
         (setup-tide-mode)))
@@ -1247,7 +1254,6 @@ no matter what."
          "\\.[agj]sp\\'"
          "\\.as[cp]x\\'"
          "\\.erb\\'"
-         "\\.jsx?$"
          "\\.tsx\\'"
          "\\.mustache\\'"
          "\\.djhtml\\'"))
