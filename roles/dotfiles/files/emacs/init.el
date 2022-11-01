@@ -228,6 +228,7 @@
     "cf" #'$cycle-font
     "ct" #'$cycle-theme
     "e" #'eval-buffer
+    "gg" #'global-git-gutter-mode
     "r" #'eglot-rename
     "x" #'eval-last-sexp)
   (general-create-definer $leader :prefix "SPC")
@@ -1049,7 +1050,7 @@ no matter what."
 (use-package elec-pair
   :commands (electric-pair-mode)
   :init
-  (electric-pair-mode -1)
+  (electric-pair-mode t)
   :config
   (defun $inhibit-electric-pair-mode (char)
     "Do not use smart parens in mini-buffers.  Params: CHAR."
