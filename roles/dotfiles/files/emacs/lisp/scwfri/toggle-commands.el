@@ -15,14 +15,13 @@
 (defun $cycle-theme (arg)
   "Cycle colorschemes through preset list.  ARG is prefix argument, default 1."
   (interactive "p")
-  (let*
-      ((colorschemes ["doom-material-dark" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
-       (idx (if (get '$cycle-colorscheme 'state)
-                (get '$cycle-colorscheme 'state)
-              0))
-       (next-idx (% (+ idx arg (length colorschemes)) (length colorschemes)))
-       (current-colorscheme (aref colorschemes idx))
-       (new-colorscheme (aref colorschemes next-idx)))
+  (let* ((colorschemes ["doom-material-dark" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
+         (idx (if (get '$cycle-colorscheme 'state)
+                  (get '$cycle-colorscheme 'state)
+                0))
+         (next-idx (% (+ idx arg (length colorschemes)) (length colorschemes)))
+         (current-colorscheme (aref colorschemes idx))
+         (new-colorscheme (aref colorschemes next-idx)))
     (put '$cycle-colorscheme 'state next-idx)
     ;;(disable-theme (car (read-from-string current-colorscheme))) ; we advised load-theme to disable other themes first
     (load-theme (car (read-from-string new-colorscheme)) t)
@@ -32,7 +31,7 @@
 (defun $cycle-font (arg)
   "Cycle through fonts.  ARG is prefix arg, default 1."
   (interactive "p")
-  (let* ((fonts ["Hack" "JetBrains Mono" "Source Code Pro" "Victor Mono"])
+  (let* ((fonts ["Hack" "Rec Mono Linear" "JetBrains Mono" "Source Code Pro" "Fira Mono" "Victor Mono"])
          (idx (if (get '$cycle-font 'state)
                   (get '$cycle-font 'state)
                 0))

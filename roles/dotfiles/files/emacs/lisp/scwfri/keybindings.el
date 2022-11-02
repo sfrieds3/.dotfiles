@@ -102,12 +102,6 @@
 ;;; no C-z
 (global-set-key (kbd "C-z") nil)
 
-;;; modify f and b word motions to be more like vim
-;;(global-set-key (kbd "M-f") 'forward-to-word)
-;;(global-set-key (kbd "M-F") 'forward-word)
-;;(global-set-key (kbd "M-b") 'backward-word)
-;;(global-set-key (kbd "M-B") 'backward-to-word)
-
 ;;; modify kill-word
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-x C-k") 'kill-region)
