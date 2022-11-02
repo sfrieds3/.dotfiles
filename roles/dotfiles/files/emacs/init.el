@@ -134,7 +134,8 @@
   (with-eval-after-load 'org
     ($remap-mark-command 'org-mark-element org-mode-map)
     ($remap-mark-command 'org-mark-subtree org-mode-map))
-  :bind (([(meta i)] . #'$activate-mark)
+  :bind (([(control h) (y)] . #'describe-personal-keybindings)
+         ([(meta i)] . #'$activate-mark)
          ([(meta shift i)] . #'tab-to-tab-stop)
          :map isearch-mode-map
          ([(control q)] . #'$isearch-highlight-phrase)))
@@ -208,11 +209,6 @@
 (use-package blackout
   :config
   (blackout 'abbrev-mode))
-
-(use-package bind-key
-  :bind (("C-h y" . #'describe-personal-keybindings)
-         ("C-<tab>" . #'next-buffer)
-         ("C-<iso-lefttab>" . #'previous-buffer)))
 
 ;;; general
 (use-package general
@@ -902,7 +898,7 @@
   (affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
 (use-package deadgrep
-  :bind ("<F6>" . #'deadgrep))
+  :bind ("<f6>" . #'deadgrep))
 
 (use-package embark-defun
   :straight nil)
