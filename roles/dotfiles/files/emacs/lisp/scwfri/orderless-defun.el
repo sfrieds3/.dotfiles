@@ -7,10 +7,10 @@
 ;;; source: https://github.com/oantolin/emacs-config/blob/12a5ca1c379625aa2409af9be21a7ccf70eabc28/init.el
 (defmacro $dispatch: (regexp style)
   "Generate 'Dispatch: (REGEXP STYLE) orderless style dispatcher function."
-    (cl-flet ((symcat (a b) (intern (concat a (symbol-name b)))))
-      `(defun ,(symcat "$dispatch:" style) (pattern _index _total)
-         (when (string-match ,regexp pattern)
-           (cons ',(symcat "orderless-" style) (match-string 1 pattern))))))
+  (cl-flet ((symcat (a b) (intern (concat a (symbol-name b)))))
+    `(defun ,(symcat "$dispatch:" style) (pattern _index _total)
+       (when (string-match ,regexp pattern)
+         (cons ',(symcat "orderless-" style) (match-string 1 pattern))))))
 
 ;;; create dispatchers
 (cl-flet ((pre/post (str) (format "^%s\\(.*\\)$\\|^\\(?1:.*\\)%s$" str str)))
@@ -18,9 +18,9 @@
   ($dispatch: (pre/post "/") regexp)
   ($dispatch: (pre/post "!") without-literal)
   ($dispatch: (pre/post (if (or minibuffer-completing-file-name
-                               (derived-mode-p 'eshell-mode))
-                           "," "[,.]"))
-             initialism))
+                                (derived-mode-p 'eshell-mode))
+                            "," "[,.]"))
+              initialism))
 ($dispatch: "^{\\(.*\\)}$" flex)
 ($dispatch: "^\\([^][^\\+*]*[./-][^][\\+*$]*\\)$" prefixes)
 

@@ -6,50 +6,65 @@
 (require 'theme-config)
 
 ;;; testing out random unnecessary macro
-(defmacro load-var-theme (theme)
+(defmacro $load-var-theme (theme)
   "Load THEME with given string name."
   `(load-theme ',(car (read-from-string theme)) t))
 
-(defvar $cycle-colorscheme)
-(put '$cycle-colorscheme :colorschemes ["doom-material-dark" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
+(defvar $themes)
+(put '$themes :themes ["doom-material-dark" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
+
+(defvar $fonts)
+(put '$fonts :fonts ["Hack" "Rec Mono Linear" "JetBrains Mono" "Source Code Pro" "Fira Mono" "Victor Mono"])
+
+;;; TODO finish this
+;; (defmacro $cycle: (cycle-var load-fun)
+;;   "Generate $cycle: (CYCLE-VAR LOAD-FUN) function.
+;; Cycle through CYCLE-VAR and use LOAD-FUN to load var."
+;;   (cl-flet ((symcat (a b) (intern (concat a (symbol-name b)))))
+;;     `(defun ,(symcat "$cycle:" cycle-var) (arg)
+;;        (interactive "p")
+;;        (let* ((cycle-list (get ,(quote cycle-var) ,(concat ":" ,(symbol-name cycle-var))))
+;;               (idx (if ,(get ,(quote cycle-var :state))
+;;                        ,(get (quote cycle-var) :state)
+;;                      0))
+;;               (next-idx (% (+ idx arg (length cycle-list)) (length cycle-list)))
+;;               (new-var (aref cycle-list next-idx)))
+;;          (put (quote cycle-var :state next-idx))
+;;          (load-fun (car (read-from-string new-var)))
+;;          (message "Loaded %s: %s" (symbol-name cycle-var) new-var)))))
 
 ;;; idea: http://xahlee.info/emacs/emacs/elisp_toggle_command.html
 ;;;###autoload
 (defun $cycle-theme (arg)
   "Cycle colorschemes through preset list.  ARG is prefix argument, default 1."
   (interactive "p")
-  (let* ((colorschemes (get '$cycle-colorscheme :colorschemes))
-         (idx (if (get '$cycle-colorscheme :state)
-                  (get '$cycle-colorscheme :state)
+  (let* ((themes (get '$themes :themes))
+         (idx (if (get '$themes :state)
+                  (get '$themes :state)
                 0))
-         (next-idx (% (+ idx arg (length colorschemes)) (length colorschemes)))
-         (current-colorscheme (aref colorschemes idx))
-         (new-colorscheme (aref colorschemes next-idx)))
-    (put '$cycle-colorscheme :state next-idx)
-    ;;(disable-theme (car (read-from-string current-colorscheme))) ; we advised load-theme to disable other themes first
-    (load-theme (car (read-from-string new-colorscheme)) t)
-    (message "Loaded colorscheme: %s" new-colorscheme)))
+         (next-idx (% (+ idx arg (length themes)) (length themes)))
+         (new-theme (aref themes next-idx)))
+    (put '$themes :state next-idx)
+    (load-theme (car (read-from-string new-theme)) t)
+    (message "Loaded colorscheme: %s" new-theme)))
 
 ;;;###autoload
-(defun $describe-current-colorscheme ()
+(defun $describe-current-theme ()
   "Echo current colorscheme."
   (interactive)
-  (let* ((colorschemes (get '$cycle-colorscheme :colorschemes))
-         (idx (if (get '$cycle-colorscheme :state)
-                  (get '$cycle-colorscheme :state)
+  (let* ((themes (get '$themes :themes))
+         (idx (if (get '$themes :state)
+                  (get '$themes :state)
                 0)))
-    (message "Colorscheme: %s" (aref colorschemes idx))))
-
-(defvar $cycle-font)
-(put '$cycle-font :fonts ["Hack" "Rec Mono Linear" "JetBrains Mono" "Source Code Pro" "Fira Mono" "Victor Mono"])
+    (message "Theme: %s" (aref themes idx))))
 
 ;;;###autoload
 (defun $cycle-font (arg)
   "Cycle through fonts.  ARG is prefix arg, default 1."
   (interactive "p")
-  (let* ((fonts (get '$cycle-font :fonts))
-         (idx (if (get '$cycle-font :state)
-                  (get '$cycle-font :state)
+  (let* ((fonts (get '$fonts :fonts))
+         (idx (if (get '$fonts :state)
+                  (get '$fonts :state)
                 0))
          (next-idx (% (+ idx arg (length fonts)) (length fonts)))
          (next-font (aref fonts next-idx)))
@@ -61,9 +76,9 @@
 (defun $describe-current-font ()
   "Echo current font."
   (interactive)
-  (let* ((fonts (get '$cycle-font :fonts))
-         (idx (if (get '$cycle-font :state)
-                  (get '$cycle-font :state)
+  (let* ((fonts (get '$fonts :fonts))
+         (idx (if (get '$fonts :state)
+                  (get '$fonts :state)
                 0)))
     (message "Font: %s" (aref fonts idx))))
 
