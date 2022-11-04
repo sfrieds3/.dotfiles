@@ -12,12 +12,12 @@
 	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [core]
 	editor = nvim
-	excludesfile = /home/scwfri/.gitignore
+	excludesfile = $XDG_CONFIG_HOME/git/gitignore
 [pull]
 	ff = only
 [user]
-	email = scwfri@gmail.com
-	name = scwfri
+	email = sfrieds3@gmail.com
+	name = Scott F
 [alias]
 	ap = add --patch
 	blm = blame -wM
