@@ -213,6 +213,7 @@
 ;;; general
 (use-package general
   :config
+  (general-evil-setup)
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
@@ -231,7 +232,8 @@
   ($leader
     :keymaps 'normal
     "RET" #'execute-extended-command
-    "b" #'consult-buffer
+    "B" #'consult-buffer
+    "b" #'projectile-switch-to-buffer
     "d" #'consult-flycheck
     "f" #'projectile-find-file
     "g" #'deadgrep
