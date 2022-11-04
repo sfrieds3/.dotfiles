@@ -14,7 +14,7 @@
 (put '$themes :themes ["doom-material-dark" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
 
 (defvar $fonts)
-(put '$fonts :fonts ["Hack" "Rec Mono Linear" "JetBrains Mono" "Source Code Pro" "Fira Mono" "Victor Mono"])
+(put '$fonts :fonts ["Hack Nerd Font" "JetBrainsMono Nerd Font" "SauceCodePro Nerd Font" "FuraMono Nerd Font" "VictorMono Nerd Font"])
 
 ;;; TODO finish this
 ;; (defmacro $cycle: (cycle-var load-fun)
@@ -68,7 +68,7 @@
                 0))
          (next-idx (% (+ idx arg (length fonts)) (length fonts)))
          (next-font (aref fonts next-idx)))
-    (put '$cycle-font :state next-idx)
+    (put '$fonts :state next-idx)
     ($set-current-font next-font)
     (message "Font: %s" next-font)))
 
