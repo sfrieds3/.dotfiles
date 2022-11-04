@@ -12,8 +12,8 @@ exists() { (( $+commands[$1] )); }
 # set gnome terminal title to user@host:pwd
 DISABLE_AUTO_TITLE="true"
 function precmd () {
-  window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
-  echo -ne "$window_title"
+    window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
+    echo -ne "$window_title"
 }
 
 cursor_mode() {
@@ -23,12 +23,12 @@ cursor_mode() {
 
     function zle-keymap-select {
         if [[ ${KEYMAP} == vicmd ]] ||
-            [[ $1 = 'block' ]]; then
+               [[ $1 = 'block' ]]; then
             echo -ne $cursor_block
         elif [[ ${KEYMAP} == main ]] ||
-            [[ ${KEYMAP} == viins ]] ||
-            [[ ${KEYMAP} = '' ]] ||
-            [[ $1 = 'beam' ]]; then
+                 [[ ${KEYMAP} == viins ]] ||
+                 [[ ${KEYMAP} = '' ]] ||
+                 [[ $1 = 'beam' ]]; then
             echo -ne $cursor_beam
         fi
     }

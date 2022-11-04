@@ -430,7 +430,7 @@
          ("C-c c" . #'org-capture)
          ("C-c I" . #'org-id-copy))
   :config
-  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
   :custom
   (org-hide-leading-stars t)
   (org-src-preserve-indentation nil)
@@ -1213,6 +1213,12 @@ no matter what."
   :straight (:type built-in)
   :custom
   (js-indent-level 2))
+
+;;; sh-mode
+(use-package sh-script
+  :straight (:type built-in)
+  :config
+  (add-to-list 'auto-mode-alist '("/zsh/" . sh-mode)))
 
 ;; typescript
 (use-package tide
