@@ -22,6 +22,7 @@ dotfile_homedir_files:
   - csirc
   - sbclrc
   - ideavimrc
+  - pdbrc
 
 archive_homedir_files:
   - bash_aliases
