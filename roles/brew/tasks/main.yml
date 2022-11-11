@@ -4,6 +4,7 @@
     name:
       - ag
       - ansible-language-server
+      - autojump
       - bat
       - chicken
       - fd

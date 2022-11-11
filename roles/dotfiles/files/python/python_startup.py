@@ -244,7 +244,7 @@ def setup_readline():
     """Initialize the readline module."""
     # histpath = os.path.join(os.path.expanduser("~"), ".local", "share",
     #                         "python")
-    histpath = os.path.join(os.getenv("XDG_DATA_HOME", "python")
+    histpath = os.path.join(os.getenv("XDG_DATA_HOME", "python"))
     if sys.version[0] == '2':
         histfile = os.path.join(histpath, "py2hist")
     else:

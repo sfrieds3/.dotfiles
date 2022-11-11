@@ -15,7 +15,7 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 alias s='echo "$USER@$HOSTNAME"'
 alias f="stat -c '%A %a %n'"
 
-alias grep='grep -HPIn0 --exclude=tags --color=auto'
+alias grep='grep -HIn0 --exclude=tags --color=auto'
 alias rgrep='grep -r'
 alias tmux='tmux -2'
 
@@ -42,6 +42,8 @@ alias gbp='git checkout -'
 # fzf helpers
 alias glf='fzf | xargs git lf'
 alias gd='cd $(fzf | xargs dirname)'
+alias ef='fzf | xargs nvim'
+alias gaf='fzf | xargs git add'
 
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
