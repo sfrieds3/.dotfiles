@@ -32,11 +32,16 @@ alias dskspc='sudo du -h --max-depth=1 | sort -h'
 alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do tmux kill-session -t \$s; done;"
 
 # git aliases
+alias gs='git status'
 alias gba='git branch -a | fzf | sed s/^\*// | xargs git checkout'
 alias gb='git branch | fzf | sed s/^\*// | xargs git checkout'
 alias gap='git add --patch'
 alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gbp='git checkout -'
+
+# fzf helpers
+alias glf='fzf | xargs git lf'
+alias gd='cd $(fzf | xargs dirname)'
 
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'

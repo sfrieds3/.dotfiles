@@ -10,11 +10,11 @@ __DOTS[ITALIC_OFF]=$'\e[23m'
 exists() { (( $+commands[$1] )); }
 
 # set gnome terminal title to user@host:pwd
-DISABLE_AUTO_TITLE="true"
-function precmd () {
-    window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
-    echo -ne "$window_title"
-}
+#DISABLE_AUTO_TITLE="true"
+#function precmd () {
+#    window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
+#    echo -ne "$window_title"
+#}
 
 cursor_mode() {
     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
@@ -41,28 +41,28 @@ cursor_mode() {
     zle -N zle-line-init
 }
 
-lazy_load_nvm() {
-    unset -f node
-    unset -f nvm
-    unset -f npm
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-}
+# lazy_load_nvm() {
+#     unset -f node
+#     unset -f nvm
+#     unset -f npm
+#     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# }
 
-node() {
-    lazy_load_nvm
-    node $@
-}
-
-nvm() {
-    lazy_load_nvm
-    nvm $@
-}
-
-npm() {
-    lazy_load_nvm
-    npm $@
-}
+# node() {
+#     lazy_load_nvm
+#     node $@
+# }
+# 
+# nvm() {
+#     lazy_load_nvm
+#     nvm $@
+# }
+# 
+# npm() {
+#     lazy_load_nvm
+#     npm $@
+# }
 
 vterm_printf(){
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then

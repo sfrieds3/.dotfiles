@@ -3,6 +3,8 @@ set smartcase
 set incsearch
 set hlsearch
 set visualbell
+set scrolloff=3
+set showmode
 
 set highlightedyank
 set ideamarks
@@ -28,27 +30,39 @@ set textobj-entire
 nnoremap <C-l> :nohlsearch<CR>
 nnoremap Y y$
 
-nnoremap <leader>W :action EditorToggleShowWhitespaces<cr>
-
 " easy system clipboard copy/paste
 noremap <leader>y "*y
 noremap <leader>yy "*Y
 noremap <leader>p "*p
 noremap <leader>P "*P
 
-" Jump to next/previous error, show error description
-" https://stackoverflow.com/questions/13346245/keyboard-shortcut-to-display-error-in-intellij
-nnoremap <Leader>e :Action ShowErrorDescription<CR>
-" Alt + F7 in idea.
-" Find usages in file is Ctrl + F7.
-" Alt + E, then F, then U (through the menu bar) also seems to work fine.
-nnoremap <Leader>f :action FindUsages<CR>
-nnoremap <Leader>F :action HighlightUsagesInFile<CR>
+" other actions
+nnoremap <Space>pt :action GoToSymbol<CR>
+nnoremap <Space>r :action RecentFiles<CR>
+nnoremap <Space><CR> :action SearchEverywhere<CR>
+nnoremap <Space>a :action GotoAction<CR>
+nnoremap <Space>f :action GotoFile<CR>
+nnoremap <Space>c :action GotoClass<CR>
+nnoremap <Space>t :action FileStructurePopup<CR>
+nnoremap <Space>T :action GotoSymbol<CR>
+nnoremap <Space>E :action Switcher<CR>
+nnoremap <Space>b :action ToggleLineBreakpoint<CR>
+nnoremap <Space>q :action CloseContent<CR>
+nnoremap <Space>Q :action ReopenClosedTab<CR>
+nnoremap <leader>W :action EditorToggleShowWhitespaces<cr>
+nnoremap <Leader>e :action ShowErrorDescription<CR>
+nnoremap gr :action FindWordAtCaret
 
-nnoremap <Leader>pt :action GoToSymbol<CR>
-nnoremap <Leader>fo :action RecentFiles<CR>
-nnoremap <Leader>fb :action Switcher<CR>
-nnoremap <Leader>ff :action SearchEverywhere<CR>
+" code navigation
+nnoremap <Space>] :action GotoImplementation<CR>
+nnoremap <Space>[ :action GotoSuperMethod<CR>
+nnoremap <Space>u :action FindUsages<CR>
+nnoremap <Space>/ :action FindUsagesInFile<CR>
+nnoremap <Space>k :action HighlightUsagesInFile<CR>
+nnoremap <Space>gt :action GotoTest<CR>
+
+" refactor
+nnoremap <Space>rr :action RenameElement<CR>
 
 " use jetbrains implementation of back/forward
 nnoremap <C-o> :action Back<CR>
@@ -59,18 +73,21 @@ nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
 
 " movements
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
 nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
+nnoremap [t gT
+nnoremap ]t gt
 
 " easy use built in find
 map g/ :action Find<CR>
-map g? :action Find<CR>
 
-map <leader>z :artion ToggleDistractionFreeMode<CR>
+map <leader>z :action ToggleDistractionFreeMode<CR>
 
 " upcase last word in insert
 inoremap <C-u> <Esc>gUiwea

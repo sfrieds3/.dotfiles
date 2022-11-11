@@ -3,8 +3,9 @@ right_format = '$git_commit$git_branch$git_status$username$hostname'
 continuation_prompt = ''
 
 [character]
-success_symbol = '[❯](bold dimmed green)'
-error_symbol = '[❯](bold dimmed red)'
+success_symbol = '[>](bold dimmed green)'
+error_symbol = '[x](bold dimmed red)'
+vimcmd_symbol = '[<](bold dimmed red)'
 
 [time]
 disabled = false
@@ -27,13 +28,13 @@ format = '[$user]($style):'
 style_user = 'bold dimmed blue'
 
 [git_commit]
-tag_symbol = '  '
+tag_symbol = ' tag '
 tag_disabled = false
 style = 'bold green'
 
 [directory]
 fish_style_pwd_dir_length = 3
-read_only = ' '
+read_only = ' ro'
 style = 'bold green'
 
 [git_branch]
@@ -42,38 +43,39 @@ format = '[$symbol](italic yellow)[\($branch(:$remote_branch)\)]($style) '
 style = 'bold italic dimmed red'
 
 [git_status]
-ahead = '⇡${count}'
-diverged = '⇕⇡${ahead_count}⇣${behind_count}'
-behind = '⇣${count}'
+ahead = '<${count}'
+diverged = '<><${ahead_count}>${behind_count}'
+behind = '>${count}'
 deleted = 'x'
+renamed = 'r'
 style = 'bold dimmed red'
 
 [memory_usage]
 disabled = false
-symbol = ' '
+symbol = 'memory '
 threshold = 75
 style = 'bold dimmed red'
 
 #[c]
-#symbol = ' '
+#symbol = 'c '
 
 [conda]
-symbol = ' '
+symbol = 'conda '
 
 [docker_context]
-symbol = ' '
+symbol = 'docker '
 
 [golang]
-symbol = ' '
+symbol = 'go '
 
 [nodejs]
-symbol = ' '
+symbol = 'nodejs '
 
 [package]
-symbol = ' '
+symbol = 'pkg '
 
 [python]
-symbol = ' '
+symbol = 'py '
 
 [rust]
-symbol = ' '
+symbol = 'rs '
