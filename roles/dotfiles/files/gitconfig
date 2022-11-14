@@ -3,7 +3,7 @@
 [diff]
 	guitool = meld
 	tool = vimdiff
-	colorMoved = zebra
+	colorMoved = false
 [difftool]
 	prompt = false
 [mergetool]
@@ -13,6 +13,16 @@
 [core]
 	editor = nvim
 	excludesfile = $XDG_CONFIG_HOME/git/gitignore
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
+	features = decorations
+	keep-plus-minus-markers = true
+[merge]
+	conflictstyle = diff3
 [pull]
 	ff = only
 [user]

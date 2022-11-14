@@ -9,6 +9,7 @@
       - chicken
       - fd
       - fzf
+      - git-delta
       - gopls
       - guile
       - lua-language-server
