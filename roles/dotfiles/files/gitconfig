@@ -21,6 +21,7 @@
 	light = false
 	features = decorations
 	keep-plus-minus-markers = true
+	line-numbers = true
 [merge]
 	conflictstyle = diff3
 [pull]
