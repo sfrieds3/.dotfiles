@@ -41,7 +41,7 @@ autoload zmv
 source $ZDOTDIR/zsh_functions
 source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
-# source $ZDOTDIR/zsh_prompt
+source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 test -f /opt/homebrew/etc/profile.d/autojump.sh && . /opt/homebrew/etc/profile.d/autojump.sh
@@ -57,7 +57,7 @@ fi
 
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 setopt PROMPT_SUBST
 
