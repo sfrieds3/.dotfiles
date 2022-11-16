@@ -78,7 +78,11 @@ function __python_venv() {
     [ $VIRTUAL_ENV ] && echo 'py('`basename $VIRTUAL_ENV`') '
 }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %F{red}$(__python_venv)%(?.%F{green}>.%F{red}x) %f'
+function __node_version() {
+    command -v node > /dev/null && echo 'node(' `node --version` ') '
+}
+
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(?.%F{green}>.%F{red}x) %f'
 
 function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"

@@ -38,6 +38,8 @@ alias gb='git branch | fzf | sed s/^\*// | xargs git checkout'
 alias gap='git add --patch'
 alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gbp='git checkout -'
+alias gd='git diff'
+alias gdc='git diff --cached'
 
 # fzf helpers
 alias glf='fzf | xargs git lf'
