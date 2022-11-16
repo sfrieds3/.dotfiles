@@ -45,8 +45,8 @@ alias gdc='git diff --cached'
 alias glf='fzf | xargs git lf'
 alias cdf='cd $(fzf | xargs dirname)'
 alias ef='fzf | xargs nvim'
-alias gaf='fzf | xargs git add'
-alias gapf='fzf | xargs git add --patch'
+alias gaf='git ls-files -m -o -d --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
+alias gapf='git ls-files -m -o -d --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
 alias gdf='fzf | xargs git diff'
 
 # python virtualenv
