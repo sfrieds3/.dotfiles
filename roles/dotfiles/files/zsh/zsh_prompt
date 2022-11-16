@@ -78,11 +78,16 @@ function __python_venv() {
     [ $VIRTUAL_ENV ] && echo 'py('`basename $VIRTUAL_ENV`') '
 }
 
-function __node_version() {
-    command -v node > /dev/null && echo 'node(' `node --version` ') '
+function __node_dir() {
+    # TODO this could be better done in a loop
+    [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
 }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(?.%F{green}>.%F{red}x) %f'
+function __node_version() {
+    __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node(' `node --version` ') '
+}
+
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(?.%F{green}>.%F{red}x) %f'
 
 function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
