@@ -35,7 +35,6 @@ noremap <leader>p "*p
 noremap <leader>P "*P
 
 " other actions
-nnoremap <Space>pt :action GoToSymbol<CR>
 nnoremap <Space>r :action RecentFiles<CR>
 nnoremap <Space><CR> :action SearchEverywhere<CR>
 nnoremap <Space>a :action GotoAction<CR>
@@ -43,7 +42,7 @@ nnoremap <Space>f :action GotoFile<CR>
 nnoremap <Space>c :action GotoClass<CR>
 nnoremap <Space>t :action FileStructurePopup<CR>
 nnoremap <Space>T :action GotoSymbol<CR>
-nnoremap <Space>E :action Switcher<CR>
+nnoremap <Space>e :action Switcher<CR>
 nnoremap <Space>b :action ToggleLineBreakpoint<CR>
 nnoremap <Space>q :action CloseContent<CR>
 nnoremap <Space>Q :action ReopenClosedTab<CR>
