@@ -6,10 +6,6 @@ set visualbell
 set scrolloff=3
 set showmode
 
-set highlightedyank
-set ideamarks
-set ideajoin
-
 " Same as default IDEA action, but only in insert mode. Enter block-visual
 " mode in normal mode.
 sethandler <C-v> i:ide
@@ -26,6 +22,8 @@ set highlightedyank
 set vim-paragraph-motion
 set matchit
 set textobj-entire
+set ideamarks
+set ideajoin
 
 nnoremap <C-l> :nohlsearch<CR>
 nnoremap Y y$
