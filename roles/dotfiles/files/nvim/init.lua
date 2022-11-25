@@ -7,7 +7,6 @@ local config_path = vim.fn.stdpath("config")
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
-vim.opt.shell = "/usr/bin/zsh"
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 vim.opt.hidden = true
