@@ -6,3 +6,5 @@ undo
 databases
 rplugin.vim
 *.sqlite3
+lsp.log
+telescope_history

@@ -221,7 +221,10 @@ return require("packer").startup({function(use)
     {
       "ludovicchabant/vim-gutentags",
       config = function()
-        vim.g.gutentags_cache_dir = vim.fn.stdpath("data") .. "/tags"
+        vim.g.gutentags_cache_dir = vim.env.XDG_CACHE_HOME .. "/tags"
+        if vim.fn.has('macunix') then
+          vim.g.gutentags_ctags_executable = "/opt/homebrew/bin/ctags"
+        end
       end,
     },
     { "stevearc/aerial.nvim" },

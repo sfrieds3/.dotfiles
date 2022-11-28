@@ -62,3 +62,9 @@ alias testnvimlua='nvim --clean -u $HOME/dev/minimal_init.lua'
 
 # luamake
 alias luamake=/home/scott/dev/utils/lua-language-server/3rd/luamake/luamake
+
+# ctags on mac
+if [[ $(uname) == "Darwin" ]]
+then
+    alias ctags="`brew --prefix`/bin/ctags"
+fi

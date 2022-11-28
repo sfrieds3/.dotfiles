@@ -8,6 +8,7 @@ then
     export XDG_STATE_HOME="$HOME/Library/Application Support"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
     export XDG_RUNTIME_DIR="$TMPDIR"
+    BREWPATH=""
 else
     export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_CONFIG_DIRS="/etc/xdg"
@@ -16,6 +17,7 @@ else
     export XDG_STATE_HOME="$HOME/.local/state"
     export XDG_CACHE_HOME="$HOME/.cache"
     export XDG_RUNTIME_DIR="/run/user/$UID"
+    BREWPATH=/home/linuxbrew/.linuxbrew/bin
 fi
 
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
@@ -23,7 +25,6 @@ export HISTFILE=$ZDOTDIR/zsh_history
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export EMACS_VTERM_PATH=$XDG_CONFIG_DIR/emacs/straight/repos/emacs/libvterm
-BREWPATH=/home/linuxbrew/.linuxbrew/bin
 LUAROCKSBIN=$HOME/.luarocks/bin
 PERL5BIN=$HOME/perl5/bin
 SYSGOBIN=/usr/local/go/bin
