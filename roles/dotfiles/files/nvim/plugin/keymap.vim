@@ -21,7 +21,7 @@ nnoremap gsg :Grep<Space>
 nnoremap \vt :exec('lvimgrep /todo/j %')<cr>:exec('lopen')<CR>
 
 " gitgrep for word under cursor in current file and open in location list
-nnoremap gr :execute('FGrep ' . expand('<cword>'))<CR>
+nnoremap \gr :execute('FGrep ' . expand('<cword>'))<CR>
 
 " gitgrep for word under cursor in current directory open in quickfix
 nnoremap gR :exec('Grep ' . expand('<cword>'))<CR>

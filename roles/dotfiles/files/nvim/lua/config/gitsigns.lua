@@ -6,7 +6,7 @@ require("gitsigns").setup({
     topdelete = { hl = "RedSign", text = "▔", numhl = "GitSignsDeleteNr" },
     changedelete = { hl = "PurpleSign", text = "~", numhl = "GitSignsChangeNr" },
   },
-  signcolumn = false,
+  signcolumn = true,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
