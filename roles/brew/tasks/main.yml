@@ -2,9 +2,7 @@
 - name: Install homebrew packages
   community.general.homebrew:
     name:
-      - ag
       - ansible-language-server
-      - autojump
       - bat
       - chicken
       - fd
@@ -12,6 +10,7 @@
       - git-delta
       - gopls
       - guile
+      - jsonlint
       - lua-language-server
       - luarocks
       - neovim
@@ -23,6 +22,7 @@
       - shellcheck
       - starship
       - stylua
+      - the_silver_searcher
       - yamllint
       - zig
       - zsh
