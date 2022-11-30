@@ -13,9 +13,7 @@
 [core]
 	editor = nvim
 	excludesfile = $XDG_CONFIG_HOME/git/gitignore
-	pager = delta
-[interactive]
-	diffFilter = delta --color-only
+	pager = less -FMRiXx4
 [delta]
 	navigate = true
 	light = false

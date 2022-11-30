@@ -45,6 +45,7 @@ vim.keymap.set("n", "]b", "<Cmd>bnext<CR>")
 vim.keymap.set("n", "[b", "<Cmd>bprevious<CR>")
 vim.keymap.set("n", "]t", "<Cmd>tabnext<CR>")
 vim.keymap.set("n", "[t", "<Cmd>tabprevious<CR>")
+vim.keymap.set("n", "\\q", "<Cmd>tabclose<CR>")
 
 -- arglist / quickfix / location list shortcuts
 vim.keymap.set("n", "]a", "<Cmd>next<CR>")
