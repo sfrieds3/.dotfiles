@@ -65,7 +65,7 @@ vim.keymap.set("n", "]l", "<Cmd>lnext<CR>")
 vim.keymap.set("n", "[l", "<Cmd>lprevious<CR>")
 vim.keymap.set("n", "[L", "<Cmd>lfirst<CR>")
 vim.keymap.set("n", "]L", "<Cmd>llast<CR>")
-vim.keymap.set("n", "<Leader><BS>", "<Cmd>cclose<Bar>lclose<CR>")
+vim.keymap.set("n", "\\<BS>", "<Cmd>cclose<Bar>lclose<CR>")
 
 -- adjust indent of last edit
 vim.keymap.set("n", "<Leader><", "<Cmd>'[,']<<CR>")
