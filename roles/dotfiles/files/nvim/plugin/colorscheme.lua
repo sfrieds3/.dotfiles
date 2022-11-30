@@ -21,7 +21,7 @@ require("material").setup({
     floating_windows = false, -- Enable contrast for floating windows
     cursor_line = true, -- Enable darker background for the cursor line
     non_current_windows = true, -- Enable darker background for non-current windows
-    filetypes = { "terminal", "packer", "qf" }, -- Specify which filetypes get the contrasted (darker) background
+    filetypes = { "terminal", "packer" }, -- Specify which filetypes get the contrasted (darker) background
   },
 
   styles = { -- Give comments style such as bold, italic, underline etc.
