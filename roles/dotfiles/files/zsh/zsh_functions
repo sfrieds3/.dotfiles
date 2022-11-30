@@ -53,12 +53,12 @@ cursor_mode() {
 #     lazy_load_nvm
 #     node $@
 # }
-# 
+#
 # nvm() {
 #     lazy_load_nvm
 #     nvm $@
 # }
-# 
+#
 # npm() {
 #     lazy_load_nvm
 #     npm $@

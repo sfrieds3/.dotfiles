@@ -8,7 +8,7 @@ local config_path = vim.fn.stdpath("config")
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
 -- set zsh executable dir
-if vim.fn.has('macunix') then
+if vim.fn.has("macunix") then
   vim.opt.shell = "/bin/zsh"
 else
   vim.opt.shell = "/usr/bin/zsh"
