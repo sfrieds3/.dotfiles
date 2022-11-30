@@ -218,6 +218,7 @@ return require("packer").startup({
         config = function()
           require("config.bqf_config")
         end,
+        requires = { "junegunn/fzf" },
       },
       {
         "ludovicchabant/vim-gutentags",
