@@ -8,3 +8,4 @@ rplugin.vim
 *.sqlite3
 lsp.log
 telescope_history
+tree-sitter-verilog
