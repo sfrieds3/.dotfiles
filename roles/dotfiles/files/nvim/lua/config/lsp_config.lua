@@ -4,7 +4,7 @@ vim.diagnostic.config({
 })
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true, buffer = bufnr }
+local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -152,7 +152,7 @@ if vim.fn.executable("rust_analyzer") == 1 then
   })
 end
 
-if vim.fn.executable("tsserver") == 1 then
+if vim.fn.executable("typescript-language-server") == 1 then
   require("lspconfig")["tsserver"].setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -178,7 +178,7 @@ end
 
 -- sumneko
 if vim.fn.executable("lua-language-server") == 1 then
-  local runtime_path = vim.split(package.path, ";")
+  local runtime_path = vim.split(package.path, ";", {})
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
