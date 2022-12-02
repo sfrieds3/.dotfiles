@@ -8,10 +8,10 @@ require("bqf").setup({
   filter = {
     fzf = {
       action_for = {
-        ['ctrl-x'] = 'split',
-        ['ctrl-t'] = 'tabedit',
-        ['ctrl-v'] = 'vsplit',
-        ['ctrl-q'] = 'signtoggle'
+        ["ctrl-x"] = "split",
+        ["ctrl-t"] = "tabedit",
+        ["ctrl-v"] = "vsplit",
+        ["ctrl-q"] = "signtoggle",
       },
     },
   },
