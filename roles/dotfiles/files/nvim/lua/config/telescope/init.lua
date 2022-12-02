@@ -36,6 +36,7 @@ require("telescope").load_extension("frecency")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("neoclip")
 require("telescope").load_extension("live_grep_args")
+require("telescope").load_extension("aerial")
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
@@ -51,6 +52,7 @@ vim.keymap.set("n", "<Leader>e", "<cmd>lua require('config.telescope.telescope_c
 
 map_telescope("<Leader>T", "lsp_dynamic_workspace_symbols", "ivy")
 map_telescope("<Leader>t", "lsp_document_symbols", "ivy")
+map_telescope("<Leader>s", "aerial", "ivy")
 map_telescope("<Leader>b", "buffers", "ivy")
 map_telescope("<Leader>;", "treesitter", "ivy")
 map_telescope("<Leader>k", "keymaps", "dropdown")

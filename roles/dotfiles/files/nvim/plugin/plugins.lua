@@ -78,7 +78,7 @@ return require("packer").startup({
           require("sidebar-nvim").setup({
             open = false,
           })
-          vim.keymap.set("n", "<Leader>s", "<Cmd>SidebarNvimToggle<CR>")
+          vim.keymap.set("n", "<Leader><CR>", "<Cmd>SidebarNvimToggle<CR>")
         end,
       },
       {
@@ -350,6 +350,7 @@ return require("packer").startup({
       { "catppuccin/nvim", as = "catppuccin", opt = true },
       { "projekt0n/github-nvim-theme" },
       { "marko-cerovac/material.nvim" },
+      { "fenetikm/falcon" },
     })
 
     -- Automatically set up your configuration after cloning packer.nvim
