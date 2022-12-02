@@ -13,6 +13,7 @@ dotfile_config_directories:
 dotfile_config_files:
   - pycodestyle
   - starship.toml
+  - flake8
 
 dotfile_homedir_files:
   - zshenv

@@ -289,6 +289,8 @@ return require("packer").startup({
         },
       },
       { "j-hui/fidget.nvim" },
+      { "jose-elias-alvarez/null-ls.nvim" },
+      { "jose-elias-alvarez/typescript.nvim" },
     })
 
     -- languages

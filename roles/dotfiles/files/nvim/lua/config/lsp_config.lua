@@ -3,6 +3,19 @@ vim.diagnostic.config({
   float = { source = true },
 })
 
+-- set up null-ls
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.formatting.stylua,
+    require("null-ls").builtins.formatting.eslint,
+    require("null-ls").builtins.diagnostics.flake8,
+    require("null-ls").builtins.formatting.autopep8,
+    require("null-ls").builtins.formatting.reorder_python_imports,
+    require("null-ls").builtins.formatting.json_tool,
+    require("null-ls").builtins.formatting.xmlformat,
+  },
+})
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Space>e", vim.diagnostic.open_float, opts)
@@ -153,10 +166,15 @@ if vim.fn.executable("rust_analyzer") == 1 then
 end
 
 if vim.fn.executable("typescript-language-server") == 1 then
-  require("lspconfig")["tsserver"].setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
+  require("typescript").setup({
+    server = {
+      go_to_source_definition = {
+        fallback = true,
+      },
+      on_attach = on_attach,
+      flags = lsp_flags,
+      capabilities = capabilities,
+    },
   })
 end
 
