@@ -5,12 +5,13 @@
       - ansible-language-server
       - bat
       - chicken
+      - cmake
       - fd
       - fzf
-      - git-delta
       - gopls
       - guile
       - jsonlint
+      - llvm
       - lua-language-server
       - luarocks
       - neovim

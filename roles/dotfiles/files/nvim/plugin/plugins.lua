@@ -73,7 +73,7 @@ return require("packer").startup({
     use({
       {
         "sidebar-nvim/sidebar.nvim",
-        keys = { "<Leader>s" },
+        keys = { "<Leader><CR>" },
         config = function()
           require("sidebar-nvim").setup({
             open = false,

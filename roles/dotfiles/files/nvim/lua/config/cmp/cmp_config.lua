@@ -46,7 +46,7 @@ cmp.setup({
     { name = "nvim_lsp_signature_help" },
     { name = "luasnip", max_item_count = 10 },
     { name = "nvim_lua" },
-    -- { name = 'path', max_item_count = 5 },
+    { name = "path", max_item_count = 5 },
     -- { name = 'ripgrep' },
   }, {
     { name = "buffer", max_item_count = 10 },
