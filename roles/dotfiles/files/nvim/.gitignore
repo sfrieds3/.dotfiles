@@ -9,3 +9,5 @@ rplugin.vim
 lsp.log
 telescope_history
 tree-sitter-verilog
+telescope-projects.txt
+telescope-workspaces.txt

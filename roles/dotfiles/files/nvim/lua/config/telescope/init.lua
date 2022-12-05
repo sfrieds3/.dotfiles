@@ -2,11 +2,20 @@ local telescope_config = require("config.telescope.telescope_config")
 
 require("telescope").setup({
   extensions = {
-    fzf = {
+    ["fzf"] = {
       fuzzy = true,
       override_generic_sorter = true,
       override_file_sorter = true,
       case_mode = "smart_case",
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown({}),
+    },
+    ["project"] = {
+      base_dirs = {
+        "$HOME/.dotfiles",
+        { "$HOME/dev", max_depth = 4 },
+      },
     },
   },
   defaults = {
@@ -37,6 +46,9 @@ require("telescope").load_extension("fzf")
 require("telescope").load_extension("neoclip")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("aerial")
+require("telescope").load_extension("ui-select")
+require("telescope").load_extension("project")
+require("telescope").load_extension("file_browser")
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
@@ -74,6 +86,7 @@ vim.keymap.set("n", "<Leader>gw", "<Cmd>lua require('config.telescope.telescope_
 vim.keymap.set("n", "<Leader>ga", "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")
 vim.keymap.set("n", "<Leader>g/", "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
 vim.keymap.set("n", "<Leader>p", "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
+vim.keymap.set("n", "<C-p>", "<Cmd>lua require('telescope').extensions.project.project()<CR>")
 
 -- load local telescope config, if exists
 pcall(require, "config.telescope.local")

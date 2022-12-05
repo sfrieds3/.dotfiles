@@ -126,6 +126,9 @@ return require("packer").startup({
           "nvim-lua/plenary.nvim",
           "nvim-lua/popup.nvim",
           "nvim-telescope/telescope-live-grep-args.nvim",
+          "nvim-telescope/telescope-ui-select.nvim",
+          "nvim-telescope/telescope-project.nvim",
+          "nvim-telescope/telescope-file-browser.nvim",
           { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sqlite.lua" } },
           { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         },
@@ -359,5 +362,5 @@ return require("packer").startup({
       require("packer").sync()
     end
   end,
-  config = { max_jobs = 10 },
+  config = { max_jobs = 25 },
 })
