@@ -72,6 +72,24 @@ return require("packer").startup({
     -- nvim niceties
     use({
       {
+        "rmagatti/session-lens",
+        requires = { "rmagatti/auto-session" },
+        config = function()
+          require("session-lens").setup({})
+        end,
+      },
+      {
+        "s1n7ax/nvim-window-picker",
+        tag = "v1.*",
+        config = function()
+          require("window-picker").setup({})
+          vim.keymap.set("n", "<Leader>w", function()
+            local winid = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+            vim.api.nvim_set_current_win(winid)
+          end, { desc = "Pick a window" })
+        end,
+      },
+      {
         "sidebar-nvim/sidebar.nvim",
         keys = { "<Leader><CR>" },
         config = function()

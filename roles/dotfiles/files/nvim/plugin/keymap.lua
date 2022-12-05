@@ -86,8 +86,8 @@ vim.keymap.set({ "n", "o", "x" }, "<Leader>}", "<Plug>(VerticalRegionDown)")
 -- trim trailing whitespace
 vim.api.nvim_create_user_command("StripTrailingWhitespace", "call whitespace#StripTrailingWhitespace()", {})
 vim.cmd([[command! -range=% StripTrailingWhitespaceVisual '<,'> call whitespace#StripTrailingWhitespaceVisual()]])
-vim.keymap.set("n", "<Leader>w", "<Cmd>StripTrailingWhitespace<CR>")
-vim.keymap.set("x", "<Leader>w", "<Cmd>StripTrailingWhitespaceVisual<CR>")
+vim.keymap.set("n", "\\w", "<Cmd>StripTrailingWhitespace<CR>")
+vim.keymap.set("x", "\\w", "<Cmd>StripTrailingWhitespaceVisual<CR>")
 
 -- toggle list
 vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>")
