@@ -39,9 +39,9 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      { "b:gitsigns_head", icon = "λ", fmt = trunc(50, 15, 50) },
+      { "b:gitsigns_head", icon = "λ", fmt = trunc(50, 15, 50, false) },
       { "diff", source = diff_source, fmt = trunc(80, 10, 80, true) },
-      { "diagnostics", fmt = trunc(80, 15, 80) },
+      { "diagnostics", fmt = trunc(80, 15, 80, false) },
     },
     lualine_c = {
       {
@@ -75,5 +75,5 @@ require("lualine").setup({
     lualine_y = {},
     lualine_z = {},
   },
-  extensions = { "aerial", "neo-tree", "symbols-outline", "fugitive", "toggleterm" },
+  extensions = { "aerial", "nvim-tree", "symbols-outline", "fugitive", "toggleterm", "quickfix" },
 })
