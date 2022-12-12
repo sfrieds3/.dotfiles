@@ -72,13 +72,6 @@ return require("packer").startup({
     -- nvim niceties
     use({
       {
-        "rmagatti/session-lens",
-        requires = { "rmagatti/auto-session" },
-        config = function()
-          require("session-lens").setup({})
-        end,
-      },
-      {
         "s1n7ax/nvim-window-picker",
         tag = "v1.*",
         config = function()
