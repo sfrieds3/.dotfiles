@@ -1,6 +1,0 @@
-{
-    "Lua": {
-        "runtime.version": "LuJIT",
-        "workspace.checkThirdParty": false
-    }
-}
