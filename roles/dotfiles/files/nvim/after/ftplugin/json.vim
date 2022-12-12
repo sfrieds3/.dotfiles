@@ -1,4 +1,4 @@
-setlocal shiftwidth=4 softtabstop=4
+setlocal shiftwidth=2 softtabstop=2
 setlocal formatprg=python3\ -m\ json.tool
 
 " pretty format json {{{

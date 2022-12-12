@@ -72,6 +72,31 @@ return require("packer").startup({
     -- nvim niceties
     use({
       {
+        "folke/persistence.nvim",
+        keys = { "<Leader>Ss", "<Leader>Sl", "<Leader>Sd", "<Leader>SS" },
+        module = "persistence",
+        config = function()
+          require("persistence").setup({
+            dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
+          })
+
+          vim.keymap.set("n", "<leader>Ss", function()
+            require("persistence").load()
+          end, { desc = "persistence.nvim: restore session for the current directory" })
+
+          vim.keymap.set("n", "<leader>Sl", function()
+            require("persistence").load({ last = true })
+          end, { desc = "persistence.nvim: restore the last session" })
+
+          vim.keymap.set("n", "<leader>Sd", function()
+            require("persistence").stop()
+          end, { desc = "persistence.nvim: stop Persistence => session won't be saved on exit" })
+          vim.keymap.set("n", "<leader>SS", function()
+            require("persistence").get_current()
+          end, { desc = "persistence.nvim: get current session location" })
+        end,
+      },
+      {
         "s1n7ax/nvim-window-picker",
         tag = "v1.*",
         config = function()
