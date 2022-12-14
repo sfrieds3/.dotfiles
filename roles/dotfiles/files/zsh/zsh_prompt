@@ -75,7 +75,8 @@ function __prompt_precmd() {
 }
 
 function __python_venv() {
-    [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
+    # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
+    [ $VIRTUAL_ENV ] && echo 'venv('`relpath $VIRTUAL_ENV`') '
 }
 
 function __pyvenv_version() {

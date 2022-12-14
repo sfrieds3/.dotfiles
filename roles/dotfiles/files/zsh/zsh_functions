@@ -64,7 +64,7 @@ cursor_mode() {
 #     npm $@
 # }
 
-vterm_printf(){
+vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
@@ -92,4 +92,8 @@ vterm_cmd() {
         shift
     done
     vterm_printf "51;E$vterm_elisp"
+}
+
+relpath() {
+    python -c "import os,sys;print(os.path.relpath(*(sys.argv[1:]), start=os.path.expanduser('~')))" "$@";
 }

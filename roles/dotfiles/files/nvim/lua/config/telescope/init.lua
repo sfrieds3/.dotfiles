@@ -58,6 +58,7 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
   vim.keymap.set(mode, key, command)
 end
 
+-- TODO: find all files (including ignored files)
 vim.keymap.set("n", "<Leader>f", "<cmd>lua require('config.telescope.telescope_config').project_files()<CR>")
 vim.keymap.set("n", "<Leader>o", "<cmd>lua require('config.telescope.telescope_config').old_files()<CR>")
 vim.keymap.set("n", "<Leader>e", "<cmd>lua require('config.telescope.telescope_config').recent_files()<CR>")
