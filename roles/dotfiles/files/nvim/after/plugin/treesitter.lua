@@ -11,6 +11,9 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "gr-",
     },
   },
+  indent = {
+    enable = true,
+  },
   playground = {
     enable = true,
     disable = {},
