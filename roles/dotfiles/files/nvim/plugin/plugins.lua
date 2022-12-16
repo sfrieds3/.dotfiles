@@ -72,6 +72,12 @@ return require("packer").startup({
     -- nvim niceties
     use({
       {
+        "windwp/nvim-autopairs",
+        config = function()
+          require("nvim-autopairs").setup({})
+        end,
+      },
+      {
         "folke/persistence.nvim",
         keys = { "<Leader>Ss", "<Leader>Sl", "<Leader>Sd", "<Leader>SS" },
         module = "persistence",
@@ -309,6 +315,9 @@ return require("packer").startup({
         "L3MON4D3/LuaSnip",
         config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
+          require("luasnip.loaders.from_lua").load({
+            paths = os.getenv("XDG_CONFIG_HOME") .. "/nvim/.local_snippets.lua",
+          })
         end,
         requires = {
           { "rafamadriz/friendly-snippets" },
