@@ -9,7 +9,7 @@ require("null-ls").setup({
     require("null-ls").builtins.formatting.stylua,
     require("null-ls").builtins.formatting.eslint,
     require("null-ls").builtins.diagnostics.flake8,
-    require("null-ls").builtins.formatting.autopep8,
+    require("null-ls").builtins.formatting.yapf,
     require("null-ls").builtins.formatting.reorder_python_imports,
     require("null-ls").builtins.formatting.json_tool,
     require("null-ls").builtins.formatting.xmlformat,
@@ -50,6 +50,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>F", function()
     vim.lsp.buf.format({ async = true })
   end, bufopts)
+  vim.keymap.set("x", "gq", vim.lsp.buf.format)
 
   require("illuminate").on_attach(client)
 end
