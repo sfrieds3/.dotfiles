@@ -54,6 +54,7 @@ nnoremap gr :action FindWordAtCaret
 nnoremap <Space>] :action GotoImplementation<CR>
 nnoremap <Space>[ :action GotoSuperMethod<CR>
 nnoremap <Space>u :action FindUsages<CR>
+nnoremap gR :action FindUsages<CR>
 nnoremap <Space>/ :action FindUsagesInFile<CR>
 nnoremap <Space>k :action HighlightUsagesInFile<CR>
 nnoremap <Space>gt :action GotoTest<CR>
@@ -80,6 +81,13 @@ nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
 nnoremap [t gT
 nnoremap ]t gt
+
+" window management
+nmap <Space>ws :action SplitHorizontally<cr>
+nmap <Space>wv :action SplitVertically<cr>
+nmap <Space>wc :action Unsplit<cr>
+nmap <Space>wC :action UnsplitAll<cr>
+nmap <Space>wd :action OpenEditorInOppositeTabGroup<cr>
 
 " easy use built in find
 map g/ :action Find<CR>

@@ -14,7 +14,6 @@ vim.g.gruvbox_better_performance = 1
 vim.g.material_style = "darker"
 
 require("material").setup({
-
   contrast = {
     terminal = false, -- Enable contrast for the built-in terminal
     sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -75,4 +74,4 @@ require("material").setup({
   custom_highlights = {}, -- Overwrite highlights with your own
 })
 
-vim.cmd([[ colorscheme material ]])
+-- vim.cmd([[ colorscheme material ]])

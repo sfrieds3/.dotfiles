@@ -79,7 +79,7 @@ return require("packer").startup({
       },
       {
         "folke/persistence.nvim",
-        keys = { "<Leader>Ss", "<Leader>Sl", "<Leader>Sd", "<Leader>SS" },
+        keys = { "<Leader>Ss", "<Leader>Sl", "<Leader>Sd" },
         module = "persistence",
         config = function()
           require("persistence").setup({
@@ -97,9 +97,6 @@ return require("packer").startup({
           vim.keymap.set("n", "<leader>Sd", function()
             require("persistence").stop()
           end, { desc = "persistence.nvim: stop Persistence => session won't be saved on exit" })
-          vim.keymap.set("n", "<leader>SS", function()
-            require("persistence").get_current()
-          end, { desc = "persistence.nvim: get current session location" })
         end,
       },
       {
@@ -139,6 +136,7 @@ return require("packer").startup({
       },
       {
         "folke/todo-comments.nvim",
+        disable = true,
         requires = "nvim-lua/plenary.nvim",
         config = function()
           require("todo-comments").setup({})
@@ -287,6 +285,46 @@ return require("packer").startup({
       { "milisims/nvim-luaref", ft = { "lua" } },
     })
 
+    -- debugging
+    use({
+      { "mfussenegger/nvim-dap" },
+      {
+        "rcarriga/nvim-dap-ui",
+        config = function()
+          require("dapui").setup({})
+          local dap, dapui = require("dap"), require("dapui")
+          require("dap").listeners.after.event_initialized["dapui_config"] = function()
+            require("dapui").open()
+          end
+          require("dap").listeners.before.event_terminated["dapui_config"] = function()
+            require("dapui").close()
+          end
+          require("dap").listeners.before.event_exited["dapui_config"] = function()
+            require("dapui").close()
+          end
+        end,
+        requires = { "mfussenegger/nvim-dap" },
+      },
+      { "nvim-telescope/telescope-dap.nvim" },
+      {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+          require("dap-python").setup("~/.venv/venv/bin/python")
+        end,
+      },
+      {
+        "nvim-neotest/neotest",
+        requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-treesitter/nvim-treesitter",
+          "antoinemadec/FixCursorHold.nvim",
+        },
+      },
+      {
+        "nvim-neotest/neotest-python",
+      },
+    })
+
     -- lsp, completion
     use({
       {
@@ -359,7 +397,6 @@ return require("packer").startup({
     use({
       {
         "NTBBloodbath/doom-one.nvim",
-        opt = true,
         setup = function()
           -- Add color to cursor
           vim.g.doom_one_cursor_coloring = false
@@ -388,6 +425,9 @@ return require("packer").startup({
           -- Pumblend transparency
           vim.g.doom_one_pumblend_enable = true
           vim.g.doom_one_pumblend_transparency = 20
+        end,
+        config = function()
+          vim.cmd([[ colorscheme doom-one ]])
         end,
       },
       { "sainnhe/edge", opt = true },

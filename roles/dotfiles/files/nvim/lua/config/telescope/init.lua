@@ -49,6 +49,7 @@ require("telescope").load_extension("aerial")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("project")
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("dap")
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"

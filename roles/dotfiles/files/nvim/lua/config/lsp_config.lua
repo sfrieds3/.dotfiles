@@ -1,5 +1,5 @@
 vim.diagnostic.config({
-  virtual_text = { source = true },
+  virtual_text = { source = false },
   float = { source = true },
 })
 
