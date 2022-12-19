@@ -287,7 +287,12 @@ return require("packer").startup({
 
     -- debugging
     use({
-      { "mfussenegger/nvim-dap" },
+      {
+        "mfussenegger/nvim-dap",
+        config = function()
+          require("config.dap")
+        end,
+      },
       {
         "rcarriga/nvim-dap-ui",
         config = function()
@@ -319,14 +324,30 @@ return require("packer").startup({
           "nvim-treesitter/nvim-treesitter",
           "antoinemadec/FixCursorHold.nvim",
         },
+        config = function()
+          require("neotest").setup({
+            adapters = {
+              require("neotest-python")({
+                justMyCode = false,
+              }),
+            },
+          })
+        end,
       },
       {
         "nvim-neotest/neotest-python",
       },
+      { "ibhagwan/fzf-lua" },
     })
 
     -- lsp, completion
     use({
+      {
+        "dnlhc/glance.nvim",
+        config = function()
+          require("glance").setup({})
+        end,
+      },
       {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
