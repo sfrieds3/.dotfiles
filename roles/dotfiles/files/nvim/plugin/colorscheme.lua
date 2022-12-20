@@ -11,8 +11,7 @@ vim.g.gruvbox_material_foreground = "material"
 vim.g.gruvbox_material_statusline_stype = "material"
 vim.g.gruvbox_better_performance = 1
 
-vim.g.material_style = "darker"
-
+vim.g.material_style = "oceanic"
 require("material").setup({
   contrast = {
     terminal = false, -- Enable contrast for the built-in terminal
@@ -74,4 +73,4 @@ require("material").setup({
   custom_highlights = {}, -- Overwrite highlights with your own
 })
 
--- vim.cmd([[ colorscheme material ]])
+vim.cmd([[ colorscheme material ]])

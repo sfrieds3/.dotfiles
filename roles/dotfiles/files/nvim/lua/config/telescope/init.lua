@@ -67,7 +67,7 @@ vim.keymap.set("n", "<Leader>e", require("config.telescope.telescope_config").re
 map_telescope("<Leader>T", "lsp_dynamic_workspace_symbols", "ivy")
 map_telescope("<Leader>t", "lsp_document_symbols", "ivy")
 map_telescope("<Leader>s", "aerial", "ivy")
-map_telescope("<Leader>b", "buffers", "ivy")
+map_telescope("<Leader><Leader>", "buffers", "ivy")
 map_telescope("<Leader>;", "treesitter", "ivy")
 map_telescope("<Leader>k", "keymaps", "dropdown")
 map_telescope("<Leader>gr", "grep_string", "ivy")

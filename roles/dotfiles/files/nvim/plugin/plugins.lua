@@ -212,13 +212,13 @@ return require("packer").startup({
       { "RRethy/nvim-align", cmd = { "Align" } },
       {
         "nvim-tree/nvim-tree.lua",
-        keys = "<Leader><Space>",
+        keys = "<Leader>\\",
         requires = {
           "kyazdani42/nvim-web-devicons",
         },
         config = function()
           require("nvim-tree").setup({})
-          vim.keymap.set("n", "<Leader><Space>", "<Cmd>NvimTreeToggle<CR>")
+          vim.keymap.set("n", "<Leader>\\", "<Cmd>NvimTreeToggle<CR>")
           vim.keymap.set("n", "_F", "<Cmd>NvimTreeFindFileToggle<CR>")
         end,
       },
@@ -435,13 +435,18 @@ return require("packer").startup({
           vim.g.doom_one_pumblend_enable = true
           vim.g.doom_one_pumblend_transparency = 20
         end,
-        config = function()
-          vim.cmd([[ colorscheme doom-one ]])
-        end,
       },
       { "sainnhe/edge", opt = true },
-      { "sainnhe/gruvbox-material" },
-      { "sainnhe/sonokai", opt = true },
+      { "sainnhe/gruvbox-material", opt = true },
+      {
+        "sainnhe/sonokai",
+        opt = true,
+        setup = function()
+          vim.g.sonokai_style = "espresso"
+          vim.g.sonokai_dim_inactive_windows = true
+          vim.g.sonokai_better_performance = tru
+        end,
+      },
       { "navarasu/onedark.nvim", opt = true },
       { "catppuccin/nvim", as = "catppuccin", opt = true },
       { "projekt0n/github-nvim-theme" },
