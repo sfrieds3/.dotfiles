@@ -253,8 +253,6 @@ return require("packer").startup({
         },
       },
       { "kylechui/nvim-surround" },
-      -- TODO: this is not working
-      { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } },
       {
         "numToStr/Comment.nvim",
         config = function()
@@ -376,7 +374,6 @@ return require("packer").startup({
       },
       {
         "neovim/nvim-lspconfig",
-        after = "mason",
         config = function()
           require("config.lsp_config")
         end,
