@@ -392,6 +392,7 @@ return require("packer").startup({
       },
       {
         "neovim/nvim-lspconfig",
+        after = "mason",
         config = function()
           require("config.lsp_config")
         end,
