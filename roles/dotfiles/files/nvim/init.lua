@@ -72,6 +72,7 @@ vim.opt.wildcharm = 26 -- <C-z>
 vim.opt.tags = "./tags;,tags;"
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.path = ".,,"
+vim.opt.clipboard = "unnamed"
 
 vim.opt.undofile = true
 vim.opt.backup = true

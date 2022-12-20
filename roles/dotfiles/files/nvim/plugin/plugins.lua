@@ -111,16 +111,6 @@ return require("packer").startup({
         end,
       },
       {
-        "sidebar-nvim/sidebar.nvim",
-        keys = { "<Leader><CR>" },
-        config = function()
-          require("sidebar-nvim").setup({
-            open = false,
-          })
-          vim.keymap.set("n", "<Leader><CR>", "<Cmd>SidebarNvimToggle<CR>")
-        end,
-      },
-      {
         "RRethy/vim-illuminate",
         config = function()
           require("config.illuminate")
@@ -250,7 +240,6 @@ return require("packer").startup({
         end,
       },
       { "stevearc/aerial.nvim" },
-      { "dstein64/vim-startuptime", cmd = "StartupTime" },
       { "mbbill/undotree", cmd = "UndotreeToggle" },
       { "romainl/vim-qf", ft = { "qf" } },
       { "romainl/vim-qlist" },
@@ -264,6 +253,7 @@ return require("packer").startup({
         },
       },
       { "kylechui/nvim-surround" },
+      -- TODO: this is not working
       { "tversteeg/registers.nvim", keys = { { "n", '"' }, { "i", "<c-r>" } } },
       {
         "numToStr/Comment.nvim",
@@ -299,13 +289,13 @@ return require("packer").startup({
           require("dapui").setup({})
           local dap, dapui = require("dap"), require("dapui")
           require("dap").listeners.after.event_initialized["dapui_config"] = function()
-            require("dapui").open()
+            require("dapui").open({})
           end
           require("dap").listeners.before.event_terminated["dapui_config"] = function()
-            require("dapui").close()
+            require("dapui").close({})
           end
           require("dap").listeners.before.event_exited["dapui_config"] = function()
-            require("dapui").close()
+            require("dapui").close({})
           end
         end,
         requires = { "mfussenegger/nvim-dap" },
@@ -342,6 +332,22 @@ return require("packer").startup({
 
     -- lsp, completion
     use({
+      {
+        "williamboman/mason.nvim",
+        config = function()
+          require("mason").setup()
+        end,
+      },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+          local servers = { "pyright", "tsserver", "sumneko_lua", "gopls" }
+
+          require("mason-lspconfig").setup({
+            ensure_installed = servers,
+          })
+        end,
+      },
       {
         "dnlhc/glance.nvim",
         config = function()
@@ -454,12 +460,10 @@ return require("packer").startup({
       { "sainnhe/edge", opt = true },
       { "sainnhe/gruvbox-material" },
       { "sainnhe/sonokai", opt = true },
-      { "EdenEast/nightfox.nvim", opt = true },
       { "navarasu/onedark.nvim", opt = true },
       { "catppuccin/nvim", as = "catppuccin", opt = true },
       { "projekt0n/github-nvim-theme" },
       { "marko-cerovac/material.nvim" },
-      { "fenetikm/falcon" },
     })
 
     -- Automatically set up your configuration after cloning packer.nvim
