@@ -54,7 +54,7 @@ require("telescope").load_extension("dap")
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
   mode = mode or "n"
-  local base_command = "<Cmd> luarequire('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
+  local base_command = "<Cmd> lua require('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
   local command = string.format(base_command, cmd, theme, theme_config)
   vim.keymap.set(mode, key, command)
 end
