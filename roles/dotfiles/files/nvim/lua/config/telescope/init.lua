@@ -33,6 +33,12 @@ require("telescope").setup({
     },
     buffers = {
       show_all_buffers = true,
+      sort_lastused = true,
+      mappings = {
+        i = {
+          ["<C-d>"] = "delete_buffer",
+        },
+      },
     },
     live_grep = {
       previewer = false,
