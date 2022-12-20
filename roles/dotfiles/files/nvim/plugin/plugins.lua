@@ -333,22 +333,6 @@ return require("packer").startup({
     -- lsp, completion
     use({
       {
-        "williamboman/mason.nvim",
-        config = function()
-          require("mason").setup()
-        end,
-      },
-      {
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
-          local servers = { "pyright", "tsserver", "sumneko_lua", "gopls" }
-
-          require("mason-lspconfig").setup({
-            ensure_installed = servers,
-          })
-        end,
-      },
-      {
         "dnlhc/glance.nvim",
         config = function()
           require("glance").setup({})
