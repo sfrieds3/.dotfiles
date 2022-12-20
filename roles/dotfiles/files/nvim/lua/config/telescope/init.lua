@@ -54,7 +54,7 @@ require("telescope").load_extension("dap")
 local map_telescope = function(key, cmd, theme, theme_config, mode)
   theme_config = theme_config or "previewer = false"
   mode = mode or "n"
-  local base_command = "<cmd> lua require('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
+  local base_command = "<Cmd> luarequire('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
   local command = string.format(base_command, cmd, theme, theme_config)
   vim.keymap.set(mode, key, command)
 end
@@ -80,15 +80,15 @@ map_telescope("<Leader>vr", "registers", "dropdown")
 map_telescope("<Leader>vh", "help_tags", "dropdown")
 map_telescope("<Leader>vd", "diagnostics", "dropdown")
 
-vim.keymap.set("n", "<Leader>vo", "<Cmd>lua require('config.telescope.telescope_config').vim_options()<CR>")
-vim.keymap.set("n", "<Leader>vw", "<Cmd>lua require('config.telescope.telescope_config').wiki_search()<CR>")
-vim.keymap.set("n", "<Leader>nn", "<Cmd>lua require('config.telescope.telescope_config').edit_nvim_config()<CR>")
-vim.keymap.set("n", "<Leader>gg", "<Cmd>lua require('config.telescope.telescope_config').live_grep()<CR>")
-vim.keymap.set("n", "<Leader>gw", "<Cmd>lua require('config.telescope.telescope_config').grep_wiki()<CR>")
-vim.keymap.set("n", "<Leader>ga", "<Cmd>lua require('config.telescope.telescope_config').live_grep_args()<CR>")
-vim.keymap.set("n", "<Leader>g/", "<Cmd>lua require('config.telescope.telescope_config').grep_last_search()<CR>")
-vim.keymap.set("n", "<Leader>p", "<Cmd>lua require('telescope').extensions.neoclip.default()<CR>")
-vim.keymap.set("n", "<C-p>", "<Cmd>lua require('telescope').extensions.project.project()<CR>")
+vim.keymap.set("n", "<Leader>vo", function() require('config.telescope.telescope_config').vim_options() end)
+vim.keymap.set("n", "<Leader>vw", function() require('config.telescope.telescope_config').wiki_search() end)
+vim.keymap.set("n", "<Leader>nn", function() require('config.telescope.telescope_config').edit_nvim_config() end)
+vim.keymap.set("n", "<Leader>gg", function() require('config.telescope.telescope_config').live_grep() end)
+vim.keymap.set("n", "<Leader>gw", function() require('config.telescope.telescope_config').grep_wiki() end)
+vim.keymap.set("n", "<Leader>ga", function() require('config.telescope.telescope_config').live_grep_args() end)
+vim.keymap.set("n", "<Leader>g/", function() require('config.telescope.telescope_config').grep_last_search() end)
+vim.keymap.set("n", "<Leader>p", function() require('telescope').extensions.neoclip.default() end)
+vim.keymap.set("n", "<C-p>", function() require('telescope').extensions.project.project() end)
 
 -- load local telescope config, if exists
 pcall(require, "config.telescope.local")
