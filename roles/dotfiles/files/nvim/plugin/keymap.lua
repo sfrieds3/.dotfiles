@@ -80,8 +80,8 @@ vim.keymap.set("n", "_5", ":call hiwords#HiInterestingWord(5)<cr>")
 vim.keymap.set("n", "_6", ":call hiwords#HiInterestingWord(6)<cr>")
 
 -- Leader,{ and Leader,} move to top and bottom of indent region
-vim.keymap.set({ "n", "o", "x" }, "<Leader>{", "<Plug>(VerticalRegionUp)")
-vim.keymap.set({ "n", "o", "x" }, "<Leader>}", "<Plug>(VerticalRegionDown)")
+vim.keymap.set({ "n", "o", "x" }, "\\{", "<Plug>(VerticalRegionUp)")
+vim.keymap.set({ "n", "o", "x" }, "\\}", "<Plug>(VerticalRegionDown)")
 
 -- trim trailing whitespace
 vim.api.nvim_create_user_command("StripTrailingWhitespace", "call whitespace#StripTrailingWhitespace()", {})

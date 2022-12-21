@@ -6,9 +6,13 @@ vim.diagnostic.config({
 -- set up null-ls
 require("null-ls").setup({
   sources = {
+    -- diagnostics
+    require("null-ls").builtins.diagnostics.flake8,
+    require("null-ls").builtins.diagnostics.trail_space,
+
+    -- formatting
     require("null-ls").builtins.formatting.stylua,
     require("null-ls").builtins.formatting.eslint,
-    require("null-ls").builtins.diagnostics.flake8,
     require("null-ls").builtins.formatting.yapf,
     require("null-ls").builtins.formatting.isort,
     require("null-ls").builtins.formatting.json_tool,
