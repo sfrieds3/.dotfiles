@@ -1,9 +1,9 @@
 [init]
 	defaultBranch = main
 [diff]
-	guitool = meld
 	tool = vimdiff
-	colorMoved = false
+	colorMoved = dimmed-zebra
+	wsErrorHighlight = all
 [difftool]
 	prompt = false
 [mergetool]
@@ -47,6 +47,6 @@
 	changed = white normal dim
 	nobranch = 131 bold ul
 [color "diff"]
-	old = 131 reverse
-	new = 101 reverse
-	whitespace = red reverse
+	old = 131
+	new = 101
+	whitespace = 131 reverse
