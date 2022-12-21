@@ -78,25 +78,13 @@ return require("packer").startup({
         end,
       },
       {
-        "folke/persistence.nvim",
-        keys = { "<Leader>Ss", "<Leader>Sl", "<Leader>Sd" },
-        module = "persistence",
+        "Shatur/neovim-session-manager",
         config = function()
-          require("persistence").setup({
-            dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
+          require("session_manager").setup({
+            sessions_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
+            autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
+            autosave_only_in_session = true,
           })
-
-          vim.keymap.set("n", "<leader>Ss", function()
-            require("persistence").load()
-          end, { desc = "persistence.nvim: restore session for the current directory" })
-
-          vim.keymap.set("n", "<leader>Sl", function()
-            require("persistence").load({ last = true })
-          end, { desc = "persistence.nvim: restore the last session" })
-
-          vim.keymap.set("n", "<leader>Sd", function()
-            require("persistence").stop()
-          end, { desc = "persistence.nvim: stop Persistence => session won't be saved on exit" })
         end,
       },
       {

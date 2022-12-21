@@ -97,7 +97,7 @@ vim.api.nvim_create_user_command("ToggleLineNum", "call lnum#ToggleLineNum()", {
 vim.keymap.set("n", "_n", "<Cmd>ToggleLineNum<CR>")
 
 -- substitute operator
-vim.keymap.set("n", "<Leader>s", "m':set operatorfunc=substitute#Substitute<CR>g@")
+vim.keymap.set("n", "\\s", "m':set operatorfunc=substitute#Substitute<CR>g@")
 
 -- toggle spell checking
 vim.keymap.set("n", "_s", "<Cmd>setocal spell! spell?<CR>")
