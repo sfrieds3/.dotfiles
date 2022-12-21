@@ -12,7 +12,7 @@ require("null-ls").setup({
     require("null-ls").builtins.formatting.yapf,
     require("null-ls").builtins.formatting.reorder_python_imports,
     require("null-ls").builtins.formatting.json_tool,
-    require("null-ls").builtins.formatting.xmlformat,
+    require("null-ls").builtins.formatting.xmllint,
   },
 })
 
@@ -32,25 +32,34 @@ local on_attach = function(client, bufnr)
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "<Space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set("n", "<Space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "LSP: [g]oto [D]eclaration" })
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP: [g]oto [d]efinition" })
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP: [g]oto [i]mplementation" })
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: hover" })
+  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "LSP: signatuer help" })
+  vim.keymap.set(
+    "n",
+    "<Space>wa",
+    vim.lsp.buf.add_workspace_folder,
+    { buffer = bufnr, desc = "LSP: [w]orkspace [a]dd folder" }
+  )
+  vim.keymap.set(
+    "n",
+    "<Space>wr",
+    vim.lsp.buf.remove_workspace_folder,
+    { buffer = bufnr, desc = "LSP: [w]orkspace [r]emove folder" }
+  )
   vim.keymap.set("n", "<Space>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set("n", "<Space>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<Space>R", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set("n", "<Space>a", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "<Space>r", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+  end, { buffer = bufnr, desc = "LSP: [w]orkspace [l]ist folders" })
+  vim.keymap.set("n", "<Space>D", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "LSP: type [D]efinition" })
+  vim.keymap.set("n", "<Space>R", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: [R]ename" })
+  vim.keymap.set("n", "<Space>A", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: code [A]ction" })
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "LSP: [g]oto [r]eferences" })
   vim.keymap.set("n", "<space>F", function()
     vim.lsp.buf.format({ async = true })
-  end, bufopts)
-  vim.keymap.set("x", "gq", vim.lsp.buf.format)
+  end, { buffer = bufnr, desc = "LSP: async [F]ormat" })
+  vim.keymap.set("x", "gq", vim.lsp.buf.format, { desc = "LSP: [f]ormat" })
 
   require("illuminate").on_attach(client)
 end
@@ -202,6 +211,9 @@ if vim.fn.executable("lua-language-server") == 1 then
   table.insert(runtime_path, "lua/?/init.lua")
 
   require("lspconfig").sumneko_lua.setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
     settings = {
       Lua = {
         runtime = {

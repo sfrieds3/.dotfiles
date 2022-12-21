@@ -5,6 +5,7 @@ require("gitsigns").setup({
     delete = { hl = "RedSign", text = "▁", numhl = "GitSignsDeleteNr" },
     topdelete = { hl = "RedSign", text = "▔", numhl = "GitSignsDeleteNr" },
     changedelete = { hl = "PurpleSign", text = "~", numhl = "GitSignsChangeNr" },
+    untracked = { hl = "GreenSign", text = "┆", numhl = "GitSignsAddNr" },
   },
   signcolumn = true,
   on_attach = function(bufnr)

@@ -35,7 +35,7 @@ noremap <leader>p "*p
 noremap <leader>P "*P
 
 " other actions
-nnoremap <Space>b :action RecentFiles<CR>
+nnoremap <Space><Space> :action RecentFiles<CR>
 nnoremap <Space><CR> :action SearchEverywhere<CR>
 nnoremap <Space>a :action GotoAction<CR>
 nnoremap <Space>f :action GotoFile<CR>
