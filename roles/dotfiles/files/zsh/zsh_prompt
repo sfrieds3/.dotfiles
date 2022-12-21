@@ -74,6 +74,11 @@ function __prompt_precmd() {
   vcs_info
 }
 
+function precmd() {
+    echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
+        >> $ALT_HISTFILE
+}
+
 function __python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     [ $VIRTUAL_ENV ] && echo 'venv('`relpath $VIRTUAL_ENV`') '

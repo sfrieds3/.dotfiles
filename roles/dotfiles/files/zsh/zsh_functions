@@ -7,7 +7,7 @@ __DOTS[ITALIC_OFF]=$'\e[23m'
 
 # ZSH only and most performant way to check existence of an executable
 # https://www.topbug.net/blog/2016/10/11/speed-test-check-the-existence-of-a-command-in-bash-and-zsh/
-exists() { (( $+commands[$1] )); }
+function exists() { (( $+commands[$1] )); }
 
 # set gnome terminal title to user@host:pwd
 #DISABLE_AUTO_TITLE="true"
@@ -16,7 +16,7 @@ exists() { (( $+commands[$1] )); }
 #    echo -ne "$window_title"
 #}
 
-cursor_mode() {
+function cursor_mode() {
     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
     cursor_block='\e[2 q'
     cursor_beam='\e[6 q'
@@ -41,7 +41,7 @@ cursor_mode() {
     zle -N zle-line-init
 }
 
-# lazy_load_nvm() {
+# function lazy_load_nvm() {
 #     unset -f node
 #     unset -f nvm
 #     unset -f npm
@@ -49,22 +49,22 @@ cursor_mode() {
 #     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 # }
 
-# node() {
+# function node() {
 #     lazy_load_nvm
 #     node $@
 # }
 #
-# nvm() {
+# function nvm() {
 #     lazy_load_nvm
 #     nvm $@
 # }
 #
-# npm() {
+# function npm() {
 #     lazy_load_nvm
 #     npm $@
 # }
 
-vterm_printf() {
+function vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
@@ -76,15 +76,15 @@ vterm_printf() {
     fi
 }
 
-vterm_prompt_end() {
+function vterm_prompt_end() {
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
 }
 
-vterm_set_directory() {
+function vterm_set_directory() {
     vterm_cmd update-pwd "/-:""$USER""@""$HOSTNAME"":""$PWD/"
 }
 
-vterm_cmd() {
+function vterm_cmd() {
     local vterm_elisp
     vterm_elisp=""
     while [ $# -gt 0 ]; do
@@ -94,6 +94,15 @@ vterm_cmd() {
     vterm_printf "51;E$vterm_elisp"
 }
 
-relpath() {
+function relpath() {
     python -c "import os,sys;print(os.path.relpath(*(sys.argv[1:]), start=os.path.expanduser('~')))" "$@";
+}
+
+function histgrep() {
+    local n_lines=10
+    if [[ "$1" =~ ^[0-9]*$ ]]; then
+        n_lines="$1"
+        shift
+    fi
+    rg "$@" $ALT_HISTFILE | tail -n "$n_lines"
 }
