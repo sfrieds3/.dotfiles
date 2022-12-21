@@ -10,7 +10,7 @@ require("null-ls").setup({
     require("null-ls").builtins.formatting.eslint,
     require("null-ls").builtins.diagnostics.flake8,
     require("null-ls").builtins.formatting.yapf,
-    require("null-ls").builtins.formatting.reorder_python_imports,
+    require("null-ls").builtins.formatting.isort,
     require("null-ls").builtins.formatting.json_tool,
     require("null-ls").builtins.formatting.xmllint,
   },
