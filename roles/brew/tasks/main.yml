@@ -2,28 +2,43 @@
 - name: Install homebrew packages
   community.general.homebrew:
     name:
-      - ansible-language-server
+      - autoconf
+      - automake
       - bat
       - chicken
       - cmake
+      - ctags
       - fd
       - fzf
+      - gcc
+      - git
+      - git-gui
+      - go
       - gopls
       - guile
       - jsonlint
       - llvm
+      - lua
       - lua-language-server
       - luarocks
+      - mysql
       - neovim
+      - node
       - perl
       - pipx
+      - postgresql
+      - pre-commit
+      - pyenv
       - pyright
+      - redis
       - ripgrep
       - sbcl
       - shellcheck
-      - starship
       - stylua
       - the_silver_searcher
+      - tmux
+      - virtualenv
+      - wget
       - yamllint
       - zig
       - zsh
