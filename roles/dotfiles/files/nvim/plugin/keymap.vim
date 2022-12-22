@@ -15,7 +15,7 @@ nnoremap <Space>g :FGrep<Space>
 
 " Grep <pattern> -> quickfix
 "command! -nargs=1 Grep cgetexpr system(&grepprg . ' ' . <q-args>) | copen
-nnoremap gsg :Grep<Space>
+" nnoremap gsg :Grep<Space>
 
 " view all todo in quickfix window
 nnoremap <Leader>vt :exec('lvimgrep /todo/j %')<cr>:exec('lopen')<CR>
@@ -24,7 +24,7 @@ nnoremap <Leader>vt :exec('lvimgrep /todo/j %')<cr>:exec('lopen')<CR>
 nnoremap \gr :execute('FGrep ' . expand('<cword>'))<CR>
 
 " gitgrep for word under cursor in current directory open in quickfix
-nnoremap gR :exec('Grep ' . expand('<cword>'))<CR>
+" nnoremap gR :exec('Grep ' . expand('<cword>'))<CR>
 " }}}
 
 " better scrolling

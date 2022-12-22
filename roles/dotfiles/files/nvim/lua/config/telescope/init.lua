@@ -91,7 +91,7 @@ map_telescope("<Leader>t", "lsp_document_symbols", "ivy")
 map_telescope("<Leader>sa", "aerial", "ivy")
 map_telescope("<Leader><Leader>", "buffers", "ivy")
 map_telescope("<Leader>;", "treesitter", "ivy")
-map_telescope("<Leader>gr", "grep_string", "ivy")
+map_telescope("gR", "grep_string", "ivy")
 map_telescope("<Leader>vh", "search_history", "dropdown", "previewer = false")
 map_telescope("<Leader>vc", "command_history", "dropdown", "previewer = false")
 map_telescope("<Leader>vj", "jumplist", "dropdown")
@@ -101,6 +101,12 @@ map_telescope("<Leader>vr", "registers", "dropdown")
 map_telescope("<Leader>vh", "help_tags", "dropdown")
 map_telescope("<Leader>vd", "diagnostics", "dropdown")
 
+vim.keymap.set(
+  "n",
+  "<Leader>rr",
+  require("config.telescope.telescope_config").preview_lsp_references,
+  { desc = "[LSP] Telescope: preview lsp [r]eferences" }
+)
 vim.keymap.set(
   "n",
   "<Leader>vo",

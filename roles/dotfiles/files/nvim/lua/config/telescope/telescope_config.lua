@@ -223,4 +223,15 @@ function M.project_tags()
   require("telescope.builtin").tags(opts)
 end
 
+function M.preview_lsp_references()
+  local opts = themes.get_cursor({
+    winblend = 10,
+    path_display = { "shorten" },
+    layout_config = {
+      width = 0.75,
+    },
+  })
+  require("telescope.builtin").lsp_references(opts)
+end
+
 return M
