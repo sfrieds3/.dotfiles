@@ -1,8 +1,7 @@
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP =
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 end
 
 return require("packer").startup({
@@ -355,9 +354,10 @@ return require("packer").startup({
       {
         "L3MON4D3/LuaSnip",
         config = function()
+          require("config.luasnip")
           require("luasnip.loaders.from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").load({
-            paths = os.getenv("XDG_CONFIG_HOME") .. "/nvim/.local_snippets.lua",
+          require("luasnip.loaders.from_lua").lazy_load({
+            paths = { vim.fn.stdpath("data") .. "/.local_snippets.lua" },
           })
         end,
         requires = {

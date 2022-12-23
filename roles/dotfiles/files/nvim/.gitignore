@@ -14,7 +14,5 @@ telescope-workspaces.txt
 .netrwhist
 sessions
 luasnip.log
-.local_snippets.lua
+snippets_local
 neotest.log
-mason.log
-mason
