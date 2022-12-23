@@ -226,7 +226,6 @@ end
 function M.preview_lsp_references()
   local opts = themes.get_cursor({
     winblend = 10,
-    path_display = { "shorten" },
     layout_config = {
       width = 0.75,
     },
@@ -234,4 +233,13 @@ function M.preview_lsp_references()
   require("telescope.builtin").lsp_references(opts)
 end
 
+function M.preview_lsp_definitions()
+  local opts = themes.get_cursor({
+    winblend = 10,
+    layout_config = {
+      width = 0.75,
+    },
+  })
+  require("telescope.builtin").lsp_definitions(opts)
+end
 return M

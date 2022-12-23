@@ -114,7 +114,6 @@ return require("packer").startup({
       },
       {
         "folke/todo-comments.nvim",
-        disable = true,
         requires = "nvim-lua/plenary.nvim",
         config = function()
           require("todo-comments").setup({})
@@ -240,6 +239,7 @@ return require("packer").startup({
           "Scriptnames",
         },
       },
+      { "tpope/vim-sleuth" },
       { "kylechui/nvim-surround" },
       {
         "numToStr/Comment.nvim",

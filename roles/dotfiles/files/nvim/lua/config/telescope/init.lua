@@ -103,9 +103,15 @@ map_telescope("<Leader>vd", "diagnostics", "dropdown")
 
 vim.keymap.set(
   "n",
-  "<Leader>rr",
+  "<Leader>lr",
   require("config.telescope.telescope_config").preview_lsp_references,
-  { desc = "[LSP] Telescope: preview lsp [r]eferences" }
+  { desc = "[LSP] Telescope: preview [l]sp [r]eferences" }
+)
+vim.keymap.set(
+  "n",
+  "<Leader>ld",
+  require("config.telescope.telescope_config").preview_lsp_definitions,
+  { desc = "[LSP] Telescope: preview [l]sp [d]efinitions" }
 )
 vim.keymap.set(
   "n",
