@@ -66,6 +66,7 @@ return require("packer").startup({
           require("config.diffview")
         end,
       },
+      { "rhysd/committia.vim" },
     })
 
     -- nvim niceties
