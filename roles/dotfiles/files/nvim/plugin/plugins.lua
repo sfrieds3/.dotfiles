@@ -439,7 +439,7 @@ return require("packer").startup({
         setup = function()
           vim.g.sonokai_style = "espresso"
           vim.g.sonokai_dim_inactive_windows = true
-          vim.g.sonokai_better_performance = tru
+          vim.g.sonokai_better_performance = true
         end,
       },
       { "navarasu/onedark.nvim", opt = true },
