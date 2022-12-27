@@ -12,7 +12,9 @@ require("null-ls").setup({
 
     -- diagnostics
     require("null-ls").builtins.diagnostics.flake8,
-    require("null-ls").builtins.diagnostics.trail_space,
+    require("null-ls").builtins.diagnostics.trail_space.with({
+      filetypes = { git = false },
+    }),
     require("null-ls").builtins.diagnostics.shellcheck,
 
     -- formatting

@@ -16,20 +16,25 @@ vim.keymap.set("n", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>p", '"_dP')
 
--- map esc in :terminal
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Map esc in terminal" })
 
--- quick source of current file
-vim.keymap.set("n", "<Leader>x", "<Cmd>write<CR><Cmd>source %<CR>")
+vim.keymap.set("n", "\\x", "<Cmd>write<CR><Cmd>source %<CR>", { desc = "Quick source of current file" })
 
--- don't clobber unnamed register when pasting over text
-vim.keymap.set("x", "p", "p:if v:register == '\"'<Bar>let @@=@0<Bar>endif<cr>")
+vim.keymap.set(
+  "x",
+  "p",
+  "p:if v:register == '\"'<Bar>let @@=@0<Bar>endif<cr>",
+  { desc = "Don't clobber unnamed register when pasting over text" }
+)
 
--- change word under cursor and set as last search pattern
-vim.keymap.set("n", "c<Tab>", ":let @/=expand('<cword>')<cr>cgn")
+vim.keymap.set(
+  "n",
+  "c<Tab>",
+  ":let @/=expand('<cword>')<cr>cgn",
+  { desc = "Change word under cursor and set as last search pattern" }
+)
 
--- insert current line into command line
-vim.keymap.set("c", "<C-r><C-l>", "<C-r>=getline('.')<CR>")
+vim.keymap.set("c", "<C-r><C-l>", "<C-r>=getline('.')<CR>", { desc = "Insert current line into cmdline" })
 
 -- easy window switching
 local i = 1
@@ -67,9 +72,8 @@ vim.keymap.set("n", "[L", "<Cmd>lfirst<CR>")
 vim.keymap.set("n", "]L", "<Cmd>llast<CR>")
 vim.keymap.set("n", "\\<BS>", "<Cmd>cclose<Bar>lclose<CR>")
 
--- adjust indent of last edit
-vim.keymap.set("n", "<Leader><", "<Cmd>'[,']<<CR>")
-vim.keymap.set("n", "<Leader>>", "<Cmd>'[,']><CR>")
+vim.keymap.set("n", "<Leader><", "<Cmd>'[,']<<CR>", { desc = "Dedent last edit" })
+vim.keymap.set("n", "<Leader>>", "<Cmd>'[,']><CR>", { desc = "Indent last edit" })
 
 -- highlight interesting words
 vim.keymap.set("n", "_1", ":call hiwords#HiInterestingWord(1)<cr>")
@@ -79,9 +83,18 @@ vim.keymap.set("n", "_4", ":call hiwords#HiInterestingWord(4)<cr>")
 vim.keymap.set("n", "_5", ":call hiwords#HiInterestingWord(5)<cr>")
 vim.keymap.set("n", "_6", ":call hiwords#HiInterestingWord(6)<cr>")
 
--- Leader,{ and Leader,} move to top and bottom of indent region
-vim.keymap.set({ "n", "o", "x" }, "\\{", "<Plug>(VerticalRegionUp)")
-vim.keymap.set({ "n", "o", "x" }, "\\}", "<Plug>(VerticalRegionDown)")
+vim.keymap.set(
+  { "n", "o", "x" },
+  "\\{",
+  "<Plug>(VerticalRegionUp)",
+  { desc = "VerticalRegion: move to top of indent region" }
+)
+vim.keymap.set(
+  { "n", "o", "x" },
+  "\\}",
+  "<Plug>(VerticalRegionDown)",
+  { desc = "VerticalRegion: move to bottom of indent region" }
+)
 
 -- trim trailing whitespace
 vim.api.nvim_create_user_command("StripTrailingWhitespace", "call whitespace#StripTrailingWhitespace()", {})
@@ -89,41 +102,29 @@ vim.cmd([[command! -range=% StripTrailingWhitespaceVisual '<,'> call whitespace#
 vim.keymap.set("n", "\\w", "<Cmd>StripTrailingWhitespace<CR>")
 vim.keymap.set("x", "\\w", "<Cmd>StripTrailingWhitespaceVisual<CR>")
 
--- toggle list
-vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>")
+vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>", { desc = "Toggle list" })
 
 -- line number management
 vim.api.nvim_create_user_command("ToggleLineNum", "call lnum#ToggleLineNum()", {})
-vim.keymap.set("n", "_n", "<Cmd>ToggleLineNum<CR>")
+vim.keymap.set("n", "_n", "<Cmd>ToggleLineNum<CR>", { desc = "Toggle line numbers" })
 
--- substitute operator
-vim.keymap.set("n", "\\s", "m':set operatorfunc=substitute#Substitute<CR>g@")
+vim.keymap.set("n", "\\s", "m':set operatorfunc=substitute#Substitute<CR>g@", { desc = "Substitute operator" })
 
--- toggle spell checking
-vim.keymap.set("n", "_s", "<Cmd>setocal spell! spell?<CR>")
+vim.keymap.set("n", "_s", "<Cmd>setocal spell! spell?<CR>", { desc = "Toggle spellcheck" })
 
--- echo filetype
-vim.keymap.set("n", "_t", "<Cmd>set filetype?<CR>")
+vim.keymap.set("n", "_t", "<Cmd>set filetype?<CR>", { desc = "Echo filetype" })
 
--- reload filetype plugins
-vim.keymap.set("n", "_T", "<Cmd>doautocmd filetypedetect BufRead<CR>")
+vim.keymap.set("n", "_T", "<Cmd>doautocmd filetypedetect BufRead<CR>", { desc = "Reload filetype plugins" })
 
--- echo current file full path
-vim.keymap.set("n", "_f", "<Cmd>echo expand('%:p')<CR>")
+vim.keymap.set("n", "_f", "<Cmd>echo expand('%:p')<CR>", { desc = "Echo full file path" })
 
--- clear hlsearch highlights
-vim.keymap.set("n", "<C-l>", "<Cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<C-l>", "<Cmd>nohlsearch<CR>", { desc = "Clear hlsearch highlights" })
 
--- toggle line and column markers
-vim.keymap.set("n", "<F3>", "<Cmd>set cursorline! cursorcolumn!<CR>")
-vim.keymap.set("n", "<Leader>c", "<Cmd>set cursorline! cursorline?<cr>")
-vim.keymap.set("n", "<Leader>C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>")
+vim.keymap.set("n", "<Leader>c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
+vim.keymap.set("n", "<Leader>C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
 
--- search for non-ASCII characters
-vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]])
+vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]], { desc = "Search for non-ASCII characters" })
 
--- upper case last word using ctrl+u
-vim.keymap.set("i", "<C-u>", "<Esc>gUiwea")
+vim.keymap.set("i", "<C-u>", "<Esc>gUiwea", { desc = "Upcase last word in insert mode" })
 
--- Shift-Tab enters actual tab
-vim.keymap.set("i", "<S-Tab>", "<C-v><Tab>")
+vim.keymap.set("i", "<S-Tab>", "<C-v><Tab>", { desc = "Insert actual <Tab> character in insert mode" })
