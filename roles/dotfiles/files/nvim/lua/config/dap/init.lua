@@ -1,3 +1,15 @@
-vim.keymap.set("n", "<F5>", function()
-  require("dap").continue()
-end, { desc = "dap: start/continue debug session" })
+require("dap").defaults.fallback.terminal_win_cmd = "50split new"
+
+vim.keymap.set("n", "<F5>", require("dap").continue, { desc = "dap: start/continue debug session" })
+vim.keymap.set("n", "<F10>", require("dap").step_over, { desc = "dap: step_over" })
+vim.keymap.set("n", "<F11>", require("dap").step_into, { desc = "dap: step_into" })
+vim.keymap.set("n", "<F12>", require("dap").step_out, { desc = "dap: step_out" })
+vim.keymap.set("n", "\\b", require("dap").toggle_breakpoint, { desc = "dap: toggle_breakpoint" })
+vim.keymap.set("n", "\\B", function()
+  require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { desc = "dap: set conditional breakpoint" })
+vim.keymap.set("n", "\\lp", function()
+  require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+end, { desc = "dap: set log message breapoint" })
+vim.keymap.set("n", "\\dr", require("dap").repl.open, { desc = "dap: open repl" })
+vim.keymap.set("n", "\\dl", require("dap").run_last, { desc = "dap: run last" })

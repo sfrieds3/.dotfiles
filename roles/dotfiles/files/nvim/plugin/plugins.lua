@@ -270,19 +270,15 @@ return require("packer").startup({
         end,
       },
       {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function()
+          require("config.dap.dap_virtual_text")
+        end,
+      },
+      {
         "rcarriga/nvim-dap-ui",
         config = function()
-          require("dapui").setup({})
-          local dap, dapui = require("dap"), require("dapui")
-          require("dap").listeners.after.event_initialized["dapui_config"] = function()
-            require("dapui").open({})
-          end
-          require("dap").listeners.before.event_terminated["dapui_config"] = function()
-            require("dapui").close({})
-          end
-          require("dap").listeners.before.event_exited["dapui_config"] = function()
-            require("dapui").close({})
-          end
+          require("config.dap.dap_ui")
         end,
         requires = { "mfussenegger/nvim-dap" },
       },
