@@ -356,7 +356,7 @@ return require("packer").startup({
       {
         "neovim/nvim-lspconfig",
         config = function()
-          require("config.lsp_config")
+          require("config.lsp")
         end,
         requires = {
           { "nvim-lua/lsp-status.nvim" },
