@@ -24,6 +24,7 @@
 	conflictstyle = diff3
 [pull]
 	ff = only
+	rebase = true
 [user]
 	email = sfrieds3@gmail.com
 	name = Scott F

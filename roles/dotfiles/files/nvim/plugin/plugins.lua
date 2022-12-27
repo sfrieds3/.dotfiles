@@ -290,27 +290,8 @@ return require("packer").startup({
       {
         "mfussenegger/nvim-dap-python",
         config = function()
-          require("dap-python").setup("~/.venv/venv/bin/python")
+          require("config.dap.python")
         end,
-      },
-      {
-        "nvim-neotest/neotest",
-        requires = {
-          "nvim-lua/plenary.nvim",
-          "nvim-treesitter/nvim-treesitter",
-        },
-        config = function()
-          require("neotest").setup({
-            adapters = {
-              require("neotest-python")({
-                justMyCode = false,
-              }),
-            },
-          })
-        end,
-      },
-      {
-        "nvim-neotest/neotest-python",
       },
       {
         "ibhagwan/fzf-lua",
