@@ -312,7 +312,12 @@ return require("packer").startup({
       {
         "nvim-neotest/neotest-python",
       },
-      { "ibhagwan/fzf-lua" },
+      {
+        "ibhagwan/fzf-lua",
+        config = function()
+          require("config.fzf")
+        end,
+      },
     })
 
     -- lsp, completion

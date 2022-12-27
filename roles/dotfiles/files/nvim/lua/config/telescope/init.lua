@@ -67,6 +67,7 @@ local map_telescope = function(key, cmd, theme, theme_config, mode)
 end
 
 -- TODO: find all files (including ignored files)
+vim.keymap.set("n", "<Leader>.", require("telescope.builtin").resume, { desc = "Telescope: resume" })
 vim.keymap.set(
   "n",
   "<Leader>sf",
