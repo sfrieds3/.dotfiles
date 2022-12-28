@@ -338,10 +338,6 @@ return require("packer").startup({
         "L3MON4D3/LuaSnip",
         config = function()
           require("config.luasnip")
-          require("luasnip.loaders.from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").lazy_load({
-            paths = { vim.fn.stdpath("data") .. "/.local_snippets.lua" },
-          })
         end,
         requires = {
           { "rafamadriz/friendly-snippets" },
