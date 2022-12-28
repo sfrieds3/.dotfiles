@@ -247,7 +247,7 @@ function M.document_symbols()
   local opts = themes.get_dropdown({
     winblend = 10,
     layout_config = {
-      width = 0.57,
+      width = 0.75,
     },
   })
 
@@ -265,7 +265,7 @@ function M.workspace_symbols()
   local opts = themes.get_dropdown({
     winblend = 10,
     layout_config = {
-      width = 0.57,
+      width = 0.75,
     },
   })
 

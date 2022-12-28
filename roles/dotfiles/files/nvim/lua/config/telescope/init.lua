@@ -1,3 +1,7 @@
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
+local themes = require("telescope.themes")
+
 require("config.telescope.telescope_config")
 
 require("telescope").setup({
@@ -47,27 +51,33 @@ require("telescope").setup({
   },
 })
 
-pcall(require("telescope").load_extension, "frecency")
-pcall(require("telescope").load_extension, "fzf")
-pcall(require("telescope").load_extension, "neoclip")
-pcall(require("telescope").load_extension, "live_grep_args")
-pcall(require("telescope").load_extension, "aerial")
-pcall(require("telescope").load_extension, "ui-select")
-pcall(require("telescope").load_extension, "project")
-pcall(require("telescope").load_extension, "file_browser")
-pcall(require("telescope").load_extension, "dap")
+pcall(telescope.load_extension, "frecency")
+pcall(telescope.load_extension, "fzf")
+pcall(telescope.load_extension, "neoclip")
+pcall(telescope.load_extension, "live_grep_args")
+pcall(telescope.load_extension, "aerial")
+pcall(telescope.load_extension, "ui-select")
+pcall(telescope.load_extension, "project")
+pcall(telescope.load_extension, "file_browser")
+pcall(telescope.load_extension, "dap")
 
 local map_telescope = function(key, cmd, theme, theme_config, mode)
-  theme_config = theme_config or "previewer = false"
+  theme_config = theme_config or { "previewer = false" }
   mode = mode or "n"
-  local base_command = "<Cmd> lua require('telescope.builtin').%s(require('telescope.themes').get_%s({s}))<cr>"
-  local command = string.format(base_command, cmd, theme, theme_config)
-  local desc = string.format("Telescope: %s", cmd)
-  vim.keymap.set(mode, key, command, { desc = desc })
+
+  -- TODO: figure out how to suppport default theme
+  local theme_funcs = {
+    dropdown = themes.get_dropdown,
+    ivy = themes.get_ivy,
+    cursor = themes.get_cursor,
+  }
+  vim.keymap.set(mode, key, function()
+    cmd(theme_funcs[theme](theme_config))
+  end, { desc = "Telescope: " })
 end
 
 -- TODO: find all files (including ignored files)
-vim.keymap.set("n", "<Leader>.", require("telescope.builtin").resume, { desc = "Telescope: resume" })
+vim.keymap.set("n", "<Leader>.", builtin.resume, { desc = "Telescope: resume" })
 vim.keymap.set(
   "n",
   "<Leader>sf",
@@ -87,19 +97,19 @@ vim.keymap.set(
   { desc = "Telescope: [s]earch [r]ecent files" }
 )
 
-map_telescope("<Leader>sa", "aerial", "ivy")
-map_telescope("<Leader><Leader>", "buffers", "ivy")
-map_telescope("<Leader>gr", "grep_string", "ivy")
-map_telescope("<Leader>vh", "search_history", "dropdown", "previewer = false")
-map_telescope("<Leader>vc", "command_history", "dropdown", "previewer = false")
-map_telescope("<Leader>vj", "jumplist", "dropdown")
-map_telescope("<Leader>/", "current_buffer_fuzzy_find", "ivy")
-map_telescope("<Leader>vm", "marks", "dropdown")
-map_telescope("<Leader>vr", "registers", "dropdown")
-map_telescope("<Leader>vh", "help_tags", "dropdown")
-map_telescope("<Leader>vd", "diagnostics", "dropdown")
-map_telescope("<Leader>vq", "quickfix", "ivy")
-map_telescope("<Leader>vl", "loclist", "ivy")
+map_telescope("<Leader>sa", builtin.aerial, "ivy") -- TODO: this doesn't work..
+map_telescope("<Leader><Leader>", builtin.buffers, "ivy")
+map_telescope("<Leader>gr", builtin.grep_string, "ivy")
+map_telescope("<Leader>vh", builtin.search_history, "dropdown", { "previewer = false" })
+map_telescope("<Leader>vc", builtin.command_history, "dropdown", { "previewer = false" })
+map_telescope("<Leader>vj", builtin.jumplist, "dropdown")
+map_telescope("<Leader>/", builtin.current_buffer_fuzzy_find, "ivy")
+map_telescope("<Leader>vm", builtin.marks, "dropdown")
+map_telescope("<Leader>vr", builtin.registers, "dropdown")
+map_telescope("<Leader>vh", builtin.help_tags, "dropdown")
+map_telescope("<Leader>vd", builtin.diagnostics, "dropdown", { winblend = 10, layout_config = { width = 0.75 } })
+map_telescope("<Leader>vq", builtin.quickfix, "ivy")
+map_telescope("<Leader>vl", builtin.loclist, "ivy")
 
 vim.keymap.set(
   "n",
