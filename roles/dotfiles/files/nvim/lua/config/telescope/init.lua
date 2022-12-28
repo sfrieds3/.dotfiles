@@ -87,11 +87,8 @@ vim.keymap.set(
   { desc = "Telescope: [s]earch [r]ecent files" }
 )
 
-map_telescope("<Leader>T", "lsp_dynamic_workspace_symbols", "ivy")
-map_telescope("<Leader>t", "lsp_document_symbols", "ivy")
 map_telescope("<Leader>sa", "aerial", "ivy")
 map_telescope("<Leader><Leader>", "buffers", "ivy")
-map_telescope("<Leader>;", "treesitter", "ivy")
 map_telescope("<Leader>gr", "grep_string", "ivy")
 map_telescope("<Leader>vh", "search_history", "dropdown", "previewer = false")
 map_telescope("<Leader>vc", "command_history", "dropdown", "previewer = false")
@@ -102,6 +99,18 @@ map_telescope("<Leader>vr", "registers", "dropdown")
 map_telescope("<Leader>vh", "help_tags", "dropdown")
 map_telescope("<Leader>vd", "diagnostics", "dropdown")
 
+vim.keymap.set(
+  "n",
+  "<Leader>:",
+  require("config.telescope.telescope_config").workspace_symbols,
+  { desc = "Telescope: Get workspace symbols from active LSP client" }
+)
+vim.keymap.set(
+  "n",
+  "<Leader>;",
+  require("config.telescope.telescope_config").document_symbols,
+  { desc = "Telescope: LSP document symbols if attached to LSP client, else treesitter symbols" }
+)
 vim.keymap.set(
   "n",
   "<Leader>lr",

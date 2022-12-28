@@ -40,8 +40,8 @@ nnoremap <Space><CR> :action SearchEverywhere<CR>
 nnoremap <Space>a :action GotoAction<CR>
 nnoremap <Space>sf :action GotoFile<CR>
 nnoremap <Space>c :action GotoClass<CR>
-nnoremap <Space>t :action FileStructurePopup<CR>
-nnoremap <Space>T :action GotoSymbol<CR>
+nnoremap <Space>; :action FileStructurePopup<CR>
+nnoremap <Space>: :action GotoSymbol<CR>
 nnoremap <Space><Space> :action Switcher<CR>
 nnoremap <Space>B :action ToggleLineBreakpoint<CR>
 nnoremap <Space>q :action CloseContent<CR>

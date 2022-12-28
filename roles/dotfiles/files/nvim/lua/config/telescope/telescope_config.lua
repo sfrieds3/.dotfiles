@@ -242,4 +242,50 @@ function M.preview_lsp_definitions()
   })
   require("telescope.builtin").lsp_definitions(opts)
 end
+
+function M.document_symbols()
+  local opts = themes.get_dropdown({
+    winblend = 10,
+    layout_config = {
+      width = 0.57,
+    },
+  })
+
+  local active_clients = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
+  for _, client in ipairs(active_clients) do
+    if client.server_capabilities.documentSymbolProvider == true then
+      require("telescope.builtin").lsp_document_symbols(opts)
+      return
+    end
+  end
+  require("telescope.builtin").treesitter(opts)
+end
+
+function M.workspace_symbols()
+  local opts = themes.get_dropdown({
+    winblend = 10,
+    layout_config = {
+      width = 0.57,
+    },
+  })
+
+  local active_clients = vim.lsp.get_active_clients()
+  for _, client in ipairs(active_clients) do
+    if client.server_capabilities.workspaceSymbolProvider ~= nil then
+      local bufnr = vim.fn.bufnr()
+      local bufnrs = vim.lsp.get_buffers_by_client_id(client.id)
+      for _, b in ipairs(bufnrs) do
+        if b == bufnr then
+          require("telescope.builtin").lsp_dynamic_workspace_symbols(opts)
+          return
+        end
+      end
+
+      -- TODO: run with arbitrary bufnr of client with workspace_symbol capabilities
+      table.insert(opts, { bufnr = bufnrs[1] })
+      require("telescope.builtin").lsp_dynamic_workspace_symbols(opts)
+    end
+  end
+end
+
 return M
