@@ -71,6 +71,7 @@ return require("packer").startup({
 
     -- nvim niceties
     use({
+      { "rcarriga/nvim-notify" },
       {
         "windwp/nvim-autopairs",
         config = function()
