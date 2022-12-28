@@ -425,6 +425,7 @@ return require("packer").startup({
       { "catppuccin/nvim", as = "catppuccin", opt = true },
       { "projekt0n/github-nvim-theme" },
       { "marko-cerovac/material.nvim" },
+      { "folke/tokyonight.nvim" },
     })
 
     -- Automatically set up your configuration after cloning packer.nvim

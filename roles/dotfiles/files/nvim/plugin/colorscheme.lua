@@ -73,4 +73,18 @@ require("material").setup({
   custom_highlights = {}, -- Overwrite highlights with your own
 })
 
-vim.cmd([[ colorscheme material ]])
+require("tokyonight").setup({
+  style = "night",
+  dim_inactive = true,
+  sidebars = {},
+  styles = {
+    comments = { italic = true },
+    keywords = { italic = true },
+    functions = {},
+    variables = {},
+    sidebars = "normal",
+    floats = "transparent",
+  },
+})
+
+vim.cmd([[ colorscheme tokyonight-night ]])
