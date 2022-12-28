@@ -98,6 +98,8 @@ map_telescope("<Leader>vm", "marks", "dropdown")
 map_telescope("<Leader>vr", "registers", "dropdown")
 map_telescope("<Leader>vh", "help_tags", "dropdown")
 map_telescope("<Leader>vd", "diagnostics", "dropdown")
+map_telescope("<Leader>vq", "quickfix", "ivy")
+map_telescope("<Leader>vl", "loclist", "ivy")
 
 vim.keymap.set(
   "n",
