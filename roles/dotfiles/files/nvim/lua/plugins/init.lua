@@ -6,6 +6,7 @@ return {
   "tpope/vim-sleuth",
   "wellle/targets.vim",
   "jose-elias-alvarez/typescript.nvim",
+  "kyazdani42/nvim-web-devicons",
 
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
@@ -13,15 +14,6 @@ return {
   { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
   { "folke/lua-dev.nvim", ft = { "lua" } },
   { "RRethy/nvim-align", cmd = { "Align" } },
-  {
-    "ludovicchabant/vim-gutentags",
-    config = function()
-      vim.g.gutentags_cache_dir = vim.env.XDG_CACHE_HOME .. "/tags"
-      if vim.fn.has("macunix") then
-        vim.g.gutentags_ctags_executable = "/opt/homebrew/bin/ctags"
-      end
-    end,
-  },
   { "romainl/vim-qf", ft = { "qf" } },
   {
     "tpope/vim-scriptease",
@@ -32,39 +24,7 @@ return {
       "Scriptnames",
     },
   },
-  {
-    "andymass/vim-matchup",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-      vim.g.matchup_matchparen_deferred_show_delay = 500
-      vim.g.matchup_matchparen_deferred_hide_delay = 500
-      vim.g.matchup_matchparen_timeout = 100
-      vim.g.matchup_matchparen_deferred = 1
-    end,
-  },
   { "milisims/nvim-luaref", ft = { "lua" } },
-
-  {
-    "dnlhc/glance.nvim",
-    config = function()
-      require("glance").setup({
-        height = 33,
-        theme = {
-          mode = "brighten",
-        },
-      })
-      vim.keymap.set("n", "gD", "<CMD>Glance definitions<CR>", { desc = "Glance: [g]lance [D]efinitions" })
-      vim.keymap.set("n", "gR", "<CMD>Glance references<CR>", { desc = "Glance: [g]lance [R]eferences" })
-    end,
-  },
-  {
-    "folke/trouble.nvim",
-    dependencies = "kyazdani42/nvim-web-devicons",
-    cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
-    config = function()
-      require("trouble").setup({})
-    end,
-  },
   { "chrisbra/csv.vim", ft = "csv" },
   { "fatih/vim-go", ft = "go", enabled = false },
   {
@@ -75,7 +35,6 @@ return {
     end,
   },
   { "tpope/vim-rails", ft = { "ruby", "eruby" } },
-
   {
     "NTBBloodbath/doom-one.nvim",
     init = function()
