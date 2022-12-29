@@ -1,29 +1,25 @@
 return {
+  "rhysd/committia.vim",
+  "tami5/sqlite.lua",
+  "rcarriga/nvim-notify",
+  "romainl/vim-qlist",
+  "tpope/vim-sleuth",
+  "wellle/targets.vim",
+  "jose-elias-alvarez/null-ls.nvim",
+  "jose-elias-alvarez/typescript.nvim",
+
+  -- cmp dpeendencies
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/cmp-nvim-lua",
+  "hrsh7th/cmp-path",
+  "quangnguyen30192/cmp-nvim-tags",
+  "saadparwaiz1/cmp_luasnip",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
+
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
-  "rhysd/committia.vim",
-
-  "rcarriga/nvim-notify",
-  {
-    "nvim-telescope/telescope.nvim",
-    -- TODO:
-    config = function()
-      require("config.telescope")
-      pcall(require, "config.telescope.local")
-    end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-lua/popup.nvim",
-      "nvim-telescope/telescope-live-grep-args.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
-      "nvim-telescope/telescope-project.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
-      { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    },
-  },
-
-  -- quality of life
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
   { "folke/lua-dev.nvim", ft = { "lua" } },
@@ -38,7 +34,6 @@ return {
     end,
   },
   { "romainl/vim-qf", ft = { "qf" } },
-  { "romainl/vim-qlist" },
   {
     "tpope/vim-scriptease",
     cmd = {
@@ -48,7 +43,6 @@ return {
       "Scriptnames",
     },
   },
-  "tpope/vim-sleuth",
   {
     "andymass/vim-matchup",
     config = function()
@@ -59,35 +53,8 @@ return {
       vim.g.matchup_matchparen_deferred = 1
     end,
   },
-  "wellle/targets.vim",
   { "milisims/nvim-luaref", ft = { "lua" } },
 
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("config.dap")
-    end,
-  },
-  {
-    "theHamsta/nvim-dap-virtual-text",
-    config = function()
-      require("config.dap.dap_virtual_text")
-    end,
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    config = function()
-      require("config.dap.dap_ui")
-    end,
-    dependencies = { "mfussenegger/nvim-dap" },
-  },
-  "nvim-telescope/telescope-dap.nvim",
-  {
-    "mfussenegger/nvim-dap-python",
-    config = function()
-      require("config.dap.python")
-    end,
-  },
   {
     "dnlhc/glance.nvim",
     config = function()
@@ -110,33 +77,14 @@ return {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      require("config.cmp")
-    end,
-    dependencies = {
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-cmdline" },
-      { "hrsh7th/cmp-nvim-lua" },
-      { "hrsh7th/cmp-path" },
-      { "quangnguyen30192/cmp-nvim-tags" },
-      { "saadparwaiz1/cmp_luasnip" },
-    },
-  },
-  {
     "neovim/nvim-lspconfig",
     config = function()
       require("config.lsp")
     end,
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
     },
   },
-  { "jose-elias-alvarez/null-ls.nvim" },
-  { "jose-elias-alvarez/typescript.nvim" },
-
   { "chrisbra/csv.vim", ft = "csv" },
   { "fatih/vim-go", ft = "go", enabled = false },
   {
@@ -193,6 +141,6 @@ return {
   },
   { "navarasu/onedark.nvim", lazy = true },
   { "catppuccin/nvim", name = "catppuccin", lazy = true },
-  { "projekt0n/github-nvim-theme" },
-  { "marko-cerovac/material.nvim" },
+  { "projekt0n/github-nvim-theme", lazy = true },
+  { "marko-cerovac/material.nvim", lazy = true },
 }
