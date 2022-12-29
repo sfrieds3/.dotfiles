@@ -67,3 +67,19 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 --     vim.diagnostic.open_float({ focusable = false })
 --   end,
 -- })
+
+-- enable TSContext when there is no LSP client
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  group = vim.api.nvim_create_augroup("TSContextAutocmd", { clear = true }),
+  pattern = "*",
+  callback = function()
+    local status, is_available = pcall(require("nvim-navic").is_available)
+    if status and is_available then
+      ---@diagnostic disable-next-line
+      local status, _ = pcall(vim.cmd, "TSContextDisable")
+    else
+      ---@diagnostic disable-next-line
+      local staus, _ = pcall(vim.cmd, "TSContextEnable")
+    end
+  end,
+})

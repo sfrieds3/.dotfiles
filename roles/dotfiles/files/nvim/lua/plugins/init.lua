@@ -88,6 +88,7 @@ return {
     end,
   },
   { "sainnhe/edge", lazy = true },
+  { "sainnhe/everforest", lazy = true },
   { "sainnhe/gruvbox-material", lazy = true },
   {
     "sainnhe/sonokai",
