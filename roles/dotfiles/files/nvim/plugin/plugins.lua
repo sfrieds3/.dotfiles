@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins", {
-  install = { colorscheme = "folke/tokyonight" },
+  install = { colorscheme = { "tokyonight", "habamax" } },
 })
 
 -- local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"

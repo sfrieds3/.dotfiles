@@ -1,6 +1,6 @@
 local M = {
   "s1n7ax/nvim-window-picker",
-  tag = "v1.*",
+  version = "v1.*",
 }
 
 function M.config()

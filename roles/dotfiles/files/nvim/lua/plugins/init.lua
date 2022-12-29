@@ -1,17 +1,9 @@
 return {
-  -- perosnal plugins
-  -- TODO: figure out how to load local versions of these
-  "sfrieds3/pynvenv.nvim",
-
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
   "rhysd/committia.vim",
 
-  { "rcarriga/nvim-notify" },
-  {
-    "RRethy/vim-illuminate",
-    config = true,
-  },
+  "rcarriga/nvim-notify",
   {
     "nvim-telescope/telescope.nvim",
     -- TODO:
@@ -27,23 +19,13 @@ return {
       "nvim-telescope/telescope-project.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
-      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    },
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    dependenceis = {
-      { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
-      { "nvim-treesitter/nvim-treesitter-refactor" },
-      { "nvim-treesitter/nvim-treesitter-context" },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
   },
 
   -- quality of life
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
-  { "numToStr/Navigator.nvim" },
   { "folke/lua-dev.nvim", ft = { "lua" } },
   { "RRethy/nvim-align", cmd = { "Align" } },
   {
@@ -55,8 +37,6 @@ return {
       end
     end,
   },
-  { "stevearc/aerial.nvim" },
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
   { "romainl/vim-qf", ft = { "qf" } },
   { "romainl/vim-qlist" },
   {
@@ -68,14 +48,7 @@ return {
       "Scriptnames",
     },
   },
-  { "tpope/vim-sleuth" },
-  { "kylechui/nvim-surround" },
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
+  "tpope/vim-sleuth",
   {
     "andymass/vim-matchup",
     config = function()
@@ -86,7 +59,7 @@ return {
       vim.g.matchup_matchparen_deferred = 1
     end,
   },
-  { "wellle/targets.vim" },
+  "wellle/targets.vim",
   { "milisims/nvim-luaref", ft = { "lua" } },
 
   {
@@ -108,7 +81,7 @@ return {
     end,
     dependencies = { "mfussenegger/nvim-dap" },
   },
-  { "nvim-telescope/telescope-dap.nvim" },
+  "nvim-telescope/telescope-dap.nvim",
   {
     "mfussenegger/nvim-dap-python",
     config = function()
@@ -161,12 +134,11 @@ return {
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
     },
   },
-  { "j-hui/fidget.nvim" },
   { "jose-elias-alvarez/null-ls.nvim" },
   { "jose-elias-alvarez/typescript.nvim" },
 
   { "chrisbra/csv.vim", ft = "csv" },
-  { "fatih/vim-go", ft = "go", disable = true },
+  { "fatih/vim-go", ft = "go", enable = false },
   {
     "rust-lang/rust.vim",
     ft = "rust",
@@ -178,7 +150,7 @@ return {
 
   {
     "NTBBloodbath/doom-one.nvim",
-    setup = function()
+    init = function()
       -- Add color to cursor
       vim.g.doom_one_cursor_coloring = false
       -- Set :terminal colors
@@ -208,19 +180,19 @@ return {
       vim.g.doom_one_pumblend_transparency = 20
     end,
   },
-  { "sainnhe/edge", opt = true },
-  { "sainnhe/gruvbox-material", opt = true },
+  { "sainnhe/edge", lazy = true },
+  { "sainnhe/gruvbox-material", lazy = true },
   {
     "sainnhe/sonokai",
-    opt = true,
+    lazy = true,
     setup = function()
       vim.g.sonokai_style = "espresso"
       vim.g.sonokai_dim_inactive_windows = true
       vim.g.sonokai_better_performance = true
     end,
   },
-  { "navarasu/onedark.nvim", opt = true },
-  { "catppuccin/nvim", as = "catppuccin", opt = true },
+  { "navarasu/onedark.nvim", lazy = true },
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
   { "projekt0n/github-nvim-theme" },
   { "marko-cerovac/material.nvim" },
 }
