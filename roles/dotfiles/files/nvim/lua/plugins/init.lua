@@ -5,18 +5,7 @@ return {
   "romainl/vim-qlist",
   "tpope/vim-sleuth",
   "wellle/targets.vim",
-  "jose-elias-alvarez/null-ls.nvim",
   "jose-elias-alvarez/typescript.nvim",
-
-  -- cmp dpeendencies
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-nvim-lua",
-  "hrsh7th/cmp-path",
-  "quangnguyen30192/cmp-nvim-tags",
-  "saadparwaiz1/cmp_luasnip",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-nvim-lsp-signature-help",
 
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
@@ -75,15 +64,6 @@ return {
     config = function()
       require("trouble").setup({})
     end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("config.lsp")
-    end,
-    dependencies = {
-      { "nvim-lua/lsp-status.nvim" },
-    },
   },
   { "chrisbra/csv.vim", ft = "csv" },
   { "fatih/vim-go", ft = "go", enabled = false },
