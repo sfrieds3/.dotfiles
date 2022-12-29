@@ -8,6 +8,26 @@ return {
   "jose-elias-alvarez/typescript.nvim",
   "kyazdani42/nvim-web-devicons",
 
+  {
+    "SmiteshP/nvim-navic",
+    config = function()
+      vim.g.navic_silence = true
+      require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
+    end,
+  },
+  {
+    "danymat/neogen",
+    keys = {
+      {
+        "<leader>cc",
+        function()
+          require("neogen").generate({})
+        end,
+        desc = "Neogen Comment",
+      },
+    },
+    config = { snippet_engine = "luasnip" },
+  },
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
@@ -82,4 +102,5 @@ return {
   { "catppuccin/nvim", name = "catppuccin", lazy = true },
   { "projekt0n/github-nvim-theme", lazy = true },
   { "marko-cerovac/material.nvim", lazy = true },
+  { "rebelot/kanagawa.nvim", lazy = true },
 }

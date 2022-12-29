@@ -120,8 +120,8 @@ vim.keymap.set("n", "_f", "<Cmd>echo expand('%:p')<CR>", { desc = "Echo full fil
 
 vim.keymap.set("n", "<C-l>", "<Cmd>nohlsearch<CR>", { desc = "Clear hlsearch highlights" })
 
-vim.keymap.set("n", "<Leader>c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
-vim.keymap.set("n", "<Leader>C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
+vim.keymap.set("n", "\\c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
+vim.keymap.set("n", "\\C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
 
 vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]], { desc = "Search for non-ASCII characters" })
 

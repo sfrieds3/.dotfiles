@@ -1,9 +1,8 @@
 return {
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-
   "nvim-treesitter/nvim-treesitter-textobjects",
-
   "nvim-treesitter/nvim-treesitter-refactor",
+
+  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
   {
     "mfussenegger/nvim-treehopper",

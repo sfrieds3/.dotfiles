@@ -7,6 +7,7 @@ local M = {
     "sindrets/diffview.nvim",
   },
 }
+
 function M.config()
   require("neogit").setup({
     integrations = { diffview = true },

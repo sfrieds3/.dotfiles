@@ -38,12 +38,11 @@ local get_filename = function()
       file_icon_color = ""
     end
 
-    modified_ = ""
+    local modified_ = ""
+    local filename_hl_group = "LineNr"
     if vim.bo.modified then
       filename_hl_group = "WinbarFilename"
       modified_ = " " -- nf-fa-circle (0xf111)
-    else
-      filename_hl_group = "LineNr"
     end
 
     return " "
@@ -79,7 +78,7 @@ M.get_winbar = function()
   local value = get_filename()
 
   local f = require("utils.utils")
-  local winbar_format = string.format("%%=%s", value)
+  local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", value)
   local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", winbar_format, { scope = "local" })
   if not status_ok then
     return
