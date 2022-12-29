@@ -103,5 +103,4 @@ return {
   { "catppuccin/nvim", name = "catppuccin", lazy = true },
   { "projekt0n/github-nvim-theme", lazy = true },
   { "marko-cerovac/material.nvim", lazy = true },
-  { "rebelot/kanagawa.nvim", lazy = true },
 }

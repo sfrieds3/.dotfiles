@@ -72,3 +72,5 @@ vim.g.material_style = "oceanic"
 --
 --   custom_highlights = {}, -- Overwrite highlights with your own
 -- })
+
+vim.cmd([[ colorscheme kanagawa ]])
