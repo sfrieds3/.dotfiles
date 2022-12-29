@@ -138,7 +138,7 @@ return {
   { "jose-elias-alvarez/typescript.nvim" },
 
   { "chrisbra/csv.vim", ft = "csv" },
-  { "fatih/vim-go", ft = "go", enable = false },
+  { "fatih/vim-go", ft = "go", enabled = false },
   {
     "rust-lang/rust.vim",
     ft = "rust",
@@ -185,7 +185,7 @@ return {
   {
     "sainnhe/sonokai",
     lazy = true,
-    setup = function()
+    init = function()
       vim.g.sonokai_style = "espresso"
       vim.g.sonokai_dim_inactive_windows = true
       vim.g.sonokai_better_performance = true

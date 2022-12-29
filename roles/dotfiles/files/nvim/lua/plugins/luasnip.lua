@@ -3,7 +3,6 @@ local M = {
   dependencies = {
     { "rafamadriz/friendly-snippets" },
   },
-  after = "nvim-cmp",
   event = "InsertEnter",
 }
 
