@@ -1,0 +1,226 @@
+return {
+  -- perosnal plugins
+  -- TODO: figure out how to load local versions of these
+  "sfrieds3/pynvenv.nvim",
+
+  { "tpope/vim-fugitive", cmd = "Git" },
+  { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
+  "rhysd/committia.vim",
+
+  { "rcarriga/nvim-notify" },
+  {
+    "RRethy/vim-illuminate",
+    config = true,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    -- TODO:
+    config = function()
+      require("config.telescope")
+      pcall(require, "config.telescope.local")
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-project.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    dependenceis = {
+      { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-refactor" },
+      { "nvim-treesitter/nvim-treesitter-context" },
+    },
+  },
+
+  -- quality of life
+  { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
+  { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
+  { "numToStr/Navigator.nvim" },
+  { "folke/lua-dev.nvim", ft = { "lua" } },
+  { "RRethy/nvim-align", cmd = { "Align" } },
+  {
+    "ludovicchabant/vim-gutentags",
+    config = function()
+      vim.g.gutentags_cache_dir = vim.env.XDG_CACHE_HOME .. "/tags"
+      if vim.fn.has("macunix") then
+        vim.g.gutentags_ctags_executable = "/opt/homebrew/bin/ctags"
+      end
+    end,
+  },
+  { "stevearc/aerial.nvim" },
+  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  { "romainl/vim-qf", ft = { "qf" } },
+  { "romainl/vim-qlist" },
+  {
+    "tpope/vim-scriptease",
+    cmd = {
+      "Messages",
+      "Verbose",
+      "Time",
+      "Scriptnames",
+    },
+  },
+  { "tpope/vim-sleuth" },
+  { "kylechui/nvim-surround" },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      vim.g.matchup_matchparen_deferred_show_delay = 500
+      vim.g.matchup_matchparen_deferred_hide_delay = 500
+      vim.g.matchup_matchparen_timeout = 100
+      vim.g.matchup_matchparen_deferred = 1
+    end,
+  },
+  { "wellle/targets.vim" },
+  { "milisims/nvim-luaref", ft = { "lua" } },
+
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      require("config.dap")
+    end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function()
+      require("config.dap.dap_virtual_text")
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("config.dap.dap_ui")
+    end,
+    dependencies = { "mfussenegger/nvim-dap" },
+  },
+  { "nvim-telescope/telescope-dap.nvim" },
+  {
+    "mfussenegger/nvim-dap-python",
+    config = function()
+      require("config.dap.python")
+    end,
+  },
+  {
+    "dnlhc/glance.nvim",
+    config = function()
+      require("glance").setup({
+        height = 33,
+        theme = {
+          mode = "brighten",
+        },
+      })
+      vim.keymap.set("n", "gD", "<CMD>Glance definitions<CR>", { desc = "Glance: [g]lance [D]efinitions" })
+      vim.keymap.set("n", "gR", "<CMD>Glance references<CR>", { desc = "Glance: [g]lance [R]eferences" })
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = "kyazdani42/nvim-web-devicons",
+    cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
+    config = function()
+      require("trouble").setup({})
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("config.cmp")
+    end,
+    dependencies = {
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-cmdline" },
+      { "hrsh7th/cmp-nvim-lua" },
+      { "hrsh7th/cmp-path" },
+      { "quangnguyen30192/cmp-nvim-tags" },
+      { "saadparwaiz1/cmp_luasnip" },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("config.lsp")
+    end,
+    dependencies = {
+      { "nvim-lua/lsp-status.nvim" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+    },
+  },
+  { "j-hui/fidget.nvim" },
+  { "jose-elias-alvarez/null-ls.nvim" },
+  { "jose-elias-alvarez/typescript.nvim" },
+
+  { "chrisbra/csv.vim", ft = "csv" },
+  { "fatih/vim-go", ft = "go", disable = true },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    config = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+  { "tpope/vim-rails", ft = { "ruby", "eruby" } },
+
+  {
+    "NTBBloodbath/doom-one.nvim",
+    setup = function()
+      -- Add color to cursor
+      vim.g.doom_one_cursor_coloring = false
+      -- Set :terminal colors
+      vim.g.doom_one_terminal_colors = true
+      -- Enable italic comments
+      vim.g.doom_one_italic_comments = true
+      -- Enable TS support
+      vim.g.doom_one_enable_treesitter = true
+      -- Color whole diagnostic text or only underline
+      vim.g.doom_one_diagnostics_text_color = false
+      -- Enable transparent background
+      vim.g.doom_one_transparent_background = false
+
+      -- Pumblend transparency
+      vim.g.doom_one_pumblend_enable = false
+      vim.g.doom_one_pumblend_transparency = 20
+
+      -- Plugins integration
+      vim.g.doom_one_plugin_telescope = true
+      vim.g.doom_one_plugin_neogit = true
+      vim.g.doom_one_plugin_nvim_tree = true
+      vim.g.doom_one_plugin_vim_illuminate = true
+      vim.g.doom_one_plugin_neo_tree = true
+
+      -- Pumblend transparency
+      vim.g.doom_one_pumblend_enable = true
+      vim.g.doom_one_pumblend_transparency = 20
+    end,
+  },
+  { "sainnhe/edge", opt = true },
+  { "sainnhe/gruvbox-material", opt = true },
+  {
+    "sainnhe/sonokai",
+    opt = true,
+    setup = function()
+      vim.g.sonokai_style = "espresso"
+      vim.g.sonokai_dim_inactive_windows = true
+      vim.g.sonokai_better_performance = true
+    end,
+  },
+  { "navarasu/onedark.nvim", opt = true },
+  { "catppuccin/nvim", as = "catppuccin", opt = true },
+  { "projekt0n/github-nvim-theme" },
+  { "marko-cerovac/material.nvim" },
+}

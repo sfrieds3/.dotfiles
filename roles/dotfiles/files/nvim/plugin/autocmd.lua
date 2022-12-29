@@ -23,15 +23,15 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function() end,
 })
 
-vim.api.nvim_create_augroup("PackerReload", { clear = true })
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  group = "PackerReload",
-  pattern = "plugins.lua",
-  callback = function(args)
-    local cmd = "source " .. args.file .. " | PackerCompile"
-    vim.cmd(cmd)
-  end,
-})
+-- vim.api.nvim_create_augroup("PackerReload", { clear = true })
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   group = "PackerReload",
+--   pattern = "plugins.lua",
+--   callback = function(args)
+--     local cmd = "source " .. args.file .. " | PackerCompile"
+--     vim.cmd(cmd)
+--   end,
+-- })
 
 -- open quickfix or location-list automatically when there is something to show
 -- source: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
