@@ -1,4 +1,4 @@
-local M = { "mbbill/undotree", cmd = "UndotreeToggle" }
+local M = { "mbbill/undotree", cmd = "UndotreeToggle", keys = { "_U" } }
 
 function M.config()
   vim.g.undotree_WindowLayout = 2
