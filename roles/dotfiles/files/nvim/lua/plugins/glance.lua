@@ -4,9 +4,15 @@ local M = {
 
 function M.config()
   require("glance").setup({
+    preview_win_opts = {
+      winblend = 10,
+    },
+    border = {
+      enable = true,
+    },
     height = 33,
     theme = {
-      mode = "brighten",
+      mode = "auto",
     },
   })
   vim.keymap.set("n", "gD", "<CMD>Glance definitions<CR>", { desc = "Glance: [g]lance [D]efinitions" })
