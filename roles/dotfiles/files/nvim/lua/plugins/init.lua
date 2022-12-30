@@ -7,6 +7,7 @@ return {
   "wellle/targets.vim",
   "jose-elias-alvarez/typescript.nvim",
   "kyazdani42/nvim-web-devicons",
+  "onsails/lspkind.nvim",
 
   {
     "SmiteshP/nvim-navic",

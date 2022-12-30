@@ -55,7 +55,7 @@ function M.setup()
       { name = "buffer", max_item_count = 10 },
     }, {
 
-      { name = "tags", max_item_count = 10 },
+      { name = "tags", max_item_count = 5 },
     }),
     sorting = {
       comparators = {
@@ -81,9 +81,14 @@ function M.setup()
         cmp.config.compare.order,
       },
     },
+    formatting = {
+      format = require("plugins.lsp.kind").cmp_format(),
+    },
 
     experimental = {
-      ghost_text = true,
+      ghost_text = {
+        hl_group = "LspCodeLens",
+      },
     },
   })
 

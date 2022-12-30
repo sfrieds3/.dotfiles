@@ -31,6 +31,7 @@
   "lazy.nvim": { "branch": "main", "commit": "8d452e37bbf16cfd8841cca4286c2b0f7c8db669" },
   "linediff.vim": { "branch": "main", "commit": "b4d3c3f03eed00caa741c2650e13db5b7b7ce0ef" },
   "lsp-status.nvim": { "branch": "master", "commit": "54f48eb5017632d81d0fd40112065f1d062d0629" },
+  "lspkind.nvim": { "branch": "master", "commit": "c68b3a003483cf382428a43035079f78474cd11e" },
   "lua-dev.nvim": { "branch": "main", "commit": "8e06acf88e0621badd9499cfcafbce5ca97dfe8e" },
   "lualine.nvim": { "branch": "master", "commit": "32a7382a75a52e8ad05f4cec7eeb8bbfbe80d461" },
   "material.nvim": { "branch": "main", "commit": "0560abaac9369d1027169a50e5219c3e069d00f3" },

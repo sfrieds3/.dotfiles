@@ -1,6 +1,6 @@
 local M = {
   "akinsho/toggleterm.nvim",
-  keys = { [[<C-\>]] },
+  keys = { [[<C-CR>]] },
   cmd = { "ToggleTerm" },
 }
 
