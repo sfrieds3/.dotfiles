@@ -1,8 +1,6 @@
-local M = {
-  "jose-elias-alvarez/null-ls.nvim",
-}
+local M = {}
 
-function M.config()
+function M.setup()
   require("null-ls").setup({
     sources = {
       -- code actions

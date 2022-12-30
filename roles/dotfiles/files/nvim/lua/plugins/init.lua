@@ -10,6 +10,11 @@ return {
   "onsails/lspkind.nvim",
 
   {
+    "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
+    config = true,
+  },
+  {
     "SmiteshP/nvim-navic",
     config = function()
       vim.g.navic_silence = true
