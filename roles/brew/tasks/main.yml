@@ -37,6 +37,7 @@
       - stylua
       - the_silver_searcher
       - tmux
+      - tree-sitter
       - virtualenv
       - wget
       - yamllint

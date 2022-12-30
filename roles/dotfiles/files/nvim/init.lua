@@ -7,6 +7,9 @@ local config_path = vim.fn.stdpath("config")
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
+-- space as leader
+vim.g.mapleader = " "
+
 -- set zsh executable dir
 if vim.fn.has("macunix") then
   vim.opt.shell = "/bin/zsh"
@@ -80,5 +83,7 @@ vim.opt.backupdir = vim.opt.backupdir - "."
 vim.opt.backupext = ".bak"
 vim.opt.swapfile = false
 vim.opt.shada = [['1000,f1,<1000,/10000,:10000]]
+
+require("config")
 
 vim.cmd([[ runtime! config/post*.vim ]])

@@ -11,6 +11,12 @@ vim.keymap.set("n", "gk", "k")
 vim.keymap.set("n", "g^", "^")
 vim.keymap.set("n", "g$", "$")
 
+-- resize splits
+vim.keymap.set("n", "<A-up>", "<C-w>+")
+vim.keymap.set("n", "<A-down>", "<C-w>-")
+vim.keymap.set("n", "<A-left>", "<C-w><")
+vim.keymap.set("n", "<A-right>", "<C-w>>")
+
 -- easy access to black hole register
 vim.keymap.set("n", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>d", '"_d')
@@ -120,8 +126,8 @@ vim.keymap.set("n", "_f", "<Cmd>echo expand('%:p')<CR>", { desc = "Echo full fil
 
 vim.keymap.set("n", "<C-l>", "<Cmd>nohlsearch<CR>", { desc = "Clear hlsearch highlights" })
 
-vim.keymap.set("n", "<Leader>c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
-vim.keymap.set("n", "<Leader>C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
+vim.keymap.set("n", "\\c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
+vim.keymap.set("n", "\\C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
 
 vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]], { desc = "Search for non-ASCII characters" })
 
