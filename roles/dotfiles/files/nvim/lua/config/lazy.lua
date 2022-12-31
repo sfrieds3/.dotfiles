@@ -12,4 +12,8 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins", {
   install = { colorscheme = { "kanagawa", "tokyonight", "habamax" } },
+  dev = {
+    path = "~/dev/personal",
+    patterns = { "sfrieds3" },
+  },
 })
