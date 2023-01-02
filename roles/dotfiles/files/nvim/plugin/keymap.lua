@@ -11,6 +11,14 @@ vim.keymap.set("n", "gk", "k")
 vim.keymap.set("n", "g^", "^")
 vim.keymap.set("n", "g$", "$")
 
+-- better c-n/c-p in cmdline -- match behavior of up/down
+vim.keymap.set("c", "<C-n>", function()
+  return vim.fn.wildmenumode() == 1 and "<C-n>" or "<down>"
+end, { expr = true })
+vim.keymap.set("c", "<C-p>", function()
+  return vim.fn.wildmenumode() == 1 and "<C-P>" or "<up>"
+end, { expr = true })
+
 -- resize splits
 vim.keymap.set("n", "<A-up>", "<C-w>+")
 vim.keymap.set("n", "<A-down>", "<C-w>-")
@@ -114,23 +122,17 @@ vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>", { desc = "To
 vim.api.nvim_create_user_command("ToggleLineNum", "call lnum#ToggleLineNum()", {})
 vim.keymap.set("n", "_n", "<Cmd>ToggleLineNum<CR>", { desc = "Toggle line numbers" })
 
+-- substiture command
 vim.keymap.set("n", "\\s", "m':set operatorfunc=substitute#Substitute<CR>g@", { desc = "Substitute operator" })
 
+-- other various keymaps
 vim.keymap.set("n", "_s", "<Cmd>setocal spell! spell?<CR>", { desc = "Toggle spellcheck" })
-
 vim.keymap.set("n", "_t", "<Cmd>set filetype?<CR>", { desc = "Echo filetype" })
-
 vim.keymap.set("n", "_T", "<Cmd>doautocmd filetypedetect BufRead<CR>", { desc = "Reload filetype plugins" })
-
 vim.keymap.set("n", "_f", "<Cmd>echo expand('%:p')<CR>", { desc = "Echo full file path" })
-
 vim.keymap.set("n", "<C-l>", "<Cmd>nohlsearch<CR>", { desc = "Clear hlsearch highlights" })
-
 vim.keymap.set("n", "\\c", "<Cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
 vim.keymap.set("n", "\\C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
-
 vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]], { desc = "Search for non-ASCII characters" })
-
 vim.keymap.set("i", "<C-u>", "<Esc>gUiwea", { desc = "Upcase last word in insert mode" })
-
 vim.keymap.set("i", "<S-Tab>", "<C-v><Tab>", { desc = "Insert actual <Tab> character in insert mode" })

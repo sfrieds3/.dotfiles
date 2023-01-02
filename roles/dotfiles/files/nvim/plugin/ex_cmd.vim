@@ -17,3 +17,5 @@ command -bang -bar Qa qall<bang>
 command -bang -bar QA qall<bang>
 command -bang -bar Wa wall<bang>
 command -bang -bar WA wa<bang>
+command -bang -bar Vs vsplit<bang>
+command -bang -bar Sp split<bang>
