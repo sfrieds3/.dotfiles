@@ -25,7 +25,7 @@ function M.setup()
       },
     },
     defaults = {
-      file_ignore_patterns = { "tags", "TAGS", "^.git/" },
+      file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/" },
     },
     pickers = {
       find_files = {
@@ -79,6 +79,7 @@ function M.setup()
   end
 
   -- TODO: find all files (including ignored files)
+  -- TODO: display LSP diagnostics from changed files (i.e. files changed in git)
   vim.keymap.set("n", "<Leader>.", builtin.resume, { desc = "Telescope: resume" })
   vim.keymap.set("n", "<Leader>sf", custom.project_files, { desc = "Telescope: [s]earch project [f]iles" })
   vim.keymap.set("n", "<Leader>s?", custom.old_files, { desc = "Telescope: old files" })
@@ -89,11 +90,11 @@ function M.setup()
   map_telescope("<Leader>gr", builtin.grep_string, "ivy")
   map_telescope("<Leader>vh", builtin.search_history, "dropdown", { "previewer = false" })
   map_telescope("<Leader>vc", builtin.command_history, "dropdown", { "previewer = false" })
-  map_telescope("<Leader>vj", builtin.jumplist, "dropdown")
+  map_telescope("<Leader>vj", builtin.jumplist, "dropdown", { winblend = 10, layout_config = { width = 0.50 } })
   map_telescope("<Leader>/", builtin.current_buffer_fuzzy_find, "ivy")
-  map_telescope("<Leader>vm", builtin.marks, "dropdown")
-  map_telescope("<Leader>vr", builtin.registers, "dropdown")
-  map_telescope("<Leader>vh", builtin.help_tags, "dropdown")
+  map_telescope("<Leader>vm", builtin.marks, "dropdown", { winblend = 10, layout_config = { width = 0.50 } })
+  map_telescope("<Leader>vr", builtin.registers, "dropdown", { winblend = 10, layout_config = { width = 0.50 } })
+  map_telescope("<Leader>vh", builtin.help_tags, "dropdown", { winblend = 10, layout_config = { width = 0.50 } })
   map_telescope("<Leader>vd", builtin.diagnostics, "dropdown", { winblend = 10, layout_config = { width = 0.75 } })
   map_telescope("<Leader>vq", builtin.quickfix, "ivy")
   map_telescope("<Leader>vl", builtin.loclist, "ivy")

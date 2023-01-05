@@ -4,7 +4,7 @@
 set-option -g status-justify "left"
 set-option -g status "on"
 set-option -g status-left-length 20
-set-option -g status-bg colour16
+set-option -g status-style bg=default
 set-option -g status-fg colour6
 set-option -g status-left "#[fg=colour6]#S § #[fg=colour6]"
 set-option -g status-right "#[fg=colour6]%Y-%m-%d | %H:%M"

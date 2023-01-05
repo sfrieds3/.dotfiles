@@ -1,5 +1,6 @@
 local M = {
   "ibhagwan/fzf-lua",
+  keys = { "<Leader>f" },
 }
 
 function M.config()

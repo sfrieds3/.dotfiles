@@ -1,5 +1,6 @@
 local M = {
   "dnlhc/glance.nvim",
+  keys = { "gD", "gR" },
 }
 
 function M.config()

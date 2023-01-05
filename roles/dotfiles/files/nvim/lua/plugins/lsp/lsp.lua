@@ -51,8 +51,6 @@ function M.setup()
     end, { buffer = bufnr, desc = "LSP: async [F]ormat" })
     vim.keymap.set("x", "gq", vim.lsp.buf.format, { desc = "LSP: [f]ormat" })
 
-    require("illuminate").on_attach(client)
-
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
     end

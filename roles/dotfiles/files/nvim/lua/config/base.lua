@@ -1,7 +1,6 @@
-require("utils")
-local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
-local data_dir = vim.fn.stdpath("data")
-local config_path = vim.fn.stdpath("config")
+-- local vim_config_path = string.format("%s/.vim", os.getenv("HOME"))
+-- local data_dir = vim.fn.stdpath("data")
+-- local config_path = vim.fn.stdpath("config")
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 

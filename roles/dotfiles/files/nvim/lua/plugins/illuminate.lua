@@ -4,12 +4,11 @@ local M = {
 
 function M.config()
   require("illuminate").configure({
-    providers = { "treesitter", "lsp", "regex" },
+    providers = { "lsp", "treesitter", "regex" },
     delay = 750,
     filetypes_denylist = {
-      "aerial",
       "fugitive",
-      "neo-tree",
+      "NvimTree",
       "TelescopePrompt",
     },
   })

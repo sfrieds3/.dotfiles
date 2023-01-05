@@ -1,5 +1,6 @@
 local M = {
   "ludovicchabant/vim-gutentags",
+  event = "BufReadPost",
 }
 
 function M.config()
