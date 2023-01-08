@@ -89,14 +89,6 @@ vim.keymap.set("n", "\\<BS>", "<Cmd>cclose<Bar>lclose<CR>")
 vim.keymap.set("n", "<Leader><", "<Cmd>'[,']<<CR>", { desc = "Dedent last edit" })
 vim.keymap.set("n", "<Leader>>", "<Cmd>'[,']><CR>", { desc = "Indent last edit" })
 
--- highlight interesting words
-vim.keymap.set("n", "_1", ":call hiwords#HiInterestingWord(1)<cr>")
-vim.keymap.set("n", "_2", ":call hiwords#HiInterestingWord(2)<cr>")
-vim.keymap.set("n", "_3", ":call hiwords#HiInterestingWord(3)<cr>")
-vim.keymap.set("n", "_4", ":call hiwords#HiInterestingWord(4)<cr>")
-vim.keymap.set("n", "_5", ":call hiwords#HiInterestingWord(5)<cr>")
-vim.keymap.set("n", "_6", ":call hiwords#HiInterestingWord(6)<cr>")
-
 vim.keymap.set(
   { "n", "o", "x" },
   "\\{",
