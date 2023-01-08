@@ -110,12 +110,6 @@ vim.keymap.set(
   { desc = "VerticalRegion: move to bottom of indent region" }
 )
 
--- trim trailing whitespace
-vim.api.nvim_create_user_command("StripTrailingWhitespace", "call whitespace#StripTrailingWhitespace()", {})
-vim.cmd([[command! -range=% StripTrailingWhitespaceVisual '<,'> call whitespace#StripTrailingWhitespaceVisual()]])
-vim.keymap.set("n", "\\w", "<Cmd>StripTrailingWhitespace<CR>")
-vim.keymap.set("x", "\\w", "<Cmd>StripTrailingWhitespaceVisual<CR>")
-
 vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>", { desc = "Toggle list" })
 
 -- line number management
