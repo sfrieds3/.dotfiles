@@ -95,6 +95,9 @@ return {
               ["if"] = "@function.inner",
               ["ac"] = "@class.outer",
               ["ic"] = "@class.inner",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+              ["uc"] = "@comment.outer",
             },
           },
           move = {
