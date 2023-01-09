@@ -5,8 +5,9 @@ function M.setup()
   local builtin = require("telescope.builtin")
   local themes = require("telescope.themes")
   local custom = require("plugins.telescope.custom")
+  local lga_actions = require("telescope-live-grep-args.actions")
 
-  require("telescope").setup({
+  telescope.setup({
     extensions = {
       ["fzf"] = {
         fuzzy = true,
@@ -15,12 +16,21 @@ function M.setup()
         case_mode = "smart_case",
       },
       ["ui-select"] = {
-        require("telescope.themes").get_dropdown({}),
+        themes.get_dropdown({}),
       },
       ["project"] = {
         base_dirs = {
           "$HOME/.dotfiles",
           { "$HOME/dev", max_depth = 4 },
+        },
+      },
+      ["live_grep_args"] = {
+        auto_quoting = true,
+        mappings = {
+          i = {
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          },
         },
       },
     },
@@ -144,9 +154,9 @@ function M.setup()
 end
 
 function M.installed_plugins()
-  require("telescope.builtin").find_files {
-    cwd = vim.fn.stdpath "data" .. "/lazy/",
-  }
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.stdpath("data") .. "/lazy/",
+  })
 end
 
 return M
