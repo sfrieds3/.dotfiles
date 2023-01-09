@@ -143,4 +143,10 @@ function M.setup()
   pcall(require, "config.telescope.local")
 end
 
+function M.installed_plugins()
+  require("telescope.builtin").find_files {
+    cwd = vim.fn.stdpath "data" .. "/lazy/",
+  }
+end
+
 return M
