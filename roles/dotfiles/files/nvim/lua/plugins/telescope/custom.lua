@@ -107,6 +107,7 @@ function M.grep_prompt()
   local opts = {
     path_display = { "shorten" },
     search = vim.fn.input("Grep String > "),
+    previewer = false,
   }
 
   require("telescope.builtin").grep_string(opts)
@@ -286,6 +287,29 @@ function M.workspace_symbols()
       require("telescope.builtin").lsp_dynamic_workspace_symbols(opts)
     end
   end
+end
+
+function M.installed_plugins()
+  require("telescope.builtin").find_files({
+    prompt = "~ installed plugin find file ~",
+    cwd = vim.fn.stdpath("data") .. "/lazy/",
+  })
+end
+
+function M.grep_installed_plugins()
+  local opts = themes.get_ivy({
+    path_display = { "shorten" },
+    cwd = vim.fn.stdpath("data") .. "/lazy/",
+    prompt = "~ installed plugin live_grep ~",
+    hidden = true,
+    layout_config = {
+      prompt_position = "bottom",
+      width = 0.75,
+      preview_width = 0.55,
+    },
+  })
+
+  require("telescope.builtin").live_grep(opts)
 end
 
 return M

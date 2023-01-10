@@ -57,7 +57,6 @@ function M.setup()
         },
       },
       live_grep = {
-        previewer = false,
         theme = "dropdown",
       },
     },
@@ -148,6 +147,8 @@ function M.setup()
     { desc = "Telescope: select [p]roject" }
   )
   vim.keymap.set("n", "<Leader>vk", require("telescope.builtin").keymaps, { desc = "Telescope: [v]iew [k]eymaps" })
+  vim.keymap.set("n", "<Leader>si", custom.installed_plugins, { desc = "Telescope: [s]earch [i]nstalled plugins" })
+  vim.keymap.set("n", "<Leader>gi", custom.grep_installed_plugins, { desc = "Telescope: [g]rep [i]nstalled plugins" })
 
   -- load local telescope config, if exists
   pcall(require, "config.telescope.local")
