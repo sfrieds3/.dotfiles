@@ -70,10 +70,7 @@ return {
   { "tpope/vim-rails", ft = { "ruby", "eruby" } },
   { "sainnhe/edge", lazy = true },
   { "sainnhe/everforest", lazy = true },
-  { "sainnhe/gruvbox-material", lazy = true },
   { "navarasu/onedark.nvim", lazy = true },
   { "catppuccin/nvim", name = "catppuccin", lazy = true },
-  { "projekt0n/github-nvim-theme", lazy = true },
-  { "marko-cerovac/material.nvim", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
 }
