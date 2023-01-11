@@ -8,6 +8,10 @@ return {
   "jose-elias-alvarez/typescript.nvim",
 
   {
+    "luukvbaal/statuscol.nvim",
+    config = true,
+  },
+  {
     "williamboman/mason.nvim",
     cmd = "Mason",
     config = { providers = { "mason.providers.client", "mason.providers.registry-api" } },
