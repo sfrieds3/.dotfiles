@@ -9,7 +9,7 @@ return {
 
   {
     "luukvbaal/statuscol.nvim",
-    config = true,
+    config = { setopt = true },
   },
   {
     "williamboman/mason.nvim",
