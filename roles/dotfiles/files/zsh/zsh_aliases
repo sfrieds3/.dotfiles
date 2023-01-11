@@ -49,7 +49,7 @@ alias cdd='cd $(fd -t d | fzf)'
 alias ef='fzf | xargs nvim'
 alias gaf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
 alias gapf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
-alias gapf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
+alias gcpf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
 alias gdf='git ls-files -m -o --exclude-standard | fzf | xargs git diff'
 
 # python virtualenv
