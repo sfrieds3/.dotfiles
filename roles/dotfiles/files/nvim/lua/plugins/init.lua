@@ -6,7 +6,6 @@ return {
   "tpope/vim-sleuth",
   "wellle/targets.vim",
   "jose-elias-alvarez/typescript.nvim",
-  "kyazdani42/nvim-web-devicons",
 
   {
     "williamboman/mason.nvim",

@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("plugins.telescope.config").setup()
+    require("plugins.telescope.keymap").set_keymap()
   end,
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -13,5 +14,6 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    "kyazdani42/nvim-web-devicons",
   },
 }

@@ -1,6 +1,12 @@
 local M = {}
 local vo = vim.o
 
+function M.remove_key(tbl, key)
+  local elem = tbl[key]
+  tbl[key] = nil
+  return elem
+end
+
 function M.opt(o, v, scopes)
   scopes = scopes or { vo }
   for _, s in ipairs(scopes) do
