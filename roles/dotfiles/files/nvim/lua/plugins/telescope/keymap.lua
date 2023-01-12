@@ -21,7 +21,6 @@ local map_telescope = function(mode, key, cmd, theme, config)
 end
 
 function M.set_keymap()
-  -- TODO: find all files (including ignored files)
   -- TODO: display LSP diagnostics from changed files (i.e. files changed in git)
   vim.keymap.set("n", "<Leader>.", builtin.resume, { desc = "Telescope: resume" })
   vim.keymap.set("n", "<Leader>sf", custom.project_files, { desc = "Telescope: [s]earch project [f]iles" })
