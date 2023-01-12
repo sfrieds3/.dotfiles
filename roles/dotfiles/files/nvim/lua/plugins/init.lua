@@ -62,15 +62,6 @@ return {
   },
   { "milisims/nvim-luaref", ft = { "lua" } },
   { "chrisbra/csv.vim", ft = "csv" },
-  { "fatih/vim-go", ft = "go", enabled = false },
-  {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    config = function()
-      vim.g.rustfmt_autosave = 1
-    end,
-  },
-  { "tpope/vim-rails", ft = { "ruby", "eruby" } },
   { "sainnhe/edge", lazy = true },
   { "sainnhe/everforest", lazy = true },
   { "navarasu/onedark.nvim", lazy = true },
