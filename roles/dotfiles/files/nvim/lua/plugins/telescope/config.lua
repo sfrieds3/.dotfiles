@@ -5,7 +5,7 @@ function M.setup()
   local builtin = require("telescope.builtin")
   local themes = require("telescope.themes")
   local custom = require("plugins.telescope.custom")
-  local lga_actions = require("telescope-live-grep-args.actions")
+  local actions = require("telescope-live-grep-args.actions")
 
   telescope.setup({
     extensions = {
@@ -28,8 +28,8 @@ function M.setup()
         auto_quoting = true,
         mappings = {
           i = {
-            ["<C-k>"] = lga_actions.quote_prompt(),
-            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+            ["<C-k>"] = actions.quote_prompt(),
+            ["<C-i>"] = actions.quote_prompt({ postfix = " --iglob " }),
           },
         },
       },
