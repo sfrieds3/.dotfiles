@@ -2,15 +2,15 @@ local M = {}
 
 function M.setup()
   local dap = require("dap")
-  local dp = require("dap-python")
+  local dap_python = require("dap-python")
 
   local actions = require("telescope.actions")
-  local actions_state = require("telescope.actions.state")
+  local state = require("telescope.actions.state")
   local config = require("telescope.config")
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
 
-  dp.setup("~/.venv/venv/bin/python")
+  dap_python.setup("~/.venv/venv/bin/python")
 
   -- django configuration
   table.insert(dap.configurations.python, {
@@ -35,7 +35,7 @@ function M.setup()
         attach_mappings = function(prompt_bufnr, _)
           actions.select_default:replace(function()
             actions.close(prompt_bufnr)
-            local selection = actions_state.get_selected_entry()
+            local selection = state.get_selected_entry()
             require("dap-python").test_runner = selection.value
             print("dap-python test_runner: " .. require("dap-python").test_runner)
           end)
@@ -73,10 +73,10 @@ function M.setup()
     group = vim.api.nvim_create_augroup("DapPython", { clear = true }),
     callback = function()
       vim.keymap.set("n", "\\tf", function()
-        dp.test_method()
+        dap_python.test_method()
       end, { desc = "dap-python: test function" })
       vim.keymap.set("n", "\\tc", function()
-        dp.test_class()
+        dap_python.test_class()
       end, { desc = "dap-python: test class" })
       vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
       vim.api.nvim_create_user_command("DapDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
