@@ -6,6 +6,7 @@ function M.setup()
   local themes = require("telescope.themes")
   local custom = require("plugins.telescope.custom")
   local actions = require("telescope-live-grep-args.actions")
+  local trouble = require("trouble.providers.telescope")
 
   telescope.setup({
     extensions = {
@@ -17,12 +18,6 @@ function M.setup()
       },
       ["ui-select"] = {
         themes.get_dropdown({}),
-      },
-      ["project"] = {
-        base_dirs = {
-          "$HOME/.dotfiles",
-          { "$HOME/dev", max_depth = 4 },
-        },
       },
       ["live_grep_args"] = {
         auto_quoting = true,
@@ -36,6 +31,10 @@ function M.setup()
     },
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/" },
+      mappings = {
+        i = { ["<C-l>"] = trouble.open_with_trouble },
+        n = { ["<C-l>"] = trouble.open_with_trouble },
+      },
     },
     pickers = {
       find_files = {
@@ -68,7 +67,6 @@ function M.setup()
   pcall(telescope.load_extension, "live_grep_args")
   pcall(telescope.load_extension, "aerial")
   pcall(telescope.load_extension, "ui-select")
-  pcall(telescope.load_extension, "project")
   pcall(telescope.load_extension, "file_browser")
   pcall(telescope.load_extension, "dap")
 end
