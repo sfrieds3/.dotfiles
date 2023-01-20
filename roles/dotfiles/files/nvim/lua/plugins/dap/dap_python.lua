@@ -23,7 +23,22 @@ function M.setup()
     args = { "runserver", "--noreload" },
   })
 
-  local set_python_test_runner = function(opts)
+  local function load_vscode_launch_config()
+    local launchjs_file = "N/A"
+    vim.ui.input(
+      { prompt = "Path to vscode launch.json file: ", defualt = vim.fn.getcwd() .. "/.vscode/launch.json" },
+      function(input)
+        require("dap.ext.vscode").load_launchjs(input)
+        launchjs_file = input
+      end
+    )
+    require("notify")(string.format("\nLoaded vscode launch.json file %s", launchjs_file), "info", {
+      render = "simple",
+      title = "Loaded vscode launch.json file",
+    })
+  end
+
+  local function set_python_test_runner(opts)
     opts = opts or {}
     pickers
       .new(opts, {
@@ -45,7 +60,7 @@ function M.setup()
       :find()
   end
 
-  local set_django_settings_module_env = function()
+  local function set_django_settings_module_env()
     local prev_django_settings_module = vim.env.DJANGO_SETTINGS_MODULE
     vim.ui.input(
       { prompt = "Path to DJANGO_SETTINGS_MODULE: ", defualt = vim.env.DJANGO_SETTINGS_MODULE },
@@ -80,6 +95,7 @@ function M.setup()
       end, { desc = "dap-python: test class" })
       vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
       vim.api.nvim_create_user_command("DapDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
+      vim.api.nvim_create_user_command("DapLoadVsCodeLaunchJson", load_vscode_launch_config, { nargs = 0 })
     end,
   })
 end

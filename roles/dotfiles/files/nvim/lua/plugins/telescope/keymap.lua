@@ -115,12 +115,6 @@ function M.set_keymap()
   vim.keymap.set("n", "<Leader>ga", custom.live_grep_args, { desc = "Telescope: [g]rep [a]rgs" })
   vim.keymap.set("n", "<Leader>g/", custom.grep_last_search, { desc = "Telescope: grep last search" })
   vim.keymap.set("n", "<Leader>vp", require("telescope").extensions.neoclip.default, { desc = "Telescope: neoclip" })
-  vim.keymap.set(
-    "n",
-    "<C-p>",
-    require("telescope").extensions.project.project,
-    { desc = "Telescope: select [p]roject" }
-  )
   vim.keymap.set("n", "<Leader>vk", require("telescope.builtin").keymaps, { desc = "Telescope: [v]iew [k]eymaps" })
   vim.keymap.set("n", "<Leader>si", custom.installed_plugins, { desc = "Telescope: [s]earch [i]nstalled plugins" })
   vim.keymap.set("n", "<Leader>gi", custom.grep_installed_plugins, { desc = "Telescope: [g]rep [i]nstalled plugins" })

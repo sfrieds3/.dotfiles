@@ -49,6 +49,5 @@ return {
   { "sainnhe/edge", lazy = true },
   { "sainnhe/everforest", lazy = true },
   { "navarasu/onedark.nvim", lazy = true },
-  { "catppuccin/nvim", name = "catppuccin", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
 }
