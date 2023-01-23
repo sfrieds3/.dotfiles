@@ -8,7 +8,7 @@ return {
 
   {
     "luukvbaal/statuscol.nvim",
-    config = { setopt = true },
+    opts = { setopt = true },
   },
   {
     "smjonas/inc-rename.nvim",
@@ -26,7 +26,7 @@ return {
         desc = "Neogen Comment",
       },
     },
-    config = { snippet_engine = "luasnip" },
+    opts = { snippet_engine = "luasnip" },
   },
   { "tpope/vim-fugitive", cmd = "Git" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },

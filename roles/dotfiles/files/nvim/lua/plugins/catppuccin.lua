@@ -51,8 +51,8 @@ function M.config()
     color_overrides = {
       mocha = {
         base = "#131313",
-        mantle = "#131313",
-        crust = "#131313",
+        mantle = "#313131",
+        crust = "#333333",
       },
     },
   })
