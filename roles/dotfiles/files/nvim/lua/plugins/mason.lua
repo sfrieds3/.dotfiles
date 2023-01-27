@@ -8,6 +8,7 @@ local M = {
 
 function M.config()
   require("mason").setup({ providers = { "mason.providers.client", "mason.providers.registry-api" } })
+  require("mason-lpsconfig").setup()
 end
 
 return M

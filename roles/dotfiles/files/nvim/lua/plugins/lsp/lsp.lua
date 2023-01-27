@@ -77,6 +77,13 @@ function M.setup()
     debounce_text_changes = 150,
   }
 
+  -- TODO: configiure this
+  -- require("lspconfig")["jsonls"].setup({
+  --   on_attach = on_attach,
+  --   flags = lsp_flags,
+  --   capabilities = capabilities,
+  -- })
+
   local using_pyright = 0
   local using_pylsp = 0
   if vim.fn.executable("pyright") == 1 then
