@@ -45,7 +45,7 @@ alias gdc='git diff --cached'
 # fzf helpers
 alias glf='git ls-files --exclude-standard | fzf | xargs git lf'
 alias cdf='cd $(fd | fzf --print0 | xargs -0 dirname)'
-alias cdd='cd $(fd -t d | fzf)'
+alias cdd="cd $(fd -t d | fzf --preview='stat {}' --preview-label='[ Dir stat ]')"
 alias ef='fzf | xargs nvim'
 alias gaf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
 alias gapf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
