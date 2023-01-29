@@ -1,4 +1,4 @@
-local M = { "rebelot/kanagawa.nvim", lazy = false }
+local M = { "rebelot/kanagawa.nvim", lazy = true }
 
 function M.config()
   require("kanagawa").setup({
