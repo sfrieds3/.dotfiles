@@ -1,6 +1,9 @@
 # Example of using a shell command in the status line
 #set -g status-right "#[fg=yellow]#(uptime | cut -d ',' -f 2-)"
 
+# increase length for session name
+set-option -g status-left-length 20
+
 # Default statusbar color
 set-option -g status-style bg=colour237,fg=colour223 # bg=bg1, fg=fg1
 
