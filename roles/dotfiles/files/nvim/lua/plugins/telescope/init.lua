@@ -13,6 +13,6 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
   },
 }

@@ -2,7 +2,7 @@ local M = {
   "nvim-neo-tree/neo-tree.nvim",
   keys = "<Leader>\\",
   dependencies = {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
 }

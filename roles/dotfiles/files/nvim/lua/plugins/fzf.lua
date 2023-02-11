@@ -1,7 +1,7 @@
 local M = {
   "ibhagwan/fzf-lua",
   keys = { "<Leader>f" },
-  dependencies = "kyazdani42/nvim-web-devicons",
+  dependencies = "nvim-tree/nvim-web-devicons",
 }
 
 function M.config()
