@@ -93,6 +93,18 @@ function M.live_grep()
   require("telescope.builtin").live_grep(opts)
 end
 
+function M.live_grep_preview()
+  local opts = themes.get_ivy({
+    fzf_separator = "|>",
+    hidden = true,
+    layout_config = {
+      prompt_position = "bottom",
+    },
+  })
+
+  require("telescope.builtin").live_grep(opts)
+end
+
 function M.live_grep_args()
   local opts = themes.get_ivy({
     path_display = { "shorten" },
