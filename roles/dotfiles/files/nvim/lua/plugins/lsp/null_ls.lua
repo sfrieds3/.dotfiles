@@ -7,8 +7,9 @@ function M.setup()
       require("null-ls").builtins.code_actions.gitsigns,
       require("null-ls").builtins.code_actions.shellcheck,
 
-      -- diagnostics
-      require("null-ls").builtins.diagnostics.flake8,
+      --} d}iagnostics
+      -- require("null-ls").builtins.diagnostics.flake8,
+      require("null-ls").builtins.diagnostics.ruff,
       require("null-ls").builtins.diagnostics.shellcheck,
       require("null-ls").builtins.diagnostics.trail_space.with({
         filetypes = { git = false },
@@ -16,8 +17,9 @@ function M.setup()
 
       -- formatting
       require("null-ls").builtins.formatting.eslint,
-      require("null-ls").builtins.formatting.isort,
+      -- require("null-ls").builtins.formatting.isort,
       require("null-ls").builtins.formatting.json_tool,
+      require("null-ls").builtins.formatting.ruff,
       require("null-ls").builtins.formatting.stylua,
       require("null-ls").builtins.formatting.trim_whitespace,
       require("null-ls").builtins.formatting.trim_newlines,

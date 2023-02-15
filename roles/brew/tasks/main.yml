@@ -33,6 +33,7 @@
       - pyright
       - redis
       - ripgrep
+      - ruff
       - sbcl
       - shellcheck
       - stylua

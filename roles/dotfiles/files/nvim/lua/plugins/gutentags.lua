@@ -1,5 +1,6 @@
 local M = {
   "ludovicchabant/vim-gutentags",
+  enabled = false,
   event = "BufReadPost",
 }
 
