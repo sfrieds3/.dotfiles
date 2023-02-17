@@ -28,7 +28,7 @@ return {
     },
     opts = { snippet_engine = "luasnip" },
   },
-  { "tpope/vim-fugitive", cmd = "Git" },
+  { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
