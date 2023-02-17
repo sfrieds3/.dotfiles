@@ -97,7 +97,7 @@ function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node(' `node --version` ') '
 }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(?j.[%j] .)%(?.%F{green}〉.%F{red} )%f'
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}〉.%F{red} )%f'
 
 function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
