@@ -78,167 +78,137 @@ function M.setup()
     debounce_text_changes = 150,
   }
 
-  -- TODO: configiure this
-  -- require("lspconfig")["jsonls"].setup({
-  --   on_attach = on_attach,
-  --   flags = lsp_flags,
-  --   capabilities = capabilities,
-  -- })
+  require("lspconfig")["jsonls"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
 
-  local using_pyright = 0
-  local using_pylsp = 0
-  if vim.fn.executable("pyright") == 1 then
-    using_pyright = 1
-    require("lspconfig")["pyright"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    })
-  end
+  require("lspconfig")["pyright"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
 
-  if vim.fn.executable("pylsp") == 1 and using_pyright == 0 then
-    using_pylsp = 1
-    require("lspconfig")["pylsp"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    })
-  end
-
-  if vim.fn.executable("gopls") == 1 and using_pylsp == 0 then
-    require("lspconfig")["gopls"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-      cmd = { "gopls", "serve" },
-      filetypes = { "go", "gomod" },
-      root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-      settings = {
-        gopls = {
-          analyses = {
-            unusedparams = true,
-          },
-          staticcheck = true,
-          linksInHover = true,
-          usePlaceholders = true,
-          codelenses = {
-            generate = true,
-            gc_details = true,
-            regenerate_cgo = true,
-            tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
-          },
+  require("lspconfig")["gopls"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+    cmd = { "gopls", "serve" },
+    filetypes = { "go", "gomod" },
+    root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+        linksInHover = true,
+        usePlaceholders = true,
+        codelenses = {
+          generate = true,
+          gc_details = true,
+          regenerate_cgo = true,
+          tidy = true,
+          upgrade_dependency = true,
+          vendor = true,
         },
       },
-    })
+    },
+  })
 
-    function OrgImports(wait_ms)
-      local params = vim.lsp.util.make_range_params()
-      params.context = { only = { "source.organizeImports" } }
-      local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
-      for _, res in pairs(result or {}) do
-        for _, r in pairs(res.result or {}) do
-          if r.edit then
-            vim.lsp.util.apply_workspace_edit(r.edit, "UTF-8")
-          else
-            vim.lsp.buf.execute_command(r.command)
-          end
+  function OrgImports(wait_ms)
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { "source.organizeImports" } }
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+    for _, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          vim.lsp.util.apply_workspace_edit(r.edit, "UTF-8")
+        else
+          vim.lsp.buf.execute_command(r.command)
         end
       end
     end
-
-    vim.api.nvim_create_augroup("Golang", { clear = true })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = "Golang",
-      pattern = "*.go",
-      callback = function()
-        vim.lsp.buf.format(nil, 1000)
-        OrgImports(1000)
-      end,
-    })
   end
 
-  if vim.fn.executable("clangd") == 1 then
-    require("lspconfig")["clangd"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    })
-  end
+  vim.api.nvim_create_augroup("Golang", { clear = true })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = "Golang",
+    pattern = "*.go",
+    callback = function()
+      vim.lsp.buf.format(nil, 1000)
+      OrgImports(1000)
+    end,
+  })
 
-  if vim.fn.executable("rust_analyzer") == 1 then
-    require("lspconfig")["rust_analyzer"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    })
-  end
+  require("lspconfig")["clangd"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
 
-  if vim.fn.executable("typescript-language-server") == 1 then
-    require("typescript").setup({
-      server = {
-        go_to_source_definition = {
-          fallback = true,
-        },
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
+  require("lspconfig")["rust_analyzer"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+
+  require("typescript").setup({
+    server = {
+      go_to_source_definition = {
+        fallback = true,
       },
-    })
-  end
-
-  if vim.fn.executable("vimls") == 1 then
-    require("lspconfig")["vimls"].setup({
       on_attach = on_attach,
       flags = lsp_flags,
       capabilities = capabilities,
-    })
-  end
+    },
+  })
 
-  if vim.fn.executable("ansiblels") == 1 then
-    require("lspconfig")["ansiblels"].setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    })
-  end
+  require("lspconfig")["vimls"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
 
-  -- sumneko
-  if vim.fn.executable("lua-language-server") == 1 then
-    local runtime_path = vim.split(package.path, ";", {})
-    table.insert(runtime_path, "lua/?.lua")
-    table.insert(runtime_path, "lua/?/init.lua")
+  require("lspconfig")["ansiblels"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
 
-    require("lspconfig").lua_ls.setup({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = "LuaJIT",
-            -- Setup your lua path
-            path = runtime_path,
-          },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim" },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-            checkThirdParty = false,
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
+  local runtime_path = vim.split(package.path, ";", {})
+  table.insert(runtime_path, "lua/?.lua")
+  table.insert(runtime_path, "lua/?/init.lua")
+
+  require("lspconfig").lua_ls.setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = "LuaJIT",
+          -- Setup your lua path
+          path = runtime_path,
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { "vim" },
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
       },
-    })
-  end
+    },
+  })
 end
 
 return M
