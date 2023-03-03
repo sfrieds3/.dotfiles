@@ -48,6 +48,11 @@
       - zsh
     state: present
 
+- name: Install homebrew casks
+  community.general.homebrew:
+    name:
+      - drawio
+
 - name: Upgrade homebrew packages
   community.general.homebrew:
     upgrade_all: true
