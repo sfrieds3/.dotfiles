@@ -33,8 +33,8 @@ alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1
 
 # git aliases
 alias gs='git status'
-alias gba='git branch -a | fzf | sed s/^\*// | xargs git checkout'
-alias gb='git branch | fzf | sed s/^\*// | xargs git checkout'
+alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git checkout'
+alias gb='git branch | fzf-tmux -p | sed s/^\*// | xargs git checkout'
 alias gap='git add --patch'
 alias gcp='git checkout --patch'
 alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
@@ -44,14 +44,14 @@ alias gdc='git diff --cached'
 
 # fzf helpers
 alias glf='git ls-files --exclude-standard | fzf | xargs git lf'
-alias cdf='cd $(fd | fzf --print0 | xargs -0 dirname)'
+alias cdf='cd $(fd | fzf-tmux -p --print0 | xargs -0 dirname)'
 # alias cdd='cd $(fd -t d | fzf --preview="stat {}" --preview-label="[ Dir stat ]")'
-alias cdd='cd $(fd -t d | fzf)'
-alias ef='fzf | xargs nvim'
+alias cdd='cd $(fd -t d | fzf-tmux -p)'
+alias ef='fzf-tmux -p | xargs nvim'
 alias gaf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
 alias gapf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
 alias gcpf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
-alias gdf='git ls-files -m -o --exclude-standard | fzf | xargs git diff'
+alias gdf='git ls-files -m -o --exclude-standard | fzf-tmux -p | xargs git diff'
 
 # python virtualenv
 alias workon_venv='source $HOME/.venv/venv/bin/activate'
