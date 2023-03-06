@@ -28,6 +28,8 @@
 [user]
 	email = sfrieds3@gmail.com
 	name = Scott F
+[http]
+	emptyAuth = true
 [alias]
 	ap = add --patch
 	blm = blame -wM
