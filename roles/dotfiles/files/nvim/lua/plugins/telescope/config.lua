@@ -35,13 +35,6 @@ function M.setup()
         i = { ["<C-l>"] = trouble.open_with_trouble },
         n = { ["<C-l>"] = trouble.open_with_trouble },
       },
-      preview = {
-        filesize_hook = function(filepath, bufnr, opts)
-          local max_bytes = 10000
-          local cmd = { "head", "-c", max_bytes, filepath }
-          require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
-        end,
-      },
     },
     pickers = {
       find_files = {
@@ -52,6 +45,13 @@ function M.setup()
         },
         theme = "ivy",
         follow = true,
+        preview = {
+          filesize_hook = function(filepath, bufnr, opts)
+            local max_bytes = 10000
+            local cmd = { "head", "-c", max_bytes, filepath }
+            require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
+          end,
+        },
       },
       buffers = {
         show_all_buffers = true,
