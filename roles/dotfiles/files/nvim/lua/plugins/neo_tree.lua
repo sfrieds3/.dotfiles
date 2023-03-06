@@ -15,6 +15,9 @@ function M.config()
         bind_to_cwd = false,
         follow_current_file = true,
       },
+      buffers = {
+        follow_current_file = true,
+      },
       window = {
         mappings = {
           ["<space>"] = "none",

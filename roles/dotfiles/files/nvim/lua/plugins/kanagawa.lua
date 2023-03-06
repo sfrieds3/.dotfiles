@@ -11,9 +11,14 @@ function M.config()
     verthoriz = "╋",
   })
   require("kanagawa").setup({
+    compile = true,
     dimInactive = true,
     globalStatus = true,
     terminalColors = true,
+    background = {
+      dark = "dragon",
+      light = "wave",
+    },
   })
 end
 
