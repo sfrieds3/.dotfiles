@@ -3,7 +3,7 @@ return {
   config = function()
     require("plugins.dap.config").setup()
   end,
-  event = "BufEnter",
+  event = "VeryLazy",
   dependencies = {
     {
       "theHamsta/nvim-dap-virtual-text",

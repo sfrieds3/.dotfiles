@@ -43,6 +43,12 @@ export PERL_MM_OPT=${PERL_MM_OPT:=INSTALL_BASE=$HOME/perl5}
 fpath=($XDG_CONFIG_HOME/zsh/plugins/zsh-completions/src $fpath)
 fpath=($XDG_CONFIG_HOME/zsh-completions $fpath)
 fpath=($XDG_CONFIG_HOME/zsh $fpath)
+
+if type brew &>/dev/null
+then
+    fpath=($(brew --prefix)/share/zsh/site-functions $FPATH)
+fi
+
 typeset -U path
 typeset -U fpath
 
