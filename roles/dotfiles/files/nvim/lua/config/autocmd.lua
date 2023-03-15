@@ -59,6 +59,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 -- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = vim.api.nvim_create_augroup("FiletypeMappings", { clear = true }),
   pattern = {
     "git",
     "fugitiveblame",
@@ -77,3 +78,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.keymap.set("n", "q", "<Cmd>close<CR>", { buffer = event.buf, silent = true })
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   group = vim.api.nvim_create_augroup("GitCommitDiff", { clear = true }),
+--   pattern = { "gitcommit" },
+--   command = [[Git diff --cached]],
+-- })
