@@ -11,7 +11,7 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     config = function()
-      local ensure_installed = { "jsonls", "lua-ls", "pyright", "tsserver" }
+      local ensure_installed = { "jsonls", "lua_ls", "pyright", "tsserver" }
       require("mason").setup({ providers = { "mason.providers.client", "mason.providers.registry-api" } })
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("plugins.lsp.null_ls").setup()
