@@ -106,3 +106,8 @@ function histgrep() {
     fi
     rg "$@" $ALT_HISTFILE | tail -n "$n_lines"
 }
+
+# quick switch to worktre
+function cw() {
+    cd $(git worktree list | fzf --prompt="Worktree: " --height 40% --reverse | awk '{print $1}') || return
+}
