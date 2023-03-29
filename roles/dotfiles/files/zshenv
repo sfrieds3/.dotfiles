@@ -8,7 +8,7 @@ then
     export XDG_STATE_HOME="$HOME/Library/Application Support"
     export XDG_CACHE_HOME="$HOME/Library/Caches"
     export XDG_RUNTIME_DIR="$TMPDIR"
-    BREWPATH=$(brew --prefix)/bin
+    BREWPATH=${HOMEBREW_PREFIX}/bin
 else
     export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_CONFIG_DIRS="/etc/xdg"
