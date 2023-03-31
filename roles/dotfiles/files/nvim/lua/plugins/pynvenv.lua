@@ -6,9 +6,6 @@ local M = {
 function M.config()
   require("pynvenv").setup({
     workon_home = "$HOME/.venv",
-    venv_aliases = {
-      rubik = "~/dev/rubik/venv",
-    },
   })
 end
 

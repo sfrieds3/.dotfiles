@@ -50,4 +50,5 @@ return {
   { "sainnhe/everforest", lazy = true },
   { "navarasu/onedark.nvim", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
+  { "nyoom-engineering/oxocarbon.nvim" },
 }
