@@ -52,7 +52,7 @@ function M.config()
       lualine_c = {
         {
           "filename",
-          path = 1,
+          path = 3,
           symbols = {
             modified = " ●",
             readonly = " ✘",

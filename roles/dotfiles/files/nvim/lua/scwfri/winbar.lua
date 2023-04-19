@@ -22,7 +22,7 @@ M.winbar_filetype_exclude = {
 }
 
 local get_filename = function()
-  local filename = vim.fn.expand("%:p")
+  local filename = vim.fn.expand("%:p:.")
   local extension = vim.fn.expand("%:e")
   local f = require("utils.utils")
 
