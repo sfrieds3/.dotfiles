@@ -1,6 +1,6 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  keys = "<Leader>\\",
+  keys = { "<Leader>\\", "<Leader>|", "gd", "<Leader>b", "<Leader>gs" },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
@@ -25,8 +25,11 @@ function M.config()
       },
     },
   })
-  vim.keymap.set("n", "<Leader>\\", "<Cmd>Neotree<CR>")
-  vim.keymap.set("n", "_F", "<Cmd>Neotree reveal<CR>")
+  vim.keymap.set("n", "<Leader>\\", "<Cmd>Neotree reveal_force_cwd<CR>")
+  vim.keymap.set("n", "<Leader>|", "<Cmd>Neotree reveal<CR>")
+  vim.keymap.set("n", "gd", "<Cmd>Neotree float reveal_file=<cfile> reveal_force_cwd<CR>")
+  vim.keymap.set("n", "<Leader>b", "<Cmd>Neotree toggle show buffers right<CR>")
+  vim.keymap.set("n", "<Leader>gs", "<Cmd>Neotree float git_status<CR>")
 end
 
 return M
