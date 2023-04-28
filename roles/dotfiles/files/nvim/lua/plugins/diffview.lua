@@ -9,15 +9,23 @@ local M = {
     "DiffViewLog",
     "DiffViewFileHistory",
   },
-  keys = { "_Dd", "_Dh", "_Dl" },
+  keys = { "<Leader>gd", "<Leader>gh", "<Leader>gl" },
 }
 
 function M.config()
   require("diffview").setup({})
 
-  vim.keymap.set("n", "<Leader>Dd", "<Cmd>DiffviewOpen<CR>")
-  vim.keymap.set("n", "<Leader>Dh", "<Cmd>DiffviewFileHistory<CR>")
-  vim.keymap.set("n", "<Leader>Dl", "<Cmd>DiffviewLog<CR>")
+  vim.keymap.set("n", "<Leader>gd", "<Cmd>DiffviewOpen<CR>")
+  vim.keymap.set("n", "<Leader>gh", "<Cmd>DiffviewFileHistory<CR>")
+
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = vim.api.nvim_create_augroup("DiffViewEnter", { clear = true }),
+    pattern = { "DiffViewFiles" },
+    callback = function(event)
+      vim.bo[event.buf].buflisted = false
+      vim.keymap.set("n", "q", "<Cmd>DiffviewClose<CR>", { buffer = event.buf, silent = true })
+    end,
+  })
 end
 
 return M
