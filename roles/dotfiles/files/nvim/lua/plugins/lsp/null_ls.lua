@@ -9,6 +9,7 @@ function M.setup()
 
       --} d}iagnostics
       -- require("null-ls").builtins.diagnostics.flake8,
+      require("null-ls").builtins.diagnostics.djlint,
       require("null-ls").builtins.diagnostics.pylint,
       require("null-ls").builtins.diagnostics.ruff,
       require("null-ls").builtins.diagnostics.shellcheck,
