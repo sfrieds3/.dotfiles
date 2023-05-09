@@ -27,16 +27,16 @@ function M.config()
 
     plugins = { -- Uncomment the plugins that you use to highlight them
       -- Available plugins:
-      -- "dap",
+      "dap",
       -- "dashboard",
       "gitsigns",
       -- "hop",
-      -- "indent-blankline",
+      "indent-blankline",
       -- "lspsaga",
       -- "mini",
       "neogit",
       "nvim-cmp",
-      -- "nvim-navic",
+      "nvim-navic",
       "nvim-tree",
       -- "sneak",
       "telescope",

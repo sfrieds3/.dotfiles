@@ -51,4 +51,5 @@ return {
   { "navarasu/onedark.nvim", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
   { "nyoom-engineering/oxocarbon.nvim" },
+  { "briones-gabriel/darcula-solid.nvim", dependencies = { "rktjmp/lush.nvim" } },
 }
