@@ -52,6 +52,9 @@
   community.general.homebrew:
     name:
       - drawio
+      - hammerspoon
+      - karabiner-elements
+      - alacritty
 
 - name: Upgrade homebrew packages
   community.general.homebrew:
