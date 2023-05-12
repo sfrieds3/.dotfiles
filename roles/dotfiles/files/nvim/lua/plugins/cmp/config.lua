@@ -82,7 +82,11 @@ function M.setup()
       },
     },
     formatting = {
-      format = require("plugins.lsp.kind").cmp_format(),
+      format = require("lspkind").cmp_format({
+        mode = "symbol",
+        maxwidth = 50,
+        ellipsis_char = "...",
+      }),
     },
 
     experimental = {
