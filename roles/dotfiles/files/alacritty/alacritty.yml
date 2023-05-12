@@ -25,7 +25,7 @@
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/material_theme.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/ayu_dark.yaml
 
 window:
   # Window dimensions (changes require restart)
