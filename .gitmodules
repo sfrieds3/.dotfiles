@@ -7,3 +7,6 @@
 [submodule "roles/dotfiles/files/kitty/colors/kitty-themes"]
 	path = roles/dotfiles/files/kitty/colors/kitty-themes
 	url = https://github.com/dexpota/kitty-themes.git
+[submodule "roles/dotfiles/files/alacritty/alacritty-theme"]
+	path = roles/dotfiles/files/alacritty/alacritty-theme
+	url = git@github.com:alacritty/alacritty-theme.git
