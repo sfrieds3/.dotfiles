@@ -773,8 +773,8 @@ key_bindings:
   # copy/paste
   - { key: V, mods: Shift|Control, action: Paste }
   - { key: C, mods: Shift|Control, action: Copy }
-  - { key: V, mods: Shift|Command, action: Paste }
-  - { key: C, mods: Shift|Command, action: Copy }
+  - { key: V, mods: Shift|Alt, action: Paste }
+  - { key: C, mods: Shift|Alt, action: Copy }
 
   # delete some default keybindings
   - { key: W, mods: Command, action: None }
