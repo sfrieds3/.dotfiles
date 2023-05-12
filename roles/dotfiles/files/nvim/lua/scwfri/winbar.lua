@@ -22,7 +22,7 @@ M.winbar_filetype_exclude = {
 }
 
 local get_filename = function()
-  local filename = vim.fn.expand("%:p:t")
+  local filename = vim.fn.expand("%:p:.")
   local extension = vim.fn.expand("%:e")
   local f = require("utils.utils")
 
@@ -34,7 +34,7 @@ local get_filename = function()
 
     vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
     if f.isempty(file_icon) then
-      file_icon = ""
+      file_icon = "󰈙"
       file_icon_color = ""
     end
 
