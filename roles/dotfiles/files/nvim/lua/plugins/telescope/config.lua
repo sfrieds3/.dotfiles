@@ -39,7 +39,7 @@ function M.setup()
     pickers = {
       find_files = {
         -- find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-        find_command = { "fd", "-t", "f", "--hidden", "--absolute-path" },
+        find_command = { "fd", "-t", "f", "--hidden", "--absolute-path", "--exclude", ".git" },
         layout_config = {
           height = 0.70,
         },
