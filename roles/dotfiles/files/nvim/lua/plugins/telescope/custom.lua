@@ -1,5 +1,22 @@
 local M = {}
 local themes = require("telescope.themes")
+local previewers = require("telescope.previewers")
+
+function M.new_maker(filepath, bufnr, opts)
+  opts = opts or {}
+
+  filepath = vim.fn.expand(filepath)
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then
+      return
+    end
+    if stat.size > 100000 then
+      return
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
 
 M.project_files = function(show_hidden)
   local hidden = show_hidden or false

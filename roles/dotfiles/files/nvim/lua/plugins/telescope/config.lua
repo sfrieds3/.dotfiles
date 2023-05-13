@@ -10,7 +10,7 @@ function M.setup()
 
   telescope.setup({
     extensions = {
-      ["fzf"] = {
+      fzf = {
         fuzzy = true,
         override_generic_sorter = true,
         override_file_sorter = true,
@@ -19,7 +19,7 @@ function M.setup()
       ["ui-select"] = {
         themes.get_dropdown({}),
       },
-      ["live_grep_args"] = {
+      live_grep_args = {
         auto_quoting = true,
         mappings = {
           i = {
@@ -35,6 +35,7 @@ function M.setup()
         i = { ["<C-l>"] = trouble.open_with_trouble },
         n = { ["<C-l>"] = trouble.open_with_trouble },
       },
+      buffer_preview_maker = custom.new_maker,
     },
     pickers = {
       find_files = {
