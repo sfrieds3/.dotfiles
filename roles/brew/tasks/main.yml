@@ -51,10 +51,12 @@
 - name: Install homebrew casks
   community.general.homebrew:
     name:
+      - alacritty
       - drawio
       - hammerspoon
       - karabiner-elements
-      - alacritty
+      - pocket-casts
+      - spotify
 
 - name: Upgrade homebrew packages
   community.general.homebrew:
