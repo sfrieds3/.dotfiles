@@ -7,3 +7,6 @@ nnoremap <buffer> L :cnewer<CR>
 
 " use entire screen width for qf window
 wincmd J
+
+" set default qf height to 1/3 of window
+let &l:winheight = &lines / 3
