@@ -57,6 +57,7 @@
       - karabiner-elements
       - pocket-casts
       - spotify
+      - miniconda
 
 - name: Upgrade homebrew packages
   community.general.homebrew:

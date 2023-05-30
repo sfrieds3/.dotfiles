@@ -88,6 +88,10 @@ function __pyvenv_version() {
     [ -f .python-version ] 2> /dev/null && echo 'py('`python3 --version | sed "s/^[^ ]* //"`') '
 }
 
+function __conda_env() {
+  [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
+}
+
 function __node_dir() {
     # TODO this could be better done in a loop
     [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
@@ -97,7 +101,7 @@ function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node(' `node --version` ') '
 }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}〉.%F{red} )%f'
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)$(__conda_env)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}〉.%F{red} )%f'
 
 function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
