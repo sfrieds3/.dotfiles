@@ -1,0 +1,13 @@
+# from: https://www.semicolonandsons.com/code_diary/workflows/use-githooks-and-NOCOMMIT-comments-to-prevent-dangerous-commits
+
+BLACK_LIST="NOCOMMIT"
+
+for FILE in $(git diff-index --name-status --cached HEAD -- | cut -c3-) ; do
+  # Check if the file contains one of the words in LIST
+  if rg "$BLACK_LIST" "$FILE"; then
+    echo "$FILE has one of the black-listed words you don't want to commit. Please remove it"
+    exit 1
+  fi
+done
+
+exit 0
