@@ -12,7 +12,9 @@ vim.api.nvim_create_augroup("Winbar", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
   group = "Winbar",
   callback = function()
-    require("scwfri.winbar").get_winbar()
+    if vim.bo.filetype ~= "TelescopePrompt" then
+      require("scwfri.winbar").get_winbar()
+    end
   end,
 })
 
