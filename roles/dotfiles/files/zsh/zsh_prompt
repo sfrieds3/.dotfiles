@@ -98,7 +98,7 @@ function __node_dir() {
 }
 
 function __node_version() {
-    __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node(' `node --version` ') '
+    __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
 }
 
 PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)$(__conda_env)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}〉.%F{red} )%f'
