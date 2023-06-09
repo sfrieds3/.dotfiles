@@ -52,4 +52,5 @@ return {
   { "rose-pine/neovim", name = "rose-pine" },
   { "nyoom-engineering/oxocarbon.nvim" },
   { "briones-gabriel/darcula-solid.nvim", dependencies = { "rktjmp/lush.nvim" } },
+  { "nordtheme/vim", name = "nord" },
 }

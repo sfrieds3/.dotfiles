@@ -5,7 +5,7 @@ local M = {
 
 function M.config()
   require("treesitter-context").setup({
-    enable = true,
+    enable = false,
   })
   vim.keymap.set("n", "\\tt", function()
     vim.cmd([[ TSContextToggle ]])
