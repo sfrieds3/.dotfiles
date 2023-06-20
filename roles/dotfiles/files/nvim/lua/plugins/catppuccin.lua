@@ -1,7 +1,6 @@
 local M = {
   "catppuccin/nvim",
   name = "catppuccin",
-  lazy = true,
 }
 
 function M.config()
@@ -48,13 +47,13 @@ function M.config()
       treesitter_context = true,
       lsp_trouble = true,
     },
-    color_overrides = {
-      mocha = {
-        base = "#131313",
-        mantle = "#313131",
-        crust = "#333333",
-      },
-    },
+    -- color_overrides = {
+    --   mocha = {
+    --     base = "#131313",
+    --     mantle = "#313131",
+    --     crust = "#333333",
+    --   },
+    -- },
   })
 end
 
