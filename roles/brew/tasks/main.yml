@@ -17,6 +17,7 @@
       - go
       - gopls
       - guile
+      - jq
       - jsonlint
       - llvm
       - lua
@@ -44,6 +45,7 @@
       - virtualenv
       - wget
       - yamllint
+      - yq
       - zig
       - zsh
     state: present
