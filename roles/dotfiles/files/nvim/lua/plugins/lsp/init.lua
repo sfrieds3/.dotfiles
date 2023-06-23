@@ -6,6 +6,14 @@ return {
       "nvim-lua/lsp-status.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        opts = { lsp = { auto_attach = true } },
+      },
     },
   },
   {

@@ -79,6 +79,9 @@ M.get_winbar = function()
 
   local f = require("utils.utils")
   local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", value)
+  if vim.api.nvim_win_get_width(0) < (#winbar_format * 1.3) then
+    return
+  end
   local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", winbar_format, { scope = "local" })
   if not status_ok then
     return
