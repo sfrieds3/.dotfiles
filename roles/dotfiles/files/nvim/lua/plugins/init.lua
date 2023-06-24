@@ -4,6 +4,7 @@ return {
   "romainl/vim-qlist",
   "tpope/vim-sleuth",
   "wellle/targets.vim",
+  "stevearc/overseer.nvim",
   "jose-elias-alvarez/typescript.nvim",
 
   {

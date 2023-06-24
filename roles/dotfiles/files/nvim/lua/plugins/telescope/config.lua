@@ -77,6 +77,7 @@ function M.setup()
   pcall(telescope.load_extension, "ui-select")
   pcall(telescope.load_extension, "file_browser")
   pcall(telescope.load_extension, "dap")
+  pcall(telescope.load_extension, "undo")
 end
 
 return M

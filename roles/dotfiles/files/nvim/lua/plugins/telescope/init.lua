@@ -14,5 +14,6 @@ return {
     { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sqlite.lua" } },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
+    "debugloop/telescope-undo.nvim",
   },
 }

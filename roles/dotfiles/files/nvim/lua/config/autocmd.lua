@@ -12,7 +12,7 @@ vim.api.nvim_create_augroup("Winbar", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
   group = "Winbar",
   callback = function()
-    local exclude_ft = { "TelescopePrompt", "neo-tree" }
+    local exclude_ft = {}
     for _, item in ipairs(exclude_ft) do
       if vim.bo.filetype ~= item then
         return

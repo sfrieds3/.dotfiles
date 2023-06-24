@@ -19,6 +19,9 @@ M.winbar_filetype_exclude = {
   "Outline",
   "spectre_panel",
   "toggleterm",
+  "TelescopePrompt",
+  "neo-tree",
+  "neo-tree-popup",
 }
 
 local get_filename = function()
@@ -75,13 +78,13 @@ M.get_winbar = function()
   if excludes() then
     return
   end
-  local value = get_filename()
+  local filename = get_filename()
 
   local f = require("utils.utils")
-  local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", value)
-  if vim.api.nvim_win_get_width(0) < (#winbar_format * 1.3) then
-    return
-  end
+  local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", filename)
+  -- if vim.api.nvim_win_get_width(0) < (#filename) then
+  --   return
+  -- end
   local status_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", winbar_format, { scope = "local" })
   if not status_ok then
     return

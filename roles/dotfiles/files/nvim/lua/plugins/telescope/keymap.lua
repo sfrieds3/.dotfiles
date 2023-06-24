@@ -1,4 +1,5 @@
 local M = {}
+local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local themes = require("telescope.themes")
 local custom = require("plugins.telescope.custom")
@@ -27,6 +28,7 @@ function M.set_keymap()
   vim.keymap.set("n", "<Leader>sf", custom.project_files, { desc = "Telescope: [s]earch project [f]iles" })
   vim.keymap.set("n", "<Leader>s?", custom.old_files, { desc = "Telescope: old files" })
   vim.keymap.set("n", "<Leader>sr", custom.recent_files, { desc = "Telescope: [s]earch [r]ecent files" })
+  vim.keymap.set("n", "<Leader>u", telescope.extensions.undo.undo, { desc = "Telescope: [u]ndo" })
 
   map_telescope("n", "<Leader>sa", builtin.aerial, "ivy", { desc = "aerial" }) -- TODO: this doesn't work..
   map_telescope("n", "<Leader><Leader>", builtin.buffers, "ivy", { desc = "buffers" })
@@ -117,8 +119,8 @@ function M.set_keymap()
   vim.keymap.set("n", "<Leader>gp", custom.live_grep_preview, { desc = "Telescope: live [g]rep [p]review" })
   vim.keymap.set("n", "<Leader>ga", custom.live_grep_args, { desc = "Telescope: [g]rep [a]rgs" })
   vim.keymap.set("n", "<Leader>g/", custom.grep_last_search, { desc = "Telescope: grep last search" })
-  vim.keymap.set("n", "<Leader>vp", require("telescope").extensions.neoclip.default, { desc = "Telescope: neoclip" })
-  vim.keymap.set("n", "<Leader>vk", require("telescope.builtin").keymaps, { desc = "Telescope: [v]iew [k]eymaps" })
+  vim.keymap.set("n", "<Leader>vp", telescope.extensions.neoclip.default, { desc = "Telescope: neoclip" })
+  vim.keymap.set("n", "<Leader>vk", builtin.keymaps, { desc = "Telescope: [v]iew [k]eymaps" })
   vim.keymap.set("n", "<Leader>si", custom.installed_plugins, { desc = "Telescope: [s]earch [i]nstalled plugins" })
   vim.keymap.set("n", "<Leader>gi", custom.grep_installed_plugins, { desc = "Telescope: [g]rep [i]nstalled plugins" })
 
