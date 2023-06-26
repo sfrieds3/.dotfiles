@@ -48,6 +48,7 @@
       - yq
       - zig
       - zsh
+      - zsh-completions
     state: present
 
 - name: Install homebrew casks
