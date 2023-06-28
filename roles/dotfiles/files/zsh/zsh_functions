@@ -111,3 +111,12 @@ function histgrep() {
 function cw() {
     cd $(git worktree list | fzf --prompt="Worktree: " --height 40% --reverse | awk '{print $1}') || return
 }
+
+function pbfilter() {
+      if [ $# -gt 0 ]; then
+          pbpaste | "$@" | pbcopy
+      else
+          pbpaste | pbcopy
+      fi
+  }       
+
