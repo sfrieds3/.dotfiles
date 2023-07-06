@@ -49,7 +49,6 @@ return {
   { "chrisbra/csv.vim", ft = "csv" },
   { "sainnhe/edge", lazy = true },
   { "sainnhe/everforest", lazy = true },
-  { "navarasu/onedark.nvim", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
   { "nyoom-engineering/oxocarbon.nvim" },
   { "briones-gabriel/darcula-solid.nvim", dependencies = { "rktjmp/lush.nvim" } },

@@ -118,5 +118,4 @@ function pbfilter() {
       else
           pbpaste | pbcopy
       fi
-  }       
-
+  }

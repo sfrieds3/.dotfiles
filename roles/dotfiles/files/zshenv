@@ -1,3 +1,9 @@
+if type brew &>/dev/null
+then
+    eval $(/opt/homebrew/bin/brew shellenv)
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fi
+
 # https://github.com/adrg/xdg/blob/master/README.md
 if [[ $(uname) == "Darwin" ]]
 then
@@ -41,22 +47,11 @@ export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
 export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
 export PERL_MB_OPT=${PERL_MB_OPT:=--install_base \"$HOME/perl5\"}
 export PERL_MM_OPT=${PERL_MM_OPT:=INSTALL_BASE=$HOME/perl5}
-fpath=($XDG_CONFIG_HOME/zsh/plugins/zsh-completions/src $fpath)
-fpath=($XDG_CONFIG_HOME/zsh-completions $fpath)
-fpath=($XDG_CONFIG_HOME/zsh $fpath)
-
-if type brew &>/dev/null
-then
-    eval $(/opt/homebrew/bin/brew shellenv)
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-fi
 
 typeset -U path
 typeset -U fpath
 
 # set other env vars
-export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship.toml
-export KITTY_CONFIG_DIRECTORY=$XDG_CONFIG_HOME/kitty/kitty.conf
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON3_VENV=$PYTHON3_VENV_BIN/python3
