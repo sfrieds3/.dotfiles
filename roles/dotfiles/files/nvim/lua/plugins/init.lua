@@ -47,7 +47,7 @@ return {
   },
   { "milisims/nvim-luaref", ft = { "lua" } },
   { "chrisbra/csv.vim", ft = "csv" },
-  { "sainnhe/edge", lazy = true },
+  { "sainnhe/edge" },
   { "sainnhe/everforest", lazy = true },
   { "rose-pine/neovim", name = "rose-pine" },
   { "nyoom-engineering/oxocarbon.nvim" },

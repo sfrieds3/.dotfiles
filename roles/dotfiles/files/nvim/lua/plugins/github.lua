@@ -1,17 +1,28 @@
 local M = {
   "projekt0n/github-nvim-theme",
-  lazy = true,
   version = "*",
 }
 
 function M.config()
   require("github-theme").setup({
-    theme_style = "dimmed",
-    function_style = "italic",
-    sidebars = { "qf", "terminal" },
-    dark_sidebar = true,
-    dark_float = true,
-    dim_inactive = true,
+    options = {
+      dim_inactive = true,
+      styles = {
+        functions = "italic",
+      },
+      inverse = { -- Inverse highlight for different types
+        match_paren = true,
+        visual = true,
+        search = true,
+      },
+      darken = {
+        floats = true,
+        sidebars = {
+          enable = true,
+          list = { "qf", "terminal" },
+        },
+      },
+    },
   })
 end
 
