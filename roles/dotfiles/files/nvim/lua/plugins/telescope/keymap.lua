@@ -100,15 +100,27 @@ function M.set_keymap()
   )
   vim.keymap.set(
     "n",
-    "<Leader>lr",
+    "<Leader>gR",
     custom.preview_lsp_references,
-    { desc = "[LSP] Telescope: preview [l]sp [r]eferences" }
+    { desc = "[LSP] Telescope: [g]oto lsp [R]eferences" }
   )
   vim.keymap.set(
     "n",
-    "<Leader>ld",
+    "<Leader>gD",
     custom.preview_lsp_definitions,
-    { desc = "[LSP] Telescope: preview [l]sp [d]efinitions" }
+    { desc = "[LSP] Telescope: [g]oto lsp [D]efinitions" }
+  )
+  vim.keymap.set(
+    "n",
+    "<Leader>I",
+    custom.preview_lsp_incoming_calls,
+    { desc = "[LSP] Telescope: lsp [I]ncomming calls" }
+  )
+  vim.keymap.set(
+    "n",
+    "<Leader>O",
+    custom.preview_lsp_outgoing_calls,
+    { desc = "[LSP] Telescope: lsp [O]utgiong calls" }
   )
   vim.keymap.set("n", "<Leader>vo", custom.vim_options, { desc = "Telescope: [v]iew [o]ptions" })
   vim.keymap.set("n", "<Leader>vw", custom.wiki_search, { desc = "Telescope: [v]iew [w]iki" })

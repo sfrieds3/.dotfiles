@@ -59,6 +59,7 @@ function M.setup()
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+  capabilities.textDocument.codeLens = true
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.preselectSupport = true
   capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
@@ -140,7 +141,7 @@ function M.setup()
     },
   })
 
-  function OrgImports(wait_ms)
+  local function org_imports(wait_ms)
     local params = vim.lsp.util.make_range_params()
     params.context = { only = { "source.organizeImports" } }
     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
@@ -160,8 +161,8 @@ function M.setup()
     group = "Golang",
     pattern = "*.go",
     callback = function()
-      vim.lsp.buf.format(nil, 1000)
-      OrgImports(1000)
+      vim.lsp.buf.format({ timeout_ms = 1000 })
+      org_imports(1000)
     end,
   })
 

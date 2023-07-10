@@ -206,6 +206,45 @@ function M.lsp_references()
   require("telescope.builtin").lsp_references(opts)
 end
 
+function M.lsp_definitions()
+  local opts = {
+    layout_strategy = "vertical",
+    layout_config = {
+      prompt_position = "top",
+    },
+    sorting_strategy = "ascending",
+    ignore_filename = false,
+  }
+
+  require("telescope.builtin").lsp_definitions(opts)
+end
+
+function M.lsp_incoming_calls()
+  local opts = {
+    layout_strategy = "vertical",
+    layout_config = {
+      prompt_position = "top",
+    },
+    sorting_strategy = "ascending",
+    ignore_filename = false,
+  }
+
+  require("telescope.builtin").lsp_incoming_calls(opts)
+end
+
+function M.lsp_outgoing_calls()
+  local opts = {
+    layout_strategy = "vertical",
+    layout_config = {
+      prompt_position = "top",
+    },
+    sorting_strategy = "ascending",
+    ignore_filename = false,
+  }
+
+  require("telescope.builtin").lsp_outgoing_calls(opts)
+end
+
 function M.lsp_implementations()
   local opts = {
     layout_strategy = "vertical",
@@ -271,6 +310,28 @@ function M.preview_lsp_definitions()
     },
   })
   require("telescope.builtin").lsp_definitions(opts)
+end
+
+function M.preview_lsp_incoming_calls()
+  local opts = themes.get_cursor({
+    winblend = 10,
+    layout_config = {
+      width = 0.75,
+      height = 0.5,
+    },
+  })
+  require("telescope.builtin").lsp_incoming_calls(opts)
+end
+
+function M.preview_lsp_outgoing_calls()
+  local opts = themes.get_cursor({
+    winblend = 10,
+    layout_config = {
+      width = 0.75,
+      height = 0.5,
+    },
+  })
+  require("telescope.builtin").lsp_outgoing_calls(opts)
 end
 
 function M.document_symbols()
