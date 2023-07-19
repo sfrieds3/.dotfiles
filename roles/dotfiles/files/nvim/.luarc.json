@@ -1,1 +1,5 @@
-workspace.IgnoreDir = ["lazy"]
+{
+  "workspace.IgnoreDir": [
+    "lazy"
+  ]
+}
