@@ -8,19 +8,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = "Neovim",
 })
 
-vim.api.nvim_create_augroup("Winbar", { clear = true })
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
-  group = "Winbar",
-  callback = function()
-    local exclude_ft = {}
-    for _, item in ipairs(exclude_ft) do
-      if vim.bo.filetype ~= item then
-        return
-      end
-    end
-    pcall(require("scwfri.winbar").get_winbar)
-  end,
-})
+-- vim.api.nvim_create_augroup("Winbar", { clear = true })
+-- vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
+--   group = "Winbar",
+--   callback = function()
+--     local exclude_ft = {}
+--     for _, item in ipairs(exclude_ft) do
+--       if vim.bo.filetype ~= item then
+--         return
+--       end
+--     end
+--     pcall(require("scwfri.winbar").get_winbar)
+--   end,
+-- })
 
 -- open quickfix or location-list automatically when there is something to show
 -- source: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3

@@ -28,6 +28,18 @@ return {
       },
     },
     opts = { snippet_engine = "luasnip" },
+    {
+      "utilyre/barbecue.nvim",
+      name = "barbecue",
+      version = "*",
+      dependencies = {
+        "SmiteshP/nvim-navic",
+        "nvim-tree/nvim-web-devicons", -- optional dependency
+      },
+      opts = {
+        -- configurations go here
+      },
+    },
   },
   { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },

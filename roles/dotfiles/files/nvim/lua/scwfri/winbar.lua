@@ -81,7 +81,8 @@ M.get_winbar = function()
   local filename = get_filename()
 
   local f = require("utils.utils")
-  local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", filename)
+  -- local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%=%s", filename)
+  local winbar_format = string.format("%%{%%v:lua.require('nvim-navic').get_location()%%}%%")
   -- if vim.api.nvim_win_get_width(0) < (#filename) then
   --   return
   -- end
