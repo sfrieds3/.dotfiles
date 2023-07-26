@@ -4,12 +4,12 @@ if has('python')
     setlocal omnifunc=pythoncomplete#Complete
 endif
 
-function! python#Format() abort
-    let fp = exists("g:py_formatprg") ? g:py_formatprg : 'yapf'
-    let lst = v:lnum + v:count - 1
-    silent execute v:lnum . ',' . lst . '!' . fp
-endfunction
-setlocal formatexpr=python#Format()
+" function! python#Format() abort
+"     let fp = exists("g:py_formatprg") ? g:py_formatprg : 'yapf'
+"     let lst = v:lnum + v:count - 1
+"     silent execute v:lnum . ',' . lst . '!' . fp
+" endfunction
+" setlocal formatexpr=python#Format()
 
 if exists("g:py_makeprg")
     " e.g. let g:py_makeprg='pycodestyle\ --ignore=E501\ --format=pylint'

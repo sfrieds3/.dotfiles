@@ -14,7 +14,7 @@ function M.init_lazy()
   end
   vim.opt.runtimepath:prepend(lazypath)
   require("lazy").setup("plugins", {
-    install = { colorscheme = { "catppuccin", "ayu", "kanagawa", "habamax" } },
+    install = { colorscheme = { "github_dark_dimmed", "ayu", "kanagawa", "habamax" } },
     dev = {
       path = "~/dev/personal",
       patterns = { "sfrieds3" },
