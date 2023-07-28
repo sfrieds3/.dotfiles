@@ -1,0 +1,62 @@
+# https://github.com/adrg/xdg/blob/master/README.md
+switch "$OSTYPE"
+case "darwin*"
+  set -gx XDG_CONFIG_HOME $HOME/Library/Application Support
+  set -gx XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
+  set -gx XDG_DATA_HOME $HOME/Library/Application Support
+  set -gx XDG_DATA_DIRS /Library/Application Support
+  set -gx XDG_STATE_HOME $HOME/Library/Application Support
+  set -gx XDG_CACHE_HOME $HOME/Library/Caches
+  set -gx XDG_RUNTIME_DIR $TMPDIR
+case "*"
+  set -gx XDG_CONFIG_HOME $HOME/.config
+  set -gx XDG_CONFIG_DIRS /etc/xdg
+  set -gx XDG_DATA_HOME $HOME/.local/share
+  set -gx XDG_DATA_DIRS /usr/local/share/:/usr/share/
+  set -gx XDG_STATE_HOME $HOME/.local/state
+  set -gx XDG_CACHE_HOME $HOME/.cache
+  set -gx XDG_RUNTIME_DIR /run/user/$UID
+end
+
+set -gx GOPATH $HOME/go
+set -gx GOBIN $GOPATH/bin
+
+set -gx RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/ripgreprc
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+set -gx PYTHON3_VENV $PYTHON3_VENV_BIN/python3
+
+set -gx FZF_DEFAULT_COMMAND "fd -t f --hidden --absolute-path"
+set -gx FZF_DEFAULT_OPTS --color="bg+:-1,\
+  fg:gray,\
+  fg+:white,\
+  border:black,\
+  spinner:0,\
+  hl:yellow,\
+  header:blue,\
+  info:green,\
+  pointer:red,\
+  marker:blue,\
+  prompt:gray,\
+  hl+:red"
+
+set -gx LS_COLORS "rs=0:di=38;5;67:ln=38;5;66:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=31;46:ow=30;46:st=37;44:ex=38;5;101:*.tar=01;33:*.tgz=01;33:*.arc=01;33:*.arj=01;33:*.taz=01;33:*.lha=01;33:*.lz4=01;33:*.lzh=01;33:*.lzma=01;33:*.tlz=01;33:*.txz=01;33:*.tzo=01;33:*.t7z=01;33:*.zip=01;33:*.z=01;33:*.Z=01;33:*.dz=01;33:*.gz=01;33:*.lrz=01;33:*.lz=01;33:*.lzo=01;33:*.xz=01;33:*.bz2=01;33:*.bz=01;33:*.tbz=01;33:*.tbz2=01;33:*.tz=01;33:*.deb=01;33:*.rpm=01;33:*.jar=01;33:*.war=01;33:*.ear=01;33:*.sar=01;33:*.rar=01;33:*.alz=01;33:*.ace=01;33:*.zoo=01;33:*.cpio=01;33:*.7z=01;33:*.rz=01;33:*.cab=01;33:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:"
+
+# TODO: set these with something like set -q PERL5LIB || set PERL5LIB $HOME/perl5/lib/perl5
+# export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
+# export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
+# export PERL_MB_OPT=${PERL_MB_OPT:=--install_base \"$HOME/perl5\"}
+# export PERL_MM_OPT=${PERL_MM_OPT:=INSTALL_BASE=$HOME/perl5}
+
+
+# SET PATH
+
+set LUAROCKSBIN $HOME/.luarocks/bin
+set PERL5BIN $HOME/perl5/bin
+set SYSGOBIN /usr/local/go/bin
+set RBENVBIN $HOME/.rbenv/bin
+set LOCALBIN $HOME/.local/bin
+set PYTHON3_VENV_BIN $HOME/.venv/venv/bin
+set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
+
+fish_add_path $LOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $RBENVBIN $LUAROCKSBIN
+fish_add_path --append $PYTHON3_VENV_BIN $OPENJDKBIN
