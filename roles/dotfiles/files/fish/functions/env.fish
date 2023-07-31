@@ -1,21 +1,21 @@
 # https://github.com/adrg/xdg/blob/master/README.md
 switch "$OSTYPE"
 case "darwin*"
-  set -gx XDG_CONFIG_HOME $HOME/Library/Application Support
-  set -gx XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
-  set -gx XDG_DATA_HOME $HOME/Library/Application Support
-  set -gx XDG_DATA_DIRS /Library/Application Support
-  set -gx XDG_STATE_HOME $HOME/Library/Application Support
-  set -gx XDG_CACHE_HOME $HOME/Library/Caches
-  set -gx XDG_RUNTIME_DIR $TMPDIR
+  set -Ux XDG_CONFIG_HOME $HOME/Library/Application Support
+  set -Ux XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
+  set -Ux XDG_DATA_HOME $HOME/Library/Application Support
+  set -Ux XDG_DATA_DIRS /Library/Application Support
+  set -Ux XDG_STATE_HOME $HOME/Library/Application Support
+  set -Ux XDG_CACHE_HOME $HOME/Library/Caches
+  set -Ux XDG_RUNTIME_DIR $TMPDIR
 case "*"
-  set -gx XDG_CONFIG_HOME $HOME/.config
-  set -gx XDG_CONFIG_DIRS /etc/xdg
-  set -gx XDG_DATA_HOME $HOME/.local/share
-  set -gx XDG_DATA_DIRS /usr/local/share/:/usr/share/
-  set -gx XDG_STATE_HOME $HOME/.local/state
-  set -gx XDG_CACHE_HOME $HOME/.cache
-  set -gx XDG_RUNTIME_DIR /run/user/$UID
+  set -Ux XDG_CONFIG_HOME $HOME/.config
+  set -Ux XDG_CONFIG_DIRS /etc/xdg
+  set -Ux XDG_DATA_HOME $HOME/.local/share
+  set -Ux XDG_DATA_DIRS /usr/local/share/:/usr/share/
+  set -Ux XDG_STATE_HOME $HOME/.local/state
+  set -Ux XDG_CACHE_HOME $HOME/.cache
+  set -Ux XDG_RUNTIME_DIR /run/user/$UID
 end
 
 set -gx GOPATH $HOME/go

@@ -1,31 +1,31 @@
 function kubectl_status -d "Get k8s ctx/ns"
-  [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
-  [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR "/"
-  set -l config $KUBECONFIG
-  [ -z "$config" ]; and set -l config "$HOME/.kube/config"
-  if [ ! -f $config ]
-    echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
-    return
-  end
+    [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
+    [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR "/"
+    set -l config $KUBECONFIG
+    [ -z "$config" ]; and set -l config "$HOME/.kube/config"
+    if [ ! -f $config ]
+        echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
+        return
+    end
 
-  set -l ctx (kubectl config current-context 2>/dev/null)
-  if [ $status -ne 0 ]
-    echo (set_color red)" ("$KUBECTL_PROMPT_ICON" no context)"(set_color normal)
-    return
-  end
+    set -l ctx (kubectl config current-context 2>/dev/null)
+    if [ $status -ne 0 ]
+        echo (set_color red)" ("$KUBECTL_PROMPT_ICON" no context)"(set_color normal)
+        return
+    end
 
-  set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
-  [ -z $ns ]; and set -l ns 'default'
+    set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
+    [ -z $ns ]; and set -l ns 'default'
 
-  echo (set_color cyan)$KUBECTL_PROMPT_ICON" ($ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
+    echo (set_color cyan)" ("$KUBECTL_PROMPT_ICON" $ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
 end
 
 function python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
+        set -l venv_icon 
+        set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
         set_color green
-        printf " ( "
-        printf (path basename $VIRTUAL_ENV)
-        printf ")"
+        printf " ($venv_icon $venv_location)"
         set_color normal
     end
 end
@@ -42,7 +42,9 @@ end
 function conda_env -d "Get conda env"
     if set -q CONDA_PREFIX
         set -l conda_environment (basename $CONDA_PREFIX)
+        set_color green
         printf " (🅒  $conda_environment)"
+        set_color normal
     end
 end
 
@@ -63,7 +65,23 @@ function node_version -d "Get node version"
     if node_dir and (command -v node 2> /dev/null)
         set -l node_icon 
         set -l _node_version (node --version)
+        set_color magenta
         printf " ($node_icon $_node_version)"
+        set_color normal
+    end
+end
+
+function docker_context -d "Get docker context"
+    set -l docker_icon 🐳
+    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" "Dockerfile"
+    for dockerfile in $dockerfiles
+        if test -e $dockerfile
+            set -l _docker_context (docker context show)
+            set_color blue
+            printf " ($docker_icon $_docker_context)"
+            set_color normal
+            return
+        end
     end
 end
 
@@ -71,8 +89,10 @@ function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
     printf "\n"
     set_color red
+    printf "∷ "
     printf (date +"%Y-%m-%d ")
     printf (date +"%H:%M:%S ")
+    printf "∷ "
     set_color normal
 
     # PWD
@@ -82,6 +102,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # other status
     printf (kubectl_status)
+    printf (docker_context)
     printf (python_venv)
     printf (pyvenv_version)
     printf (conda_env)

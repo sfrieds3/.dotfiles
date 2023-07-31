@@ -1,15 +1,36 @@
 if status is-interactive
   set -gx fish_prompt_pwd_dir_length 3
   set -gx fish_prompt_pwd_full_dirs 3
-end
 
-# aliases
-alias gap="git add --patch"
+  # git aliases
+  alias gs='git status'
+  alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch'
+  alias gb='git branch | fzf-tmux -p | sed s/^\*// | xargs git switch'
+  alias gap='git add --patch'
+  alias gcp='git checkout --patch'
+  alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
+  alias gdh='git diff origin/HEAD'
+  alias gbp='git checkout -'
+  alias gd='git diff'
+  alias gdc='git diff --cached'
+
+  # fzf aliaseg
+  alias glf='git ls-files --exclude-standard | fzf | xargs git lf'
+  alias cdf='cd $(fd | fzf-tmux -p --print0 | xargs -0 dirname)'
+  alias cdd='cd $(fd -t d | fzf-tmux -p)'
+  alias ef='fzf-tmux -p | xargs nvim'
+  alias gaf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
+  alias gapf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
+  alias gcpf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
+  alias gdf='git ls-files -m -o --exclude-standard | fzf-tmux -p | xargs git diff'
+
+  # python
+  alias condata="conda activate data"
+  alias workonvenv="source $HOME/.venv/venv/bin/activate.fish"
+end
 
 # pyenv init
-if command -v ~/.pyenv/bin/pyenv 1>/dev/null 2>&1
-  ~/.pyenv/bin/pyenv init - | source
-end
+status --is-interactive; and pyenv init - | source
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -20,4 +41,10 @@ end
 
 # do not add conda env to prompt
 function __conda_add_prompt
+end
+
+# load local config from ~/.fish_local, if available
+set -l local_config "$HOME/.fish_local"
+if test -e $local_config
+  source $local_config
 end
