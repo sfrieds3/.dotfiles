@@ -1,26 +1,3 @@
-# https://github.com/adrg/xdg/blob/master/README.md
-switch "$OSTYPE"
-case "darwin*"
-  set -Ux XDG_CONFIG_HOME $HOME/Library/Application Support
-  set -Ux XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
-  set -Ux XDG_DATA_HOME $HOME/Library/Application Support
-  set -Ux XDG_DATA_DIRS /Library/Application Support
-  set -Ux XDG_STATE_HOME $HOME/Library/Application Support
-  set -Ux XDG_CACHE_HOME $HOME/Library/Caches
-  set -Ux XDG_RUNTIME_DIR $TMPDIR
-case "*"
-  set -Ux XDG_CONFIG_HOME $HOME/.config
-  set -Ux XDG_CONFIG_DIRS /etc/xdg
-  set -Ux XDG_DATA_HOME $HOME/.local/share
-  set -Ux XDG_DATA_DIRS /usr/local/share/:/usr/share/
-  set -Ux XDG_STATE_HOME $HOME/.local/state
-  set -Ux XDG_CACHE_HOME $HOME/.cache
-  set -Ux XDG_RUNTIME_DIR /run/user/$UID
-end
-
-set -gx GOPATH $HOME/go
-set -gx GOBIN $GOPATH/bin
-
 set -gx RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/ripgreprc
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx PYTHON3_VENV $PYTHON3_VENV_BIN/python3
@@ -46,17 +23,3 @@ set -gx LS_COLORS "rs=0:di=38;5;67:ln=38;5;66:mh=00:pi=40;33:so=01;35:do=01;35:b
 # export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
 # export PERL_MB_OPT=${PERL_MB_OPT:=--install_base \"$HOME/perl5\"}
 # export PERL_MM_OPT=${PERL_MM_OPT:=INSTALL_BASE=$HOME/perl5}
-
-
-# SET PATH
-
-set LUAROCKSBIN $HOME/.luarocks/bin
-set PERL5BIN $HOME/perl5/bin
-set SYSGOBIN /usr/local/go/bin
-set RBENVBIN $HOME/.rbenv/bin
-set LOCALBIN $HOME/.local/bin
-set PYTHON3_VENV_BIN $HOME/.venv/venv/bin
-set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
-
-fish_add_path $LOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $RBENVBIN $LUAROCKSBIN
-fish_add_path --append $PYTHON3_VENV_BIN $OPENJDKBIN

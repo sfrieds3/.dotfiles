@@ -9,9 +9,11 @@ vim.g.mapleader = " "
 
 -- set zsh executable dir
 if vim.fn.has("macunix") then
-  vim.opt.shell = "/bin/zsh"
+  -- vim.opt.shell = "/bin/zsh"
+  vim.opt.shell = "/opt/homebrew/bin/fish"
 else
-  vim.opt.shell = "/usr/bin/zsh"
+  -- vim.opt.shell = "/usr/bin/zsh"
+  vim.opt.shell = "/usr/bin/fish"
 end
 
 vim.opt.termguicolors = true

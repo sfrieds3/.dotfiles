@@ -11,8 +11,10 @@
 #import:
 #  - /path/to/alacritty.yml
 
-#shell:
-#program: /opt/homebrew/bin/fish
+shell:
+  program: /opt/homebrew/bin/fish
+  args:
+    - --login
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
