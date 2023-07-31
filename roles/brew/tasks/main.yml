@@ -10,6 +10,7 @@
       - conda-zsh-completion
       - ctags
       - fd
+      - fish
       - fzf
       - gcc
       - git
