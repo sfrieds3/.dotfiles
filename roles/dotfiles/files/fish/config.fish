@@ -1,7 +1,7 @@
 if status is-login
   # https://github.com/adrg/xdg/blob/master/README.md
-  switch "$OSTYPE"
-  case "darwin*"
+  switch (uname)
+  case "Darwin"
     set -Ux XDG_CONFIG_HOME $HOME/Library/Application Support
     set -Ux XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
     set -Ux XDG_DATA_HOME $HOME/Library/Application Support
@@ -18,7 +18,6 @@ if status is-login
     set -Ux XDG_CACHE_HOME $HOME/.cache
     set -Ux XDG_RUNTIME_DIR /run/user/$UID
   end
-
 
   # SET PATH
   set -gx GOPATH $HOME/go
@@ -39,6 +38,9 @@ end
 if status is-interactive
   set -gx fish_prompt_pwd_dir_length 3
   set -gx fish_prompt_pwd_full_dirs 3
+
+  # source our prompt
+  source $__fish_config_dir/fish_prompt.fish
 
   # git aliases
   alias gs='git status'
