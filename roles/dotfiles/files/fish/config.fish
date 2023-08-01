@@ -3,7 +3,7 @@ if status is-login
   switch (uname)
   case "Darwin"
     set --global --export XDG_CONFIG_HOME $HOME/Library/Application Support
-    set --global --export XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
+    set --global --export --path XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
     set --global --export XDG_DATA_HOME $HOME/Library/Application Support
     set --global --export XDG_DATA_DIRS /Library/Application Support
     set --global --export XDG_STATE_HOME $HOME/Library/Application Support
@@ -13,7 +13,7 @@ if status is-login
     set --global --export XDG_CONFIG_HOME $HOME/.config
     set --global --export XDG_CONFIG_DIRS /etc/xdg
     set --global --export XDG_DATA_HOME $HOME/.local/share
-    set --global --export XDG_DATA_DIRS /usr/local/share/:/usr/share/
+    set --global --export --path XDG_DATA_DIRS /usr/local/share/:/usr/share/
     set --global --export XDG_STATE_HOME $HOME/.local/state
     set --global --export XDG_CACHE_HOME $HOME/.cache
     set --global --export XDG_RUNTIME_DIR /run/user/$UID
