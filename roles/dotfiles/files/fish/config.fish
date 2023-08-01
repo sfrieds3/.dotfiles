@@ -2,26 +2,26 @@ if status is-login
   # https://github.com/adrg/xdg/blob/master/README.md
   switch (uname)
   case "Darwin"
-    set -Ux XDG_CONFIG_HOME $HOME/Library/Application Support
-    set -Ux XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
-    set -Ux XDG_DATA_HOME $HOME/Library/Application Support
-    set -Ux XDG_DATA_DIRS /Library/Application Support
-    set -Ux XDG_STATE_HOME $HOME/Library/Application Support
-    set -Ux XDG_CACHE_HOME $HOME/Library/Caches
-    set -Ux XDG_RUNTIME_DIR $TMPDIR
+    set --universal --export XDG_CONFIG_HOME $HOME/Library/Application Support
+    set --universal --export XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
+    set --universal --export XDG_DATA_HOME $HOME/Library/Application Support
+    set --universal --export XDG_DATA_DIRS /Library/Application Support
+    set --universal --export XDG_STATE_HOME $HOME/Library/Application Support
+    set --universal --export XDG_CACHE_HOME $HOME/Library/Caches
+    set --universal --export XDG_RUNTIME_DIR $TMPDIR
   case "*"
-    set -Ux XDG_CONFIG_HOME $HOME/.config
-    set -Ux XDG_CONFIG_DIRS /etc/xdg
-    set -Ux XDG_DATA_HOME $HOME/.local/share
-    set -Ux XDG_DATA_DIRS /usr/local/share/:/usr/share/
-    set -Ux XDG_STATE_HOME $HOME/.local/state
-    set -Ux XDG_CACHE_HOME $HOME/.cache
-    set -Ux XDG_RUNTIME_DIR /run/user/$UID
+    set --universal --export XDG_CONFIG_HOME $HOME/.config
+    set --universal --export XDG_CONFIG_DIRS /etc/xdg
+    set --universal --export XDG_DATA_HOME $HOME/.local/share
+    set --universal --export XDG_DATA_DIRS /usr/local/share/:/usr/share/
+    set --universal --export XDG_STATE_HOME $HOME/.local/state
+    set --universal --export XDG_CACHE_HOME $HOME/.cache
+    set --universal --export XDG_RUNTIME_DIR /run/user/$UID
   end
 
   # SET PATH
-  set -gx GOPATH $HOME/go
-  set -gx GOBIN $GOPATH/bin
+  set --global --export GOPATH $HOME/go
+  set --global --export GOBIN $GOPATH/bin
   set LUAROCKSBIN $HOME/.luarocks/bin
   set PERL5BIN $HOME/perl5/bin
   set SYSGOBIN /usr/local/go/bin
@@ -36,11 +36,11 @@ if status is-login
 end
 
 if status is-interactive
-  set -gx fish_prompt_pwd_dir_length 3
-  set -gx fish_prompt_pwd_full_dirs 3
+  set --global --export fish_prompt_pwd_dir_length 3
+  set --global --export fish_prompt_pwd_full_dirs 3
 
-  # source our prompt
-  source $__fish_config_dir/fish_prompt.fish
+  set fisher_path $__fish_config_dir/fisher
+  set fish_function_path $fish_function_path $fisher_path/functions
 
   # git aliases
   alias gs='git status'
@@ -67,27 +67,30 @@ if status is-interactive
   # python
   alias condata="conda activate data"
   alias workonvenv="source $HOME/.venv/venv/bin/activate.fish"
-end
 
-# pyenv init
-status --is-interactive; and pyenv init - | source
+  # pyenv init
+  pyenv init - | source
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
     eval /opt/homebrew/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
-end
-# <<< conda initialize <<<
+  end
+  # <<< conda initialize <<<
 
-# do not add conda env to prompt
-function __conda_add_prompt
-end
+  # do not add conda env to prompt
+  function __conda_add_prompt
+  end
 
-# load kubectl completions
-kubectl completion fish | source
+  # load kubectl completions
+  kubectl completion fish | source
 
-# load local config from ~/.fish_local, if available
-set -l local_config "$HOME/.fish_local"
-if test -e $local_config
-  source $local_config
+  # load local config from ~/.fish_local, if available
+  set -l local_config "$HOME/.fish_local"
+  if test -e $local_config
+    source $local_config
+  end
+
+  # source our prompt
+  source $__fish_config_dir/fish_prompt.fish
 end
