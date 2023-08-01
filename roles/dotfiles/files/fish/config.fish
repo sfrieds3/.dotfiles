@@ -2,21 +2,21 @@ if status is-login
   # https://github.com/adrg/xdg/blob/master/README.md
   switch (uname)
   case "Darwin"
-    set --universal --export XDG_CONFIG_HOME $HOME/Library/Application Support
-    set --universal --export XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
-    set --universal --export XDG_DATA_HOME $HOME/Library/Application Support
-    set --universal --export XDG_DATA_DIRS /Library/Application Support
-    set --universal --export XDG_STATE_HOME $HOME/Library/Application Support
-    set --universal --export XDG_CACHE_HOME $HOME/Library/Caches
-    set --universal --export XDG_RUNTIME_DIR $TMPDIR
+    set --global --export XDG_CONFIG_HOME $HOME/Library/Application Support
+    set --global --export XDG_CONFIG_DIRS $HOME/Library/Preferences:/Library/Application Support:/Library/Preferences
+    set --global --export XDG_DATA_HOME $HOME/Library/Application Support
+    set --global --export XDG_DATA_DIRS /Library/Application Support
+    set --global --export XDG_STATE_HOME $HOME/Library/Application Support
+    set --global --export XDG_CACHE_HOME $HOME/Library/Caches
+    set --global --export XDG_RUNTIME_DIR $TMPDIR
   case "*"
-    set --universal --export XDG_CONFIG_HOME $HOME/.config
-    set --universal --export XDG_CONFIG_DIRS /etc/xdg
-    set --universal --export XDG_DATA_HOME $HOME/.local/share
-    set --universal --export XDG_DATA_DIRS /usr/local/share/:/usr/share/
-    set --universal --export XDG_STATE_HOME $HOME/.local/state
-    set --universal --export XDG_CACHE_HOME $HOME/.cache
-    set --universal --export XDG_RUNTIME_DIR /run/user/$UID
+    set --global --export XDG_CONFIG_HOME $HOME/.config
+    set --global --export XDG_CONFIG_DIRS /etc/xdg
+    set --global --export XDG_DATA_HOME $HOME/.local/share
+    set --global --export XDG_DATA_DIRS /usr/local/share/:/usr/share/
+    set --global --export XDG_STATE_HOME $HOME/.local/state
+    set --global --export XDG_CACHE_HOME $HOME/.cache
+    set --global --export XDG_RUNTIME_DIR /run/user/$UID
   end
 
   # SET PATH
