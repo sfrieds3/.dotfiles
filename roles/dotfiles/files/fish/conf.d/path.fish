@@ -30,5 +30,16 @@ set LOCALBIN $HOME/.local/bin
 set PYTHON3_VENV_BIN $HOME/.venv/venv/bin
 set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
 
-fish_add_path $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $RBENVBIN $LUAROCKSBIN
-fish_add_path --append $PYTHON3_VENV_BIN $OPENJDKBIN
+set -l pathdirs $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $RBENVBIN $LUAROCKSBIN
+for dir in $pathdirs
+  if not contains -- $dir $PATH
+    fish_add_path $dir
+  end
+end
+
+set -l appendpathdirs $PYTHON3_VENV_BIN $OPENJDKBIN
+for difr in $appendpathdirs
+  if not contains -- $dir $PATH
+    fish_add_path --append $dir
+  end
+end
