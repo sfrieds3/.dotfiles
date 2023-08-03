@@ -8,6 +8,7 @@ case "Darwin"
   set --global --export XDG_STATE_HOME $HOME/Library/Application Support
   set --global --export XDG_CACHE_HOME $HOME/Library/Caches
   set --global --export XDG_RUNTIME_DIR $TMPDIR
+  set --global --export HOMEBREW_PREFIX (brew --prefix)
 case "*"
   set --global --export XDG_CONFIG_HOME $HOME/.config
   set --global --export XDG_CONFIG_DIRS /etc/xdg
