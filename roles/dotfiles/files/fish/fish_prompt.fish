@@ -85,6 +85,21 @@ function docker_context -d "Get docker context"
     end
 end
 
+function ssh_prompt --description "TODO: use to determine username/host in ssh or container"
+    # Only show host if in SSH or container
+    # Store this in a global variable because it's slow and unchanging
+    if not set -q prompt_host
+        set -g prompt_host ""
+        if set -q SSH_TTY
+            or begin
+                command -sq systemd-detect-virt
+                and systemd-detect-virt -q
+            end
+            set prompt_host $usercolor$USER$normal@(set_color $fish_color_host)$hostname$normal":"
+        end
+    end
+end
+
 function fish_prompt --description "Config prompt"
     set -l last_status $status
     printf "\n"
