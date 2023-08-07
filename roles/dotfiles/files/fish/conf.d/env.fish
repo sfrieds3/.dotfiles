@@ -2,6 +2,7 @@ if status is-interactive
   set -gx RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/ripgreprc
   set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
   set -gx PYTHON3_VENV $PYTHON3_VENV_BIN/python3
+  set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
   set -gx FZF_DEFAULT_COMMAND "fd -t f --hidden --absolute-path"
   # set -gx FZF_DEFAULT_OPTS='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'

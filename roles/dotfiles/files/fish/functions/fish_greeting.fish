@@ -1,17 +1,8 @@
-function fish_greeting
-    echo '                 ''___
-  ___======____=''-''-''-='')
-/T            \_''--=''=='')
-[ \ ''(''0'')   ''\~    \_''-=''='')
- \      / )J''~~    \\''-='')
-  \\\\___/  )JJ''~''~~   ''\)
-   \_____/JJJ''~~''~~    ''\\
-   ''/ ''\  '', \\''J''~~~''~~     ''\\
-  (-''\)''\=''|''\\\\\\''~~''~~       ''L_''_
-  ''(''\\''\\)  (''\\''\\\)''_           ''\==''__
-   ''\V    ''\\\\''\) ==''=_____   ''\\\\\\\\''\\\\
-          ''\V)     \_) ''\\\\''\\\\JJ\\''J\)
-                      ''/''J''\\''J''T\\''JJJ''J)
-                      (J''JJ''| \UUU)
-                       (UU)'
+function fish_greeting --description "Fish greeting config"
+  set -l usern "$USER"
+  set -l hostn (hostname)
+  set -l dt (set_color yellow; date +"%Y-%m-%d"; set_color normal)
+  set -l tm (set_color yellow; date +"%H:%M:%S"; set_color normal)
+
+  echo "$usern@$hostn - $dt $tm"
 end
