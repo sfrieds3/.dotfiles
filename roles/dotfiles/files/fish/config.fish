@@ -9,8 +9,8 @@ if status is-interactive
   pyenv init - | source
 
   # >>> conda initialize >>>
-  if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
-    eval /opt/homebrew/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
+  if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
+    eval $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
   end
   # <<< conda initialize <<<
 
