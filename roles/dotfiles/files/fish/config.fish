@@ -29,7 +29,4 @@ if status is-interactive
 
   # configure fzf bindings
   fzf_configure_bindings --history=\co
-
-  # source our prompt
-  source $__fish_config_dir/fish_prompt.fish
 end

@@ -1,4 +1,4 @@
-local M = { "j-hui/fidget.nvim" }
+local M = { "j-hui/fidget.nvim", tag = "legacy" }
 
 function M.config()
   require("fidget").setup({

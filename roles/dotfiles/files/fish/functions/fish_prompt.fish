@@ -1,4 +1,4 @@
-function kubectl_status -d "Get k8s ctx/ns"
+function __kubectl_status -d "Get k8s ctx/ns"
     [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
     [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR "/"
     set -l config $KUBECONFIG
@@ -20,7 +20,7 @@ function kubectl_status -d "Get k8s ctx/ns"
     echo (set_color cyan)" ("$KUBECTL_PROMPT_ICON" $ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
 end
 
-function python_venv -d "Get python venv"
+function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
         set -l venv_icon 
         set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
@@ -30,7 +30,7 @@ function python_venv -d "Get python venv"
     end
 end
 
-function pyvenv_version -d "Get pyenv version"
+function __pyvenv_version -d "Get pyenv version"
     if test -e .python-version
         set -l py_version (python3 --version | sed "s/^[^ ]* //")
         set_color red
@@ -39,7 +39,7 @@ function pyvenv_version -d "Get pyenv version"
     end
 end
 
-function conda_env -d "Get conda env"
+function __conda_env -d "Get conda env"
     if set -q CONDA_PREFIX
         set -l conda_environment (basename $CONDA_PREFIX)
         set_color green
@@ -48,7 +48,7 @@ function conda_env -d "Get conda env"
     end
 end
 
-function node_dir -d "Are we in a node dir?"
+function __is_node_dir -d "Are we in a node dir?"
     set -l flist "package.json" ".node-version" ".nvmrc" "node_modules" "*.js" "*.mjs" "*.cjs" "*.ts" "*.mts" "*.cts"
 
     for file in $flist
@@ -61,8 +61,8 @@ function node_dir -d "Are we in a node dir?"
     return
 end
 
-function node_version -d "Get node version"
-    if node_dir and (command -v node 2> /dev/null)
+function __node_version -d "Get node version"
+    if __is_node_dir and (command -v node 2> /dev/null)
         set -l node_icon 
         set -l _node_version (node --version)
         set_color magenta
@@ -71,7 +71,7 @@ function node_version -d "Get node version"
     end
 end
 
-function docker_context -d "Get docker context"
+function __docker_context -d "Get docker context"
     set -l docker_icon 🐳
     set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" "Dockerfile"
     for dockerfile in $dockerfiles
@@ -85,7 +85,7 @@ function docker_context -d "Get docker context"
     end
 end
 
-function ssh_prompt --description "TODO: use to determine username/host in ssh or container"
+function __ssh_prompt --description "TODO: use to determine username/host in ssh or container"
     # Only show host if in SSH or container
     # Store this in a global variable because it's slow and unchanging
     if not set -q prompt_host
@@ -122,12 +122,12 @@ function fish_prompt --description "Config prompt"
     end
 
     # other status
-    printf (kubectl_status)
-    printf (docker_context)
-    printf (python_venv)
-    printf (pyvenv_version)
-    printf (conda_env)
-    printf (node_version)
+    printf (__kubectl_status)
+    printf (__docker_context)
+    printf (__python_venv)
+    printf (__pyvenv_version)
+    printf (__conda_env)
+    printf (__node_version)
 
     printf "\n"
 
@@ -139,29 +139,4 @@ function fish_prompt --description "Config prompt"
     end
 
     set_color normal
-end
-
-function fish_right_prompt -d "Config right prompt"
-    set -g __fish_git_prompt_showdirtystate 1
-    set -g __fish_git_prompt_showuntrackedfiles 1
-    set -g __fish_git_prompt_showupstream informative
-    set -g __fish_git_prompt_showcolorhints 1
-    set -g __fish_git_prompt_use_informative_chars 1
-    set -g __fish_git_prompt_show_informative_status 1
-    set -g __fish_git_prompt_showstashstate 1
-    set -g __fish_git_prompt_describe_style branch
-
-    set -l vcs (fish_vcs_prompt 2>/dev/null)
-
-    # set -l d (set_color brgrey)(date "+%R")(set_color normal)
-
-    set -l duration "$cmd_duration$CMD_DURATION"
-    if test $duration -gt 100
-        set duration (math $duration / 1000)s
-    else
-        set duration
-    end
-
-    set_color reset
-    string join " " -- $venv $duration $vcs $d
 end
