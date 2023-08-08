@@ -115,12 +115,6 @@ function fish_prompt --description "Config prompt"
     printf (prompt_pwd)
     set_color normal
 
-    if [ $last_status -ne 0 ]
-        set_color $fish_color_error
-        printf " [$last_status]"
-        set_color normal
-    end
-
     # other status
     printf (__kubectl_status)
     printf (__docker_context)
@@ -133,6 +127,7 @@ function fish_prompt --description "Config prompt"
 
     if not test $last_status -eq 0
         set_color $fish_color_error
+        printf "[$last_status] "
         printf " "
     else
         printf "〉"

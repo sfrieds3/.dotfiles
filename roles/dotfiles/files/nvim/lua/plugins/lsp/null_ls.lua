@@ -22,7 +22,7 @@ function M.setup()
       require("null-ls").builtins.formatting.json_tool,
       -- require("null-ls").builtins.formatting.pyink,
       require("null-ls").builtins.formatting.reorder_python_imports,
-      -- require("null-ls").builtins.formatting.ruff,
+      require("null-ls").builtins.formatting.ruff,
       require("null-ls").builtins.formatting.stylua,
       require("null-ls").builtins.formatting.trim_whitespace,
       require("null-ls").builtins.formatting.trim_newlines,
