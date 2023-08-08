@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/ayu_dark.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/one_dark.yaml
 
 window:
   # Window dimensions (changes require restart)
