@@ -27,11 +27,6 @@
 - name: Install venv packages
   ansible.builtin.pip:
     name:
-      - python-lsp-server
-      - pyls-flake8
-      - pyls-isort
-      - pylsp-mypy
-      - pylsp-rope
       - compiledb
       - ipython
       - jupyterlab
