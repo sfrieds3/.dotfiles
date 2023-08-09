@@ -1,4 +1,5 @@
 local M = {}
+local is_executable = vim.fn.executable
 
 function M.setup()
   require("null-ls").setup({
@@ -10,7 +11,11 @@ function M.setup()
       -- diagnostics
       -- require("null-ls").builtins.diagnostics.flake8,
       require("null-ls").builtins.diagnostics.djlint,
-      require("null-ls").builtins.diagnostics.pylint,
+      require("null-ls").builtins.diagnostics.pylint.with({
+        condition = function(_)
+          return is_executable("pylint") == 1
+        end,
+      }),
       require("null-ls").builtins.diagnostics.ruff,
       require("null-ls").builtins.diagnostics.shellcheck,
       require("null-ls").builtins.diagnostics.trail_space.with({
