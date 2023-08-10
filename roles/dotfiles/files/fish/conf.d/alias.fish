@@ -1,7 +1,7 @@
 if status is-interactive
   # git aliases
   alias gs='git status'
-  alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch'
+  alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch --detach'
   alias gb='git branch | fzf-tmux -p | sed s/^\*// | xargs git switch'
   alias gap='git add --patch'
   alias gcp='git checkout --patch'

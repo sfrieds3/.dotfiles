@@ -8,7 +8,7 @@ vim.g.python3_host_prog = "$PYTHON3_VENV"
 vim.g.mapleader = " "
 
 -- set zsh executable dir
-if vim.fn.has("macunix") then
+if IS_MAC then
   -- vim.opt.shell = "/bin/zsh"
   vim.opt.shell = "/opt/homebrew/bin/fish"
 else

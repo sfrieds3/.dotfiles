@@ -1,7 +1,11 @@
 local M = {
   "folke/flash.nvim",
   event = "VeryLazy",
-  opts = {},
+  opts = {
+    search = {
+      multi_window = false,
+    },
+  },
   keys = {
     {
       "s",
