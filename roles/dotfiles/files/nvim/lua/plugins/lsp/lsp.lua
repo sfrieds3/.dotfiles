@@ -201,6 +201,12 @@ function M.setup()
     capabilities = capabilities,
   })
 
+  require("lspconfig")["helm_ls"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+
   local runtime_path = vim.split(package.path, ";", {})
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
