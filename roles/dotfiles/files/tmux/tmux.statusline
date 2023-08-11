@@ -6,7 +6,7 @@ set-option -g status on
 set-option -g status-justify centre
 set-option -g status-left-length 20
 set-option -g status-style bg=default,fg=default
-set-option -g status-left "#[fg=blue,dim](#S)#[default]"
+set-option -g status-left "#[fg=blue,dim]#S#[default]"
 set-option -g status-right "#[fg=blue,dim]%Y-%m-%d § %H:%M#[default]"
 set-window-option -g window-status-format "#[fg=white,dim]#I #W "
 set-window-option -g window-status-current-format "#[fg=white,dim]#I #[default]#W "
