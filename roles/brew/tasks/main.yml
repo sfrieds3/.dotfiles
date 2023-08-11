@@ -37,6 +37,8 @@
       - redis
       - ripgrep
       - ruff
+      - rbenv
+      - ruby-build
       - sbcl
       - shellcheck
       - stylua
