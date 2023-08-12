@@ -22,12 +22,16 @@ if status is-interactive
   # load kubectl completions
   kubectl completion fish | source
 
+  # configure fzf bindings
+  fzf_configure_bindings --history=\co
+
+  # load fzf_git
+  source $__fish_config_dir/custom/git_fzf.fish
+  git_fzf_configure_bindings
+
   # load local config from ~/.fish_local, if available
   set -l local_config "$HOME/.fish_local"
   if test -e $local_config
     source $local_config
   end
-
-  # configure fzf bindings
-  fzf_configure_bindings --history=\co
 end
