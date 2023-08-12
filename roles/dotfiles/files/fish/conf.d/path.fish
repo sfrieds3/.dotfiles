@@ -15,7 +15,7 @@ case "*"
   set --global --export --path XDG_DATA_DIRS /usr/local/share/:/usr/share/
   set --global --export XDG_STATE_HOME $HOME/.local/state
   set --global --export XDG_CACHE_HOME $HOME/.cache
-  set --global --export XDG_RUNTIME_DIR /run/user/$UID
+  set --global --export XDG_RUNTIME_DIR /run/user/(id -u $USER)
   set --global --export HOMEBREW_PREFIX (brew --prefix)
 end
 
