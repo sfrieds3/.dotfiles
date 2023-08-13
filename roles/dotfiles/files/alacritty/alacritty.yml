@@ -12,7 +12,7 @@
 #  - /path/to/alacritty.yml
 
 shell:
-  program: /opt/homebrew/bin/fish
+  program: /usr/bin/fish
   args:
     - --login
 
