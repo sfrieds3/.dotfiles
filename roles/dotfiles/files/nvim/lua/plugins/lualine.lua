@@ -32,6 +32,10 @@ function M.config()
     end
   end
 
+  local function session_name()
+    return require("possession.session").session_name or ""
+  end
+
   require("lualine").setup({
     options = {
       icons_enabled = true,
@@ -58,6 +62,7 @@ function M.config()
             readonly = " ✘",
           },
         },
+        { session_name, icon = " 📌" },
       },
       lualine_x = {
         { "encoding", fmt = trunc(80, 10, 80, true) },
