@@ -73,7 +73,7 @@ end
 
 function __docker_context -d "Get docker context"
     set -l docker_icon 🐳
-    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" "Dockerfile"
+    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" "Dockerfile" "compose.yaml" "compose.yml"
     for dockerfile in $dockerfiles
         if test -e $dockerfile
             set -l _docker_context (docker context show)
