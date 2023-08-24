@@ -30,7 +30,7 @@ function M.setup()
       },
     },
     defaults = {
-      file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/" },
+      file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
       mappings = {
         i = { ["<C-l>"] = trouble.open_with_trouble },
         n = { ["<C-l>"] = trouble.open_with_trouble },
@@ -40,7 +40,7 @@ function M.setup()
     pickers = {
       find_files = {
         -- find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-        find_command = { "fd", "-t", "f", "--hidden", "--absolute-path", "--exclude", ".git" },
+        find_command = { "fd", "-t", "f", "--hidden", "--absolute-path", "--exclude", ".git", "--exclude", "venv" },
         layout_config = {
           height = 0.70,
         },
