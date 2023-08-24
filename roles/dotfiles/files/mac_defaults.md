@@ -5,3 +5,7 @@ defaults write org.alacritty AppleFontSmoothing -int 0
 
 * in keyboard -> keyboard shortcuts -> app shortcuts:
     * set Quit alacritty and Quit Google Chrome to something other than Command-Q
+
+# Alacritty config
+
+* set up terminfo: sudo tic -xe alacritty,alacritty-direct extra/alacritty.info

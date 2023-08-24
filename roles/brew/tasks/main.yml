@@ -47,6 +47,7 @@
       - tree
       - tree-sitter
       - virtualenv
+      - wireshark
       - wget
       - yamllint
       - yq
@@ -62,9 +63,10 @@
       - drawio
       - hammerspoon
       - karabiner-elements
+      - miniconda
       - pocket-casts
       - spotify
-      - miniconda
+      - wireshark
 
 - name: Upgrade homebrew packages
   community.general.homebrew:

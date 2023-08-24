@@ -20,7 +20,7 @@ function M.setup()
     program = function()
       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/manage.py", "file")
     end,
-    args = { "runserver", "--noreload" },
+    args = { "runserver", "--noreload", "--insecure" },
   })
 
   local function load_vscode_launch_config()

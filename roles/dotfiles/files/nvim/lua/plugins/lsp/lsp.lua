@@ -178,15 +178,10 @@ function M.setup()
     capabilities = capabilities,
   })
 
-  require("typescript").setup({
-    server = {
-      go_to_source_definition = {
-        fallback = true,
-      },
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    },
+  require("lspconfig")["tsserver"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
   })
 
   require("lspconfig")["vimls"].setup({
