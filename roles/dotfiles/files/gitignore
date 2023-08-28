@@ -3,3 +3,8 @@ tags
 .worktrees/
 .DS_Store
 venv/
+*.iml
+*.ipr
+*.iws
+*.sw[op]
+target/
