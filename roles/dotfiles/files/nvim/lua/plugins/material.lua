@@ -4,7 +4,7 @@ local M = {
 }
 
 function M.config()
-  vim.g.material_style = "oceanic"
+  vim.g.material_style = "darker"
   require("material").setup({
     contrast = {
       terminal = false, -- Enable contrast for the built-in terminal
