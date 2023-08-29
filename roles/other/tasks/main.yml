@@ -1,33 +1,6 @@
 ---
 - name: Install nvm
-  ansible.builtin.command:
-    cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    creates: $HOME/.config/nvm
-
-# - name: Install lts node
-#   become: true
-#   ansible.builtin.command:
-#     cmd: ". {{ nvm_dir }}/nvm.sh && nvm install --lts"
-#     creates: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
-
-- name: symlink node to ~/.local/bin
-  ansible.builtin.file:
-    src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/node"
-    dest: "$HOME/.local/bin/node"
-    state: link
-
-- name: symlink npm to ~/.local/bin
-  ansible.builtin.file:
-    src: "{{ nvm_dir }}/versions/node/v{{ node_version }}/bin/npm"
-    dest: "$HOME/.local/bin/npm"
-    state: link
-
-- name: Install npm packages
-  community.general.npm:
-    name: "{{ item }}"
-    global: yes
-    executable: "$HOME/.config/nvm/versions/node/v{{ node_version }}/bin/npm"
-    state: present
-  loop: "{{ npm_packages }}"
-  loop_control:
-    label: "{{ item }}"
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"

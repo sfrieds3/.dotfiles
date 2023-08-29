@@ -1,5 +1,0 @@
----
-flatpak_install_packages:
-  - com.spotify.Client
-  - org.videolan.VLC
-  - com.obsproject.Studio
