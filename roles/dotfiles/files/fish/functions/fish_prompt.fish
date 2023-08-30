@@ -32,7 +32,7 @@ end
 
 function __pyvenv_version -d "Get pyenv version"
     if test -e .python-version
-        set -l py_version (python3 --version | sed "s/^[^ ]* //")
+        set -l py_version (pyenv local)
         set_color red
         printf " (🐍 $py_version)"
         set_color normal
