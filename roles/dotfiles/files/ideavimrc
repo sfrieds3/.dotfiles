@@ -5,6 +5,7 @@ set hlsearch
 set visualbell
 set scrolloff=3
 set showmode
+set timeoutlen=1000
 
 " Same as default IDEA action, but only in insert mode. Enter block-visual
 " mode in normal mode.
@@ -24,6 +25,7 @@ set matchit
 set textobj-entire
 set ideamarks
 set ideajoin
+set which-key
 
 nnoremap <C-l> :nohlsearch<CR>
 nnoremap Y y$
