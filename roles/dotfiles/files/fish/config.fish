@@ -9,7 +9,7 @@ if status is-interactive
   pyenv init - | source
 
   # rbenv init
-  rbenv init - | source
+  # rbenv init - | source
 
   if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
     eval $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
@@ -28,6 +28,8 @@ if status is-interactive
   # load fzf_git
   source $__fish_config_dir/custom/git_fzf.fish
   git_fzf_configure_bindings
+
+  set --global --export JAVA_HOME (/usr/libexec/java_home -v17)
 
   # load local config from ~/.fish_local, if available
   set -l local_config "$HOME/.fish_local"
