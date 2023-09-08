@@ -29,7 +29,7 @@ function M.config()
       python = {
         function()
           if is_executable("black") == 1 then
-            return require("formatter.filetypes.python").black
+            return { require("formatter.filetypes.python").black }
           end
           return {
             require("formatter.filetypes.python").yapf,

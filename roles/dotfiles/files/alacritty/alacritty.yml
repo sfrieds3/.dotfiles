@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/kanagawa_dragon.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/monokai_pro.yaml
 
 window:
   # Window dimensions (changes require restart)
@@ -39,7 +39,7 @@ window:
   # must be non-zero for this to take effect. The number of columns must be at
   # least `2`, while using a value of `0` for columns and lines will fall back
   # to the window manager's recommended size
-  #dimensions:
+  # dimensions:
   #  columns: 0
   #  lines: 0
 

@@ -14,7 +14,7 @@ function M.init_lazy()
   end
   vim.opt.runtimepath:prepend(lazypath)
   require("lazy").setup("plugins", {
-    install = { colorscheme = { "kanagawa", "habamax" } },
+    install = { colorscheme = { "monokai-pro", "habamax" } },
     dev = {
       path = "~/dev/personal",
       patterns = { "sfrieds3" },
