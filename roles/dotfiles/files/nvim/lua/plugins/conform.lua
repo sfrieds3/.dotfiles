@@ -6,6 +6,7 @@ local M = {
 
 function M.config()
   require("conform").setup({
+    lsp_fallback = true,
     filetype = {
       c = { "clangformat" },
       cpp = { "clangformat" },
