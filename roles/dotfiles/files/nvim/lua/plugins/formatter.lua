@@ -1,44 +1,27 @@
 local is_executable = vim.fn.executable
 
 local M = {
-  "mhartington/formatter.nvim",
+  "stevearc/conform.nvim",
 }
 
 function M.config()
-  require("formatter").setup({
+  require("conform").setup({
     filetype = {
-      c = {
-        require("formatter.filetypes.c").clangformat,
-      },
-      cpp = {
-        require("formatter.filetypes.cpp").clangformat,
-      },
-      go = {
-        require("formatter.filetypes.go").gofmt,
-        require("formatter.filetypes.go").goimports,
-      },
-      javascript = {
-        require("formatter.filetypes.javascript").prettier,
-      },
-      json = {
-        require("formatter.filetypes.json").jq,
-      },
-      lua = {
-        require("formatter.filetypes.lua").stylua,
-      },
+      c = { "clangformat" },
+      cpp = { "clangformat" },
+      go = { "gofmt", "goimports" },
+      javascript = { "prettier" },
+      json = { "jq" },
       python = {
         function()
           if is_executable("black") == 1 then
-            return { require("formatter.filetypes.python").black }
+            return { "isort", "black" }
           end
           return {
-            require("formatter.filetypes.python").yapf,
-            require("formatter.filetypes.python").isort,
+            "yapf",
+            "isort",
           }
         end,
-      },
-      ["*"] = {
-        require("formatter.filetypes.any").remove_trailing_whitespace,
       },
     },
   })
