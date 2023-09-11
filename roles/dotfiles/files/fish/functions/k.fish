@@ -1,3 +1,3 @@
 function k --description 'alias k kubectl'
-  kubectl  $argv;
+    kubectl $argv
 end

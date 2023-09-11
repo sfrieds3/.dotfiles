@@ -1,6 +1,6 @@
 function __kubectl_status -d "Get k8s ctx/ns"
     [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
-    [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR "/"
+    [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR /
     set -l config $KUBECONFIG
     [ -z "$config" ]; and set -l config "$HOME/.kube/config"
     if [ ! -f $config ]
@@ -15,7 +15,7 @@ function __kubectl_status -d "Get k8s ctx/ns"
     end
 
     set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
-    [ -z $ns ]; and set -l ns 'default'
+    [ -z $ns ]; and set -l ns default
 
     echo (set_color cyan)" ("$KUBECTL_PROMPT_ICON" $ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
 end
@@ -49,7 +49,7 @@ function __conda_env -d "Get conda env"
 end
 
 function __is_node_dir -d "Are we in a node dir?"
-    set -l flist "package.json" ".node-version" ".nvmrc" "node_modules" "*.js" "*.mjs" "*.cjs" "*.ts" "*.mts" "*.cts"
+    set -l flist "package.json" ".node-version" ".nvmrc" node_modules "*.js" "*.mjs" "*.cjs" "*.ts" "*.mts" "*.cts"
 
     for file in $flist
         if test -e $file
@@ -73,7 +73,7 @@ end
 
 function __docker_context -d "Get docker context"
     set -l docker_icon 🐳
-    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" "Dockerfile" "compose.yaml" "compose.yml"
+    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml"
     for dockerfile in $dockerfiles
         if test -e $dockerfile
             set -l _docker_context (docker context show)

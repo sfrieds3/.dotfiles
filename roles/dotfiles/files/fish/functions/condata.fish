@@ -1,3 +1,3 @@
 function condata --description "Activate `data` conda environment"
-  conda activate data
+    conda activate data
 end

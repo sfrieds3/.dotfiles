@@ -5,9 +5,11 @@ local M = {
 
 function M.config()
   require("lint").linters_by_ft = {
-    django = { "djlint" },
     -- gitcommit = { "codespell"},
+    django = { "djlint" },
     javascript = { "eslint" },
+    json = { "jsonlint" },
+    lua = { "luacheck" },
     markdown = { "vale" },
     rst = { "vale" },
     sh = { "shellcheck" },

@@ -6,7 +6,7 @@ vim.bo.softtabstop = 2
 vim.bo.expandtab = true
 
 if is_executable("stylua") then
-  vim.api.nvim_create_autocmd("BufWritePost", {
+  vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function(args)
       require("conform").format({ formatters = { "stylua" }, bufnr = args.bufnr })
     end,

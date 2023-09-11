@@ -19,19 +19,26 @@ local function format_file()
   end
 end
 local function lint_file()
-  if is_executable("ruff") == 1 then
-    require("lint").try_lint("ruff")
-  end
-  if is_executable("mypy") == 1 then
-    require("lint").try_lint("mypy")
+  local linters = { "ruff", "mypy", "pydocstyle", "flake8", "pylint" }
+  for _, linter in ipairs(linters) do
+    if is_executable(linter) == 1 then
+      require("lint").try_lint(linter)
+    end
   end
 end
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
     format_file()
+  end,
+  buffer = bufnr,
+  group = vim.api.nvim_create_augroup("pyformat:" .. bufnr, {}),
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {
+  callback = function()
     lint_file()
   end,
   buffer = bufnr,
-  group = vim.api.nvim_create_augroup("pyformatlint:" .. bufnr, {}),
+  group = vim.api.nvim_create_augroup("pylint:" .. bufnr, {}),
 })

@@ -5,7 +5,6 @@ return {
   "tpope/vim-sleuth",
   "wellle/targets.vim",
   "stevearc/overseer.nvim",
-
   {
     "luukvbaal/statuscol.nvim",
     opts = { setopt = true },
