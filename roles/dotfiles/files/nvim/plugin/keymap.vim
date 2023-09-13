@@ -64,8 +64,8 @@ cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 nnoremap <F4> [I:let n = input('> ')<Bar>exe 'normal ' . n . '[\t'<CR>
 
 " ilist
-nnoremap \i :Ilist!<Space>
-nnoremap \I :Ilist! <C-r>=expand('<cword>')<CR><CR>
+nnoremap _i :Ilist!<Space>
+nnoremap _I :Ilist! <C-r>=expand('<cword>')<CR><CR>
 
 " ijump
 nnoremap gsj :ijump! <C-r>=expand('<cword>')<CR><CR>
