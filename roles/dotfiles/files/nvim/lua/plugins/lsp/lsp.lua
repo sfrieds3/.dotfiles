@@ -50,7 +50,7 @@ function M.setup()
     vim.keymap.set("n", "<space>F", function()
       vim.lsp.buf.format({ async = true })
     end, { buffer = bufnr, desc = "LSP: async [F]ormat" })
-    vim.keymap.set("x", "gq", vim.lsp.buf.format, { desc = "LSP: [f]ormat" })
+    -- vim.keymap.set("x", "gq", vim.lsp.buf.format, { desc = "LSP: [f]ormat" })
 
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)

@@ -9,7 +9,7 @@ function M.config()
     django = { "djlint" },
     javascript = { "eslint" },
     json = { "jsonlint" },
-    lua = { "luacheck" },
+    -- lua = { "luacheck" },
     markdown = { "vale" },
     rst = { "vale" },
     sh = { "shellcheck" },

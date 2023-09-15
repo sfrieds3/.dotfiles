@@ -7,7 +7,7 @@ local M = {
 function M.config()
   require("conform").setup({
     lsp_fallback = true,
-    filetype = {
+    formatters_by_ft = {
       c = { "clang_format" },
       cpp = { "clang_format" },
       fish = { "fish_indent" },
@@ -15,17 +15,7 @@ function M.config()
       java = { "clang_format" },
       javascript = { "prettier" },
       json = { "jq" },
-      python = {
-        function()
-          if is_executable("black") == 1 then
-            return { "isort", "black" }
-          end
-          return {
-            "yapf",
-            "isort",
-          }
-        end,
-      },
+      python = { "black", "ruff", "yapf" },
       rust = { "rustfmt" },
       scala = { "scalafmt" },
       typescript = { "prettier" },
@@ -40,6 +30,10 @@ function M.config()
     end,
     group = vim.api.nvim_create_augroup("conform:allformat", {}),
   })
+
+  vim.keymap.set({ "n", "o", "x", "v" }, "gq", function()
+    require("conform").format({ async = true, lsp_fallback = true })
+  end)
 end
 
 return M

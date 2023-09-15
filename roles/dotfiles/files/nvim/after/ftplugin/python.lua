@@ -18,6 +18,7 @@ local function format_file()
     require("conform").format({ formatters = { "black" }, bufnr = bufnr })
   end
 end
+
 local function lint_file()
   local linters = { "ruff", "mypy", "pydocstyle", "flake8", "pylint" }
   for _, linter in ipairs(linters) do
