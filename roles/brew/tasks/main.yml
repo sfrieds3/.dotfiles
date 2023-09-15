@@ -60,11 +60,15 @@
   community.general.homebrew:
     name:
       - alacritty
+      - alfred
+      - alt-tab
+      - bartender
       - drawio
       - hammerspoon
       - karabiner-elements
       - miniconda
       - pocket-casts
+      - rectangle
       - spotify
       - wireshark
 
