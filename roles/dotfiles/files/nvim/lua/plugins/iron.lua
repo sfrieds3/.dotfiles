@@ -13,9 +13,10 @@ function M.config()
           command = { "fish" },
         },
       },
-      repl_open_cmd = require("iron.view").right(function()
-        return vim.o.columns / 2
-      end),
+      -- repl_open_cmd = require("iron.view").right(function()
+      --   return math.floor(vim.o.columns * 0.4)
+      -- end),
+      repl_open_cmd = "vsplit",
     },
     keymaps = {
       send_motion = "\\sc",
@@ -39,6 +40,7 @@ function M.config()
   })
 
   vim.keymap.set("n", "\\i", "<Cmd>IronRepl<CR>")
+  vim.keymap.set("n", "\\I", "<Cmd>IronReplHere<CR>")
 end
 
 return M

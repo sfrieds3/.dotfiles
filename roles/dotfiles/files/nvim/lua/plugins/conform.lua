@@ -18,6 +18,7 @@ function M.config()
       python = { "black", "ruff", "yapf" },
       rust = { "rustfmt" },
       scala = { "scalafmt" },
+      sh = { "shellcheck" },
       typescript = { "prettier" },
       yaml = { "yamlfmt" },
       ["*"] = { "trim_whitespace", "trim_newlines" },
