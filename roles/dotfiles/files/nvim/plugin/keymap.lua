@@ -1,5 +1,6 @@
--- space as leader
+-- space as leader, \ as localleader
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- general nvim keymaps
 vim.keymap.set("n", "j", "gj")
