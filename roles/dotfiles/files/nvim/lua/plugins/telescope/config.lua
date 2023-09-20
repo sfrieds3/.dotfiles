@@ -8,14 +8,16 @@ function M.setup()
   local actions = require("telescope-live-grep-args.actions")
   local trouble = require("trouble.providers.telescope")
 
+  local fzf_opts = {
+    fuzzy = true,
+    override_generic_sorter = true,
+    override_file_sorter = true,
+    case_mode = "smart_case",
+  }
+
   telescope.setup({
     extensions = {
-      fzf = {
-        fuzzy = true,
-        override_generic_sorter = true,
-        override_file_sorter = true,
-        case_mode = "smart_case",
-      },
+      fzf = fzf_opts,
       ["ui-select"] = {
         themes.get_dropdown({}),
       },
@@ -65,6 +67,9 @@ function M.setup()
       },
       live_grep = {
         theme = "dropdown",
+      },
+      lsp_dynamic_workspace_symbols = {
+        sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
       },
     },
   })
