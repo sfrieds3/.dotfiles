@@ -107,13 +107,9 @@ function fish_prompt --description "Config prompt"
     printf "∷ "
     printf (date +"%Y-%m-%d ")
     printf (date +"%H:%M:%S ")
-    printf "∷ "
+    printf "∷"
     set_color normal
 
-    # PWD
-    set_color $fish_color_cwd
-    printf (prompt_pwd)
-    set_color normal
 
     # other status
     printf (__kubectl_status)
@@ -125,12 +121,17 @@ function fish_prompt --description "Config prompt"
 
     printf "\n"
 
+    # PWD
+    set_color $fish_color_cwd
+    printf (prompt_pwd)
+    set_color normal
+
     if not test $last_status -eq 0
         set_color $fish_color_error
-        printf "[$last_status] "
-        printf " "
+        printf " [$last_status]"
+        printf "  "
     else
-        printf "〉"
+        printf " 〉"
     end
 
     set_color normal
