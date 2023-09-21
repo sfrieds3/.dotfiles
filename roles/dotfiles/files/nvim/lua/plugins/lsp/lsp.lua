@@ -2,7 +2,8 @@ local M = {}
 
 function M.setup()
   vim.diagnostic.config({
-    virtual_text = { source = false },
+    -- virtual_text = { source = false },
+    virtual_text = false,
     float = { source = true },
   })
 

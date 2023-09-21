@@ -14,6 +14,13 @@ return {
         },
         opts = { lsp = { auto_attach = true } },
       },
+      {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+          require("lsp_lines").setup()
+          vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+        end,
+      },
     },
     config = function()
       local ensure_installed = { "jsonls", "lua_ls", "pyright", "tsserver" }
