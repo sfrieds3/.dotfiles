@@ -36,16 +36,21 @@ vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   command = [[lwindow]],
 })
 
+local exclude_filetypes = { ["neo-tree"] = true }
 vim.api.nvim_create_augroup("WindowCursorLine", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
   group = "WindowCursorLine",
-  pattern = "*",
-  command = [[set cursorline]],
+  callback = function()
+    vim.wo.cursorline = true
+  end,
 })
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
   group = "WindowCursorLine",
-  pattern = "*",
-  command = [[set nocursorline]],
+  callback = function()
+    if not exclude_filetypes[vim.bo.filetype] then
+        vim.wo.cursorline = false
+    end
+  end,
 })
 
 -- enable TSContext when there is no LSP client
