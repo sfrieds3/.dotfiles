@@ -22,6 +22,12 @@ function M.config()
         mappings = {
           ["<space>"] = "none",
         },
+        fuzzy_finder_mappings = {
+          ["<down>"] = "move_cursor_down",
+          ["<C-n"] = "move_cursor_down",
+          ["<up>"] = "move_cursor_up",
+          ["<C-u"] = "move_cursor_up",
+        },
       },
     },
   })

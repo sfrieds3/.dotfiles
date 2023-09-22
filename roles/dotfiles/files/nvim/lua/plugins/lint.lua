@@ -1,15 +1,14 @@
-local is_executable = vim.fn.executable
 local M = {
   "mfussenegger/nvim-lint",
 }
 
 function M.config()
   require("lint").linters_by_ft = {
-    -- gitcommit = { "codespell"},
+    -- gitcommit = { "codespell" },
     django = { "djlint" },
     javascript = { "eslint" },
     json = { "jsonlint" },
-    -- lua = { "luacheck" },
+    lua = { "luacheck" },
     markdown = { "vale" },
     rst = { "vale" },
     sh = { "shellcheck" },

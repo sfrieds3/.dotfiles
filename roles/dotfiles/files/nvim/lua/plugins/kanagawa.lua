@@ -1,4 +1,4 @@
-local M = { "rebelot/kanagawa.nvim", lazy = true }
+local M = { "rebelot/kanagawa.nvim" }
 
 function M.config()
   vim.opt.fillchars:append({

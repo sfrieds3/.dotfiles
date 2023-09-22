@@ -20,6 +20,10 @@ function M.config()
           ["ctrl-v"] = "vsplit",
           ["ctrl-q"] = "signtoggle",
         },
+        extra_opts = {
+          description = "Extra options for fzf",
+          default = { "--bind", "ctrl-o:toggle-all" },
+        },
       },
     },
   })
