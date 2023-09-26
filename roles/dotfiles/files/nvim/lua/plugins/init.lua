@@ -41,6 +41,7 @@ return {
   },
   { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
   { "folke/lua-dev.nvim", ft = { "lua" } },

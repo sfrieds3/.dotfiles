@@ -10,13 +10,14 @@ vim.bo.softtabstop = 4
 vim.bo.makeprg = "autopep8"
 vim.bo.suffixesadd = ".py"
 
+-- TODO: read project root dir in order to determine which of these to run
 local function format_file()
-  if is_executable("isort") == 1 then
-    require("conform").format({ formatters = { "isort" }, bufnr = bufnr })
-  end
-  if is_executable("black") == 1 then
-    require("conform").format({ formatters = { "black" }, bufnr = bufnr })
-  end
+  -- if is_executable("isort") == 1 then
+  --   require("conform").format({ formatters = { "isort" }, bufnr = bufnr })
+  -- end
+  -- if is_executable("black") == 1 then
+  --   require("conform").format({ formatters = { "black" }, bufnr = bufnr })
+  -- end
 end
 
 local function lint_file()

@@ -3,7 +3,9 @@ local M = {
   event = "VeryLazy",
   opts = {
     search = {
+      mode = "search",
       multi_window = false,
+      incremental = true,
     },
   },
   keys = {
