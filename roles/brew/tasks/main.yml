@@ -7,27 +7,33 @@
       - bat
       - chicken
       - cmake
-      - conda-zsh-completion
       - ctags
+      - curl
       - fd
       - fish
       - fzf
       - gcc
+      - gettext
       - git
       - git-gui
       - git-lfs
       - go
       - gopls
       - guile
+      - httpie
       - jq
       - jsonlint
+      - kubernetes-cli
       - llvm
       - lua
       - lua-language-server
       - luarocks
+      - minikube
       - mysql
       - neovim
+      - ninja
       - node
+      - openjdk
       - perl
       - pipx
       - postgresql
@@ -49,11 +55,8 @@
       - virtualenv
       - wireshark
       - wget
-      - yamllint
       - yq
       - zig
-      - zsh
-      - zsh-completions
     state: present
 
 - name: Install homebrew casks
@@ -63,6 +66,7 @@
       - alfred
       - alt-tab
       - bartender
+      - docker
       - drawio
       - hammerspoon
       - karabiner-elements
