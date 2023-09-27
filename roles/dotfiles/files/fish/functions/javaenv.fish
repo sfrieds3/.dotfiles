@@ -6,7 +6,9 @@ function javaenv
             case ls
                 /usr/libexec/java_home -V
             case set
-                set -xU JAVA_HOME (/usr/libexec/java_home -v $argv[2])
+                set _java_home (/usr/libexec/java_home -v $argv[2])
+                set --global --export JAVA_HOME $_java_home
+                echo "JAVA_HOME=$_java_home"
         end
     end
 end
