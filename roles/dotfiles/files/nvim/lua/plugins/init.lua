@@ -64,4 +64,5 @@ return {
   { "nordtheme/vim", name = "nord" },
   { "loctvl842/monokai-pro.nvim" },
   { "Domeee/mosel.nvim" },
+  { "polirritmico/monokai-nightasty.nvim" },
 }
