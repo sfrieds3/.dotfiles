@@ -20,6 +20,7 @@
       - go
       - gopls
       - guile
+      - htop
       - httpie
       - jq
       - jsonlint
