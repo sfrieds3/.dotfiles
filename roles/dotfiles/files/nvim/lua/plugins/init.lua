@@ -18,25 +18,29 @@ return {
     "danymat/neogen",
     keys = {
       {
-        "<leader>cc",
+        "<Leader>cc",
         function()
           require("neogen").generate({})
         end,
         desc = "Neogen Comment",
       },
     },
-    opts = { snippet_engine = "luasnip" },
-    {
-      "utilyre/barbecue.nvim",
-      name = "barbecue",
-      version = "*",
-      dependencies = {
-        "SmiteshP/nvim-navic",
-        "nvim-tree/nvim-web-devicons",
-      },
-      opts = {
-        -- configurations go here
-      },
+    config = function()
+      require("neogen").setup({
+        snippet_engine = "luasnip",
+      })
+    end,
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      -- configurations go here
     },
   },
   { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },

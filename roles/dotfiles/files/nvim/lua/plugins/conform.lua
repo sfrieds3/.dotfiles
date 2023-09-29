@@ -15,6 +15,8 @@ function M.config()
       java = { "clang_format" },
       javascript = { "prettier" },
       -- json = { "jq" },
+      lua = { "stylua" },
+      markdown = { "mdformat" },
       python = { "ruff_format", "black", "yapf" },
       rust = { "rustfmt" },
       scala = { "scalafmt" },
