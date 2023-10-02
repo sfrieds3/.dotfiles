@@ -86,7 +86,19 @@ function M.config()
       lualine_y = {},
       lualine_z = {},
     },
-    extensions = { "aerial", "neo-tree", "symbols-outline", "fugitive", "toggleterm", "quickfix", "lazy", "trouble" },
+    extensions = {
+      "aerial",
+      "fugitive",
+      "fzf",
+      "lazy",
+      "neo-tree",
+      "nvim-dap-ui",
+      "overseer",
+      "quickfix",
+      "symbols-outline",
+      "toggleterm",
+      "trouble",
+    },
   })
 end
 

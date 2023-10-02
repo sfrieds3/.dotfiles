@@ -5,11 +5,9 @@ local M = {
 
 function M.config()
   require("ibl").setup({
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = false,
-    smart_indent_cap = true,
-    scope = { highlight = { "Whitespace" } },
+    enabled = true,
+    indent = { smart_indent_cap = true },
+    scope = { show_start = true, show_end = true, highlight = { "Whitespace" } },
   })
 end
 

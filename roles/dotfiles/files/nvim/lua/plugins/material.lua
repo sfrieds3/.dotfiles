@@ -1,6 +1,5 @@
 local M = {
   "marko-cerovac/material.nvim",
-  lazy = true,
 }
 
 function M.config()
@@ -10,7 +9,7 @@ function M.config()
       terminal = false, -- Enable contrast for the built-in terminal
       sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
       floating_windows = false, -- Enable contrast for floating windows
-      cursor_line = true, -- Enable darker background for the cursor line
+      cursor_line = false, -- Enable darker background for the cursor line
       non_current_windows = true, -- Enable darker background for non-current windows
       filetypes = { "terminal", "packer" }, -- Specify which filetypes get the contrasted (darker) background
     },
@@ -35,9 +34,10 @@ function M.config()
       -- "lspsaga",
       -- "mini",
       "neogit",
+      "neorg",
       "nvim-cmp",
       "nvim-navic",
-      "nvim-tree",
+      -- "nvim-tree",
       -- "sneak",
       "telescope",
       "trouble",

@@ -1,6 +1,5 @@
 local M = {
   "sainnhe/gruvbox-material",
-  lazy = false,
 }
 
 function M.config()

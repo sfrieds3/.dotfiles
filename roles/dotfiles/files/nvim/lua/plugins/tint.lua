@@ -11,9 +11,9 @@ function M.config()
         ["neo-tree"] = true,
       }
       local bufid = vim.api.nvim_win_get_buf(winid)
-      local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
+      local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufid })
       local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
-      local filetype = vim.api.nvim_buf_get_option(bufid, "filetype")
+      local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufid })
 
       -- Do not tint `terminal` or floating windows, tint everything else
       return buftype == "terminal" or floating or exclude_filetypes[filetype]
