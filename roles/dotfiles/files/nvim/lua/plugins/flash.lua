@@ -4,6 +4,7 @@ local M = {
   opts = {
     search = {
       multi_window = false,
+      trigger = ";",
     },
   },
   keys = {
