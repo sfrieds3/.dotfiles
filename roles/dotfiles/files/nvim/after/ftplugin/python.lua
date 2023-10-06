@@ -21,7 +21,7 @@ local function format_file()
 end
 
 local function lint_file()
-  local linters = { "ruff", "mypy", "pydocstyle", "flake8", "pylint" }
+  local linters = { "ruff", "mypy", "flake8", "pylint" }
   for _, linter in ipairs(linters) do
     if is_executable(linter) == 1 then
       require("lint").try_lint(linter)
