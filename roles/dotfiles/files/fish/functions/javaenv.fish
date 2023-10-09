@@ -1,4 +1,4 @@
-function javaenv
+function javaenv --wraps /usr/libexec/java_home
     if test (count $argv) -eq 0
         /usr/libexec/java_home -V
     else
