@@ -1,0 +1,99 @@
+return {
+  "rcarriga/nvim-notify",
+  "romainl/vim-qlist",
+  { "RRethy/nvim-align", cmd = { "Align" } },
+  { "romainl/vim-qf", ft = { "qf" } },
+  { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
+  {
+    "luukvbaal/statuscol.nvim",
+    opts = { setopt = true },
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      -- configurations go here
+    },
+  },
+  {
+    "VidocqH/lsp-lens.nvim",
+    config = function()
+      require("lsp-lens").setup({})
+    end,
+  },
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    config = function()
+      require("fidget").setup({
+        text = {
+          spinner = "bouncing_ball",
+        },
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    config = function()
+      require("ibl").setup({
+        enabled = true,
+        indent = { smart_indent_cap = true },
+        scope = { show_start = true, show_end = true, highlight = { "Whitespace" } },
+      })
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      vim.g.matchup_matchparen_deferred_show_delay = 500
+      vim.g.matchup_matchparen_deferred_hide_delay = 500
+      vim.g.matchup_matchparen_timeout = 100
+      vim.g.matchup_matchparen_deferred = 1
+    end,
+  },
+  {
+    "SmiteshP/nvim-navic",
+    event = "VeryLazy",
+    config = function()
+      vim.g.navic_silence = true
+      require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
+    end,
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require("symbols-outline").setup({
+        autofold_depth = 2,
+        hover_highlighted_item = true,
+        show_symbol_details = true,
+        winblend = 10,
+        keymaps = {
+          hover_symbol = "<Leader>e",
+        },
+      })
+      vim.keymap.set("n", "<Leader><CR>", "<Cmd>SymbolsOutline<CR>")
+    end,
+  },
+
+  {
+    "s1n7ax/nvim-window-picker",
+    version = "v2.*",
+    config = function()
+      require("window-picker").setup({
+        hint = "floating-big-letter",
+      })
+
+      vim.keymap.set("n", "<Leader>w", function()
+        local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
+        vim.api.nvim_set_current_win(winid)
+      end, { desc = "Pick a window" })
+    end,
+  },
+}
