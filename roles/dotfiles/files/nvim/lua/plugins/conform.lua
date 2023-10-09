@@ -17,7 +17,7 @@ function M.config()
       -- json = { "jq" },
       lua = { "stylua" },
       markdown = { "mdformat" },
-      python = { "ruff_format", "black", "yapf" },
+      python = { "ruff_format", "black" },
       rust = { "rustfmt" },
       scala = { "scalafmt" },
       sh = { "shellcheck" },
