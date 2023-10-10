@@ -10,7 +10,7 @@ function M.setup()
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
 
-  dap_python.setup("~/.venv/venv/bin/python")
+  dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
 
   -- django configuration
   table.insert(dap.configurations.python, {

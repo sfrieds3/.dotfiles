@@ -38,7 +38,7 @@ function M.setup()
   vim.keymap.set({ "n", "v" }, "\\dh", widgets.hover, { desc = "[d]ap [h]over" })
   vim.keymap.set({ "n", "v" }, "\\dp", widgets.preview, { desc = "[d]ap [p]review" })
 
-  dap.listeners.after.event_initialized["me.dap"] = function()
+  dap.listeners.after.event_initialized["plugins.debug"] = function()
     vim.keymap.set("n", "<down>", dap.step_over, { desc = "dap: step over" })
     vim.keymap.set("n", "<left>", dap.step_out, { desc = "dap: step out" })
     vim.keymap.set("n", "<right>", dap.step_into, { desc = "dap: step into" })
@@ -50,8 +50,8 @@ function M.setup()
     pcall(vim.keymap.del, "n", "<right>")
     vim.o.signcolumn = "auto"
   end
-  dap.listeners.after.event_terminated["me.dap"] = after_session
-  dap.listeners.after.disconnected["me.dap"] = after_session
+  dap.listeners.after.event_terminated["plugins.debug"] = after_session
+  dap.listeners.after.disconnected["plugins.debug"] = after_session
 
   local sidebar = widgets.sidebar(widgets.scopes)
   vim.api.nvim_create_user_command("DapSidebar", sidebar.toggle, { nargs = 0 })
