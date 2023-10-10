@@ -18,7 +18,6 @@
 - name: Install pipx packages
   community.general.pipx:
     name:
-      - ansible-lint
       - ipython
 
 - name: Create default venv

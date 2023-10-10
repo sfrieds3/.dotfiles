@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
   group = "WindowCursorLine",
   callback = function()
     if not exclude_filetypes[vim.bo.filetype] then
-        vim.wo.cursorline = false
+      vim.wo.cursorline = false
     end
   end,
 })
@@ -83,6 +83,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "startuptime",
     "tsplayground",
     "PlenaryTestPopup",
+    "Outline",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
