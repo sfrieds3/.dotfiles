@@ -64,7 +64,7 @@ return {
       require("ibl").setup({
         enabled = true,
         indent = { smart_indent_cap = true },
-        scope = { show_start = true, show_end = true, highlight = { "Whitespace" } },
+        scope = { show_start = false, show_end = false, highlight = { "Whitespace" } },
       })
     end,
   },
