@@ -9,4 +9,4 @@ repos:
     rev: v0.16.1
     hooks:
       - id: stylua
-exclude: "lazy-lock.json"
+exclude: "lazy-lock.json|karabiner.json"
