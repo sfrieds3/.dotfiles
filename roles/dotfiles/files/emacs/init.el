@@ -217,8 +217,6 @@
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
-    "Ag" #'affe-grep
-    "Af" #'affe-find
     "D" #'magit-diff-dwim
     "F" #'format-all-buffer
     "G" #'magit
@@ -360,11 +358,12 @@
   (undo-limit 6710886400)
   (undo-strong-limit 100663296)
   (undo-outer-limit 1006632960))
+
 (use-package undo-fu-session
   :custom
   (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
   :init
-  (global-undo-fu-session-mode))
+  (undo-fu-session-global-mode))
 (use-package vundo
   :commands vundo)
 
@@ -716,6 +715,7 @@
   (define-key minibuffer-local-map (kbd "C-l") #'$match-components-literally))
 
 (use-package corfu
+  :straight (:files (:defaults "extensions/*"))
   :custom
   (corfu-cycle t)
   (corfu-auto t)
@@ -732,12 +732,8 @@
               ([(shift return)] . #'corfu-insert)
               ("RET". nil))
   :init
-  (global-corfu-mode))
-
-(use-package corfu-doc
-  :after corfu
-  :hook
-  (corfu-mode-hook . corfu-doc-mode))
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
 
 (use-package cape
   ;; Bind dedicated completion commands
@@ -888,17 +884,6 @@
          ("C-x C-d" . #'consult-dir)
          ("C-x C-j" . #'consult-dir-jump-file)))
 
-(use-package affe
-  :defer t
-  :config
-  ;; Manual preview key for `affe-grep'
-  (consult-customize affe-grep :preview-key (kbd "M-."))
-  (defun affe-orderless-regexp-compiler (input _type _ignorecase)
-    (setq input (orderless-pattern-compiler input))
-    (cons input (lambda (str) (orderless--highlight input str))))
-  :custom
-  (affe-regexp-compiler #'affe-orderless-regexp-compiler))
-
 (use-package deadgrep
   :bind ("<f6>" . #'deadgrep))
 
@@ -937,8 +922,8 @@
   :straight nil
   :after embark)
 
-;; Consult users will also want the embark-consult package.
 (use-package embark-consult
+  :after (embark)
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
