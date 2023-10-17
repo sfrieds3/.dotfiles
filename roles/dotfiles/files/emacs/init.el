@@ -157,7 +157,7 @@
 (use-package all-the-icons)
 (use-package doom-themes
   :custom
-  (doom-themes-treemacs-theme "doom-atom")
+  (doom-themes-treemacs-theme "doom-monokai-pro")
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   (doom-modeline-indent-info t)
@@ -245,7 +245,8 @@
   ($search-leader
    :keymaps 'normal
    "f" #'projectile-find-file
-   "r" #'consult-recent-file)
+   "r" #'consult-recent-file
+   "t" #'consult-eglot-symbols)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
@@ -374,6 +375,7 @@
 
 ;;; eglot
 (use-package eglot
+  :disabled t
   :straight (:type built-in)
   :commands
   eglot
@@ -395,12 +397,13 @@
   :hook
   (python-mode-hook . eglot-ensure))
 
-(use-package consult-eglot
-  :after eglot)
-
+(use-package consult-lsp
+  :after (consult lsp-mode))
 
 ;;; lsp-mode
 (use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none)
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook (
@@ -412,6 +415,11 @@
   :commands lsp-ui-mode)
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
+
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred))))  ; or lsp-deferred
 
 ;; optionally if you want to use debugger
 (use-package dap-mode)
@@ -753,11 +761,15 @@
     (let ((completion-extra-properties corfu--extra)
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
+  (defun corfu-lsp-setup ()
+    (setq-local completion-styles '(orderless)
+                completion-category-defaults nil))
   :bind (:map corfu-map
               ([(meta m)] . #'corfu-move-to-minibuffer)
               ([(meta space)] . #'corfu-insert-separator)
               ([(shift return)] . #'corfu-insert)
               ("RET". nil))
+  :hook (lsp-mode-hook . corfu-lsp-setup)
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode))
@@ -798,7 +810,6 @@
   )
 
 (use-package consult
-  ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . #'consult-history)
          ("C-c m" . #'consult-mode-command)
@@ -814,7 +825,7 @@
          ;; Custom M-# bindings for fast register access
          ("M-#" . #'consult-register-load)
          ("M-'" . #'consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-         ("C-M-#" . #'consult-register)
+         ("C-M-#" . #'M-register)
          ;; Other custom bindings
          ("M-y" . #'consult-yank-pop)                ;; orig. yank-pop
          ("<help> a" . #'consult-apropos)            ;; orig. apropos-command
