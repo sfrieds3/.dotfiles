@@ -398,6 +398,24 @@
 (use-package consult-eglot
   :after eglot)
 
+
+;;; lsp-mode
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         (python-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+
 ;;; treesitter
 (use-package tree-sitter
   :init
@@ -900,8 +918,7 @@
   :after (embark-defun)
   :bind (("C-," . #'embark-act)
          ("M-," . #'$embark-act-noquit)
-         ("C-M-," . #'embark-dwim)
-         :map embark-general-map
+         ("C-M-," . #'embark-dwim) :map embark-general-map
          ([(control y)] . #'symbol-overlay-put)
          ([(control g)] . #'projectile-ripgrep)
          ([(control G)] . #'rg))
