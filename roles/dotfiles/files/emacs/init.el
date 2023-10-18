@@ -154,10 +154,11 @@
 (use-package zerodark
   :straight (:host github :repo "NicolasPetton/zerodark-theme")
   :no-require t)
+;; run all-the-icons-install-fonts
 (use-package all-the-icons)
 (use-package doom-themes
   :custom
-  (doom-themes-treemacs-theme "doom-monokai-pro")
+  (doom-themes-treemacs-theme "doom-atom")
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   (doom-modeline-indent-info t)
@@ -297,6 +298,7 @@
                ("k" . #'evil-previous-visual-line)
                ("gj" . #'evil-next-line)
                ("gk" . #'evil-previous-line)
+               ("gq" . #'lsp-format-region)
                ([(control shift v)] . #'evil-paste-after)
                ([(meta h)] . #'evil-window-left)
                ([(meta j)] . #'evil-window-down)
@@ -375,7 +377,6 @@
 
 ;;; eglot
 (use-package eglot
-  :disabled t
   :straight (:type built-in)
   :commands
   eglot
@@ -397,11 +398,12 @@
   :hook
   (python-mode-hook . eglot-ensure))
 
-(use-package consult-lsp
-  :after (consult lsp-mode))
+(use-package consult-eglot
+  :after (consult eglot))
 
 ;;; lsp-mode
 (use-package lsp-mode
+  :disabled t
   :custom
   (lsp-completion-provider :none)
   :init
@@ -410,19 +412,6 @@
          (python-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
-
-(use-package lsp-ui
-  :commands lsp-ui-mode)
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
-
-(use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred))))  ; or lsp-deferred
-
-;; optionally if you want to use debugger
-(use-package dap-mode)
 
 ;;; treesitter
 (use-package tree-sitter
@@ -812,8 +801,11 @@
 (use-package consult
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . #'consult-history)
-         ("C-c m" . #'consult-mode-command)
+         ("C-c RET" . #'consult-mode-command)
          ("C-c k" . #'consult-kmacro)
+         ("C-c m" . #'consult-man)
+         ("C-c i" . #'consult-info)
+         ([remap Info-search] . consult-info)
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . #'consult-complex-command)     ;; orig. repeat-complex-command
          ("C-x b" . #'consult-buffer)                ;; orig. switch-to-buffer
@@ -828,7 +820,6 @@
          ("C-M-#" . #'M-register)
          ;; Other custom bindings
          ("M-y" . #'consult-yank-pop)                ;; orig. yank-pop
-         ("<help> a" . #'consult-apropos)            ;; orig. apropos-command
          ;; M-g bindings (goto-map)
          ("M-g e" . #'consult-compile-error)
          ("M-g f" . #'consult-flycheck)               ;; Alternative: consult-flycheck
@@ -847,7 +838,6 @@
          ("M-s r" . #'consult-ripgrep)
          ("M-s l" . #'consult-line)
          ("M-s L" . #'consult-line-multi)
-         ("M-s m" . #'consult-multi-occur)
          ("M-s k" . #'consult-keep-lines)
          ("M-s u" . #'consult-focus-lines)
          ;; Isearch integration
@@ -871,9 +861,6 @@
              consult-register-format)
 
   :init
-  ;; Replace `multi-occur' with `consult-multi-occur', which is a drop-in replacement.
-  (fset 'multi-occur #'consult-multi-occur)
-
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
@@ -1182,7 +1169,7 @@ no matter what."
 (use-package python-mode
   :commands (python-mode)
   :custom
-  (python-shell-interpreter "python3"))
+  (python-shell-interpreter "ipython")))
 
 (use-package pyvenv
   :init

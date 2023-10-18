@@ -16,34 +16,37 @@
 
 (push 'embark--allow-edit (alist-get 'write-file embark-target-injection-hooks))
 
-(embark-define-keymap this-buffer-map
-  "Commands to act on current file or buffer."
-  ("RET" eval-buffer)
-  ("l" load-file)
-  ("b" byte-compile-file)
-  ("e" eval-buffer)
-  ("r" rename-file)
-  ("d" delete-file)
-  ("W" write-file)
-  ("vr" vc-rename-file)
-  ("vd" vc-delete-file)
-  ("n" diff-buffer-with-file)           ; n for new
-  ("C-=" ediff-buffers)
-  ("=" ediff-files)
-  ("$" ispell)
-  ("!" shell-command)
-  ("&" async-shell-command)
-  ("x" consult-file-externally)         ; useful for PDFs
-  ("c" copy-file)
-  ("k" kill-buffer)
-  ("z" bury-buffer)
-  ("|" embark-shell-command-on-buffer)
-  ("g" revert-buffer)
-  ("p" pwd)
-  ("SPC" mark-whole-buffer)
-  ("<" previous-buffer)
-  (">" next-buffer)
-  ("t" transpose-windows))
+(declare-function 'transpose-windows "ext:window-extras")
+
+(defvar-keymap this-buffer-map
+  :doc "Commands to act on current file or buffer."
+  :parent embark-general-map
+  "RET" #'eval-buffer
+  "l" #'load-file
+  "b" #'byte-compile-file
+  "e" #'eval-buffer
+  "r" #'rename-file
+  "d" #'delete-file
+  "W" #'write-file
+  "v r" #'vc-rename-file
+  "v d" #'vc-delete-file
+  "n" #'diff-buffer-with-file           ; n for new
+  "C-=" #'ediff-buffers
+  "=" #'ediff-files
+  "$" #'ispell
+  "!" #'shell-command
+  "&" #'async-shell-command
+  "x" #'embark-open-externally         ; useful for PDFs
+  "c" #'copy-file
+  "k" #'kill-buffer
+  "z" #'bury-buffer
+  "|" #'embark-shell-command-on-buffer
+  "g" #'revert-buffer
+  "p" #'pwd
+  "h" #'mark-whole-buffer
+  "<" #'previous-buffer
+  ">" #'next-buffer
+  "t" #'transpose-windows)
 
 (add-to-list 'embark-repeat-actions #'previous-buffer)
 (add-to-list 'embark-repeat-actions #'next-buffer)
