@@ -52,7 +52,6 @@ function M.config()
     if num_subs == 0 then
       cmd = cmd .. " " .. params.args
     end
-    P(cmd)
     local task = overseer.new_task({
       cmd = vim.fn.expandcmd(cmd),
       components = {
