@@ -224,7 +224,6 @@
     "ct" #'$cycle-theme
     "e" #'eval-buffer
     "gg" #'global-git-gutter-mode
-    "r" #'eglot-rename
     "x" #'eval-last-sexp)
   (general-create-definer $leader :prefix "SPC")
   ($leader
@@ -238,8 +237,15 @@
     "G" #'rg
     "l" #'consult-line
     "P" #'consult-projectile
-    "r" #'consult-recent-file
-    "t" #'consult-eglot-symbols)
+    "R" #'eglot-rename
+    "rg" #'consult-ripgrep
+    "t" #'consult-lsp-symbols
+    "/"  #'consult-line)
+  (general-create-definer $search-leader :prefix "SPC s")
+  ($search-leader
+   :keymaps 'normal
+   "f" #'projectile-find-file
+   "r" #'consult-recent-file)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
@@ -315,7 +321,6 @@
   (evil-commentary-mode))
 
 (use-package evil-lion
-  :ensure t
   :config
   (evil-lion-mode))
 
@@ -373,6 +378,7 @@
   :commands
   eglot
   :config
+  (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
   (defun $eglot-current-server ()
     (interactive)
     (print (process-command (jsonrpc--process (eglot-current-server)))))
@@ -385,7 +391,9 @@
   :custom
   (read-process-output-max (* 1024 1024))
   (eglot-events-buffer-size 0)
-  (completion-category-overrides '((eglot (styles orderless)))))
+  (completion-category-overrides '((eglot (styles orderless))))
+  :hook
+  (python-mode-hook . eglot-ensure))
 
 (use-package consult-eglot
   :after eglot)
@@ -720,7 +728,8 @@
   (corfu-cycle t)
   (corfu-auto t)
   (corfu-quit-at-boundary 'separator)
-  :config
+  :init
+  (global-corfu-mode)
   (defun corfu-move-to-minibuffer ()
     (interactive)
     (let ((completion-extra-properties corfu--extra)
@@ -852,16 +861,14 @@
 
   :config
   (consult-customize
-   consult-theme
-   :preview-key '(:debounce 0.2 any))
-  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-recent-file
-   consult--source-project-recent-file consult-line
-   :preview-key (kbd "M-."))
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   :preview-key "M-.")
 
-  (setq consult-narrow-key (kbd "C-+"))
+  (setq consult-narrow-key "C-+")
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
   ;; use projectile
@@ -878,7 +885,6 @@
   :bind (:map flycheck-command-map
               ("!" . #'consult-flycheck)))
 (use-package consult-dir
-  :ensure t
   :bind (("C-x C-d" . #'consult-dir)
          :map minibuffer-local-completion-map
          ("C-x C-d" . #'consult-dir)
@@ -920,16 +926,12 @@
 
 (use-package embark-this-buffer
   :straight nil
-  :after embark)
+  :after (embark-consult))
 
 (use-package embark-consult
-  :after (embark)
+  :after (embark consult)
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
-
-;;; ctags
-(use-package ctags
-  :bind (("s-." . #'ctags-find)))
 
 (use-package vterm
   :demand t
@@ -939,6 +941,7 @@
     (evil-insert-state))
   (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :custom
+  (vterm-shell "fish")
   (vterm-max-scrollback 100000)
   (vterm-buffer-name-string "*vterm* %s")
   :hook
@@ -1021,7 +1024,7 @@ no matter what."
   :config
   (defun $python-compile-hook ()
     (set (make-local-variable 'compile-command)
-         (format "pep8 --ignore=E501,E261,E262,E265,E266 --format=pylint %s" (buffer-name))))
+         (format "pytest %s" (buffer-name))))
 
   (defun $perl-compile-hook ()
     (set (make-local-variable 'compile-command)
@@ -1171,6 +1174,9 @@ no matter what."
   :hook
   (rust-mode-hook . prettify-symbols-mode)
   (rust-mode-hook . $rust-mode-hook))
+
+;; fish
+(use-package fish-mode)
 
 ;; zig
 (use-package zig-mode)
