@@ -32,7 +32,7 @@ if status is-interactive
     set --global --export JAVA_HOME (/usr/libexec/java_home -v17)
 
     # load local config from ~/.fish_local, if available
-    set -l local_config "$HOME/.fish_local"
+    set -l local_config "$HOME/.fish_local.fish"
     if test -e $local_config
         source $local_config
     end
