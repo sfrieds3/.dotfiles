@@ -378,6 +378,8 @@
 (use-package vundo
   :commands vundo)
 
+(use-package breadcrumb)
+
 ;;; eglot
 (use-package eglot
   :straight (:type built-in)

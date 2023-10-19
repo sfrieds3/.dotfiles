@@ -1,4 +1,4 @@
-function nvm
+function nvm --wraps nvm
     if not type -q bass
         echo 'Bass is not installed please install it running fisher edc/bass'
         return

@@ -34,7 +34,6 @@ function M.setup()
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
       mappings = {
-        i = { ["<C-l>"] = trouble.open_with_trouble },
         n = { ["<C-l>"] = trouble.open_with_trouble },
       },
       buffer_preview_maker = custom.new_maker,
