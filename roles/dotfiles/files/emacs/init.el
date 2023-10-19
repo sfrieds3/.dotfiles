@@ -1174,6 +1174,15 @@ no matter what."
   :custom
   (python-shell-interpreter "ipython"))
 
+(use-package flymake-ruff
+  :hook
+  (python-mode-hook . flymake-ruff-load))
+
+(use-package python-black
+  :demand t
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+
 (use-package pyvenv
   :init
   (setenv "WORKON_HOME" "~/.venv")
