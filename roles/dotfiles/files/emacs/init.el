@@ -10,6 +10,7 @@
 (require 'map)
 (require 'subr-x)
 
+(setq debug-on-error t)
 ;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
 (defvar straight-check-for-modifications '(check-on-save find-when-checking))
 
@@ -1171,7 +1172,7 @@ no matter what."
 (use-package python-mode
   :commands (python-mode)
   :custom
-  (python-shell-interpreter "ipython")))
+  (python-shell-interpreter "ipython"))
 
 (use-package pyvenv
   :init
@@ -1489,6 +1490,9 @@ questions.  Else use completion to select the tab to switch to."
   :bind (("C-h f" . #'helpful-callable)
          ("C-h v" . #'helpful-variable)
          ("C-h k" . #'helpful-key)))
+
+(use-package visual-regexp)
+(use-package visual-regexp-steroids)
 
 ;;; no-littering
 (use-package no-littering
