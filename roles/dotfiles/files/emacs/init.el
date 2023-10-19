@@ -233,7 +233,7 @@
   ($leader
     :keymaps 'normal
     "RET" #'execute-extended-command
-    "B" #'consult-buffer
+    "SPC" #'consult-buffer
     "b" #'projectile-switch-to-buffer
     "d" #'consult-flycheck
     "f" #'projectile-find-file
@@ -241,16 +241,17 @@
     "G" #'rg
     "l" #'consult-line
     "P" #'consult-projectile
-    "R" #'eglot-rename
+    "R" #'lsp-rename
     "rg" #'consult-ripgrep
     "t" #'consult-lsp-symbols
-    "/"  #'consult-line)
+    "/"  #'consult-line
+    "\\" #'treemacs)
   (general-create-definer $search-leader :prefix "SPC s")
   ($search-leader
    :keymaps 'normal
    "f" #'projectile-find-file
    "r" #'consult-recent-file
-   "t" #'consult-eglot-symbols)
+   "t" #'consult-lsp-symbols)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
@@ -380,43 +381,56 @@
 
 (use-package breadcrumb)
 
-;;; eglot
-(use-package eglot
-  :straight (:type built-in)
-  :commands
-  eglot
-  :config
-  (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
-  (defun $eglot-current-server ()
-    (interactive)
-    (print (process-command (jsonrpc--process (eglot-current-server)))))
-  :bind (([f12] . eglot)
-         :map eglot-mode-map
-         ("C-c l a" . #'eglot-code-actions)
-         ("C-c l r" . #'eglot-rename)
-         ("C-c l f" . #'eglot-format)
-         ("C-c l d" . #'eldoc))
-  :custom
-  (read-process-output-max (* 1024 1024))
-  (eglot-events-buffer-size 0)
-  (completion-category-overrides '((eglot (styles orderless))))
-  :hook
-  (python-mode-hook . eglot-ensure))
+;; ;;; eglot
+;; (use-package eglot
+;;   :straight (:type built-in)
+;;   :disabled t
+;;   :commands
+;;   eglot
+;;   :config
+;;   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
+;;   (defun $eglot-current-server ()
+;;     (interactive)
+;;     (print (process-command (jsonrpc--process (eglot-current-server)))))
+;;   :bind (([f12] . eglot)
+;;          :map eglot-mode-map
+;;          ("C-c l a" . #'eglot-code-actions)
+;;          ("C-c l r" . #'eglot-rename)
+;;          ("C-c l f" . #'eglot-format)
+;;          ("C-c l d" . #'eldoc))
+;;   :custom
+;;   (read-process-output-max (* 1024 1024))
+;;   (eglot-events-buffer-size 0)
+;;   (completion-category-overrides '((eglot (styles orderless))))
+;;   :hook
+;;   (python-mode-hook . eglot-ensure))
 
-(use-package consult-eglot
-  :after (consult eglot))
+(use-package consult-lsp
+  :after (consult lsp))
 
 ;;; lsp-mode
 (use-package lsp-mode
-  :disabled t
   :custom
   (lsp-completion-provider :none)
+  (lsp-file-watch-threshold 50000)
   :init
   (setq lsp-keymap-prefix "C-c l")
-  :hook (
-         (python-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :hook ((js-json-mode-hook . lsp-deferred)
+         (lsp-mode-hook . lsp-enable-which-key-integration)))
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
+(use-package lsp-pyright
+  :config
+  (defun $python-mode-hook()
+    (require 'lsp-pyright)
+    (lsp-deferred))
+  :hook ((python-mode-hook . $python-mode-hook)))
+
+(use-package dap-mode)
 
 ;;; treesitter
 (use-package tree-sitter
@@ -547,11 +561,7 @@
           treemacs-width-is-initially-locked       t
           treemacs-workspace-switch-cleanup        nil)
 
-    ;; The default width and height of the icons is 22 pixels. If you are
-    ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;;(treemacs-resize-icons 44)
-
-    (treemacs-follow-mode t)
+    (treemacs-follow-mode nil)
     (treemacs-filewatch-mode t)
     (treemacs-fringe-indicator-mode 'always)
     (when treemacs-python-executable
@@ -582,7 +592,7 @@
   :after (treemacs projectile))
 
 (use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once))
+  :hook (dired-mode-hook . treemacs-icons-dired-enable-once))
 
 (use-package treemacs-magit
   :after (treemacs magit))
@@ -608,7 +618,8 @@
   :bind (("C-c f" . #'projectile-find-file)
          ("C-c b" . #'projectile-switch-to-buffer)
          :map projectile-mode-map
-         ("C-c p" . #'projectile-command-map)))
+         ("C-c p" . #'projectile-command-map))
+  :hook ((find-file-hook . (lambda () (setq default-directory (projectile-project-root))))))
 
 ;;; project
 (use-package project
@@ -619,7 +630,7 @@
           (cons 'vc override)
         nil)))
   :hook
-  (project-find-functions . $project-override))
+  (project-find-functions-hook . $project-override))
 
 ;;; marginalia
 (use-package marginalia
@@ -733,7 +744,7 @@
                                  $dispatch:prefixes))
   (completion-category-defaults nil)
   (completion-category-overrides
-   '((eglot (styles . (orderless)))
+   '((lsp-mode (styles . (orderless)))
      (file (styles . (basic partial-completion orderless)))
      (project-file (styles . (basic substring partial-completion orderless)))
      (imenu (styles . (basic substring orderless)))
@@ -859,7 +870,7 @@
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :hook (completion-list-mode-hook . consult-preview-at-point-mode)
 
   :commands (consult-register-window
              consult-multi-occur
@@ -951,7 +962,7 @@
 (use-package embark-consult
   :after (embark consult)
   :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
+  (embark-collect-mode-hook . consult-preview-at-point-mode))
 
 (use-package vterm
   :demand t
@@ -1014,8 +1025,7 @@ no matter what."
              magit-status
              magit-diff-dwim
              magit-blame
-             magit=diff-range)
-  :init
+             magit-diff-range)
   :bind (("C-x g" . #'magit-status)
          ("C-c g d" . #'magit-diff-range)
          ("C-c g b" . #'magit-blame))
@@ -1034,6 +1044,7 @@ no matter what."
              git-messenger:copy-message
              git-messenger:copy-commit-id
              git-messenger:popup-show-verbose))
+
 (use-package git-gutter
   :blackout
   :init
@@ -1132,12 +1143,9 @@ no matter what."
   :blackout ((eldoc-box-hover-mode . "")
              (eldoc-box-hover-at-point-mode . ""))
   :commands (eldoc-box-hover-mode
-             eldoc-box-eglot-help-at-point
              eldoc-box-helpful-callable
              eldoc-box-helpful-variable
              eldoc-box-helpful-key)
-  :init
-  (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-at-point-mode t)
   :custom
   (eldoc-box-cleanup-interval 0.2)
   (eldoc-box-clear-with-C-g t)
@@ -1183,7 +1191,7 @@ no matter what."
 (use-package python-black
   :demand t
   :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+  :hook (python-mode-hook . python-black-on-save-mode-enable-dwim))
 
 (use-package pyvenv
   :init
@@ -1252,8 +1260,7 @@ no matter what."
     (tide-hl-identifier-mode t))
   :hook
   (before-save-hook . tide-format-before-save)
-  (typescript-mode-hook . setup-tide-mode)
-  )
+  (typescript-mode-hook . setup-tide-mode))
 
 ;;; ruby-mode
 (use-package ruby-mode

@@ -16,12 +16,15 @@
 
 ;;; try not to gc during emacs startup... set to 10MB from 800kb
 (setq gc-cons-threshold 100000000)
-(defun $restore-gc-cons-threshold ()
-  "Restore \"gc-cons-threshold\" to 800kb.  To be added to after-init-hook."
-  (setq gc-cons-threshold 800000)
-  (message "gc-cons-threshold restored to %S"
-           gc-cons-threshold))
-(add-hook 'after-init-hook #'$restore-gc-cons-threshold)
+;; (defun $restore-gc-cons-threshold ()
+;;   "Restore \"gc-cons-threshold\" to 800kb.  To be added to after-init-hook."
+;;   (setq gc-cons-threshold 800000)
+;;   (message "gc-cons-threshold restored to %S"
+;;            gc-cons-threshold))
+;; (add-hook 'after-init-hook #'$restore-gc-cons-threshold)
+
+;;; increase amount of data emacs reads from process
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;;; do not warn cl deprecated
 (setq byte-compile-warnings '(cl-functions))
