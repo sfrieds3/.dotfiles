@@ -25,6 +25,7 @@
       - jq
       - jsonlint
       - kubernetes-cli
+      - libgccjit
       - llvm
       - lua
       - lua-language-server

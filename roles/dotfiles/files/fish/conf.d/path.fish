@@ -30,8 +30,9 @@ if status is-interactive
     set USRLOCALBIN /usr/local/bin
     set LOCALBIN $HOME/.local/bin
     set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
+    set BREWSBIN /opt/homebrew/sbin
 
-    set -l pathdirs $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
+    set -l pathdirs $BREWSBIN $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
     for dir in $pathdirs
         if not contains -- $dir $PATH
             fish_add_path --prepend $dir
