@@ -18,8 +18,11 @@
 - name: Install pipx packages
   community.general.pipx:
     name:
+      - black
+      - black-macchiato
       - ipython
       - jupyterlab
+      - ruff
 
 - name: Create default venv
   ansible.builtin.command:

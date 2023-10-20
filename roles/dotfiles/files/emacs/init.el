@@ -544,7 +544,7 @@
           treemacs-recenter-after-tag-follow       nil
           treemacs-recenter-after-project-jump     'always
           treemacs-recenter-after-project-expand   'on-distance
-          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+          treemacs-litter-directories              '("/node_modules" "/venv" "/.venv" "/.cask")
           treemacs-show-cursor                     nil
           treemacs-show-hidden-files               t
           treemacs-silent-filewatch                nil
@@ -1180,7 +1180,8 @@ no matter what."
 (use-package yaml-mode
   :commands (yaml-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
 ;;; markdown-mode
 (use-package markdown-mode
@@ -1210,7 +1211,8 @@ no matter what."
 (use-package pyvenv
   :init
   (setenv "WORKON_HOME" "~/.venv")
-  (pyvenv-mode t))
+  (pyvenv-mode t)
+  :hook (pyvenv-post-activate-hooks . pyvenv-restart-python))
 
 ;;; golang
 (use-package go-mode)
