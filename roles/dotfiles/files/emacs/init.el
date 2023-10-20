@@ -227,7 +227,6 @@
     "cf" #'$cycle-font
     "ct" #'$cycle-theme
     "e" #'eval-buffer
-    "gg" #'global-git-gutter-mode
     "x" #'eval-last-sexp)
   (general-create-definer $leader :prefix "SPC")
   ($leader
@@ -237,15 +236,18 @@
     "b" #'projectile-switch-to-buffer
     "d" #'consult-flycheck
     "f" #'projectile-find-file
-    "g" #'deadgrep
     "G" #'rg
+    "gd" #'lsp-ui-peek-find-definitions
+    "gg" #'consult-ripgrep
+    "gr" #'lsp-ui-peek-find-references
     "l" #'consult-line
     "P" #'consult-projectile
     "R" #'lsp-rename
-    "rg" #'consult-ripgrep
-    "t" #'consult-lsp-symbols
+    "rg" #'deadgrep
     "/"  #'consult-line
-    "\\" #'treemacs)
+    "\\" #'treemacs
+    ":" #'consult-lsp-symbols
+    ";" #'consult-lsp-file-symbols)
   (general-create-definer $search-leader :prefix "SPC s")
   ($search-leader
    :keymaps 'normal
@@ -814,6 +816,17 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
   )
 
+;;; fzf.. in emacs!
+(use-package fzf
+  :config
+  (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
+        fzf/executable "fzf"
+        fzf/git-grep-args "-i --line-number %s"
+        fzf/grep-command "rg --no-heading -nH"
+        ;; If nil, the fzf buffer will appear at the top of the window
+        fzf/position-bottom t
+        fzf/window-height 33))
+
 (use-package consult
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . #'consult-history)
@@ -1046,9 +1059,10 @@ no matter what."
              git-messenger:popup-show-verbose))
 
 (use-package git-gutter
-  :blackout
-  :init
-  (global-git-gutter-mode t))
+  :ensure t
+  :hook ((prog-mode-hook org-mode-hook) . git-gutter-mode )
+  :config
+  (setq git-gutter:update-interval 0.02))
 
 ;;; compile
 (use-package compile
@@ -1237,6 +1251,8 @@ no matter what."
   (modify-syntax-entry ?: "-" cperl-mode-syntax-table)
   :bind ((:map cperl-mode-map
                ("<tab>" . #'indent-for-tab-command))))
+
+(use-package dockerfile-mode)
 
 ;;; javacsript
 (use-package js
