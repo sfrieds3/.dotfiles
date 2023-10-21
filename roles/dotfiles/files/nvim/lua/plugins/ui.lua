@@ -62,7 +62,7 @@ return {
     main = "ibl",
     config = function()
       require("ibl").setup({
-        enabled = true,
+        enabled = false,
         indent = { smart_indent_cap = true },
         scope = { show_start = false, show_end = false, highlight = { "Whitespace" } },
       })
@@ -138,6 +138,18 @@ return {
       vim.keymap.set("n", "<Leader>}", function()
         require("illuminate").next_reference({ reverse = true, wrap = true })
       end)
+    end,
+  },
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    config = function()
+      require("bufferline").setup({
+        options = {
+          diagnostics = "nvim_lsp",
+          mode = "tabs",
+        },
+      })
     end,
   },
 }

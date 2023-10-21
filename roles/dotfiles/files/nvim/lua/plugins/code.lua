@@ -108,4 +108,7 @@ return {
       vim.keymap.set("n", "\\I", "<Cmd>IronReplHere<CR>")
     end,
   },
+  {
+    "sakhnik/nvim-gdb",
+  },
 }

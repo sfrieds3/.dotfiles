@@ -244,6 +244,7 @@
     "P" #'consult-projectile
     "R" #'lsp-rename
     "rg" #'deadgrep
+    "vd" #'consult-lsp-diagnostics
     "/"  #'consult-line
     "\\" #'treemacs
     ":" #'consult-lsp-symbols
@@ -285,6 +286,11 @@
     (progn
       (redraw-frame)
       (evil-ex-nohighlight)))
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      (with-syntax-table table
+        ad-do-it)))
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -315,7 +321,8 @@
                ([(control shift v)] . #'yank))
          (:map evil-visual-state-map
                ([(control shift c)] . #'evil-yank)
-               ([(control shift v)] . #'evil-visual-paste))))
+               ([(control shift v)] . #'evil-visual-paste)
+               ("SPC RET" . #'execute-extended-command))))
 
 (use-package evil-collection
   :after evil
@@ -415,6 +422,7 @@
   :custom
   (lsp-completion-provider :none)
   (lsp-file-watch-threshold 50000)
+  (lsp-headerline-breadcrumb-segments '(project symbols))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((js-json-mode-hook . lsp-deferred)
@@ -506,6 +514,8 @@
 
 (use-package treemacs
   :defer t
+  :config
+  (treemacs-resize-icons 11)
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -1059,6 +1069,7 @@ no matter what."
              git-messenger:popup-show-verbose))
 
 (use-package git-gutter
+  :blackout
   :ensure t
   :hook ((prog-mode-hook org-mode-hook) . git-gutter-mode )
   :config

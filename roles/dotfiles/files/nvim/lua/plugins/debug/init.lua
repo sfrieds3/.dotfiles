@@ -48,6 +48,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
+    enabled = false, -- lets try dap without the ui first
     lazy = true,
     config = function()
       require("plugins.debug.dap_ui").setup()
