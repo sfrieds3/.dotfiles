@@ -39,6 +39,7 @@
       - perl
       - pipx
       - postgresql
+      - prettier
       - pre-commit
       - pyenv
       - pyright

@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(setq +format-with-lsp nil)
+(setq +format-with-lsp t)
 
 (defun +format--current-indentation ()
   (save-excursion
