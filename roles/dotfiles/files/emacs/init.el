@@ -159,7 +159,6 @@
 (use-package all-the-icons)
 (use-package doom-themes
   :custom
-  (doom-themes-treemacs-theme "doom-atom")
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   (doom-modeline-indent-info t)
@@ -170,6 +169,10 @@
   (doom-themes-visual-bell-config)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
+
+(use-package blackout
+  :config
+  (blackout 'abbrev-mode))
 
 (use-package toggle-commands
   :straight nil
@@ -187,6 +190,20 @@
 (use-package tramp-config
   :straight nil)
 (use-package s)
+
+;;; language specific settings
+(use-package lang-config
+  :straight nil
+  :demand)
+
+;;; editor settings
+(use-package editor
+  :straight nil
+  :demand)
+
+(use-package editor-format
+  :straight nil
+  :demand)
 
 ;;; match env to shell
 (use-package exec-path-from-shell
@@ -210,10 +227,6 @@
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
 
-(use-package blackout
-  :config
-  (blackout 'abbrev-mode))
-
 ;;; general
 (use-package general
   :config
@@ -222,7 +235,6 @@
   ($localleader
     :keymaps 'normal
     "D" #'magit-diff-dwim
-    "F" #'format-all-buffer
     "G" #'magit
     "cf" #'$cycle-font
     "ct" #'$cycle-theme
@@ -251,10 +263,10 @@
     ";" #'consult-lsp-file-symbols)
   (general-create-definer $search-leader :prefix "SPC s")
   ($search-leader
-   :keymaps 'normal
-   "f" #'projectile-find-file
-   "r" #'consult-recent-file
-   "t" #'consult-lsp-symbols)
+    :keymaps 'normal
+    "f" #'projectile-find-file
+    "r" #'consult-recent-file
+    "t" #'consult-lsp-symbols)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
@@ -310,7 +322,7 @@
                ("k" . #'evil-previous-visual-line)
                ("gj" . #'evil-next-line)
                ("gk" . #'evil-previous-line)
-               ("gq" . #'lsp-format-region)
+               ("gq" . #'+format/region-or-buffer)
                ([(control shift v)] . #'evil-paste-after)
                ([(meta h)] . #'evil-window-left)
                ([(meta j)] . #'evil-window-down)
@@ -358,6 +370,7 @@
   (evil-visualstar/persist t))
 
 (use-package format-all
+  :disabled t
   :commands (format-all-buffer)
   :config
   (evil-define-operator evil-format (beg end)
@@ -597,6 +610,12 @@
         ("C-x t C-t" . #'treemacs-find-file)
         ("C-x t M-t" . #'treemacs-find-tag)))
 
+(use-package nerd-icons)
+
+(use-package treemacs-nerd-icons
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
 (use-package treemacs-evil
   :after (treemacs evil))
 
@@ -671,7 +690,7 @@
   (minibuffer-electric-default-mode)
   :custom
   (crm-separator ",")
-  (resize-mini-windows t)
+  (resize-mini-windows nil)
   (enable-recursive-minibuffers t)
   (read-file-name-completion-ignore-case t)
   (read-buffer-completion-ignore-case t)
@@ -680,7 +699,7 @@
 (use-package vertico
   :custom
   (vertico-cycle t)
-  (vertioc-resize t)
+  (vertioc-resize nil)
   :init
   (vertico-mode)
   :config
@@ -1177,169 +1196,6 @@ no matter what."
   (eldoc-box-doc-fold-threshold 200)
   :config
   (set-face-attribute 'eldoc-box-body nil :family "Hack"))
-
-(use-package elisp-mode
-  :straight (:type built-in)
-  :blackout ((lisp-interaction-mode . "Lisp-Interaction")
-             (emacs-lisp-mode . `("ELisp"
-                                  (lexical-binding
-                                   ""
-                                   (:propertize
-                                    "/d" face warning))))))
-
-;;; yaml-mode
-(use-package yaml-mode
-  :commands (yaml-mode)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
-
-;;; markdown-mode
-(use-package markdown-mode
-  :commands (markdown-mode
-             gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init
-  (setq markdown-command "multimarkdown"))
-
-;;; python-mode
-(use-package python-mode
-  :commands (python-mode)
-  :custom
-  (python-shell-interpreter "ipython"))
-
-(use-package flymake-ruff
-  :hook
-  (python-mode-hook . flymake-ruff-load))
-
-(use-package python-black
-  :demand t
-  :after python
-  :hook (python-mode-hook . python-black-on-save-mode-enable-dwim))
-
-(use-package pyvenv
-  :init
-  (setenv "WORKON_HOME" "~/.venv")
-  (pyvenv-mode t)
-  :hook (pyvenv-post-activate-hooks . pyvenv-restart-python))
-
-;;; golang
-(use-package go-mode)
-
-;; rust
-(use-package rust-mode
-  :config
-  (defun $rust-mode-hook ()
-    (setq indent-tabs-mode nil))
-  :custom
-  (rust-format-on-save t)
-  :hook
-  (rust-mode-hook . prettify-symbols-mode)
-  (rust-mode-hook . $rust-mode-hook))
-
-;; fish
-(use-package fish-mode)
-
-;; zig
-(use-package zig-mode)
-
-;;; cperl-mode
-(use-package cperl-mode
-  :commands (cperl-mode)
-  :init
-  (mapc
-   (lambda (pair)
-     (if (eq (cdr pair) 'perl-mode)
-         (setcdr pair 'cperl-mode)))
-   (append auto-mode-alist interpreter-mode-alist))
-  :custom
-  (cperl-invalid-face nil)
-  (cperl-highlight-variables-indiscriminately t)
-  (cperl-indent-level 4)
-  (cperl-close-paren-offset (- cperl-indent-level))
-  (cperl-indent-parens-as-block t)
-  :config
-  (modify-syntax-entry ?: "-" cperl-mode-syntax-table)
-  :bind ((:map cperl-mode-map
-               ("<tab>" . #'indent-for-tab-command))))
-
-(use-package dockerfile-mode)
-
-;;; javacsript
-(use-package js
-  :straight (:type built-in)
-  :custom
-  (js-indent-level 2))
-
-;;; sh-mode
-(use-package sh-script
-  :straight (:type built-in)
-  :config
-  (add-to-list 'auto-mode-alist '("/zsh/" . sh-mode)))
-
-;; typescript
-(use-package tide
-  :config
-  (defun setup-tide-mode ()
-    (interactive)
-    (tide-setup)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (tide-hl-identifier-mode t))
-  :hook
-  (before-save-hook . tide-format-before-save)
-  (typescript-mode-hook . setup-tide-mode))
-
-;;; ruby-mode
-(use-package ruby-mode
-  :custom
-  (ruby-deep-indent-paren nil))
-
-;;; web-mode
-(use-package web-mode
-  :defer t
-  :config
-  (defun $tide-web-mode-hook ()
-      (when (string-equal "tsx" (file-name-extension buffer-file-name))
-        (setup-tide-mode)))
-  :hook
-  (web-mode-hook . $tide-web-mode-hook)
-  :custom
-  (web-mode-markup-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  (web-mode-code-indent-offset 2)
-  :mode ("\\.phtml\\'"
-         "\\.tpl\\.php\\'"
-         "\\.[agj]sp\\'"
-         "\\.as[cp]x\\'"
-         "\\.erb\\'"
-         "\\.tsx\\'"
-         "\\.mustache\\'"
-         "\\.djhtml\\'"))
-
-;;; c++-mode
-(use-package c++-mode
-  :straight (:type built-in)
-  :commands (c++-mode)
-  :custom
-  (c-basic-offset 2)
-  :config
-  (c-set-offset 'substatement-open 0)
-  :bind ((:map c-mode-base-map
-               ("<tab>" . #'indent-for-tab-command))))
-
-;;; projectile-rails
-(use-package projectile-rails
-  :mode "\\.rb\\'"
-  :interpreter "ruby"
-  :commands (projectile-rails-mode
-             projectile-rails-command-map)
-  :bind (("C-c R" . #'projectile-rails-command-map))
-  :config
-  (projectile-rails-global-mode)
-  :hook
-  (ruby-mode-hook . projectile-rails-mode))
 
 ;;; uniquify
 (use-package uniquify
