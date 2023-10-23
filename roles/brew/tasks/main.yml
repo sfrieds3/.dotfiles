@@ -50,6 +50,7 @@
       - ruby-build
       - sbcl
       - shellcheck
+      - standard
       - stylua
       - the_silver_searcher
       - tmux

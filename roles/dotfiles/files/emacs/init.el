@@ -225,7 +225,9 @@
   :straight (:type built-in)
   :custom
   (dired-listing-switches "-alh")
-  (dired-dwim-target t))
+  (dired-dwim-target t)
+  :hook
+  (dired-mode-hook . #'auto-revert-mode))
 
 ;;; general
 (use-package general
