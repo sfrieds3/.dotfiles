@@ -87,6 +87,17 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                         'mouse-face 'mode-line-highlight)))))
 (put '$mode-line-buffer-identification 'risky-local-variable t)
 
+(defvar $mode-line--vc-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [mode-line down-mouse-1] 'vc-diff)
+    (define-key map [mode-line down-mouse-3] 'vc-root-diff)
+    map))
+
+(defun $mode-line--vc-help-echo (file)
+  "Return `help-echo' for FILE under vc."
+  (format "\nRevision: %s\nmouse-1: `vc-diff'\nmouse-3: `vc-root-diff'"
+          (vc-working-revision file)))
+
 (defvar-local $mode-line-git-status
   ;; Format: (defun vc-default-mode-line-string (backend file) in vc-hooks.el
   ;;   \"BACKEND-REV\"        if the file is up-to-date
@@ -114,39 +125,43 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                ;; up-to-date
                ((string-equal "-" class)
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": up-to-date")
+                            'help-echo (concat branch ": up-to-date" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:foreground "dark cyan" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; locked
                (locked?
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": locked")
+                            'help-echo (concat branch ": locked" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:foreground "dark orange" :weight bold)
                             'mouse-face 'mode-line-highlight))
                ;; modified
                ((string-equal ":" class)
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": modified")
+                            'help-echo (concat branch ": modified" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:foreground "yellow" :weight bold)
-                            'mouse-face 'mode-line-highlight))
+                            'mouse-face 'mode-line-highlight
+                            'local-map $mode-line--vc-map))
                ;; locally added
                ((string-equal "@" class)
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": locally added file")
+                            'help-echo (concat branch ": locally added file" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:foreground "dark blue" :weight bold)
-                            'mouse-face 'mode-line-highlight))
+                            'mouse-face 'mode-line-highlight
+                            'local-map $mode-line--vc-map))
                ;; removed or conflicting
                ((string-equal "!" class)
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": removed file or conflicts")
+                            'help-echo (concat branch ": removed file or conflicts" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:background "yellow" :foreground "dark red" :weight bold)
-                            'mouse-face 'mode-line-highlight))
+                            'mouse-face 'mode-line-highlight
+                            'local-map $mode-line--vc-map))
                ;; missing
                ((string-equal "?" class)
                 (propertize git-mode-line-status
-                            'help-echo (concat branch ": missing")
+                            'help-echo (concat branch ": missing" ($mode-line--vc-help-echo buffer-file-name))
                             'face '(:foreground "dark red" :weight bold)
-                            'mouse-face 'mode-line-highlight))
+                            'mouse-face 'mode-line-highlight
+                            'local-map $mode-line--vc-map))
                ((t git-mode-line-status)))))))
 (put '$mode-line-git-status 'risky-local-variable t)
 
@@ -180,6 +195,7 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                           'mouse-face 'mode-line-highlight))))))
 (put '$mode-line-percent-position 'risky-local-variable t)
 
+;; TODO: use mode-line-window-selected-p
 (setq-default mode-line-format
               '(:eval
                 ($mode-line-render
