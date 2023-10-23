@@ -436,6 +436,9 @@
   (lsp-completion-provider :none)
   (lsp-file-watch-threshold 50000)
   (lsp-headerline-breadcrumb-segments '(project symbols))
+  :config
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
+  ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((js-json-mode-hook . lsp-deferred)
@@ -667,6 +670,8 @@
 (use-package marginalia
   ;; Either bind `marginalia-cycle' globally or only in the minibuffer
   :bind (:map minibuffer-local-map
+              ("C-M-a" . #'marginalia-cycle)
+              :map completion-list-mode-map
               ("C-M-a" . #'marginalia-cycle))
   :init
   (marginalia-mode))
@@ -940,9 +945,10 @@
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-file-register
    consult--source-recent-file consult--source-project-recent-file
+   consult-lsp-symbols consult-lsp-file-symbols consult-lsp-diagnostics
    :preview-key "M-.")
 
-  (setq consult-narrow-key "C-+")
+  (setq consult-narrow-key "<")
   (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
   ;; use projectile
@@ -1058,8 +1064,7 @@ no matter what."
         (previous-buffer))
        ((try-completion abuf (mapcar #'buffer-name (buffer-list)))
         (switch-to-buffer abuf))
-       (t (ansi-term "/bin/bash")))))
-  :bind (("C-`" . #'$ansi-term-dwim)))
+       (t (ansi-term "/bin/bash"))))))
 
 ;; magit
 (use-package magit
@@ -1092,7 +1097,7 @@ no matter what."
   :ensure t
   :hook ((prog-mode-hook org-mode-hook) . git-gutter-mode )
   :config
-  (setq git-gutter:update-interval 0.02))
+  (setq git-gutter:update-interval 2))
 
 ;;; compile
 (use-package compile
@@ -1455,6 +1460,7 @@ questions.  Else use completion to select the tab to switch to."
   (yas-global-mode)
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
+  (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME"))
   (yas-reload-all))
 
 (use-package auto-yasnippet
