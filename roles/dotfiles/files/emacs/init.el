@@ -247,14 +247,17 @@
   ($leader
     :keymaps 'normal
     "RET" #'execute-extended-command
-    "SPC" #'consult-buffer
-    "b" #'projectile-switch-to-buffer
+    "SPC" #'consult-projectile
+    "b" #'project-switch-to-buffer
     "d" #'consult-flycheck
-    "f" #'projectile-find-file
+    "f" #'project-find-file
     "G" #'rg
     "gd" #'lsp-ui-peek-find-definitions
     "gg" #'consult-ripgrep
     "gr" #'lsp-ui-peek-find-references
+    "hm" #'git-gutter:mark-hunk
+    "hr" #'git-gutter:revert-hunk
+    "hv" #'git-gutter:popup-hunk
     "l" #'consult-line
     "P" #'consult-projectile
     "R" #'lsp-rename
@@ -264,10 +267,13 @@
     "\\" #'treemacs
     ":" #'consult-lsp-symbols
     ";" #'consult-lsp-file-symbols)
+  ($leader
+    :keymaps 'visual
+    "RET" #'execute-extended-command)
   (general-create-definer $search-leader :prefix "SPC s")
   ($search-leader
     :keymaps 'normal
-    "f" #'projectile-find-file
+    "f" #'project-find-file
     "r" #'consult-recent-file
     "t" #'consult-lsp-symbols)
   (general-create-definer $next :prefix "]")
@@ -283,7 +289,10 @@
     "b" #'previous-buffer
     "c" #'git-gutter:previous-hunk
     "d" #'flycheck-previous-error
-    "t" #'tab-previous))
+    "t" #'tab-previous)
+  (general-def 'normal
+    "M-n" #'tab-next
+    "M-p" #'tab-previous))
 
 ;;; evil
 (use-package evil-config
@@ -650,6 +659,7 @@
   (projectile-mode)
   :custom
   (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "straight/repos" user-emacs-directory)))
+  (projectile-mode-line-prefix " Proj")
   :config
   (setq projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
   (when (executable-find "rg")
@@ -1102,7 +1112,9 @@ no matter what."
   :ensure t
   :hook ((prog-mode-hook org-mode-hook) . git-gutter-mode )
   :config
-  (setq git-gutter:update-interval 2))
+  (setq git-gutter:update-interval 0.5))
+
+(use-package git-timemachine)
 
 ;;; compile
 (use-package compile
@@ -1218,6 +1230,9 @@ no matter what."
   ;; dont change names of special buffers
   (uniquify-ignore-buffers-re "^\\*"))
 
+(use-package ace-window
+  :bind (("M-o" . #'ace-window)))
+
 ;;; display-buffer (most/all of this taken from prot)
 (use-package window
   :straight (:type built-in)
@@ -1285,8 +1300,7 @@ no matter what."
   (window-sides-vertical nil)
   (switch-to-buffer-in-dedicated-window 'pop)
   :hook
-  (help-mode-hook . visual-line-mode)
-  :bind (("M-o" . #'other-window)))
+  (help-mode-hook . visual-line-mode))
 
 ;;; winner-mode
 (use-package winner
@@ -1365,8 +1379,8 @@ questions.  Else use completion to select the tab to switch to."
   :bind (([(control f7)] . idle-highlight-mode)))
 
 (use-package symbol-overlay
-  :bind (("M-n" . #'symbol-overlay-jump-next)
-         ("M-p" . #'symbol-overlay-jump-prev))
+  :bind (("C-c j" . #'symbol-overlay-jump-next)
+         ("C-c k" . #'symbol-overlay-jump-prev))
   ([f7] . #'symbol-overlay-put)
   ([(control shift f7)] . #'symbol-overlay-remove-all))
 
@@ -1466,7 +1480,7 @@ questions.  Else use completion to select the tab to switch to."
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
   (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME"))
-  (yas-reload-all))
+               (yas-reload-all)))
 
 (use-package auto-yasnippet
   :bind (("C-c C-y w" . #'aya-create)

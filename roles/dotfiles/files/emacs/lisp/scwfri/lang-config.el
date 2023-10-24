@@ -33,7 +33,8 @@
 (use-package python-mode
   :commands (python-mode)
   :custom
-  (python-shell-interpreter "ipython"))
+  (python-shell-interpreter "ipython")
+  (python-indent-offset 4))
 
 (use-package pyvenv
   :init
