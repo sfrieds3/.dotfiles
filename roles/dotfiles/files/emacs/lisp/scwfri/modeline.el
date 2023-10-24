@@ -6,7 +6,57 @@
 
 ;;; Code:
 
-;;; mode-line
+(defface $face--mode-line-dark-cyan
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark cyan")
+    (t :foreground "cyan"))
+  "Dark cyan bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-dark-orange
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark orange")
+    (t :foreground "orange"))
+  "Dark orange bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-yellow
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "yellow")
+    (t :foreground "yellow"))
+  "Yellow bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-dark-blue
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark blue")
+    (t :foreground "dark blue"))
+  "Dark blue bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-dark-red
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark red")
+    (t :foreground "dark red"))
+  "Dark red bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-yellow-on-redj
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark red"
+     :background "yellow")
+    (t :foreground "dark red"
+       :background "yellow"))
+  "Dark red on yellow bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+
 (defun $ellipsize-file-name (file-name max-length)
   "Elipsize FILE-NAME if over MAX-LENGTH."
   (let* ((ellipsis (if (char-displayable-p ?…) "…" "..."))
@@ -131,40 +181,40 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                  ((string-equal "-" class)
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": up-to-date" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:foreground "dark cyan" :weight bold)
+                              'face '$face--mode-line-dark-cyan
                               'mouse-face 'mode-line-highlight))
                  ;; locked
                  (locked?
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": locked" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:foreground "dark orange" :weight bold)
+                              'face '$face--mode-line-dark-orange
                               'mouse-face 'mode-line-highlight))
                  ;; modified
                  ((string-equal ":" class)
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": modified" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:foreground "yellow" :weight bold)
+                              'face '$face--mode-line-yellow
                               'mouse-face 'mode-line-highlight
                               'local-map $mode-line--vc-map))
                  ;; locally added
                  ((string-equal "@" class)
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": locally added file" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:foreground "dark blue" :weight bold)
+                              'face '$face--mode-line-dark-blue
                               'mouse-face 'mode-line-highlight
                               'local-map $mode-line--vc-map))
                  ;; removed or conflicting
                  ((string-equal "!" class)
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": removed file or conflicts" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:background "yellow" :foreground "dark red" :weight bold)
+                              'face '$face-mode-line-red-on-yellow
                               'mouse-face 'mode-line-highlight
                               'local-map $mode-line--vc-map))
                  ;; missing
                  ((string-equal "?" class)
                   (propertize git-mode-line-status
                               'help-echo (concat branch ": missing" ($mode-line--vc-help-echo (buffer-file-name)))
-                              'face '(:foreground "dark red" :weight bold)
+                              'face '$face--mode-line-dark-red
                               'mouse-face 'mode-line-highlight
                               'local-map $mode-line--vc-map))
                  ((t git-mode-line-status)))))))
