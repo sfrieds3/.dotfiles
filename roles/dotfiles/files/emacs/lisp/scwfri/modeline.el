@@ -1,7 +1,7 @@
 ;;; modeline.el --- modeline config -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;;     modeline.. mostly from:
+;;;     modeline.. inspiration:
 ;;;     https://github.com/peterwu/dotfiles/blob/9ac6c212f6a57650e39703ad79c5d45592deabe3/emacs/mine/my-mode-line.el
 
 ;;; Code:
@@ -33,30 +33,30 @@ Containing LEFT, and RIGHT aligned respectively."
             (list (format (format "%%%ds" available-width) ""))
             right)))
 
-(defun $mode-line-render (left centre right)
+(defun $mode-line-render (left center right)
   "Return a string of `window-total-width' length.
-Containing LEFT, CENTRE and RIGHT aligned respectively."
+Containing LEFT, CENTER and RIGHT aligned respectively."
   (let* ((left-width (string-width (format-mode-line left)))
-         (centre-width (string-width (format-mode-line centre)))
+         (center-width (string-width (format-mode-line center)))
          (right-width (string-width (format-mode-line right)))
          (available-width-left
           (- (/
-              (- (window-total-width) centre-width)
+              (- (window-total-width) center-width)
               2)
              left-width))
          (available-width-right
           (- (window-total-width)
              left-width
              available-width-left
-             centre-width
+             center-width
              right-width)))
     (cond ((> (+ left-width right-width) (window-total-width))
            left)
-          ((> (+ left-width centre-width right-width) (window-total-width))
+          ((> (+ left-width center-width right-width) (window-total-width))
            ($left-right-mode-line-render left right))
           (t (append left
                      (list (format (format "%%%ds" available-width-left) ""))
-                     centre
+                     center
                      (list (format (format "%%%ds" available-width-right) ""))
                      right)))))
 
@@ -165,8 +165,8 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                ((t git-mode-line-status)))))))
 (put '$mode-line-git-status 'risky-local-variable t)
 
-(defvar-local $mode-line-centre-placeholder "")
-(put '$mode-line-centre-placeholder 'risky-local-variable t)
+(defvar-local $mode-line-center-placeholder "")
+(put '$mode-line-center-placeholder 'risky-local-variable t)
 
 (defvar-local $mode-line-position
   '(:propertize "(%l,%C)"
@@ -195,34 +195,37 @@ Containing LEFT, CENTRE and RIGHT aligned respectively."
                           'mouse-face 'mode-line-highlight))))))
 (put '$mode-line-percent-position 'risky-local-variable t)
 
-;; TODO: use mode-line-window-selected-p
 (setq-default mode-line-format
               '(:eval
-                ($mode-line-render
-                 ;; left hand side
-                 (list
-                  "%e"
-                  evil-mode-line-tag
-                  " "
-                  mode-line-mule-info
-                  mode-line-modified
-                  " "
-                  $mode-line-buffer-identification)
+                (cond ((mode-line-window-selected-p)
+                       ($mode-line-render
+                        ;; left hand side
+                        '("%e"
+                          evil-mode-line-tag
+                          " "
+                          mode-line-mule-info
+                          mode-line-modified
+                          " "
+                          $mode-line-buffer-identification)
 
-                 ;; centre
-                 (list
-                  mode-line-modes
-                  mode-line-misc-info)
+                        ;; center
+                        '(mode-line-modes
+                          mode-line-misc-info)
 
-                 ;; right hand side
-                 (list
-                  $mode-line-git-status
-                  $mode-line-position
-                  " "
-                  $mode-line-buffer-size
-                  " "
-                  $mode-line-percent-position
-                  " "))))
+                        ;; right hand side
+                        '($mode-line-git-status
+                          $mode-line-position
+                          " "
+                          $mode-line-buffer-size
+                          " "
+                          $mode-line-percent-position
+                          " ")))
+                      (t ($mode-line-render
+                            nil
+                            '($mode-line-buffer-identification
+                              " "
+                              $mode-line-percent-position)
+                            nil)))))
 
 (provide 'modeline)
 ;;; modeline.el ends here

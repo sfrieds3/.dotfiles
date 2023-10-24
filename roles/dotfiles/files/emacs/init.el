@@ -152,6 +152,7 @@
   (fringe-mode 0))
 
 (use-package ef-themes)
+(use-package standard-themes)
 (use-package zerodark
   :straight (:host github :repo "NicolasPetton/zerodark-theme")
   :no-require t)
