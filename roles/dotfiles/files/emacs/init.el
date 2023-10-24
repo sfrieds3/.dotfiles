@@ -652,6 +652,8 @@
   (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "straight/repos" user-emacs-directory)))
   :config
   (setq projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
+  (when (executable-find "rg")
+    (setq-default projectile-generic-command "rg --files --hidden -0"))
   :bind (("C-c f" . #'projectile-find-file)
          ("C-c b" . #'projectile-switch-to-buffer)
          :map projectile-mode-map
