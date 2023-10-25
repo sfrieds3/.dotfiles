@@ -61,7 +61,7 @@
     (load-file home-settings)))
 
 ;;; shared config not in init.el
-(setq custom-file (expand-file-name "custom.el" temporary-file-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;;; make scrolling more logical
 (setq scroll-conservatively 25)
@@ -442,7 +442,8 @@
   ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
   :init
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((js-json-mode-hook . lsp-deferred)
+  :hook ((json-ts-mode-hook . lsp-deferred)
+         (js-json-mode-hook . lsp-deferred)
          (lsp-mode-hook . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
@@ -453,24 +454,20 @@
   (defun $python-mode-hook()
     (require 'lsp-pyright)
     (lsp-deferred))
-  :hook ((python-mode-hook . $python-mode-hook)))
+  :hook ((python-ts-mode-hook . $python-mode-hook)
+         (python-mode-hook . $python-mode-hook)))
 
+;; debugging
+(use-package realgud
+  :bind (:map python-ts-mode-map
+              ("F5" . #'realgud:pdb)
+              :map python-mode-map
+              ("F5" . #'realgud:pdb)))
 (use-package dap-mode)
 
-;;; treesitter
-(use-package tree-sitter
-  :init
-  (global-tree-sitter-mode)
-  :config
-  (blackout 'tree-sitter-mode)
-  :hook
-  (tree-sitter-after-on-hook . tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
-  :after tree-sitter)
-
 (use-package treesit-auto
-  :after tree-sitter
+  :custom
+  (treesit-auto-install 'prompt)
   :config
   (global-treesit-auto-mode))
 
@@ -567,8 +564,8 @@
   (org-edit-src-content-indentation 0)
   (org-log-done t)
   (org-startup-folded t)
-  (org-agenda-files '("~/code/org"))
-  (org-agenda-text-search-extra-files (directory-files-recursively "~/code" "*.md|*.org"))
+  (org-agenda-files '("~/wiki/org"))
+  (org-agenda-text-search-extra-files (directory-files-recursively "~/wiki" "*.md|*.org"))
   (org-todo-keywords
    '((sequence "TODO(t)" "STRT(s!)" "WAIT(w@/!)" "|" "DONE(d!)" "CNCL(c@)")
      (sequence "NEW(n)" "WORK(k!)" "PUSH-DEV(p!)" "REOPENED(r@/!)" "|" "STAGED(S!)" "RELEASED(R!)" "WONTFIX(w@)")))
@@ -1085,6 +1082,10 @@ no matter what."
 ;;; compile
 (use-package compile
   :config
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(pyright "^[[:blank:]]+\\(.+\\):\\([0-9]+\\):\\([0-9]+\\).*$" 1 2 3))
+  (add-to-list 'compilation-error-regexp-alist 'pyright)
+
   (defun $python-compile-hook ()
     (set (make-local-variable 'compile-command)
          (format "pytest %s" (buffer-name))))
@@ -1093,7 +1094,7 @@ no matter what."
     (set (make-local-variable 'compile-command)
          (format "perl -c %s" (buffer-name))))
   :hook
-  (python-mode-hook . $python-compile-hook)
+  ;; (python-mode-hook . $python-compile-hook)
   (perl-mode-hook . $perl-compile-hook)
   (cperl-mode-hook . $perl-compile-hook)
   :bind ("<f5>" . #'recompile))
@@ -1156,11 +1157,11 @@ no matter what."
     (flycheck-add-next-checker 'lsp 'json-jsonlint))
   (defun $flycheck--configure-ts-checkers ()
     (flycheck-add-next-checker 'lsp 'javascript-eslint))
-  :hook ((python-mode-hook . $flycheck--configure-python-checkers)
-         (python-ts-mode-hook . $flycheck--configure-python-checkers)
-         (json-js-mode-hook . $flycheck--configure-json-checkers)
-         (json-ts-mode-hook . $flycheck--configure-json-checkers)
-         (typescript-ts-mode-hook . $flycheck--configure-ts-checkers))
+  ;; :hook ((python-mode-hook . $flycheck--configure-python-checkers)
+  ;;        (python-ts-mode-hook . $flycheck--configure-python-checkers)
+  ;;        (json-js-mode-hook . $flycheck--configure-json-checkers)
+  ;;        (json-ts-mode-hook . $flycheck--configure-json-checkers)
+  ;;        (typescript-ts-mode-hook . $flycheck--configure-ts-checkers))
   :init
   (global-flycheck-mode t))
 

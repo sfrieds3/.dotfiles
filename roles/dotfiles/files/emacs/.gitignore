@@ -27,3 +27,4 @@ straight
 .dap-breakpoints
 .lsp-session-*
 projects
+tree-sitter

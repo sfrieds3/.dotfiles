@@ -155,7 +155,9 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 (put '$mode-line--buffer-short-identification 'risky-local-variable t)
 
 (defvar-local $mode-line--inactive-buffer-identification
-    '(:eval (buffer-file-name)))
+    '(:eval (let ((fname (buffer-file-name))
+                  (bname (buffer-name)))
+              (or fname bname))))
 (put '$mode-line--inactive-buffer-identification 'risky-local-variable t)
 
 (defvar $mode-line--vc-map
