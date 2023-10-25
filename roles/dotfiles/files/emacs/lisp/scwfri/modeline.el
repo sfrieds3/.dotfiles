@@ -6,6 +6,12 @@
 
 ;;; Code:
 
+(set-face-attribute 'mode-line nil
+                    :background "#131313")
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#333333")
+
 (defface $face--mode-line-dark-cyan
   '((default :inherit bold)
     (((class color) (min-colors 88) (background dark))
@@ -142,6 +148,10 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                         'mouse-face 'mode-line-highlight)))
 (put '$mode-line-buffer-short-identification 'risky-local-variable t)
 
+(defvar-local $mode-line--inactive-buffer-identification
+    '(:eval (buffer-file-name)))
+(put '$mode-line--inactive-buffer-identification 'risky-local-variable t)
+
 (defvar $mode-line--vc-map
   (let ((map (make-sparse-keymap)))
     (define-key map [mode-line down-mouse-1] 'vc-diff)
@@ -252,38 +262,33 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 
 (setq-default mode-line-format
               '(:eval
-                (cond ((mode-line-window-selected-p)
-                       ($mode-line-render
-                        ;; left hand side
-                        (list
-                         "%e"
-                         evil-mode-line-tag
-                         " "
-                         mode-line-mule-info
-                         mode-line-modified
-                         " "
-                         $mode-line-buffer-short-identification)
+                ($mode-line-render
+                 ;; left hand side
+                 (cond ((mode-line-window-selected-p)
+                        (list "%e"
+                              evil-mode-line-tag
+                              " "
+                              mode-line-mule-info
+                              mode-line-modified
+                              " "
+                              $mode-line-buffer-short-identification))
+                       (t nil))
 
-                        ;; center
-                        (list
-                         mode-line-modes
-                         mode-line-misc-info)
+                 ;; center
+                 (cond ((mode-line-window-selected-p)
+                        (list mode-line-modes
+                              mode-line-misc-info))
+                       (t (list $mode-line--inactive-buffer-identification)))
 
-                        ;; right hand side
-                        (list
-                         $mode-line-git-status
-                         $mode-line-position
-                         " "
-                         $mode-line-buffer-size
-                         " "
-                         $mode-line-percent-position
-                         " ")))
-                      (t ($mode-line-render
-                          nil
-                          '($mode-line-buffer-identification
-                            " "
-                            $mode-line-percent-position)
-                          nil)))))
+                 ;; right hand side
+                 (list
+                  $mode-line-git-status
+                  $mode-line-position
+                  " "
+                  $mode-line-buffer-size
+                  " "
+                  $mode-line-percent-position
+                  " "))))
 
 (provide 'modeline)
 ;;; modeline.el ends here
