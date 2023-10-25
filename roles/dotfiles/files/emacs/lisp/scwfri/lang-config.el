@@ -118,8 +118,8 @@
   :defer t
   :config
   (defun $tide-web-mode-hook ()
-      (when (string-equal "tsx" (file-name-extension buffer-file-name))
-        (setup-tide-mode)))
+    (when (string-equal "tsx" (file-name-extension buffer-file-name))
+      (setup-tide-mode)))
   :hook
   (web-mode-hook . $tide-web-mode-hook)
   :custom

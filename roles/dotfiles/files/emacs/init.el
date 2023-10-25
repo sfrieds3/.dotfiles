@@ -436,6 +436,7 @@
   :custom
   (lsp-completion-provider :none)
   (lsp-file-watch-threshold 50000)
+  (lsp-headerline-breadcrumb-enable nil)
   (lsp-headerline-breadcrumb-segments '(project symbols))
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
@@ -761,8 +762,9 @@
   (minibuffer-depth-indicate-mode)
   (minibuffer-electric-default-mode)
   :custom
+  (max-mini-window-height 0.33)
   (crm-separator ",")
-  (resize-mini-windows nil)
+  (resize-mini-windows 'grow-only)
   (enable-recursive-minibuffers t)
   (read-file-name-completion-ignore-case t)
   (read-buffer-completion-ignore-case t)
@@ -771,7 +773,8 @@
 (use-package vertico
   :custom
   (vertico-cycle t)
-  (vertioc-resize nil)
+  (vertico-resize nil)
+  (vertico-count 20)
   :init
   (vertico-mode)
   :config
@@ -1338,8 +1341,13 @@ no matter what."
       (side . right)
       (slot . 1)
       (window-parameters . ((no-other-window . t))))
+     ("\\*Embark Actions\\*"
+      (display-buffer-reuse-mode-window display-buffer-below-selected)
+      (window-height . fit-window-to-buffer)
+      (window-parameters . ((no-other-window . t)
+                            (mode-line-format . none))))
      ;; bottom buffer (NOT side window)
-     ("\\*\\vc-\\(incoming\\|outgoing\\).*"
+     ("\\*vc-\\(incoming\\|outgoing\\).*"
       (display-buffer-at-bottom))
      ("\\*\\(Output\\|Register Preview\\).*"
       (display-buffer-at-bottom)
@@ -1531,8 +1539,8 @@ questions.  Else use completion to select the tab to switch to."
   (yas-global-mode)
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
-  (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME"))
-               (yas-reload-all)))
+  (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME")))
+  (yas-reload-all))
 
 (use-package auto-yasnippet
   :bind (("C-c C-y w" . #'aya-create)

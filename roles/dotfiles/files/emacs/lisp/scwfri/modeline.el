@@ -126,7 +126,7 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
          'mouse-face 'mode-line-highlight))))
 (put '$mode-line-tab-bar-indicator 'risky-local-variable t)
 
-(defvar-local $mode-line-buffer-identification
+(defvar-local $mode-line--buffer-identification
     '(:eval (cond ((buffer-file-name)
                    (let* (($buffer-name (cond ((projectile-project-root)
                                                (file-relative-name buffer-file-name (projectile-project-root)))
@@ -143,16 +143,16 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                                               "No name")
                                  'face '(:inherit mode-line-buffer-id)
                                  'mouse-face 'mode-line-highlight)))))
-(put '$mode-line-buffer-identification 'risky-local-variable t)
+(put '$mode-line--buffer-identification 'risky-local-variable t)
 
-(defvar-local $mode-line-buffer-short-identification
+(defvar-local $mode-line--buffer-short-identification
     '(:eval (propertize (buffer-name)
                         'help-echo (if (buffer-file-name)
                                        (abbreviate-file-name (buffer-file-name))
                                      "No name")
                         'face '(:inherit mode-line-buffer-id)
                         'mouse-face 'mode-line-highlight)))
-(put '$mode-line-buffer-short-identification 'risky-local-variable t)
+(put '$mode-line--buffer-short-identification 'risky-local-variable t)
 
 (defvar-local $mode-line--inactive-buffer-identification
     '(:eval (buffer-file-name)))
@@ -286,8 +286,8 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 ;; Connect to which-function for magit-log-trace-definition
 (setq which-func-functions
       (list
-       (lambda () (meain/tree-sitter-thing-name 'function-like))
-       (lambda () (meain/tree-sitter-thing-name 'class-like))))
+       (lambda () ($tree-sitter--thing-name 'function-like))
+       (lambda () ($tree-sitter--thing-name 'class-like))))
 
 
 (setq-default mode-line-format
@@ -301,7 +301,7 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                               mode-line-mule-info
                               mode-line-modified
                               " "
-                              $mode-line-buffer-short-identification
+                              $mode-line--buffer-identification
                               '(:eval
                                 (if (boundp 'tree-sitter-mode)
                                     (let ((cls ($tree-sitter--thing-name 'class-like))
