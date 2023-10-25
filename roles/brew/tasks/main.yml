@@ -5,6 +5,7 @@
       - autoconf
       - automake
       - bat
+      - black
       - chicken
       - cmake
       - ctags
@@ -46,6 +47,7 @@
       - redis
       - ripgrep
       - ruff
+      - ruff-lsp
       - rbenv
       - ruby-build
       - sbcl
