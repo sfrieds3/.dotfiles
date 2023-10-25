@@ -381,20 +381,6 @@
   :custom
   (evil-visualstar/persist t))
 
-(use-package format-all
-  :disabled t
-  :commands (format-all-buffer)
-  :config
-  (evil-define-operator evil-format (beg end)
-    "Format selected text."
-    :move-point nil
-    :type line
-    (save-excursion
-      (save-restriction
-        (narrow-to-region beg end)
-        (format-all-buffer))))
-  (evil-global-set-key 'normal "gq" #'evil-format))
-
 ;;; goto-chg
 (use-package goto-chg)
 
@@ -655,6 +641,7 @@
 
 (use-package projectile
   :commands (projectile-mode)
+  :defer t
   :init
   (projectile-mode)
   :custom
