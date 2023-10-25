@@ -132,18 +132,24 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                                                (file-relative-name buffer-file-name (projectile-project-root)))
                                               (t ($ellipsize-file-name (buffer-name) 36)))))
                      (propertize $buffer-name
-                                 'help-echo (abbreviate-file-name (buffer-file-name))
+                                 'help-echo (if (buffer-file-name)
+                                                (abbreviate-file-name (buffer-file-name))
+                                              "No name")
                                  'face '(:inherit mode-line-emphasis)
                                  'mouse-face 'mode-line-highlight)))
                   (t (propertize (buffer-name)
-                                 'help-echo (abbreviate-file-name (buffer-file-name))
+                                 'help-echo (if (buffer-file-name)
+                                                (abbreviate-file-name (buffer-file-name))
+                                              "No name")
                                  'face '(:inherit mode-line-buffer-id)
                                  'mouse-face 'mode-line-highlight)))))
 (put '$mode-line-buffer-identification 'risky-local-variable t)
 
 (defvar-local $mode-line-buffer-short-identification
     '(:eval (propertize (buffer-name)
-                        'help-echo (abbreviate-file-name (buffer-file-name))
+                        'help-echo (if (buffer-file-name)
+                                       (abbreviate-file-name (buffer-file-name))
+                                     "No name")
                         'face '(:inherit mode-line-buffer-id)
                         'mouse-face 'mode-line-highlight)))
 (put '$mode-line-buffer-short-identification 'risky-local-variable t)
@@ -183,7 +189,7 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                                     (group (one-or-more alnum))))
                                status))
                      (branch
-                      (if locked?  (match-string 1 status)
+                      (if locked? (match-string 1 status)
                         (substring status 1)))
                      (git-mode-line-status (concat " λ: " branch " ")))
                 (cond
@@ -260,6 +266,30 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                             'mouse-face 'mode-line-highlight))))))
 (put '$mode-line-percent-position 'risky-local-variable t)
 
+(setq $tree-sitter-class-like '((rust-mode . (impl_item))
+                                (python-mode . (class_definition))))
+(setq $tree-sitter-function-like '((rust-mode . (function_item))
+                                   (go-mode . (function_declaration method_declaration))
+                                   (sh-mode . (function_definition))
+                                   (python-mode . (function_definition))))
+(defun $tree-sitter--thing-name (kind)
+  "Get name of tree-sitter KIND thing."
+  (when-let (tree-sitter-mode
+             (node-types (pcase kind
+                           ('class-like $tree-sitter-class-like)
+                           ('function-like $tree-sitter-function-like)))
+             (node-at-point (cl-some #'tree-sitter-node-at-point
+                                     (alist-get major-mode node-types)))
+             (node-name (tsc-get-child-by-field node-at-point :name)))
+    (tsc-node-text node-name)))
+
+;; Connect to which-function for magit-log-trace-definition
+(setq which-func-functions
+      (list
+       (lambda () (meain/tree-sitter-thing-name 'function-like))
+       (lambda () (meain/tree-sitter-thing-name 'class-like))))
+
+
 (setq-default mode-line-format
               '(:eval
                 ($mode-line-render
@@ -271,7 +301,12 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                               mode-line-mule-info
                               mode-line-modified
                               " "
-                              $mode-line-buffer-short-identification))
+                              $mode-line-buffer-short-identification
+                              '(:eval
+                                (if (boundp 'tree-sitter-mode)
+                                    (let ((cls ($tree-sitter--thing-name 'class-like))
+                                          (fn ($tree-sitter--thing-name 'function-like)))
+                                      (if cls (format ":%s.%s" cls fn)))))))
                        (t nil))
 
                  ;; center
@@ -289,6 +324,11 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                   " "
                   $mode-line-percent-position
                   " "))))
+
+(defun $mode-line--force-update ()
+  "Force update of mode line."
+  (delete-file-local-variable mode-line)
+  (forcd-mode-line-update))
 
 (provide 'modeline)
 ;;; modeline.el ends here
