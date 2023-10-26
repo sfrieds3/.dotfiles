@@ -6,13 +6,15 @@
 
 ;;; Code:
 
+(require 'treesit-config)
+
 (set-face-attribute 'mode-line nil
                     :background "#131313")
 
 (set-face-attribute 'mode-line-inactive nil
                     :background "#333333")
 
-(defgroup sfrieds3-mode-line-faces
+(defgroup sfrieds3-mode-line-faces nil
   "Faces for my modeline."
   :group 'sfrieds3-mode-line-faces)
 
@@ -280,30 +282,6 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                             'help-echo "Position"
                             'mouse-face 'mode-line-highlight))))))
 (put '$mode-line-percent-position 'risky-local-variable t)
-
-(setq $tree-sitter-class-like '((rust-mode . (impl_item))
-                                (python-mode . (class_definition))))
-(setq $tree-sitter-function-like '((rust-mode . (function_item))
-                                   (go-mode . (function_declaration method_declaration))
-                                   (sh-mode . (function_definition))
-                                   (python-mode . (function_definition))))
-(defun $tree-sitter--thing-name (kind)
-  "Get name of tree-sitter KIND thing."
-  (when-let (tree-sitter-mode
-             (node-types (pcase kind
-                           ('class-like $tree-sitter-class-like)
-                           ('function-like $tree-sitter-function-like)))
-             (node-at-point (cl-some #'tree-sitter-node-at-point
-                                     (alist-get major-mode node-types)))
-             (node-name (tsc-get-child-by-field node-at-point :name)))
-    (tsc-node-text node-name)))
-
-;; Connect to which-function for magit-log-trace-definition
-(setq which-func-functions
-      (list
-       (lambda () ($tree-sitter--thing-name 'function-like))
-       (lambda () ($tree-sitter--thing-name 'class-like))))
-
 
 (setq-default mode-line-format
               '(:eval

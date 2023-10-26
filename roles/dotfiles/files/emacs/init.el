@@ -114,8 +114,7 @@
 ;;; pretty symbols
 (prettify-symbols-mode nil)
 
-;;; scwfri-defun
-(use-package scwfri-defun
+(use-package my-defun
   :straight nil
   :demand
   :config
@@ -181,14 +180,15 @@
   ($cycle-font 0)
   ($cycle-theme 0))
 
-(use-package scwfri-config
+(use-package my-config
   :straight nil)
+
 (use-package modeline
   :straight nil)
-;; (use-package keybindings
-;;   :straight nil)
+
 (use-package tramp-config
   :straight nil)
+
 (use-package s)
 
 ;;; language specific settings
@@ -198,6 +198,10 @@
 
 ;;; editor settings
 (use-package editor
+  :straight nil
+  :demand)
+
+(use-package treesit-config
   :straight nil
   :demand)
 
@@ -254,9 +258,8 @@
     "gd" #'lsp-ui-peek-find-definitions
     "gg" #'consult-ripgrep
     "gr" #'lsp-ui-peek-find-references
-    "hm" #'git-gutter:mark-hunk
-    "hr" #'git-gutter:revert-hunk
-    "hv" #'git-gutter:popup-hunk
+    "hr" #'diff-hl-revert-hunk
+    "hv" #'diff-hl-show-hunk
     "l" #'consult-line
     "P" #'consult-projectile
     "R" #'lsp-rename
@@ -278,8 +281,8 @@
   (general-create-definer $ctrl-c-leader :prefix "C-c")
   ($ctrl-c-leader
     :keymaps 'normal
-    "j" #'git-gutter:next-hunk
-    "k" #'git-gutter:previous-hunk)
+    "j" #'diff-hl-next-hunk
+    "k" #'diff-hl-previous-hunk)
   (general-create-definer $next :prefix "]")
   ($next
     :keymaps 'normal
@@ -464,71 +467,6 @@
               :map python-mode-map
               ("F5" . #'realgud:pdb)))
 (use-package dap-mode)
-
-;;; treesitter
-(use-package treesit
-  :straight (:type built-in))
-
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (global-treesit-auto-mode))
-
-(use-package evil-textobj-tree-sitter
-  :after (evil tree-sitter)
-  :config
-    (defmacro $inlambda (functionname &rest args)
-    "Create an interactive lambda of existing function `FUNCTIONNAME' with `ARGS'."
-    (let ((funsymbol (concat "ilambda/" (symbol-name functionname))))
-        `(cons ,funsymbol (lambda () (interactive) (apply #',functionname ',args)))))
-    (defmacro $ilambda (functionname &rest args)
-    "Create an interactive lambda of existing function `FUNCTIONNAME' with `ARGS'."
-    `(lambda () (interactive) (apply #',functionname ',args)))
-
-    (define-key evil-outer-text-objects-map "m" (evil-textobj-tree-sitter-get-textobj "import"
-                                                '((python-mode . [(import_statement) @import])
-                                                  (go-mode . [(import_spec) @import])
-                                                  (rust-mode . [(use_declaration) @import]))))
-  (define-key evil-outer-text-objects-map "f" (cons "evil-outer-function" (evil-textobj-tree-sitter-get-textobj "function.outer")))
-  (define-key evil-inner-text-objects-map "f" (cons "evil-inner-function" (evil-textobj-tree-sitter-get-textobj "function.inner")))
-  (define-key evil-outer-text-objects-map "c" (cons "evil-outer-class" (evil-textobj-tree-sitter-get-textobj "class.outer")))
-  (define-key evil-inner-text-objects-map "c" (cons "evil-inner-class" (evil-textobj-tree-sitter-get-textobj "class.inner")))
-  (define-key evil-outer-text-objects-map "n" (cons "evil-outer-comment" (evil-textobj-tree-sitter-get-textobj "comment.outer")))
-  (define-key evil-inner-text-objects-map "n" (cons "evil-outer-comment" (evil-textobj-tree-sitter-get-textobj "comment.outer")))
-  (define-key evil-outer-text-objects-map "v" (cons "evil-outer-conditional-loop" (evil-textobj-tree-sitter-get-textobj ("conditional.outer" "loop.outer"))))
-  (define-key evil-inner-text-objects-map "v" (cons "evil-inner-conditional-loop" (evil-textobj-tree-sitter-get-textobj ("conditional.inner" "loop.inner"))))
-  (define-key evil-inner-text-objects-map "a" (cons "evil-inner-parameter" (evil-textobj-tree-sitter-get-textobj "parameter.inner")))
-  (define-key evil-outer-text-objects-map "a" (cons "evil-outer-parameter" (evil-textobj-tree-sitter-get-textobj "parameter.outer")))
-
-  (define-key evil-normal-state-map (kbd "]a") (cons "goto-parameter-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner")))
-  (define-key evil-normal-state-map (kbd "[a") (cons "goto-parameter-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" t)))
-  (define-key evil-normal-state-map (kbd "]A") (cons "goto-parameter-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" nil t)))
-  (define-key evil-normal-state-map (kbd "[A") (cons "goto-parameter-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" t t)))
-  (define-key evil-normal-state-map (kbd "]v") (cons "goto-conditional-start" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer"))))
-  (define-key evil-normal-state-map (kbd "[v") (cons "goto-conditional-start" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") t)))
-  (define-key evil-normal-state-map (kbd "]V") (cons "goto-conditional-end" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") nil t)))
-  (define-key evil-normal-state-map (kbd "[V") (cons "goto-conditional-end" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") t t)))
-  (define-key evil-normal-state-map (kbd "]c") (cons "goto-class-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer")))
-  (define-key evil-normal-state-map (kbd "[c") (cons "goto-class-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" t)))
-  (define-key evil-normal-state-map (kbd "]C") (cons "goto-class-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" nil t)))
-  (define-key evil-normal-state-map (kbd "[C") (cons "goto-class-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" t t)))
-  (define-key evil-normal-state-map (kbd "]n") (cons "goto-comment-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer")))
-  (define-key evil-normal-state-map (kbd "[n") (cons "goto-comment-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" t)))
-  (define-key evil-normal-state-map (kbd "]N") (cons "goto-comment-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" nil t)))
-  (define-key evil-normal-state-map (kbd "[N") (cons "goto-comment-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" t t)))
-  (define-key evil-normal-state-map (kbd "]f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer") (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "[f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t) (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "]F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" nil t) (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "[F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t t) (reposition-window))))))
-
-;; treesitter fold
-(use-package ts-fold
-  :blackout
-  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
-  :init
-  (global-ts-fold-mode)
-  (global-ts-fold-indicators-mode))
 
 ;;; avy
 (use-package avy
@@ -1068,12 +1006,13 @@ no matter what."
              git-messenger:copy-commit-id
              git-messenger:popup-show-verbose))
 
-(use-package git-gutter
+(use-package diff-hl
   :blackout
-  :ensure t
-  :hook ((prog-mode-hook org-mode-hook) . git-gutter-mode )
   :config
-  (setq git-gutter:update-interval 0.5))
+  (global-diff-hl-mode)
+  (diff-hl-margin-mode)
+  (diff-hl-margin-mode)
+  (diff-hl-show-hunk-mouse-mode))
 
 (use-package git-timemachine)
 

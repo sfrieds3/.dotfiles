@@ -1,4 +1,4 @@
-;;; scwfri-defun --- personal functions -*- lexical-binding: t -*-
+;;; my-defun --- personal functions -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;;     personal functions
@@ -563,5 +563,5 @@ If a MAP is passed, update for that map."
     (message "Native JSON is *not* available")))
 
 
-(provide 'scwfri-defun)
-;;; scwfri-defun.el ends here
+(provide 'my-defun)
+;;; my-defun.el ends here

@@ -1,7 +1,7 @@
-;;; scwfri-config --- other config stuff -*- lexical-binding: t -*-
+;;; my-config --- other config stuff -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;;;     scwfri-settings
+;;;     my various settings
 
 ;;; Code:
 
@@ -18,5 +18,5 @@
     ("Asia/Shanghai" "Shanghai")))
 (setq display-time-world-time-format "%a, %d %b %I:%M %p %Z")
 
-(provide 'scwfri-config)
-;;; scwfri-settings.el ends here
+(provide 'my-config)
+;;; my-config.el ends here
