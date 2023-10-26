@@ -465,6 +465,10 @@
               ("F5" . #'realgud:pdb)))
 (use-package dap-mode)
 
+;;; treesitter
+(use-package treesit
+  :straight (:type built-in))
+
 (use-package treesit-auto
   :custom
   (treesit-auto-install 'prompt)
@@ -614,8 +618,6 @@
   (rg-enable-menu))
 
 (use-package projectile
-  :commands (projectile-mode)
-  :defer t
   :init
   (projectile-mode)
   :custom
@@ -896,10 +898,6 @@
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
   :hook (completion-list-mode-hook . consult-preview-at-point-mode)
-
-  :commands (consult-register-window
-             consult-multi-occur
-             consult-register-format)
 
   :init
   ;; Optionally configure the register formatting. This improves the register

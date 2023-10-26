@@ -12,6 +12,19 @@
 (set-face-attribute 'mode-line-inactive nil
                     :background "#333333")
 
+(defgroup sfrieds3-mode-line-faces
+  "Faces for my modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+(defface $face--mode-line-dark-green
+  '((default :inherit bold)
+    (((class color) (min-colors 88) (background dark))
+     :foreground "dark green")
+    (t :foreground "green"))
+  "Dark green bold face for modeline."
+  :group 'sfrieds3-mode-line-faces)
+
+
 (defface $face--mode-line-dark-cyan
   '((default :inherit bold)
     (((class color) (min-colors 88) (background dark))
