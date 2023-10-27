@@ -233,6 +233,16 @@
   :hook
   (dired-mode-hook . #'auto-revert-mode))
 
+(use-package dired-x
+  :straight (:type built-in)
+  :config
+  (setq dired-omit-files "\\.DS_Store$\\|__pycache__$\\|.pytest_cache$\\|\\.mypy_cache$\\|\\.egg-info$"))
+
+(use-package dired-git-info
+  :defer t
+  :after dired
+  :commands (dired-git-info-mode dired-git-info-auto-enable))
+
 ;;; general
 (use-package general
   :config
@@ -596,9 +606,17 @@
   :straight (:type built-in)
   :config
   ;;; Add prompt indicator to `completing-read-multiple'.
+  ;; (defun $crm-indicator (args)
+  ;;   "Add indicator when in CRM prompt and reading ARGS."
+  ;;   (cons (concat "[CRM] " (car args) crm-separator) (cdr args)))
   (defun $crm-indicator (args)
     "Add indicator when in CRM prompt and reading ARGS."
-    (cons (concat "[CRM] " (car args) crm-separator) (cdr args)))
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'$crm-indicator)
 
   ;;; Do not allow the cursor in the minibuffer prompt
@@ -625,6 +643,17 @@
   (vertico-count 20)
   :init
   (vertico-mode)
+  (vertico-multiform-mode)
+  :bind (("C-c -" . #'vertico-suspend)
+         :map vertico-map
+         ("M-q" . #'vertico-multiform-vertical)
+         ("M-g" . #'vertico-multiform-grid)
+         ("M-f" . #'vertico-multiform-flat)
+         ("M-r" . #'vertico-multiform-reverse)
+         ("M-u" . #'vertico-multiform-unobtrusive)
+         ("<S-backspace>" . #'vertico-directory-up)
+         ("M-n" . #'vertico-next-group)
+         ("M-p" . #'vertico-previous-group))
   :config
   ;; prefix cutrent candidate with "» "
   (advice-add #'vertico--format-candidate :around
@@ -650,10 +679,30 @@
         (propertize file 'face 'marginalia-file-priv-dir)
       file))
 
+  (defun sort-directories-first (files)
+    "Sort directories first for a list of FILES."
+    (setq files (vertico-sort-history-length-alpha files))
+    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
+           (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
+
+  ;; Configure the display per command.
+  ;; Use a buffer with indices for imenu
+  ;; and a flat (Ido-like) menu for M-x.
   (setq vertico-multiform-commands
-        '(("find-file" flat
+        '(("find-file" list
            (vertico-sort-function . sort-directories-first)
-           (+vertico-transform-functions . +vertico-highlight-directory))))
+           (+vertico-transform-functions . +vertico-highlight-directory))
+          (consult-imenu buffer indexed)
+          (execute-extended-command list)
+          (project-switch-to-buffer unobtrusive)
+          (consult-outline buffer ,(lambda (_) (text-scale-set -1)))))
+
+  ;; Configure the display per completion category.
+  ;; Use the grid display for files and a buffer
+  ;; for the consult-grep commands.
+  (setq vertico-multiform-categories
+        '((file grid)
+          (consult-grep buffer)))
 
   (defun down-from-outside ()
     "Move to next candidate in minibuffer, even when minibuffer isn't selected."
