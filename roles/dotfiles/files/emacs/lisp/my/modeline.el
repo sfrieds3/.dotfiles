@@ -294,12 +294,12 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                               mode-line-mule-info
                               mode-line-modified
                               " "
-                              $mode-line--buffer-identification
-                              '(:eval
-                                (if (boundp 'tree-sitter-mode)
-                                    (let ((cls ($tree-sitter--thing-name 'class-like))
-                                          (fn ($tree-sitter--thing-name 'function-like)))
-                                      (if cls (format ":%s.%s" cls fn)))))))
+                              $mode-line--buffer-identification))
+                              ;; '(:eval
+                              ;;   (if (boundp 'tree-sitter-mode)
+                              ;;       (let ((cls ($tree-sitter--thing-name 'class-like))
+                              ;;             (fn ($tree-sitter--thing-name 'function-like)))
+                              ;;         (if cls (format ":%s.%s" cls fn)))))))
                        (t nil))
 
                  ;; center

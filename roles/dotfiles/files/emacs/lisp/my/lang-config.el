@@ -29,7 +29,7 @@
   :init
   (setq markdown-command "multimarkdown"))
 
-;;; python-mode
+;;; python
 (use-package python-mode
   :commands (python-mode)
   :custom
@@ -41,6 +41,37 @@
   (setenv "WORKON_HOME" "~/.venv")
   (pyvenv-mode t)
   :hook (pyvenv-post-activate-hooks . pyvenv-restart-python))
+
+
+(use-package conda
+  :after python
+  :config
+  ;; If none of these work for you, `conda-anaconda-home' must be set
+  ;; explicitly. Afterwards, run M-x `conda-env-activate' to switch between
+  ;; environments
+  (or (cl-loop for dir in (list conda-anaconda-home
+                                "~/.anaconda"
+                                "~/.miniconda"
+                                "~/.miniconda3"
+                                "~/.miniforge3"
+                                "~/anaconda3"
+                                "~/miniconda3"
+                                "~/miniforge3"
+                                "~/opt/miniconda3"
+                                "/usr/bin/anaconda3"
+                                "/usr/local/anaconda3"
+                                "/usr/local/miniconda3"
+                                "/usr/local/Caskroom/miniconda/base"
+                                "~/.conda")
+               if (file-directory-p dir)
+               return (setq conda-anaconda-home (expand-file-name dir)
+                            conda-env-home-directory (expand-file-name dir)))
+      (message "Cannot find Anaconda installation"))
+
+  ;; integration with term/eshell
+  (conda-env-initialize-interactive-shells)
+  :hook
+  (eshell-mode-hook . #'conda-env-initialize-eshell))
 
 ;;; golang
 (use-package go-mode)

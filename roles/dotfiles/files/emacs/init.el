@@ -645,8 +645,7 @@
   :bind (("C-c f" . #'projectile-find-file)
          ("C-c b" . #'projectile-switch-to-buffer)
          :map projectile-mode-map
-         ("C-c p" . #'projectile-command-map))
-  :hook ((find-file-hook . (lambda () (setq default-directory (projectile-project-root))))))
+         ("C-c p" . #'projectile-command-map)))
 
 ;;; project
 (use-package project
@@ -656,7 +655,13 @@
       (if override
           (cons 'vc override)
         nil)))
+  (defun $project--default-directory ()
+    (let ((project (project-current)))
+      (cond (project
+             (setq default-directory (cdr project)))
+            (t (setq default-directory (file-name-parent-directory (buffer-file-name)))))))
   :hook
+  ;; (find-file-hook . #'$project--default-directory)
   (project-find-functions-hook . $project-override))
 
 ;;; marginalia
