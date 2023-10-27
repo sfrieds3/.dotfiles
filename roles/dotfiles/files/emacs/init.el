@@ -260,8 +260,8 @@
   ($leader
     :keymaps 'normal
     "RET" #'execute-extended-command
-    "SPC" #'consult-projectile
-    "b" #'project-switch-to-buffer
+    "SPC" #'consult-buffer
+    "b" #'consult-projectile
     "d" #'consult-flycheck
     "f" #'project-find-file
     "G" #'rg
@@ -767,6 +767,7 @@
           (consult-imenu buffer indexed)
           (execute-extended-command list)
           (project-switch-to-buffer unobtrusive)
+          (consult-buffer flat)
           (consult-outline buffer ,(lambda (_) (text-scale-set -1)))))
 
   ;; Configure the display per completion category.
@@ -910,7 +911,7 @@
          ([remap Info-search] . consult-info)
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . #'consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . #'consult-buffer)                ;; orig. switch-to-buffer
+         ;; ("C-x b" . #'consult-buffer)                ;; orig. switch-to-buffer
          ("C-x f" . #'consult-recent-file)
          ("C-x 4 b" . #'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . #'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
@@ -1533,7 +1534,6 @@ questions.  Else use completion to select the tab to switch to."
          ("C-c C-y p" . #'aya-previous-in-history)
          ("C-c C-y s" . #'aya-persist-snippet)
          ("C-c C-y o" . #'aya-open-line)))
-
 
 ;;; TODO investigate tempel
 (use-package tempel
