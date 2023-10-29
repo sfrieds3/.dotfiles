@@ -656,12 +656,13 @@
           (cons 'vc override)
         nil)))
   (defun $project--default-directory ()
-    (let ((project (project-current)))
-      (cond (project
-             (setq default-directory (cdr project)))
-            (t (setq default-directory (file-name-parent-directory (buffer-file-name)))))))
+    (if (project-current)
+        (setq default-directory (cdr (project-current)))
+      (if (buffer-file-name)
+          (setq default-directory (file-name-parent-directory (buffer-file-name)))
+        (setq default-directory (getenv "HOME")))))
   :hook
-  ;; (find-file-hook . #'$project--default-directory)
+  (find-file-hook . #'$project--default-directory)
   (project-find-functions-hook . $project-override))
 
 ;;; marginalia
