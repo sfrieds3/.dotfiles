@@ -10,34 +10,53 @@
 (require 'map)
 (require 'subr-x)
 
-(setq debug-on-error t)
-;; https://www.reddit.com/r/emacs/comments/mtb05k/emacs_init_time_decreased_65_after_i_realized_the/
-(defvar straight-check-for-modifications '(check-on-save find-when-checking))
+;;; bootstrap elpaca
+(defvar elpaca-installer-version 0.5)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil
+                              :files (:defaults (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                 ((zerop (call-process "git" nil buffer t "clone"
+                                       (plist-get order :repo) repo)))
+                 ((zerop (call-process "git" nil buffer t "checkout"
+                                       (or (plist-get order :ref) "--"))))
+                 (emacs (concat invocation-directory invocation-name))
+                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                 ((require 'elpaca))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
 
-;;; bootstrap straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;; Install use-package support
+(elpaca elpaca-use-package
+  ;; Enable :elpaca use-package keyword.
+  (elpaca-use-package-mode)
+  ;; Assume :elpaca t unless otherwise specified.
+  (setq elpaca-use-package-by-default t))
 
-;;; use straight.el with use-package
-(straight-use-package 'use-package)
-(use-package straight
-  :config
-  (defun $straight-update-all ()
-    (interactive)
-    (straight-pull-all)
-    (straight-check-all)
-    (straight-prune-build))
-  :custom (straight-use-package-by-default t))
+;; Block until current queue processed.
+(elpaca-wait)
 
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
@@ -114,8 +133,13 @@
 ;;; pretty symbols
 (prettify-symbols-mode nil)
 
+(use-package blackout
+  :config
+  (blackout 'abbrev-mode))
+(elpaca-wait)
+
 (use-package my-defun
-  :straight nil
+  :elpaca nil
   :demand
   :config
   ;; remap some commands to use transient-mark-mode
@@ -140,9 +164,43 @@
          :map isearch-mode-map
          ([(control q)] . #'$isearch-highlight-phrase)))
 
+(use-package toggle-commands
+  :elpaca nil
+  :after (theme-config ef-themes doom-themes)
+  :config
+  ($cycle-font 0)
+  ($cycle-theme 0))
+
+(use-package my-config
+  :elpaca nil)
+
+(use-package modeline
+  :elpaca nil)
+
+(use-package tramp-config
+  :elpaca nil)
+
+;;; language specific settings
+(use-package lang-config
+  :elpaca nil
+  :demand t)
+
+;;; editor settings
+(use-package editor
+  :elpaca nil
+  :demand t)
+
+(use-package treesit-config
+  :elpaca nil
+  :demand t)
+
+(use-package editor-format
+  :elpaca nil
+  :demand)
+
 ;;; theme config
 (use-package theme-config
-  :straight nil
+  :elpaca nil
   :demand
   :config
   ($set-path)
@@ -153,7 +211,7 @@
 (use-package ef-themes)
 (use-package standard-themes)
 (use-package zerodark
-  :straight (:host github :repo "NicolasPetton/zerodark-theme")
+  :elpaca (:host github :repo "NicolasPetton/zerodark-theme")
   :no-require t)
 ;; run all-the-icons-install-fonts
 (use-package all-the-icons)
@@ -169,45 +227,7 @@
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 
-(use-package blackout
-  :config
-  (blackout 'abbrev-mode))
-
-(use-package toggle-commands
-  :straight nil
-  :after (theme-config ef-themes doom-themes)
-  :config
-  ($cycle-font 0)
-  ($cycle-theme 0))
-
-(use-package my-config
-  :straight nil)
-
-(use-package modeline
-  :straight nil)
-
-(use-package tramp-config
-  :straight nil)
-
 (use-package s)
-
-;;; language specific settings
-(use-package lang-config
-  :straight nil
-  :demand)
-
-;;; editor settings
-(use-package editor
-  :straight nil
-  :demand)
-
-(use-package treesit-config
-  :straight nil
-  :demand)
-
-(use-package editor-format
-  :straight nil
-  :demand)
 
 ;;; match env to shell
 (use-package exec-path-from-shell
@@ -218,6 +238,7 @@
 
 ;;; auto-revert everything
 (use-package autorevert
+  :elpaca nil
   :commands (global-auto-revert-mode)
   :init
   (global-auto-revert-mode 1)
@@ -226,13 +247,13 @@
   (auto-revert-verbose nil))
 
 (use-package dired
-  :straight (:type built-in)
+  :elpaca nil
   :custom
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
 
 (use-package dired-x
-  :straight (:type built-in)
+  :elpaca nil
   :config
   (setq dired-omit-files "\\.DS_Store$\\|__pycache__$\\|.pytest_cache$\\|\\.mypy_cache$\\|\\.egg-info$"))
 
@@ -306,11 +327,13 @@
   (general-def 'normal
     "M-n" #'tab-next
     "M-p" #'tab-previous))
+;;; we may want to use general keyword later
+(elpaca-wait)
 
 ;;; evil
 (use-package evil-config
-  :after (evil)
-  :straight nil)
+  :elpaca nil
+  :after (evil))
 
 (use-package evil
   :demand t
@@ -360,6 +383,8 @@
                ([(control shift c)] . #'evil-yank)
                ([(control shift v)] . #'evil-visual-paste)
                ("SPC RET" . #'execute-extended-command))))
+;;; we may want to use evil keyword later
+(elpaca-wait)
 
 (use-package evil-collection
   :after evil
@@ -393,9 +418,6 @@
   (global-evil-visualstar-mode)
   :custom
   (evil-visualstar/persist t))
-
-;;; goto-chg
-(use-package goto-chg)
 
 ;;; undo stuff
 (use-package undo-fu
@@ -438,9 +460,6 @@
 ;;   :hook
 ;;   (python-mode-hook . eglot-ensure))
 
-(use-package consult-lsp
-  :after (consult lsp))
-
 ;;; lsp-mode
 (use-package lsp-mode
   :custom
@@ -458,9 +477,11 @@
          (lsp-mode-hook . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
+  :after lsp
   :commands lsp-ui-mode)
 
 (use-package lsp-pyright
+  :after lsp
   :config
   (defun $python-mode-hook()
     (require 'lsp-pyright)
@@ -468,17 +489,19 @@
   :hook ((python-ts-mode-hook . $python-mode-hook)
          (python-mode-hook . $python-mode-hook)))
 
+(use-package consult-lsp
+  :after (consult lsp))
+
 ;; debugging
 (use-package realgud
   :bind (:map python-ts-mode-map
               ("F5" . #'realgud:pdb)
               :map python-mode-map
               ("F5" . #'realgud:pdb)))
-(use-package dap-mode)
 
 ;;; treesitter
 (use-package treesit
-  :straight (:type built-in))
+  :elpaca nil)
 
 (use-package treesit-auto
   :custom
@@ -536,12 +559,10 @@
 ;; treesitter fold
 (use-package ts-fold
   :blackout
-  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold")
+  :elpaca (:host github :repo "emacs-tree-sitter/ts-fold")
   :init
   (global-ts-fold-mode)
   (global-ts-fold-indicators-mode))
-
-
 
 ;;; avy
 (use-package avy
@@ -551,6 +572,7 @@
 
 ;;; hideshow
 (use-package hideshow
+  :elpaca nil
   :bind ("C-c h" . #'hs-toggle-hiding)
   :commands hs-toggle-hiding
   :config
@@ -560,12 +582,12 @@
 
 ;;; org-defun
 (use-package org-defun
-  :straight nil
+  :elpaca nil
   :bind (("s-SPC" . #'$org-table--mark-field)))
 
 ;;; org-mode
 (use-package org
-  :straight (:type built-in)
+  :elpaca nil
   :commands (org-mode
              org-capture)
   :defer t
@@ -590,6 +612,7 @@
   (org-mode-hook . org-indent-mode))
 
 (use-package evil-org-mode
+  :elpaca (:host github :repo "Somelauw/evil-org-mode")
   :after org
   :config
   (require 'evil-org-agenda)
@@ -600,9 +623,8 @@
 
 ;;; org-table
 (use-package org-table
-  :after org
-  :straight nil)
-
+  :elpaca nil
+  :after org)
 
 (use-package neotree
   :custom
@@ -634,7 +656,7 @@
   :init
   (projectile-mode)
   :custom
-  (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "straight/repos" user-emacs-directory)))
+  (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "elpaca/repos" user-emacs-directory)))
   (projectile-mode-line-prefix " Proj")
   :config
   (setq projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
@@ -647,7 +669,7 @@
 
 ;;; project
 (use-package project
-  :straight (:type built-in)
+  :elpaca nil
   :config
   (defun $project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
@@ -675,7 +697,7 @@
   (marginalia-mode))
 
 (use-package minibuffer
-  :straight (:type built-in)
+  :elpaca nil
   :config
   ;;; Add prompt indicator to `completing-read-multiple'.
   ;; (defun $crm-indicator (args)
@@ -797,11 +819,12 @@
       (select-window (active-minibuffer-window)))))
 
 (use-package savehist
+  :elpaca nil
   :init
   (savehist-mode))
 
 (use-package orderless-defun
-  :straight nil)
+  :elpaca nil)
 
 (use-package orderless
   :after (orderless-defun)
@@ -830,7 +853,7 @@
   (define-key minibuffer-local-map (kbd "C-l") #'$match-components-literally))
 
 (use-package corfu
-  :straight (:files (:defaults "extensions/*"))
+  :elpaca (:files (:defaults "extensions/*"))
   :custom
   (corfu-cycle t)
   (corfu-auto t)
@@ -1010,7 +1033,7 @@
   :bind ("<f6>" . #'deadgrep))
 
 (use-package embark-defun
-  :straight nil)
+  :elpaca nil)
 
 (use-package embark
   :after (embark-defun)
@@ -1040,7 +1063,7 @@
                  (window-parameters (mode-line-format . none)))))
 
 (use-package embark-this-buffer
-  :straight nil
+  :elpaca nil
   :after (embark-consult))
 
 (use-package embark-consult
@@ -1049,7 +1072,6 @@
   (embark-collect-mode-hook . consult-preview-at-point-mode))
 
 (use-package vterm
-  :demand t
   :config
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
@@ -1083,6 +1105,7 @@
 
 ;;; ansi-term
 (use-package term
+  :elpaca nil
   :config
   (defun $ansi-term-dwim (arg)
     "Launch or switch to ansi-term.
@@ -1140,6 +1163,7 @@ no matter what."
 
 ;;; compile
 (use-package compile
+  :elpaca nil
   :config
   (add-to-list 'compilation-error-regexp-alist-alist
                '(pyright "^[[:blank:]]+\\(.+\\):\\([0-9]+\\):\\([0-9]+\\).*$" 1 2 3))
@@ -1160,11 +1184,13 @@ no matter what."
 
 ;;; show matching parens
 (use-package paren
+  :elpaca nil
   :config
   (show-paren-mode 1))
 
 ;;; smart parens
 (use-package elec-pair
+  :elpaca nil
   :commands (electric-pair-mode)
   :init
   (electric-pair-mode t)
@@ -1176,6 +1202,7 @@ no matter what."
 
 ;;; highlight current line
 (use-package hl-line
+  :elpaca nil
   :config
   (set-face-attribute hl-line-face nil :underline nil)
   :custom
@@ -1188,7 +1215,7 @@ no matter what."
 
 ;;; nXml-mode
 (use-package nxml-mode
-  :straight (:type built-in)
+  :elpaca nil
   :defer t
   :config
   (defun $pretty-xml ()
@@ -1240,7 +1267,7 @@ no matter what."
 ;;; eldoc
 (use-package eldoc
   :blackout
-  :straight (:type built-in))
+  :elpaca nil)
 
 (use-package eldoc-box
   :blackout ((eldoc-box-hover-mode . "")
@@ -1258,7 +1285,7 @@ no matter what."
 
 ;;; uniquify
 (use-package uniquify
-  :straight (:type built-in)
+  :elpaca nil
   :custom
   (uniquify-buffer-name-style 'forward)
   (uniquify-separator "/")
@@ -1272,7 +1299,7 @@ no matter what."
 
 ;;; display-buffer (most/all of this taken from prot)
 (use-package window
-  :straight (:type built-in)
+  :elpaca nil
   :custom
   (display-buffer-alist
    '(;; top side window
@@ -1346,11 +1373,13 @@ no matter what."
 
 ;;; winner-mode
 (use-package winner
+  :elpaca nil
   :hook
   (after-init-hook . winner-mode))
 
 ;;; tab-bar (again, most/all of this taken from prot)
 (use-package tab-bar
+  :elpaca nil
   :custom
   (tab-bar-close-button-show nil)
   (tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
@@ -1426,6 +1455,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; hi-lock
 (use-package hi-lock
+  :elpaca nil
   :config
   ;; make hl-lock play nice with idle-highlight-mode
   (defun $enable-idle-highlight-mode ()
@@ -1491,11 +1521,6 @@ questions.  Else use completion to select the tab to switch to."
    '(kill-ring
      search-ring
      regexp-search-ring)))
-
-;;; tags
-(use-package etags
-  :custom
-  (tags-revert-without-query 1))
 
 ;;; deft
 (use-package deft

@@ -4,7 +4,7 @@
 
 ;;; Code:
 (use-package elisp-mode
-  :straight (:type built-in)
+  :elpaca nil
   :blackout ((lisp-interaction-mode . "Lisp-Interaction")
              (emacs-lisp-mode . `("ELisp"
                                   (lexical-binding
@@ -95,6 +95,7 @@
 
 ;;; cperl-mode
 (use-package cperl-mode
+  :elpaca nil
   :commands (cperl-mode)
   :init
   (mapc
@@ -117,13 +118,13 @@
 
 ;;; javacsript
 (use-package js
-  :straight (:type built-in)
+  :elpaca nil
   :custom
   (js-indent-level 2))
 
 ;;; sh-mode
 (use-package sh-script
-  :straight (:type built-in)
+  :elpaca nil
   :config
   (add-to-list 'auto-mode-alist '("/zsh/" . sh-mode)))
 
@@ -141,6 +142,7 @@
 
 ;;; ruby-mode
 (use-package ruby-mode
+  :elpaca nil
   :custom
   (ruby-deep-indent-paren nil))
 
@@ -168,7 +170,7 @@
 
 ;;; c++-mode
 (use-package c++-mode
-  :straight (:type built-in)
+  :elpaca nil
   :commands (c++-mode)
   :custom
   (c-basic-offset 2)
@@ -179,6 +181,7 @@
 
 ;;; projectile-rails
 (use-package projectile-rails
+  :disabled
   :mode "\\.rb\\'"
   :interpreter "ruby"
   :commands (projectile-rails-mode
