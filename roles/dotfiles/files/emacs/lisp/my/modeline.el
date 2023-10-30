@@ -146,12 +146,19 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                    (let* (($buffer-name (cond ((projectile-project-root)
                                                (file-relative-name buffer-file-name (projectile-project-root)))
                                               (t ($ellipsize-file-name (buffer-name) 36)))))
-                     (propertize $buffer-name
-                                 'help-echo (if (buffer-file-name)
-                                                (abbreviate-file-name (buffer-file-name))
-                                              "No name")
-                                 'face '(:inherit mode-line-emphasis)
-                                 'mouse-face 'mode-line-highlight)))
+                     (if (buffer-modified-p)
+                         (propertize $buffer-name
+                                     'help-echo (if (buffer-file-name)
+                                                    (abbreviate-file-name (buffer-file-name))
+                                                  "No name")
+                                     'face '$face--mode-line-dark-red
+                                     'mouse-face 'mode-line-highlight)
+                       (propertize $buffer-name
+                                   'help-echo (if (buffer-file-name)
+                                                  (abbreviate-file-name (buffer-file-name))
+                                                "No name")
+                                   'face '(:inherit mode-line-emphasis)
+                                   'mouse-face 'mode-line-highlight))))
                   (t (propertize (buffer-name)
                                  'help-echo (if (buffer-file-name)
                                                 (abbreviate-file-name (buffer-file-name))
