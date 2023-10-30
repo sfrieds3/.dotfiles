@@ -419,6 +419,13 @@
   :custom
   (evil-visualstar/persist t))
 
+(use-package anzu
+  :blackout
+  :config (global-anzu-mode))
+
+(use-package evil-anzu
+  :after (evil anzu))
+
 ;;; undo stuff
 (use-package undo-fu
   :custom
@@ -1440,6 +1447,15 @@ questions.  Else use completion to select the tab to switch to."
   :blackout
   :config
   (which-key-mode))
+
+(use-package dimmer
+  :custom
+  (dimmer-fraction 0.10)
+  (dimmer-watch-frame-focus-events nil)
+  :config
+  (dimmer-mode 1)
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit))
 
 ;;; idle-highlight-mode
 (use-package idle-highlight-mode
