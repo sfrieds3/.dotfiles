@@ -229,9 +229,7 @@
   :straight (:type built-in)
   :custom
   (dired-listing-switches "-alh")
-  (dired-dwim-target t)
-  :hook
-  (dired-mode-hook . #'auto-revert-mode))
+  (dired-dwim-target t))
 
 (use-package dired-x
   :straight (:type built-in)
@@ -649,6 +647,7 @@
 
 ;;; project
 (use-package project
+  :straight (:type built-in)
   :config
   (defun $project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
@@ -662,7 +661,7 @@
           (setq default-directory (file-name-parent-directory (buffer-file-name)))
         (setq default-directory (getenv "HOME")))))
   :hook
-  (find-file-hook . #'$project--default-directory)
+  ;; (find-file-hook . #'$project--default-directory)
   (project-find-functions-hook . $project-override))
 
 ;;; marginalia
@@ -1348,9 +1347,7 @@ no matter what."
 ;;; winner-mode
 (use-package winner
   :hook
-  (after-init-hook . winner-mode)
-  :bind(("s-<" . #'winner-undo)
-        ("s->" . #'winner-redo)))
+  (after-init-hook . winner-mode))
 
 ;;; tab-bar (again, most/all of this taken from prot)
 (use-package tab-bar
