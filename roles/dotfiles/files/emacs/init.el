@@ -272,6 +272,7 @@
     "d" #'consult-flycheck
     "f" #'project-find-file
     "G" #'rg
+    "gb" #'blamer-show-commit-info
     "gd" #'lsp-ui-peek-find-definitions
     "gg" #'consult-ripgrep
     "gr" #'lsp-ui-peek-find-references
@@ -282,6 +283,7 @@
     "R" #'lsp-rename
     "rg" #'deadgrep
     "vd" #'consult-lsp-diagnostics
+    "vt" #'hl-todo-occur
     "/"  #'consult-line
     "\\" #'neotree
     ":" #'consult-lsp-symbols
@@ -329,16 +331,22 @@
   (setq evil-want-keybinding nil)
   (setq evil-disable-insert-state-bindings t)
   :config
-  (evil-mode 1)
+  (evil-mode t)
+  (defalias #'forward-evil-word #'forward-evil-symbol)
   (defun $evil-nohl ()
     (progn
       (redraw-frame)
       (evil-ex-nohighlight)))
-  ;; (defadvice evil-inner-word (around underscore-as-word activate)
-  ;;   (let ((table (copy-syntax-table (syntax-table))))
-  ;;     (modify-syntax-entry ?_ "w" table)
-  ;;     (with-syntax-table table
-  ;;       ad-do-it)))
+  (defun $evil--eval-visual-region ()
+    (interactive)
+    (call-interactively 'eval-region)
+    (evil-force-normal-state))
+  (defun $evil--yank-advice (orig-fn beg end &rest args)
+    "Advice to be added to `evil-yank' to highlight yanked region.
+Pass ORIG-FN, BEG, END, TYPE, ARGS."
+    (pulse-momentary-highlight-region beg end 'mode-line)
+    (apply orig-fn beg end args))
+  (advice-add 'evil-yank :around '$evil--yank-advice)
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -351,8 +359,8 @@
   (scroll-margin 3) ; set scrolloff=3
   :bind ((:map evil-normal-state-map
                ([(control l)] . #'evil-ex-nohighlight)
-               ([(control j)] . #'evil-next-visual-line)
-               ([(control k)] . #'evil-previous-visual-line)
+               ([(control j)] . #'evil-next-line)
+               ([(control k)] . #'evil-previous-line)
                ([(control return)] . #'eval-last-sexp)
                ("j" . #'evil-next-visual-line)
                ("k" . #'evil-previous-visual-line)
@@ -370,6 +378,7 @@
          (:map evil-visual-state-map
                ([(control shift c)] . #'evil-yank)
                ([(control shift v)] . #'evil-visual-paste)
+               (";" . #$evil--eval-visual-region)
                ("SPC RET" . #'execute-extended-command))))
 ;;; we may want to use evil keyword later
 (elpaca-wait)
@@ -406,6 +415,24 @@
   (global-evil-visualstar-mode)
   :custom
   (evil-visualstar/persist t))
+
+(use-package evil-textobj-line)
+(use-package evil-textobj-syntax)
+(use-package evil-indent-plus
+  :config
+  (define-key evil-inner-text-objects-map "i" 'evil-indent-plus-i-indent)
+  (define-key evil-outer-text-objects-map "i" 'evil-indent-plus-a-indent)
+  (define-key evil-inner-text-objects-map "I" 'evil-indent-plus-i-indent-up)
+  (define-key evil-outer-text-objects-map "I" 'evil-indent-plus-a-indent-up)
+  (define-key evil-inner-text-objects-map "J" 'evil-indent-plus-i-indent-up-down)
+  (define-key evil-outer-text-objects-map "J" 'evil-indent-plus-a-indent-up-down))
+
+(use-package evil-numbers
+  :after (evil)
+  :commands (evil-numbers/inc-at-pt-incremental evil-numbers/dec-at-pt-incremental)
+  :init
+  (define-key evil-normal-state-map (kbd "C-; C-a") 'evil-numbers/inc-at-pt-incremental)
+  (define-key evil-normal-state-map (kbd "C-; C-x") 'evil-numbers/dec-at-pt-incremental))
 
 (use-package anzu
   :diminish
@@ -468,7 +495,6 @@
   (lsp-headerline-breadcrumb-segments '(project symbols))
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
   (defun $python-mode-hook()
     (require 'lsp-pyright)
     (lsp-deferred))
@@ -493,9 +519,9 @@
 ;; debugging
 (use-package realgud
   :bind (:map python-ts-mode-map
-              ("F5" . #'realgud:pdb)
+              ([f5] . #'realgud:pdb)
               :map python-mode-map
-              ("F5" . #'realgud:pdb)))
+              ([f5] . #'realgud:pdb)))
 
 ;;; treesitter
 (use-package treesit
@@ -1146,6 +1172,18 @@ no matter what."
              git-messenger:copy-commit-id
              git-messenger:popup-show-verbose))
 
+(use-package blamer
+  :elpaca (:host github :repo "artawower/blamer.el")
+  :bind (("s-i" . blamer-show-commit-info))
+  :custom
+  (blamer-idle-time 0.3)
+  (blamer-min-offset 70)
+  :custom-face
+  (blamer-face ((t :foreground "#7a88cf"
+                    :background nil
+                    :height 140
+                    :italic t))))
+
 (use-package diff-hl
   :diminish
   :config
@@ -1191,9 +1229,10 @@ no matter what."
   (electric-pair-mode t)
   :config
   (defun $inhibit-electric-pair-mode (char)
-    "Do not use smart parens in mini-buffers.  Params: CHAR."
-    (minibufferp))
-  (setq electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode))
+    "Do not use smart parens in certain modes. Receives single CHAR."
+    (or (minibufferp)
+        (eq major-mode 'gud-mode))
+  (setq electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode)))
 
 ;;; highlight current line
 (use-package hl-line
