@@ -51,9 +51,8 @@
   (setq elpaca-use-package-by-default t))
 (elpaca-wait)
 
-;;; Add blackout
-(use-package blackout)
-(elpaca-wait)
+;;; https://adamsimpson.net/writing/on-diminishing-modes-in-emacs
+(use-package diminish)
 
 ;;; do not add -hook suffix automatically in use-package :hook
 (setq use-package-hook-name-suffix nil)
@@ -379,11 +378,11 @@
   :after evil
   :config
   (evil-collection-init)
-  (blackout 'evil-collection-unimpaired-mode))
+  (diminish 'evil-collection-unimpaired-mode))
 
 (use-package evil-commentary
   :after evil
-  :blackout
+  :diminish
   :init
   (evil-commentary-mode))
 
@@ -409,7 +408,7 @@
   (evil-visualstar/persist t))
 
 (use-package anzu
-  :blackout
+  :diminish
   :config (global-anzu-mode))
 
 (use-package evil-anzu
@@ -567,7 +566,7 @@
   :bind ("C-c h" . #'hs-toggle-hiding)
   :commands hs-toggle-hiding
   :config
-  (blackout 'hs-minor-mode)
+  (diminish 'hs-minor-mode)
   :hook
   (prog-mode-hook . hs-minor-mode))
 
@@ -1145,7 +1144,7 @@ no matter what."
              git-messenger:popup-show-verbose))
 
 (use-package diff-hl
-  :blackout
+  :diminish
   :config
   (global-diff-hl-mode)
   (diff-hl-margin-mode)
@@ -1259,11 +1258,11 @@ no matter what."
 
 ;;; eldoc
 (use-package eldoc
-  :blackout
+  :diminish
   :elpaca nil)
 
 (use-package eldoc-box
-  :blackout ((eldoc-box-hover-mode . "")
+  :diminish((eldoc-box-hover-mode . "")
              (eldoc-box-hover-at-point-mode . ""))
   :commands (eldoc-box-hover-mode
              eldoc-box-helpful-callable
@@ -1430,7 +1429,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;; which-key
 (use-package which-key
-  :blackout
+  :diminish
   :config
   (which-key-mode))
 
@@ -1534,7 +1533,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; ws-butler
 (use-package ws-butler
-  :blackout
+  :diminish
   :hook
   (prog-mode-hook . ws-butler-mode))
 

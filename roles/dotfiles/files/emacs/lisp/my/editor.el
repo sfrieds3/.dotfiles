@@ -6,7 +6,7 @@
 
 ;;; formatting
 (use-package apheleia
-  :blackout)
+  :diminish)
 
 (use-package flymake-ruff
   :hook

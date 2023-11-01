@@ -5,12 +5,14 @@
 ;;; Code:
 (use-package elisp-mode
   :elpaca nil
-  :blackout ((lisp-interaction-mode . "Lisp-Interaction")
-             (emacs-lisp-mode . `("ELisp"
+  :hook
+  ;; diminish lisp-interaction and emacs-lisp modes
+  ((lisp-interaction-mode-hook . (lambda () (setq mode-name "λ")))
+   (emacs-lisp-mode-hook . (lambda () (setq mode-name '("λ"
                                   (lexical-binding
                                    ""
                                    (:propertize
-                                    "/d" face warning))))))
+                                    "/d" face warning))))))))
 
 ;;; yaml-mode
 (use-package yaml-mode
