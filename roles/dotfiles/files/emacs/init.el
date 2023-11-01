@@ -58,6 +58,11 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
+;;; do not add -hook suffix automatically in use-package :hook
+(setq use-package-hook-name-suffix nil)
+(setq use-package-verbose nil)
+(setq use-package-compute-statistics nil)  ; `use-package-statistics` to see load times
+
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
   (normal-top-level-add-to-load-path '("."))
@@ -67,12 +72,6 @@
 (let ((default-directory  (expand-file-name "site-lisp" user-emacs-directory)))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
-
-;;; use-package to manage packages
-(eval-when-compile
-  (require 'use-package)
-  ;; do not add -hook suffix automatically in use-package :hook
-  (setq use-package-hook-name-suffix nil))
 
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
@@ -140,7 +139,7 @@
 
 (use-package my-defun
   :elpaca nil
-  :demand
+  :demand t
   :config
   ;; remap some commands to use transient-mark-mode
   (defvar $remap-commands '(mark-word
@@ -467,8 +466,12 @@
 ;;   :hook
 ;;   (python-mode-hook . eglot-ensure))
 
+(use-package spinner)
+(use-package lv)
+
 ;;; lsp-mode
 (use-package lsp-mode
+  :demand t
   :custom
   (lsp-completion-provider :none)
   (lsp-file-watch-threshold 50000)
@@ -477,24 +480,23 @@
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
   ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
+  (defun $python-mode-hook()
+    (require 'lsp-pyright)
+    (lsp-deferred))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((json-ts-mode-hook . lsp-deferred)
          (js-json-mode-hook . lsp-deferred)
-         (lsp-mode-hook . lsp-enable-which-key-integration)))
+         (lsp-mode-hook . lsp-enable-which-key-integration)
+         (python-ts-mode-hook . $python-mode-hook)
+         (python-mode-hook . $python-mode-hook)))
 
 (use-package lsp-ui
   :after lsp
   :commands lsp-ui-mode)
 
 (use-package lsp-pyright
-  :after lsp
-  :config
-  (defun $python-mode-hook()
-    (require 'lsp-pyright)
-    (lsp-deferred))
-  :hook ((python-ts-mode-hook . $python-mode-hook)
-         (python-mode-hook . $python-mode-hook)))
+  :after lsp)
 
 (use-package consult-lsp
   :after (consult lsp))
@@ -517,7 +519,7 @@
   (global-treesit-auto-mode))
 
 (use-package evil-textobj-tree-sitter
-  :after (evil tree-sitter)
+  :after (evil treesit)
   :config
   (defmacro $inlambda (functionname &rest args)
     "Create an interactive lambda of existing function `FUNCTIONNAME' with `ARGS'."
@@ -1079,6 +1081,8 @@
   (embark-collect-mode-hook . consult-preview-at-point-mode))
 
 (use-package vterm
+  :demand t
+  :elpaca (:pre-build (setq vterm-always-compile-module t))
   :config
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
