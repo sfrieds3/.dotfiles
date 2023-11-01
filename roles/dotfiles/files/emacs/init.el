@@ -862,11 +862,14 @@
               ([(meta m)] . #'corfu-move-to-minibuffer)
               ([(meta space)] . #'corfu-insert-separator)
               ([(shift return)] . #'corfu-insert)
+              ("M-q" . #'corfu-quick-complete)
+              ("C-q" . #'corfu-quick-insert)
               ("RET". nil))
   :hook (lsp-mode-hook . corfu-lsp-setup)
   :init
   (global-corfu-mode)
-  (corfu-popupinfo-mode))
+  (corfu-popupinfo-mode t)
+  (corfu-history-mode t))
 
 (use-package cape
   ;; Bind dedicated completion commands
@@ -1438,9 +1441,33 @@ questions.  Else use completion to select the tab to switch to."
   (dimmer-fraction 0.10)
   (dimmer-watch-frame-focus-events nil)
   :config
-  (dimmer-mode 1)
+  (defun $dimmer--advise-dimmer-config-change-handler ()
+    "Advise to only force process if no predicate is truthy."
+    (let ((ignore (cl-some (lambda (f) (and (fboundp f) (funcall f)))
+                           dimmer-prevent-dimming-predicates)))
+      (unless ignore
+        (when (fboundp 'dimmer-process-all)
+          (dimmer-process-all t)))))
+
+  (defun $corfu--frame-p ()
+    "Check if the buffer is a corfu frame buffer."
+    (string-match-p "\\` \\*corfu" (buffer-name)))
+
+  (defun $dimmer--configure-corfu ()
+    "Convenience settings for corfu users."
+    (add-to-list
+     'dimmer-prevent-dimming-predicates
+     #'$corfu--frame-p))
+
+  (advice-add
+   'dimmer-config-change-handler
+   :override '$dimmer--advise-dimmer-config-change-handler)
+
+  (dimmer-mode t)
+  ($dimmer--configure-corfu)
   (dimmer-configure-which-key)
-  (dimmer-configure-magit))
+  (dimmer-configure-magit)
+  (dimmer-configure-posframe))
 
 ;;; idle-highlight-mode
 (use-package idle-highlight-mode
