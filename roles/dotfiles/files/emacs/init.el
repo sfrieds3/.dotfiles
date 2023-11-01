@@ -5,11 +5,6 @@
 
 ;;; Code:
 
-;;; built-in libraries
-(require 'cl-lib)
-(require 'map)
-(require 'subr-x)
-
 ;;; bootstrap elpaca
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -48,14 +43,16 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
-;; Install use-package support
+;;; Install use-package support
 (elpaca elpaca-use-package
   ;; Enable :elpaca use-package keyword.
   (elpaca-use-package-mode)
   ;; Assume :elpaca t unless otherwise specified.
   (setq elpaca-use-package-by-default t))
+(elpaca-wait)
 
-;; Block until current queue processed.
+;;; Add blackout
+(use-package blackout)
 (elpaca-wait)
 
 ;;; do not add -hook suffix automatically in use-package :hook
@@ -131,11 +128,6 @@
 
 ;;; pretty symbols
 (prettify-symbols-mode nil)
-
-(use-package blackout
-  :config
-  (blackout 'abbrev-mode))
-(elpaca-wait)
 
 (use-package my-defun
   :elpaca nil
@@ -225,8 +217,6 @@
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
-
-(use-package s)
 
 ;;; match env to shell
 (use-package exec-path-from-shell
@@ -564,14 +554,6 @@
   (define-key evil-normal-state-map (kbd "[f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t) (reposition-window)))))
   (define-key evil-normal-state-map (kbd "]F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" nil t) (reposition-window)))))
   (define-key evil-normal-state-map (kbd "[F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t t) (reposition-window))))))
-
-;; treesitter fold
-(use-package ts-fold
-  :blackout
-  :elpaca (:host github :repo "emacs-tree-sitter/ts-fold")
-  :init
-  (global-ts-fold-mode)
-  (global-ts-fold-indicators-mode))
 
 ;;; avy
 (use-package avy
