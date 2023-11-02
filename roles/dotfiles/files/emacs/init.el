@@ -1192,6 +1192,9 @@ no matter what."
   (diff-hl-margin-mode)
   (diff-hl-show-hunk-mouse-mode))
 
+(use-package diff-hl-flydiff
+  :commands diff-hl-flydiff-mode)
+
 (use-package git-timemachine)
 
 ;;; compile
