@@ -53,6 +53,7 @@
 
 ;;; https://adamsimpson.net/writing/on-diminishing-modes-in-emacs
 (use-package diminish)
+(elpaca-wait)
 
 ;;; do not add -hook suffix automatically in use-package :hook
 (setq use-package-hook-name-suffix nil)
@@ -378,7 +379,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
          (:map evil-visual-state-map
                ([(control shift c)] . #'evil-yank)
                ([(control shift v)] . #'evil-visual-paste)
-               (";" . #$evil--eval-visual-region)
+               (";" . #'$evil--eval-visual-region)
                ("SPC RET" . #'execute-extended-command))))
 ;;; we may want to use evil keyword later
 (elpaca-wait)
@@ -1193,6 +1194,7 @@ no matter what."
   (diff-hl-show-hunk-mouse-mode))
 
 (use-package diff-hl-flydiff
+  :elpaca nil
   :commands diff-hl-flydiff-mode)
 
 (use-package git-timemachine)
