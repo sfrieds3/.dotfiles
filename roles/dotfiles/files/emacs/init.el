@@ -166,6 +166,7 @@
   :elpaca nil)
 
 (use-package modeline
+  :after evil
   :elpaca nil)
 
 (use-package tramp-config
@@ -580,6 +581,22 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (define-key evil-normal-state-map (kbd "[f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t) (reposition-window)))))
   (define-key evil-normal-state-map (kbd "]F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" nil t) (reposition-window)))))
   (define-key evil-normal-state-map (kbd "[F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t t) (reposition-window))))))
+
+;;; context using treesitter
+(use-package posframe-plus
+  :elpaca (:host github :type git :repo "zbelial/posframe-plus" ))
+(use-package treesitter-context
+  :after (treesit posframe-plus)
+  :elpaca (:type git :host github :repo "zbelial/treesitter-context.el")
+  :commands (treesitter-context-toggle-show)
+  :config
+  (setq treesitter-context-idle-time 0.5)
+  (setq treesitter-context-show-context-always t)
+  (setq treesitter-context-frame-autohide-timeout 15)
+
+  (require 'treesitter-context-utils) ;; for `treesitter-context-toggle-show'
+  :init
+  (global-set-key (kbd "M-r") #'treesitter-context-toggle-show))
 
 ;;; avy
 (use-package avy
@@ -1181,7 +1198,7 @@ no matter what."
   (blamer-min-offset 70)
   :custom-face
   (blamer-face ((t :foreground "#7a88cf"
-                    :background nil
+                    :background unspecified
                     :height 140
                     :italic t))))
 
@@ -1229,15 +1246,7 @@ no matter what."
 ;;; smart parens
 (use-package elec-pair
   :elpaca nil
-  :commands (electric-pair-mode)
-  :init
-  (electric-pair-mode t)
-  :config
-  (defun $inhibit-electric-pair-mode (char)
-    "Do not use smart parens in certain modes. Receives single CHAR."
-    (or (minibufferp)
-        (eq major-mode 'gud-mode))
-  (setq electric-pair-inhibit-predicate #'$inhibit-electric-pair-mode)))
+  :commands (electric-pair-mode))
 
 ;;; highlight current line
 (use-package hl-line

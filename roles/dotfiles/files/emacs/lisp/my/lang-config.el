@@ -34,15 +34,17 @@
 ;;; python
 (use-package python-mode
   :commands (python-mode)
+  :config
   :custom
-  (python-shell-interpreter (executable-find "python3"))
+  (python-shell-interpreter "python3")
   (python-indent-offset 4))
 
 (use-package pyvenv
   :init
   (setenv "WORKON_HOME" "~/.venv")
   (pyvenv-mode t)
-  :hook (pyvenv-post-activate-hooks . pyvenv-restart-python))
+  :hook
+  (pyvenv-post-activate-hooks . pyvenv-restart-python))
 
 (use-package conda
   :after python

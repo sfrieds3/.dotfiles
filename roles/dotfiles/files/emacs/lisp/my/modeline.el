@@ -265,15 +265,9 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 
 (defvar-local $mode-line-position
     '(:propertize "(%l,%C)"
-                  help-echo "(Line,Column)"
+                  help-echo (concat "Buffer Size: " (format-mode-line "%I") "\n(Line,Column)")
                   mouse-face mode-line-highlight))
 (put '$mode-line-position 'risky-local-variable t)
-
-(defvar-local $mode-line-buffer-size
-    '(:propertize "%I"
-                  help-echo "Size"
-                  mouse-face mode-line-highlight))
-(put '$mode-line-buffer-size 'risky-local-variable t)
 
 (defvar-local $mode-line-percent-position
     '(:eval (let ((p (format-mode-line "%p")))
@@ -319,8 +313,6 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                  (list
                   $mode-line-git-status
                   $mode-line-position
-                  " "
-                  $mode-line-buffer-size
                   " "
                   $mode-line-percent-position
                   " "))))
