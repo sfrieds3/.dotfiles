@@ -344,7 +344,7 @@
   (defun $evil--yank-advice (orig-fn beg end &rest args)
     "Advice to be added to `evil-yank' to highlight yanked region.
 Pass ORIG-FN, BEG, END, TYPE, ARGS."
-    (pulse-momentary-highlight-region beg end 'mode-line)
+    (pulse-momentary-highlight-region beg end 'region)
     (apply orig-fn beg end args))
   (advice-add 'evil-yank :around '$evil--yank-advice)
   :custom
