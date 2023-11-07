@@ -6,13 +6,13 @@
 ;;; Code:
 
 ;;; bootstrap elpaca
-(defvar elpaca-installer-version 0.5)
+(defvar elpaca-installer-version 0.6)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
                               :ref nil
-                              :files (:defaults (:exclude "extensions"))
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
                               :build (:not elpaca--activate-package)))
 (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
@@ -113,9 +113,6 @@
 ;;; disable insert keys automatically for read-only buffers
 (setq view-read-only t)
 
-;;; debug on error -- off for now
-(setq debug-on-error nil)
-
 ;;; filename in titlebar
 (setq frame-title-format
       (concat user-login-name "@" system-name ":%f"))
@@ -200,6 +197,7 @@
   (custom-safe-themes t)
   (fringe-mode 0))
 
+(use-package material-theme)
 (use-package ef-themes)
 (use-package standard-themes)
 (use-package zerodark
@@ -854,8 +852,20 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package savehist
   :elpaca nil
-  :init
-  (savehist-mode))
+  :custom
+  (savehist-save-minibuffer-history t)
+  (history-length 20000)
+  :config
+  (mapc (lambda (ring)
+          (add-to-list 'savehist-additional-variables
+                       ring))
+        '(kill-ring
+          search-ring
+          regexp-search-ring
+          last-kbd-macro
+          shell-command-history
+          log-edit-comment-ring))
+  (savehist-mode t))
 
 (use-package orderless-defun
   :elpaca nil)
@@ -1142,6 +1152,8 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
          ([f2] . #'vterm-toggle)
          ([(control return)] . #'vterm-toggle-insert-cd)))
 
+(use-package eat)
+
 ;;; ansi-term
 (use-package term
   :elpaca nil
@@ -1157,12 +1169,18 @@ no matter what."
     (let ((abuf "*ansi-term*"))
       (cond
        (arg
-        (ansi-term "/usr/bin/zsh"))
+        (ansi-term "fish"))
        ((string= abuf (buffer-name))
         (previous-buffer))
        ((try-completion abuf (mapcar #'buffer-name (buffer-list)))
         (switch-to-buffer abuf))
-       (t (ansi-term "/bin/bash"))))))
+       (t (ansi-term "fish"))))))
+
+;;; use fish shell
+(use-package shell
+  :elpaca nil
+  :custom
+  (explicit-shell-file-name "fish"))
 
 ;; magit
 (use-package magit
@@ -1253,8 +1271,6 @@ no matter what."
   :elpaca nil
   :config
   (set-face-attribute hl-line-face nil :underline nil)
-  :custom
-  (global-hl-line-mode nil)
   :bind (([f9]. #'hl-line-mode)))
 
 ;;; expand-region

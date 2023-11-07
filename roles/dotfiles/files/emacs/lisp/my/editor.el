@@ -6,7 +6,14 @@
 
 ;;; formatting
 (use-package apheleia
-  :diminish)
+  :diminish
+  :config
+  (setf (alist-get 'isort apheleia-formatters)
+        '("isort" "--stdout" "-"))
+  (setf (alist-get 'python-mode apheleia-mode-alist)
+        '(isort black))
+  (setf (alist-get 'python-ts-mode apheleia-mode-alist)
+        '(isort black)))
 
 (use-package flymake-ruff
   :hook
