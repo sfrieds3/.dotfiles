@@ -1061,8 +1061,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
-(use-package consult-yasnippet
-  :after (consult yasnippet))
 (use-package consult-projectile
   :after (projectile consult)
   :bind ("C-c P" . #'consult-projectile))
@@ -1633,17 +1631,6 @@ questions.  Else use completion to select the tab to switch to."
   :hook
   (prog-mode-hook . ws-butler-mode))
 
-;;; yasnippet
-(use-package yasnippet
-  :disabled
-  :commands (yas-global-mode)
-  :init
-  (yas-global-mode)
-  :config
-  (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
-  (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME")))
-  (yas-reload-all))
-
 (use-package auto-yasnippet
   :bind (("C-c C-y w" . #'aya-create)
          ("C-c C-y TAB" . #'aya-expand)
@@ -1655,16 +1642,14 @@ questions.  Else use completion to select the tab to switch to."
          ("C-c C-y s" . #'aya-persist-snippet)
          ("C-c C-y o" . #'aya-open-line)))
 
-;;; TODO investigate tempel
 (use-package tempel
   :custom
   (tempel-trigger-prefix "<")
-
   :bind (("M-=" . #'tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . #'tempel-insert))
-
+         ("M-*" . #'tempel-insert)
+         ("M-)" . #'tempel-next)
+         ("M-(" . #'tempel-previous))
   :init
-
   ;; Setup completion at point
   (defun tempel-setup-capf ()
     ;; Add the Tempel Capf to `completion-at-point-functions'.
@@ -1677,15 +1662,15 @@ questions.  Else use completion to select the tab to switch to."
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
+  :config
+  (setq tempel-path `(,(expand-file-name "templates" user-emacs-directory)
+                      ,(expand-file-name "templates-local" user-emacs-directory)))
+  :hook ((conf-mode-hook . tempel-setup-capf)
+         (prog-mode-hook . tempel-setup-capf)
+         (text-mode-hook . tempel-setup-capf)))
 
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-  )
+(use-package tempel-collection
+  :elpaca (:host github :repo "Crandel/tempel-collection"))
 
 ;;; load local settings
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))

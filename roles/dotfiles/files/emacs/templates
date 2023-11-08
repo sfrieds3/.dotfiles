@@ -33,7 +33,7 @@ python-mode
 
 fundamental-mode ;; Available everywhere
 
-(today (format-time-string "%Y-%m-%d"))
+(today (format-time-string "%Y%m%d"))
 
 prog-mode
 
