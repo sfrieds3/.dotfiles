@@ -8,8 +8,10 @@
       - black
       - chicken
       - cmake
+      - colima
       - ctags
       - curl
+      - docker
       - fd
       - fish
       - fzf
