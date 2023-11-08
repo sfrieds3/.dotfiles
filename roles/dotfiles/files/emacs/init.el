@@ -254,6 +254,11 @@
 (use-package general
   :config
   (general-evil-setup)
+  (general-create-definer +bslocalleader :prefix "\\")
+  (+bslocalleader
+   :keymaps 'normal
+   "c" #'evil-delete-buffer
+   "\\" #'evil-execute-in-emacs-state)
   (general-create-definer $localleader :prefix "_")
   ($localleader
     :keymaps 'normal
@@ -362,6 +367,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                ([(control j)] . #'evil-next-line)
                ([(control k)] . #'evil-previous-line)
                ([(control return)] . #'eval-last-sexp)
+               ([(control |)] . #'revert-buffer)
                ("j" . #'evil-next-visual-line)
                ("k" . #'evil-previous-visual-line)
                ("gj" . #'evil-next-line)
@@ -371,7 +377,11 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                ([(meta h)] . #'evil-window-left)
                ([(meta j)] . #'evil-window-down)
                ([(meta k)] . #'evil-window-up)
-               ([(meta l)] . #'evil-window-right))
+               ([(meta l)] . #'evil-window-right)
+               ([(shift up)] . #'evil-window-increase-height)
+               ([(shift right)] . #'evil-window-increase-width)
+               ([(shift down)] . #'evil-window-decrease-height)
+               ([(shift left)] . #'evil-window-decrease-width))
          (:map evil-insert-state-map
                ([(control shift c)] . #'evil-yank)
                ([(control shift v)] . #'yank))
@@ -1224,7 +1234,6 @@ no matter what."
 
 (use-package blamer
   :elpaca (:host github :repo "artawower/blamer.el")
-  :bind (("s-i" . blamer-show-commit-info))
   :custom
   (blamer-idle-time 0.3)
   (blamer-min-offset 70)
@@ -1237,6 +1246,10 @@ no matter what."
 (use-package diff-hl
   :diminish
   :config
+  (defun +diff-hl--update ()
+    "Update diff-hl"
+    (interactive)
+    (diff-hl-update))
   (global-diff-hl-mode)
   (diff-hl-margin-mode)
   (diff-hl-margin-mode)
