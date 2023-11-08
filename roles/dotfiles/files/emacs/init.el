@@ -912,6 +912,16 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (defun corfu-lsp-setup ()
     (setq-local completion-styles '(orderless)
                 completion-category-defaults nil))
+  (defun corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
+    (unless (or (bound-and-true-p mct--active)
+                (bound-and-true-p vertico--input)
+                (eq (current-local-map) read-passwd-map))
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
   :bind (:map corfu-map
               ([(meta m)] . #'corfu-move-to-minibuffer)
               ([(meta space)] . #'corfu-insert-separator)
@@ -924,6 +934,12 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (global-corfu-mode)
   (corfu-popupinfo-mode t)
   (corfu-history-mode t))
+
+;;; TODO: not convinced this works correctly
+(use-package nerd-icons-corfu
+  :after (corfu nerd-icons)
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package cape
   ;; Bind dedicated completion commands
