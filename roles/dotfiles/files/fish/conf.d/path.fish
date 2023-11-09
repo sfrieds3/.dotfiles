@@ -31,19 +31,17 @@ if status is-interactive
     set LOCALBIN $HOME/.local/bin
     set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
     set BREWSBIN /opt/homebrew/sbin
+    set BREWBIN /opt/homebrew/bin
 
-    set -l pathdirs $BREWSBIN $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
+    set -l pathdirs $BREWBIN $BREWSBIN $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
+    set -l pathdirs $LUAROCKSBIN $PERL5BIN $SYSGOBIN $GOBIN $USRLOCALBIN $LOCALBIN $BREWSBIN $BREWBIN
     for dir in $pathdirs
-        if not contains -- $dir $PATH
-            fish_add_path --prepend $dir
-        end
+        fish_add_path --prepend --move $dir
     end
 
     set -l appendpathdirs $OPENJDKBIN
     for difr in $appendpathdirs
-        if not contains -- $dir $PATH
-            fish_add_path --append $dir
-        end
+        fish_add_path --append --move $dir
     end
 
     set --global --export PYENV_ROOT $HOME/.pyenv
@@ -52,7 +50,7 @@ if status is-interactive
         set -e fish_user_paths[$index]
     end
 
-    fish_add_path --prepend $PYENV_BIN
+    fish_add_path --prepend --move $PYENV_BIN
 
     # issue with path persisting in fish 3.0, this is a roundabout way
     # to ensure virtualenv is always at head of PATH
