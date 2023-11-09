@@ -60,6 +60,8 @@
       - tmux
       - tree
       - tree-sitter
+      - typescript
+      - typescript-language-server
       - virtualenv
       - wireshark
       - wget
