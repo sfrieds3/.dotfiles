@@ -14,14 +14,28 @@
 (setq frame-inhibit-implied-resize t)
 (customize-set-variable 'warning-minimum-level :error)
 
+(custom-set-faces
+ '(fixed-pitch ((t (:inherit default))))
+ '(variable-pitch ((t (:inherit default)))))
+
+;;; make the default frame a bit wider
+(add-to-list 'default-frame-alist `(width . 150))
+
+;;; nicer titlebar
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+
 ;;; try not to gc during emacs startup... set to 10MB from 800kb
-(setq gc-cons-threshold 100000000)
+;; (setq gc-cons-threshold 100000000)
 ;; (defun $restore-gc-cons-threshold ()
 ;;   "Restore \"gc-cons-threshold\" to 800kb.  To be added to after-init-hook."
 ;;   (setq gc-cons-threshold 800000)
 ;;   (message "gc-cons-threshold restored to %S"
 ;;            gc-cons-threshold))
 ;; (add-hook 'after-init-hook #'$restore-gc-cons-threshold)
+(setq gc-cons-threshold most-positive-fixnum gc-cons-percentage 0.6)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold 16777216 gc-cons-percentage 0.1)))
 
 ;;; increase amount of data emacs reads from process
 (setq read-process-output-max (* 1024 1024)) ;; 1mb

@@ -686,7 +686,29 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                 (neotree-find file-name)))
         (message "Could not find git project root.")))))
 
-(use-package nerd-icons)
+(use-package dired-sidebar
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :config
+  (defun +sidebar--toggle ()
+    "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
+    (interactive)
+    (dired-sidebar-toggle-sidebar)
+    (ibuffer-sidebar-toggle-sidebar))
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-subtree-line-prefix "__")
+  (setq dired-sidebar-theme 'nerd)
+  (setq dired-sidebar-use-term-integration t)
+  (setq dired-sidebar-use-custom-font t))
+
+(use-package ibuffer-sidebar
+  :commands (ibuffer-sidebar-toggle-sidebar))
 
 (use-package rg
   :commands (rg)
@@ -945,11 +967,14 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (corfu-popupinfo-mode t)
   (corfu-history-mode t))
 
-;;; TODO: not convinced this works correctly
+(use-package nerd-icons)
 (use-package nerd-icons-corfu
   :after (corfu nerd-icons)
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+(use-package nerd-icons-dired
+  :hook
+  (dired-mode-hook . nerd-icons-dired-mode))
 
 (use-package cape
   ;; Bind dedicated completion commands
