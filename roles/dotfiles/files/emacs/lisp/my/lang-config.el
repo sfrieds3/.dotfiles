@@ -131,6 +131,14 @@
   :config
   (add-to-list 'auto-mode-alist '("/zsh/" . sh-mode)))
 
+(use-package tsx-ts-mode
+  :elpaca nil
+  :mode("\\.tsx\\'"))
+
+(use-package typescript-ts-mode
+  :elpaca nil
+  :mode("\\.ts\\'"))
+
 ;; typescript
 (use-package tide
   :config
@@ -141,7 +149,9 @@
     (tide-hl-identifier-mode t))
   :hook
   (before-save-hook . tide-format-before-save)
-  (typescript-mode-hook . setup-tide-mode))
+  (typescript-ts-mode-hook . tide-setup)
+  (tsx-ts-mode-hook . tide-setup)
+  (typescript-ts-mode . tide-hl-identifier-mode))
 
 ;;; ruby-mode
 (use-package ruby-mode
@@ -167,7 +177,6 @@
          "\\.[agj]sp\\'"
          "\\.as[cp]x\\'"
          "\\.erb\\'"
-         "\\.tsx\\'"
          "\\.mustache\\'"
          "\\.djhtml\\'"))
 
