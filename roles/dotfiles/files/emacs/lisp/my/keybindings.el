@@ -18,44 +18,43 @@
 (global-set-key (kbd "C-x C-,") 'execute-extended-command)
 
 ;;; custom functions
-(global-set-key (kbd "C-c s d") #'$dir-grep)
-(global-set-key (kbd "C-c s s") #'$file-grep)
+(global-set-key (kbd "C-c s d") #'+sf/dir-grep)
+(global-set-key (kbd "C-c s s") #'+sf/file-grep)
 (global-set-key (kbd "C-c s f") #'find-dired)
-(global-set-key (kbd "C-a") #'$smarter-move-beginning-of-line)
-(global-set-key (kbd "C-x 8 s") #'$insert-zero-width-space)
-(global-set-key (kbd "C-S-e") #'$scroll-up)
-(global-set-key (kbd "C-S-y") #'$scroll-down)
-(global-set-key (kbd "C-S-p") #'$scroll-down-in-place)
-(global-set-key (kbd "C-S-n") #'$scroll-up-in-place)
-(global-set-key (kbd "s-e") #'$scroll-up)
-(global-set-key (kbd "s-y") #'$scroll-down)
-(global-set-key (kbd "s-p") #'$scroll-up)
-(global-set-key (kbd "s-n") #'$scroll-down)
-(global-set-key (kbd "s-k") #'$scroll-down-in-place)
-(global-set-key (kbd "s-j") #'$scroll-up-in-place)
-(global-set-key (kbd "M-p") #'$scroll-down-multiline)
-(global-set-key (kbd "M-n") #'$scroll-up-multiline)
-(global-set-key (kbd "s-p") #'$scroll-down-multiline)
-(global-set-key (kbd "s-n") #'$scroll-up-multiline)
-(global-set-key (kbd "s-<return>") #'$newline-at-end-of-line)
+(global-set-key (kbd "C-a") #'+sf/smarter-move-beginning-of-line)
+(global-set-key (kbd "C-x 8 s") #'+sf/insert-zero-width-space)
+(global-set-key (kbd "C-S-e") #'+sf/scroll-up)
+(global-set-key (kbd "C-S-y") #'+sf/scroll-down)
+(global-set-key (kbd "C-S-p") #'+sf/scroll-down-in-place)
+(global-set-key (kbd "C-S-n") #'+sf/scroll-up-in-place)
+(global-set-key (kbd "s-e") #'+sf/scroll-up)
+(global-set-key (kbd "s-y") #'+sf/scroll-down)
+(global-set-key (kbd "s-p") #'+sf/scroll-up)
+(global-set-key (kbd "s-n") #'+sf/scroll-down)
+(global-set-key (kbd "s-k") #'+sf/scroll-down-in-place)
+(global-set-key (kbd "s-j") #'+sf/scroll-up-in-place)
+(global-set-key (kbd "M-p") #'+sf/scroll-down-multiline)
+(global-set-key (kbd "M-n") #'+sf/scroll-up-multiline)
+(global-set-key (kbd "s-p") #'+sf/scroll-down-multiline)
+(global-set-key (kbd "s-n") #'+sf/scroll-up-multiline)
+(global-set-key (kbd "s-<return>") #'+sf/newline-at-end-of-line)
 (global-set-key (kbd "s-[") #'pop-to-mark-command)
-(global-set-key (kbd "s-]") #'$unpop-to-mark-command)
-(global-set-key (kbd "<C-return>") #'$open-line-below)
-(global-set-key (kbd "<C-S-return>") #'$open-line-above)
-(global-set-key (kbd "M-j") #'$join-next-line)
-(global-set-key (kbd "C-S-<down>") #'$move-line-down)
-(global-set-key (kbd "C-S-<up>") #'$move-line-up)
-(global-set-key (kbd "<f12>") #'$pulse-line)
-(global-set-key (kbd "C-c C-c") #'$pulse-line)
+(global-set-key (kbd "s-]") #'+sf/unpop-to-mark-command)
+(global-set-key (kbd "<C-return>") #'+sf/open-line-below)
+(global-set-key (kbd "<C-S-return>") #'+sf/open-line-above)
+(global-set-key (kbd "M-j") #'+sf/join-next-line)
+(global-set-key (kbd "C-S-<down>") #'+sf/move-line-down)
+(global-set-key (kbd "C-S-<up>") #'+sf/move-line-up)
+(global-set-key (kbd "<f12>") #'+sf/pulse-line)
+(global-set-key (kbd "C-c C-c") #'+sf/pulse-line)
 
 ;;; SPC commands
-(global-set-key (kbd "C-c SPC l") '$select-line)
 (global-set-key (kbd "C-c SPC r") 'replace-regexp)
 (global-set-key (kbd "C-c SPC i") 'indent-region)
-(global-set-key (kbd "C-c SPC W") '$delete-trailing-whitespace)
+(global-set-key (kbd "C-c SPC W") '+sf/delete-trailing-whitespace)
 (global-set-key (kbd "C-c SPC l") #'align-regexp)
 (global-set-key (kbd "C-c SPC b e") 'eval-buffer)
-(global-set-key (kbd "C-c SPC b r") '$revert-buffer-noconfirm)
+(global-set-key (kbd "C-c SPC b r") '+sf/revert-buffer-noconfirm)
 (global-set-key (kbd "C-c SPC j") 'join-line)
 
 ;;; general customizations
@@ -87,14 +86,14 @@
 
 ;;; window management
 (global-set-key (kbd "C-c d") 'delete-window)
-(global-set-key (kbd "C-c D") '$kill-and-delete-window)
+(global-set-key (kbd "C-c D") '+sf/kill-and-delete-window)
 
 ;;; hippie expand -- also C-M-i for completion mode
 (global-set-key (kbd "C-.") 'hippie-expand)
 
 ;;; indent
 (global-set-key (kbd "C-x TAB") 'indent-code-rigidly)
-(global-set-key (kbd "C-M-<backspace>") '$kill-back-to-indent)
+(global-set-key (kbd "C-M-<backspace>") '+sf/kill-back-to-indent)
 
 ;;; want to go to correct indentation on enter
 (global-set-key (kbd "RET") 'newline-and-indent)
@@ -115,11 +114,11 @@
 
 ;;; aliases
 (defalias 'qrr 'query-replace-regexp)
-(defalias 'PrettyXML '$pretty-xml)
+(defalias 'PrettyXML '+sf/pretty-xml)
 
 ;;; random isearch define
 (define-key isearch-mode-map (kbd "<C-return>")
-            (defun $isearch-done-opposite (&optional nopush edit)
+            (defun +sf/isearch-done-opposite (&optional nopush edit)
               "End current search in the opposite side of the match."
               (interactive)
               (funcall #'isearch-done nopush edit)

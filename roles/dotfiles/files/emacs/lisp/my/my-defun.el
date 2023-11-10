@@ -6,13 +6,13 @@
 ;;; Code:
 
 ;;;###autoload
-(defun $insert-zero-width-space ()
+(defun +sf/insert-zero-width-space ()
   "Insert zero width space."
   (interactive)
   (insert-char ?\u200B))
 
 ;;;###autoload
-(defun $symbol-at-point ()
+(defun +sf/symbol-at-point ()
   "Return current symbol at point as a string."
   (let ((s (thing-at-point 'symbol)))
     (and (stringp s)
@@ -21,7 +21,7 @@
            s))))
 
 ;;;###autoload
-(defun $profile-session ()
+(defun +sf/profile-session ()
   "Easily toggle Emacs profiler."
   (interactive)
   (require 'profiler)
@@ -30,7 +30,7 @@
     (profiler-start 'cpu)))
 
 ;;;###autoload
-(defun $eval-defun-view-results ()
+(defun +sf/eval-defun-view-results ()
   "Eval defun and view results in a new buffer."
   (interactive)
   (let ((result (pp-to-string (eval-defun nil))))
@@ -41,7 +41,7 @@
       (switch-to-buffer-other-window (current-buffer)))))
 
 ;;;###autoload
-(defun $toggle-show-trailing-whitespace ()
+(defun +sf/toggle-show-trailing-whitespace ()
   "Toggle 'show-trailing-whitespace'."
   (interactive)
   (if (eq 1 show-trailing-whitespace)
@@ -53,13 +53,13 @@
       (message "show-trailing-whitespace t"))))
 
 ;;;###autoload
-(defun $show-full-file-path ()
+(defun +sf/show-full-file-path ()
   "Show full file path in msg."
   (interactive)
   (message "%s" (buffer-file-name)))
 
 ;;;###autoload
-(defun $what-face (pos)
+(defun +sf/what-face (pos)
   "Return face under point POS."
   (interactive "d")
   (let ((face (or (get-char-property (pos) 'read-face-name)
@@ -67,7 +67,7 @@
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
 ;;;###autoload
-(defun $dir-grep ()
+(defun +sf/dir-grep ()
   "Run grep recursively from the directory of the current buffer or the default directory."
   (interactive)
   (let ((dir (file-name-directory (or load-file-name buffer-file-name default-directory))))
@@ -76,7 +76,7 @@
       (grep command))))
 
 ;;;###autoload
-(defun $file-grep ()
+(defun +sf/file-grep ()
   "Run grep in the current file."
   (interactive)
   (let ((fname (buffer-file-name)))
@@ -85,13 +85,13 @@
       (grep command))))
 
 ;;;###autoload
-(defun $revert-buffer-noconfirm ()
+(defun +sf/revert-buffer-noconfirm ()
   "Call `revert-buffer' with the NOCONFIRM argument set."
   (interactive)
   (revert-buffer nil t))
 
 ;;;###autoload
-(defun $smarter-move-beginning-of-line (arg)
+(defun +sf/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
 Move point to the first non-whitespace character on this line.
@@ -115,7 +115,7 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 
 ;;;###autoload
-(defun $goto-match-paren (arg)
+(defun +sf/goto-match-paren (arg)
   "Go to the matching parenthesis if ARG on parenthesis, otherwise insert %.
 vi style of % jumping to matching brace."
   (interactive "p")
@@ -134,15 +134,15 @@ vi style of % jumping to matching brace."
                          (backward-char 1)))))))))
 
 ;;;###autoload
-(defun $kill-back-to-indent ()
+(defun +sf/kill-back-to-indent ()
   "Kill from point back to the first non-whitespace character on the line."
   (interactive)
   (let ((prev-pos (point)))
-    ($smarter-move-beginning-of-line nil)
+    (+sf/smarter-move-beginning-of-line nil)
     (kill-region (point) prev-pos)))
 
 ;;;###autoload
-(defun $delete-trailing-whitespace ()
+(defun +sf/delete-trailing-whitespace ()
   "Delete trailing whitespace, and echo."
   (interactive)
   (delete-trailing-whitespace)
@@ -150,49 +150,49 @@ vi style of % jumping to matching brace."
 
 ;; source: https://emacs.stackexchange.com/questions/51972/possible-to-use-emacs-undo-redo-without-keyboard-quit-ctrl-g/54142#54142
 ;;;###autoload
-(defun $simple-redo ()
+(defun +sf/simple-redo ()
   "Simple redo function."
   (interactive)
   (let
       ((last-command
         (cond
          ;; Break undo chain, avoid having to press Ctrl-G.
-         ((string= last-command 'simple-undo) 'ignore)
+         ((string= last-command '+sf/simple-undo) 'ignore)
          ;; Emacs undo uses this to detect successive undo calls.
-         ((string= last-command 'simple-redo) 'undo)
+         ((string= last-command '+sf/simple-redo) 'undo)
          (t last-command))))
     (condition-case err
         (progn
           (undo) t)
       (error
        (message "%s" (error-message-string err)))))
-  (setq this-command 'simple-redo))
+  (setq this-command '+sf/simple-redo))
 
 ;;;###autoload
-(defun $simple-undo ()
+(defun +sf/simple-undo ()
   "Simple undo function."
   (interactive)
   (let
       ((last-command
         (cond
          ;; Emacs undo uses this to detect successive undo calls.
-         ((string= last-command 'simple-undo) 'undo)
-         ((string= last-command 'simple-redo) 'undo)
+         ((string= last-command '+sf/simple-undo) 'undo)
+         ((string= last-command '+sf/simple-redo) 'undo)
          (t last-command))))
     (condition-case err
         (progn
           (undo-only) t)
       (error
        (message "%s" (error-message-string err)))))
-  (setq this-command 'simple-undo))
+  (setq this-command '+sf/simple-undo))
 
 ;;;###autoload
-(defun $load-theme--disable-current-theme (theme &rest args)
+(defun +sf/load-theme--disable-current-theme (theme &rest args)
   "Disable the current THEME before loading a new one."
   (mapcar #'disable-theme custom-enabled-themes))
 
 ;;;###autoload
-(defun $narrow-or-widen-dwim (p)
+(defun +sf/narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens.  Otherwise, it narrows intelligently.
 Intelligently means: region, subtree, or defun, whichever applies
 first.
@@ -207,24 +207,24 @@ narrowed."
         ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
         (t (narrow-to-defun))))
 
-(global-set-key (kbd "C-x n x") 'narrow-or-widen-dwim)
+(global-set-key (kbd "C-x n x") '+sf/narrow-or-widen-dwim)
 
 ;;;###autoload
-(defun $unfill-paragraph ()
+(defun +sf/unfill-paragraph ()
   "Convert a multi-line paragraph into a single line of text."
   (interactive)
   (let ((fill-column (point-max)))
     (fill-paragraph nil)))
 
 ;;;###autoload
-(defun $kill-and-delete-window ()
+(defun +sf/kill-and-delete-window ()
   "Kill and delete current window."
   (interactive)
   (kill-this-buffer)
   (delete-window))
 
 ;;;###autoload
-(defun $dont-kill-scratch ()
+(defun +sf/dont-kill-scratch ()
   "Never kill scratch buffer."
   (if (not (equal (buffer-name) "*scratch*"))
       t
@@ -232,10 +232,10 @@ narrowed."
     (bury-buffer)
     nil))
 
-(add-hook 'kill-buffer-query-functions  #'$dont-kill-scratch)
+(add-hook 'kill-buffer-query-functions  #'+sf/dont-kill-scratch)
 
 ;;;###autoload
-(defun $dont-kill-messages ()
+(defun +sf/dont-kill-messages ()
   "Never kill messages bufffer."
   (if (not (equal (buffer-name) "*Messages*"))
       t
@@ -243,48 +243,48 @@ narrowed."
     (bury-buffer)
     nil))
 
-(add-hook 'kill-buffer-query-functions  #'$dont-kill-messages)
+(add-hook 'kill-buffer-query-functions  #'+sf/dont-kill-messages)
 
 ;;;###autoload
-(defun $scroll-down-in-place (n)
+(defun +sf/scroll-down-in-place (n)
   "Scroll down N lines, keeping cursor postion."
   (interactive "p")
   (forward-line (- n))
   (scroll-down n))
 
 ;;;###autoload
-(defun $scroll-up-in-place (n)
+(defun +sf/scroll-up-in-place (n)
   "Scroll up N lines, keeping cursor position."
   (interactive "p")
   (forward-line n)
   (scroll-up n))
 
 ;;;###autoload
-(defun $scroll-down (n)
+(defun +sf/scroll-down (n)
   "Scroll down N lines."
   (interactive "p")
   (scroll-down n))
 
 ;;;###autoload
-(defun $scroll-up (n)
+(defun +sf/scroll-up (n)
   "Scroll up N lines."
   (interactive "p")
   (scroll-up n))
 
 ;;;###autoload
-(defun $scroll-up-multiline ()
+(defun +sf/scroll-up-multiline ()
   "Scroll up multiple lines."
   (interactive)
   (scroll-up (/ (window-body-height) 3)))
 
 ;;;###autoload
-(defun $scroll-down-multiline ()
+(defun +sf/scroll-down-multiline ()
   "Scroll up multiple lines."
   (interactive)
   (scroll-down (/ (window-body-height) 3)))
 
 ;;;###autoload
-(defun $toggle-var (var)
+(defun +sf/toggle-var (var)
   "Toggle variable VAR."
   (interactive
    (let* ((def  (variable-at-point))
@@ -304,7 +304,7 @@ narrowed."
     (message "`%s' is now `%s'" var (symbol-value sym))))
 
 ;;;###autoload
-(defun $swap-windows ()
+(defun +sf/swap-windows ()
   "If you have 2 windows, it swaps them.
 from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
   (interactive)
@@ -323,7 +323,7 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
            (set-window-start w2 s1)))))
 
 ;;;###autoload
-(defun $rename-file-and-buffer (new-name)
+(defun +sf/rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
   (let ((name (buffer-name))
 	(filename (buffer-file-name)))
@@ -338,7 +338,7 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
           (set-buffer-modified-p nil))))))
 
 ;;;###autoload
-(defun $move-buffer-file (dir)
+(defun +sf/move-buffer-file (dir)
   "Move both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
   (let* ((name (buffer-name))
@@ -353,14 +353,14 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
       (progn 	(copy-file filename newname 1) 	(delete-file filename) 	(set-visited-file-name newname) 	(set-buffer-modified-p nil) 	t))))
 
 ;;;###autoload
-(defun $newline-at-end-of-line ()
+(defun +sf/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
 
 ;;;###autoload
-(defun $unpop-to-mark-command ()
+(defun +sf/unpop-to-mark-command ()
   "Unpop off mark ring.  Does nothing if mark ring is empty."
   (interactive)
   (when mark-ring
@@ -371,7 +371,7 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
     (goto-char (marker-position (car (last mark-ring))))))
 
 ;;;###autoload
-(defun $indirect-region (beg end name)
+(defun +sf/indirect-region (beg end name)
   "Open new named indirect buffer NAME, narrowed to region [BEG, END]."
   (interactive "r\nsname of narrowed buffer: ")
   (let ((new-buff
@@ -382,7 +382,7 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
     (narrow-to-region beg end)))
 
 ;;;###autoload
-(defun $isearch-highlight-phrase ()
+(defun +sf/isearch-highlight-phrase ()
   "Invoke `highligh-phrase' from within isearch."
   (interactive)
   (let ((case-fold-search isearch-case-fold-search))
@@ -390,7 +390,7 @@ from: https://sites.google.com/site/steveyegge2/my-dot-emacs-file."
                           isearch-string
                         (regexp-quote isearch-string)))))
 
-(defun $remap-mark-command (command &optional map)
+(defun +sf/remap-mark-command (command &optional map)
   "Remap a mark-* COMMAND to temporarily activate Transient Mark mode.
 If a MAP is passed, update for that map."
   (let* ((cmd (symbol-name command))
@@ -407,18 +407,18 @@ If a MAP is passed, update for that map."
         (define-key map (vector 'remap command) fun)
       (global-set-key (vector 'remap command) fun))))
 
-(defun $kill-region-or-backward-word ()
+(defun +sf/kill-region-or-backward-word ()
   (interactive)
   (if (region-active-p)
       (kill-region (region-beginning) (region-end))
     (backward-kill-word 1)))
 
-(defun $kill-to-beginning-of-line ()
+(defun +sf/kill-to-beginning-of-line ()
   (interactive)
   (kill-region (save-excursion (beginning-of-line) (point))
                (point)))
 
-(defun $copy-to-end-of-line ()
+(defun +sf/copy-to-end-of-line ()
   (interactive)
   (kill-ring-save (point)
                   (line-end-position))
@@ -438,27 +438,27 @@ If a MAP is passed, update for that map."
       (copy-to-end-of-line)
     (copy-whole-lines (prefix-numeric-value arg))))
 
-(defun $save-region-or-current-line (arg)
+(defun +sf/save-region-or-current-line (arg)
   "Copy current line or region (if ARG)."
   (interactive "P")
   (if (region-active-p)
       (kill-ring-save (region-beginning) (region-end))
     (copy-line arg)))
 
-(defun $kill-and-retry-line ()
+(defun +sf/kill-and-retry-line ()
   "Kill the entire current line and reposition point at indentation."
   (interactive)
   (back-to-indentation)
   (kill-line))
 
-(defun $open-line-below ()
+(defun +sf/open-line-below ()
   "Add new line below current line."
   (interactive)
   (end-of-line)
   (newline)
   (indent-for-tab-command))
 
-(defun $open-line-above ()
+(defun +sf/open-line-above ()
   "Add new line above current line."
   (interactive)
   (beginning-of-line)
@@ -466,12 +466,12 @@ If a MAP is passed, update for that map."
   (forward-line -1)
   (indent-for-tab-command))
 
-(defun $join-next-line ()
+(defun +sf/join-next-line ()
   "Join current line with next line."
   (interactive)
   (join-line -1))
 
-(defun $toggle-window-split ()
+(defun +sf/toggle-window-split ()
   "Toggle between horizontal and vertial layout of two windows."
   (interactive)
   (if (= (count-windows) 2)
@@ -497,7 +497,7 @@ If a MAP is passed, update for that map."
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
 
-(defun $rotate-windows ()
+(defun +sf/rotate-windows ()
   "Rotate windows."
   (interactive)
   (cond ((not (> (count-windows)1))
@@ -522,7 +522,7 @@ If a MAP is passed, update for that map."
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
 
-(defun $move-line-down ()
+(defun +sf/move-line-down ()
   "Move current line down."
   (interactive)
   (let ((col (current-column)))
@@ -532,7 +532,7 @@ If a MAP is passed, update for that map."
     (forward-line)
     (move-to-column col)))
 
-(defun $move-line-up ()
+(defun +sf/move-line-up ()
   "Move current line up."
   (interactive)
   (let ((col (current-column)))
@@ -542,12 +542,12 @@ If a MAP is passed, update for that map."
     (forward-line -2)
     (move-to-column col)))
 
-(defun $pulse-line (&rest _)
+(defun +sf/pulse-line (&rest _)
   "Pulse the current line."
   (interactive)
   (pulse-momentary-highlight-one-line (point)))
 
-(defun $native-comp-available ()
+(defun +sf/native-comp-available ()
   "Return message if compiled with --with-native-compilation."
   (interactive)
   (if (and (fboundp 'native-comp-available-p)
@@ -555,7 +555,7 @@ If a MAP is passed, update for that map."
       (message "Native compilation is available")
     (message "Native complation is *not* available")))
 
-(defun $json-available ()
+(defun +sf/json-available ()
   "Return message if compiled with --with-json."
   (interactive)
   (if (functionp 'json-serialize)

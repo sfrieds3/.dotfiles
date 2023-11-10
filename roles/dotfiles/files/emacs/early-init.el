@@ -20,6 +20,7 @@
 
 ;;; make the default frame a bit wider
 (add-to-list 'default-frame-alist `(width . 150))
+(add-to-list 'default-frame-alist `(height . 50))
 
 ;;; nicer titlebar
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))

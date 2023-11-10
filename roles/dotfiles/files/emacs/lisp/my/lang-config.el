@@ -18,8 +18,8 @@
 (use-package yaml-mode
   :commands (yaml-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode)))
 
 ;;; markdown-mode
 (use-package markdown-mode
@@ -82,13 +82,13 @@
 ;; rust
 (use-package rust-mode
   :config
-  (defun $rust-mode-hook ()
+  (defun +sf/rust-mode-hook ()
     (setq indent-tabs-mode nil))
   :custom
   (rust-format-on-save t)
   :hook
   (rust-mode-hook . prettify-symbols-mode)
-  (rust-mode-hook . $rust-mode-hook))
+  (rust-mode-hook . +sf/rust-mode-hook))
 
 ;; fish
 (use-package fish-mode)
@@ -148,7 +148,6 @@
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (tide-hl-identifier-mode t))
   :hook
-  (before-save-hook . tide-format-before-save)
   (typescript-ts-mode-hook . tide-setup)
   (tsx-ts-mode-hook . tide-setup)
   (typescript-ts-mode . tide-hl-identifier-mode))

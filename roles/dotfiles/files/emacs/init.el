@@ -131,33 +131,33 @@
   :demand t
   :config
   ;; remap some commands to use transient-mark-mode
-  (defvar $remap-commands '(mark-word
+  (defvar +sf/remap-commands '(mark-word
                             mark-sexp
                             mark-paragraph
                             mark-defun
                             mark-page
                             mark-whole-buffer
                             rectangle-mark-mode))
-  (mapc (lambda (command) ($remap-mark-command command))
-        $remap-commands)
-  (defun $activate-mark ()
+  (mapc (lambda (command) (+sf/remap-mark-command command))
+        +sf/remap-commands)
+  (defun +sf/activate-mark ()
     (interactive)
     (activate-mark))
   (with-eval-after-load 'org
-    ($remap-mark-command 'org-mark-element org-mode-map)
-    ($remap-mark-command 'org-mark-subtree org-mode-map))
+    (+sf/remap-mark-command 'org-mark-element org-mode-map)
+    (+sf/remap-mark-command 'org-mark-subtree org-mode-map))
   :bind (([(control h) (y)] . #'describe-personal-keybindings)
-         ([(meta i)] . #'$activate-mark)
+         ([(meta i)] . #'+sf/activate-mark)
          ([(meta shift i)] . #'tab-to-tab-stop)
          :map isearch-mode-map
-         ([(control q)] . #'$isearch-highlight-phrase)))
+         ([(control q)] . #'+sf/isearch-highlight-phrase)))
 
 (use-package toggle-commands
   :elpaca nil
   :after (theme-config ef-themes doom-themes)
   :config
-  ($cycle-font 0)
-  ($cycle-theme 0))
+  (+sf/cycle-font 0)
+  (+sf/cycle-theme 0))
 
 (use-package my-config
   :elpaca nil)
@@ -192,7 +192,7 @@
   :elpaca nil
   :demand
   :config
-  ($set-path)
+  (+sf/set-path)
   :custom
   (custom-safe-themes t)
   (fringe-mode 0))
@@ -248,28 +248,30 @@
 (use-package dired-git-info
   :defer t
   :after dired
-  :commands (dired-git-info-mode dired-git-info-auto-enable))
+  :commands (dired-git-info-mode dired-git-info-auto-enable)
+  :bind (:map dired-mode-map
+         (")" . #'dired-git-info-mode)))
 
 ;;; general
 (use-package general
   :config
   (general-evil-setup)
-  (general-create-definer +bslocalleader :prefix "\\")
-  (+bslocalleader
+  (general-create-definer +sf/bslocalleader :prefix "\\")
+  (+sf/bslocalleader
    :keymaps 'normal
    "c" #'evil-delete-buffer
    "\\" #'evil-execute-in-emacs-state)
-  (general-create-definer $localleader :prefix "_")
-  ($localleader
+  (general-create-definer +sf/localleader :prefix "_")
+  (+sf/localleader
     :keymaps 'normal
     "D" #'magit-diff-dwim
     "G" #'magit
-    "cf" #'$cycle-font
-    "ct" #'$cycle-theme
+    "cf" #'+sf/cycle-font
+    "ct" #'+sf/cycle-theme
     "e" #'eval-buffer
     "x" #'eval-last-sexp)
-  (general-create-definer $leader :prefix "SPC")
-  ($leader
+  (general-create-definer +sf/leader :prefix "SPC")
+  (+sf/leader
     :keymaps 'normal
     "RET" #'execute-extended-command
     "SPC" #'consult-buffer
@@ -293,28 +295,28 @@
     "\\" #'neotree
     ":" #'consult-lsp-symbols
     ";" #'consult-lsp-file-symbols)
-  ($leader
+  (+sf/leader
     :keymaps 'visual
     "RET" #'execute-extended-command)
-  (general-create-definer $search-leader :prefix "SPC s")
-  ($search-leader
+  (general-create-definer +sf/search-leader :prefix "SPC s")
+  (+sf/search-leader
     :keymaps 'normal
     "f" #'project-find-file
     "r" #'consult-recent-file
     "t" #'consult-lsp-symbols)
-  (general-create-definer $ctrl-c-leader :prefix "C-c")
-  ($ctrl-c-leader
+  (general-create-definer +sf/ctrl-c-leader :prefix "C-c")
+  (+sf/ctrl-c-leader
     :keymaps 'normal
     "j" #'diff-hl-next-hunk
     "k" #'diff-hl-previous-hunk)
-  (general-create-definer $next :prefix "]")
-  ($next
+  (general-create-definer +sf/next :prefix "]")
+  (+sf/next
     :keymaps 'normal
     "b" #'next-buffer
     "d" #'flycheck-next-error
     "t" #'tab-next)
-  (general-create-definer $previous :prefix "[")
-  ($previous
+  (general-create-definer +sf/previous :prefix "[")
+  (+sf/previous
     :keymaps 'normal
     "b" #'previous-buffer
     "d" #'flycheck-previous-error
@@ -367,7 +369,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                ([(control j)] . #'evil-next-line)
                ([(control k)] . #'evil-previous-line)
                ([(control return)] . #'eval-last-sexp)
-               ([(control |)] . #'revert-buffer)
+               ([(control |)] . #'+sf/revert-buffer-noconfirm-and-update-diff-hl)
                ("j" . #'evil-next-visual-line)
                ("k" . #'evil-previous-visual-line)
                ("gj" . #'evil-next-line)
@@ -505,16 +507,18 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (lsp-headerline-breadcrumb-segments '(project symbols))
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  (defun $python-mode-hook()
+  (defun +sf/python-mode-hook()
     (require 'lsp-pyright)
     (lsp-deferred))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((json-ts-mode-hook . lsp-deferred)
          (js-json-mode-hook . lsp-deferred)
+         ;; (tsx-ts-mode-hook . lsp-deferred)
+         ;; (typescript-ts-mode-hook . lsp-deferred)
          (lsp-mode-hook . lsp-enable-which-key-integration)
-         (python-ts-mode-hook . $python-mode-hook)
-         (python-mode-hook . $python-mode-hook)))
+         (python-ts-mode-hook . +sf/python-mode-hook)
+         (python-mode-hook . +sf/python-mode-hook)))
 
 (use-package lsp-ui
   :after lsp
@@ -688,7 +692,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :commands (dired-sidebar-toggle-sidebar)
+  :commands (dired-sidebar-toggle-sidebar +sidebar--toggle)
   :init
   (add-hook 'dired-sidebar-mode-hook
             (lambda ()
@@ -702,7 +706,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
     (ibuffer-sidebar-toggle-sidebar))
   (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
   (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
-  (setq dired-sidebar-subtree-line-prefix "__")
+  (setq dired-sidebar-subtree-line-prefix "|")
   (setq dired-sidebar-theme 'nerd)
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-use-custom-font t))
@@ -1271,10 +1275,6 @@ no matter what."
 (use-package diff-hl
   :diminish
   :config
-  (defun +diff-hl--update ()
-    "Update diff-hl"
-    (interactive)
-    (diff-hl-update))
   (global-diff-hl-mode)
   (diff-hl-margin-mode)
   (diff-hl-margin-mode)
