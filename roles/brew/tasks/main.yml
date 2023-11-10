@@ -12,6 +12,8 @@
       - ctags
       - curl
       - docker
+      - docker-Buildx
+      - docker-compose
       - fd
       - fish
       - fzf
