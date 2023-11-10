@@ -5,7 +5,8 @@ function M.setup()
   local builtin = require("telescope.builtin")
   local themes = require("telescope.themes")
   local custom = require("plugins.telescope.custom")
-  local actions = require("telescope-live-grep-args.actions")
+  local lga_actions = require("telescope-live-grep-args.actions")
+  local actions = require("telescope.actions")
   local trouble = require("trouble.providers.telescope")
 
   local fzf_opts = {
@@ -25,8 +26,8 @@ function M.setup()
         auto_quoting = true,
         mappings = {
           i = {
-            ["<C-k>"] = actions.quote_prompt(),
-            ["<C-i>"] = actions.quote_prompt({ postfix = " --iglob " }),
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
           },
         },
       },
@@ -66,6 +67,9 @@ function M.setup()
       },
       live_grep = {
         theme = "dropdown",
+        mappings = {
+          i = { ["<c-f>"] = actions.to_fuzzy_refine },
+        },
       },
       lsp_dynamic_workspace_symbols = {
         sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
