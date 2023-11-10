@@ -146,11 +146,12 @@
   (with-eval-after-load 'org
     (+sf/remap-mark-command 'org-mark-element org-mode-map)
     (+sf/remap-mark-command 'org-mark-subtree org-mode-map))
-  :bind (([(control h) (y)] . #'describe-personal-keybindings)
-         ([(meta i)] . #'+sf/activate-mark)
-         ([(meta shift i)] . #'tab-to-tab-stop)
-         :map isearch-mode-map
-         ([(control q)] . #'+sf/isearch-highlight-phrase)))
+  :bind
+  (([(control h) (y)] . #'describe-personal-keybindings)
+   ([(meta i)] . #'+sf/activate-mark)
+   ([(meta shift i)] . #'tab-to-tab-stop)
+   (:map isearch-mode-map
+         ([(control q)] . #'+sf/isearch-highlight-phrase))))
 
 (use-package toggle-commands
   :elpaca nil
@@ -348,12 +349,13 @@
     (interactive)
     (call-interactively 'eval-region)
     (evil-force-normal-state))
+  ;; replaced be evil-goggles
   (defun $evil--yank-advice (orig-fn beg end &rest args)
     "Advice to be added to `evil-yank' to highlight yanked region.
 Pass ORIG-FN, BEG, END, TYPE, ARGS."
     (pulse-momentary-highlight-region beg end 'region)
     (apply orig-fn beg end args))
-  (advice-add 'evil-yank :around '$evil--yank-advice)
+  ;; (advice-add 'evil-yank :around '$evil--yank-advice)
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -364,34 +366,35 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (evil-split-window-right t)
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
-  :bind ((:map evil-normal-state-map
-               ([(control l)] . #'evil-ex-nohighlight)
-               ([(control j)] . #'evil-next-line)
-               ([(control k)] . #'evil-previous-line)
-               ([(control return)] . #'eval-last-sexp)
-               ([(control |)] . #'+sf/revert-buffer-noconfirm-and-update-diff-hl)
-               ("j" . #'evil-next-visual-line)
-               ("k" . #'evil-previous-visual-line)
-               ("gj" . #'evil-next-line)
-               ("gk" . #'evil-previous-line)
-               ("gq" . #'+format/region-or-buffer)
-               ([(control shift v)] . #'evil-paste-after)
-               ([(meta h)] . #'evil-window-left)
-               ([(meta j)] . #'evil-window-down)
-               ([(meta k)] . #'evil-window-up)
-               ([(meta l)] . #'evil-window-right)
-               ([(shift up)] . #'evil-window-increase-height)
-               ([(shift right)] . #'evil-window-increase-width)
-               ([(shift down)] . #'evil-window-decrease-height)
-               ([(shift left)] . #'evil-window-decrease-width))
-         (:map evil-insert-state-map
-               ([(control shift c)] . #'evil-yank)
-               ([(control shift v)] . #'yank))
-         (:map evil-visual-state-map
-               ([(control shift c)] . #'evil-yank)
-               ([(control shift v)] . #'evil-visual-paste)
-               (";" . #'$evil--eval-visual-region)
-               ("SPC RET" . #'execute-extended-command))))
+  :bind
+  ((:map evil-normal-state-map
+         ([(control l)] . #'evil-ex-nohighlight)
+         ([(control j)] . #'evil-next-line)
+         ([(control k)] . #'evil-previous-line)
+         ([(control return)] . #'eval-last-sexp)
+         ([(control |)] . #'+sf/revert-buffer-noconfirm-and-update-diff-hl)
+         ("j" . #'evil-next-visual-line)
+         ("k" . #'evil-previous-visual-line)
+         ("gj" . #'evil-next-line)
+         ("gk" . #'evil-previous-line)
+         ("gq" . #'+format/region-or-buffer)
+         ([(control shift v)] . #'evil-paste-after)
+         ([(meta h)] . #'evil-window-left)
+         ([(meta j)] . #'evil-window-down)
+         ([(meta k)] . #'evil-window-up)
+         ([(meta l)] . #'evil-window-right)
+         ([(shift up)] . #'evil-window-increase-height)
+         ([(shift right)] . #'evil-window-increase-width)
+         ([(shift down)] . #'evil-window-decrease-height)
+         ([(shift left)] . #'evil-window-decrease-width))
+   (:map evil-insert-state-map
+         ([(control shift c)] . #'evil-yank)
+         ([(control shift v)] . #'yank))
+   (:map evil-visual-state-map
+         ([(control shift c)] . #'evil-yank)
+         ([(control shift v)] . #'evil-visual-paste)
+         (";" . #'$evil--eval-visual-region)
+         ("SPC RET" . #'execute-extended-command))))
 ;;; we may want to use evil keyword later
 (elpaca-wait)
 
@@ -401,11 +404,21 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (evil-collection-init)
   (diminish 'evil-collection-unimpaired-mode))
 
+(use-package evil-goggles
+  :after evil
+  :config
+  (evil-goggles-mode))
+
 (use-package evil-commentary
   :after evil
   :diminish
   :init
   (evil-commentary-mode))
+
+(use-package evil-quickscope
+  :after evil
+  :config
+  (global-evil-quickscope-mode t))
 
 (use-package evil-lion
   :config
@@ -757,10 +770,11 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 ;;; marginalia
 (use-package marginalia
   ;; Either bind `marginalia-cycle' globally or only in the minibuffer
-  :bind (:map minibuffer-local-map
-              ("C-M-a" . #'marginalia-cycle)
-              :map completion-list-mode-map
-              ("C-M-a" . #'marginalia-cycle))
+  :bind
+  ((:map minibuffer-local-map
+         ("C-M-a" . #'marginalia-cycle))
+   (:map completion-list-mode-map
+         ("C-M-a" . #'marginalia-cycle)))
   :init
   (marginalia-mode))
 
@@ -958,13 +972,14 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                   corfu-popupinfo-delay nil)
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
-  :bind (:map corfu-map
-              ([(meta m)] . #'corfu-move-to-minibuffer)
-              ([(meta space)] . #'corfu-insert-separator)
-              ([(shift return)] . #'corfu-insert)
-              ("M-q" . #'corfu-quick-complete)
-              ("C-q" . #'corfu-quick-insert)
-              ("RET". nil))
+  :bind
+  (:map corfu-map
+        ([(meta m)] . #'corfu-move-to-minibuffer)
+        ([(meta space)] . #'corfu-insert-separator)
+        ([(shift return)] . #'corfu-insert)
+        ("M-q" . #'corfu-quick-complete)
+        ("C-q" . #'corfu-quick-insert)
+        ("RET". nil))
   :hook (lsp-mode-hook . corfu-lsp-setup)
   :init
   (global-corfu-mode)
@@ -1015,6 +1030,16 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
   )
 
+(use-package ctrlf
+  :bind
+  (("C-s" . #'ctrlf-forward-literal)
+   ("C-M-S" . #'ctrlf-forward-symbol-at-point)
+   (:map ctrlf-mode-map
+         ("C-j" . #'ctrlf-forward-literal)
+         ("C-k" . #'ctrlf-backward-literal)
+         ("C-M-s" . #'ctrlf-forward-symbol-at-point)
+         ("<escape>" . #'ctrlf-cancel))))
+
 ;;; fzf.. in emacs!
 (use-package fzf
   :config
@@ -1041,7 +1066,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
          ("C-x 4 b" . #'consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . #'consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
          ("C-x r b" . #'consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . #'consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ("C-x p b" . #'consult-buffer)      ;; orig. project-switch-to-buffer
          ;; Custom M-# bindings for fast register access
          ("M-#" . #'consult-register-load)
          ("M-'" . #'consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
@@ -1099,9 +1124,11 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
+  :custom
+  (consult-async-min-input 1)
   :config
   (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-theme :preview-key '(:debounce 0.5 any)
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-file-register
@@ -1121,13 +1148,15 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :bind ("C-c P" . #'consult-projectile))
 (use-package consult-flycheck
   :after (consult flycheck)
-  :bind (:map flycheck-command-map
-              ("!" . #'consult-flycheck)))
+  :bind
+  (:map flycheck-command-map
+        ("!" . #'consult-flycheck)))
 (use-package consult-dir
-  :bind (("C-x C-d" . #'consult-dir)
-         :map minibuffer-local-completion-map
-         ("C-x C-d" . #'consult-dir)
-         ("C-x C-j" . #'consult-dir-jump-file)))
+  :bind
+  (("C-x C-d" . #'consult-dir)
+   (:map minibuffer-local-completion-map
+   ("C-x C-d" . #'consult-dir)
+   ("C-x C-j" . #'consult-dir-jump-file))))
 
 (use-package deadgrep
   :bind ("<f6>" . #'deadgrep))
@@ -1137,12 +1166,13 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package embark
   :after (embark-defun)
-  :bind (("C-," . #'embark-act)
-         ("M-," . #'$embark-act-noquit)
-         ("C-M-," . #'embark-dwim) :map embark-general-map
-         ([(control y)] . #'symbol-overlay-put)
-         ([(control g)] . #'projectile-ripgrep)
-         ([(control G)] . #'rg))
+  :bind
+  (("C-," . #'embark-act)
+   ("M-," . #'$embark-act-noquit)
+   ("C-M-," . #'embark-dwim) :map embark-general-map
+   ([(control y)] . #'symbol-overlay-put)
+   ([(control g)] . #'projectile-ripgrep)
+   ([(control G)] . #'rg))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :custom
@@ -1242,9 +1272,10 @@ no matter what."
              magit-diff-dwim
              magit-blame
              magit-diff-range)
-  :bind (("C-x g" . #'magit-status)
-         ("C-c g d" . #'magit-diff-range)
-         ("C-c g b" . #'magit-blame))
+  :bind
+  (("C-x g" . #'magit-status)
+   ("C-c g d" . #'magit-diff-range)
+   ("C-c g b" . #'magit-blame))
   :config
   (add-to-list 'display-buffer-alist
                '("magit.*"
@@ -1562,7 +1593,7 @@ questions.  Else use completion to select the tab to switch to."
   (dimmer-fraction 0.10)
   (dimmer-watch-frame-focus-events nil)
   :config
-  (defun $dimmer--advise-dimmer-config-change-handler ()
+  (defun +dimmer--advise-dimmer-config-change-handler ()
     "Advise to only force process if no predicate is truthy."
     (let ((ignore (cl-some (lambda (f) (and (fboundp f) (funcall f)))
                            dimmer-prevent-dimming-predicates)))
@@ -1570,22 +1601,26 @@ questions.  Else use completion to select the tab to switch to."
         (when (fboundp 'dimmer-process-all)
           (dimmer-process-all t)))))
 
-  (defun $corfu--frame-p ()
+  (defun +sf/corfu--frame-p ()
     "Check if the buffer is a corfu frame buffer."
     (string-match-p "\\` \\*corfu" (buffer-name)))
 
-  (defun $dimmer--configure-corfu ()
+  (defun +dimmer--configure-corfu ()
     "Convenience settings for corfu users."
     (add-to-list
      'dimmer-prevent-dimming-predicates
-     #'$corfu--frame-p))
+     #'+sf/corfu--frame-p))
 
   (advice-add
    'dimmer-config-change-handler
-   :override '$dimmer--advise-dimmer-config-change-handler)
+   :override '+dimmer--advise-dimmer-config-change-handler)
+  (+dimmer--configure-corfu)
+
+  (defun dimmer--config-change-handler-patch (orig-fun &rest args)
+    (run-at-time 0.2 nil #'apply orig-fun args))
+  (advice-add 'dimmer-config-change-handler :around #'dimmer--config-change-handler-patch)
 
   (dimmer-mode t)
-  ($dimmer--configure-corfu)
   (dimmer-configure-which-key)
   (dimmer-configure-magit)
   (dimmer-configure-posframe))
@@ -1597,8 +1632,8 @@ questions.  Else use completion to select the tab to switch to."
   :bind (([(control f7)] . idle-highlight-mode)))
 
 (use-package symbol-overlay
-  :bind (("C-c J" . #'symbol-overlay-jump-next)
-         ("C-c K" . #'symbol-overlay-jump-prev))
+  :bind (("C-c j" . #'symbol-overlay-jump-next)
+         ("C-c k" . #'symbol-overlay-jump-prev))
   ([f7] . #'symbol-overlay-put)
   ([(control shift f7)] . #'symbol-overlay-remove-all))
 
@@ -1625,17 +1660,19 @@ questions.  Else use completion to select the tab to switch to."
           ("FIXME"  . "#FFFFFF")
           ("NOTE"   . "#F56600")
           ("WORK"   . "#522D80")))
-  :bind (:map hl-todo-mode-map
-              ("C-c t p" . #'hl-todo-previous)
-              ("C-c t n" . #'hl-todo-next)
-              ("C-c t o" . #'hl-todo-occur)
-              ("C-c t i" . #'hl-todo-insert)))
+  :bind
+  (:map hl-todo-mode-map
+        ("C-c t p" . #'hl-todo-previous)
+        ("C-c t n" . #'hl-todo-next)
+        ("C-c t o" . #'hl-todo-occur)
+        ("C-c t i" . #'hl-todo-insert)))
 
 ;;; helpful
 (use-package helpful
-  :bind (("C-h f" . #'helpful-callable)
-         ("C-h v" . #'helpful-variable)
-         ("C-h k" . #'helpful-key)))
+  :bind
+  (("C-h f" . #'helpful-callable)
+   ("C-h v" . #'helpful-variable)
+   ("C-h k" . #'helpful-key)))
 
 (use-package visual-regexp)
 (use-package visual-regexp-steroids)

@@ -91,6 +91,19 @@
   (revert-buffer nil t))
 
 ;;;###autoload
+(defun +sf/diff-hl--update ()
+  "Update diff-hl"
+  (interactive)
+  (diff-hl-update))
+
+;;;###autoload
+(defun +sf/revert-buffer-noconfirm-and-update-diff-hl ()
+  "Call `revert-buffer' with the NOCONFIRM argument set."
+  (interactive)
+  (+sf/revert-buffer-noconfirm)
+  (+sf/diff-hl--update))
+
+;;;###autoload
 (defun +sf/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 

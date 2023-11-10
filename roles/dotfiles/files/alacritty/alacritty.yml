@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/monokai_pro.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/github_dark_default.yaml
 
 window:
   # Window dimensions (changes require restart)
