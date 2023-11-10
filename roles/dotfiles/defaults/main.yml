@@ -24,6 +24,7 @@ dotfile_homedir_files:
   - sbclrc
   - ideavimrc
   - pdbrc
+  - psqlrc
 
 archive_homedir_files:
   - bash_aliases
