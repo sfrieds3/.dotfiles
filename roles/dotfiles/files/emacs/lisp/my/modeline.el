@@ -78,7 +78,7 @@
   :group 'sfrieds3-mode-line-faces)
 
 
-(defun $ellipsize-file-name (file-name max-length)
+(defun +sf/ellipsize-file-name (file-name max-length)
   "Elipsize FILE-NAME if over MAX-LENGTH."
   (let* ((ellipsis (if (char-displayable-p ?…) "…" "..."))
          (left (/ max-length 2))
@@ -143,17 +143,18 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 
 (defvar-local $mode-line--buffer-identification
     '(:eval (cond ((buffer-file-name)
-                   (let* (($buffer-name (cond ((projectile-project-root)
-                                               (file-relative-name buffer-file-name (projectile-project-root)))
-                                              (t ($ellipsize-file-name (buffer-name) 36)))))
+                   (let* ((mode-line--buffer-name
+                           (cond ((project-current)
+                                 (file-relative-name buffer-file-name (project-root (project-current))))
+                                 (t (+sf/ellipsize-file-name (buffer-name) 36)))))
                      (if (buffer-modified-p)
-                         (propertize $buffer-name
+                         (propertize mode-line--buffer-name
                                      'help-echo (if (buffer-file-name)
                                                     (abbreviate-file-name (buffer-file-name))
                                                   "No name")
                                      'face '$face--mode-line-dark-red
                                      'mouse-face 'mode-line-highlight)
-                       (propertize $buffer-name
+                       (propertize mode-line--buffer-name
                                    'help-echo (if (buffer-file-name)
                                                   (abbreviate-file-name (buffer-file-name))
                                                 "No name")

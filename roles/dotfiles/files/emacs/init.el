@@ -276,7 +276,7 @@
     :keymaps 'normal
     "RET" #'execute-extended-command
     "SPC" #'consult-buffer
-    "b" #'consult-projectile
+    "b" #'consult-project-buffer
     "d" #'consult-flycheck
     "f" #'project-find-file
     "G" #'rg
@@ -287,7 +287,6 @@
     "hr" #'diff-hl-revert-hunk
     "hv" #'diff-hl-show-hunk
     "l" #'consult-line
-    "P" #'consult-projectile
     "R" #'lsp-rename
     "rg" #'deadgrep
     "vd" #'consult-lsp-diagnostics
@@ -368,6 +367,8 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (scroll-margin 3) ; set scrolloff=3
   :bind
   ((:map evil-normal-state-map
+         ("/" . #'ctrlf-forward-fuzzy-regexp)
+         ("?" . #'ctrlf-backward-fuzzy-regexp)
          ([(control l)] . #'evil-ex-nohighlight)
          ([(control j)] . #'evil-next-line)
          ([(control k)] . #'evil-previous-line)
@@ -459,13 +460,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (define-key evil-normal-state-map (kbd "C-; C-a") 'evil-numbers/inc-at-pt-incremental)
   (define-key evil-normal-state-map (kbd "C-; C-x") 'evil-numbers/dec-at-pt-incremental))
 
-(use-package anzu
-  :diminish
-  :config (global-anzu-mode))
-
-(use-package evil-anzu
-  :after (evil anzu))
-
 ;;; undo stuff
 (use-package undo-fu
   :custom
@@ -545,6 +539,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;; debugging
 (use-package realgud
+  :commands (realgud-pdb)
   :bind (:map python-ts-mode-map
               ([f5] . #'realgud:pdb)
               :map python-mode-map
@@ -688,12 +683,11 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 (use-package neotree
   :custom
   (neo-smart-open t)
-  (projectile-switch-project-action 'neotree-projectile-action)
   :config
   (defun $neotree--project-dir ()
     "Open NeoTree using the git root."
     (interactive)
-    (let ((project-dir (projectile-project-root))
+    (let ((project-dir (project-root (project-current)))
           (file-name (buffer-file-name)))
       (neotree-toggle)
       (if project-dir
@@ -733,39 +727,25 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (rg-enable-default-bindings)
   (rg-enable-menu))
 
-(use-package projectile
-  :init
-  (projectile-mode)
-  :custom
-  (projectile-project-search-path `("~/.dotfiles/" ("~/dev" . 2) ,(expand-file-name "elpaca/repos" user-emacs-directory)))
-  (projectile-mode-line-prefix " Proj")
-  :config
-  (setq projectile-tags-command (s-replace-regexp "^ctags" "/usr/bin/ctags" projectile-tags-command))
-  (when (executable-find "rg")
-    (setq-default projectile-generic-command "rg --files --hidden -0"))
-  :bind (("C-c f" . #'projectile-find-file)
-         ("C-c b" . #'projectile-switch-to-buffer)
-         :map projectile-mode-map
-         ("C-c p" . #'projectile-command-map)))
-
 ;;; project
 (use-package project
   :elpaca nil
   :config
-  (defun $project-override (dir)
+  (defun +sf/project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
       (if override
           (cons 'vc override)
         nil)))
-  (defun $project--default-directory ()
+  (defun +sf/project--default-directory ()
     (if (project-current)
         (setq default-directory (cdr (project-current)))
       (if (buffer-file-name)
           (setq default-directory (file-name-parent-directory (buffer-file-name)))
         (setq default-directory (getenv "HOME")))))
   :hook
-  ;; (find-file-hook . #'$project--default-directory)
-  (project-find-functions-hook . $project-override))
+  ;; (find-file-hook . #'+sf/project--default-directory)
+  ;; note: this is *not* `PROJECT-FIND-FUNCTIONS-HOOK`
+  (project-find-functions . +sf/project-override))
 
 ;;; marginalia
 (use-package marginalia
@@ -1032,13 +1012,12 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package ctrlf
   :bind
-  (("C-s" . #'ctrlf-forward-literal)
-   ("C-M-S" . #'ctrlf-forward-symbol-at-point)
-   (:map ctrlf-mode-map
-         ("C-j" . #'ctrlf-forward-literal)
-         ("C-k" . #'ctrlf-backward-literal)
-         ("C-M-s" . #'ctrlf-forward-symbol-at-point)
-         ("<escape>" . #'ctrlf-cancel))))
+  (:map ctrlf-mode-map
+        ("C-n" . #'ctrlf-forward-fuzzy-regexp)
+        ("C-p" . #'ctrlf-backward-fuzzy-regexp)
+        ("C-M-n" . #'ctrlf-forward-symbol-at-point)
+        ("C-M-p" . #'ctrlf-backward-symbol-at-point)
+        ("<escape>" . #'ctrlf-cancel)))
 
 ;;; fzf.. in emacs!
 (use-package fzf
@@ -1137,15 +1116,8 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
    :preview-key "M-.")
 
   (setq consult-narrow-key "<")
-  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help))
 
-  ;; use projectile
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root))))
-
-(use-package consult-projectile
-  :after (projectile consult)
-  :bind ("C-c P" . #'consult-projectile))
 (use-package consult-flycheck
   :after (consult flycheck)
   :bind
@@ -1171,7 +1143,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
    ("M-," . #'$embark-act-noquit)
    ("C-M-," . #'embark-dwim) :map embark-general-map
    ([(control y)] . #'symbol-overlay-put)
-   ([(control g)] . #'projectile-ripgrep)
+   ([(control g)] . #'consult-ripgrep)
    ([(control G)] . #'rg))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -1400,7 +1372,8 @@ no matter what."
 
 ;;; slime
 (use-package sly
-  :init
+  :commands (sly)
+  :config
   (with-eval-after-load 'sly
     (let ((map sly-editing-mode-map))
       (define-key map [remap display-local-help] #'sly-describe-symbol)
