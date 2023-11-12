@@ -2,6 +2,7 @@
 - name: Install homebrew packages
   community.general.homebrew:
     name:
+      - ast-grep
       - autoconf
       - automake
       - bat
@@ -27,6 +28,7 @@
       - guile
       - htop
       - httpie
+      - jless
       - jq
       - jsonlint
       - kubernetes-cli

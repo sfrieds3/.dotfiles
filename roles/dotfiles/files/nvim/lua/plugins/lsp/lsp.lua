@@ -80,6 +80,12 @@ function M.setup()
     debounce_text_changes = 150,
   }
 
+  require("lspconfig")["ast_grep"].setup({
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  })
+
   require("lspconfig")["jsonls"].setup({
     on_attach = on_attach,
     flags = lsp_flags,
