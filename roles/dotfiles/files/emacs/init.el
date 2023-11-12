@@ -223,6 +223,10 @@
   :custom
   (exec-path-from-shell-shell-name "/opt/homebrew/bin/fish")
   :init
+  :config
+  (dolist (var '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (add-to-list 'exec-path (substitute-in-file-name "$XDG_DATA_HOME/nvim/mason/bin"))
   (exec-path-from-shell-initialize))
 
 ;;; auto-revert everything
@@ -340,21 +344,21 @@
   :config
   (evil-mode t)
   (defalias #'forward-evil-word #'forward-evil-symbol)
-  (defun $evil-nohl ()
+  (defun +sf/evil--nohl ()
     (progn
       (redraw-frame)
       (evil-ex-nohighlight)))
-  (defun $evil--eval-visual-region ()
+  (defun +sf/evil--eval-visual-region ()
     (interactive)
     (call-interactively 'eval-region)
     (evil-force-normal-state))
   ;; replaced be evil-goggles
-  (defun $evil--yank-advice (orig-fn beg end &rest args)
+  (defun +sf/evil--yank-advice (orig-fn beg end &rest args)
     "Advice to be added to `evil-yank' to highlight yanked region.
 Pass ORIG-FN, BEG, END, TYPE, ARGS."
     (pulse-momentary-highlight-region beg end 'region)
     (apply orig-fn beg end args))
-  ;; (advice-add 'evil-yank :around '$evil--yank-advice)
+  ;; (advice-add 'evil-yank :around '+sf/evil--yank-advice)
   :custom
   (evil-undo-system 'undo-fu)
   (evil-want-integration t)
@@ -394,7 +398,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
    (:map evil-visual-state-map
          ([(control shift c)] . #'evil-yank)
          ([(control shift v)] . #'evil-visual-paste)
-         (";" . #'$evil--eval-visual-region)
+         (";" . #'+sf/evil--eval-visual-region)
          ("SPC RET" . #'execute-extended-command))))
 ;;; we may want to use evil keyword later
 (elpaca-wait)
@@ -407,6 +411,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package evil-goggles
   :after evil
+  :diminish
   :config
   (evil-goggles-mode))
 
@@ -521,6 +526,10 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (setq lsp-keymap-prefix "C-c l")
   :hook ((json-ts-mode-hook . lsp-deferred)
          (js-json-mode-hook . lsp-deferred)
+         (yaml-mode-hook . lsp-deferred)
+         (yaml-ts-mode-hook . lsp-deferred)
+         (rust-mode-hook . lsp-deferred)
+         (rust-ts-mode-hook . lsp-deferred)
          ;; (tsx-ts-mode-hook . lsp-deferred)
          ;; (typescript-ts-mode-hook . lsp-deferred)
          (lsp-mode-hook . lsp-enable-which-key-integration)
