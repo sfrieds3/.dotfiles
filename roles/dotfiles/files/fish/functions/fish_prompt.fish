@@ -140,7 +140,7 @@ function fish_prompt --description "Config prompt"
         # printf "  "
         printf " !! "
     else
-        printf " | "
+        printf " = "
     end
 
     set_color normal
