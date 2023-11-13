@@ -33,7 +33,6 @@ return {
     "j-hui/fidget.nvim",
     dependencies = "neovim/nvim-lspconfig",
     event = "LspAttach",
-    tag = "legacy",
     config = function()
       require("fidget").setup({
         text = {
