@@ -1690,6 +1690,15 @@ questions.  Else use completion to select the tab to switch to."
   :hook
   (prog-mode-hook . ws-butler-mode))
 
+;;; yasnippet
+(use-package yasnippet
+  :disabled
+  :config
+  (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
+  (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME")))
+  (yas-reload-all)
+  (yas-global-mode))
+
 (use-package auto-yasnippet
   :bind (("C-c C-y w" . #'aya-create)
          ("C-c C-y TAB" . #'aya-expand)
