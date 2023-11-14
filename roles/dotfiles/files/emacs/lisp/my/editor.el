@@ -15,6 +15,9 @@
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         '(isort black)))
 
+;;; TODO: investigate emacs-reformatter
+(use-package reformatter)
+
 (use-package flymake-ruff
   :hook
   (python-mode-hook . flymake-ruff-load))

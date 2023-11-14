@@ -190,18 +190,7 @@
   :bind ((:map c-mode-base-map
                ("<tab>" . #'indent-for-tab-command))))
 
-;;; projectile-rails
-(use-package projectile-rails
-  :disabled
-  :mode "\\.rb\\'"
-  :interpreter "ruby"
-  :commands (projectile-rails-mode
-             projectile-rails-command-map)
-  :bind (("C-c R" . #'projectile-rails-command-map))
-  :config
-  (projectile-rails-global-mode)
-  :hook
-  (ruby-mode-hook . projectile-rails-mode))
+(use-package lsp-java)
 
 (provide 'lang-config)
 ;;; lang-config.el ends here

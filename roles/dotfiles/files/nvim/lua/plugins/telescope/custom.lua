@@ -344,7 +344,7 @@ function M.document_symbols()
 
   local active_clients = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
   for _, client in ipairs(active_clients) do
-    if client.server_capabilities.documentSymbolProvider == true then
+    if client.server_capabilities.documentSymbolProvider ~= nil then
       require("telescope.builtin").lsp_document_symbols(opts)
       return
     end

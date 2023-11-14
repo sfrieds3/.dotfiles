@@ -1,4 +1,9 @@
 if status is-login
+    # load local config from ~/.fish_local, if available
+    set -l local_config "$HOME/.fish_local.fish"
+    if test -e $local_config
+        source $local_config
+    end
 end
 
 if status is-interactive

@@ -224,7 +224,7 @@
   (exec-path-from-shell-shell-name "/opt/homebrew/bin/fish")
   :init
   :config
-  (dolist (var '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME"))
+  (dolist (var '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME" "JAVA_HOME"))
     (add-to-list 'exec-path-from-shell-variables var))
   (add-to-list 'exec-path (substitute-in-file-name "$XDG_DATA_HOME/nvim/mason/bin"))
   (exec-path-from-shell-initialize))
@@ -296,7 +296,7 @@
     "vd" #'consult-lsp-diagnostics
     "vt" #'hl-todo-occur
     "/"  #'consult-line
-    "\\" #'neotree
+    "\\" #'+sidebar--toggle
     ":" #'consult-lsp-symbols
     ";" #'consult-lsp-file-symbols)
   (+sf/leader
@@ -367,6 +367,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (evil-want-Y-yank-to-eol t)
   (evil-split-window-below t)
   (evil-split-window-right t)
+  (evil-vsplit-window-right t)
   (evil-search-module 'evil-search)
   (scroll-margin 3) ; set scrolloff=3
   :bind
@@ -534,7 +535,9 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
          ;; (typescript-ts-mode-hook . lsp-deferred)
          (lsp-mode-hook . lsp-enable-which-key-integration)
          (python-ts-mode-hook . +sf/python-mode-hook)
-         (python-mode-hook . +sf/python-mode-hook)))
+         (python-mode-hook . +sf/python-mode-hook)
+         (java-mode-hook . lsp-deferred)
+         (java-ts-mode-hook . lsp-deferred)))
 
 (use-package lsp-ui
   :after lsp
@@ -689,23 +692,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :elpaca nil
   :after org)
 
-(use-package neotree
-  :custom
-  (neo-smart-open t)
-  :config
-  (defun $neotree--project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (let ((project-dir (project-root (project-current)))
-          (file-name (buffer-file-name)))
-      (neotree-toggle)
-      (if project-dir
-          (if (neo-global--window-exists-p)
-              (progn
-                (neotree-dir project-dir)
-                (neotree-find file-name)))
-        (message "Could not find git project root.")))))
-
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :commands (dired-sidebar-toggle-sidebar +sidebar--toggle)
@@ -718,8 +704,8 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (defun +sidebar--toggle ()
     "Toggle both `dired-sidebar' and `ibuffer-sidebar'."
     (interactive)
-    (dired-sidebar-toggle-sidebar)
-    (ibuffer-sidebar-toggle-sidebar))
+    (ibuffer-sidebar-toggle-sidebar)
+    (dired-sidebar-toggle-sidebar))
   (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
   (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
   (setq dired-sidebar-subtree-line-prefix "|")

@@ -31,6 +31,7 @@ return {
   },
   {
     "j-hui/fidget.nvim",
+    enabled = false,
     dependencies = "neovim/nvim-lspconfig",
     event = "LspAttach",
     config = function()

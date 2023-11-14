@@ -4,7 +4,7 @@ local M = {
 
 function M.config()
   require("tint").setup({
-    tint = -33,
+    tint = -25,
     saturation = 0.6,
     window_ignore_function = function(winid)
       local exclude_filetypes = {
