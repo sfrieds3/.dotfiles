@@ -3,7 +3,11 @@ local focus = require("focus")
 
 local browser = "firefox"
 local terminal = "alacritty"
+local editor = "Emacs"
 
+hs.hotkey.bind({ "cmd", "shift" }, "h", function()
+  focusandback(editor)
+end)
 hs.hotkey.bind({ "cmd", "shift" }, "k", function()
   focusandback(browser)
 end)
