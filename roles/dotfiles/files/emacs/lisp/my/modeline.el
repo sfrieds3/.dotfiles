@@ -169,12 +169,19 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
 (put '$mode-line--buffer-identification 'risky-local-variable t)
 
 (defvar-local +sf/mode-line--buffer-short-identification
-    '(:eval (propertize (buffer-name)
+    '(:eval (if (buffer-modified-p)
+                  (propertize (buffer-name)
+                              'help-echo (if (buffer-file-name)
+                                             (abbreviate-file-name (buffer-file-name))
+                                           "No name")
+                              'face '$face--mode-line-dark-red
+                              'mouse-face 'mode-line-highlight)
+                (propertize (buffer-name)
                         'help-echo (if (buffer-file-name)
                                        (abbreviate-file-name (buffer-file-name))
                                      "No name")
                         'face '(:inherit mode-line-buffer-id)
-                        'mouse-face 'mode-line-highlight)))
+                        'mouse-face 'mode-line-highlight))))
 (put '+sf/mode-line--buffer-short-identification 'risky-local-variable t)
 
 (defvar-local $mode-line--inactive-buffer-identification

@@ -1492,6 +1492,7 @@ no matter what."
 
 ;;; winner-mode
 (use-package winner
+  ;; TODO: set C-w [ and ] to winner-undo and winner-redo
   :elpaca nil
   :hook
   (after-init-hook . winner-mode))
