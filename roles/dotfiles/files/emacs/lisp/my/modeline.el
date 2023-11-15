@@ -168,14 +168,14 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                                  'mouse-face 'mode-line-highlight)))))
 (put '$mode-line--buffer-identification 'risky-local-variable t)
 
-(defvar-local $mode-line--buffer-short-identification
+(defvar-local +sf/mode-line--buffer-short-identification
     '(:eval (propertize (buffer-name)
                         'help-echo (if (buffer-file-name)
                                        (abbreviate-file-name (buffer-file-name))
                                      "No name")
                         'face '(:inherit mode-line-buffer-id)
                         'mouse-face 'mode-line-highlight)))
-(put '$mode-line--buffer-short-identification 'risky-local-variable t)
+(put '+sf/mode-line--buffer-short-identification 'risky-local-variable t)
 
 (defvar-local $mode-line--inactive-buffer-identification
     '(:eval (let ((fname (buffer-file-name))
@@ -296,7 +296,7 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                               mode-line-mule-info
                               mode-line-modified
                               " "
-                              $mode-line--buffer-identification))
+                              +sf/mode-line--buffer-short-identification))
                               ;; '(:eval
                               ;;   (if (boundp 'tree-sitter-mode)
                               ;;       (let ((cls ($tree-sitter--thing-name 'class-like))

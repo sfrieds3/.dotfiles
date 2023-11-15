@@ -237,7 +237,9 @@
   (global-auto-revert-mode 1)
   :custom
   (global-auto-revert-non-file-buffers t)
-  (auto-revert-verbose nil))
+  (auto-revert-verbose nil)
+  :hook
+  (auto-save-hook . +sf/diff-hl--update))
 
 (use-package dired
   :elpaca nil
@@ -481,7 +483,9 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 (use-package vundo
   :commands vundo)
 
-(use-package breadcrumb)
+(use-package breadcrumb
+  :config
+  (breadcrumb-mode))
 
 ;; ;;; eglot
 ;; (use-package eglot
