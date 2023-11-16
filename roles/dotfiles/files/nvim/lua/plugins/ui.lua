@@ -75,19 +75,29 @@ return {
     end,
   },
   {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require("symbols-outline").setup({
-        autofold_depth = 2,
-        hover_highlighted_item = true,
+    "hedyhli/outline.nvim",
+    opts = {
+      outline_items = {
+        highlight_hovered_item = true,
         show_symbol_details = true,
-        winblend = 10,
-        keymaps = {
-          hover_symbol = "<Leader>e",
-        },
-      })
-      vim.keymap.set("n", "<Leader><CR>", "<Cmd>SymbolsOutline<CR>")
-    end,
+        show_symbol_lineno = false,
+      },
+      outline_window = {
+        show_cursorline = true,
+        hide_cursor = true,
+      },
+      symbol_folding = {
+        autofold_depth = 1,
+      },
+      winblend = 10,
+      keymaps = {
+        hover_symbol = "<leader>e",
+      },
+    },
+    cmd = { "Outline", "OutlineOpen" },
+    keys = {
+      { "<Leader><CR>", "<cmd>Outline<cr>", desc = "Outline: toggle" },
+    },
   },
 
   {

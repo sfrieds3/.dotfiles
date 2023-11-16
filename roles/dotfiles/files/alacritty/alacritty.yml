@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/themes/one-dark-pro.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/kanagawa_dragon.yaml
 
 window:
   # Window dimensions (changes require restart)

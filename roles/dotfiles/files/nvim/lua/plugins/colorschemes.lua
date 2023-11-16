@@ -9,10 +9,11 @@ return {
   {
     "projekt0n/github-nvim-theme",
     version = "*",
+
     config = function()
       require("github-theme").setup({
         options = {
-          dim_inactive = true,
+          dim_inactive = false,
           styles = {
             functions = "italic",
           },
@@ -45,7 +46,7 @@ return {
         },
         term_colors = true,
         dim_inactive = {
-          enabled = true,
+          enabled = false,
           shade = "dark",
           percentage = 0.15,
         },
@@ -80,19 +81,19 @@ return {
           treesitter_context = true,
           lsp_trouble = true,
         },
-        -- color_overrides = {
-        --   mocha = {
-        --     base = "#131313",
-        --     mantle = "#313131",
-        --     crust = "#333333",
-        --   },
-        -- },
+        color_overrides = {
+          mocha = {
+            base = "#131313",
+            mantle = "#313131",
+            crust = "#333333",
+          },
+        },
       })
     end,
   },
   {
     "NTBBloodbath/doom-one.nvim",
-    lazy = true,
+
     init = function()
       -- Add color to cursor
       vim.g.doom_one_cursor_coloring = false
@@ -124,7 +125,6 @@ return {
     end,
   },
   {
-
     "sainnhe/gruvbox-material",
 
     config = function()
@@ -132,7 +132,7 @@ return {
       vim.g.gruvbox_material_foreground = "material"
       vim.g.gruvbox_material_statusline_stype = "material"
       vim.g.gruvbox_better_performance = 1
-      vim.g.gruvbox_material_dim_inactive_windows = 1
+      vim.g.gruvbox_material_dim_inactive_windows = 0
     end,
   },
 
@@ -151,7 +151,7 @@ return {
       })
       require("kanagawa").setup({
         compile = true,
-        dimInactive = true,
+        dimInactive = false,
         globalStatus = true,
         terminalColors = true,
         background = {
@@ -162,7 +162,6 @@ return {
     end,
   },
   {
-
     "marko-cerovac/material.nvim",
 
     config = function()
@@ -233,6 +232,7 @@ return {
   {
     "navarasu/onedark.nvim",
     disabled = true,
+
     config = function()
       require("onedark").setup({
         style = "darker",
@@ -247,20 +247,17 @@ return {
     lazy = true,
     init = function()
       vim.g.sonokai_style = "shusia"
-      vim.g.sonokai_dim_inactive_windows = true
+      vim.g.sonokai_dim_inactive_windows = false
       vim.g.sonokai_better_performance = true
     end,
   },
   {
-
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 999,
 
     config = function()
       local tokyonight = require("tokyonight").setup({
         style = "night",
-        dim_inactive = true,
+        dim_inactive = false,
         sidebars = {},
         styles = {
           comments = { italic = true },
@@ -271,8 +268,9 @@ return {
           floats = "transparent",
         },
       })
-
-      -- require("tokyonight").load()
     end,
+  },
+  {
+    "rrethy/nvim-base16",
   },
 }
