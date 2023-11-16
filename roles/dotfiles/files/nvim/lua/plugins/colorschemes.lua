@@ -158,6 +158,15 @@ return {
           dark = "dragon",
           light = "wave",
         },
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = "none",
+              },
+            },
+          },
+        },
       })
     end,
   },
