@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/github_dark_high_contrast.yaml
+  - ~/.config/alacritty/themes/one-dark-pro.yaml
 
 window:
   # Window dimensions (changes require restart)
