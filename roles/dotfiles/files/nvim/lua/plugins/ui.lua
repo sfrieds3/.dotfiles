@@ -31,28 +31,16 @@ return {
   },
   {
     "j-hui/fidget.nvim",
-    enabled = false,
     dependencies = "neovim/nvim-lspconfig",
     event = "LspAttach",
     config = function()
       require("fidget").setup({
-        text = {
-          spinner = "bouncing_ball",
-        },
-        fmt = {
-          -- TODO: hacky way to ignore certain messages..
-          -- should be able to remove when rewrite of fidget is complete
-          task = function(task_name, message, percentage)
-            if task_name == "Finding references" then
-              return nil
-            end
-            return string.format(
-              "%s%s [%s]",
-              message,
-              percentage and string.format(" (%s%%)", percentage) or "",
-              task_name
-            )
-          end,
+        progress = {
+          suppress_on_insert = true,
+          ignore_done_already = true,
+          display = {
+            render_limit = 3,
+          },
         },
       })
     end,

@@ -231,14 +231,16 @@ return {
     end,
   },
   {
-
     "navarasu/onedark.nvim",
-
+    disabled = true,
     config = function()
       require("onedark").setup({
         style = "darker",
       })
     end,
+  },
+  {
+    "olimorris/onedarkpro.nvim",
   },
   {
     "sainnhe/sonokai",
