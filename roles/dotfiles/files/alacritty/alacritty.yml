@@ -30,7 +30,7 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/kanagawa_dragon.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/monokai_charcol.yaml
 
 window:
   # Window dimensions (changes require restart)

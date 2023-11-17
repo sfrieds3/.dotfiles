@@ -1697,7 +1697,6 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; yasnippet
 (use-package yasnippet
-  :disabled
   :config
   (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" user-emacs-directory))
   (add-to-list 'yas-snippet-dirs (expand-file-name ".local-emacs-snippets" (getenv "HOME")))
