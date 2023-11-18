@@ -71,6 +71,7 @@
       - wget
       - yq
       - zig
+      - zoxide
     state: present
 
 - name: Install homebrew casks

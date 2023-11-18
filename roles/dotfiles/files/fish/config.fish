@@ -10,6 +10,9 @@ if status is-interactive
     set --global --export fish_prompt_pwd_dir_length 3
     set --global --export fish_prompt_pwd_full_dirs 3
 
+    # zoxide
+    zoxide init fish | source
+
     # pyenv init
     pyenv init - | source
 
