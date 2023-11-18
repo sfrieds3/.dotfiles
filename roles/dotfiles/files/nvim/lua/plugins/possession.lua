@@ -7,7 +7,13 @@ function M.config()
   require("possession").setup({
     autosave = {
       current = true,
-      tmp = true,
+      tmp = false,
+    },
+    commands = {
+        save = "SSave",
+        load = "SLoad",
+        delete = "SDelete",
+        list = "SList",
     },
   })
 
