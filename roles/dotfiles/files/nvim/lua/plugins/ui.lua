@@ -100,7 +100,6 @@ return {
       { "<Leader><CR>", "<cmd>Outline<cr>", desc = "Outline: toggle" },
     },
   },
-
   {
     "s1n7ax/nvim-window-picker",
     version = "v2.*",
@@ -115,7 +114,6 @@ return {
       end, { desc = "Pick a window" })
     end,
   },
-
   {
     "RRethy/vim-illuminate",
 

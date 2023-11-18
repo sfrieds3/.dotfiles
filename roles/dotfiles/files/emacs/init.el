@@ -267,6 +267,7 @@
   (+sf/bslocalleader
    :keymaps 'normal
    "c" #'evil-delete-buffer
+   "gb" #'magit-branch-checkout
    "\\" #'evil-execute-in-emacs-state)
   (general-create-definer +sf/localleader :prefix "_")
   (+sf/localleader
@@ -374,8 +375,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (scroll-margin 3) ; set scrolloff=3
   :bind
   ((:map evil-normal-state-map
-         ("/" . #'ctrlf-forward-fuzzy-regexp)
-         ("?" . #'ctrlf-backward-fuzzy-regexp)
          ([(control l)] . #'evil-ex-nohighlight)
          ([(control j)] . #'evil-next-line)
          ([(control k)] . #'evil-previous-line)
@@ -1008,15 +1007,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
   )
-
-(use-package ctrlf
-  :bind
-  (:map ctrlf-mode-map
-        ("C-n" . #'ctrlf-forward-fuzzy-regexp)
-        ("C-p" . #'ctrlf-backward-fuzzy-regexp)
-        ("C-M-n" . #'ctrlf-forward-symbol-at-point)
-        ("C-M-p" . #'ctrlf-backward-symbol-at-point)
-        ("<escape>" . #'ctrlf-cancel)))
 
 ;;; fzf.. in emacs!
 (use-package fzf
