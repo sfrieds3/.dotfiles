@@ -280,6 +280,19 @@ return {
     end,
   },
   {
-    "rrethy/nvim-base16",
+    "EdenEast/nightfox.nvim",
+    opts = {
+      colorblind = {
+        enable = true,
+        severity = {
+          protan = 1,
+          deutan = 1,
+          tritan = 0,
+        },
+      },
+    },
+  },
+  {
+    "mcchrish/zenbones.nvim",
   },
 }
