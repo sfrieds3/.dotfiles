@@ -135,7 +135,14 @@ return {
       vim.g.gruvbox_material_dim_inactive_windows = 0
     end,
   },
-
+  {
+    "ellisonleao/gruvbox.nvim",
+    opts = {
+      invert_selection = false,
+      invert_tabline = false,
+      contrast = "hard",
+    },
+  },
   {
     "rebelot/kanagawa.nvim",
 

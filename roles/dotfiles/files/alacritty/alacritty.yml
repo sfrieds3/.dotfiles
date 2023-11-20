@@ -30,7 +30,8 @@ env:
 
 # set theme
 import:
-  - ~/.config/alacritty/alacritty-theme/themes/monokai_charcol.yaml
+  - ~/.config/alacritty/alacritty-theme/themes/gruvbox_material_medium_dark.yaml
+  # - ~/.config/alacritty/themes/nightfox_carbonfox.yaml
 
 window:
   # Window dimensions (changes require restart)
