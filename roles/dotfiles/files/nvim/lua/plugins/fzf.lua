@@ -77,7 +77,7 @@ function M.config()
   vim.keymap.set(
     "n",
     "<Leader>fvA",
-    require("fzf-lua").lsp_workspace_symbols,
+    require("fzf-lua").lsp_live_workspace_symbols,
     { desc = "FzfLua: [f]zf lsp [v]iew [A]ll workspace symbols" }
   )
   vim.keymap.set(

@@ -89,6 +89,7 @@
       - pocket-casts
       - rectangle
       - spotify
+      - wezterm
       - wireshark
 
 - name: Upgrade homebrew packages
