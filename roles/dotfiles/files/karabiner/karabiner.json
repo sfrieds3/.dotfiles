@@ -47,12 +47,12 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org.alacritty",
-                                            "^org.gnu.Emacs"
+                                            "^com\\.github\\.wez\\.wezterm$",
                                         ],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
-                                "description": "Change command to option for specific applications",
+                                "description": "Change command to option for terminals",
                                 "from": {
                                     "key_code": "left_command",
                                     "modifiers": {
