@@ -1,4 +1,4 @@
-local wezterm = require("wezterm")
+local w = require("wezterm")
 local keymap = require("keymap")
 require("status")
 
@@ -8,7 +8,7 @@ local config = {
     "--login",
   },
   color_scheme = "Gruvbox dark, pale (base16)",
-  font = wezterm.font("Hack Nerd Font"),
+  font = w.font("Hack Nerd Font"),
   font_size = 11,
   disable_default_key_bindings = true,
   enable_tab_bar = true,
