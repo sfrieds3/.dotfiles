@@ -44,4 +44,6 @@ if status is-interactive
     if test -e $local_config
         source $local_config
     end
+
+    fish_set_virtual_env
 end
