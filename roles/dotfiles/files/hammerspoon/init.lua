@@ -2,7 +2,7 @@ require("reload")
 local focus = require("focus")
 
 local browser = "firefox"
-local terminal = "alacritty"
+local terminal = "WezTerm"
 
 hs.hotkey.bind({ "cmd", "shift" }, "k", function()
   focusandback(browser)

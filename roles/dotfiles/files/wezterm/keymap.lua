@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 local keymap = {}
 
 -- nvim smart-split integration
@@ -31,7 +32,7 @@ local function split_nav(resize_or_move, mods, key)
         }, pane)
       else
         if resize_or_move == "resize" then
-          win:perform_action({ AdjustPaneSize = { key, 3 } }, pane)
+          win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
         else
           win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
         end
@@ -44,31 +45,59 @@ function keymap.apply_to_config(config)
   config.leader = { key = "e", mods = "OPT", timeout_milliseconds = 1000 }
   config.keys = {
     -- font size
-    { key = "=", mods = "CMD", action = wezterm.action.IncreaseFontSize },
-    { key = "=", mods = "OPT", action = wezterm.action.IncreaseFontSize },
-    { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
-    { key = "-", mods = "OPT", action = wezterm.action.DecreaseFontSize },
+    { key = "=", mods = "CMD", action = act.IncreaseFontSize },
+    { key = "=", mods = "OPT", action = act.IncreaseFontSize },
+    { key = "-", mods = "CMD", action = act.DecreaseFontSize },
+    { key = "-", mods = "OPT", action = act.DecreaseFontSize },
 
     -- workspaces
     {
       key = "q",
       mods = "OPT",
-      action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+      action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
     },
-    { key = "n", mods = "OPT|SHIFT", action = wezterm.action.SwitchWorkspaceRelative(1) },
-    { key = "p", mods = "OPT|SHIFT", action = wezterm.action.SwitchWorkspaceRelative(-1) },
+    { key = "n", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(1) },
+    { key = "p", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(-1) },
+    { key = "c", mods = "LEADER|OPT", action = act.SwitchToWorkspace },
 
-    { key = "n", mods = "OPT", action = wezterm.action.ActivateTabRelative(1) },
-    { key = "p", mods = "OPT", action = wezterm.action.ActivateTabRelative(-1) },
+    -- Prompt for a name to use for a new workspace and switch to it.
+    {
+      key = "c",
+      mods = "LEADER|OPT|SHIFT",
+      action = act.PromptInputLine({
+        description = wezterm.format({
+          { Attribute = { Intensity = "Bold" } },
+          { Foreground = { AnsiColor = "Fuchsia" } },
+          { Text = "Enter name for new workspace" },
+        }),
+        action = wezterm.action_callback(function(window, pane, line)
+          -- line will be `nil` if they hit escape without entering anything
+          -- An empty string if they just hit enter
+          -- Or the actual line of text they wrote
+          if line then
+            window:perform_action(
+              act.SwitchToWorkspace({
+                name = line,
+              }),
+              pane
+            )
+          end
+        end),
+      }),
+    },
+
+    { key = "n", mods = "OPT", action = act.ActivateTabRelative(1) },
+    { key = "p", mods = "OPT", action = act.ActivateTabRelative(-1) },
     {
       key = "o",
       mods = "OPT",
-      action = wezterm.action.ActivateLastTab,
+      action = act.ActivateLastTab,
     },
+    { key = "F9", mods = "OPT", action = wezterm.action.ShowTabNavigator },
     {
       key = "c",
       mods = "LEADER",
-      action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+      action = act.SpawnTab("CurrentPaneDomain"),
     },
     -- { key = "$", mods = "LEADER|SHIFT", action = wezterm.rename_word
 
@@ -76,41 +105,48 @@ function keymap.apply_to_config(config)
     {
       key = "%",
       mods = "LEADER|SHIFT",
-      action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
     },
     {
       key = '"',
       mods = "LEADER|SHIFT",
-      action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+      action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+    },
+    {
+      key = "x",
+      mods = "OPT|SHIFT",
+      action = wezterm.action_callback(function(window, pane, line)
+        window:perform_action(act({ CloseCurrentPane = { confirm = true } }))
+      end),
     },
 
     -- panes
     {
       key = "w",
       mods = "LEADER",
-      action = wezterm.action.PaneSelect({
+      action = act.PaneSelect({
         alphabet = "jkl;hunim",
       }),
     },
     {
       key = "h",
       mods = "LEADER",
-      action = wezterm.action.ActivatePaneDirection("Left"),
+      action = act.ActivatePaneDirection("Left"),
     },
     {
       key = "l",
       mods = "LEADER",
-      action = wezterm.action.ActivatePaneDirection("Right"),
+      action = act.ActivatePaneDirection("Right"),
     },
     {
       key = "k",
       mods = "LEADER",
-      action = wezterm.action.ActivatePaneDirection("Up"),
+      action = act.ActivatePaneDirection("Up"),
     },
     {
       key = "j",
       mods = "LEADER",
-      action = wezterm.action.ActivatePaneDirection("Down"),
+      action = act.ActivatePaneDirection("Down"),
     },
 
     -- resize panes
@@ -120,24 +156,26 @@ function keymap.apply_to_config(config)
     split_nav("move", "OPT", "k"),
     split_nav("move", "OPT", "l"),
     -- resize panes
-    split_nav("resize", "OPT", "LeftArrow"),
-    split_nav("resize", "OPT", "DownArrow"),
-    split_nav("resize", "OPT", "UpArrow"),
-    split_nav("resize", "OPT", "RightArrow"),
-
-    -- find
-    {
-      key = "f",
-      mods = "CTRL|SHIFT",
-      action = wezterm.action.Find,
-    },
+    split_nav("resize", "OPT|SHIFT", "h"),
+    split_nav("resize", "OPT|SHIFT", "j"),
+    split_nav("resize", "OPT|SHIFT", "k"),
+    split_nav("resize", "OPT|SHIFT", "l"),
 
     -- search for things that look like git hashes
     {
       key = "H",
       mods = "SHIFT|CTRL",
-      action = wezterm.action.Search({ Regex = "[a-f0-9]{6,}" }),
+      action = act.Search({ Regex = "[a-f0-9]{6,}" }),
     },
+    { key = "1", mods = "OPT", action = act.ActivateTab(0) },
+    { key = "2", mods = "OPT", action = act.ActivateTab(1) },
+    { key = "3", mods = "OPT", action = act.ActivateTab(2) },
+    { key = "4", mods = "OPT", action = act.ActivateTab(3) },
+    { key = "5", mods = "OPT", action = act.ActivateTab(4) },
+    { key = "6", mods = "OPT", action = act.ActivateTab(5) },
+    { key = "7", mods = "OPT", action = act.ActivateTab(6) },
+    { key = "8", mods = "OPT", action = act.ActivateTab(7) },
+    { key = "9", mods = "OPT", action = act.ActivateTab(-1) },
   }
   config.key_tables = {
     search_mode = {
