@@ -47,7 +47,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org.alacritty",
-                                            "^com\\.github\\.wez\\.wezterm$",
+                                            "^com\\.github\\.wez\\.wezterm$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
