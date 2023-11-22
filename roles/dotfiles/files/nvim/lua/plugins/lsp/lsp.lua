@@ -31,19 +31,19 @@ function M.setup()
     vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "LSP: signature help" })
     vim.keymap.set(
       "n",
-      "<Space>wa",
+      "<Space>lwa",
       vim.lsp.buf.add_workspace_folder,
-      { buffer = bufnr, desc = "LSP: [w]orkspace [a]dd folder" }
+      { buffer = bufnr, desc = "[L]SP: [w]orkspace [a]dd folder" }
     )
     vim.keymap.set(
       "n",
-      "<Space>wr",
+      "<Space>lwr",
       vim.lsp.buf.remove_workspace_folder,
-      { buffer = bufnr, desc = "LSP: [w]orkspace [r]emove folder" }
+      { buffer = bufnr, desc = "[L]SP: [w]orkspace [r]emove folder" }
     )
-    vim.keymap.set("n", "<Space>wl", function()
+    vim.keymap.set("n", "<Space>lwl", function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, { buffer = bufnr, desc = "LSP: [w]orkspace [l]ist folders" })
+    end, { buffer = bufnr, desc = "[L]SP: [w]orkspace [l]ist folders" })
     vim.keymap.set("n", "<Space>D", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "LSP: type [D]efinition" })
     vim.keymap.set("n", "<Space>R", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: [R]ename" })
     vim.keymap.set("n", "<Space>A", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: code [A]ction" })
