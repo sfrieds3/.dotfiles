@@ -3,6 +3,7 @@ local focus = require("focus")
 
 local browser = "firefox"
 local terminal = "WezTerm"
+local api_query = "Bruno"
 
 hs.hotkey.bind({ "cmd", "shift" }, "a", function()
   focusandback("Safari")
@@ -29,7 +30,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "m", function()
   focusandback("Mattermost")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "n", function()
-  focusandback("insomnia")
+  focusandback(api_query)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "o", function()
   focusandback("Microsoft Outlook")

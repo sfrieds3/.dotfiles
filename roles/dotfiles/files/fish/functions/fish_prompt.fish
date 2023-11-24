@@ -137,7 +137,6 @@ function fish_prompt --description "Config prompt"
     if not test $last_status -eq 0
         set_color $fish_color_error
         printf " [$last_status]"
-        # printf "  "
         printf " !! "
     else
         printf " = "
