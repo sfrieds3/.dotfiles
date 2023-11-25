@@ -2,7 +2,6 @@ return {
   { "sainnhe/edge" },
   { "nyoom-engineering/oxocarbon.nvim" },
   { "briones-gabriel/darcula-solid.nvim", dependencies = { "rktjmp/lush.nvim" } },
-  { "nordtheme/vim", name = "nord" },
   { "loctvl842/monokai-pro.nvim" },
   { "Domeee/mosel.nvim" },
   { "polirritmico/monokai-nightasty.nvim" },
@@ -301,5 +300,17 @@ return {
   },
   {
     "mcchrish/zenbones.nvim",
+  },
+  {
+    "rmehri01/onenord.nvim",
+  },
+  {
+    "olivercederborg/poimandres.nvim",
+  },
+  {
+    "AlexvZyl/nordic.nvim",
+  },
+  {
+    "shaunsingh/nord.nvim",
   },
 }
