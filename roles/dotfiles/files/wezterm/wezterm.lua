@@ -4,8 +4,7 @@ require("status")
 
 local config = {
   default_prog = {
-    "/opt/homebrew/bin/fish",
-    "--login",
+    "/opt/homebrew/bin/zsh",
   },
   color_scheme = "Gruvbox dark, pale (base16)",
   font = wezterm.font_with_fallback({

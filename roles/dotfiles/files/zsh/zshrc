@@ -27,9 +27,8 @@ setopt EXTENDED_HISTORY  # Include more information about when the command was e
 setopt HIST_IGNORE_SPACE  # Don't enter commands into history if they start with a space
 setopt HIST_VERIFY  # nicer substitution commands
 
-# set up fzf completion/keybindings
-source $XDG_CONFIG_HOME/fzf/completion.zsh
-source $XDG_CONFIG_HOME/fzf/key-bindings.zsh
+source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
+source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 bindkey -M emacs '^O' fzf-history-widget
 
 autoload -U colors && colors
@@ -44,6 +43,9 @@ source $ZDOTDIR/zsh_bindings
 source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
+
+# source plugins
+source $ZDOTDIR/plugins/kubectl.zsh
 
 # nvim as editor
 export EDITOR="nvim"

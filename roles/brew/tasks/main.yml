@@ -73,6 +73,7 @@
       - yq
       - zig
       - zoxide
+      - zsh
     state: present
 
 - name: Install homebrew casks

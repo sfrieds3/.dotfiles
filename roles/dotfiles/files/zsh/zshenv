@@ -10,7 +10,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_RUNTIME_DIR="/run/user/$UID"
+export XDG_RUNTIME_DIR="$TMPDIR"
+# export HOMEBREW_PREFIX $(brew --prefix)
 
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export HISTFILE=$ZDOTDIR/zsh_history
@@ -18,18 +19,20 @@ export ALT_HISTFILE=$ZDOTDIR/.full_history
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export EMACS_VTERM_PATH=$XDG_CONFIG_DIR/emacs/straight/repos/emacs/libvterm
-BREWPATH=/home/linuxbrew/.linuxbrew/bin
+BREWSBIN=/opt/homebrew/sbin
+BREWBIN=/opt/homebrew/bin
 LUAROCKSBIN=$HOME/.luarocks/bin
 PERL5BIN=$HOME/perl5/bin
 SYSGOBIN=/usr/local/go/bin
 RBENVBIN=$HOME/.rbenv/bin
+USRLOCALBIN=/usr/local/bin
 LOCALBIN=$HOME/.local/bin
 PYTHON3_VENV_BIN=$HOME/.venv/venv/bin
 OPENJDKBIIN=/opt/homebrew/opt/openjdk/bin
 
 # set path and stuff
-export PATH=$LOCALBIN:$GOBIN:$SYSGOBIN:$PERL5BIN:$RBENVBIN:$LUAROCKSBIN:$PATH:$BREWPATH:$PYTHON3_VENV_BIN:$OPENJDKBIIN
-export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/python_startup.py
+export PATH=$LOCALBIN:$BREWBIN:$BREWSBIN:$GOBIN:$SYSGOBIN:$PERL5BIN:$RBENVBIN:$LUAROCKSBIN:$PATH:$USRLOCALBIN:$PYTHON3_VENV_BIN:$OPENJDKBIIN
+# export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/python_startup.py
 export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
 export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
 export PERL_MB_OPT=${PERL_MB_OPT:=--install_base \"$HOME/perl5\"}
