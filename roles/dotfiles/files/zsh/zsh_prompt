@@ -75,8 +75,7 @@ function __prompt_precmd() {
 }
 
 function precmd() {
-    echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" \
-        >> $ALT_HISTFILE
+  echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
 }
 
 function __python_venv() {
@@ -101,7 +100,11 @@ function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
 }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{red}$(__python_venv)$(__pyvenv_version)$(__conda_env)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
+function __kubectl_prompt() {
+  echo "k8s($ZSH_KUBECTL_PROMPT) "
+}
+
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{cyan}$(__python_venv)$(__pyvenv_version)$(__conda_env)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
 
 function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
@@ -111,6 +114,8 @@ autoload -U add-zsh-hook
 add-zsh-hook precmd __prompt_precmd
 add-zsh-hook precmd __set_rprompt
 add-zsh-hook precmd __timings_precmd
+add-zsh-hook precmd __zsh_title__precmd
+add-zsh-hook preexec __zsh_title__preexec
 add-zsh-hook preexec __timings_preexec
 
 #-------------------------------------------------------------------------------

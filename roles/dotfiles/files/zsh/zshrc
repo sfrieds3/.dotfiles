@@ -27,6 +27,9 @@ setopt EXTENDED_HISTORY  # Include more information about when the command was e
 setopt HIST_IGNORE_SPACE  # Don't enter commands into history if they start with a space
 setopt HIST_VERIFY  # nicer substitution commands
 
+# we will set our own title
+DISABLE_AUTO_TITLE="true"
+
 source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
 source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 bindkey -M emacs '^O' fzf-history-widget
@@ -45,21 +48,11 @@ source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
 # source plugins
-source $ZDOTDIR/plugins/kubectl.zsh
+source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
+source $ZDOTDIR/plugins/vendor/com.github/superbrothers/zsh-kubectl-prompt/kubectl.zsh
 
 # nvim as editor
 export EDITOR="nvim"
-
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/src/etc/emacs-vterm-bash.sh ]]; then
-        source ${EMACS_VTERM_PATH}/src/etc/emacs-vterm-bash.sh
-fi
-
-# for emacs vterm
-setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
-add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -84,3 +77,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# java version
+export JAVA_HOME=$(/usr/libexec/java_home 17)

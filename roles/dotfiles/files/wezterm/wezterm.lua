@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local keymap = require("keymap")
 require("status")
+require("tabs")
 
 local config = {
   default_prog = {

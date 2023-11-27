@@ -21,4 +21,11 @@ return {
       require("plugins.lsp.lsp").setup()
     end,
   },
+  {
+    "kosayoda/nvim-lightbulb",
+    enabled = false,
+    opts = {
+      autocmd = { enabled = true },
+    },
+  },
 }

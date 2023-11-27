@@ -9,12 +9,46 @@ __DOTS[ITALIC_OFF]=$'\e[23m'
 # https://www.topbug.net/blog/2016/10/11/speed-test-check-the-existence-of-a-command-in-bash-and-zsh/
 function exists() { (( $+commands[$1] )); }
 
-# set gnome terminal title to user@host:pwd
-#DISABLE_AUTO_TITLE="true"
-#function precmd () {
-#    window_title="\033]0;$USER@$HOSTNAME: $PWD\007"
-#    echo -ne "$window_title"
-#}
+function _update_title() {
+  local a
+  # escape '%' in $1, make nonprintables visible
+  a=${(V)1//\%/\%\%}
+  print -nz "%20>...>$a"
+  read -rz a
+  # remove newlines
+  a=${a//$'\n'/}
+  if [[ -n "$TMUX" ]] && [[ $TERM == screen* || $TERM == tmux* ]]; then
+    print -n "\ek${(%)a}:${(%)2}\e\\"
+  elif [[ "$TERM" =~ "screen*" ]]; then
+    print -n "\ek${(%)a}:${(%)2}\e\\"
+  elif [[ "$TERM" =~ "xterm*" || "$TERM" =~ "alacritty|wezterm" || "$TERM" =~ "st*" ]]; then
+    print -n "\e]0;${(%)a}:${(%)2}\a"
+  elif [[ "$TERM" =~ "^rxvt-unicode.*" ]]; then
+    printf '\33]2;%s:%s\007' ${(%)a} ${(%)2}
+  fi
+}
+
+# called just before the prompt is printed
+function __zsh_title__precmd() {
+  _update_title "zsh" "%20<...<%~"
+}
+
+# called just before a command is executed
+function __zsh_title__preexec() {
+  local -a cmd
+
+  # Escape '\'
+  1=${1//\\/\\\\\\\\}
+
+  cmd=(${(z)1})             # Re-parse the command line
+
+  # Construct a command that will output the desired job number.
+  case $cmd[1] in
+    fg)	cmd="${(z)jobtexts[${(Q)cmd[2]:-%+}]}" ;;
+    %*)	cmd="${(z)jobtexts[${(Q)cmd[1]:-%+}]}" ;;
+  esac
+  _update_title "$cmd" "%20<...<%~"
+}
 
 function cursor_mode() {
     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
@@ -22,23 +56,23 @@ function cursor_mode() {
     cursor_beam='\e[6 q'
 
     function zle-keymap-select {
-        if [[ ${KEYMAP} == vicmd ]] ||
-               [[ $1 = 'block' ]]; then
+    if [[ ${KEYMAP} == vicmd ]] ||
+        [[ $1 = 'block' ]]; then
             echo -ne $cursor_block
         elif [[ ${KEYMAP} == main ]] ||
-                 [[ ${KEYMAP} == viins ]] ||
-                 [[ ${KEYMAP} = '' ]] ||
-                 [[ $1 = 'beam' ]]; then
-            echo -ne $cursor_beam
-        fi
-    }
+            [[ ${KEYMAP} == viins ]] ||
+            [[ ${KEYMAP} = '' ]] ||
+            [[ $1 = 'beam' ]]; then
+                    echo -ne $cursor_beam
+    fi
+}
 
-    zle-line-init() {
-        echo -ne $cursor_beam
-    }
+zle-line-init() {
+echo -ne $cursor_beam
+}
 
-    zle -N zle-keymap-select
-    zle -N zle-line-init
+zle -N zle-keymap-select
+zle -N zle-line-init
 }
 
 # function lazy_load_nvm() {
@@ -113,9 +147,43 @@ function cw() {
 }
 
 function pbfilter() {
-      if [ $# -gt 0 ]; then
-          pbpaste | "$@" | pbcopy
-      else
-          pbpaste | pbcopy
-      fi
-  }
+    if [ $# -gt 0 ]; then
+        pbpaste | "$@" | pbcopy
+    else
+        pbpaste | pbcopy
+    fi
+}
+
+function javaenv() {
+    if [ $# -lt 1 ]
+    then
+        /usr/libexec/java_home -V
+        return
+    fi
+
+    case "$1" in
+        ls)
+            /usr/libexec/java_home -V
+            ;;
+        set)
+
+            _java_home=$(/usr/libexec/java_home -v $1)
+            export JAVA_HOME=$_java_home
+            echo "JAVA_HOME=$_java_home"
+            ;;
+        *)
+            echo "Usage: $0 {ls|set [<version>]}"
+            return 1
+            ;;
+    esac
+}
+
+function make_nvim() {
+    if [ $# -gt 0 ]
+    then
+        make -j "$1" CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
+        return
+    fi
+
+    make -j 8 CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
+}

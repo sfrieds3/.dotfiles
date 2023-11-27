@@ -1,3 +1,6 @@
 [submodule "roles/dotfiles/files/alacritty/alacritty-theme"]
 	path = roles/dotfiles/files/alacritty/alacritty-theme
 	url = git@github.com:alacritty/alacritty-theme.git
+[submodule "roles/dotfiles/files/zsh/plugins/fzf-git.sh"]
+	path = roles/dotfiles/files/zsh/plugins/fzf-git.sh
+	url = git@github.com:junegunn/fzf-git.sh.git
