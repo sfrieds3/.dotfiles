@@ -11,7 +11,6 @@ nvim/lsp.log
 packer_compiled.lua
 roles/dotfiles/files/nvim/config/*
 roles/dotfiles/files/nvim/lua/config/telescope/local/*
-roles/dotfiles/files/zsh/.zshrc
 roles/dotfiles/files/emacs/auto-save-list/*
 roles/dotfiles/files/emacs/backup/*
 !roles/dotfiles/files/emacs/backup/.gitkeep
