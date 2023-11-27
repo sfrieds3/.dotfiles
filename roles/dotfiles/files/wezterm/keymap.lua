@@ -44,11 +44,32 @@ end
 function keymap.apply_to_config(config)
   config.leader = { key = "e", mods = "OPT", timeout_milliseconds = 1000 }
   config.keys = {
+    -- copy/paste
+    {
+      key = "c",
+      mods = "OPT|SHIFT",
+      action = act.CopyTo("ClipboardAndPrimarySelection"),
+    },
+    {
+      key = "c",
+      mods = "OPT|SHIFT|CTRL",
+      action = act.CopyTo("PrimarySelection"),
+    },
+    -- paste from the clipboard
+    { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
+
+    -- paste from the primary selection
+    { key = "v", mods = "OPT|SHIFT|CTRL", action = act.PasteFrom("PrimarySelection") },
+
     -- font size
     { key = "=", mods = "CMD", action = act.IncreaseFontSize },
     { key = "=", mods = "OPT", action = act.IncreaseFontSize },
     { key = "-", mods = "CMD", action = act.DecreaseFontSize },
     { key = "-", mods = "OPT", action = act.DecreaseFontSize },
+
+    -- scrollback
+    { key = "k", mods = "OPT|SHIFT|CTRL", action = act.ScrollByPage(-1) },
+    { key = "j", mods = "OPT|SHIFT|CTRL", action = act.ScrollByPage(1) },
 
     -- workspaces
     {
