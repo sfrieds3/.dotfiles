@@ -13,7 +13,7 @@ local config = {
     "Symbols Nerd Font Mono",
   }),
   line_height = 1.1,
-  font_size = 12,
+  font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
   disable_default_key_bindings = false,
   enable_tab_bar = true,
