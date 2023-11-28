@@ -166,7 +166,6 @@ function javaenv() {
             /usr/libexec/java_home -V
             ;;
         set)
-
             _java_home=$(/usr/libexec/java_home -v $1)
             export JAVA_HOME=$_java_home
             echo "JAVA_HOME=$_java_home"
@@ -186,4 +185,15 @@ function make_nvim() {
     fi
 
     make -j 8 CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
+}
+
+# convert timestamp
+function ts() {
+    local _ts=$(("$1" / (1000 * 1000 * 1000)))
+    if [ $# -gt 0 ]
+    then
+        date -jf "%s" "$_ts" +"%Y-%m-%d %H:%M:%S"
+    else
+        echo "Usage: $0 {timestamp}"
+    fi
 }
