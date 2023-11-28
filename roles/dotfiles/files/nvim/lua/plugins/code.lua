@@ -20,7 +20,7 @@ return {
           -- json = { "jq" },
           lua = { "stylua" },
           markdown = { "mdformat" },
-          python = { "ruff_format", "black" },
+          python = { "ruff_format", "black", "isort" },
           rust = { "rustfmt" },
           scala = { "scalafmt" },
           sh = { "shellcheck" },
