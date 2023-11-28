@@ -18,7 +18,7 @@ return {
       local ensure_installed = { "jsonls", "lua_ls", "pyright", "tsserver" }
       require("mason").setup({ providers = { "mason.providers.client", "mason.providers.registry-api" } })
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-      require("plugins.lsp.lsp").setup()
+      require("plugins.lsp.config").setup()
     end,
   },
   {
