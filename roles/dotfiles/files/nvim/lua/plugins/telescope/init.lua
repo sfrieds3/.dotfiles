@@ -10,14 +10,13 @@ return {
     "nvim-lua/popup.nvim",
     "nvim-telescope/telescope-live-grep-args.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
-    "nvim-telescope/telescope-file-browser.nvim",
-    { "nvim-telescope/telescope-frecency.nvim" },
+    "nvim-telescope/telescope-frecency.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
     "Marskey/telescope-sg",
-    "nvim-tree/nvim-web-devicons",
     "debugloop/telescope-undo.nvim",
+    "fdschmidt93/telescope-egrepify.nvim",
   },
 }

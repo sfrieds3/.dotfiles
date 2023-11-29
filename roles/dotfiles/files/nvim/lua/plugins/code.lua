@@ -136,4 +136,17 @@ return {
       max_revisions = 256, -- max number of revisions to load
     },
   },
+  {
+    "cshuaimin/ssr.nvim",
+    keys = {
+      {
+        "<localleader>sr",
+        function()
+          require("ssr").open()
+        end,
+        mode = { "n", "x" },
+        desc = "SSR",
+      },
+    },
+  },
 }
