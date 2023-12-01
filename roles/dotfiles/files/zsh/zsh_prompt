@@ -16,107 +16,113 @@ zstyle ':vcs_info:git*:*' formats '%{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{magenta
 zstyle ':vcs_info:git*:*' actionformats '%{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{magenta}(%b|%a)%{$__DOTS[ITALIC_OFF]%} %f%m%c%u%f%F{red}%f '  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
-  emulate -L zsh
-  if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{red} %f"  # nf-fa-question
-  fi
+emulate -L zsh
+if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
+  hook_com[unstaged]+="%F{red} %f"  # nf-fa-question
+fi
 }
 
 function +vi-git-stashed() {
-  emulate -L zsh
-  if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{blue} %f"  # nf-fa-inbox
-  fi
+emulate -L zsh
+if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
+  hook_com[unstaged]+="%F{blue} %f"  # nf-fa-inbox
+fi
 }
 
 # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
 # Make sure you have added misc to your 'formats':  %m
 # source: https://github.com/zsh-users/zsh/blob/545c42cdac25b73134a9577e3c0efa36d76b4091/Misc/vcs_info-examples#L180
 function +vi-git-compare() {
-  local ahead behind
-  local -a gitstatus
+local ahead behind
+local -a gitstatus
 
   # Exit early in case the worktree is on a detached HEAD
   git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
 
   local -a ahead_and_behind=(
-      $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
-  )
+  $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+)
 
-  ahead=${ahead_and_behind[1]}
-  behind=${ahead_and_behind[2]}
+ahead=${ahead_and_behind[1]}
+behind=${ahead_and_behind[2]}
 
-  local ahead_symbol="%{$fg[red]%}⇡%{$reset_color%}${ahead}"
-  local behind_symbol="%{$fg[cyan]%}⇣%{$reset_color%}${behind}"
-  (( $ahead )) && gitstatus+=( "${ahead_symbol}" )
-  (( $behind )) && gitstatus+=( "${behind_symbol}" )
-  hook_com[misc]+=${(j:/:)gitstatus}
+local ahead_symbol="%{$fg[red]%}⇡%{$reset_color%}${ahead}"
+local behind_symbol="%{$fg[cyan]%}⇣%{$reset_color%}${behind}"
+(( $ahead )) && gitstatus+=( "${ahead_symbol}" )
+(( $behind )) && gitstatus+=( "${behind_symbol}" )
+hook_com[misc]+=${(j:/:)gitstatus}
 }
 
 ## git: Show remote branch name for remote-tracking branches
 function +vi-git-remotebranch() {
-    local remote
+local remote
 
     # Are we on a remote-tracking branch?
     remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
-        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+      --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
     # The first test will show a tracking branch whenever there is one. The
     # second test, however, will only show the remote branch's name if it
     # differs from the local one.
     # if [[ -n ${remote} ]] ; then
     if [[ -n ${remote} && ${remote#*/} != ${hook_com[branch]} ]] ; then
-        hook_com[branch]="${hook_com[branch]}→[${remote}]"
+      hook_com[branch]="${hook_com[branch]}→[${remote}]"
     fi
-}
+  }
 
-function __prompt_precmd() {
-  vcs_info
-}
+  function __prompt_precmd() {
+    vcs_info
+  }
 
-function precmd() {
-  echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
-}
+  function precmd() {
+    echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
+  }
 
-function __python_venv() {
+  function __python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     [ $VIRTUAL_ENV ] && echo 'venv('`relpath $VIRTUAL_ENV`') '
-}
+  }
 
-function __pyvenv_version() {
-    [ -f .python-version ] 2> /dev/null && echo 'py('`python3 --version | sed "s/^[^ ]* //"`') '
-}
+  function __conda_env() {
+    [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
+  }
 
-function __conda_env() {
-  [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
-}
-
-function __node_dir() {
+  function __node_dir() {
     # TODO this could be better done in a loop
     [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
-}
+  }
 
-function __node_version() {
+  function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
-}
+  }
 
-function __kubectl_prompt() {
-  echo "k8s($ZSH_KUBECTL_PROMPT) "
-}
+  function __kubectl_prompt() {
+    echo "k8s($ZSH_KUBECTL_PROMPT) "
+  }
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{cyan}$(__python_venv)$(__pyvenv_version)$(__conda_env)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
+  function __pyenv_version() {
+    [ -f .python-version ] 2> /dev/null && echo 'pyenv('`python3 --version | sed "s/^[^ ]* //"`') '
+  }
 
-function __set_rprompt() {
+  function __python_path() {
+    local _pyv=`python --version | sed 's/^Python //'`
+    local _pp=`which python`
+      echo "py(`relpath $_pp` [$_pyv])"
+  }
+
+  PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{cyan}$(__python_venv)$(__conda_env)$(__pyenv_version)$(__python_path)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
+
+  function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}[%m]%f"
-}
+  }
 
-autoload -U add-zsh-hook
-add-zsh-hook precmd __prompt_precmd
-add-zsh-hook precmd __set_rprompt
-add-zsh-hook precmd __timings_precmd
-add-zsh-hook precmd __zsh_title__precmd
-add-zsh-hook preexec __zsh_title__preexec
-add-zsh-hook preexec __timings_preexec
+  autoload -U add-zsh-hook
+  add-zsh-hook precmd __prompt_precmd
+  add-zsh-hook precmd __set_rprompt
+  add-zsh-hook precmd __timings_precmd
+  add-zsh-hook precmd __zsh_title__precmd
+  add-zsh-hook preexec __zsh_title__preexec
+  add-zsh-hook preexec __timings_preexec
 
 #-------------------------------------------------------------------------------
 #           Execution time
