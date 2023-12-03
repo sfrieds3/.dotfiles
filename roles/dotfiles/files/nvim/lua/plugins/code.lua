@@ -57,12 +57,15 @@ return {
       require("lint").linters_by_ft = {
         -- gitcommit = { "codespell" },
         django = { "djlint" },
-        javascript = { "eslint" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+        svelte = { "eslint_d" },
         json = { "jsonlint" },
         -- lua = { "luacheck" },
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
-        typescript = { "eslint" },
         yaml = { "yamllint" },
       }
 
