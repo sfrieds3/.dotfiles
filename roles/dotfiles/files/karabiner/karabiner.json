@@ -46,7 +46,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org.alacritty",
+                                            "^net\\.kovidgoyal\\.kitty",
+                                            "^org\\.alacritty",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
                                         "type": "frontmost_application_if"

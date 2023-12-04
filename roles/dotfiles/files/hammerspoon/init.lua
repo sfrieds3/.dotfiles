@@ -2,7 +2,7 @@ require("reload")
 local focus = require("focus")
 
 local browser = "firefox"
-local terminal = "WezTerm"
+local terminal = "kitty"
 local api_query = "Bruno"
 
 hs.hotkey.bind({ "cmd", "shift" }, "a", function()
