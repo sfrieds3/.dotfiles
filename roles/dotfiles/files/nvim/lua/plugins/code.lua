@@ -6,6 +6,11 @@ return {
     config = true,
   },
   {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
+  },
+  {
     "stevearc/conform.nvim",
     config = function()
       require("conform").setup({

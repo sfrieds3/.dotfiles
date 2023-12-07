@@ -66,12 +66,10 @@ end)
 local function windowToNextScreen()
   local app = hs.window.focusedWindow()
   app:moveToScreen(app:screen():next())
-  app:maximize()
 end
 local function windowToPreviousScreen()
   local app = hs.window.focusedWindow()
   app:moveToScreen(app:screen():previous())
-  app:maximize()
 end
 
 hs.hotkey.bind({ "ctrl", "cmd", "shift" }, "]", function()
