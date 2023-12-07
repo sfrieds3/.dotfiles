@@ -51,6 +51,7 @@
       - pre-commit
       - pyenv
       - pyright
+      - rclone
       - redis
       - ripgrep
       - ruff
@@ -86,13 +87,16 @@
       - bruno
       - docker
       - drawio
+      - font-andale-mono
       - font-fira-code
       - font-fira-mono
       - font-hack
       - font-inconsolata
       - font-jetbrains-mono
+      - font-roboto-mono
       - font-source-code-pro
       - font-symbols-only-nerd-font
+      - font-victor-mono
       - hammerspoon
       - karabiner-elements
       - kitty
