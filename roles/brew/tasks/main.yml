@@ -14,6 +14,7 @@
       - curl
       - docker
       - docker-Buildx
+      - docker-completion
       - docker-compose
       - fd
       - fish
@@ -75,6 +76,7 @@
       - zig
       - zoxide
       - zsh
+      - zsh-completions
     state: present
 
 - name: Install homebrew casks

@@ -2,6 +2,7 @@ if type /opt/homebrew/bin/brew &>/dev/null
 then
     eval $(/opt/homebrew/bin/brew shellenv)
     fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"

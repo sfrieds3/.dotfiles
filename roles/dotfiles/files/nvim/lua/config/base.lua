@@ -9,11 +9,9 @@ vim.g.mapleader = " "
 
 -- set zsh executable dir
 if IS_MAC then
-  -- vim.opt.shell = "/bin/zsh"
-  vim.opt.shell = "/opt/homebrew/bin/fish"
+  vim.opt.shell = "/opt/homebrew/bin/zsh"
 else
-  -- vim.opt.shell = "/usr/bin/zsh"
-  vim.opt.shell = "/usr/bin/fish"
+  vim.opt.shell = "/usr/bin/zsh"
 end
 
 vim.opt.termguicolors = true
