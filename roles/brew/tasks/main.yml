@@ -39,6 +39,7 @@
       - lua
       - lua-language-server
       - luarocks
+      - maccy
       - minikube
       - mysql
       - neovim
@@ -90,6 +91,7 @@
       - docker
       - drawio
       - font-andale-mono
+      - font-anonymous-pro
       - font-fira-code
       - font-fira-mono
       - font-hack
