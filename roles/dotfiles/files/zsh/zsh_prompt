@@ -107,7 +107,7 @@ local remote
   function __python_path() {
     local _pyv=`python --version | sed 's/^Python //'`
     local _pp=`which python`
-      echo "py(`relpath $_pp` [$_pyv])"
+      echo "py(`relpath $_pp` [$_pyv]) "
   }
 
   PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{cyan}$(__conda_env)$(__pyenv_version)$(__python_path)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
