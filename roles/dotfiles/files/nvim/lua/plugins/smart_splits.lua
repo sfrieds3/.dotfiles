@@ -40,9 +40,9 @@ return {
     vim.keymap.set("n", "<A-k>", require("smart-splits").move_cursor_up, { desc = "smart-split move cursor up" })
     vim.keymap.set("n", "<A-l>", require("smart-splits").move_cursor_right, { desc = "smart-split move cursor right" })
     -- swapping buffers between windows
-    vim.keymap.set("n", "<leader>wh", require("smart-splits").swap_buf_left, { desc = "smart-split swap buf left" })
-    vim.keymap.set("n", "<leader>wj", require("smart-splits").swap_buf_down, { desc = "smart-split swap buf down" })
-    vim.keymap.set("n", "<leader>wk", require("smart-splits").swap_buf_up, { desc = "smart-split swap buf up" })
-    vim.keymap.set("n", "<leader>wl", require("smart-splits").swap_buf_right, { desc = "smart-split swap buf right" })
+    vim.keymap.set("n", "<leader>Wh", require("smart-splits").swap_buf_left, { desc = "smart-split swap buf left" })
+    vim.keymap.set("n", "<leader>Wj", require("smart-splits").swap_buf_down, { desc = "smart-split swap buf down" })
+    vim.keymap.set("n", "<leader>Wk", require("smart-splits").swap_buf_up, { desc = "smart-split swap buf up" })
+    vim.keymap.set("n", "<leader>Wl", require("smart-splits").swap_buf_right, { desc = "smart-split swap buf right" })
   end,
 }
