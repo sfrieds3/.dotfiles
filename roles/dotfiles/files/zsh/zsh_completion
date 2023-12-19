@@ -3,7 +3,7 @@
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 # complist autoloaded before compinit
 zmodload zsh/complist
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -u
 
 # complete hidden files/directories without requiring leading '.'
 _comp_options+=(globdots)
