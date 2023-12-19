@@ -1,6 +1,5 @@
 local wezterm = require("wezterm")
-local keymap = require("keymap")
-require("status")
+local act = wezterm.action
 require("tabs")
 
 local config = {
@@ -16,7 +15,7 @@ local config = {
   font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
   disable_default_key_bindings = false,
-  enable_tab_bar = true,
+  enable_tab_bar = false,
   tab_bar_at_bottom = true,
   scrollback_lines = 1000000,
   window_decorations = "RESIZE",
@@ -27,8 +26,32 @@ local config = {
     top = 0,
     bottom = 0,
   },
+  keys = {
+    -- copy/paste
+    {
+      key = "c",
+      mods = "OPT|SHIFT",
+      action = act.CopyTo("ClipboardAndPrimarySelection"),
+    },
+    {
+      key = "c",
+      mods = "OPT|SHIFT|CTRL",
+      action = act.CopyTo("PrimarySelection"),
+    },
+    -- paste from the clipboard
+    { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
+
+    -- paste from the primary selection
+    { key = "v", mods = "OPT|SHIFT|CTRL", action = act.PasteFrom("PrimarySelection") },
+
+    -- font size
+    { key = "=", mods = "CMD", action = act.IncreaseFontSize },
+    { key = "=", mods = "OPT", action = act.IncreaseFontSize },
+    { key = "-", mods = "CMD", action = act.DecreaseFontSize },
+    { key = "-", mods = "OPT", action = act.DecreaseFontSize },
+  },
 }
 
-keymap.apply_to_config(config)
+-- keymap.apply_to_config(config)
 
 return config
