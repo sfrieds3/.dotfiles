@@ -50,6 +50,9 @@ test -f $HOME/.zsh_local && source $HOME/.zsh_local
 # source plugins
 source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
 source $ZDOTDIR/plugins/vendor/com.github/superbrothers/zsh-kubectl-prompt/kubectl.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # nvim as editor
 export EDITOR="nvim"
