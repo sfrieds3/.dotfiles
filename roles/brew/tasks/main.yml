@@ -10,6 +10,7 @@
       - chicken
       - cmake
       - colima
+      - coursier/formulas/coursier  # run cs setup
       - ctags
       - curl
       - docker
