@@ -19,6 +19,10 @@ function M.init_lazy()
       path = "~/dev/personal",
       patterns = { "sfrieds3" },
     },
+    change_detection = {
+      enabled = true,
+      notify = false,
+    },
   })
 end
 
