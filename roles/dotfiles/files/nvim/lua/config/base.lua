@@ -4,8 +4,9 @@
 
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
--- space as leader
+-- space as leader, \ as localleader
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- set zsh executable dir
 if IS_MAC then

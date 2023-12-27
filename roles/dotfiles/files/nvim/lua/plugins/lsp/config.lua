@@ -2,12 +2,6 @@ local M = {}
 local lspconfig = require("lspconfig")
 
 function M.setup()
-  vim.diagnostic.config({
-    -- virtual_text = { source = false },
-    virtual_text = false,
-    float = { source = true },
-  })
-
   local function on_attach(client, bufnr)
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
