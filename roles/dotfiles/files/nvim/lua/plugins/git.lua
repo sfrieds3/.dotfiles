@@ -1,4 +1,7 @@
 return {
+  { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },
+  { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
