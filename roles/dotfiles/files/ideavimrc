@@ -40,10 +40,10 @@ noremap <leader>P "*P
 nnoremap <Space><Space> :action RecentFiles<CR>
 nnoremap <Space><CR> :action SearchEverywhere<CR>
 nnoremap <Space>a :action GotoAction<CR>
-nnoremap <Space>sf :action GotoFile<CR>
+nnoremap <Space>ff :action GotoFile<CR>
 nnoremap <Space>c :action GotoClass<CR>
-nnoremap <Space>; :action FileStructurePopup<CR>
-nnoremap <Space>: :action GotoSymbol<CR>
+nnoremap <Space>ss :action FileStructurePopup<CR>
+nnoremap <Space>sS :action GotoSymbol<CR>
 nnoremap <Space><Space> :action Switcher<CR>
 nnoremap <Space>B :action ToggleLineBreakpoint<CR>
 nnoremap <Space>q :action CloseContent<CR>
