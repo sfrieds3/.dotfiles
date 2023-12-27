@@ -86,19 +86,6 @@ vim.keymap.set("n", "\\<BS>", "<Cmd>cclose<Bar>lclose<CR>")
 vim.keymap.set("n", "<Leader><", "<Cmd>'[,']<<CR>", { desc = "Dedent last edit" })
 vim.keymap.set("n", "<Leader>>", "<Cmd>'[,']><CR>", { desc = "Indent last edit" })
 
-vim.keymap.set(
-  { "n", "o", "x" },
-  "\\{",
-  "<Plug>(VerticalRegionUp)",
-  { desc = "VerticalRegion: move to top of indent region" }
-)
-vim.keymap.set(
-  { "n", "o", "x" },
-  "\\}",
-  "<Plug>(VerticalRegionDown)",
-  { desc = "VerticalRegion: move to bottom of indent region" }
-)
-
 vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>", { desc = "Toggle list" })
 
 -- line number management

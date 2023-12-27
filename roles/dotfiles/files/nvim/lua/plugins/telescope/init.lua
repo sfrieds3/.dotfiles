@@ -4,6 +4,7 @@ return {
   "nvim-telescope/telescope.nvim",
 
   cmd = "Telescope",
+  tel = asdf,
 
   config = function()
     require("plugins.telescope.config").setup()
