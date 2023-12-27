@@ -53,6 +53,9 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "'", function()
   focusandback(passwords)
 end)
+hs.hotkey.bind({ "cmd", "shift" }, "`", function()
+  focusandback("anybox")
+end)
 
 -- switch screens quickly
 hs.hotkey.bind({ "ctrl", "cmd" }, "]", function()

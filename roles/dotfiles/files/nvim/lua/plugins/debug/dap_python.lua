@@ -3,7 +3,6 @@ local M = {}
 function M.setup()
   local dap = require("dap")
   local dap_python = require("dap-python")
-
   local actions = require("telescope.actions")
   local state = require("telescope.actions.state")
   local config = require("telescope.config")
@@ -12,11 +11,26 @@ function M.setup()
 
   dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
 
+  -- default python
+  table.insert(dap.configurations.python, {
+    name = "Pytest: Current File",
+    type = "python",
+    request = "launch",
+    module = "pytest",
+    args = {
+      "${file}",
+      "-sv",
+      "--log-cli-level=INFO",
+      "--log-file=test_out.log",
+    },
+    console = "integratedTerminal",
+  })
+
   -- django configuration
   table.insert(dap.configurations.python, {
     type = "python",
     request = "launch",
-    name = "Django",
+    name = "django",
     program = function()
       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/manage.py", "file")
     end,
@@ -93,6 +107,7 @@ function M.setup()
       vim.keymap.set("n", "\\tc", function()
         dap_python.test_class()
       end, { desc = "dap-python: test class" })
+      vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
       vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
       vim.api.nvim_create_user_command("DapDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
       vim.api.nvim_create_user_command("DapLoadVsCodeLaunchJson", load_vscode_launch_config, { nargs = 0 })

@@ -1,4 +1,5 @@
 return {
+  { "ramojus/mellifluous.nvim" },
   { "sainnhe/edge" },
   { "nyoom-engineering/oxocarbon.nvim" },
   { "briones-gabriel/darcula-solid.nvim", dependencies = { "rktjmp/lush.nvim" } },
@@ -246,7 +247,6 @@ return {
   },
   {
     "navarasu/onedark.nvim",
-    enabled = false,
 
     config = function()
       require("onedark").setup({

@@ -2,84 +2,26 @@ local is_executable = vim.fn.executable
 
 return {
   {
+    "L3MON4D3/LuaSnip",
+    event = "InsertEnter",
+    dependencies = {
+      { "rafamadriz/friendly-snippets" },
+    },
+
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_lua").lazy_load({ paths = vim.fn.stdpath("data") .. "/snippets_local" })
+    end,
+  },
+  {
     "numToStr/Comment.nvim",
     config = true,
   },
+  { "RRethy/nvim-align", cmd = { "Align" } },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {},
-  },
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      require("conform").setup({
-        lsp_fallback = true,
-        formatters_by_ft = {
-          c = { "clang_format" },
-          cpp = { "clang_format" },
-          fish = { "fish_indent" },
-          go = { "gofmt", "goimports" },
-          java = { "clang_format" },
-          -- json = { "jq" },
-          javascript = { "prettierd", "prettier" },
-          typescript = { "prettierd", "prettier" },
-          javascriptreact = { "prettierd", "prettier" },
-          typescriptreact = { "prettierd", "prettier" },
-          svelte = { "prettierd", "prettier" },
-          css = { "prettierd", "prettier" },
-          html = { "prettierd", "prettier" },
-          -- yaml = { "prettierd", "prettier" },
-          -- markdown = { "prettierd", "prettier" },
-          graphql = { "prettierd", "prettier" },
-          lua = { "stylua" },
-          markdown = { "mdformat" },
-          python = { "ruff_format", "isort" },
-          rust = { "rustfmt" },
-          scala = { "scalafmt" },
-          sh = { "shellcheck" },
-          yaml = { "yamlfmt" },
-          ["*"] = { "trim_whitespace", "trim_newlines" },
-        },
-      })
-
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = function(args)
-          require("conform").format({ formatters = { "trim_whitespace", "trim_newlines" }, bufnr = args.bufnr })
-        end,
-        group = vim.api.nvim_create_augroup("conform:allformat", {}),
-      })
-
-      vim.keymap.set({ "n", "o", "x", "v" }, "gq", function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end)
-    end,
-  },
-  {
-    "mfussenegger/nvim-lint",
-    config = function()
-      require("lint").linters_by_ft = {
-        -- gitcommit = { "codespell" },
-        django = { "djlint" },
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
-        svelte = { "eslint_d" },
-        json = { "jsonlint" },
-        -- lua = { "luacheck" },
-        markdown = { "markdownlint" },
-        sh = { "shellcheck" },
-        yaml = { "yamllint" },
-      }
-
-      vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {
-        group = vim.api.nvim_create_augroup("lint", { clear = true }),
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-    end,
   },
   {
     "Vigemus/iron.nvim",
@@ -124,9 +66,6 @@ return {
     end,
   },
   {
-    "sakhnik/nvim-gdb",
-  },
-  {
     "kevinhwang91/nvim-ufo",
     dependencies = {
       "kevinhwang91/promise-async",
@@ -162,6 +101,27 @@ return {
         end,
         mode = { "n", "x" },
         desc = "SSR",
+      },
+    },
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    ft = { "html", "css", "javascript", "vim", "eruby" },
+    cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
+
+    config = function()
+      require("colorizer").setup({
+        default_options = {
+          RGB = false,
+        },
+      })
+    end,
+
+    keys = {
+      {
+        "_C",
+        "<Cmd>ColorizerToggle<CR>",
+        desc = "[C]olorizer toggle",
       },
     },
   },

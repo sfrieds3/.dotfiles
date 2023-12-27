@@ -96,4 +96,16 @@ function M.get_root()
   return root
 end
 
+-- Recursively iterate through highlight until
+-- we do not return a link
+---@param name string highlight name
+function M.recursive_get_highlight(name)
+  local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+  if hl["link"] then
+    M.recursive_get_highlight(hl["link"])
+  else
+    return hl
+  end
+end
+
 return M

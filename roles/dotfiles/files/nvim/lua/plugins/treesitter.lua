@@ -3,7 +3,9 @@ return {
   "nvim-treesitter/nvim-treesitter-refactor",
   {
     "mfussenegger/nvim-treehopper",
+
     keys = { { "m", mode = { "o", "x" } } },
+
     config = function()
       vim.cmd([[
         omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
@@ -13,20 +15,26 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+
     build = ":TSUpdate",
-    event = "VeryLazy",
+
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
+
     config = function()
       require("nvim-treesitter.configs").setup({
+        ensure_installed = "all",
+        sync_install = false,
         auto_install = true,
+        ignore_install = {},
         highlight = {
           enable = true,
+          -- additional_vim_regex_highlighting = { "go" },
           disable = function(lang, buf)
             local max_filesize = 100 * 1024 -- 100 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
+            if ok and stats and stats.size > max_filesize and lang ~= "go" then
               return true
             end
           end,
@@ -92,19 +100,19 @@ return {
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
               ["]m"] = "@function.outer",
-              ["]]"] = "@class.outer",
+              ["]c"] = "@class.outer",
             },
             goto_next_end = {
               ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
+              ["]C"] = "@class.outer",
             },
             goto_previous_start = {
               ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
+              ["[c"] = "@class.outer",
             },
             goto_previous_end = {
               ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
+              ["[C"] = "@class.outer",
             },
           },
           swap = {
@@ -117,6 +125,25 @@ return {
             },
           },
         },
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+
+    keys = {
+      {
+        "\\tt",
+        function()
+          vim.cmd([[ TSContextToggle ]])
+        end,
+        desc = "Toggle treesitter-context",
+      },
+    },
+
+    config = function()
+      require("treesitter-context").setup({
+        enable = false,
       })
     end,
   },

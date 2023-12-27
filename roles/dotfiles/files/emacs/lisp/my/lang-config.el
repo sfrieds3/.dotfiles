@@ -39,6 +39,8 @@
   (python-shell-interpreter "python3")
   (python-indent-offset 4))
 
+(use-package python-pytest)
+
 (use-package pyvenv
   :init
   (setenv "WORKON_HOME" "~/.venv")

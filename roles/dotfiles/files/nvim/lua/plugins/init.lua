@@ -1,4 +1,9 @@
 return {
+  {
+    "ibhagwan/fzf-lua",
+    commands = "FzfLua",
+    dependencies = "nvim-tree/nvim-web-devicons",
+  },
   "tami5/sqlite.lua",
   "tpope/vim-sleuth",
   "wellle/targets.vim",

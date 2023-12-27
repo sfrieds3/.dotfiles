@@ -1,9 +1,9 @@
 return {
+  {
+    "folke/which-key.nvim",
+    plugins = { spelling = true },
+  },
   "rcarriga/nvim-notify",
-  "romainl/vim-qlist",
-  { "RRethy/nvim-align", cmd = { "Align" } },
-  { "romainl/vim-qf", ft = { "qf" } },
-  { "chrisbra/NrrwRgn", cmd = { "NR", "NarrowRegion" } },
   {
     "luukvbaal/statuscol.nvim",
     opts = { setopt = true },
@@ -13,11 +13,14 @@ return {
     name = "barbecue",
     version = "*",
     dependencies = {
-      "SmiteshP/nvim-navic",
+      {
+        "SmiteshP/nvim-navic",
+        config = function()
+          vim.g.navic_silence = true
+          require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
+        end,
+      },
       "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      -- configurations go here
     },
   },
   {
@@ -47,17 +50,6 @@ return {
     end,
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    config = function()
-      require("ibl").setup({
-        enabled = false,
-        indent = { smart_indent_cap = true },
-        scope = { show_start = false, show_end = false, highlight = { "Whitespace" } },
-      })
-    end,
-  },
-  {
     "andymass/vim-matchup",
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
@@ -65,14 +57,6 @@ return {
       vim.g.matchup_matchparen_deferred_hide_delay = 500
       vim.g.matchup_matchparen_timeout = 100
       vim.g.matchup_matchparen_deferred = 1
-    end,
-  },
-  {
-    "SmiteshP/nvim-navic",
-    event = "VeryLazy",
-    config = function()
-      vim.g.navic_silence = true
-      require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
     end,
   },
   {
@@ -117,36 +101,45 @@ return {
   {
     "RRethy/vim-illuminate",
 
-    config = function()
-      require("illuminate").configure({
-        providers = { "lsp", "treesitter", "regex" },
-        delay = 750,
-        filetypes_denylist = {
-          "fugitive",
-          "NvimTree",
-          "TelescopePrompt",
-        },
-      })
+    opts = {
+      providers = { "lsp", "treesitter", "regex" },
+      delay = 200,
+      large_file_cutff = 2000,
+      large_file_override = {
+        providers = { "lsp" },
+      },
+      filetypes_denylist = {
+        "fugitive",
+        "NvimTree",
+        "TelescopePrompt",
+      },
+    },
 
-      vim.keymap.set("n", "<Leader>{", function()
-        require("illuminate").next_reference({ wrap = true })
-      end)
-
-      vim.keymap.set("n", "<Leader>}", function()
-        require("illuminate").next_reference({ reverse = true, wrap = true })
-      end)
-    end,
+    keys = {
+      {
+        "[[",
+        function()
+          require("illuminate").next_reference({ reverse = true, wrap = true })
+        end,
+        desc = "Previous Reference",
+      },
+      {
+        "]]",
+        function()
+          require("illuminate").next_reference({ wrap = true })
+        end,
+        desc = "Next Reference",
+      },
+    },
   },
   {
     "akinsho/bufferline.nvim",
     version = "*",
-    config = function()
-      require("bufferline").setup({
-        options = {
-          diagnostics = "nvim_lsp",
-          mode = "tabs",
-        },
-      })
-    end,
+    opts = {
+      options = {
+        diagnostics = "nvim_lsp",
+        mode = "tabs",
+      },
+    },
   },
 }

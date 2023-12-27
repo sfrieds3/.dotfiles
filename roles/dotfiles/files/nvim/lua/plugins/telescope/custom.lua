@@ -269,20 +269,8 @@ function M.vim_options()
   require("telescope.builtin").vim_options(opts)
 end
 
-function M.old_files()
-  local opts = themes.get_ivy()
-
-  require("telescope.builtin").oldfiles(opts)
-end
-
-function M.recent_files()
-  local opts = themes.get_ivy()
-
-  require("telescope").extensions.frecency.frecency(opts)
-end
-
 function M.buffer_tags()
-  local opts = themes.get_dropdown()
+  local opts = require("telescope.themes").get_dropdown()
 
   require("telescope.builtin").current_buffer_tags(opts)
 end
@@ -296,7 +284,7 @@ function M.preview_lsp_references()
   local opts = themes.get_cursor({
     winblend = 10,
     layout_config = {
-      width = 0.75,
+      width = 0.9,
     },
   })
   require("telescope.builtin").lsp_references(opts)
@@ -306,7 +294,7 @@ function M.preview_lsp_definitions()
   local opts = themes.get_cursor({
     winblend = 10,
     layout_config = {
-      width = 0.75,
+      width = 0.9,
     },
   })
   require("telescope.builtin").lsp_definitions(opts)
