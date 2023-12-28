@@ -1,8 +1,8 @@
 local is_executable = vim.fn.executable
 if is_executable("clang") == 1 then
-  vim.bo.makeprg = clang
+  vim.bo.makeprg = "clang"
 else
-  vim.bo.makeprg = gcc
+  vim.bo.makeprg = "gcc"
 end
 
 vim.bo.suffixesadd = ".h"

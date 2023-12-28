@@ -330,7 +330,7 @@ function M.document_symbols()
     },
   })
 
-  local active_clients = vim.lsp.get_active_clients({ bufnr = vim.fn.bufnr() })
+  local active_clients = vim.lsp.get_clients({ bufnr = vim.fn.bufnr() })
   for _, client in ipairs(active_clients) do
     if client.server_capabilities.documentSymbolProvider ~= nil then
       require("telescope.builtin").lsp_document_symbols(opts)
@@ -348,7 +348,7 @@ function M.workspace_symbols()
     },
   })
 
-  local active_clients = vim.lsp.get_active_clients()
+  local active_clients = vim.lsp.clients()
   for _, client in ipairs(active_clients) do
     if client.server_capabilities.workspaceSymbolProvider ~= nil then
       local bufnr = vim.fn.bufnr()

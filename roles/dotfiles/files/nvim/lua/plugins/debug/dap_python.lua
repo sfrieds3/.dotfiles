@@ -12,7 +12,7 @@ function M.setup()
   dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
 
   -- default python
-  table.insert(dap.configurations.python, {
+  table.insert(dap.configurations["python"], {
     name = "Pytest: Current File",
     type = "python",
     request = "launch",
@@ -27,7 +27,7 @@ function M.setup()
   })
 
   -- django configuration
-  table.insert(dap.configurations.python, {
+  table.insert(dap.configurations["python"], {
     type = "python",
     request = "launch",
     name = "django",

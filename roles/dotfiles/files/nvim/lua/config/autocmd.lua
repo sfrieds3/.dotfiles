@@ -1,51 +1,46 @@
-vim.api.nvim_create_augroup("Neovim", { clear = true })
-vim.api.nvim_create_autocmd("InsertEnter", { command = "set nolist", group = "Neovim" })
-vim.api.nvim_create_autocmd("InsertLeave", { command = "set list", group = "Neovim" })
+local function augroup(name, check_dupe)
+  local group_name = "sfrieds3:" .. name
+  local should_check_dupe = check_dupe or true
+  if should_check_dupe then
+    local err, _ = pcall(vim.api.nvim_get_autocmds, { group = group_name })
+    if err then
+      print("augroup ", group_name, " already exists, bailing.")
+      return
+    end
+  end
+
+  return vim.api.nvim_create_augroup(group_name, { clear = true })
+end
+
+vim.api.nvim_create_autocmd("InsertEnter", { command = "set nolist", group = augroup("nolist_insertenter") })
+vim.api.nvim_create_autocmd("InsertLeave", { command = "set list", group = augroup("list_insertleave") })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = "Neovim",
+  group = augroup("highlight_on_yank"),
 })
 
--- vim.api.nvim_create_augroup("Winbar", { clear = true })
--- vim.api.nvim_create_autocmd({ "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" }, {
---   group = "Winbar",
---   callback = function()
---     local exclude_ft = {}
---     for _, item in ipairs(exclude_ft) do
---       if vim.bo.filetype ~= item then
---         return
---       end
---     end
---     pcall(require("scwfri.winbar").get_winbar)
---   end,
--- })
-
--- open quickfix or location-list automatically when there is something to show
--- source: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-vim.api.nvim_create_augroup("AutoQuickfix", { clear = true })
 vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
-  group = "AutoQuickfix",
+  group = augroup("autoquickfix"),
   pattern = "[^l]*",
   command = [[cwindow]],
 })
 vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
-  group = "AutoQuickfix",
+  group = augroup("autoloclist"),
   pattern = "l*",
   command = [[lwindow]],
 })
 
 local exclude_filetypes = { ["neo-tree"] = true }
-vim.api.nvim_create_augroup("WindowCursorLine", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  group = "WindowCursorLine",
+  group = augroup("cursorline_winenter"),
   callback = function()
     vim.wo.cursorline = true
   end,
 })
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-  group = "WindowCursorLine",
+  group = augroup("nocursorline_winleave"),
   callback = function()
     if not exclude_filetypes[vim.bo.filetype] then
       vim.wo.cursorline = false
@@ -70,7 +65,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 -- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("FiletypeMappings", { clear = true }),
+  group = augroup("q_filetypes"),
   pattern = {
     "Outline",
     "PlenaryTestPopup",
@@ -94,9 +89,3 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.keymap.set("n", "q", "<Cmd>close<CR>", { buffer = event.buf, silent = true })
   end,
 })
-
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   group = vim.api.nvim_create_augroup("GitCommitDiff", { clear = true }),
---   pattern = { "gitcommit" },
---   command = [[Git diff --cached]],
--- })

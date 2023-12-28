@@ -1,7 +1,7 @@
 local M = setmetatable({}, {
   __call = function(m, type, ...)
     local function switch(choice)
-      case = {
+      local case = {
         custom = "hello",
         builtin = "test",
       }
