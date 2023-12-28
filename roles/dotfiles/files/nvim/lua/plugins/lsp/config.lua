@@ -106,13 +106,13 @@ function M.setup()
 
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = { noremap = true, silent = true }
-  vim.keymap.set("n", "<Space>e", vim.diagnostic.open_float, opts)
+  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
   vim.keymap.set("n", "_q", vim.diagnostic.setloclist, opts)
   vim.keymap.set("n", "_DD", vim.diagnostic.disable, opts)
   vim.keymap.set("n", "_DE", vim.diagnostic.enable, opts)
-  vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -135,29 +135,43 @@ function M.setup()
       vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
       vim.keymap.set(
         "n",
-        "<Space>lwa",
+        "<leader>lwa",
         vim.lsp.buf.add_workspace_folder,
         { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" }
       )
       vim.keymap.set(
         "n",
-        "<Space>lwr",
+        "<leader>lwr",
         vim.lsp.buf.remove_workspace_folder,
         { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" }
       )
-      vim.keymap.set("n", "<Space>lwl", function()
+      vim.keymap.set("n", "<leader>lwl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
-      vim.keymap.set("n", "<Space>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
-      vim.keymap.set("n", "<Space>R", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
+      vim.keymap.set(
+        "n",
+        "<leader>D",
+        vim.lsp.buf.type_definition,
+        { buffer = ev.buf, desc = "LSP: type [D]efinition" }
+      )
+      vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
+      vim.keymap.set("n", "<leader>co", function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.organizeImports" },
+            diagnostics = {},
+          },
+        })
+      end, { desc = "Organize Imports" })
       vim.keymap.set(
         { "n", "v" },
-        "<Space>A",
+        "<leader>ca",
         vim.lsp.buf.code_action,
         { buffer = ev.buf, desc = "LSP: code [A]ction" }
       )
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "LSP: [g]oto [r]eferences" })
-      vim.keymap.set("n", "<space>F", function()
+      vim.keymap.set("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
       end, { buffer = ev.buf, desc = "LSP: async [F]ormat" })
     end,

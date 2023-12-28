@@ -9,10 +9,11 @@ function M.setup()
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
 
-  dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+  local path = require("mason-registry").get_package("debugpy"):get_install_path()
+  require("dap-python").setup(path .. "/venv/bin/python")
 
   -- default python
-  table.insert(dap.configurations["python"], {
+  table.insert(dap.configurations.python, {
     name = "Pytest: Current File",
     type = "python",
     request = "launch",
@@ -27,7 +28,7 @@ function M.setup()
   })
 
   -- django configuration
-  table.insert(dap.configurations["python"], {
+  table.insert(dap.configurations.python, {
     type = "python",
     request = "launch",
     name = "django",
