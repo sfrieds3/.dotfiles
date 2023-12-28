@@ -295,37 +295,6 @@ return {
       },
     },
   },
-
-  {
-    "mbbill/undotree",
-
-    cmd = "UndotreeToggle",
-
-    keys = {
-      {
-        "_U",
-        "<Cmd>exec('UndotreeToggle <bar> UndotreeFocus')<CR>",
-        desc = "[U]ndo tree toggle & focus",
-      },
-      {
-        "<Leader>u",
-        "<Cmd>exec('UndotreeFocus')<CR>",
-        desc = "[u]ndotree focus",
-      },
-    },
-
-    config = function()
-      vim.g.undotree_WindowLayout = 2
-
-      vim.cmd([[
-function! g:Undotree_CustomMap()
-    nmap <buffer> K <plug>UndotreeNextState
-    nmap <buffer> J <plug>UndotreePreviousState
-    nmap <buffer> \u q
-endfunction
-]])
-    end,
-  },
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
