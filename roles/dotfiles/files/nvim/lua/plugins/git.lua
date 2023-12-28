@@ -52,29 +52,40 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
     cmd = {
       "DiffviewOpen",
-      "DiffviewClose",
-      "DiffviewToggleFiles",
-      "DiffviewFocusFiles",
-      "DiffViewLog",
       "DiffViewFileHistory",
     },
-    keys = { "<Leader>gd", "<Leader>gh", "<Leader>gl" },
 
-    config = function()
-      require("diffview").setup({})
+    opts = {
+      keymaps = {
+        view = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        file_panel = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        file_history_panel = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        diff1 = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        diff2 = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        diff3 = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+        diff4 = {
+          ["q"] = "<cmd>DiffviewClose<cr>",
+        },
+      },
+    },
 
-      vim.keymap.set("n", "<Leader>gd", "<Cmd>DiffviewOpen<CR>", { desc = "Diffview: [g]oto [d]iff" })
-      vim.keymap.set("n", "<Leader>gh", "<Cmd>DiffviewFileHistory<CR>", { desc = "Diffview: [g]oto file [h] history" })
-
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        group = vim.api.nvim_create_augroup("DiffViewEnter", { clear = true }),
-        pattern = { "DiffViewFiles", "DiffviewFileHistory" },
-        callback = function(event)
-          vim.bo[event.buf].buflisted = false
-          vim.keymap.set("n", "q", "<Cmd>DiffviewClose<CR>", { buffer = event.buf, silent = true })
-        end,
-      })
-    end,
+    keys = {
+      { "<leader>gvd", "<cmd>DiffviewOpen<cr>", desc = "DiffView Open" },
+      { "<leader>gvh", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffView Buffer File History" },
+      { "<leader>gvH", "<cmd>DiffviewFileHistory<cr>", desc = "DiffView File History" },
+    },
   },
 
   {

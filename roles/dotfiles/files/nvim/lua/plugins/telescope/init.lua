@@ -4,7 +4,6 @@ return {
   "nvim-telescope/telescope.nvim",
 
   cmd = "Telescope",
-  tel = asdf,
 
   config = function()
     require("plugins.telescope.config").setup()
@@ -36,6 +35,7 @@ return {
     {
       "<leader>gr",
       "<cmd>Telescope grep_string theme=ivy<cr>",
+      mode = { "n", "v" },
       desc = "Grep String",
     },
     {

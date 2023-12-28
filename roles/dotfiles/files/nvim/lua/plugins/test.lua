@@ -1,4 +1,5 @@
--- shamelessly copied from lazyvim (https://github.com/LazyVim/LazyVim/blob/879e29504d43e9f178d967ecc34d482f902e5a91/lua/lazyvim/plugins/extras/test/core.lua)
+-- TODO: this currently copied from lazyvim (https://github.com/LazyVim/LazyVim/blob/879e29504d43e9f178d967ecc34d482f902e5a91/lua/lazyvim/plugins/extras/test/core.lua)
+-- need to update to make useful for us
 return {
   {
     "folke/which-key.nvim",

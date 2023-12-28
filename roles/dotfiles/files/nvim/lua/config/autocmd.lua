@@ -72,17 +72,22 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("FiletypeMappings", { clear = true }),
   pattern = {
-    "git",
+    "Outline",
+    "PlenaryTestPopup",
+    "checkhealth",
     "fugitiveblame",
-    "qf",
+    "git",
     "help",
-    "man",
-    "notify",
     "lspinfo",
+    "man",
+    "neotest-output",
+    "neotest-output-panel",
+    "neotest-summary",
+    "notify",
+    "qf",
     "spectre_panel",
     "startuptime",
-    "PlenaryTestPopup",
-    "Outline",
+    "tsplayground",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

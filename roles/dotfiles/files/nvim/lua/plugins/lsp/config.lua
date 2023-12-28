@@ -124,7 +124,7 @@ function M.setup()
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       vim.keymap.set(
         "n",
-        "<Leader>gD",
+        "<Leader>gld",
         vim.lsp.buf.declaration,
         { buffer = ev.buf, desc = "LSP: [g]oto [D]eclaration" }
       )
