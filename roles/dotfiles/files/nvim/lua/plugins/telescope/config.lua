@@ -93,7 +93,6 @@ function M.setup()
     },
   })
 
-  pcall(telescope.load_extension, "dap")
   pcall(telescope.load_extension, "frecency")
   pcall(telescope.load_extension, "fzf")
   pcall(telescope.load_extension, "neoclip")

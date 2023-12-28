@@ -1,11 +1,12 @@
 return {
   { "ramojus/mellifluous.nvim" },
-  { "sainnhe/edge" },
-  { "nyoom-engineering/oxocarbon.nvim" },
-  { "loctvl842/monokai-pro.nvim" },
-  { "polirritmico/monokai-nightasty.nvim" },
+  { "sainnhe/edge", event = "VeryLazy" },
+  { "nyoom-engineering/oxocarbon.nvim", event = "VeryLazy" },
+  { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
+  { "polirritmico/monokai-nightasty.nvim", event = "VeryLazy" },
   {
     "projekt0n/github-nvim-theme",
+    event = "VeryLazy",
     version = "*",
 
     config = function()
@@ -33,6 +34,7 @@ return {
   },
   {
     "catppuccin/nvim",
+    event = "VeryLazy",
     name = "catppuccin",
 
     config = function()
@@ -91,6 +93,7 @@ return {
   },
   {
     "NTBBloodbath/doom-one.nvim",
+    event = "VeryLazy",
 
     init = function()
       -- Add color to cursor
@@ -124,6 +127,7 @@ return {
   },
   {
     "sainnhe/gruvbox-material",
+    event = "VeryLazy",
 
     config = function()
       vim.g.gruvbox_material_background = "hard"
@@ -135,6 +139,7 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
+    event = "VeryLazy",
     opts = {
       invert_selection = false,
       invert_tabline = false,
@@ -143,6 +148,7 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
+    event = "VeryLazy",
 
     config = function()
       vim.opt.fillchars:append({
@@ -177,6 +183,7 @@ return {
   },
   {
     "marko-cerovac/material.nvim",
+    event = "VeryLazy",
 
     config = function()
       vim.g.material_style = "darker"
@@ -245,6 +252,7 @@ return {
   },
   {
     "navarasu/onedark.nvim",
+    event = "VeryLazy",
 
     config = function()
       require("onedark").setup({
@@ -254,10 +262,11 @@ return {
   },
   {
     "olimorris/onedarkpro.nvim",
+    event = "VeryLazy",
   },
   {
     "sainnhe/sonokai",
-    lazy = true,
+    event = "VeryLazy",
     init = function()
       vim.g.sonokai_style = "shusia"
       vim.g.sonokai_dim_inactive_windows = false
@@ -266,6 +275,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
+    event = "VeryLazy",
 
     config = function()
       local tokyonight = require("tokyonight").setup({
@@ -285,6 +295,7 @@ return {
   },
   {
     "EdenEast/nightfox.nvim",
+    event = "VeryLazy",
     opts = {
       colorblind = {
         enable = true,
@@ -298,11 +309,14 @@ return {
   },
   {
     "mcchrish/zenbones.nvim",
+    event = "VeryLazy",
   },
   {
     "rmehri01/onenord.nvim",
+    event = "VeryLazy",
   },
   {
     "AlexvZyl/nordic.nvim",
+    event = "VeryLazy",
   },
 }

@@ -180,8 +180,6 @@ return {
   {
     "folke/flash.nvim",
 
-    event = "VeryLazy",
-
     opts = {
       search = {
         multi_window = false,
@@ -234,9 +232,10 @@ return {
   },
   {
     "AckslD/nvim-neoclip.lua",
+    event = "VeryLazy",
 
     dependencies = {
-      { "tami5/sqlite.lua", module = "sqlite" },
+      "tami5/sqlite.lua",
     },
 
     config = function()
@@ -249,7 +248,7 @@ return {
   },
   {
     "jedrzejboczar/possession.nvim",
-
+    cmd = { "SLoad", "SSave", "SList" },
     opts = {
       autosave = {
         current = true,
@@ -339,7 +338,7 @@ return {
       },
     },
   },
-  { "rcarriga/nvim-notify" },
+  { "rcarriga/nvim-notify", event = "VeryLazy" },
   {
     "luukvbaal/statuscol.nvim",
     opts = { setopt = true },
@@ -418,16 +417,17 @@ return {
   {
     "s1n7ax/nvim-window-picker",
     version = "v2.*",
-    config = function()
-      require("window-picker").setup({
-        hint = "floating-big-letter",
-      })
-
-      vim.keymap.set("n", "<Leader>w", function()
-        local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
-        vim.api.nvim_set_current_win(winid)
-      end, { desc = "Pick a window" })
-    end,
+    config = true,
+    keys = {
+      {
+        "<Leader>w",
+        function()
+          local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
+          vim.api.nvim_set_current_win(winid)
+        end,
+        desc = "Pick a window",
+      },
+    },
   },
   {
     "RRethy/vim-illuminate",

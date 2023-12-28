@@ -1,5 +1,6 @@
 local M = {
   "sfrieds3/pynvenv.nvim",
+  ft = "python",
   -- cmd = { "PynvnevWorkonVenv", "PynvenvActivateVenv", "PynvenvActivateVenvAlias", "PynvenvActivateProjectVenv" },
 }
 

@@ -80,4 +80,21 @@ return {
       }
     end,
   },
+  {
+    "danymat/neogen",
+    keys = {
+      {
+        "<Leader>cc",
+        function()
+          require("neogen").generate({})
+        end,
+        desc = "Neogen Comment",
+      },
+    },
+    config = function()
+      require("neogen").setup({
+        snippet_engine = "luasnip",
+      })
+    end,
+  },
 }

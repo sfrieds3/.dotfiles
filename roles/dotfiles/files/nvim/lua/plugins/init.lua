@@ -5,26 +5,9 @@ return {
     commands = "FzfLua",
     dependencies = "nvim-tree/nvim-web-devicons",
   },
-  { "tami5/sqlite.lua" },
-  {
-    "danymat/neogen",
-    keys = {
-      {
-        "<Leader>cc",
-        function()
-          require("neogen").generate({})
-        end,
-        desc = "Neogen Comment",
-      },
-    },
-    config = function()
-      require("neogen").setup({
-        snippet_engine = "luasnip",
-      })
-    end,
-  },
+  { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
-  { "folke/neodev.nvim", opts = {} },
+  { "folke/neodev.nvim", ft = "lua", opts = {} },
   {
     "tpope/vim-scriptease",
     cmd = {

@@ -171,7 +171,12 @@ return {
         "theHamsta/nvim-dap-virtual-text",
         config = true,
       },
-      "nvim-telescope/telescope-dap.nvim",
+      {
+        "nvim-telescope/telescope-dap.nvim",
+        config = function()
+          require("telescope").load_extension("dap")
+        end,
+      },
       "mfussenegger/nvim-dap-python",
       "nvim-telescope/telescope-dap.nvim",
     },
@@ -311,12 +316,8 @@ return {
     cmd = { "DapInstall", "DapUninstall" },
     opts = {
       automatic_installation = true,
-
       handlers = {},
-
-      ensure_installed = {
-        "debugpy",
-      },
+      ensure_installed = {},
     },
   },
 }
