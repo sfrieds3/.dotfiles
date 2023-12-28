@@ -10,7 +10,7 @@ end)
 
 -- focus windows
 local browser = "firefox"
-local terminal = "kitty"
+local terminal = "wezterm"
 local api_query = "Bruno"
 local passwords = "1Password"
 

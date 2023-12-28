@@ -8,7 +8,7 @@ local config = {
   },
   color_scheme = "Gruvbox dark, pale (base16)",
   font = wezterm.font_with_fallback({
-    "Hack Nerd Font",
+    "JetBrains Mono",
     "Symbols Nerd Font Mono",
   }),
   line_height = 1.1,
