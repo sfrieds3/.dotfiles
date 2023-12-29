@@ -25,84 +25,111 @@ function M.setup()
     },
   }
 
-  local config = { on_attach = on_attach, capabilities = capabilities }
-  lspconfig.pyright.setup({ config })
-  lspconfig.ruff_lsp.setup({ config })
-  lspconfig.ast_grep.setup({ config })
-  lspconfig.jsonls.setup({ config })
-  lspconfig.dockerls.setup({ config })
-  lspconfig.jdtls.setup({ config })
-  lspconfig.clangd.setup({ config })
-  lspconfig.rust_analyzer.setup({ config })
-  lspconfig.tsserver.setup({ config })
-  lspconfig.vimls.setup({ config })
-  lspconfig.ansiblels.setup({ config })
-  lspconfig.helm_ls.setup({ config })
-
-  lspconfig.yamlls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      yaml = {
-        keyOrdering = false,
-      },
-    },
-  })
-
-  lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
-        linksInHover = true,
-        usePlaceholders = true,
-        codelenses = {
-          generate = true,
-          gc_details = true,
-          regenerate_cgo = true,
-          tidy = true,
-          upgrade_dependency = true,
-          vendor = true,
+  local lsp_configs = {
+    pyright = true,
+    ruff_lsp = true,
+    ast_grep = true,
+    jsonls = true,
+    dockerls = true,
+    jdtls = true,
+    clangd = true,
+    rust_analyzer = true,
+    tsserver = true,
+    vimls = true,
+    ansiblels = true,
+    helm_ls = true,
+    yamlls = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        yaml = {
+          keyOrdering = false,
         },
       },
     },
-  })
-
-  local runtime_path = vim.split(package.path, ";", {})
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/?/init.lua")
-
-  lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-          -- Setup your lua path
-          path = runtime_path,
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
+    gopls = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+          linksInHover = true,
+          usePlaceholders = true,
+          codelenses = {
+            generate = true,
+            gc_details = true,
+            regenerate_cgo = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
+          },
         },
       },
     },
-  })
+    lua_ls = function()
+      local runtime_path = vim.split(package.path, ";", {})
+      table.insert(runtime_path, "lua/?.lua")
+      table.insert(runtime_path, "lua/?/init.lua")
+
+      lspconfig.lua_ls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+              -- Setup your lua path
+              path = runtime_path,
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+    end,
+  }
+
+  --- init LSP configurations
+  --- lsp_configs is a table whose key is the lsp name and value is one of:
+  --- boolean: use default configuration
+  --- table: pass as config to lspconfig.setup
+  --- function: to be called for lsp server configuration
+  ---@param configs table lsp configurations
+  local function init_configs(configs, default_config)
+    local config = default_config or { on_attach = on_attach, capabilities = capabilities }
+    for k, v in pairs(configs) do
+      if type(v) == "boolean" then
+        -- default configuration
+        lspconfig[k].setup(config)
+      elseif type(v) == "table" then
+        -- custom configuration
+        lspconfig[k].setup(v)
+      elseif type(v) == "function" then
+        v()
+      else
+        -- ivalid configuration
+        print("Error: invalid LSP configuration: ", k, v)
+      end
+    end
+  end
+
+  local default_config = { on_attach = on_attach, capabilities = capabilities }
+  init_configs(lsp_configs, default_config)
 
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = { noremap = true, silent = true }
