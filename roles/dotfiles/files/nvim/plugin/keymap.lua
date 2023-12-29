@@ -1,12 +1,27 @@
 -- general nvim keymaps
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 vim.keymap.set("n", "^", "g^")
 vim.keymap.set("n", "$", "g$")
 vim.keymap.set("n", "gj", "j")
 vim.keymap.set("n", "gk", "k")
 vim.keymap.set("n", "g^", "^")
 vim.keymap.set("n", "g$", "$")
+
+-- better scrolling
+vim.keymap.set(
+  "n",
+  "<C-b>",
+  "max([winheight(0) - 2, 1]) . '<C-u>' . (line('.') < 1         + winheight(0) ? 'H' : 'L')",
+  { desc = "Better scrolling with C-b", expr = true }
+)
+vim.keymap.set(
+  "n",
+  "<C-f>",
+  "max([winheight(0) - 2, 1]) . '<C-d>' . (line('.') > line('$') - winheight(0) ? 'L' : 'H')",
+  { desc = "Better scrolling with C-f", expr = true }
+)
 
 -- better c-n/c-p in cmdline -- match behavior of up/down
 vim.keymap.set("c", "<C-n>", function()
@@ -99,3 +114,36 @@ vim.keymap.set("n", "\\C", "<Cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = 
 vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<CR>]], { desc = "Search for non-ASCII characters" })
 vim.keymap.set("i", "<C-u>", "<Esc>gUiwea", { desc = "Upcase last word in insert mode" })
 vim.keymap.set("i", "<S-Tab>", "<C-v><Tab>", { desc = "Insert actual <Tab> character in insert mode" })
+
+-- quickly edit recorded macros (https://github.com/mhinz/vim-galore#quickly-edit-your-macros)
+vim.keymap.set(
+  "n",
+  "<localleader>M",
+  "<cmd><c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>",
+  { desc = "Quickly edit recorded macros" }
+)
+
+vim.keymap.set(
+  "v",
+  "<localleader>rp",
+  "<cmd>'{,'}s/<<C-r>=expand('<cword>')<CR>>//gc<Left><Left><Left>",
+  { desc = "Quick replace current visual word" }
+)
+vim.keymap.set(
+  "n",
+  "<localleader>ra",
+  "<cmd>%s/<<C-r>=expand('<cword>')<CR>>//gc<Left><Left><Left>",
+  { desc = "Quick replace current word" }
+)
+
+vim.keymap.set("n", "<localleader>rn", "*``cgn", { desc = "Replace next occurrence" })
+vim.keymap.set("n", "<localleader>rp", "#``cgN", { desc = "Replace previous occurrence" })
+
+-- last changed text as an object
+vim.keymap.set("o", "<localleader>_", "<cmd><C-U>execute 'normal! `[v`]'<CR>", { desc = "Last Changed Text Object" })
+
+-- highlights under cursor
+vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+
+-- replace last search term
+vim.keymap.set("n", "_R", "':%s/' . @/ . '/'", { desc = "Replace last search term", expr = true })

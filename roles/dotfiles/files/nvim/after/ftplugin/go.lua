@@ -11,3 +11,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   buffer = bufnr,
   group = vim.api.nvim_create_augroup("goformat:" .. bufnr, {}),
 })
+
+vim.bo.makeprg = "go run %"
