@@ -47,13 +47,6 @@ vim.keymap.set(
 
 vim.keymap.set("c", "<C-r><C-l>", "<C-r>=getline('.')<CR>", { desc = "Insert current line into cmdline" })
 
--- easy window switching
-local i = 1
-while i <= 9 do
-  vim.cmd("execute 'nnoremap <Leader>" .. i .. " :" .. i .. "wincmd w<CR>'")
-  i = i + 1
-end
-
 -- buffer/tab switching
 vim.keymap.set("n", "gb", "<Cmd>bnext<CR>")
 vim.keymap.set("n", "gB", "<Cmd>bprevious<CR>")

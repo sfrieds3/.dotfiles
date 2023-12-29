@@ -122,12 +122,7 @@ function M.setup()
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      vim.keymap.set(
-        "n",
-        "<Leader>gld",
-        vim.lsp.buf.declaration,
-        { buffer = ev.buf, desc = "LSP: [g]oto [D]eclaration" }
-      )
+      vim.keymap.set("n", "<Leader>cd", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go To Declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "LSP: [g]oto [d]efinition" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: [g]oto [i]mplementation" })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP: hover" })
