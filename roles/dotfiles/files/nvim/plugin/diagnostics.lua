@@ -26,10 +26,23 @@ vim.diagnostic.config({
   -- },
 })
 
+local function goto_diagnostic(severity, next)
+  local goto_diag = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    goto_diag({ severity = severity })
+  end
+end
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Diagnostics Toggle Float" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to Previous Diagnosic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to Next Diagnostic" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic Set Loclist" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go To Previous Diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go To Next Diagnostic" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnotics set Loclist" })
 vim.keymap.set("n", "_DD", vim.diagnostic.disable, { desc = "Disable Diagnostics" })
-vim.keymap.set("n", "_DE", vim.diagnostic.enable, { desc = "Enable Diagnostics" })
+vim.keymap.set("n", "_DE", vim.diagnostic.enable, { desc = "Enable Diagnosics" })
+vim.keymap.set("n", "]e", goto_diagnostic(true, "ERROR"), { desc = "Next Error" })
+vim.keymap.set("n", "[e", goto_diagnostic(false, "ERROR"), { desc = "Prev Error" })
+vim.keymap.set("n", "]w", goto_diagnostic(true, "WARN"), { desc = "Next Warning" })
+vim.keymap.set("n", "[w", goto_diagnostic(false, "WARN"), { desc = "Prev Warning" })

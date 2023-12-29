@@ -131,16 +131,6 @@ function M.setup()
   local default_config = { on_attach = on_attach, capabilities = capabilities }
   init_configs(lsp_configs, default_config)
 
-  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-  local opts = { noremap = true, silent = true }
-  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "_q", vim.diagnostic.setloclist, opts)
-  vim.keymap.set("n", "_DD", vim.diagnostic.disable, opts)
-  vim.keymap.set("n", "_DE", vim.diagnostic.enable, opts)
-  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
-
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
