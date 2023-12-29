@@ -13,6 +13,8 @@
 
 shell:
   program: /opt/homebrew/bin/zsh
+  args:
+    - --login
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables

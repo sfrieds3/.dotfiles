@@ -5,6 +5,7 @@ require("tabs")
 local config = {
   default_prog = {
     "/opt/homebrew/bin/zsh",
+    "--login",
   },
   color_scheme = "Gruvbox dark, pale (base16)",
   font = wezterm.font_with_fallback({

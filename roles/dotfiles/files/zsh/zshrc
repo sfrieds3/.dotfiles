@@ -27,11 +27,13 @@ setopt EXTENDED_HISTORY  # Include more information about when the command was e
 setopt HIST_IGNORE_SPACE  # Don't enter commands into history if they start with a space
 setopt HIST_VERIFY  # nicer substitution commands
 
+# set histfile locations
+export HISTFILE=$ZSH_DATA_DIR/zsh_history
+export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
+
 # we will set our own title
 DISABLE_AUTO_TITLE="true"
 
-source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 bindkey -M emacs '^O' fzf-history-widget
 
 autoload -U colors && colors
@@ -47,42 +49,9 @@ source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
-# source plugins
-source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
-source $ZDOTDIR/plugins/vendor/com.github/superbrothers/zsh-kubectl-prompt/kubectl.zsh
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
 # nvim as editor
 export EDITOR="nvim"
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # kubernetes and helm completion
 source <(kubectl completion zsh)
 source <(helm completion zsh)
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# java version
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
