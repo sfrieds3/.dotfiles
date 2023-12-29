@@ -3,6 +3,7 @@ return {
   config = function()
     require("lint").linters_by_ft = {
       -- gitcommit = { "codespell" },
+      dockerfile = { "hadolint" },
       django = { "djlint" },
       javascript = { "eslint_d" },
       typescript = { "eslint_d" },
