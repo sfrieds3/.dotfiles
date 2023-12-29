@@ -13,9 +13,10 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_RUNTIME_DIR="$TMPDIR"
 
+export ZSH_DATA_DIR=$XDG_DATA_HOME/zsh
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
-export HISTFILE=$ZDOTDIR/zsh_history
-export ALT_HISTFILE=$ZDOTDIR/.full_history
+export HISTFILE=$ZSH_DATA_DIR/zsh_history
+export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 export EMACS_VTERM_PATH=$XDG_CONFIG_DIR/emacs/straight/repos/emacs/libvterm
 BREWSBIN=$HOMEBREW_PREFIX/sbin
 BREWBIN=$HOMEBREW_PREFIX/bin
@@ -67,4 +68,8 @@ export GREP_COLORS
 
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
+fi
+
+if [ ! -d $ZSH_DATA_DIR ]; then
+    mkdir $ZSH_DATA_DIR
 fi
