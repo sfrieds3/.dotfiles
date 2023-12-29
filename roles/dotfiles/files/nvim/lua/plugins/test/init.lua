@@ -177,8 +177,6 @@ return {
           require("telescope").load_extension("dap")
         end,
       },
-      "mfussenegger/nvim-dap-python",
-      "nvim-telescope/telescope-dap.nvim",
     },
 
     keys = {
