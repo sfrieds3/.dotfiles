@@ -46,6 +46,9 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Map esc in terminal" })
 
 vim.keymap.set("n", "\\x", "<Cmd>write<CR><Cmd>source %<CR>", { desc = "Quick source of current file" })
 
+-- run make with <F5>
+vim.keymap.set("n", "<F5>", "<cmd>make<cr>", { desc = "Make" })
+
 vim.keymap.set(
   "x",
   "p",

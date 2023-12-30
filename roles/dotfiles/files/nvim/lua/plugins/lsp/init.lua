@@ -4,11 +4,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       {
-        "williamboman/mason.nvim",
-        cmd = "Mason",
-      },
-      "williamboman/mason-lspconfig.nvim",
-      {
         "SmiteshP/nvim-navbuddy",
         dependencies = {
           "SmiteshP/nvim-navic",
@@ -19,10 +14,18 @@ return {
     },
     config = function()
       local ensure_installed = { "jsonls", "lua_ls", "pyright", "tsserver" }
-      require("mason").setup({ providers = { "mason.providers.client", "mason.providers.registry-api" } })
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("plugins.lsp.config").setup()
     end,
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      providers = { "mason.providers.client", "mason.providers.registry-api" },
+    },
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+    },
   },
   {
     "SmiteshP/nvim-navic",
