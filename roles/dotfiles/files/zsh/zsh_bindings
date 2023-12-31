@@ -40,3 +40,6 @@ bindkey '^X^e' edit-command-line
 autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
 bindkey "^[;" copy-earlier-word
+
+# do history expansion on space
+bindkey ' ' magic-space
