@@ -97,7 +97,7 @@ function M.setup()
     )
   end
 
-  vim.keymap.set("n", "\\dpt", set_python_test_runner, { desc = "[d]ap-[p]ython: set python [t]est_runner" })
+  vim.keymap.set("n", "\\dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
 
   vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = vim.api.nvim_create_augroup("DapPython", { clear = true }),
