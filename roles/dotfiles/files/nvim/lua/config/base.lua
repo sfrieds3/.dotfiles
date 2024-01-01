@@ -59,7 +59,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.signcolumn = "yes"
 
-vim.opt.listchars = { tab = "» ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·" }
+vim.opt.listchars = { tab = "  ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·", eol = " " }
 vim.opt.list = true
 
 vim.opt.timeout = true
