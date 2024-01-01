@@ -15,8 +15,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.bo.makeprg = "go run %"
 
 local augroup_name = "sfrieds3:golang_runonsave"
-vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "GoRunOnSaveEnable", function()
+vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "RunOnSaveEnable", function()
   vim.api.nvim_create_autocmd("BufWritePost", {
+    buffer = vim.api.nvim_get_current_buf(),
     group = vim.api.nvim_create_augroup(augroup_name, { clear = true }),
     callback = function()
       vim.cmd("make")
@@ -24,6 +25,9 @@ vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "GoRunOnSav
   })
 end, {})
 
-vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "GoRunOnSaveDisable", function()
-  vim.api.nvim_del_augroup_by_name(augroup_name)
+vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "RunOnSaveDisable", function()
+  local err, _ = pcall(vim.api.nvim_del_augroup_by_name, augroup_name)
+  if err ~= nil then
+    print("Error running RunOnSaveDisable.. no augroup with name " .. augroup_name .. " exists")
+  end
 end, {})

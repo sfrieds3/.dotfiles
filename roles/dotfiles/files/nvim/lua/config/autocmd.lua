@@ -77,3 +77,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.keymap.set("n", "q", "<Cmd>close<CR>", { buffer = event.buf, silent = true })
   end,
 })
+
+local disable_list_ft = { "go" }
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "Disable listchars for certain ft",
+  group = augroup("nolist_bufenter"),
+  callback = function(t)
+    if vim.tbl_contains(disable_list_ft, vim.bo[t.buf].filetype) then
+      vim.opt.list = false
+    end
+  end,
+})
