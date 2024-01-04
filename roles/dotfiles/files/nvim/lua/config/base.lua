@@ -58,6 +58,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.signcolumn = "yes"
+vim.opt.inccommand = "split"
 
 vim.opt.listchars = { tab = "  ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·", eol = " " }
 vim.opt.list = true
