@@ -26,11 +26,15 @@ return {
     dependencies = {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
+      "jfpedroza/neotest-elixir",
+      "rouge8/neotest-rust",
     },
     opts = {
       adapters = {
         ["neotest-python"] = {},
         ["neotest-go"] = {},
+        ["neotest-elixr"] = {},
+        ["rouge8/neotest-rust"] = {},
       },
       status = { virtual_text = true },
       output = { open_on_run = true },
@@ -209,6 +213,7 @@ return {
       { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
       { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
       { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+      { "<leader>dT", function() require("dap").terminate() end, desc = "Terminate" },
       { "<F3>", function() require("dap").terminate() end, desc = "Terminate" },
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },

@@ -38,6 +38,14 @@ function M.setup()
     vimls = true,
     ansiblels = true,
     helm_ls = true,
+    elixirls = true,
+    ocamllsp = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        codelens = { enable = true },
+      },
+    },
     yamlls = {
       on_attach = on_attach,
       capabilities = capabilities,
@@ -131,6 +139,7 @@ function M.setup()
   local default_config = { on_attach = on_attach, capabilities = capabilities }
   init_configs(lsp_configs, default_config)
 
+  -- stylua: ignore
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
@@ -139,33 +148,16 @@ function M.setup()
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      vim.keymap.set("n", "<Leader>cd", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go To Declaration" })
+      vim.keymap.set("n", "<Leader>cgd", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go To Declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "LSP: [g]oto [d]efinition" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: [g]oto [i]mplementation" })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP: hover" })
       vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
       vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
-      vim.keymap.set(
-        "n",
-        "<leader>lwa",
-        vim.lsp.buf.add_workspace_folder,
-        { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" }
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>lwr",
-        vim.lsp.buf.remove_workspace_folder,
-        { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" }
-      )
-      vim.keymap.set("n", "<leader>lwl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
-      vim.keymap.set(
-        "n",
-        "<leader>D",
-        vim.lsp.buf.type_definition,
-        { buffer = ev.buf, desc = "LSP: type [D]efinition" }
-      )
+      vim.keymap.set( "n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" })
+      vim.keymap.set( "n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
+      vim.keymap.set("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
+      vim.keymap.set( "n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
       vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
       vim.keymap.set("n", "<leader>co", function()
         vim.lsp.buf.code_action({
@@ -176,12 +168,7 @@ function M.setup()
           },
         })
       end, { desc = "Organize Imports" })
-      vim.keymap.set(
-        { "n", "v" },
-        "<leader>ca",
-        vim.lsp.buf.code_action,
-        { buffer = ev.buf, desc = "LSP: code [A]ction" }
-      )
+      vim.keymap.set( { "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code [A]ction" })
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "LSP: [g]oto [r]eferences" })
       vim.keymap.set("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })

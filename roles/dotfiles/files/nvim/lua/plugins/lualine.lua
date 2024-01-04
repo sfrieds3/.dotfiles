@@ -89,7 +89,6 @@ function M.config()
     extensions = {
       "aerial",
       "fugitive",
-      "fzf",
       "lazy",
       "neo-tree",
       "nvim-dap-ui",

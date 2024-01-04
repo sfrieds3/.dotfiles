@@ -27,6 +27,7 @@ return {
         scala = { "scalafmt" },
         sh = { "shellcheck" },
         yaml = { "yamlfmt" },
+        ocaml = { "ocamlformat" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },
     })

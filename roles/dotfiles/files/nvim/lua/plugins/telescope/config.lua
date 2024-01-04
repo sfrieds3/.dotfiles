@@ -12,7 +12,6 @@ function M.setup()
   local themes = require("telescope.themes")
   local custom = require("plugins.telescope.custom")
   local actions = require("telescope.actions")
-  local trouble = require("trouble.providers.telescope")
 
   local fzf_opts = {
     fuzzy = true,
@@ -48,7 +47,7 @@ function M.setup()
           ["<C-b>"] = actions.preview_scrolling_up,
         },
         n = {
-          ["<C-t>"] = trouble.open_with_trouble,
+          ["<C-t>"] = open_with_trouble,
           ["l"] = actions.cycle_history_next,
           ["h"] = actions.cycle_history_prev,
           ["q"] = actions.close,

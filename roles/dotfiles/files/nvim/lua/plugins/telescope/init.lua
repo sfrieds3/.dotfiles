@@ -140,8 +140,7 @@ return {
     {
       "<Leader>rg",
       function()
-        local multi_rg = require("plugins.telescope.multi_rg")
-        multi_rg()
+        require("plugins.telescope.multi_rg")()
       end,
       desc = "Telescope: multi [r]ip[g]rep",
     },

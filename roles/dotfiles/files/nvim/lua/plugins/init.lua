@@ -2,7 +2,7 @@ return {
   { "nvim-lua/plenary.nvim" },
   {
     "ibhagwan/fzf-lua",
-    commands = "FzfLua",
+    cmd = "FzfLua",
     dependencies = "nvim-tree/nvim-web-devicons",
   },
   { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
