@@ -21,6 +21,10 @@ eval "$(zoxide init zsh)"
 # asdf
 source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
+# atuin
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+
 # ocaml
 [[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
