@@ -1,6 +1,6 @@
 [init]
 	defaultBranch = main
-	templatedir = $XDG_CONFIG_HOME/git/githooks
+	; templatedir = $XDG_CONFIG_HOME/git/githooks
 [diff]
 	tool = vimdiff
 	colorMoved = dimmed-zebra

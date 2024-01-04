@@ -5,8 +5,8 @@ then
     fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fi
 
-source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 
 # source plugins
 source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
@@ -18,14 +18,11 @@ source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring
 # zoxide
 eval "$(zoxide init zsh)"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# asdf
+source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
-# nvm
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# ocaml
+[[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

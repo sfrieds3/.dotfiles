@@ -2,7 +2,9 @@
 - name: Install homebrew packages
   community.general.homebrew:
     name:
+      - asdf
       - ast-grep
+      - atuin
       - autoconf
       - automake
       - bat
@@ -45,21 +47,19 @@
       - mysql
       - neovim
       - ninja
-      - node
+      - opam
       - openjdk
       - perl
       - pipx
       - postgresql
       - prettier
       - pre-commit
-      - pyenv
       - pyright
       - rclone
       - redis
       - ripgrep
       - ruff
       - ruff-lsp
-      - rbenv
       - ruby-build
       - sbcl
       - shellcheck
