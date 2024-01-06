@@ -17,14 +17,36 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
   virtual_text = false,
-  -- virtual_text = {
-  --   format = function(diagnostic)
-  --     -- Replace newline and tab characters with space for more compact diagnostics
-  --     local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-  --     return message
-  --   end,
-  -- },
 })
+
+local virtual_text_config = {
+  format = function(diagnostic)
+    -- Replace newline and tab characters with space for more compact diagnostics
+    local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+    return message
+  end,
+}
+
+vim.api.nvim_create_user_command("EnableVirtualText", function()
+  vim.diagnostic.config({ virtual_text = virtual_text_config })
+  require("notify")("virtual_text enabled", "info", { render = "simple", title = "Virtual Text" })
+end, {})
+
+vim.api.nvim_create_user_command("DisableVirtualText", function()
+  vim.diagnostic.config({ virtual_text = false })
+  require("notify")("virtual_text disabled", "info", { render = "simple", title = "Virtual Text" })
+end, {})
+
+local virtual_text_enabled = false
+vim.api.nvim_create_user_command("ToggleVirtualText", function()
+  if virtual_text_enabled then
+    vim.cmd.DisableVirtualText()
+    virtual_text_enabled = false
+  else
+    vim.cmd.EnableVirtualText()
+    virtual_text_enabled = true
+  end
+end, {})
 
 local function goto_diagnostic(severity, next)
   local goto_diag = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -46,3 +68,4 @@ vim.keymap.set("n", "]e", goto_diagnostic(true, "ERROR"), { desc = "Next Error" 
 vim.keymap.set("n", "[e", goto_diagnostic(false, "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", goto_diagnostic(true, "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "[w", goto_diagnostic(false, "WARN"), { desc = "Prev Warning" })
+vim.keymap.set("n", "<leader>ce", "<cmd>ToggleVirtualText<cr>", { desc = "Toggle Virtual Text" })
