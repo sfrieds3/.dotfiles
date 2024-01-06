@@ -2,12 +2,6 @@ local M = {}
 local lspconfig = require("lspconfig")
 
 function M.setup()
-  local function on_attach(client, bufnr)
-    if client.server_capabilities.documentSymbolProvider then
-      require("nvim-navic").attach(client, bufnr)
-    end
-  end
-
   local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- capabilities.textDocument.codeLens = true
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -24,6 +18,12 @@ function M.setup()
       "additionalTextEdits",
     },
   }
+
+  local function on_attach(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+      require("nvim-navic").attach(client, bufnr)
+    end
+  end
 
   local lsp_configs = {
     pyright = true,
@@ -71,8 +71,9 @@ function M.setup()
             gc_details = true,
             regenerate_cgo = true,
             tidy = true,
-            upgrade_dependency = true,
-            vendor = true,
+            test = true,
+            upgrade_dependency = false,
+            vendor = false,
           },
         },
       },

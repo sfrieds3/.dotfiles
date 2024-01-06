@@ -362,6 +362,8 @@ return {
   },
   {
     "andymass/vim-matchup",
+    event = { "CursorMoved", "BufReadPost" },
+
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
       vim.g.matchup_matchparen_deferred_show_delay = 500
@@ -482,5 +484,21 @@ return {
         end,
       })
     end,
+  },
+  {
+    "monaqa/dial.nvim",
+
+    -- stylua: ignore
+    keys = {
+      { "<C-a>", function() require("dial.map").manipulate("increment", "normal") end, desc = "Dial increment" },
+      { "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end, desc = "Dial decrement"},
+      { "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end, desc = "Dial increment" },
+      { "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end, desc = "Dial decrement" },
+      {"<C-a>", function() require("dial.map").manipulate("increment", "visual") end, mode = "v", desc = "Dial increment" },
+      { "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end, desc = "Dial decrement" },
+      { "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end, mode = "v", desc = "Dial increment" },
+      { "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end, mode = "v", desc = "Dial decrement" },
+    }
+,
   },
 }
