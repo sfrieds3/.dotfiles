@@ -28,6 +28,7 @@ setopt HIST_IGNORE_SPACE  # Don't enter commands into history if they start with
 setopt HIST_VERIFY  # nicer substitution commands
 
 # set histfile locations
+ZSH_DATA_DIR=${ZSH_DATA_DIR:=$XDG_DATA_HOME/zsh}
 export HISTFILE=$ZSH_DATA_DIR/zsh_history
 export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 
