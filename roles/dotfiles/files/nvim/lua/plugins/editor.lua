@@ -501,4 +501,13 @@ return {
     }
 ,
   },
+  {
+    "Wansmer/treesj",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+    -- stylua: ignore
+    keys = {
+      { "<leader>m", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
+    },
+  },
 }
