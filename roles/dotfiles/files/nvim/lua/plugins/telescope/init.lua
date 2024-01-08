@@ -21,172 +21,45 @@ return {
     "debugloop/telescope-undo.nvim",
   },
 
+  -- TODO: add keymap to search non-git files in a repo (<leader>fF)
+  -- stylua: ignore
   keys = {
+    { "<leader><leader>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true theme=ivy<cr>", desc = "Buffers" },
+    { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>", desc = "Curent Buffer Fuzzy Find" },
+    { "<leader>gr", "<cmd>Telescope grep_string theme=ivy<cr>", mode = { "n", "v" }, desc = "Grep String" },
+    { "<leader>s:", "<cmd>Telescope search_history theme=dropdown previewer=false<cr>", desc = "Search History" },
+    { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search History" },
+    { "<leader>sc", "<cmd>Telescope command_history theme=dropdown previewer=false<cr>", desc = "Command History" },
+    { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
+    { "<leader>ff", function() Utils("project_files", { type = "custom" }) end, desc = "Project files" },
+    { "<leader>fo", "<cmd>Telescope oldfiles theme=ivy", desc = "Old files" },
     {
-      "<leader><leader>",
-      "<cmd>Telescope buffers sort_mru=true sort_lastused=true theme=ivy<cr>",
-      desc = "Buffers",
-    },
-    {
-      "<leader>/",
-      "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>",
-      desc = "Curent Buffer Fuzzy Find",
-    },
-    {
-      "<leader>gr",
-      "<cmd>Telescope grep_string theme=ivy<cr>",
-      mode = { "n", "v" },
-      desc = "Grep String",
-    },
-    {
-      "<leader>s:",
-      "<cmd>Telescope search_history theme=dropdown previewer=false<cr>",
-      desc = "Search History",
-    },
-    {
-      "<leader>sH",
-      "<cmd>Telescope highlights<cr>",
-      desc = "Search History",
-    },
-    {
-      "<leader>sc",
-      "<cmd>Telescope command_history theme=dropdown previewer=false<cr>",
-      desc = "Command History",
-    },
-    {
-      "<Leader>.",
-      "<cmd>Telescope resume<cr>",
-      desc = "Telescope Resume",
-    },
-    {
-      "<Leader>ff",
-      function()
-        Utils("project_files", { type = "custom" })
-      end,
-      desc = "Project files",
-    },
-    {
-      "<Leader>fo",
-      "<cmd>Telescope oldfiles theme=ivy",
-      desc = "Old files",
-    },
-    {
-      "<Leader>fr",
+      "<leader>fr",
       function()
         local opts = require("telescope.themes").get_ivy()
         require("telescope").extensions.frecency.frecency(opts)
       end,
       desc = "Recent files",
     },
-    { "<Leader>u", "<cmd>Telescope undo<cr>", desc = "Undo" },
-    { "<Leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
-    { "<Leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
-    {
-      "<Leader>gR",
-      function()
-        Utils("preview_lsp_references", { type = "custom" })
-      end,
-      desc = "LSP References",
-    },
-    {
-      "<Leader>gD",
-      function()
-        Utils("preview_lsp_definitions", { type = "custom" })
-      end,
-      desc = "LSP Definitions",
-    },
-    {
-      "<Leader>I",
-      function()
-        Utils("preview_lsp_incoming_calls", { type = "custom" })
-      end,
-      desc = "Incomming calls",
-    },
-    {
-      "<Leader>O",
-      function()
-        Utils("preview_lsp_outgoing_calls", { type = "custom" })
-      end,
-      desc = "Outgiong calls",
-    },
-    {
-      "<Leader>so",
-      function()
-        Utils("vim_options", { type = "custom" })
-      end,
-      desc = "Options",
-    },
-    {
-      "<Leader>sw",
-      function()
-        Utils("wiki_search", { type = "custom" })
-      end,
-      desc = "Search Wiki",
-    },
-    {
-      "<Leader>gw",
-      function()
-        Utils("grep_wiki", { type = "custom" })
-      end,
-      desc = "Grep Wiki",
-    },
-    {
-      "<Leader>gw",
-      function()
-        Utils("live_grep", { type = "custom" })
-      end,
-      desc = "Live Grep",
-    },
-    {
-      "<Leader>rg",
-      function()
-        require("plugins.telescope.multi_rg")()
-      end,
-      desc = "Telescope: multi [r]ip[g]rep",
-    },
-    {
-      "<Leader>gp",
-      function()
-        Utils("live_grep_preview", { type = "custom" })
-      end,
-      desc = "Live Grep Preview",
-    },
-    {
-      "<Leader>ga",
-      function()
-        Utils("live_grep_args", { type = "custom" })
-      end,
-      desc = "Live Grep Args",
-    },
-    {
-      "<Leader>g/",
-      function()
-        Utils("grep_last_search", { type = "custom" })
-      end,
-      desc = "Grep Last Search",
-    },
-    {
-      "<Leader>sp",
-      function()
-        require("telescope").extensions.neoclip.default()
-      end,
-      desc = "Telescope: neoclip",
-    },
-    { "<Leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    {
-      "<Leader>di",
-      function()
-        Utils("installed_plugins", { type = "custom" })
-      end,
-      desc = "Installed Plugins",
-    },
-    {
-      "<Leader>gi",
-      function()
-        Utils("grep_installed_plugins", { type = "custom" })
-      end,
-      desc = "Installed Plugins",
-    },
+    { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo" },
+    { "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+    { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
+    { "<leader>gR", function() Utils("preview_lsp_references", { type = "custom" }) end, desc = "LSP References" },
+    { "<leader>gD", function() Utils("preview_lsp_definitions", { type = "custom" }) end, desc = "LSP Definitions" },
+    { "<leader>I", function() Utils("preview_lsp_incoming_calls", { type = "custom" }) end, desc = "Incomming calls" },
+    { "<leader>O", function() Utils("preview_lsp_outgoing_calls", { type = "custom" }) end, desc = "Outgiong calls" },
+    { "<leader>so", function() Utils("vim_options", { type = "custom" }) end, desc = "Options" },
+    { "<leader>sw", function() Utils("wiki_search", { type = "custom" }) end, desc = "Search Wiki" },
+    { "<leader>gw", function() Utils("grep_wiki", { type = "custom" }) end, desc = "Grep Wiki" },
+    { "<leader>gw", function() Utils("live_grep", { type = "custom" }) end, desc = "Live Grep" },
+    { "<leader>rg", function() require("plugins.telescope.multi_rg")() end, desc = "Telescope: multi [r]ip[g]rep" },
+    { "<leader>gp", function() Utils("live_grep_preview", { type = "custom" }) end, desc = "Live Grep Preview" },
+    { "<leader>ga", function() Utils("live_grep_args", { type = "custom" }) end, desc = "Live Grep Args" },
+    { "<leader>g/", function() Utils("grep_last_search", { type = "custom" }) end, desc = "Grep Last Search" },
+    { "<leader>sp", function() require("telescope").extensions.neoclip.default() end, desc = "Telescope: neoclip" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+    { "<leader>di", function() Utils("installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
+    { "<leader>gi", function() Utils("grep_installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
     {
       "<leader>sj",
       function()
@@ -215,16 +88,8 @@ return {
       end,
       desc = "Registers",
     },
-    {
-      "<leader>sd",
-      "<cmd>Telescope diagnostics bufnr=0<cr>",
-      desc = "Buffer Diagnostics",
-    },
-    {
-      "<leader>sD",
-      "<cmd>Telescope diagnostics<cr>",
-      desc = "Workspace Diagnostics",
-    },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Buffer Diagnostics" },
+    { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
     { "<leader>sq", "<cmd>Telescope quickfix theme=ivy<cr>", desc = "Quickfix" },
     { "<leader>sl", "<cmd>Telescope loclist theme=ivy<cr>", desc = "Loclist" },
   },

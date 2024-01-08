@@ -120,6 +120,8 @@ return {
           "nofile",
           "quickfix",
           "prompt",
+          "Outline",
+          "neo-tree",
         },
         -- Ignored buffer types (only while resizing)
         ignored_buftypes = { "neo-tree" },
