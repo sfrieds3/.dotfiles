@@ -1,17 +1,12 @@
 return {
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  "nvim-treesitter/nvim-treesitter-refactor",
+  { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
+  { "nvim-treesitter/nvim-treesitter-refactor", lazy = true },
   {
     "mfussenegger/nvim-treehopper",
-
-    keys = { { "m", mode = { "o", "x" } } },
-
-    config = function()
-      vim.cmd([[
-        omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-        xnoremap <silent> m :lua require('tsht').nodes()<CR>
-        ]])
-    end,
+    keys = {
+      { "m", "<cmd><C-U>lua require('tsht').nodes()<cr>", mode = { "o" }, desc = "Treehopper" },
+      { "m", "<cmd>lua require('tsht').nodes()<cr>", mode = { "x" }, desc = "Treehopper" },
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",

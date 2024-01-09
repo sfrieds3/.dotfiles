@@ -45,3 +45,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {
   buffer = bufnr,
   group = vim.api.nvim_create_augroup("pylint:" .. bufnr, {}),
 })
+
+-- set up python test config
+require("plugins.test.python").setup()

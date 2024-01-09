@@ -1,4 +1,5 @@
 require("utils")
+require("config.disable_builtins")
 require("config.base")
 require("config.autocmd")
 require("config.lazy").init_lazy()

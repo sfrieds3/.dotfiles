@@ -9,9 +9,6 @@ function M.setup()
   local pickers = require("telescope.pickers")
   local finders = require("telescope.finders")
 
-  local path = require("mason-registry").get_package("debugpy"):get_install_path()
-  require("dap-python").setup(path .. "/venv/bin/python")
-
   -- default python
   table.insert(dap.configurations.python, {
     name = "Pytest: Current File",
@@ -97,23 +94,19 @@ function M.setup()
     )
   end
 
+  -- stylua: ignore
   vim.keymap.set("n", "\\dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
+  vim.keymap.set("n", "\\tf", function()
+    dap_python.test_method()
+  end, { desc = "dap-python: test function" })
+  vim.keymap.set("n", "\\tc", function()
+    dap_python.test_class()
+  end, { desc = "dap-python: test class" })
 
-  vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = vim.api.nvim_create_augroup("DapPython", { clear = true }),
-    callback = function()
-      vim.keymap.set("n", "\\tf", function()
-        dap_python.test_method()
-      end, { desc = "dap-python: test function" })
-      vim.keymap.set("n", "\\tc", function()
-        dap_python.test_class()
-      end, { desc = "dap-python: test class" })
-      vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
-      vim.api.nvim_create_user_command("DapPythonTestRunner", set_python_test_runner, { nargs = 0 })
-      vim.api.nvim_create_user_command("DapDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
-      vim.api.nvim_create_user_command("DapLoadVsCodeLaunchJson", load_vscode_launch_config, { nargs = 0 })
-    end,
-  })
+  vim.api.nvim_create_user_command("SetPythonTestRunner", set_python_test_runner, { nargs = 0 })
+  vim.api.nvim_create_user_command("SetPythonTestRunner", set_python_test_runner, { nargs = 0 })
+  vim.api.nvim_create_user_command("SetPythonDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
+  vim.api.nvim_create_user_command("SetPythonLoadVsCodeLaunchJson", load_vscode_launch_config, { nargs = 0 })
 end
 
 return M

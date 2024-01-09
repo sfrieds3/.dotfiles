@@ -95,7 +95,7 @@ return {
     "NTBBloodbath/doom-one.nvim",
     event = "VeryLazy",
 
-    init = function()
+    config = function()
       -- Add color to cursor
       vim.g.doom_one_cursor_coloring = false
       -- Set :terminal colors
@@ -267,7 +267,7 @@ return {
   {
     "sainnhe/sonokai",
     event = "VeryLazy",
-    init = function()
+    config = function()
       vim.g.sonokai_style = "shusia"
       vim.g.sonokai_dim_inactive_windows = false
       vim.g.sonokai_better_performance = true

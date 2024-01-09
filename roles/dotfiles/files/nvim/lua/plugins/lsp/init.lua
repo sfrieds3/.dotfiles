@@ -20,6 +20,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
+    cmd = { "Mason" },
     opts = {
       providers = { "mason.providers.client", "mason.providers.registry-api" },
     },

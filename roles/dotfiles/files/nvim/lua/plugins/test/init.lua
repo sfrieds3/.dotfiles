@@ -26,15 +26,13 @@ return {
     dependencies = {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
-      "jfpedroza/neotest-elixir",
       "rouge8/neotest-rust",
     },
     opts = {
       adapters = {
         ["neotest-python"] = {},
         ["neotest-go"] = {},
-        ["neotest-elixr"] = {},
-        ["rouge8/neotest-rust"] = {},
+        ["neotest-rust"] = {},
       },
       status = { virtual_text = true },
       output = { open_on_run = true },
@@ -140,7 +138,9 @@ return {
         { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
         config = function()
-          require("plugins.test.dap_python").setup()
+          local path = require("mason-registry").get_package("debugpy"):get_install_path()
+          require("dap-python").setup(path .. "/venv/bin/python")
+
           require("dap-python").resolve_python = function()
             local on_exit = function(obj)
               return obj.stdout:gsub("\n", "")
@@ -155,9 +155,7 @@ return {
         keys = {
           { "<leader>dPt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
         },
-        config = function()
-          require("plugins.test.dap_golang").setup()
-        end,
+        config = true,
       },
       {
         "rcarriga/nvim-dap-ui",
