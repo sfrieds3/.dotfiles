@@ -31,7 +31,7 @@ local config = {
     -- copy/paste
     {
       key = "c",
-      mods = "OPT|SHIFT",
+      mods = "CTRL|SHIFT",
       action = act.CopyTo("ClipboardAndPrimarySelection"),
     },
     {
@@ -40,7 +40,7 @@ local config = {
       action = act.CopyTo("PrimarySelection"),
     },
     -- paste from the clipboard
-    { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
+    { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
 
     -- paste from the primary selection
     { key = "v", mods = "OPT|SHIFT|CTRL", action = act.PasteFrom("PrimarySelection") },

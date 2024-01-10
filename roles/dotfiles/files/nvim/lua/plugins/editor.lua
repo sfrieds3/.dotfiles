@@ -384,7 +384,7 @@ return {
       },
       outline_window = {
         show_cursorline = true,
-        hide_cursor = true,
+        hide_cursor = false,
       },
       symbol_folding = {
         autofold_depth = 1,
