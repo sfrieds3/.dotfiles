@@ -27,8 +27,6 @@
       - git
       - git-gui
       - git-lfs
-      - go
-      - gopls
       - guile
       - helm
       - htop
