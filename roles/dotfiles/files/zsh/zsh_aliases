@@ -45,6 +45,7 @@ alias gdh='git diff origin/HEAD'
 alias gbp='git checkout -'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias gia='git ls-files -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --intent-to-add'
 
 # fzf helpers
 alias glf='git ls-files --exclude-standard | fzf | xargs git lf'

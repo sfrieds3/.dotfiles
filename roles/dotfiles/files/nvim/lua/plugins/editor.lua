@@ -167,28 +167,18 @@ return {
   },
   {
     "kevinhwang91/nvim-bqf",
-    ft = { "qf" },
-    dependencies = { "junegunn/fzf" },
+    ft = "qf",
+    dependencies = {
+      {
+        "junegunn/fzf",
+        run = function()
+          vim.fn["fzf#install"]()
+        end,
+      },
+    },
     opts = {
-      auto_enable = true,
-      magic_window = true,
-      auto_resize_height = false,
       preview = {
         auto_preview = false,
-      },
-      filter = {
-        fzf = {
-          action_for = {
-            ["ctrl-x"] = "split",
-            ["ctrl-t"] = "tabedit",
-            ["ctrl-v"] = "vsplit",
-            ["ctrl-q"] = "signtoggle",
-          },
-          extra_opts = {
-            description = "Extra options for fzf",
-            default = { "--bind", "ctrl-o:toggle-all" },
-          },
-        },
       },
     },
   },

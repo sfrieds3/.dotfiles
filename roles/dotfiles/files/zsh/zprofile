@@ -50,7 +50,7 @@ export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON3_VENV=$PYTHON3_VENV_BIN/python3
 
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --absolute-path"
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --absolute-path --bind=ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up,ctrl-a:select-all,ctrl-d:deselect-all"
 export FZF_DEFAULT_OPTS=--color="bg+:-1,\
 fg:gray,\
 fg+:white,\
