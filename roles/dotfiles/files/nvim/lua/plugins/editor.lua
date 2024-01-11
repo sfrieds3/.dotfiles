@@ -182,7 +182,7 @@ return {
       },
     },
   },
-  { "kylechui/nvim-surround", config = true },
+  { "kylechui/nvim-surround", keys = { "cs", "ds", "ys" }, event = "InsertEnter", config = true },
   {
     "folke/flash.nvim",
 
