@@ -189,7 +189,7 @@ function make_nvim() {
 
 # convert timestamp
 function ts() {
-    local _ts=$(("$1" / (1000 * 1000 * 1000)))
+    local _ts=$(("$1" / (1000)))
     if [ $# -gt 0 ]
     then
         date -jf "%s" "$_ts" +"%Y-%m-%d %H:%M:%S"
