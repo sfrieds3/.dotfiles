@@ -14,21 +14,45 @@ function M.setup()
       end,
     },
     mapping = {
-      ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+      ["<c-y>"] = cmp.mapping(
+        cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        }),
+        { "i", "c" }
+      ),
+      ["<M-y>"] = cmp.mapping(
+        cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        }),
+        { "i", "c" }
+      ),
+      ["<c-space>"] = cmp.mapping({
+        i = cmp.mapping.complete(),
+        c = function(
+          _ --[[fallback]]
+        )
+          if cmp.visible() then
+            if not cmp.confirm({ select = true }) then
+              return
+            end
+          else
+            cmp.complete()
+          end
+        end,
+      }),
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete({}),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<Tab>"] = cmp.mapping(function(fallback)
         local luasnip = require("luasnip")
         if luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
-        elseif cmp.visible() then
-          cmp.confirm({ select = true })
         else
           fallback()
         end
@@ -37,8 +61,6 @@ function M.setup()
         local luasnip = require("luasnip")
         if luasnip.locally_jumpable(-1) then
           luasnip.jump(-1)
-        elseif cmp.visible() then
-          cmp.confirm({ select = true })
         else
           fallback()
         end
