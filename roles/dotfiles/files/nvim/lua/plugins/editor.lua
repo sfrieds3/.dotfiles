@@ -499,7 +499,7 @@ return {
     config = true,
     -- stylua: ignore
     keys = {
-      { "<leader>m", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
+      { "<leader>cm", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
     },
   },
 }
