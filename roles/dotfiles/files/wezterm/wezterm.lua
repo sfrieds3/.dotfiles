@@ -27,20 +27,15 @@ local config = {
     top = 0,
     bottom = 0,
   },
+  -- stylua: ignore
   keys = {
     -- copy/paste
-    {
-      key = "c",
-      mods = "CTRL|SHIFT",
-      action = act.CopyTo("ClipboardAndPrimarySelection"),
-    },
-    {
-      key = "c",
-      mods = "OPT|SHIFT|CTRL",
-      action = act.CopyTo("PrimarySelection"),
-    },
+    { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    { key = "c", mods = "OPT|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    { key = "c", mods = "OPT|SHIFT|CTRL", action = act.CopyTo("PrimarySelection") },
     -- paste from the clipboard
     { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
+    { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
 
     -- paste from the primary selection
     { key = "v", mods = "OPT|SHIFT|CTRL", action = act.PasteFrom("PrimarySelection") },
