@@ -34,6 +34,8 @@ return {
   {
     "levouh/tint.nvim",
 
+    event = "WinEnter",
+
     opts = {
       tint = -10,
       saturation = 0.6,

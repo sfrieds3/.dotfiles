@@ -1,5 +1,5 @@
 return {
-  { "nvim-lua/plenary.nvim" },
+  { "nvim-lua/plenary.nvim", lazy = true },
   {
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",

@@ -1,5 +1,13 @@
 return {
   "stevearc/conform.nvim",
+
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
+
+  keys = {
+    "gq",
+  },
+
   config = function()
     require("conform").setup({
       lsp_fallback = true,

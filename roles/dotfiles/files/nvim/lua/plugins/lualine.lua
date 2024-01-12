@@ -62,7 +62,7 @@ function M.config()
             readonly = " ✘",
           },
         },
-        { session_name, icon = " 📌" },
+        -- { session_name, icon = " 📌" },
       },
       lualine_x = {
         { "encoding", fmt = trunc(80, 10, 80, true) },
