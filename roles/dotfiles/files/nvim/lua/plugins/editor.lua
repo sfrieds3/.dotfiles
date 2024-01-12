@@ -97,6 +97,19 @@ return {
     end,
   },
   {
+    "stevearc/oil.nvim",
+    cmd = "Oil",
+    opts = {
+      delete_to_trash = true,
+      show_hidden = true,
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>'", function() require("oil").toggle_float() end, desc = "Oil Toggle Float" },
+      { "<leader>\"", "<cmd>Oil<cr>", desc = "Oil Toggle Float" },
+    },
+  },
+  {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
