@@ -75,6 +75,14 @@ vim.keymap.set("n", "]t", "<Cmd>tabnext<CR>")
 vim.keymap.set("n", "[t", "<Cmd>tabprevious<CR>")
 vim.keymap.set("n", "_Q", "<Cmd>tabclose<CR>")
 
+-- use right/left to switch tabs
+vim.keymap.set("n", "<right>", function()
+  vim.api.nvim_feedkeys("gt", "n", true)
+end)
+vim.keymap.set("n", "<left>", function()
+  vim.api.nvim_feedkeys("gT", "n", true)
+end)
+
 -- arglist / quickfix / location list shortcuts
 vim.keymap.set("n", "]a", "<Cmd>next<CR>")
 vim.keymap.set("n", "[a", "<Cmd>previous<CR>")
