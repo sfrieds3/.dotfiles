@@ -78,10 +78,14 @@ vim.keymap.set("n", "_Q", "<Cmd>tabclose<CR>")
 -- use right/left to switch tabs
 vim.keymap.set("n", "<right>", function()
   vim.api.nvim_feedkeys("gt", "n", true)
-end)
+end, { desc = "Next Tab" })
 vim.keymap.set("n", "<left>", function()
   vim.api.nvim_feedkeys("gT", "n", true)
-end)
+end, { desc = "Previous Tab" })
+
+-- and up/down to switch buffers
+vim.keymap.set("n", "<up>", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
+vim.keymap.set("n", "<down>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- arglist / quickfix / location list shortcuts
 vim.keymap.set("n", "]a", "<Cmd>next<CR>")
