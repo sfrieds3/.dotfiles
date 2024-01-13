@@ -16,6 +16,7 @@ return {
         ["<leader>g"] = { name = "+git" },
         ["<leader>gh"] = { name = "+hunks" },
         ["<leader>gv"] = { name = "+diffview" },
+        ["<leader>h"] = { name = "+harpoon" },
         ["<leader>l"] = { name = "+lsp" },
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>r"] = { name = "+ripgrep" },
@@ -501,7 +502,7 @@ return {
       { "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end, desc = "Dial decrement"},
       { "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end, desc = "Dial increment" },
       { "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end, desc = "Dial decrement" },
-      {"<C-a>", function() require("dial.map").manipulate("increment", "visual") end, mode = "v", desc = "Dial increment" },
+      { "<C-a>", function() require("dial.map").manipulate("increment", "visual") end, mode = "v", desc = "Dial increment" },
       { "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end, desc = "Dial decrement" },
       { "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end, mode = "v", desc = "Dial increment" },
       { "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end, mode = "v", desc = "Dial decrement" },
@@ -516,5 +517,81 @@ return {
     keys = {
       { "<leader>cm", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
     },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+
+    config = function()
+      local harpoon = require("harpoon")
+      local extensions = require("harpoon.extensions")
+
+      harpoon:setup()
+      harpoon:extend(extensions.builtins.navigate_with_number())
+      harpoon:extend({
+        UI_CREATE = function(cx)
+          vim.keymap.set("n", "<C-v>", function()
+            harpoon.ui:select_menu_item({ vsplit = true })
+          end, { buffer = cx.bufnr })
+
+          vim.keymap.set("n", "<C-x>", function()
+            harpoon.ui:select_menu_item({ split = true })
+          end, { buffer = cx.bufnr })
+
+          vim.keymap.set("n", "<C-t>", function()
+            harpoon.ui:select_menu_item({ tabedit = true })
+          end, { buffer = cx.bufnr })
+        end,
+      })
+    end,
+
+    -- stylua: ignore
+    keys = {
+      {"<leader>hh", function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = "Harpoon UI"
+      },
+      {"<leader>hH", function()
+        local harpoon = require('harpoon')
+          local conf = require("telescope.config").values
+          local function toggle_telescope(harpoon_files)
+            local file_paths = {}
+            for _, item in ipairs(harpoon_files.items) do
+              table.insert(file_paths, item.value)
+            end
+
+            require("telescope.pickers").new({}, {
+              prompt_title = "Harpoon",
+              finder = require("telescope.finders").new_table({
+                results = file_paths,
+              }),
+              previewer = conf.file_previewer({}),
+              sorter = conf.generic_sorter({}),
+            }):find()
+          end
+
+          toggle_telescope(harpoon:list())
+        end,
+        desc = "Harpoon Telescope UI"
+      },
+      {"<leader>ha", function() require("harpoon"):list():append() end, desc = "Harpoon append"},
+      { "<leader>hp", function() require("harpoon"):list():prev() end, desc = "Harpoon Previous"},
+      { "<leader>hn", function() require("harpoon"):list():next() end, desc = "Harpoon Next"},
+
+      { "<leader>h1", function() require("harpoon"):list():select(1) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h2", function() require("harpoon"):list():select(2) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h3", function() require("harpoon"):list():select(3) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h4", function() require("harpoon"):list():select(4) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h5", function() require("harpoon"):list():select(5) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h6", function() require("harpoon"):list():select(6) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h7", function() require("harpoon"):list():select(7) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h8", function() require("harpoon"):list():select(8) end, desc = "Harpoon Select Mark 1"},
+      { "<leader>h9", function() require("harpoon"):list():select(9) end, desc = "Harpoon Select Mark 1"},
+
+    }
+,
   },
 }

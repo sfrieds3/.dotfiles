@@ -98,6 +98,7 @@ function M.setup()
   pcall(telescope.load_extension, "possession")
   pcall(telescope.load_extension, "ui-select")
   pcall(telescope.load_extension, "undo")
+  pcall(telescope.load_extension, "harpoon")
 end
 
 return M
