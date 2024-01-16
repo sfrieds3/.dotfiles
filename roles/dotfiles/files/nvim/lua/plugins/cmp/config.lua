@@ -29,7 +29,14 @@ function M.setup()
         { "i", "c" }
       ),
       ["<c-space>"] = cmp.mapping({
-        i = cmp.mapping.complete(),
+        i = cmp.mapping.complete({
+          reason = cmp.ContextReason.Manual,
+          config = {
+            sources = {
+              { name = "nvim_lsp_signature_help" },
+            },
+          },
+        }),
         c = function(
           _ --[[fallback]]
         )
@@ -65,6 +72,12 @@ function M.setup()
           fallback()
         end
       end, { "i", "s" }),
+      ["<C-l>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          return cmp.complete_common_string()
+        end
+        fallback()
+      end, { "i", "c" }),
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
@@ -75,9 +88,6 @@ function M.setup()
       -- { name = 'ripgrep' },
     }, {
       { name = "buffer", max_item_count = 10 },
-    }, {
-
-      { name = "tags", max_item_count = 5 },
     }),
     sorting = {
       comparators = {
@@ -118,14 +128,13 @@ function M.setup()
     },
   })
 
-  cmp.setup.cmdline("/", {
+  cmp.setup.cmdline({ "/", "?" }, {
     completion = { autocomplete = false },
-    sources = {
-      {
-        name = "buffer",
-        --opts = { keyword_pattern = [=[[^[:blank:]].*]=] }
-      },
-    },
+    sources = cmp.config.sources({
+      { name = "nvim_lsp_document_symbol" },
+    }, {
+      { name = "buffer" },
+    }),
   })
 
   cmp.setup.cmdline(":", {
