@@ -28,5 +28,6 @@ ln -sfn $(brew --prefix)/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugi
 # NOTE: for building python
 
 ``` sh
-CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)" asdf install python <version>
+export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
+asdf install python <version>
 ```
