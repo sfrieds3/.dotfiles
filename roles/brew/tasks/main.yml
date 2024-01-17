@@ -65,6 +65,7 @@
       - stylua
       - the_silver_searcher
       - tmux
+      - tox
       - tree
       - tree-sitter
       - typescript

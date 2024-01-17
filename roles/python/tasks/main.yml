@@ -9,17 +9,15 @@
   ansible.builtin.pip:
     name:
       - compiledb
-      - pipx
       - twine
-      - flake8
-      - pre-commit
-      - tox
 
 - name: Install pipx packages
   community.general.pipx:
     name:
       - ipython
       - jupyterlab
+      - tox
+      - pre-commit
 
 - name: Create default venv
   ansible.builtin.command:
