@@ -590,8 +590,22 @@ return {
       { "<leader>h7", function() require("harpoon"):list():select(7) end, desc = "Harpoon Select Mark 1"},
       { "<leader>h8", function() require("harpoon"):list():select(8) end, desc = "Harpoon Select Mark 1"},
       { "<leader>h9", function() require("harpoon"):list():select(9) end, desc = "Harpoon Select Mark 1"},
-
-    }
-,
+    },
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {
+      enabled = false,
+      indent = {
+        smart_indent_cap = true,
+      },
+      scope = {
+        enabled = true,
+      },
+    },
+    keys = {
+      { "<leader>cl", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
+    },
   },
 }
