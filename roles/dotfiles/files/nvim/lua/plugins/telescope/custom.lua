@@ -163,6 +163,21 @@ function M.grep_in_file()
   require("telescope.builtin").grep_string(opts)
 end
 
+function M.find_all_files()
+  local opts = {
+    find_command = {
+      "fd",
+      "-t",
+      "f",
+      "-H",
+      "-I",
+      "--absolute-path",
+    },
+  }
+
+  require("telescope.builtin").find_files(opts)
+end
+
 function M.search_all_files()
   local opts = {
     find_command = {
@@ -177,7 +192,7 @@ function M.search_all_files()
     },
   }
 
-  require("telescope.builtin").find_files(opts)
+  require("telescope.builtin").live_grep(opts)
 end
 
 function M.search_only_certain_files()

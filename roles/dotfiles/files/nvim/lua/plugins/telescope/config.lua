@@ -61,7 +61,6 @@ function M.setup()
         layout_config = {
           height = 0.70,
         },
-        theme = "ivy",
         follow = true,
         preview = {
           filesize_hook = function(filepath, bufnr, opts)
@@ -81,7 +80,6 @@ function M.setup()
         },
       },
       live_grep = {
-        theme = "dropdown",
         mappings = {
           i = { ["<c-f>"] = actions.to_fuzzy_refine },
         },

@@ -32,7 +32,10 @@ return {
     { "<leader>sc", "<cmd>Telescope command_history theme=dropdown previewer=false<cr>", desc = "Command History" },
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
     { "<leader>ff", function() Utils("project_files", { type = "custom" }) end, desc = "Project files" },
+    { "<leader>fR", function() require("telescope.builtin").find_files({ cwd = vim.fn.expand('%:p:h') }) end , desc = "Find Related Files" },
     { "<leader>fo", "<cmd>Telescope oldfiles theme=ivy", desc = "Old files" },
+    { "<leader>fF", function() Utils("find_all_files", { type = "custom" }) end, desc = "Find All Files" },
+    { "<leader>sF", function() Utils("search_all_files", { type = "custom" }) end, desc = "Search All Files" },
     {
       "<leader>fr",
       function()
