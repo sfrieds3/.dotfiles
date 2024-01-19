@@ -14,6 +14,13 @@ function M.setup()
       end,
     },
     mapping = {
+      ["<c-e>"] = cmp.mapping(
+        cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        }),
+        { "i", "c" }
+      ),
       ["<c-y>"] = cmp.mapping(
         cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Insert,
@@ -55,7 +62,7 @@ function M.setup()
       ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-e>"] = cmp.mapping.abort(),
+      ["<C-q>"] = cmp.mapping.abort(),
       ["<Tab>"] = cmp.mapping(function(fallback)
         local luasnip = require("luasnip")
         if luasnip.expand_or_locally_jumpable() then
