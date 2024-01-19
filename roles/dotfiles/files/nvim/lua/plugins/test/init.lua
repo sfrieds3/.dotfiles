@@ -16,8 +16,8 @@ return {
     optional = true,
     opts = {
       defaults = {
-        ["<leader>d"] = { name = "+debug" },
-        ["<leader>t"] = { name = "+test" },
+        ["<leader>D"] = { name = "+Debug" },
+        ["<leader>T"] = { name = "+Test" },
       },
     },
   },
@@ -113,13 +113,13 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
-      { "<leader>tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
-      { "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
-      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
-      { "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
-      { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
-      { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<leader>Tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<leader>TT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run All Test Files" },
+      { "<leader>Tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<leader>Ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<leader>To", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
+      { "<leader>TO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+      { "<leader>TS", function() require("neotest").run.stop() end, desc = "Stop" },
     },
   },
   {
@@ -134,8 +134,8 @@ return {
         "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
-        { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-        { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+        { "<leader>DPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
+        { "<leader>DPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
@@ -153,7 +153,7 @@ return {
         "leoluz/nvim-dap-go",
       -- stylua: ignore
         keys = {
-          { "<leader>dPt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
+          { "<leader>DPt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
         },
         config = true,
       },
@@ -161,8 +161,8 @@ return {
         "rcarriga/nvim-dap-ui",
       -- stylua: ignore
       keys = {
-        { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+        { "<leader>Du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+        { "<leader>De", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
       },
         opts = {},
         config = function(_, opts)
@@ -195,25 +195,25 @@ return {
 
     -- stylua: ignore
     keys = {
-      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
-      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-      { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
-      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-      { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
+      { "<leader>Td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
+      { "<leader>DB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
+      { "<leader>Db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<leader>Dc", function() require("dap").continue() end, desc = "Continue" },
+      { "<leader>Da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+      { "<leader>DC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<leader>Dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
       { "<F7>", function() require("dap").step_into() end, desc = "Step Into" },
-      { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-      { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-      { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+      { "<leader>Dj", function() require("dap").down() end, desc = "Down" },
+      { "<leader>Dk", function() require("dap").up() end, desc = "Up" },
+      { "<leader>Dl", function() require("dap").run_last() end, desc = "Run Last" },
       { "<F9>", function() require("dap").step_out() end, desc = "Step Out" },
       { "<F8>", function() require("dap").step_over() end, desc = "Step Over" },
-      { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-      { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-      { "<leader>dT", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<leader>Dp", function() require("dap").pause() end, desc = "Pause" },
+      { "<leader>Dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+      { "<leader>Ds", function() require("dap").session() end, desc = "Session" },
+      { "<leader>DT", function() require("dap").terminate() end, desc = "Terminate" },
       { "<F3>", function() require("dap").terminate() end, desc = "Terminate" },
-      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      { "<leader>Dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
   },
   {

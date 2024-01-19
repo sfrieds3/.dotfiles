@@ -75,6 +75,12 @@ vim.keymap.set("n", "]t", "<Cmd>tabnext<CR>")
 vim.keymap.set("n", "[t", "<Cmd>tabprevious<CR>")
 vim.keymap.set("n", "_Q", "<Cmd>tabclose<CR>")
 
+-- tab management
+vim.keymap.set("n", "<leader>tc", "<cmd>tabnew<cr>", { desc = "Create Tab" })
+vim.keymap.set("n", "<leader>tC", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
 -- use right/left to switch tabs
 vim.keymap.set("n", "<right>", function()
   vim.api.nvim_feedkeys("gt", "n", true)
