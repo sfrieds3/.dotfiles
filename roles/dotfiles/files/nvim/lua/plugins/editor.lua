@@ -18,6 +18,7 @@ return {
         ["<leader>gv"] = { name = "+diffview" },
         ["<leader>h"] = { name = "+harpoon" },
         ["<leader>l"] = { name = "+lsp" },
+        ["<leader>m"] = { name = "+marks" },
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>r"] = { name = "+ripgrep" },
         ["<leader>s"] = { name = "+search" },
@@ -607,6 +608,19 @@ return {
     },
     keys = {
       { "<leader>cl", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
+    },
+  },
+  {
+    "chentoast/marks.nvim",
+    config = true,
+    keys = {
+      "m",
+      "d",
+      { "<leader>ma", "<cmd>MarksListAll<cr>", desc = "List All" },
+      { "<leader>mq", "<cmd>MarksQFListAll<cr>", desc = "Quickfix List All" },
+      { "<leader>mt", "<cmd>MarksToggleSigns<cr>", desc = "Toggle Signs" },
+      { "<leader>mb", "<cmd>BookmarksListAll<cr>", desc = "List All" },
+      { "<leader>ml", "<cmd>BookmarksQFListAll<cr>", desc = "Quickfix List All" },
     },
   },
 }
