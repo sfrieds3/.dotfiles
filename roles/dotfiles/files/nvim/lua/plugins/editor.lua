@@ -13,7 +13,7 @@ return {
         ["<leader>b"] = { name = "+buffer" },
         ["<leader>c"] = { name = "+code" },
         ["<leader>f"] = { name = "+file/find" },
-        ["<leader>g"] = { name = "+git" },
+        ["<leader>g"] = { name = "+git/grep" },
         ["<leader>gh"] = { name = "+hunks" },
         ["<leader>gv"] = { name = "+diffview" },
         ["<leader>h"] = { name = "+harpoon" },

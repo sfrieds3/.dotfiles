@@ -1,7 +1,16 @@
 return {
-  { "tpope/vim-fugitive", cmd = "Git", ft = "gitcommit" },
   { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
   { "akinsho/git-conflict.nvim", version = "*", config = true },
+  {
+    "tpope/vim-fugitive",
+    cmd = "Git",
+    ft = "gitcommit",
+    keys = {
+      { "<leader>gb", "<cmd>Git blame<cr>", desc = "Blame" },
+      { "<leader>gdd", "<cmd>Git diff<cr>", desc = "Diff" },
+      { "<leader>gdc", "<cmd>Git diff --cached<cr>", desc = "Diff --cached" },
+    },
+  },
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
