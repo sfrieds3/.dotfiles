@@ -16,6 +16,7 @@ local config = {
   font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
   disable_default_key_bindings = false,
+  native_macos_fullscreen_mode = true,
   enable_tab_bar = false,
   tab_bar_at_bottom = true,
   scrollback_lines = 1000000,
