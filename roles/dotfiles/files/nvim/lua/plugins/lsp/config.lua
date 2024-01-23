@@ -27,6 +27,7 @@ function M.setup()
 
   local lsp_configs = {
     pyright = true,
+    pylyzer = false,
     ruff_lsp = true,
     ast_grep = true,
     jsonls = true,
@@ -124,7 +125,9 @@ function M.setup()
     for k, v in pairs(configs) do
       if type(v) == "boolean" then
         -- default configuration
-        lspconfig[k].setup(config)
+        if v then
+          lspconfig[k].setup(config)
+        end
       elseif type(v) == "table" then
         -- custom configuration
         lspconfig[k].setup(v)

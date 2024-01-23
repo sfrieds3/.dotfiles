@@ -13,6 +13,7 @@
       - cmake
       - colima
       - coursier/formulas/coursier  # run cs setup
+      - csvlens
       - ctags
       - curl
       - docker

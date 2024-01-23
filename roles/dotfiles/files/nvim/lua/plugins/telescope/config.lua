@@ -31,9 +31,6 @@ function M.setup()
         lang = nil, -- string value, specify language for ast-grep `nil` for default
       },
       fzf = fzf_opts,
-      ["ui-select"] = {
-        themes.get_dropdown({}),
-      },
     },
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
@@ -94,7 +91,6 @@ function M.setup()
   pcall(telescope.load_extension, "fzf")
   pcall(telescope.load_extension, "neoclip")
   pcall(telescope.load_extension, "possession")
-  pcall(telescope.load_extension, "ui-select")
   pcall(telescope.load_extension, "undo")
   pcall(telescope.load_extension, "harpoon")
 end
