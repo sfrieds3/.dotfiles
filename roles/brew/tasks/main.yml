@@ -50,15 +50,16 @@
       - perl
       - pipx
       - postgresql
-      - prettier
       - pre-commit
+      - prettier
       - pyright
       - rclone
       - redis
       - ripgrep
+      - ruby-build
       - ruff
       - ruff-lsp
-      - ruby-build
+      - rustup
       - sbcl
       - shellcheck
       - standard
@@ -71,8 +72,8 @@
       - typescript
       - typescript-language-server
       - virtualenv
-      - wireshark
       - wget
+      - wireshark
       - yq
       - zig
       - zoxide
