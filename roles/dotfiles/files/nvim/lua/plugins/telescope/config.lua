@@ -31,6 +31,12 @@ function M.setup()
         lang = nil, -- string value, specify language for ast-grep `nil` for default
       },
       fzf = fzf_opts,
+      frecency = {
+        auto_validate = false,
+        db_safe_mode = false,
+        show_scores = true,
+        show_unindexed = true,
+      },
     },
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
