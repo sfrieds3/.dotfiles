@@ -3,7 +3,6 @@ return {
   { "sainnhe/edge", event = "VeryLazy" },
   { "nyoom-engineering/oxocarbon.nvim", event = "VeryLazy" },
   { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
-  { "polirritmico/monokai-nightasty.nvim", event = "VeryLazy" },
   {
     "projekt0n/github-nvim-theme",
     event = "VeryLazy",
