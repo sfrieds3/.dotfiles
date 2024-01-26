@@ -110,7 +110,7 @@ local remote
       echo "py(`relpath $_pp` [$_pyv]) "
   }
 
-  PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{cyan}$(__conda_env)$(__pyenv_version)$(__python_path)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
+  PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)$(__pyenv_version)%F{cyan}$(__python_path)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
 
   function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
