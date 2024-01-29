@@ -457,16 +457,6 @@ return {
     },
   },
   {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        mode = "tabs",
-      },
-    },
-  },
-  {
     "akinsho/toggleterm.nvim",
     keys = { [[<C-CR>]] },
     cmd = { "ToggleTerm" },
