@@ -2,7 +2,8 @@ require("reload")
 local focus = require("focus")
 local switchscreen = require("switchscreen")
 
---
+hs.alert.defaultStyle["atScreenEdge"] = 2
+
 hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "f3", function()
   hs.console.alpha(0.9)
   hs.toggleConsole()
@@ -17,6 +18,9 @@ local passwords = "1Password"
 hs.hotkey.bind({ "cmd", "shift" }, "a", function()
   focusandback("Safari")
 end)
+hs.hotkey.bind({ "cmd", "shift" }, "b", function()
+  focusandback("PyCharm Professional Edition")
+end)
 hs.hotkey.bind({ "cmd", "shift" }, "d", function()
   focusandback("DataGrip")
 end)
@@ -28,9 +32,6 @@ hs.hotkey.bind({ "cmd", "shift" }, "f", function()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "g", function()
   focusandback("Google Chrome")
-end)
-hs.hotkey.bind({ "cmd", "shift" }, "k", function()
-  focusandback("PyCharm Professional Edition")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "l", function()
   focusandback("Calendar")
@@ -80,4 +81,76 @@ hs.hotkey.bind({ "ctrl", "cmd", "shift" }, "]", function()
 end)
 hs.hotkey.bind({ "ctrl", "cmd", "shift" }, "[", function()
   windowToPreviousScreen()
+end)
+
+-- spotify and volume
+hs.hotkey.bind({ "cmd", "shift" }, "t", function()
+  hs.spotify.displayCurrentTrack()
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "p", function()
+  hs.spotify.playpause()
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "j", function()
+  hs.spotify.next()
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "k", function()
+  hs.spotify.previous()
+end)
+
+-- Volume control
+hs.hotkey.bind({ "cmd", "shift" }, "=", function()
+  local audio_output = hs.audiodevice.defaultOutputDevice()
+  if audio_output:muted() then
+    audio_output:setMuted(false)
+  end
+  audio_output:setVolume(hs.audiodevice.current().volume + 5)
+  hs.alert.closeAll()
+  hs.alert.show("Volume level: " .. tostring(math.floor(hs.audiodevice.current().volume)) .. "%")
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "-", function()
+  local audio_output = hs.audiodevice.defaultOutputDevice()
+  audio_output:setVolume(hs.audiodevice.current().volume - 5)
+  hs.alert.closeAll()
+  hs.alert.show("Volume level: " .. tostring(math.floor(hs.audiodevice.current().volume)) .. "%")
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "u", function()
+  local audio_output = hs.audiodevice.defaultOutputDevice()
+  if audio_output:muted() then
+    audio_output:setMuted(false)
+  else
+    audio_output:setMuted(true)
+  end
+end)
+hs.hotkey.bind({ "cmd", "shift" }, "v", function()
+  local audio_output = hs.audiodevice.defaultOutputDevice()
+  hs.alert.closeAll()
+  hs.alert.show("Volume level: " .. tostring(math.floor(hs.audiodevice.current().volume)) .. "%")
+end)
+
+hs.hotkey.bind({ "cmd", "shift" }, "h", function()
+  hs.alert.show([[
+  Key bindings:
+    a -> Safari
+    b -> PyCharm
+    d -> DataGrip
+    e -> Email
+    f -> Browser
+    g -> Google Chrome
+    j -> Next Song
+    k -> Previous Song
+    l -> Calendar
+    m -> Messaging
+    p -> Play/Pause
+    q -> Query
+    s -> Spotify
+    t -> Current Track
+    u -> Mute Output
+    v -> Volume Level
+    , -> Terminal
+    ; -> Reminders
+    ' -> Passwords
+    ` -> Anybox
+    - -> Decrease Volume
+    + -> Increase Volume
+  ]])
 end)
