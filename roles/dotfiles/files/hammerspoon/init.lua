@@ -18,14 +18,11 @@ local passwords = "1Password"
 hs.hotkey.bind({ "cmd", "shift" }, "a", function()
   focusandback("Safari")
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "b", function()
-  focusandback("PyCharm Professional Edition")
-end)
 hs.hotkey.bind({ "cmd", "shift" }, "d", function()
   focusandback("DataGrip")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "e", function()
-  focusandback("Microsoft Outlook")
+  focusandback("PyCharm Professional Edition")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "f", function()
   focusandback(browser)
@@ -84,7 +81,7 @@ hs.hotkey.bind({ "ctrl", "cmd", "shift" }, "[", function()
 end)
 
 -- spotify and volume
-hs.hotkey.bind({ "cmd", "shift" }, "t", function()
+hs.hotkey.bind({ "cmd", "shift" }, "0", function()
   hs.spotify.displayCurrentTrack()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "p", function()
@@ -130,10 +127,10 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "h", function()
   hs.alert.show([[
   Key bindings:
+    0 -> Current Track
     a -> Safari
-    b -> PyCharm
     d -> DataGrip
-    e -> Email
+    e -> PyCharm
     f -> Browser
     g -> Google Chrome
     j -> Next Song
@@ -143,7 +140,6 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     p -> Play/Pause
     q -> Query
     s -> Spotify
-    t -> Current Track
     u -> Mute Output
     v -> Volume Level
     , -> Terminal
