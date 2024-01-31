@@ -14,6 +14,7 @@ return {
         ["<leader>c"] = { name = "+code" },
         ["<leader>f"] = { name = "+file/find" },
         ["<leader>g"] = { name = "+git/grep" },
+        ["<leader>gd"] = { name = "+diff" },
         ["<leader>gh"] = { name = "+hunks" },
         ["<leader>gv"] = { name = "+diffview" },
         ["<leader>h"] = { name = "+harpoon" },
