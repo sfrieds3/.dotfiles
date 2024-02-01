@@ -118,7 +118,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "u", function()
     audio_output:setMuted(true)
   end
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "v", function()
+hs.hotkey.bind({ "cmd", "shift" }, "w", function()
   local audio_output = hs.audiodevice.defaultOutputDevice()
   hs.alert.closeAll()
   hs.alert.show("Volume level: " .. tostring(math.floor(hs.audiodevice.current().volume)) .. "%")
@@ -141,7 +141,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     q -> Query
     s -> Spotify
     u -> Mute Output
-    v -> Volume Level
+    w -> Volume Level
     , -> Terminal
     ; -> Reminders
     ' -> Passwords
