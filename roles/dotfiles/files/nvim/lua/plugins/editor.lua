@@ -343,17 +343,11 @@ return {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
     },
-    opts = {},
-  },
-  {
-    "Wansmer/symbol-usage.nvim",
-    enabled = false,
-    event = "LspAttach",
-    config = function()
-      require("symbol-usage").setup({
-        vt_position = "end_of_line",
-      })
-    end,
+    opts = {
+      symbols = {
+        separator = "",
+      },
+    },
   },
   {
     "j-hui/fidget.nvim",
@@ -456,35 +450,6 @@ return {
         desc = "Next Reference",
       },
     },
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    keys = { [[<C-CR>]] },
-    cmd = { "ToggleTerm" },
-
-    config = function()
-      require("toggleterm").setup({
-        open_mapping = [[<C-\>]],
-        hide_numbers = true,
-        persist_size = true,
-        persist_mode = true,
-        shade_terminals = true,
-      })
-
-      vim.api.nvim_create_augroup("ToggleTerm", { clear = true })
-      vim.api.nvim_create_autocmd({ "TermOpen" }, {
-        group = "ToggleTerm",
-        pattern = "term://*",
-        callback = function()
-          local buf_keymap_opts = { buffer = true }
-          vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], buf_keymap_opts)
-          --vim.keymap.set('t', '<M-h>', [[<C-\><C-n><C-w>h]], buf_keymap_opts)
-          --vim.keymap.set('t', '<M-j>', [[<C-\><C-n><C-w>j]], buf_keymap_opts)
-          --vim.keymap.set('t', '<M-k>', [[<C-\><C-n><C-w>k]], buf_keymap_opts)
-          --vim.keymap.set('t', '<M-l>', [[<C-\><C-n><C-w>l]], buf_keymap_opts)
-        end,
-      })
-    end,
   },
   {
     "monaqa/dial.nvim",
@@ -599,19 +564,6 @@ return {
     },
     keys = {
       { "<leader>cl", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
-    },
-  },
-  {
-    "chentoast/marks.nvim",
-    config = true,
-    keys = {
-      "m",
-      "d",
-      { "<leader>ma", "<cmd>MarksListAll<cr>", desc = "List All" },
-      { "<leader>mq", "<cmd>MarksQFListAll<cr>", desc = "Quickfix List All" },
-      { "<leader>mt", "<cmd>MarksToggleSigns<cr>", desc = "Toggle Signs" },
-      { "<leader>mb", "<cmd>BookmarksListAll<cr>", desc = "List All" },
-      { "<leader>ml", "<cmd>BookmarksQFListAll<cr>", desc = "Quickfix List All" },
     },
   },
 }

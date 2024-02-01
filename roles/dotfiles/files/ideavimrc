@@ -12,6 +12,7 @@ set timeoutlen=1000
 sethandler <C-v> i:ide
 sethandler <C-q> n:ide
 sethandler <C-\\> a:ide
+sethandler <C-y> i:ide
 
 " https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
 set easymotion

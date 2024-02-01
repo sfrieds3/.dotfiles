@@ -65,8 +65,8 @@ function M.config()
         -- { session_name, icon = " 📌" },
       },
       lualine_x = {
-        { "encoding", fmt = trunc(80, 10, 80, true) },
-        { "fileformat", fmt = trunc(80, 10, 80, true) },
+        -- { "encoding", fmt = trunc(80, 10, 80, true) },
+        -- { "fileformat", fmt = trunc(80, 10, 80, true) },
         { "filetype", fmt = trunc(40, 10, 40, true) },
       },
       lualine_y = { "progress" },

@@ -117,10 +117,6 @@ vim.keymap.set("n", "<Leader>>", "<Cmd>'[,']><CR>", { desc = "Indent last edit" 
 
 vim.keymap.set({ "n", "x" }, "_L", "<Cmd>setlocal list! list?<CR>", { desc = "Toggle list" })
 
--- line number management
-vim.api.nvim_create_user_command("ToggleLineNum", "call lnum#ToggleLineNum()", {})
-vim.keymap.set("n", "_n", "<Cmd>ToggleLineNum<CR>", { desc = "Toggle line numbers" })
-
 -- substiture command
 vim.keymap.set("n", "\\s", "m':set operatorfunc=substitute#Substitute<CR>g@", { desc = "Substitute operator" })
 
