@@ -29,12 +29,12 @@ local virtual_text_config = {
 
 vim.api.nvim_create_user_command("EnableVirtualText", function()
   vim.diagnostic.config({ virtual_text = virtual_text_config })
-  require("notify")("virtual_text enabled", "info", { render = "simple", title = "Virtual Text" })
+  print("virtual_text enabled")
 end, {})
 
 vim.api.nvim_create_user_command("DisableVirtualText", function()
   vim.diagnostic.config({ virtual_text = false })
-  require("notify")("virtual_text disabled", "info", { render = "simple", title = "Virtual Text" })
+  printl("virtual_text disabled")
 end, {})
 
 local virtual_text_enabled = false

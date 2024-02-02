@@ -329,7 +329,6 @@ return {
       },
     },
   },
-  { "rcarriga/nvim-notify", event = "VeryLazy" },
   {
     "luukvbaal/statuscol.nvim",
     opts = { setopt = true },

@@ -6,16 +6,8 @@ local set_django_settings_module_env = function()
       vim.env.DJANGO_SETTINGS_MODULE = input
     end
   )
-  require("notify")(
-    string.format(
-      "\nUpdated $DJANGO_SETTINGS_MODULE from %s to %s",
-      prev_django_settings_module,
-      vim.env.DJANGO_SETTINGS_MODULE
-    ),
-    "info",
-    {
-      render = "minimal",
-    }
+  print(
+    "Updated $DJANGO_SETTINGS_MODULE from " .. prev_django_settings_module .. " to " .. vim.env.DJANGO_SETTINGS_MODULE
   )
 end
 

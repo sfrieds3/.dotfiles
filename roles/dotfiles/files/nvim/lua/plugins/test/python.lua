@@ -44,10 +44,7 @@ function M.setup()
         launchjs_file = input
       end
     )
-    require("notify")(string.format("\nLoaded vscode launch.json file %s", launchjs_file), "info", {
-      render = "simple",
-      title = "Loaded vscode launch.json file",
-    })
+    print("Loaded vscode launch.json file: " .. launchjs_file)
   end
 
   local function set_python_test_runner(opts)
@@ -80,17 +77,8 @@ function M.setup()
         vim.env.DJANGO_SETTINGS_MODULE = input
       end
     )
-    require("notify")(
-      string.format(
-        "\nUpdated $DJANGO_SETTINGS_MODULE from %s to %s",
-        prev_django_settings_module,
-        vim.env.DJANGO_SETTINGS_MODULE
-      ),
-      "info",
-      {
-        render = "simple",
-        title = "Updated $DJANGO_SETTINGS_MODULE",
-      }
+    print(
+      "Updated $DJANGO_SETTINGS_MODULE from " .. prev_django_settings_module .. " to " .. vim.env.DJANGO_SETTINGS_MODULE
     )
   end
 
