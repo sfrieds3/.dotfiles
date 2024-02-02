@@ -31,12 +31,6 @@ vim.keymap.set("c", "<C-p>", function()
   return vim.fn.wildmenumode() == 1 and "<C-P>" or "<up>"
 end, { expr = true })
 
--- resize splits
-vim.keymap.set("n", "<A-up>", "<C-w>+")
-vim.keymap.set("n", "<A-down>", "<C-w>-")
-vim.keymap.set("n", "<A-left>", "<C-w><")
-vim.keymap.set("n", "<A-right>", "<C-w>>")
-
 -- easy access to black hole register
 vim.keymap.set("n", "<Leader>d", '"_d')
 vim.keymap.set("x", "<Leader>d", '"_d')
@@ -80,18 +74,6 @@ vim.keymap.set("n", "<leader>tc", "<cmd>tabnew<cr>", { desc = "Create Tab" })
 vim.keymap.set("n", "<leader>tC", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-
--- use right/left to switch tabs
-vim.keymap.set("n", "<right>", function()
-  vim.api.nvim_feedkeys("gt", "n", true)
-end, { desc = "Next Tab" })
-vim.keymap.set("n", "<left>", function()
-  vim.api.nvim_feedkeys("gT", "n", true)
-end, { desc = "Previous Tab" })
-
--- and up/down to switch buffers
-vim.keymap.set("n", "<up>", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
-vim.keymap.set("n", "<down>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- arglist / quickfix / location list shortcuts
 vim.keymap.set("n", "]a", "<Cmd>next<CR>")
