@@ -21,6 +21,7 @@
       - docker-completion
       - docker-compose
       - fd
+      - ffmepeg
       - fish
       - fzf
       - gcc
@@ -89,8 +90,8 @@
   community.general.homebrew:
     name:
       - alacritty
-      - alfred
       - alt-tab
+      - audacity
       - bartender
       - bruno
       - docker
@@ -114,6 +115,7 @@
       - pocket-casts
       - rectangle
       - spotify
+      - vlc
       - wezterm
       - wireshark
 
