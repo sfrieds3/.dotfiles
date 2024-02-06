@@ -4,7 +4,6 @@ local M = setmetatable({}, {
   __call = function(m, picker, opts)
     local map = setmetatable({
       custom = require("plugins.telescope.custom"),
-      neoclip = require("telescope").extensions.neoclip,
       undo = require("telescope").extensions.undo,
     }, {
       __index = function()

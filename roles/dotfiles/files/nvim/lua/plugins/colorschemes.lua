@@ -52,7 +52,7 @@ return {
         shade = "dark",
         percentage = 0.15,
       },
-      transparent_background = true,
+      transparent_background = false,
       no_italic = false,
       no_bold = false,
       styles = {

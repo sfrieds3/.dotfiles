@@ -126,6 +126,8 @@ return {
       { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Trouble Document Diagnostics" },
       { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Trouble Loclist" },
       { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble Quickfix" },
+      { "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble LSP References" },
+      { "<leader>xd", "<cmd>TroubleToggle lsp_definitions<cr>", desc = "Trouble LSP Definitions" },
     },
   },
   {
@@ -219,70 +221,6 @@ return {
       { "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash", },
       { "R", function() require("flash").treesitter_search() end, mode = { "o", "x" }, desc = "Treesitter Search", },
       { "<c-s>", function() require("flash").toggle() end, mode = { "c" }, desc = "Toggle Flash Search", },
-    },
-  },
-  {
-    "AckslD/nvim-neoclip.lua",
-    event = "VeryLazy",
-
-    dependencies = {
-      "tami5/sqlite.lua",
-    },
-
-    config = function()
-      require("neoclip").setup({
-        enable_macro_history = true,
-        enable_persistent_history = true,
-        continuous_sync = true,
-      })
-    end,
-  },
-  {
-    "jedrzejboczar/possession.nvim",
-    cmd = { "SLoad", "SSave", "SList" },
-    opts = {
-      autosave = {
-        current = true,
-        tmp = false,
-      },
-      plugins = {
-        close_windows = {
-          hooks = { "before_save", "before_load" },
-          preserve_layout = true, -- or fun(win): boolean
-          match = {
-            floating = true,
-            buftype = {},
-            filetype = {},
-            custom = false, -- or fun(win): boolean
-          },
-        },
-        delete_hidden_buffers = false,
-        nvim_tree = true,
-        neo_tree = true,
-        symbols_outline = true,
-        tabby = true,
-        dap = true,
-        dapui = true,
-        delete_buffers = false,
-      },
-      commands = {
-        save = "SSave",
-        load = "SLoad",
-        delete = "SDelete",
-        list = "SList",
-        rename = "SRename",
-        close = "SClose",
-      },
-    },
-
-    keys = {
-      {
-        "\\S",
-        function()
-          require("telescope").extensions.possession.list()
-        end,
-        desc = "[S]essionManager: load session",
-      },
     },
   },
   {

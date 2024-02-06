@@ -27,7 +27,7 @@ return {
     { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>", desc = "Curent Buffer Fuzzy Find" },
     { "<leader>gr", "<cmd>Telescope grep_string theme=ivy<cr>", mode = { "n", "v" }, desc = "Grep String" },
     { "<leader>s:", "<cmd>Telescope search_history theme=dropdown previewer=false<cr>", desc = "Search History" },
-    { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search History" },
+    { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlights" },
     { "<leader>sc", "<cmd>Telescope command_history theme=dropdown previewer=false<cr>", desc = "Command History" },
     { "<leader>.", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
     { "<leader>ff", function() Utils("project_files", { type = "custom" }) end, desc = "Project files" },
@@ -58,7 +58,6 @@ return {
     { "<leader>gp", function() Utils("live_grep_preview", { type = "custom" }) end, desc = "Live Grep Preview" },
     { "<leader>ga", function() Utils("live_grep_args", { type = "custom" }) end, desc = "Live Grep Args" },
     { "<leader>g/", function() Utils("grep_last_search", { type = "custom" }) end, desc = "Grep Last Search" },
-    { "<leader>sp", function() require("telescope").extensions.neoclip.default() end, desc = "Telescope: neoclip" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
     { "<leader>di", function() Utils("installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
     { "<leader>gi", function() Utils("grep_installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
@@ -88,7 +87,7 @@ return {
       function()
         Utils("help_tags", { theme = "dropdown", winblend = 10, layout_config = { width = 0.5 } })
       end,
-      desc = "Registers",
+      desc = "Help Tags",
     },
     { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Buffer Diagnostics" },
     { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace Diagnostics" },
