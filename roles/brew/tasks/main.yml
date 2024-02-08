@@ -63,6 +63,7 @@
       - ruff-lsp
       - rustup
       - sbcl
+      - sd
       - shellcheck
       - standard
       - stylua
