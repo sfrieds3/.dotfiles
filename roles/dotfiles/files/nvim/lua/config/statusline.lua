@@ -9,16 +9,16 @@ local fnamemodify = vim.fn.fnamemodify
 local get_window_width = vim.api.nvim_win_get_width
 local pathshorten = vim.fn.pathshorten
 
-Statusline.statusline_hl = vim.api.nvim_get_hl(0, { name = "statusline" })
 --- Set hl for use in the statusline
 ---@param ns integer namespace
 ---@param opts string[] opts for hl
 function Statusline.set_statusline_hl(ns, opts)
-  local bg = Statusline.statusline_hl["bg"]
+  local statusline_bg = vim.api.nvim_get_hl(0, { name = "statusline", link = false })["bg"]
+
   if opts["bg"] ~= nil then
-    bg = opts["bg"]
+    statusline_bg = opts["bg"]
   end
-  vim.api.nvim_set_hl(ns, opts["name"], { fg = opts["fg"], bg = bg })
+  vim.api.nvim_set_hl(ns, opts["name"], { fg = opts["fg"], bg = statusline_bg })
 end
 
 --- Get vcs info for buffer
@@ -44,22 +44,25 @@ local function vcs(win_id)
 end
 
 Statusline.diagnostic_levels = {
-  errors = vim.diagnostic.severity.ERROR,
-  warnings = vim.diagnostic.severity.WARN,
-  info = vim.diagnostic.severity.INFO,
-  hints = vim.diagnostic.severity.HINT,
+  Error = vim.diagnostic.severity.ERROR,
+  Warn = vim.diagnostic.severity.WARN,
+  Info = vim.diagnostic.severity.INFO,
+  Hint = vim.diagnostic.severity.HINT,
 }
 
 --- Generate highlights for statusline
-local function init_stautsline_hl()
+local function init_statusline_hl()
   -- diagnostics
-  for _, level in pairs(Statusline.diagnostic_levels) do
-    local hl = vim.api.nvim_get_hl(0, { name = "DiagnosticSign" .. level })
-    Statusline.set_statusline_hl(0, { name = "StautslineDiagnosticSign" .. level, fg = hl["fg"] })
+  for k, _ in pairs(Statusline.diagnostic_levels) do
+    local hl = vim.api.nvim_get_hl(0, { name = "DiagnosticSign" .. k, link = false })
+    Statusline.set_statusline_hl(0, { name = "StatuslineDiagnosticSign" .. k, fg = hl["fg"] })
   end
 
   -- vcs
-  Statusline.set_statusline_hl(0, { name = "StuatslineVcs", fg = vim.api.nvim_get_hl(0, { name = "@function" })["fg"] })
+  Statusline.set_statusline_hl(
+    0,
+    { name = "StatuslineVcs", fg = vim.api.nvim_get_hl(0, { name = "@function", link = false })["fg"] }
+  )
 end
 
 --- Get lsp diagnostics for statusline
@@ -77,24 +80,24 @@ local function lsp_diagnostics()
   local info = ""
 
   local has_diagnostics = false
-  if count["errors"] ~= 0 then
+  if count["Error"] ~= 0 then
     local diagnostic = vim.fn.sign_getdefined("DiagnosticSignError")[1]
-    errors = " %#" .. "StatuslineDiagnosticSignError" .. "#" .. diagnostic.text .. count["errors"]
+    errors = " %#" .. "StatuslineDiagnosticSignError" .. "#" .. diagnostic.text .. count["Error"]
     has_diagnostics = true
   end
-  if count["warnings"] ~= 0 then
+  if count["Warn"] ~= 0 then
     local diagnostic = vim.fn.sign_getdefined("DiagnosticSignWarn")[1]
-    warnings = " %#" .. "StatuslineDiagnosticSignWarn" .. "#" .. diagnostic.text .. count["warnings"]
+    warnings = " %#" .. "StatuslineDiagnosticSignWarn" .. "#" .. diagnostic.text .. count["Warn"]
     has_diagnostics = true
   end
-  if count["hints"] ~= 0 then
+  if count["Hint"] ~= 0 then
     local diagnostic = vim.fn.sign_getdefined("DiagnosticSignInfo")[1]
-    hints = " %#" .. "StatuslineDiagnosticSignInfo" .. "#" .. diagnostic.text .. count["hints"]
+    hints = " %#" .. "StatuslineDiagnosticSignInfo" .. "#" .. diagnostic.text .. count["Hint"]
     has_diagnostics = true
   end
-  if count["info"] ~= 0 then
+  if count["Info"] ~= 0 then
     local diagnostic = vim.fn.sign_getdefined("DiagnosticSignHint")[1]
-    info = " %#" .. "StatuslineDiagnosticSignHint" .. "#" .. diagnostic.text .. count["info"]
+    info = " %#" .. "StatuslineDiagnosticSignHint" .. "#" .. diagnostic.text .. count["Info"]
     has_diagnostics = true
   end
 
@@ -281,13 +284,20 @@ function Statusline.status()
       line_col_segment
     )
   else
-    -- print(vim.g.statusline_winid, win_getid(winnr()))
+    print(vim.g.statusline_winid, win_getid(winnr()))
   end
 
   return statuslines[win_id]
 end
 
-init_stautsline_hl()
-vim.o.statusline = "%!v:lua.Statusline.status()" -- *v:lua-call*
+-- init statusline after everything loaded
+vim.api.nvim_create_autocmd("Colorscheme", {
+  group = vim.api.nvim_create_augroup("sfrieds3:statusline_init", {}),
+  pattern = "*",
+  callback = function()
+    init_statusline_hl()
+    vim.o.statusline = "%!v:lua.Statusline.status()" -- *v:lua-call*
+  end,
+})
 
 return Statusline

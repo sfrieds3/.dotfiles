@@ -29,6 +29,12 @@ function M.column()
   return table.concat(components, "")
 end
 
--- vim.opt.statuscolumn = [[%!v:lua.Status.column()]]
+vim.api.nvim_create_autocmd("Colorscheme", {
+  group = vim.api.nvim_create_augroup("sfrieds3:statuscol_init", {}),
+  pattern = "*",
+  callback = function()
+    -- vim.opt.statuscolumn = [[%!v:lua.Status.column()]]
+  end,
+})
 
 return M
