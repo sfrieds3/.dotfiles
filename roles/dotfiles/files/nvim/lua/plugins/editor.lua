@@ -287,22 +287,6 @@ return {
     },
   },
   {
-    "j-hui/fidget.nvim",
-    dependencies = "neovim/nvim-lspconfig",
-    event = "LspAttach",
-    config = function()
-      require("fidget").setup({
-        progress = {
-          suppress_on_insert = true,
-          ignore_done_already = true,
-          display = {
-            render_limit = 3,
-          },
-        },
-      })
-    end,
-  },
-  {
     "andymass/vim-matchup",
     event = { "CursorMoved", "BufReadPost" },
 
