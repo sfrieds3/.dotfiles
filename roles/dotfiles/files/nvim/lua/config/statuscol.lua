@@ -26,6 +26,8 @@ function M.column()
     [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
     git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*") or "  ",
   }
+
+  -- %s%=%{v:wrap ? "" : v:lnum} %#FoldColumn#%@v:lua.StatusColumn.handler.fold@%{v:lua.StatusColumn.display.fold()}%#StatusColumnBorder#▐%#StatusColumnBuffer#
   return table.concat(components, "")
 end
 
