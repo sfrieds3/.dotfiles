@@ -278,21 +278,19 @@ return {
     "folke/tokyonight.nvim",
     event = "VeryLazy",
 
-    config = function()
-      local tokyonight = require("tokyonight").setup({
-        style = "night",
-        dim_inactive = false,
-        sidebars = {},
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-          functions = {},
-          variables = {},
-          sidebars = "normal",
-          floats = "transparent",
-        },
-      })
-    end,
+    opts = {
+      style = "night",
+      dim_inactive = false,
+      sidebars = {},
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = {},
+        sidebars = "normal",
+        floats = "transparent",
+      },
+    },
   },
   {
     "EdenEast/nightfox.nvim",
@@ -311,6 +309,7 @@ return {
   {
     "mcchrish/zenbones.nvim",
     event = "VeryLazy",
+    dependencies = "rktjmp/lush.nvim",
   },
   {
     "rmehri01/onenord.nvim",

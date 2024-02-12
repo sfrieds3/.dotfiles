@@ -34,13 +34,13 @@ local function vcs(win_id)
   local modified = git_info.changed and ("~" .. git_info.changed .. " ") or ""
   local removed = git_info.removed and ("-" .. git_info.removed .. " ") or ""
   local pad = ((added ~= "") or (removed ~= "") or (modified ~= "")) and " " or ""
-  local diff_str = string.format("%s%s%s%s", added, removed, modified, pad)
+  local diff_str = string.format("[%s%s%s%s]%s", pad, added, removed, modified, pad)
   local max_size = math.min(75, math.floor(0.33 * get_window_width(win_id)))
   local git_str = string.format("%s(%s:%s)", diff_str, branch_sign, git_info.head)
   if string.len(git_str) > max_size then
     git_str = string.format("(%s:%s)", branch_sign, git_info.head)
   end
-  return "[ " .. git_str .. " ] |"
+  return git_str
 end
 
 Statusline.diagnostic_levels = {
@@ -140,10 +140,10 @@ function Statusline.lsp_progress()
         local client_names = {}
         for i, client in ipairs(active_clients) do
           if client and client.name ~= "" then
-            table.insert(client_names, "[" .. client.name .. "]")
+            table.insert(client_names, client.name)
           end
         end
-        return " LSP:" .. client_count .. " " .. table.concat(client_names, " ")
+        return " LSP:" .. client_count .. " [" .. table.concat(client_names, ", ") .. "]"
       end
     end,
   })
@@ -283,15 +283,13 @@ function Statusline.status()
       vcs(win_id),
       line_col_segment
     )
-  else
-    print(vim.g.statusline_winid, win_getid(winnr()))
   end
 
   return statuslines[win_id]
 end
 
 -- init statusline after everything loaded
-vim.api.nvim_create_autocmd("Colorscheme", {
+vim.api.nvim_create_autocmd({ "VimEnter", "Colorscheme" }, {
   group = vim.api.nvim_create_augroup("sfrieds3:statusline_init", {}),
   pattern = "*",
   callback = function()
