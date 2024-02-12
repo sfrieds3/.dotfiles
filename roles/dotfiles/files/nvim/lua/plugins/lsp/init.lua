@@ -16,6 +16,7 @@ return {
     },
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
+      "nvim-telescope/telescope.nvim",
     },
   },
   {

@@ -83,8 +83,6 @@ Tabline.build = function()
   return s
 end
 
---- Evaluate user options, devicons presence and assign a newly created global function based on build() to tabline
---- Inspired by https://github.com/crispgm/nvim-tabline
 function Tabline.setup()
   Tabline.has_devicons, Tabline.devicons = pcall(require, "nvim-web-devicons")
 

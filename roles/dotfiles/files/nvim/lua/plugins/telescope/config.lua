@@ -37,6 +37,9 @@ function M.setup()
         show_scores = true,
         show_unindexed = true,
       },
+      ["ui-select"] = {
+        require("telescope.themes").get_dropdown({}),
+      },
     },
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
@@ -97,6 +100,7 @@ function M.setup()
   pcall(telescope.load_extension, "fzf")
   pcall(telescope.load_extension, "undo")
   pcall(telescope.load_extension, "harpoon")
+  pcall(telescope.load_extension, "ui-select")
 end
 
 return M

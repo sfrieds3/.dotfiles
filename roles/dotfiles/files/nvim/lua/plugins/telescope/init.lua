@@ -18,6 +18,7 @@ return {
     },
     "Marskey/telescope-sg",
     "debugloop/telescope-undo.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
   },
 
   -- TODO: add keymap to search non-git files in a repo (<leader>fF)
