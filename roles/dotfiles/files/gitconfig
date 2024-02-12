@@ -5,6 +5,8 @@
 	tool = vimdiff
 	colorMoved = dimmed-zebra
 	wsErrorHighlight = all
+[branch]
+	sort = -committerdate
 [difftool]
 	prompt = false
 [mergetool]
@@ -15,12 +17,6 @@
 	editor = nvim
 	excludesfile = $XDG_CONFIG_HOME/git/gitignore
 	pager = less -FMRiXx4
-[delta]
-	navigate = true
-	light = false
-	features = decorations
-	keep-plus-minus-markers = true
-	line-numbers = true
 [merge]
 	conflictstyle = diff3
 [pull]
@@ -32,6 +28,7 @@
 [http]
 	emptyAuth = true
 [alias]
+	fpush = push --force-with-lease
 	ap = add --patch
 	blm = blame -wM
 	st = status -sb
