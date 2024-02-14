@@ -27,6 +27,7 @@
       - gcc
       - gettext
       - git
+      - git-absorb
       - git-gui
       - git-lfs
       - guile
