@@ -49,8 +49,8 @@ function M.setup()
           ["<a-t>"] = open_selected_with_trouble,
           ["<C-Down>"] = actions.cycle_history_next,
           ["<C-Up>"] = actions.cycle_history_prev,
-          ["<C-f>"] = actions.preview_scrolling_down,
-          ["<C-b>"] = actions.preview_scrolling_up,
+          ["<C-d>"] = actions.preview_scrolling_down,
+          ["<C-u>"] = actions.preview_scrolling_up,
         },
         n = {
           ["<C-t>"] = open_with_trouble,

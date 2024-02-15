@@ -189,6 +189,8 @@ function M.search_all_files()
       "--column",
       "--smart-case",
       "--trim",
+      "--hidden",
+      "--no-ignore",
     },
   }
 
