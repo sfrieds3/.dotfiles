@@ -184,21 +184,24 @@ end
 ---@param buf_name string Buffer name
 ---@param win_id integer Id for window
 ---@param shorten boolean? Should we shorten filename?
-local function filename(buf_name, win_id, shorten)
+local function filename(buf_name, win_id, shorten, dev_icon)
   local function format_filename(f)
     return " " .. f .. " "
   end
   shorten = shorten or false
+  dev_icon = dev_icon or true
   local base_name = fnamemodify(buf_name, [[:~:.]])
+  local filename_ext = vim.fn.fnamemodify(buf_name, ":e")
+  local icon = string.format(" %s ", require("nvim-web-devicons").get_icon(buf_name, filename_ext, { default = true }))
   if shorten then
     local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
     if string.len(base_name) <= space then
-      return format_filename(base_name)
+      return icon .. format_filename(base_name)
     else
-      return format_filename(pathshorten(base_name))
+      return icon .. format_filename(pathshorten(base_name))
     end
   else
-    return format_filename(base_name)
+    return icon .. format_filename(base_name)
   end
 end
 
