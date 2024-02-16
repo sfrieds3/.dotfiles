@@ -75,6 +75,7 @@
       - tree-sitter
       - typescript
       - typescript-language-server
+      - uv
       - virtualenv
       - wget
       - wireshark
