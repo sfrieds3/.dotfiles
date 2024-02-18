@@ -5,10 +5,15 @@
 	tool = vimdiff
 	colorMoved = dimmed-zebra
 	wsErrorHighlight = all
+	algorithm = histogram
+[log]
+	date = iso
 [branch]
 	sort = -committerdate
 [difftool]
 	prompt = false
+[commit]
+	verbose = true
 [mergetool]
 	prompt = false
 [mergetool "vimdiff"]
@@ -18,7 +23,7 @@
 	excludesfile = $XDG_CONFIG_HOME/git/gitignore
 	pager = less -FMRiXx4
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [pull]
 	ff = only
 	rebase = true
@@ -27,6 +32,8 @@
 	name = Scott F
 [http]
 	emptyAuth = true
+[help]
+	autocorrect = prompt
 [alias]
 	fpush = push --force-with-lease
 	ap = add --patch
