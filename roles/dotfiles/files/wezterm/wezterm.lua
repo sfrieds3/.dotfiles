@@ -4,7 +4,7 @@ require("tabs")
 
 local config = {
   default_prog = {
-    "/opt/homebrew/bin/zsh",
+    "/bin/zsh",
     "--login",
   },
   color_scheme = "Gruvbox dark, pale (base16)",
