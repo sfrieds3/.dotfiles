@@ -37,6 +37,7 @@
       - jless
       - jq
       - jsonlint
+      - kind
       - kubernetes-cli
       - libgccjit
       - llvm
