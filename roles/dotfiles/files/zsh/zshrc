@@ -37,6 +37,7 @@ export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 DISABLE_AUTO_TITLE="true"
 
 bindkey -M emacs '^O' fzf-history-widget
+bindkey -M emacs '^T' atuin-search
 
 autoload -U colors && colors
 autoload -U add-zsh-hook
