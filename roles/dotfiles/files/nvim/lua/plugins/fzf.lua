@@ -1,7 +1,7 @@
-local TelescopeConfig = {}
+local FZFConfig = {}
 local Utils = require("utils.telescope")
 
-function TelescopeConfig.get_config()
+function FZFConfig.get_config()
   return {
     "nvim-telescope/telescope.nvim",
 
@@ -100,6 +100,13 @@ function TelescopeConfig.get_config()
   }
 end
 
-if not vim.g.use_fzf then
-  return TelescopeConfig.get_config()
+if vim.g.use_fzf then
+  return FZFConfig.get_config()
+else
+  -- return basic config
+  return {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    dependencies = "nvim-tree/nvim-web-devicons",
+  }
 end
