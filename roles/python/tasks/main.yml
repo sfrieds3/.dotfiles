@@ -15,9 +15,10 @@
   community.general.pipx:
     name:
       - ipython
-      - jupyterlab
-      - tox
+      - pipdeptree
+      - poetry
       - pre-commit
+      - tox
 
 - name: Create default venv
   ansible.builtin.command:
