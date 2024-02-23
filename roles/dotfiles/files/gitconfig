@@ -32,8 +32,8 @@
 	name = Scott F
 [http]
 	emptyAuth = true
-[help]
-	autocorrect = prompt
+; [help]
+; 	autocorrect = prompt
 [alias]
 	fpush = push --force-with-lease
 	ap = add --patch
