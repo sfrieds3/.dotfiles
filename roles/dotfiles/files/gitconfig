@@ -35,21 +35,23 @@
 ; [help]
 ; 	autocorrect = prompt
 [alias]
-	fpush = push --force-with-lease
 	ap = add --patch
-	blm = blame -wM
-	st = status -sb
-	sc = status -uno
-	br = branch
 	bb = branch -vv --sort=-committerdate
+	blm = blame -wM
+	br = branch
+	fpush = push --force-with-lease
 	la = log --graph --oneline --decorate --all
-	llg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lf = log -p --pretty=fuller --abbrev-commit
 	lg = log --pretty=fuller --abbrev-commit --stat
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	llg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	sp = stash show -p
 	ri = "!sh -c 't=\"${1:-master}\"; s=\"${2:-HEAD}\"; mb=\"$(git merge-base \"$t\" \"$s\")\"; if test \"x$mb\" = x ; then o=\"$t\"; else lm=\"$(git log -n1 --merges \"$t..$s\" --pretty=%H)\"; if test \"x$lm\" = x ; then o=\"$mb\"; else o=\"$lm\"; fi; fi; test $# -gt 0 && shift; test $# -gt 0 && shift; git rebase --interactive \"$o\" \"$@\"'"
+	sc = status -uno
+	sp = stash show -p
+	st = status -sb
+        ol = log --pretty=onelinedetail
+        rst = rebase --autostash
 [color "status"]
 	untracked = white
 	changed = white normal dim
@@ -58,3 +60,10 @@
 	old = 131
 	new = 101
 	whitespace = 131 reverse
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pretty]
+	onelinedetail = %C(bold red)%h %Creset%s %C(bold green)%aN %C(bold blue)(%ar)%Creset%C(yellow)%d%Creset
