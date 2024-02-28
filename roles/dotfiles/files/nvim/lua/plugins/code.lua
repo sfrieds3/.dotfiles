@@ -146,14 +146,4 @@ return {
       },
     },
   },
-  {
-    "SmiteshP/nvim-navbuddy",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
-    },
-    cmd = "Navbuddy",
-    keys = { { "<leader>cn", "<cmd>Navbuddy<cr>", desc = "Navbuddy" } },
-    opts = { lsp = { auto_attach = true } },
-  },
 }

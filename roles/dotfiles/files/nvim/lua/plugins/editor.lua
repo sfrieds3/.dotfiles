@@ -272,17 +272,41 @@ return {
     opts = { setopt = true },
   },
   {
-    "utilyre/barbecue.nvim",
+    "Bekaboo/dropbar.nvim",
     event = "LspAttach",
-    name = "barbecue",
-    version = "*",
+    keys = {
+      {
+        "<leader>cn",
+        function()
+          require("dropbar.api").pick()
+        end,
+        desc = "Dropbar Pick",
+      },
+    },
     dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
+      "nvim-telescope/telescope-fzf-native.nvim",
     },
     opts = {
-      symbols = {
-        separator = "",
+      sources = {
+        path = {
+          modified = function(sym)
+            return sym:merge({
+              name = sym["name"] .. " [●]",
+              name_hl = "StatuslineDiagnosticSignError",
+              icon_hl = "StatuslineDiagnosticSignError",
+            })
+          end,
+        },
+      },
+      icons = {
+        ui = {
+          bar = {
+            separator = " ",
+          },
+        },
+        menu = {
+          separator = " ",
+        },
       },
     },
   },
