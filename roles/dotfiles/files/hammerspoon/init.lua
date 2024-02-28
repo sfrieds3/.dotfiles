@@ -62,6 +62,9 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "s", function()
   focusandback("Spotify")
 end)
+hs.hotkey.bind({ "cmd", "shift" }, "y", function()
+  focusandback("Pocket Casts")
+end)
 hs.hotkey.bind({ "cmd", "shift" }, ",", function()
   focusandback(terminal)
 end)
@@ -162,6 +165,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     s -> Spotify
     u -> Mute Output
     w -> Volume Level
+    y -> Pocket Casts
     , -> Terminal
     ; -> Reminders
     ' -> Passwords
