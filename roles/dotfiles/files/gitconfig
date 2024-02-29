@@ -53,6 +53,7 @@
 	st = status -sb
         ol = log --pretty=onelinedetail
         rst = rebase --autostash
+        uu = ls-files --others --exclude-standard
 [color "status"]
 	untracked = white
 	changed = white normal dim
