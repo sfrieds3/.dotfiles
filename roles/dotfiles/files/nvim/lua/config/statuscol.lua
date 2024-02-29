@@ -4,7 +4,6 @@ _G.Status = M
 ---@return {name:string, text:string, texthl:string}[]
 function M.get_signs(winid)
   winid = winid or vim.g.statusline_winid
-  print(winid)
   local buf = vim.api.nvim_win_get_buf(winid)
   return vim.tbl_map(function(sign)
     return vim.fn.sign_getdefined(sign.name)[1]
