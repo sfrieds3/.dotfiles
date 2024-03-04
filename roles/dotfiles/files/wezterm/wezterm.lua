@@ -20,6 +20,7 @@ local config = {
   enable_tab_bar = false,
   tab_bar_at_bottom = true,
   scrollback_lines = 1000000,
+  audible_bell = "Disabled",
   window_decorations = "RESIZE",
   window_close_confirmation = "AlwaysPrompt",
   window_padding = {
