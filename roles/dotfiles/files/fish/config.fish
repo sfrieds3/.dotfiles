@@ -13,11 +13,8 @@ if status is-interactive
     # zoxide
     zoxide init fish | source
 
-    # pyenv init
-    pyenv init - | source
-
-    # rbenv init
-    # rbenv init - | source
+    # asdf
+    source (brew --prefix asdf)/libexec/asdf.fish
 
     if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
         eval $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda "shell.fish" hook $argv | source
