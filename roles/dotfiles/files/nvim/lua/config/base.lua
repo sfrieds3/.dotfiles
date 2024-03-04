@@ -10,9 +10,9 @@ vim.g.maplocalleader = "\\"
 
 -- set zsh executable dir
 if IS_MAC then
-  vim.opt.shell = "/opt/homebrew/bin/zsh --login"
+  vim.opt.shell = "/opt/homebrew/bin/fish"
 else
-  vim.opt.shell = "/usr/bin/zsh"
+  vim.opt.shell = "/usr/bin/fish"
 end
 
 vim.opt.termguicolors = true

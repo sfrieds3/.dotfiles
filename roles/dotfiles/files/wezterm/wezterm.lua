@@ -3,8 +3,12 @@ local act = wezterm.action
 require("tabs")
 
 local config = {
+  -- default_prog = {
+  --   "/bin/zsh",
+  --   "--login",
+  -- },
   default_prog = {
-    "/bin/zsh",
+    "/opt/homebrew/bin/fish",
     "--login",
   },
   color_scheme = "Gruvbox dark, pale (base16)",
