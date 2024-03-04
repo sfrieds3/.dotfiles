@@ -10,6 +10,8 @@ if status is-interactive
     alias gbp='git checkout -'
     alias gd='git diff'
     alias gdc='git diff --cached'
+    alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "[WIP]: $(date)"'
+    alias gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(date)"'
 
     # fzf aliaseg
     alias glf='git ls-files --exclude-standard | fzf | xargs git lf'

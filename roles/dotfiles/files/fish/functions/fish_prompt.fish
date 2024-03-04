@@ -2,7 +2,7 @@ function __kubectl_status -d "Get k8s ctx/ns"
     [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
     [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR /
     set -l config $KUBECONFIG
-    set --local KUBECTL_PROMPT_ICON "kube:"
+    set --local KUBECTL_PROMPT_ICON "k8s:"
     [ -z "$config" ]; and set -l config "$HOME/.kube/config"
     if [ ! -f $config ]
         echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
@@ -18,13 +18,13 @@ function __kubectl_status -d "Get k8s ctx/ns"
     set -l ns (kubectl config view -o "jsonpath={.contexts[?(@.name==\"$ctx\")].context.namespace}")
     [ -z $ns ]; and set -l ns default
 
-    echo (set_color cyan)" ("$KUBECTL_PROMPT_ICON" $ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
+    echo (set_color blue)" ("$KUBECTL_PROMPT_ICON" $ctx$KUBECTL_PROMPT_SEPARATOR$ns)"(set_color normal)
 end
 
 function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
         set -l venv_icon 
-        set -l venv_icon "py-venv:"
+        set -l venv_icon py-venv
         set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
         set_color green
         printf " ($venv_icon $venv_location)"
@@ -32,21 +32,33 @@ function __python_venv -d "Get python venv"
     end
 end
 
-function __pyvenv_version -d "Get pyenv version"
+function __python_version -d "Get python version"
     if test -e .python-version
         set -l py_icon 🐍
-        set -l py_icon "py:"
-        set -l py_version (pyenv local)
-        set_color red
+        set -l py_icon py
+        set -l py_version (asdf current python | awk '{print $2}')
+        set_color green
         printf " ($py_icon $py_version)"
         set_color normal
     end
 end
 
+function __python_path -d "Get python path"
+    if not set -q VIRTUAL_ENV; and not set -q CONDA_PREFIX
+        set -l py_icon 
+        set -l pyversion (python --version | sed 's/^Python //')
+        set -l whichpy (which python)
+        set -l venv_location (string replace $HOME/ '' $whichpy)
+        set_color cyan
+        echo " ($py_icon $venv_location [$pyversion])"
+        set_color normal
+    end
+
+end
+
 function __conda_env -d "Get conda env"
     if set -q CONDA_PREFIX
         set -l conda_icon 🅒
-        set -l conda_icon "conda:"
         set -l conda_environment (basename $CONDA_PREFIX)
         set_color green
         printf " ($conda_icon $conda_environment)"
@@ -71,9 +83,9 @@ function __node_version -d "Get node version"
     if __is_node_dir and (command -v node 2> /dev/null)
         set -l node_icon 
         set -l node_icon "node:"
-        set -l _node_version (node --version)
+        set -l _node_version (asdf current nodejs | awk '{print $2}')
         set_color magenta
-        printf " ($node_icon $_node_version)"
+        printf " ($node_icon v$_node_version)"
         set_color normal
     end
 end
@@ -109,7 +121,6 @@ function __ssh_prompt --description "TODO: use to determine username/host in ssh
 end
 
 function fish_prompt --description "Config prompt"
-    set -l last_status $status
     printf "\n"
     set_color red
     printf "∷ "
@@ -118,12 +129,12 @@ function fish_prompt --description "Config prompt"
     printf "∷"
     set_color normal
 
-
     # other status
     printf (__kubectl_status)
     printf (__docker_context)
     printf (__python_venv)
-    printf (__pyvenv_version)
+    printf (__python_version)
+    printf (__python_path)
     printf (__conda_env)
     printf (__node_version)
 
@@ -134,7 +145,8 @@ function fish_prompt --description "Config prompt"
     printf (prompt_pwd)
     set_color normal
 
-    if not test $last_status -eq 0
+    set -l last_status $status
+    if test $last_status -ne 0
         set_color $fish_color_error
         printf " [$last_status]"
         printf " !! "
