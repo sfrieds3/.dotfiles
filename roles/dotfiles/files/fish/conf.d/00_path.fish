@@ -36,7 +36,7 @@ if status is-interactive
     set -l pathdirs $BREWBIN $BREWSBIN $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
     set -l pathdirs $LUAROCKSBIN $PERL5BIN $SYSGOBIN $GOBIN $USRLOCALBIN $LOCALBIN $BREWSBIN $BREWBIN
     for dir in $pathdirs
-        fish_add_path --prepend --move $dir
+        fish_add_path --path --prepend --move $dir
     end
 
     set -l appendpathdirs $OPENJDKBIN
@@ -44,11 +44,11 @@ if status is-interactive
         fish_add_path --append --move $dir
     end
 
-    set --global --export PYENV_ROOT $HOME/.pyenv
-    set PYENVBIN $PYENV_ROOT/bin
-    if set -l index (contains -i PYENV_BIN $fish_user_paths)
-        set -e fish_user_paths[$index]
-    end
-
-    fish_add_path --prepend --move $PYENV_BIN
+    # set --global --export PYENV_ROOT $HOME/.pyenv
+    # set PYENVBIN $PYENV_ROOT/bin
+    # if set -l index (contains -i PYENV_BIN $fish_user_paths)
+    #     set -e fish_user_paths[$index]
+    # end
+    #
+    # fish_add_path --prepend --move $PYENV_BIN
 end

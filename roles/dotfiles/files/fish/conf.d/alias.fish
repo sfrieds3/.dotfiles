@@ -26,4 +26,7 @@ if status is-interactive
     # python
     alias condata="conda activate data"
     alias workonvenv="source $HOME/.venv/venv/bin/activate.fish"
+
+    # other
+    alias pcr="pre-commit run"
 end

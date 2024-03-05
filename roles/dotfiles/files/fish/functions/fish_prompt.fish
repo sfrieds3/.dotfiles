@@ -151,7 +151,7 @@ function fish_prompt --description "Config prompt"
         printf " [$last_status]"
         printf " !! "
     else
-        printf " = "
+        printf " │ "
     end
 
     set_color normal
