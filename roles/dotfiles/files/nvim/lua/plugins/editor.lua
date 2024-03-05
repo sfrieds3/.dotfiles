@@ -440,6 +440,10 @@ return {
     },
   },
   {
+    "cbochs/grapple.nvim",
+    name = "grapple",
+  },
+  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
