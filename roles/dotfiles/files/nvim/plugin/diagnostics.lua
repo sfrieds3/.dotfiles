@@ -1,7 +1,13 @@
-vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+local group = require("utils.utils").augroup("diagnostic-highlights")
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = group,
+  callback = function()
+    vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+    vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+    vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+  end,
+})
 
 vim.diagnostic.config({
   -- virtual_text = { source = false },
@@ -34,7 +40,7 @@ end, {})
 
 vim.api.nvim_create_user_command("DisableVirtualText", function()
   vim.diagnostic.config({ virtual_text = false })
-  printl("virtual_text disabled")
+  print("virtual_text disabled")
 end, {})
 
 local virtual_text_enabled = false
