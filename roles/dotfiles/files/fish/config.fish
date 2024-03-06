@@ -10,6 +10,11 @@ if status is-interactive
     set --global --export fish_prompt_pwd_dir_length 3
     set --global --export fish_prompt_pwd_full_dirs 3
 
+    # atuin
+    set --global --export ATUIN_NOBIND true
+    atuin init fish | source
+    bind \ct _atuin_search
+
     # zoxide
     zoxide init fish | source
 
