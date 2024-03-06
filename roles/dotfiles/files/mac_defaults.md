@@ -31,3 +31,11 @@ ln -sfn $(brew --prefix)/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugi
 export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
 asdf install python <version>
 ```
+
+# For docker to pick up homebrew installed plugins
+
+```json
+  "cliPluginsExtraDirs": [
+      "/opt/homebrew/lib/docker/cli-plugins"
+  ]
+```
