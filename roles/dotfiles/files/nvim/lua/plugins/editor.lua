@@ -442,10 +442,35 @@ return {
   {
     "cbochs/grapple.nvim",
     name = "grapple",
+    keys = {
+      { "<leader>hh", "<cmd>Grapple open_tags<cr>", desc = "Grapple Open Tags" },
+      { "<leader>ha", "<cmd>Grapple tag<cr>", desc = "Grapple Tag" },
+      { "<leader>hd", "<cmd>Grapple untag<cr>", desc = "Grapple Untag" },
+      { "<leader>hn", "<cmd>Grapple cycle_forward<cr>", desc = "Grapple Cycle Forward" },
+      { "<leader>hp", "<cmd>Grapple cycle_backward<cr>", desc = "Grapple Cycle Backward" },
+      { "<leader>h1", "<cmd>Grapple select index=1<cr>", desc = "Grapple Select Index 1" },
+      { "<leader>h2", "<cmd>Grapple select index=2<cr>", desc = "Grapple Select Index 2" },
+      { "<leader>h3", "<cmd>Grapple select index=3<cr>", desc = "Grapple Select Index 3" },
+      { "<leader>h4", "<cmd>Grapple select index=4<cr>", desc = "Grapple Select Index 4" },
+      { "<leader>h5", "<cmd>Grapple select index=5<cr>", desc = "Grapple Select Index 5" },
+      { "<leader>h6", "<cmd>Grapple select index=6<cr>", desc = "Grapple Select Index 6" },
+      { "<leader>h7", "<cmd>Grapple select index=7<cr>", desc = "Grapple Select Index 7" },
+      { "<leader>h8", "<cmd>Grapple select index=8<cr>", desc = "Grapple Select Index 8" },
+      { "<leader>h9", "<cmd>Grapple select index=9<cr>", desc = "Grapple Select Index 9" },
+    },
+  },
+  {
+    "cbochs/portal.nvim",
+    name = "portal",
+    keys = {
+      { "<leader>o", "<cmd>Portal jumplist backward<cr>", desc = "Portal Jumplist Backward" },
+      { "<leader>i", "<cmd>Portal jumplist forward<cr>", desc = "Portal Jumplist Forward" },
+    },
   },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
+    enabled = false,
     dependencies = { "nvim-lua/plenary.nvim" },
 
     config = function()

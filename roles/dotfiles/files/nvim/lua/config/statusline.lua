@@ -181,6 +181,16 @@ local function mode_name(mode)
   return string.upper(mode_table[mode] or "Normal")
 end
 
+local function grapple_icon()
+  local icon = require("grapple").statusline()
+
+  if icon then
+    return " " .. icon
+  else
+    return ""
+  end
+end
+
 --- Return filename formatted for statusline
 ---@param buf_name string Buffer name
 ---@param win_id integer Id for window
@@ -194,15 +204,16 @@ local function filename(buf_name, win_id, shorten, dev_icon)
   local base_name = fnamemodify(buf_name, [[:~:.]])
   local filename_ext = vim.fn.fnamemodify(buf_name, ":e")
   local icon = string.format(" %s ", require("nvim-web-devicons").get_icon(buf_name, filename_ext, { default = true }))
+  local grapple_icon = grapple_icon()
   if shorten then
     local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
     if string.len(base_name) <= space then
-      return icon .. format_filename(base_name)
+      return icon .. format_filename(base_name .. grapple_icon)
     else
-      return icon .. format_filename(pathshorten(base_name))
+      return icon .. format_filename(pathshorten(base_name) .. grapple_icon)
     end
   else
-    return icon .. format_filename(base_name)
+    return icon .. format_filename(base_name .. grapple_icon)
   end
 end
 
