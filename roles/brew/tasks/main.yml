@@ -17,7 +17,7 @@
       - ctags
       - curl
       - docker
-      - docker-Buildx
+      - docker-buildx
       - docker-completion
       - docker-compose
       - fd
