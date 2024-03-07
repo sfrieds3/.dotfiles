@@ -1,5 +1,4 @@
 function fish_set_virtual_env --description "issue with path persisting in fish 3.0, this is a roundabout way to ensure virtualenv is always at head of PATH"
-
     if set -q VIRTUAL_ENV
         set VENV_BIN $VIRTUAL_ENV/bin
 
