@@ -43,4 +43,10 @@ if status is-interactive
     for difr in $appendpathdirs
         fish_add_path --path --append --move $dir
     end
+
+    # remove asdf shims so they can be added at beginning of path
+    set --local asdf_shims $HOME/.asdf/shims
+    if set --local index (contains -i $asdf_shims $PATH)
+        set --erase PATH[$index]
+    end
 end
