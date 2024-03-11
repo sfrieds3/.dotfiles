@@ -33,7 +33,7 @@ if status is-interactive
     kubectl completion fish | source
 
     # configure fzf bindings
-    fzf_configure_bindings --history=\co
+    fzf_configure_bindings --history=\co --directory=\eff --git_log=\efl --processes=\efp --variables=\efv
 
     # load fzf_git
     source $__fish_config_dir/custom/git_fzf.fish
