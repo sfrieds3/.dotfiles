@@ -70,3 +70,5 @@
 	required = true
 [pretty]
 	onelinedetail = %C(bold red)%h %Creset%s %C(bold green)%aN %C(bold blue)(%ar)%Creset%C(yellow)%d%Creset
+[rerere]
+	enabled = true
