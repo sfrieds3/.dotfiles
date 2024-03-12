@@ -21,12 +21,18 @@ if status is-interactive
     # asdf
     source (brew --prefix asdf)/libexec/asdf.fish
 
+    # conda
     if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
         eval $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda "shell.fish" hook $argv | source
     end
 
     # do not add conda env to prompt
     function __conda_add_prompt
+    end
+
+    # cargo
+    if test -f "$HOME/.cargo/env.fish"
+        source "$HOME/.cargo/env.fish"
     end
 
     # load kubectl completions
