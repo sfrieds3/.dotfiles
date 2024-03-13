@@ -79,6 +79,7 @@
       - typescript-language-server
       - uv
       - virtualenv
+      - watchexec
       - wget
       - wireshark
       - yq
