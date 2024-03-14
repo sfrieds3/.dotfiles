@@ -35,10 +35,14 @@ local config = {
   },
   -- stylua: ignore
   keys = {
+    -- window management
+    { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
+
     -- copy/paste
     { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
     { key = "c", mods = "OPT|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
     { key = "c", mods = "OPT|SHIFT|CTRL", action = act.CopyTo("PrimarySelection") },
+
     -- paste from the clipboard
     { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
     { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
