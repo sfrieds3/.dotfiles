@@ -41,7 +41,15 @@ function M.setup()
     tsserver = true,
     vimls = true,
     ansiblels = true,
-    helm_ls = true,
+    helm_ls = {
+      settings = {
+        ["helm-ls"] = {
+          yamlls = {
+            path = "yaml-language-server",
+          },
+        },
+      },
+    },
     elixirls = true,
     ocamllsp = {
       on_attach = on_attach,
