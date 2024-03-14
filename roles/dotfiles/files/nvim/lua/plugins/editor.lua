@@ -229,14 +229,14 @@ return {
     config = true,
     keys = {
       {
-        "]t",
+        "]T",
         function()
           require("todo-comments").jump_next()
         end,
         desc = "Next todo comment",
       },
       {
-        "[t",
+        "[T",
         function()
           require("todo-comments").jump_prev()
         end,

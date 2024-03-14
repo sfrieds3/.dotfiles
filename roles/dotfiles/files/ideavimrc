@@ -84,6 +84,8 @@ nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
 nnoremap [t gT
 nnoremap ]t gt
+nnoremap <space>tn gt
+nnoremap <space>tp gT
 
 " window management
 nmap <Space>ws :action SplitHorizontally<cr>
