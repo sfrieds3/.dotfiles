@@ -127,7 +127,7 @@ return {
       { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Trouble Loclist" },
       { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble Quickfix" },
       { "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble LSP References" },
-      { "<leader>xd", "<cmd>TroubleToggle lsp_definitions<cr>", desc = "Trouble LSP Definitions" },
+      { "<leader>xD", "<cmd>TroubleToggle lsp_definitions<cr>", desc = "Trouble LSP Definitions" },
     },
   },
   {
