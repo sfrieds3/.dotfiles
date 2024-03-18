@@ -57,6 +57,7 @@
       - postgresql
       - pre-commit
       - prettier
+      - protobuf
       - pyright
       - rclone
       - redis
