@@ -182,10 +182,9 @@ local function mode_name(mode)
 end
 
 local function grapple_icon()
-  local icon = require("grapple").statusline()
-
-  if icon then
-    return " " .. icon
+  if require("grapple").exists() then
+    local icon = require("grapple").name_or_index()
+    return " (󰛢 " .. icon .. ")"
   else
     return ""
   end
