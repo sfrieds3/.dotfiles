@@ -45,7 +45,6 @@ nnoremap <Space>ff :action GotoFile<CR>
 nnoremap <Space>c :action GotoClass<CR>
 nnoremap <Space>ss :action FileStructurePopup<CR>
 nnoremap <Space>sS :action GotoSymbol<CR>
-nnoremap <Space><Space> :action Switcher<CR>
 nnoremap <Space>B :action ToggleLineBreakpoint<CR>
 nnoremap <Space>q :action CloseContent<CR>
 nnoremap <Space>Q :action ReopenClosedTab<CR>
