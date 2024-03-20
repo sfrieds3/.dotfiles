@@ -442,6 +442,11 @@ return {
   {
     "cbochs/grapple.nvim",
     name = "grapple",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = "Grapple",
+    opts = {
+      scope = "git_branch",
+    },
     keys = {
       { "<leader>hh", "<cmd>Grapple open_tags<cr>", desc = "Grapple Open Tags" },
       { "<leader>ha", "<cmd>Grapple tag<cr>", desc = "Grapple Tag" },

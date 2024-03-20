@@ -32,6 +32,7 @@ function M.setup()
     pyright = false,
     pylyzer = false,
     ruff_lsp = true,
+    jinja_lsp = true,
     ast_grep = true,
     jsonls = true,
     biome = false,
