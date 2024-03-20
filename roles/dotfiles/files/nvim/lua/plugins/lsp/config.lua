@@ -28,7 +28,8 @@ function M.setup()
   end
 
   local lsp_configs = {
-    pyright = true,
+    basedpyright = true,
+    pyright = false,
     pylyzer = false,
     ruff_lsp = true,
     ast_grep = true,

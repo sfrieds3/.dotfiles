@@ -483,4 +483,8 @@ return {
       { "<leader>cl", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
     },
   },
+  {
+    "mcauley-penney/visual-whitespace.nvim",
+    config = true,
+  },
 }
