@@ -105,6 +105,20 @@ function __docker_context -d "Get docker context"
     end
 end
 
+function __rust_version --description "Get rust toolchain version"
+    set -l flist "Cargo.toml" "*rs"
+    set -l rust_icon 🦀
+    for file in $flist
+        if test -e $file
+            set -l _rust_version (rustc --version | awk '{print $2}')
+            set_color red
+            printf " ($rust_icon $_rust_version)"
+            set_color normal
+            return
+        end
+    end
+end
+
 function __ssh_prompt --description "TODO: use to determine username/host in ssh or container"
     # Only show host if in SSH or container
     # Store this in a global variable because it's slow and unchanging
@@ -137,6 +151,7 @@ function fish_prompt --description "Config prompt"
     printf (__python_path)
     printf (__conda_env)
     printf (__node_version)
+    printf (__rust_version)
 
     printf "\n"
 
