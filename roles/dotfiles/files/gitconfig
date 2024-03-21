@@ -2,16 +2,22 @@
 	defaultBranch = main
 	; templatedir = $XDG_CONFIG_HOME/git/githooks
 [diff]
-	tool = vimdiff
-	colorMoved = dimmed-zebra
-	wsErrorHighlight = all
-	algorithm = histogram
+	tool = difftastic
+        external = difft
+	; tool = vimdiff
+	; colorMoved = dimmed-zebra
+	; wsErrorHighlight = all
+	; algorithm = histogram
+[pager]
+	difftool = true
 [log]
 	date = iso
 [branch]
 	sort = -committerdate
 [difftool]
 	prompt = false
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
 [commit]
 	verbose = true
 [mergetool]
@@ -39,6 +45,8 @@
 	bb = branch -vv --sort=-committerdate
 	blm = blame -wM
 	br = branch
+	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+        dft = difftool
 	fpush = push --force-with-lease
 	la = log --graph --oneline --decorate --all
 	lf = log -p --pretty=fuller --abbrev-commit

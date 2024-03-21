@@ -16,6 +16,7 @@
       - csvlens
       - ctags
       - curl
+      - difftastic
       - docker
       - docker-buildx
       - docker-completion
