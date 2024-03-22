@@ -23,6 +23,9 @@ function M.init_lazy()
       enabled = true,
       notify = false,
     },
+    diff = {
+      cmd = "terminal_git",
+    },
   })
 end
 
