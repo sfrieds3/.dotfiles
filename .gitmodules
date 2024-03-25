@@ -7,3 +7,6 @@
 [submodule "roles/dotfiles/files/kitty/kitty-themes"]
 	path = roles/dotfiles/files/kitty/kitty-themes
 	url = git@github.com:dexpota/kitty-themes.git
+[submodule "roles/dotfiles/files/tmux/plugins/tpm"]
+	path = roles/dotfiles/files/tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm.git
