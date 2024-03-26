@@ -448,6 +448,7 @@ return {
     },
     keys = {
       { "<leader>;", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple Open Tags" },
+      { "<leader>:", "<cmd>Telescope grapple tags<cr>", desc = "Grapple Open Tags Telescope" },
       { "<leader>=", "<cmd>Grapple tag<cr>", desc = "Grapple Tag" },
       { "<leader>-", "<cmd>Grapple untag<cr>", desc = "Grapple Untag" },
       { "<leader>]", "<cmd>Grapple cycle_forward<cr>", desc = "Grapple Cycle Forward" },

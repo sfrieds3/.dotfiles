@@ -99,7 +99,7 @@ function M.setup()
   pcall(telescope.load_extension, "frecency")
   pcall(telescope.load_extension, "fzf")
   pcall(telescope.load_extension, "undo")
-  pcall(telescope.load_extension, "harpoon")
+  pcall(telescope.load_extension, "grapple")
   pcall(telescope.load_extension, "ui-select")
 end
 
