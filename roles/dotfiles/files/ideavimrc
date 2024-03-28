@@ -41,6 +41,10 @@ noremap <space>yy "*Y
 noremap <space>p "*p
 noremap <space>P "*P
 
+# better ctrl-o/ctrl-i
+nmap <c-o> :action Back<cr>
+nmap <c-i> :action Forward<cr>
+
 " other actions
 nnoremap <space><space> :action RecentFiles<CR>
 nnoremap <space><CR> :action SearchEverywhere<CR>
