@@ -9,6 +9,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_on_yank"),
 })
 
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "term://*",
+  command = [[setlocal listchars= nonumber norelativenumber | startinsert]],
+})
+
 vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   group = augroup("autoquickfix"),
   pattern = "[^l]*",
