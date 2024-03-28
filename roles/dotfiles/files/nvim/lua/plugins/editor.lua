@@ -268,28 +268,6 @@ return {
     },
   },
   {
-    "luukvbaal/statuscol.nvim",
-    config = function()
-      local builtin = require("statuscol.builtin")
-      require("statuscol").setup({
-        bt_ignore = { "terminal", "nofile" },
-        relcurlright = true,
-        segments = {
-          { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-          {
-            sign = { name = { "Diagnostic" }, maxwidth = 2, colwidth = 1, auto = true },
-          },
-          { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
-          {
-            sign = { name = { ".*" }, namespace = { ".*" }, maxwidth = 2, colwidth = 1, wrap = true, auto = true },
-            click = "c:lua.ScSa",
-          },
-          { text = { "│" } },
-        },
-      })
-    end,
-  },
-  {
     "Bekaboo/dropbar.nvim",
     event = "LspAttach",
     keys = {
