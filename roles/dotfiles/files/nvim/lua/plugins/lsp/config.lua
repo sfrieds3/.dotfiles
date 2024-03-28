@@ -39,7 +39,15 @@ function M.setup()
     dockerls = true,
     jdtls = true,
     clangd = true,
-    rust_analyzer = true,
+    rust_analyzer = {
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
+          },
+        },
+      },
+    },
     tsserver = true,
     vimls = true,
     ansiblels = true,
