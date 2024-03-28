@@ -47,7 +47,7 @@ function M.setup()
         },
       },
     },
-    pyright = {
+    pyright = false and {
       settings = {
         python = {
           analysis = {
