@@ -28,8 +28,40 @@ function M.setup()
   end
 
   local lsp_configs = {
-    basedpyright = true,
-    pyright = false,
+    basedpyright = {
+      settings = {
+        basedpyright = {
+          analysis = {
+            diagnosticSeverityOverrides = {
+              reportUnusedCallResult = "information",
+              reportUnusedExpression = "information",
+              reportUnknownMemberType = "none",
+              reportUnknownLambdaType = "none",
+              reportUnknownParameterType = "none",
+              reportMissingParameterType = "none",
+              reportUnknownVariableType = "none",
+              reportUnknownArgumentType = "none",
+              reportAny = "none",
+            },
+          },
+        },
+      },
+    },
+    pyright = {
+      settings = {
+        python = {
+          analysis = {
+            diagnosticSeverityOverrides = {
+              reportGeneralTypeIssues = "information",
+              reportPrivateImportUsage = "information",
+              reportOptionalOperand = "information",
+              reportOptionalSubscript = "information",
+              reportOptionalMemberAccess = "information",
+            },
+          },
+        },
+      },
+    },
     pylyzer = false,
     ruff_lsp = true,
     jinja_lsp = true,
@@ -182,7 +214,7 @@ function M.setup()
       vim.keymap.set( "n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" })
       vim.keymap.set( "n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
       vim.keymap.set("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
-      vim.keymap.set( "n", "<leader>D", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
+      vim.keymap.set( "n", "<leader>ld", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
       vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
       vim.keymap.set("n", "<leader>co", function()
         vim.lsp.buf.code_action({

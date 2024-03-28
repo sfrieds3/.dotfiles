@@ -53,7 +53,7 @@ nnoremap <space>ff :action GotoFile<CR>
 nnoremap <space>c :action GotoClass<CR>
 nnoremap <space>ss :action FileStructurePopup<CR>
 nnoremap <space>sS :action GotoSymbol<CR>
-nnoremap <space>B :action ToggleLineBreakpoint<CR>
+nnoremap <space>b :action ToggleLineBreakpoint<CR>
 nnoremap <space>q :action CloseContent<CR>
 nnoremap <space>Q :action ReopenClosedTab<CR>
 nnoremap <space>W :action EditorToggleShowWhitespaces<cr>

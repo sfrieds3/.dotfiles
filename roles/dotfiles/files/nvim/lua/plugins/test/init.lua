@@ -17,6 +17,7 @@ return {
     opts = {
       defaults = {
         ["<leader>D"] = { name = "+Debug" },
+        ["<leader>Dt"] = { name = "+DebugTest" },
         ["<leader>T"] = { name = "+Test" },
       },
     },
@@ -24,6 +25,9 @@ return {
   {
     "nvim-neotest/neotest",
     dependencies = {
+      "nvim-neotest/nvim-nio",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-lua/plenary.nvim",
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
       "rouge8/neotest-rust",
@@ -36,7 +40,7 @@ return {
         ["neotest-rust"] = {},
       },
       status = { virtual_text = true },
-      output = { open_on_run = true },
+      output = { enabled = true, open_on_run = true },
       quickfix = {
         open = function()
           require("trouble").open({ mode = "quickfix", focus = false })
@@ -135,8 +139,8 @@ return {
         "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
-        { "<leader>DPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-        { "<leader>DPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+        { "<leader>Dtt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
+        { "<leader>Dtc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
@@ -154,7 +158,7 @@ return {
         "leoluz/nvim-dap-go",
       -- stylua: ignore
         keys = {
-          { "<leader>DPt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
+          { "<leader>Dtt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
         },
         config = true,
       },
@@ -200,8 +204,8 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>Td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
-      { "<leader>DB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
-      { "<leader>Db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
+      { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
       { "<leader>Dc", function() require("dap").continue() end, desc = "Continue" },
       { "<leader>Da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
       { "<leader>DC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
