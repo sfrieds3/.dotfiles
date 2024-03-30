@@ -37,7 +37,9 @@ return {
       adapters = {
         ["neotest-python"] = {},
         ["neotest-go"] = {},
-        ["neotest-rust"] = {},
+        ["neotest-rust"] = {
+          dap_adapter = "lldb",
+        },
       },
       status = { virtual_text = true },
       output = { enabled = true, open_on_run = true },

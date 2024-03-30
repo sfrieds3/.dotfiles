@@ -10,3 +10,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   buffer = bufnr,
   group = vim.api.nvim_create_augroup("jsonformat:" .. bufnr, {}),
 })
+
+require("plugins.test.rust").setup()
