@@ -265,4 +265,16 @@ return {
     "AlexvZyl/nordic.nvim",
     event = "VeryLazy",
   },
+  {
+    "kevinm6/kurayami.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "comfysage/evergarden",
+    event = "VeryLazy",
+  },
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    event = "VeryLazy",
+  },
 }
