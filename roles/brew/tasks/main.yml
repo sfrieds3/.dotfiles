@@ -9,6 +9,7 @@
       - automake
       - bat
       - black
+      - cargo-nextest
       - chicken
       - cmake
       - colima
