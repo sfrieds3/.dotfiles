@@ -16,9 +16,9 @@ return {
     optional = true,
     opts = {
       defaults = {
-        ["<leader>D"] = { name = "+Debug" },
-        ["<leader>Dt"] = { name = "+DebugTest" },
-        ["<leader>T"] = { name = "+Test" },
+        ["<localleader>d"] = { name = "+Debug" },
+        ["<localleader>dt"] = { name = "+DebugTest" },
+        ["<localleader>t"] = { name = "+Test" },
       },
     },
   },
@@ -120,13 +120,13 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader>Tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
-      { "<leader>TT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
-      { "<leader>Tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
-      { "<leader>Ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
-      { "<leader>To", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
-      { "<leader>TO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
-      { "<leader>TS", function() require("neotest").run.stop() end, desc = "Stop" },
+      { "<localleader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<localleader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
+      { "<localleader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<localleader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<localleader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
+      { "<localleader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
+      { "<localleader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
     },
   },
   {
@@ -134,6 +134,19 @@ return {
 
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+      vim.fn.sign_define("DapBreakpointCondition", {
+        text = "",
+        texthl = "DiagnosticSignError",
+      })
+      vim.fn.sign_define("DapBreakpoint", {
+        text = "",
+        texthl = "DiagnosticSignError",
+      })
+      vim.fn.sign_define("DapStopped", {
+        text = "",
+        texthl = "DiagnosticSignInfo",
+        linehl = "DapStoppedLine",
+      })
     end,
 
     dependencies = {
@@ -141,8 +154,8 @@ return {
         "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
-        { "<leader>Dtt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-        { "<leader>Dtc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+        { "<localleader>dtt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
+        { "<localleader>dtc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
@@ -160,7 +173,7 @@ return {
         "leoluz/nvim-dap-go",
       -- stylua: ignore
         keys = {
-          { "<leader>Dtt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
+          { "<localleader>dtt", function() require("dap-go").debug_test() end, desc = "Debug Method", ft = "go" },
         },
         config = true,
       },
@@ -168,8 +181,8 @@ return {
         "rcarriga/nvim-dap-ui",
         -- stylua: ignore
         keys = {
-          { "<leader>Du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-          { "<leader>De", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+          { "<localleader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
+          { "<localleader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
         },
         opts = {},
         config = function(_, opts)
@@ -205,25 +218,25 @@ return {
 
     -- stylua: ignore
     keys = {
-      { "<leader>Td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
-      { "<leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
-      { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-      { "<leader>Dc", function() require("dap").continue() end, desc = "Continue" },
-      { "<leader>Da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
-      { "<leader>DC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-      { "<leader>Dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
+      { "<localleader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
+      { "<localleader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
+      { "<localleader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<localleader>dc", function() require("dap").continue() end, desc = "Continue" },
+      { "<localleader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+      { "<localleader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<localleader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
       { "<F7>", function() require("dap").step_into() end, desc = "Step Into" },
-      { "<leader>Dj", function() require("dap").down() end, desc = "Down" },
-      { "<leader>Dk", function() require("dap").up() end, desc = "Up" },
-      { "<leader>Dl", function() require("dap").run_last() end, desc = "Run Last" },
+      { "<localleader>dj", function() require("dap").down() end, desc = "Down" },
+      { "<localleader>dk", function() require("dap").up() end, desc = "Up" },
+      { "<localleader>dl", function() require("dap").run_last() end, desc = "Run Last" },
       { "<F9>", function() require("dap").step_out() end, desc = "Step Out" },
       { "<F8>", function() require("dap").step_over() end, desc = "Step Over" },
-      { "<leader>Dp", function() require("dap").pause() end, desc = "Pause" },
-      { "<leader>Dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-      { "<leader>Ds", function() require("dap").session() end, desc = "Session" },
-      { "<leader>DT", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<localleader>dp", function() require("dap").pause() end, desc = "Pause" },
+      { "<localleader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+      { "<localleader>ds", function() require("dap").session() end, desc = "Session" },
+      { "<localleader>dT", function() require("dap").terminate() end, desc = "Terminate" },
       { "<F3>", function() require("dap").terminate() end, desc = "Terminate" },
-      { "<leader>Dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      { "<localleader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
   },
   {
