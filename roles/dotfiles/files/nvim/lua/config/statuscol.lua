@@ -14,18 +14,6 @@ function M.get_signs(buf, lnum)
   ---@type Sign[]
   local signs = {}
 
-  if vim.fn.has("nvim-0.10") == 0 then
-    -- Only needed for Neovim <0.10
-    -- Newer versions include legacy signs in nvim_buf_get_extmarks
-    for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = "*", lnum = lnum })[1].signs) do
-      local ret = vim.fn.sign_getdefined(sign.name)[1] --[[@as Sign]]
-      if ret then
-        ret.priority = sign.priority
-        signs[#signs + 1] = ret
-      end
-    end
-  end
-
   -- Get extmark signs
   local extmarks = vim.api.nvim_buf_get_extmarks(
     buf,
@@ -99,7 +87,8 @@ function M.statuscolumn()
   local is_file = vim.bo[buf].buftype == ""
   local show_signs = vim.wo[win].signcolumn ~= "no"
 
-  local components = { "", "", "", "│" } -- left, middle, right
+  ---@type string[] | Sign[]
+  local components = { " ", "", "", "│" }
 
   if show_signs then
     ---@type Sign?,Sign?,Sign?
@@ -120,7 +109,7 @@ function M.statuscolumn()
       end
     end)
     -- Left: mark or non-git sign
-    components[1] = M.icon(M.get_mark(buf, vim.v.lnum) or left)
+    components[1] = M.icon(left)
     -- Right: fold icon or git sign (only if file)
     components[3] = is_file and M.icon(fold or right) or ""
   end
@@ -136,6 +125,11 @@ function M.statuscolumn()
       components[2] = is_relnum and "%r" or "%l" -- other lines
     end
     components[2] = "%=" .. components[2] .. " " -- right align
+  end
+
+  local mark = M.get_mark(buf, vim.v.lnum)
+  if mark ~= nil then
+    components[4] = M.icon(mark)
   end
 
   return table.concat(components, "")
