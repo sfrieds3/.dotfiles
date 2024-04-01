@@ -75,6 +75,7 @@
       - standard
       - stylua
       - the_silver_searcher
+      - tig
       - tmux
       - tox
       - tree
