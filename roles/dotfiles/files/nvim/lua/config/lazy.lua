@@ -24,7 +24,7 @@ function M.init_lazy()
       notify = false,
     },
     diff = {
-      cmd = "terminal_git",
+      cmd = "diffview.nvim",
     },
   })
 end
