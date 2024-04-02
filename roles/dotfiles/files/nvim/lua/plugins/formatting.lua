@@ -26,7 +26,6 @@ return {
         css = { "prettierd", "prettier" },
         html = { "prettierd", "prettier" },
         -- yaml = { "prettierd", "prettier" },
-        -- markdown = { "prettierd", "prettier" },
         graphql = { "prettierd", "prettier" },
         lua = { "stylua" },
         markdown = { "mdformat" },

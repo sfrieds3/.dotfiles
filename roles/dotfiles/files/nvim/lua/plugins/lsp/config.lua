@@ -71,6 +71,7 @@ function M.setup()
     dockerls = true,
     jdtls = true,
     clangd = true,
+    terraformls = true,
     rust_analyzer = {
       settings = {
         ["rust-analyzer"] = {
