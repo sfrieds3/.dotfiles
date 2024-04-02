@@ -127,7 +127,11 @@ function M.setup()
         ellipsis_char = "...",
       }),
     },
-
+    view = {
+        entries = {
+          follow_cursor = true,
+        }
+    },
     experimental = {
       ghost_text = {
         hl_group = "LspCodeLens",
