@@ -120,9 +120,9 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<localleader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
-      { "<localleader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
-      { "<localleader>tr", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<localleader>tt", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<localleader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<localleader>tF", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
       { "<localleader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
       { "<localleader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
       { "<localleader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
@@ -154,8 +154,8 @@ return {
         "mfussenegger/nvim-dap-python",
       -- stylua: ignore
       keys = {
-        { "<localleader>dtt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-        { "<localleader>dtc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+        { "<localleader>dtt", function()   require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
+        { "<localleader>dtc", function()   require("dap-python").test_class() end, desc = "Debug Class", ft = "python" },
       },
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
