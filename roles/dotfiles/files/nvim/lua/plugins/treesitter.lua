@@ -124,7 +124,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cmd = { "TSContextEnable", "TSContextDisable", "TSContextToggle" },
+    lazy = false,
 
     keys = {
       {
@@ -141,8 +141,6 @@ return {
       },
     },
 
-    opts = {
-      enable = false,
-    },
+    config = true,
   },
 }
