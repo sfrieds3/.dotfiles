@@ -1,18 +1,41 @@
 local M = {}
 local lspconfig = require("lspconfig")
 
+--- Toggle inlay hints
+---@param bufnr integer buffer number
+function M.toggle_inlay_hints(bufnr)
+  vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled())
+end
+
 function M.setup()
-  local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
   local function on_attach(client, bufnr)
+    if client.supports_method("textDocument/inlayHint") then
+      vim.lsp.inlay_hint.enable(bufnr, true)
+    end
+
+    -- TODO: support toggling code lens on and off
+    if client.supports_method("textDocument/codeLens") then
+      vim.lsp.codelens.refresh()
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
     end
+
     require("config.statusline").init_lsp_progress()
   end
 
   local lsp_configs = {
     basedpyright = {
+      on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         basedpyright = {
           analysis = {
@@ -32,6 +55,8 @@ function M.setup()
       },
     },
     pyright = false and {
+      on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         python = {
           analysis = {
@@ -57,6 +82,8 @@ function M.setup()
     clangd = true,
     terraformls = true,
     rust_analyzer = {
+      on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         ["rust-analyzer"] = {
           cargo = {
@@ -84,6 +111,8 @@ function M.setup()
     vimls = true,
     ansiblels = true,
     helm_ls = {
+      on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         ["helm-ls"] = {
           yamlls = {
@@ -161,6 +190,12 @@ function M.setup()
         capabilities = capabilities,
         settings = {
           Lua = {
+            codeLens = {
+              enable = true,
+            },
+            completion = {
+              callSnippet = "Replace",
+            },
             runtime = {
               -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
               version = "LuaJIT",
@@ -249,6 +284,8 @@ function M.setup()
       vim.keymap.set("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
       end, { buffer = ev.buf, desc = "LSP: async [F]ormat" })
+
+      vim.keymap.set("n", "<leader>ll", function() M.toggle_inlay_hints(0) end, { buffer =ev.buf, desc = "LSP: Toggle inlay hints" })
     end,
   })
 end
