@@ -6,9 +6,11 @@ return {
     cmd = "Git",
     ft = "gitcommit",
     keys = {
-      { "<leader>gb", "<cmd>Git blame<cr>", desc = "Blame" },
-      { "<leader>gdd", "<cmd>Git diff<cr>", desc = "Diff" },
-      { "<leader>gdc", "<cmd>Git diff --cached<cr>", desc = "Diff --cached" },
+      { "<leader>gb", "<cmd>Git blame<cr>", desc = "Git Blame" },
+      { "<leader>gl", "<cmd>Git log %<cr>", desc = "Git Log File" },
+      { "<leader>gL", "<cmd>Git log<cr>", desc = "Git Log Repo" },
+      { "<leader>gdd", "<cmd>Git diff<cr>", desc = "Git Diff" },
+      { "<leader>gdc", "<cmd>Git diff --cached<cr>", desc = "Git Diff --cached" },
     },
   },
   {
