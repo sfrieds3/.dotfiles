@@ -86,11 +86,11 @@ function M.setup()
   end
 
   -- stylua: ignore
-  vim.keymap.set("n", "\\dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
-  vim.keymap.set("n", "\\tf", function()
+  vim.keymap.set("n", "<localleader>dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
+  vim.keymap.set("n", "<localleader>dtf", function()
     dap_python.test_method()
   end, { desc = "dap-python: test function" })
-  vim.keymap.set("n", "\\tc", function()
+  vim.keymap.set("n", "<localleader>tc", function()
     dap_python.test_class()
   end, { desc = "dap-python: test class" })
 

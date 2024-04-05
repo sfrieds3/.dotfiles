@@ -74,7 +74,7 @@ function M.setup()
     pylyzer = false,
     ruff_lsp = true,
     jinja_lsp = true,
-    ast_grep = true,
+    ast_grep = false,
     jsonls = true,
     biome = false,
     dockerls = true,
@@ -265,10 +265,11 @@ function M.setup()
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP: hover" })
       vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
       vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
-      vim.keymap.set( "n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" })
-      vim.keymap.set( "n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
+      vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
+      vim.keymap.set("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" })
+      vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
       vim.keymap.set("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
-      vim.keymap.set( "n", "<leader>ld", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
+      vim.keymap.set("n", "<leader>ld", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
       vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
       vim.keymap.set("n", "<leader>co", function()
         vim.lsp.buf.code_action({
@@ -279,13 +280,25 @@ function M.setup()
           },
         })
       end, { desc = "Organize Imports" })
-      vim.keymap.set( { "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code [A]ction" })
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code [A]ction" })
+      vim.keymap.set({ "n", "v" }, "<leader>cA", function()
+        vim.lsp.buf.code_action({
+          context = {
+            only = {
+              "source",
+            },
+            diagnostics = {},
+          },
+        })
+      end, { buffer = ev.buf, desc = "LSP: code [A]ction" })
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, desc = "LSP: [g]oto [r]eferences" })
       vim.keymap.set("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
       end, { buffer = ev.buf, desc = "LSP: async [F]ormat" })
 
       vim.keymap.set("n", "<leader>ll", function() M.toggle_inlay_hints(0) end, { buffer =ev.buf, desc = "LSP: Toggle inlay hints" })
+      vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
+      vim.keymap.set({ "n", "v" }, "<leader>cR", vim.lsp.codelens.run, { desc = "Refresh Codelens" })
     end,
   })
 end
