@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.diagnostic.config({
   -- virtual_text = { source = false },
   float = {
-    source = "always",
+    source = true,
     border = "rounded",
     title = "Diagnostics",
     title_pos = "left",
@@ -62,14 +62,32 @@ local function goto_diagnostic(severity, next)
   end
 end
 
+local function diagnostic_toggle_buf(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  if vim.diagnostic.is_disabled(bufnr) then
+    vim.diagnostic.enable(bufnr)
+    print("Enabled buffer diagnostics")
+  else
+    vim.diagnostic.disable(bufnr)
+    print("Disabled buffer diagnostics")
+  end
+end
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+vim.keymap.set("n", "<leader>cf", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go To Previous Diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go To Next Diagnostic" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnotics set Loclist" })
-vim.keymap.set("n", "_DD", vim.diagnostic.disable, { desc = "Disable Diagnostics" })
-vim.keymap.set("n", "_DE", vim.diagnostic.enable, { desc = "Enable Diagnosics" })
+vim.keymap.set("n", "<leader>cD", vim.diagnostic.disable, { desc = "Disable Global Diagnostics" })
+vim.keymap.set("n", "<leader>cd", function()
+  vim.diagnostic.disable(vim.api.nvim_get_current_buf())
+end, { desc = "Disable Buffer Diagnostics" })
+vim.keymap.set("n", "<leader>cE", vim.diagnostic.enable, { desc = "Enable Global Diagnosics" })
+vim.keymap.set("n", "<leader>ce", function()
+  vim.diagnostic.enable(vim.api.nvim_get_current_buf())
+end, { desc = "Enable Global Diagnosics" })
+vim.keymap.set("n", "<leader>ct", diagnostic_toggle_buf, { desc = "Toggle Diagnostics in Buffer" })
 vim.keymap.set("n", "]e", goto_diagnostic(true, "ERROR"), { desc = "Next Error" })
 vim.keymap.set("n", "[e", goto_diagnostic(false, "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", goto_diagnostic(true, "WARN"), { desc = "Next Warning" })
