@@ -56,11 +56,6 @@ return {
       require("luasnip.loaders.from_lua").lazy_load({ paths = { vim.fn.stdpath("data") .. "/snippets_local" } })
     end,
   },
-  {
-    "numToStr/Comment.nvim",
-    event = "InsertEnter",
-    config = true,
-  },
   { "RRethy/nvim-align", cmd = { "Align" } },
   {
     "kevinhwang91/nvim-ufo",
