@@ -32,7 +32,7 @@ if status is-interactive
     set OPENJDKBIIN /opt/homebrew/opt/openjdk/bin
     set BREWSBIN /opt/homebrew/sbin
     set BREWBIN /opt/homebrew/bin
-    set KREWBIN $HOME/.krew/bin
+    set -q KREW_ROOT; and set KREWBIN $KREW_ROOT/.krew/bin; or set KREWBIN $HOME/.krew/bin
 
     # set -l pathdirs $BREWBIN $BREWSBIN $LOCALBIN $USRLOCALBIN $GOBIN $SYSGOBIN $PERL5BIN $LUAROCKSBIN
     set -l pathdirs $LUAROCKSBIN $PERL5BIN $SYSGOBIN $GOBIN $USRLOCALBIN $LOCALBIN $BREWSBIN $BREWBIN $KREWBIN
