@@ -298,7 +298,7 @@ function M.setup()
 
       vim.keymap.set("n", "<leader>ll", function() M.toggle_inlay_hints(0) end, { buffer =ev.buf, desc = "LSP: Toggle inlay hints" })
       vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
-      vim.keymap.set({ "n", "v" }, "<leader>cR", vim.lsp.codelens.run, { desc = "Refresh Codelens" })
+      vim.keymap.set({ "n", "v" }, "<leader>cR", vim.lsp.codelens.run, { desc = "Run Codelens" })
     end,
   })
 end
