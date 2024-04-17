@@ -117,4 +117,8 @@ return {
       integrations = { diffview = true },
     },
   },
+  {
+    "FabijanZulj/blame.nvim",
+    config = true,
+  },
 }

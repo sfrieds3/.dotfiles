@@ -277,4 +277,12 @@ return {
     "nyoom-engineering/oxocarbon.nvim",
     event = "VeryLazy",
   },
+  {
+    "uloco/bluloco.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "kepano/flexoki-neovim",
+    event = "VeryLazy",
+  },
 }
