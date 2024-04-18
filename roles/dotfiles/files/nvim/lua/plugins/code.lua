@@ -56,7 +56,79 @@ return {
       require("luasnip.loaders.from_lua").lazy_load({ paths = { vim.fn.stdpath("data") .. "/snippets_local" } })
     end,
   },
-  { "RRethy/nvim-align", cmd = { "Align" } },
+  {
+    "Vonr/align.nvim",
+    branch = "v2",
+    keys = {
+      {
+        "aa",
+        function()
+          require("align").align_to_char({
+            length = 1,
+          })
+        end,
+        mode = "x",
+        { desc = "Align to 1 Character" },
+      },
+
+      {
+        "ad",
+        function()
+          require("align").align_to_char({
+            preview = true,
+            length = 2,
+          })
+        end,
+        mode = "x",
+        { desc = "Align to 2 Characters with Previews" },
+      },
+
+      {
+        "aw",
+        function()
+          require("align").align_to_string({
+            preview = true,
+            regex = false,
+          })
+        end,
+        mode = "x",
+        { desc = "Align to String with Previews" },
+      },
+
+      {
+        "ar",
+        function()
+          require("align").align_to_string({
+            preview = true,
+            regex = true,
+          })
+        end,
+        { mode = "x" },
+        { desc = "Align to Vim Regex with Previews" },
+      },
+
+      {
+        "gaw",
+        function()
+          local a = require("align")
+          a.operator(a.align_to_string, {
+            regex = false,
+            preview = true,
+          })
+        end,
+        { desc = "Align Paragraph to a String with Previews" },
+      },
+
+      {
+        "gaa",
+        function()
+          local a = require("align")
+          a.operator(a.align_to_char)
+        end,
+        { desc = "Align Paragraph to 1 Character" },
+      },
+    },
+  },
   {
     "kevinhwang91/nvim-ufo",
     dependencies = {
