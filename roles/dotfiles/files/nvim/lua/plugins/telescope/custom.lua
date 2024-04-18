@@ -189,7 +189,7 @@ function M.search_all_files()
       "--smart-case",
       "--trim",
       "--hidden",
-      "--no-ignore",
+      "-uuu",
     },
   }
 
