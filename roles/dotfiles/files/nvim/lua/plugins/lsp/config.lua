@@ -4,7 +4,7 @@ local lspconfig = require("lspconfig")
 --- Toggle inlay hints
 ---@param bufnr integer buffer number
 function M.toggle_inlay_hints(bufnr)
-  vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled())
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end
 
 function M.setup()
@@ -13,7 +13,7 @@ function M.setup()
 
   local function on_attach(client, bufnr)
     if client.supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(bufnr, true)
+      vim.lsp.inlay_hint.enable(true)
     end
 
     -- TODO: support toggling code lens on and off
