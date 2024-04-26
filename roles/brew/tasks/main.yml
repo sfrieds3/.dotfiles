@@ -73,6 +73,7 @@
       - sbcl
       - sd
       - shellcheck
+      - sk
       - standard
       - stylua
       - the_silver_searcher
