@@ -1,10 +1,7 @@
 local M = {}
 
 local open_with_trouble = function(...)
-  return require("trouble.providers.telescope").open_with_trouble(...)
-end
-local open_selected_with_trouble = function(...)
-  return require("trouble.providers.telescope").open_selected_with_trouble(...)
+  return require("trouble.sources.telescope").open(...)
 end
 
 function M.setup()
@@ -46,7 +43,6 @@ function M.setup()
       mappings = {
         i = {
           ["<c-t>"] = open_with_trouble,
-          ["<a-t>"] = open_selected_with_trouble,
           ["<C-Down>"] = actions.cycle_history_next,
           ["<C-Up>"] = actions.cycle_history_prev,
           ["<C-d>"] = actions.preview_scrolling_down,

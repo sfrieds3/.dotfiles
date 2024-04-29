@@ -9,6 +9,15 @@ return {
     },
   },
   {
+    "Wansmer/treesj",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+    -- stylua: ignore
+    keys = {
+      { "<leader>cm", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
 
     build = ":TSUpdate",
