@@ -54,11 +54,12 @@ vim.api.nvim_create_user_command("ToggleVirtualText", function()
   end
 end, {})
 
-local function goto_diagnostic(severity, next)
-  local goto_diag = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+local function goto_diagnostic(direction, severity, float)
+  local goto_diag = direction == "previous" and vim.diagnostic.goto_prev or vim.diagnostic.goto_next
   severity = severity and vim.diagnostic.severity[severity] or nil
+  float = float or false
   return function()
-    goto_diag({ severity = severity })
+    goto_diag({ severity = severity, float = float })
   end
 end
 
@@ -88,8 +89,8 @@ vim.keymap.set("n", "<leader>ce", function()
   vim.diagnostic.enable(vim.api.nvim_get_current_buf())
 end, { desc = "Enable Global Diagnosics" })
 vim.keymap.set("n", "<leader>ct", diagnostic_toggle_buf, { desc = "Toggle Diagnostics in Buffer" })
-vim.keymap.set("n", "]e", goto_diagnostic(true, "ERROR"), { desc = "Next Error" })
-vim.keymap.set("n", "[e", goto_diagnostic(false, "ERROR"), { desc = "Prev Error" })
-vim.keymap.set("n", "]w", goto_diagnostic(true, "WARN"), { desc = "Next Warning" })
-vim.keymap.set("n", "[w", goto_diagnostic(false, "WARN"), { desc = "Prev Warning" })
+vim.keymap.set("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Next Error" })
+vim.keymap.set("n", "[e", goto_diagnostic("previous", "ERROR"), { desc = "Prev Error" })
+vim.keymap.set("n", "]w", goto_diagnostic("next", "WARN"), { desc = "Next Warning" })
+vim.keymap.set("n", "[w", goto_diagnostic("previous", "WARN"), { desc = "Prev Warning" })
 vim.keymap.set("n", "<leader>ce", "<cmd>ToggleVirtualText<cr>", { desc = "Toggle Virtual Text" })
