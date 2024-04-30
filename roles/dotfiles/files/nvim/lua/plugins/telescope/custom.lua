@@ -24,7 +24,7 @@ M.project_files = function(show_hidden)
     hidden = hidden,
   })
 
-  require("telescope.builtin").git_files(opts)
+  require("telescope.builtin").find_files(opts)
 end
 
 function M.wiki_search()
