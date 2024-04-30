@@ -13,15 +13,8 @@ function M.setup()
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    mapping = {
+    mapping = cmp.mapping.preset.insert({
       ["<c-e>"] = cmp.mapping(
-        cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        }),
-        { "i", "c" }
-      ),
-      ["<c-y>"] = cmp.mapping(
         cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
@@ -67,6 +60,8 @@ function M.setup()
         local luasnip = require("luasnip")
         if luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
+        elseif cmp.visible() then
+          cmp.confirm({ select = true })
         else
           fallback()
         end
@@ -75,6 +70,8 @@ function M.setup()
         local luasnip = require("luasnip")
         if luasnip.locally_jumpable(-1) then
           luasnip.jump(-1)
+        elseif cmp.visible() then
+          cmp.confirm({ select = true })
         else
           fallback()
         end
@@ -85,7 +82,7 @@ function M.setup()
         end
         fallback()
       end, { "i", "c" }),
-    },
+    }),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "nvim_lsp_signature_help" },
@@ -128,9 +125,9 @@ function M.setup()
       }),
     },
     view = {
-        entries = {
-          follow_cursor = true,
-        }
+      entries = {
+        follow_cursor = true,
+      },
     },
     experimental = {
       ghost_text = {
