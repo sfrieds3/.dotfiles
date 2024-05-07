@@ -281,7 +281,7 @@ function M.setup()
         })
       end, { desc = "Organize Imports" })
       vim.keymap.set({ "n", "v" }, "crr", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code [A]ction" })
-      vim.keymap.set({ "n", "v" }, "<leader>cA", function()
+      vim.keymap.set({ "n", "v" }, "crR", function()
         vim.lsp.buf.code_action({
           context = {
             only = {
