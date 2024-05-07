@@ -270,7 +270,7 @@ function M.setup()
       vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
       vim.keymap.set("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
       vim.keymap.set("n", "<leader>ld", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
-      vim.keymap.set("n", "crr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
+      vim.keymap.set("n", "crn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
       vim.keymap.set("n", "<leader>co", function()
         vim.lsp.buf.code_action({
           apply = true,
