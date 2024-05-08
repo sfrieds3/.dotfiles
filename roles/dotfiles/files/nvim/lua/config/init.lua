@@ -1,4 +1,4 @@
-vim.g.use_fzf = false
+vim.g.use_fzf = true
 
 require("utils")
 require("config.disable_builtins")

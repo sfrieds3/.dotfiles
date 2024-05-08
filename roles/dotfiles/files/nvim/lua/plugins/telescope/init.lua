@@ -102,4 +102,26 @@ end
 
 if not vim.g.use_fzf then
   return TelescopeConfig.get_config()
+else
+  return {
+    "nvim-telescope/telescope.nvim",
+
+    cmd = "Telescope",
+
+    config = function()
+      require("plugins.telescope.config").setup()
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-telescope/telescope-frecency.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+      "Marskey/telescope-sg",
+      "debugloop/telescope-undo.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+    },
+  }
 end
