@@ -50,6 +50,9 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "g", function()
   focusandback("Google Chrome")
 end)
+hs.hotkey.bind({ "cmd", "shift" }, "\\", function()
+  focusandback("Microsoft Outlook")
+end)
 hs.hotkey.bind({ "cmd", "shift" }, "l", function()
   focusandback("Calendar")
 end)
@@ -166,6 +169,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     u -> Mute Output
     w -> Volume Level
     y -> Pocket Casts
+    \ -> Microsoft Outlook
     , -> Terminal
     ; -> Reminders
     ' -> Passwords
