@@ -101,7 +101,7 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
   pattern = "term://*",
   callback = function()
     local buf_keymap_opts = { buffer = true }
-    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], buf_keymap_opts)
+    vim.keymap.set("t", '""', [[<C-\><C-n>]], buf_keymap_opts)
     --vim.keymap.set('t', '<M-h>', [[<C-\><C-n><C-w>h]], buf_keymap_opts)
     --vim.keymap.set('t', '<M-j>', [[<C-\><C-n><C-w>j]], buf_keymap_opts)
     --vim.keymap.set('t', '<M-k>', [[<C-\><C-n><C-w>k]], buf_keymap_opts)
