@@ -13,17 +13,19 @@ function FZFConfig.get_config()
             ["ctrl-q"] = "select-all+accept",
           },
         },
-        -- winopts = {
-        --   height = 0.5,
-        --   width = 0.7,
-        --   row = 0.5,
-        --   hl = { normal = "Pmenu" },
-        --   border = "none",
-        -- },
+        winopts = {
+          hl = { normal = "Pmenu" },
+          border = "none",
+          preview = {
+            layout = "horizontal",
+            horizontal = "down:40%",
+            wrap = "wrap",
+          },
+        },
         fzf_opts = {
           ["--no-info"] = "",
           ["--info"] = "hidden",
-          ["--padding"] = "13%,5%,13%,5%",
+          ["--padding"] = "3%,3%,3%,3%",
           ["--header"] = " ",
           ["--no-scrollbar"] = "",
         },
@@ -32,9 +34,6 @@ function FZFConfig.get_config()
           git_icons = true,
           prompt = "files:",
           preview_opts = "hidden",
-          -- no_header = true,
-          -- cwd_header = false,
-          -- cwd_prompt = false,
         },
         buffers = {
           formatter = "path.filename_first",
@@ -59,7 +58,7 @@ function FZFConfig.get_config()
             preview = "git show --stat --color --format='%C(cyan)%an%C(reset)%C(bold yellow)%d%C(reset): %s' {1} -- <file>",
             actions = {
               ["ctrl-d"] = function(...)
-                fzf.actions.git_buf_vsplit(...)
+                require("fzf-lua").actions.git_buf_vsplit(...)
                 vim.cmd("windo diffthis")
                 local switch = vim.api.nvim_replace_termcodes("<C-w>h", true, false, true)
                 vim.api.nvim_feedkeys(switch, "t", false)
@@ -141,10 +140,12 @@ function FZFConfig.get_config()
             winopts = {
               width = 0.8,
               height = 0.7,
-              preview = {
-                layout = "horizontal",
-                horizontal = "up:75%",
-              },
+            },
+          },
+          winopts = {
+            preview = {
+              layout = "horizontal",
+              horizontal = "up:75%",
             },
           },
         },
@@ -154,6 +155,15 @@ function FZFConfig.get_config()
           winopts = {
             width = 0.8,
             height = 0.7,
+            preview = {
+              layout = "horizontal",
+              horizontal = "down:45%",
+            },
+          },
+        },
+
+        grep = {
+          winopts = {
             preview = {
               layout = "horizontal",
               horizontal = "down:45%",
@@ -188,7 +198,7 @@ function FZFConfig.get_config()
     { "<leader>I", "<cmd>FzfLua lsp_incoming_calls<cr>", desc = "Incomming calls" },
     { "<leader>O", "<cmd>FzfLua lsp_outgoing_calls<cr>", desc = "Outgiong calls" },
     { "<leader>gg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
-    { "<leader>rg", "<cmd>FzfLua live_grep<cr>", desc = "FzfLua: multi [r]ip[g]rep" },
+    { "<leader>rg", "<cmd>FzfLua live_grep_glob<cr>", desc = "FzfLua: multi [r]ip[g]rep" },
     { "<leader>g/", "<cmd>FzfLua grep_last<cr>", desc = "Grep Last Search" },
     { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
     -- { "<leader>di", function() Utils("installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
