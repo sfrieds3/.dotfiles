@@ -103,7 +103,7 @@ return {
             regex = true,
           })
         end,
-        { mode = "x" },
+        mode = "x",
         { desc = "Align to Vim Regex with Previews" },
       },
 
