@@ -158,3 +158,15 @@ vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- replace last search term
 vim.keymap.set("n", "_R", "':%s/' . @/ . '/'", { desc = "Replace last search term", expr = true })
+
+-- command line mappings
+vim.cmd([[ set cedit=\<C-Y> ]])
+vim.keymap.set("c", "<c-a>", "<Home>")
+vim.keymap.set("c", "<c-b>", "<Left>")
+vim.keymap.set("c", "<c-d>", "<Del>")
+vim.keymap.set("c", "<c-e>", "<End>")
+vim.keymap.set("c", "<c-f>", "<Right>")
+vim.keymap.set("c", "<c-n>", "<Down>")
+vim.keymap.set("c", "<c-p>", "<Up>")
+vim.keymap.set("c", "<m-b>", "<S-Left>")
+vim.keymap.set("c", "<m-f>", "<S-Right>")
