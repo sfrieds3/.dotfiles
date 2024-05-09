@@ -1,6 +1,23 @@
 local FZFConfig = {}
 local Utils = require("utils.telescope")
 
+local lower_third = {
+  row = 1,
+  width = vim.api.nvim_win_get_width(0),
+  height = 0.3,
+}
+
+local lower_third_vertical_preview = {
+  preview = {
+    layout = "vertical",
+    vertical = "right:50%",
+    wrap = "wrap",
+  },
+  row = 1,
+  width = vim.api.nvim_win_get_width(0),
+  height = 0.3,
+}
+
 function FZFConfig.get_config()
   return {
     "ibhagwan/fzf-lua",
@@ -41,15 +58,12 @@ function FZFConfig.get_config()
           preview_opts = "hidden",
           no_header = true,
           fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
+          winopts = lower_third,
         },
         helptags = {
           prompt = "💡:",
           preview_opts = "hidden",
-          winopts = {
-            row = 1,
-            width = vim.api.nvim_win_get_width(0),
-            height = 0.3,
-          },
+          winopts = lower_third,
         },
         git = {
           bcommits = {
@@ -65,30 +79,12 @@ function FZFConfig.get_config()
               end,
             },
             preview_opts = "nohidden",
-            winopts = {
-              preview = {
-                layout = "vertical",
-                vertical = "right:50%",
-                wrap = "wrap",
-              },
-              row = 1,
-              width = vim.api.nvim_win_get_width(0),
-              height = 0.3,
-            },
+            winopts = lower_third_vertical_preview,
           },
           branches = {
             prompt = "branches:",
             cmd = "git branch --all --color",
-            winopts = {
-              preview = {
-                layout = "vertical",
-                vertical = "right:50%",
-                wrap = "wrap",
-              },
-              row = 1,
-              width = vim.api.nvim_win_get_width(0),
-              height = 0.3,
-            },
+            winopts = lower_third_vertical_preview,
           },
         },
         autocmds = {
