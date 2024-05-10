@@ -6,6 +6,8 @@ if status is-interactive
     set -gx PIP_REQUIRE_VIRTUALENV 1
 
     set -gx FZF_DEFAULT_COMMAND "fd -t f --hidden --absolute-path"
+    #fzf --bind "ctrl-a:reload:eval $FZF_DEFAULT_COMMAND --no-ignore"
+
     # set -gx FZF_DEFAULT_OPTS='--color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'
     set -gx FZF_DEFAULT_OPTS --color="bg:-1,bg+:-1,fg:red,fg+:white,border:black,spinner:0,hl:yellow,header:blue,info:green,pointer:red,marker:blue,prompt:white,hl+:red"
 

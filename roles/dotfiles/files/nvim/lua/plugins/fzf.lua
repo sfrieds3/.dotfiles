@@ -157,13 +157,15 @@ function FZFConfig.get_config()
             },
           },
         },
-
         grep = {
           winopts = {
             preview = {
               layout = "horizontal",
               horizontal = "down:45%",
             },
+          },
+          actions = {
+            ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
           },
         },
       })
