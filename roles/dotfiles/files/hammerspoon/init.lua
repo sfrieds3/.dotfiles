@@ -31,7 +31,7 @@ end)
 
 -- focus windows
 local browser = "firefox"
-local terminal = "wezterm"
+local terminal = "alacritty"
 local api_query = "Bruno"
 local passwords = "1Password"
 
