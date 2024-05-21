@@ -2,27 +2,35 @@ local group = require("utils.utils").augroup("diagnostic-highlights")
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = group,
   callback = function()
-    vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-    vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-    vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+    vim.diagnostic.config({
+      -- virtual_text = { source = false },
+      float = {
+        source = true,
+        border = "rounded",
+        title = "Diagnostics",
+        title_pos = "left",
+        header = "",
+      },
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
+      virtual_text = false,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "",
+        },
+        texthl = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+          [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+          [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+        },
+      },
+    })
   end,
-})
-
-vim.diagnostic.config({
-  -- virtual_text = { source = false },
-  float = {
-    source = true,
-    border = "rounded",
-    title = "Diagnostics",
-    title_pos = "left",
-    header = "",
-  },
-  underline = true,
-  signs = true,
-  update_in_insert = false,
-  severity_sort = true,
-  virtual_text = false,
 })
 
 local virtual_text_config = {

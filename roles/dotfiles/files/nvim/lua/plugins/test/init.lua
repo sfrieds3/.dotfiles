@@ -237,6 +237,7 @@ return {
       { "<localleader>dT", function() require("dap").terminate() end, desc = "Terminate" },
       { "<F3>", function() require("dap").terminate() end, desc = "Terminate" },
       { "<localleader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      { "<space>?", function() require("dapui").eval(nil, { enter = true }) end },
     },
   },
   {

@@ -7,6 +7,24 @@ function M.setup()
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
 
+  local luasnip = require("luasnip")
+  luasnip.config.set_config({
+    history = false,
+    updateevents = "TextChanged,TextChangedI",
+  })
+
+  vim.keymap.set({ "i", "s" }, "<c-k>", function()
+    if luasnip.expand_or_locally_jumpable() then
+      luasnip.expand_or_jump()
+    end
+  end, { silent = true })
+
+  vim.keymap.set({ "i", "s" }, "<c-j>", function()
+    if luasnip.locally_jumpable(-1) then
+      luasnip.jump(-1)
+    end
+  end, { silent = true })
+
   cmp.setup({
     snippet = {
       expand = function(args)
@@ -21,7 +39,7 @@ function M.setup()
         }),
         { "i", "c" }
       ),
-      ["<M-y>"] = cmp.mapping(
+      ["<M-e>"] = cmp.mapping(
         cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = false,
@@ -51,26 +69,11 @@ function M.setup()
       }),
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-q>"] = cmp.mapping.abort(),
       ["<Tab>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
-        if luasnip.expand_or_locally_jumpable() then
-          luasnip.expand_or_jump()
-        elseif cmp.visible() then
-          cmp.confirm({ select = true })
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
-        if luasnip.locally_jumpable(-1) then
-          luasnip.jump(-1)
-        elseif cmp.visible() then
+        if cmp.visible() then
           cmp.confirm({ select = true })
         else
           fallback()
