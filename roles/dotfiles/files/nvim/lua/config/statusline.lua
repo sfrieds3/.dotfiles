@@ -81,23 +81,23 @@ local function lsp_diagnostics()
 
   local has_diagnostics = false
   if count["Error"] ~= 0 then
-    local diagnostic = vim.fn.sign_getdefined("DiagnosticSignError")[1]
-    errors = " %#" .. "StatuslineDiagnosticSignError" .. "#" .. diagnostic.text .. count["Error"]
+    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.ERROR]
+    errors = " %#" .. "StatuslineDiagnosticSignError" .. "#" .. symbol .. " " .. count["Error"]
     has_diagnostics = true
   end
   if count["Warn"] ~= 0 then
-    local diagnostic = vim.fn.sign_getdefined("DiagnosticSignWarn")[1]
-    warnings = " %#" .. "StatuslineDiagnosticSignWarn" .. "#" .. diagnostic.text .. count["Warn"]
+    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.WARN]
+    warnings = " %#" .. "StatuslineDiagnosticSignWarn" .. "#" .. symbol .. " " .. count["Warn"]
     has_diagnostics = true
   end
   if count["Hint"] ~= 0 then
-    local diagnostic = vim.fn.sign_getdefined("DiagnosticSignInfo")[1]
-    hints = " %#" .. "StatuslineDiagnosticSignInfo" .. "#" .. diagnostic.text .. count["Hint"]
+    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.INFO]
+    hints = " %#" .. "StatuslineDiagnosticSignInfo" .. "#" .. symbol .. " " .. count["Hint"]
     has_diagnostics = true
   end
   if count["Info"] ~= 0 then
-    local diagnostic = vim.fn.sign_getdefined("DiagnosticSignHint")[1]
-    info = " %#" .. "StatuslineDiagnosticSignHint" .. "#" .. diagnostic.text .. count["Info"]
+    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.HINT]
+    info = " %#" .. "StatuslineDiagnosticSignHint" .. "#" .. symbol .. " " .. count["Info"]
     has_diagnostics = true
   end
 
