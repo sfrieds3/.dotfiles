@@ -51,6 +51,7 @@
       - luarocks
       - maccy
       - minikube
+      - mise
       - mysql
       - neovim
       - ninja
