@@ -216,16 +216,6 @@ return {
     end,
   },
   {
-    "navarasu/onedark.nvim",
-    event = "VeryLazy",
-
-    config = function()
-      require("onedark").setup({
-        style = "darker",
-      })
-    end,
-  },
-  {
     "sainnhe/sonokai",
     event = "VeryLazy",
     config = function()
@@ -258,18 +248,6 @@ return {
     dependencies = "rktjmp/lush.nvim",
   },
   {
-    "rmehri01/onenord.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "AlexvZyl/nordic.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "kevinm6/kurayami.nvim",
-    event = "VeryLazy",
-  },
-  {
     "comfysage/evergarden",
     event = "VeryLazy",
   },
@@ -282,7 +260,7 @@ return {
     event = "VeryLazy",
   },
   {
-    "kepano/flexoki-neovim",
+    "xero/miasma.nvim",
     event = "VeryLazy",
   },
 }
