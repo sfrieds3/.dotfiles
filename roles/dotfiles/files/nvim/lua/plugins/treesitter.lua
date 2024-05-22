@@ -1,6 +1,5 @@
 return {
   { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
-  { "nvim-treesitter/nvim-treesitter-refactor", lazy = true },
   {
     "mfussenegger/nvim-treehopper",
     keys = {
@@ -47,38 +46,6 @@ return {
         additional_vim_regex_highlighting = false,
         indent = {
           enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<C-)>",
-            node_incremental = "<C-)>",
-            scope_incremental = "<C-s>",
-            node_decremental = "<C-()>",
-          },
-        },
-        refactor = {
-          highlight_current_scope = { enable = false },
-          highlight_definitions = {
-            enable = false,
-            clear_on_cursor_move = true,
-          },
-          smart_rename = {
-            enable = true,
-            keymaps = {
-              smart_rename = "<F6>",
-            },
-          },
-          navigation = {
-            enable = true,
-            keymaps = {
-              goto_definition = "gnd",
-              list_definitions = "gnD",
-              list_definitions_toc = "gO",
-              goto_next_usage = "<a-*>",
-              goto_previous_usage = "<a-#>",
-            },
-          },
         },
         matchup = {
           enable = true,
