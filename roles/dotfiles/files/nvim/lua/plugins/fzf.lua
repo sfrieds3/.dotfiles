@@ -165,6 +165,7 @@ function FZFConfig.get_config()
             },
           },
           actions = {
+            ["ctrl-g"] = { require("fzf-lua").actions.grep_lgrep },
             ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
           },
         },
@@ -185,10 +186,8 @@ function FZFConfig.get_config()
     { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Project files" },
     { "<leader>fR", function() require("fzf-lua").files({ cwd = vim.fn.expand('%:p:h') }) end, desc = "Find Related Files" },
     { "<leader>fo", "<cmd>FzfLua oldfiles", desc = "Old files" },
-    -- TODO: implement
-    { "<leader>fF", function() require("fzf-lua").files() end, desc = "Find All Files" },
-    -- TODO: implement
-    { "<leader>sF", function() require("fzf-lua").grep() end, desc = "Search All Files" },
+    { "<leader>fF", function() require("fzf-lua").files({ cmd = "fd --color=never --type f --hidden --follow --exclude .git --no-ignore" }) end, desc = "Find All Files" },
+    { "<leader>sF", function() require("fzf-lua").grep({ rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e --no-ignore --hidden" }) end, desc = "Search All Files" },
     { "<leader>sS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Workspace Symbols" },
     { "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols" },
     { "<leader>gR", "<cmd>FzfLua lsp_references<cr>", desc = "LSP References" },
