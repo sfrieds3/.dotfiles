@@ -29,7 +29,7 @@ return {
         graphql = { "prettierd", "prettier" },
         lua = { "stylua" },
         markdown = { "mdformat" },
-        python = { "ruff_format", "isort" },
+        python = { "ruff_format", "ruff_organize_imports" },
         rust = { "rustfmt" },
         scala = { "scalafmt" },
         sh = { "shellcheck" },
