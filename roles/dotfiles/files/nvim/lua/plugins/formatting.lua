@@ -13,6 +13,7 @@ return {
       lsp_fallback = true,
       formatters_by_ft = {
         c = { "clang_format" },
+        clojure = { "joker" },
         cpp = { "clang_format" },
         fish = { "fish_indent" },
         go = { "gofmt", "goimports" },
