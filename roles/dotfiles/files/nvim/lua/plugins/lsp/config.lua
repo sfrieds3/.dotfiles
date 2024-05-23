@@ -78,6 +78,7 @@ function M.setup()
     jinja_lsp = true,
     ast_grep = false,
     jsonls = true,
+    clojure_lsp = true,
     biome = false,
     dockerls = true,
     jdtls = true,
