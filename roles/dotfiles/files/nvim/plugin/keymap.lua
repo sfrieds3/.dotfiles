@@ -47,7 +47,8 @@ vim.keymap.set("x", "<leader>p", '"_dP')
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>Y", '"+Y')
 
-vim.keymap.set("n", "\\x", "<cmd>write<cr><Cmd>source %<CR>", { desc = "Quick source of current file" })
+vim.keymap.set("n", "\\\\x", "<cmd>write<cr><cmd>source %<cr>", { desc = "Execute current file" })
+vim.keymap.set("n", "\\x", "<cmd>.lua<cr>", { desc = "Execute current line" })
 
 -- run make with <F5>
 vim.keymap.set("n", "<F5>", "<cmd>make<cr>", { desc = "Make" })
@@ -117,12 +118,21 @@ vim.keymap.set("n", "_s", "<cmd>setocal spell! spell?<cr>", { desc = "Toggle spe
 vim.keymap.set("n", "_t", "<cmd>set filetype?<cr>", { desc = "Echo filetype" })
 vim.keymap.set("n", "_T", "<cmd>doautocmd filetypedetect BufRead<cr>", { desc = "Reload filetype plugins" })
 vim.keymap.set("n", "_f", "<cmd>echo expand('%:p')<cr>", { desc = "Echo full file path" })
-vim.keymap.set("n", "<c-l>", "<cmd>nohlsearch<cr>", { desc = "Clear hlsearch highlights" })
 vim.keymap.set("n", "\\c", "<cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
 vim.keymap.set("n", "\\C", "<cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
 vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<cr>]], { desc = "Search for non-ASCII characters" })
 vim.keymap.set("i", "<c-u>", "<esc>gUiwea", { desc = "Upcase last word in insert mode" })
 vim.keymap.set("i", "<s-tab>", "<C-v><tab>", { desc = "Insert actual <Tab> character in insert mode" })
+-- vim.keymap.set("n", "<c-l>", "<cmd>nohlsearch<cr>", { desc = "Clear hlsearch highlights" })
+vim.keymap.set("n", "<cr>", function()
+  ---@diagnostic disable-next-line: undefined-field
+  if vim.opt.hlsearch:get() then
+    vim.cmd.nohlsearch()
+    return ""
+  else
+    return "<cr>"
+  end
+end, { expr = true, desc = "Nohlsearch" })
 
 -- quickly edit recorded macros (https://github.com/mhinz/vim-galore#quickly-edit-your-macros)
 vim.keymap.set(
