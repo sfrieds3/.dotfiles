@@ -191,7 +191,7 @@ function FZFConfig.get_config()
       { "<leader>.", "<cmd>FzfLua resume<cr>", desc = "FzfLua Resume" },
       { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Project files" },
       { "<leader>fR", function() require("fzf-lua").files({ cwd = vim.fn.expand('%:p:h') }) end, desc = "Find Related Files" },
-      { "<leader>fo", "<cmd>FzfLua oldfiles", desc = "Old files" },
+      { "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Old files" },
       { "<leader>fF", function() require("fzf-lua").files({ cmd = "fd --color=never --type f --hidden --follow --exclude .git --no-ignore" }) end, desc = "Find All Files" },
       { "<leader>sF", function() require("fzf-lua").grep({ rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e --no-ignore --hidden" }) end, desc = "Search All Files" },
       { "<leader>sS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Workspace Symbols" },
