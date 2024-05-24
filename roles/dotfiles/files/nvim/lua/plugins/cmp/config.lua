@@ -8,18 +8,13 @@ function M.setup()
   end
 
   local luasnip = require("luasnip")
-  luasnip.config.set_config({
-    history = false,
-    updateevents = "TextChanged,TextChangedI",
-  })
-
-  vim.keymap.set({ "i", "s" }, "<c-k>", function()
-    if luasnip.expand_or_locally_jumpable() then
-      luasnip.expand_or_jump()
+  vim.keymap.set({ "i", "s" }, "<M-s>", function()
+    if luasnip.locally_jumpable() then
+      luasnip.jump(1)
     end
   end, { silent = true })
 
-  vim.keymap.set({ "i", "s" }, "<c-j>", function()
+  vim.keymap.set({ "i", "s" }, "<M-S-s>", function()
     if luasnip.locally_jumpable(-1) then
       luasnip.jump(-1)
     end
