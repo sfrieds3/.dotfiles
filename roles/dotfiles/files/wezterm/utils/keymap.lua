@@ -81,8 +81,14 @@ function keymap.apply_to_config(config)
     -- workspaces
     {
       key = "q",
-      mods = "OPT",
+      mods = "OPT|SHIFT",
       action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+    },
+
+    {
+      key = "q",
+      mods = "OPT",
+      action = require("utils.workspace_switcher").switch_workspace(),
     },
     { key = "n", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(1) },
     { key = "p", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(-1) },
