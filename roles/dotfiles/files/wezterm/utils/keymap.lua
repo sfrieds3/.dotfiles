@@ -44,18 +44,16 @@ end
 function keymap.apply_to_config(config)
   config.leader = { key = "e", mods = "OPT", timeout_milliseconds = 1000 }
   config.keys = {
+    -- window management
+    { key = "Enter", mods = "OPT|SHIFT|CTRL", action = act.ToggleFullScreen },
+
     -- copy/paste
-    {
-      key = "c",
-      mods = "OPT|SHIFT",
-      action = act.CopyTo("ClipboardAndPrimarySelection"),
-    },
-    {
-      key = "c",
-      mods = "OPT|SHIFT|CTRL",
-      action = act.CopyTo("PrimarySelection"),
-    },
+    { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    { key = "c", mods = "OPT|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    { key = "c", mods = "OPT|SHIFT|CTRL", action = act.CopyTo("PrimarySelection") },
+
     -- paste from the clipboard
+    { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
     { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
 
     -- paste from the primary selection
@@ -66,6 +64,15 @@ function keymap.apply_to_config(config)
     { key = "=", mods = "OPT", action = act.IncreaseFontSize },
     { key = "-", mods = "CMD", action = act.DecreaseFontSize },
     { key = "-", mods = "OPT", action = act.DecreaseFontSize },
+
+    -- theme switcher
+    {
+      key = "t",
+      mods = "OPT|SHIFT|CTRL",
+      action = wezterm.action_callback(function(window, pane)
+        require("theme_switcher").theme_switcher(window, pane)
+      end),
+    },
 
     -- scrollback
     { key = "k", mods = "OPT|SHIFT|CTRL", action = act.ScrollByPage(-1) },
@@ -92,9 +99,6 @@ function keymap.apply_to_config(config)
           { Text = "Enter name for new workspace" },
         }),
         action = wezterm.action_callback(function(window, pane, line)
-          -- line will be `nil` if they hit escape without entering anything
-          -- An empty string if they just hit enter
-          -- Or the actual line of text they wrote
           if line then
             window:perform_action(
               act.SwitchToWorkspace({
@@ -120,7 +124,32 @@ function keymap.apply_to_config(config)
       mods = "LEADER",
       action = act.SpawnTab("CurrentPaneDomain"),
     },
-    -- { key = "$", mods = "LEADER|SHIFT", action = wezterm.rename_word
+
+    {
+      key = "$",
+      mods = "LEADER",
+      action = act.PromptInputLine({
+        description = "Enter new name for workspace",
+        action = wezterm.action_callback(function(window, pane, line)
+          if line then
+            wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
+          end
+        end),
+      }),
+    },
+
+    {
+      key = ",",
+      mods = "LEADER",
+      action = act.PromptInputLine({
+        description = "Enter new name for tab",
+        action = wezterm.action_callback(function(window, pane, line)
+          if line then
+            window:active_tab():set_title(line)
+          end
+        end),
+      }),
+    },
 
     -- splits
     {
@@ -136,9 +165,7 @@ function keymap.apply_to_config(config)
     {
       key = "x",
       mods = "OPT|SHIFT",
-      action = wezterm.action_callback(function(window, pane, line)
-        window:perform_action(act({ CloseCurrentPane = { confirm = true } }))
-      end),
+      action = wezterm.action.CloseCurrentPane({ confirm = true }),
     },
 
     -- panes
@@ -183,6 +210,11 @@ function keymap.apply_to_config(config)
     split_nav("resize", "OPT|SHIFT", "l"),
 
     -- search for things that look like git hashes
+    {
+      key = "/",
+      mods = "LEADER",
+      action = act.Search("CurrentSelectionOrEmptyString"),
+    },
     {
       key = "H",
       mods = "SHIFT|CTRL",

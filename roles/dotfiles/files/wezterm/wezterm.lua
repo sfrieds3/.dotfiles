@@ -1,12 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-require("tabs")
 
 local config = {
-  -- default_prog = {
-  --   "/bin/zsh",
-  --   "--login",
-  -- },
   default_prog = {
     "/opt/homebrew/bin/fish",
     "--login",
@@ -21,7 +16,7 @@ local config = {
   use_cap_height_to_scale_fallback_fonts = true,
   disable_default_key_bindings = true,
   native_macos_fullscreen_mode = true,
-  enable_tab_bar = false,
+  enable_tab_bar = true,
   tab_bar_at_bottom = true,
   scrollback_lines = 1000000,
   audible_bell = "Disabled",
@@ -33,39 +28,14 @@ local config = {
     top = 0,
     bottom = 0,
   },
-  keys = {
-    -- window management
-    { key = "Enter", mods = "OPT|SHIFT|CTRL", action = act.ToggleFullScreen },
 
-    -- copy/paste
-    { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
-    { key = "c", mods = "OPT|SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
-    { key = "c", mods = "OPT|SHIFT|CTRL", action = act.CopyTo("PrimarySelection") },
-
-    -- paste from the clipboard
-    { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
-    { key = "v", mods = "OPT|SHIFT", action = act.PasteFrom("Clipboard") },
-
-    -- paste from the primary selection
-    { key = "v", mods = "OPT|SHIFT|CTRL", action = act.PasteFrom("PrimarySelection") },
-
-    -- font size
-    { key = "=", mods = "CMD", action = act.IncreaseFontSize },
-    { key = "=", mods = "OPT", action = act.IncreaseFontSize },
-    { key = "-", mods = "CMD", action = act.DecreaseFontSize },
-    { key = "-", mods = "OPT", action = act.DecreaseFontSize },
-
-    -- theme switcher
-    {
-      key = "t",
-      mods = "OPT|SHIFT|CTRL",
-      action = wezterm.action_callback(function(window, pane)
-        require("theme_switcher").theme_switcher(window, pane)
-      end),
-    },
-  },
+  -- mux config
+  unix_domains = { { name = "unix" } },
+  default_gui_startup_args = { "connect", "unix" },
 }
 
--- keymap.apply_to_config(config)
+require("utils.tabs").setup()
+require("utils.status").setup()
+require("utils.keymap").apply_to_config(config)
 
 return config
