@@ -119,13 +119,13 @@
       - font-hack
       - font-inconsolata
       - font-jetbrains-mono
+      - font-monaspace
       - font-roboto-mono
       - font-source-code-pro
       - font-symbols-only-nerd-font
       - font-victor-mono
       - hammerspoon
       - karabiner-elements
-      - kitty
       - miniconda
       - pocket-casts
       - rectangle

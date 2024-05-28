@@ -65,6 +65,9 @@ function keymap.apply_to_config(config)
     { key = "-", mods = "CMD", action = act.DecreaseFontSize },
     { key = "-", mods = "OPT", action = act.DecreaseFontSize },
 
+    -- font swticher
+    { key = "F", mods = "LEADER", action = require("utils.font").selector_action() },
+
     -- theme switcher
     {
       key = "t",
