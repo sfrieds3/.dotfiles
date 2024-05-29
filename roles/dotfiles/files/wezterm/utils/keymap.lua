@@ -96,6 +96,11 @@ function keymap.apply_to_config(config)
     { key = "n", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(1) },
     { key = "p", mods = "OPT|SHIFT", action = act.SwitchWorkspaceRelative(-1) },
     { key = "c", mods = "LEADER|OPT", action = act.SwitchToWorkspace },
+    {
+      key = "o",
+      mods = "OPT|SHIFT",
+      action = require("utils.workspace").switch_to_previous_workspace(),
+    },
 
     -- Prompt for a name to use for a new workspace and switch to it.
     {
@@ -218,12 +223,21 @@ function keymap.apply_to_config(config)
     split_nav("resize", "OPT|SHIFT", "k"),
     split_nav("resize", "OPT|SHIFT", "l"),
 
+    -- debug
+    { key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
+
     -- search for things that look like git hashes
     {
       key = "/",
       mods = "LEADER",
       action = act.Search("CurrentSelectionOrEmptyString"),
     },
+    {
+      key = "?",
+      mods = "LEADER",
+      action = act.Search("CurrentSelectionOrEmptyString"),
+    },
+    { key = " ", mods = "LEADER", action = act.QuickSelect },
     {
       key = "H",
       mods = "SHIFT|CTRL",
@@ -240,25 +254,30 @@ function keymap.apply_to_config(config)
     { key = "9", mods = "OPT", action = act.ActivateTab(-1) },
   }
   config.key_tables = {
-    search_mode = {
-      { key = "Enter", mods = "NONE", action = act.CopyMode("PriorMatch") },
+    copy_mode = {
       { key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
+      { key = "h", mods = "NONE", action = act.CopyMode("MoveLeft") },
+      { key = "j", mods = "NONE", action = act.CopyMode("MoveDown") },
+      { key = "k", mods = "NONE", action = act.CopyMode("MoveUp") },
+      { key = "l", mods = "NONE", action = act.CopyMode("MoveRight") },
+
+      { key = "/", mods = "NONE", action = wezterm.action({ Search = { CaseSensitiveString = "" } }) },
+
+      { key = "n", mods = "NONE", action = act.CopyMode("NextMatch") },
+      { key = "n", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
+      { key = "y", mods = "NONE", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    },
+    search_mode = {
+      { key = "Escape", mods = "NONE", action = wezterm.action({ CopyMode = "Close" }) },
+      -- Go back to copy mode when pressing enter, so that we can use unmodified keys like "n"
+      -- to navigate search results without conflicting with typing into the search area.
+      { key = "Tab", mods = "NONE", action = act.CopyMode("NextMatch") },
+      { key = "Tab", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
       { key = "n", mods = "CTRL", action = act.CopyMode("NextMatch") },
       { key = "p", mods = "CTRL", action = act.CopyMode("PriorMatch") },
       { key = "r", mods = "CTRL", action = act.CopyMode("CycleMatchType") },
-      { key = "u", mods = "CTRL", action = act.CopyMode("ClearPattern") },
-      {
-        key = "PageUp",
-        mods = "NONE",
-        action = act.CopyMode("PriorMatchPage"),
-      },
-      {
-        key = "PageDown",
-        mods = "NONE",
-        action = act.CopyMode("NextMatchPage"),
-      },
-      { key = "UpArrow", mods = "NONE", action = act.CopyMode("PriorMatch") },
-      { key = "DownArrow", mods = "NONE", action = act.CopyMode("NextMatch") },
+      { key = "w", mods = "CTRL", action = act.CopyMode("ClearPattern") },
+      { key = "Enter", mods = "NONE", action = "ActivateCopyMode" },
     },
   }
 end

@@ -61,6 +61,7 @@ local function workspace_switcher(extra_args)
     window:perform_action(
       act.InputSelector({
         action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+          local current_workspace = window:active_workspace()
           if not id and not label then -- do nothing
           else
             local fullPath = string.gsub(label, "^~", wezterm.home_dir)
@@ -87,6 +88,7 @@ local function workspace_switcher(extra_args)
                 inner_pane
               )
             end
+            wezterm.emit("workspace:changed", window, current_workspace, id)
             wezterm.emit("smart_workspace_switcher.workspace_chosen", window, id)
           end
         end),

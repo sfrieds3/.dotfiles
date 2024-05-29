@@ -4,7 +4,7 @@ local wezterm = require("wezterm") ---@class WezTerm
 local M = {}
 
 function M.setup()
-  wezterm.on("update-right-status", function(window, pane)
+  wezterm.on("update-status", function(window, pane)
     local cells = {}
 
     local cwd_uri = pane:get_current_working_dir()
@@ -35,14 +35,32 @@ function M.setup()
       end
 
       table.insert(cells, cwd)
-      table.insert(cells, hostname)
     end
 
     local date = wezterm.strftime("%a %-d %b - %H:%M:%S")
     table.insert(cells, date)
 
     for _, b in ipairs(wezterm.battery_info()) do
-      table.insert(cells, string.format("%.0f%%", b.state_of_charge * 100))
+      local nf = wezterm.nerdfonts
+      local charge = b.state_of_charge * 100
+
+      local function get_icon(charge_pct)
+        if charge_pct < 15 then
+          return nf.fa_battery_empty
+        elseif charge_pct < 40 then
+          return nf.fa_battery_quarter
+        elseif charge_pct < 65 then
+          return nf.fa_battery_half
+        elseif charge_pct < 90 then
+          return nf.fa_battery_three_quarters
+        else
+          return nf.fa_battery_three_quarters
+        end
+      end
+
+      local icon = get_icon(charge)
+
+      table.insert(cells, string.format("%.0f%% %s", charge, icon))
     end
 
     local statusline_colors = {
@@ -58,12 +76,13 @@ function M.setup()
     local num_cells = 0
 
     local function push(text, is_last)
+      local sep = wezterm.nerdfonts.ple_right_half_circle_thin
       local cell_no = num_cells + 1
-      table.insert(elements, { Foreground = { Color = text_fg } })
-      table.insert(elements, { Background = { Color = statusline_colors[cell_no] } })
-      table.insert(elements, { Text = " " .. text .. " " })
+      table.insert(elements, { Foreground = { AnsiColor = text_fg } })
+      table.insert(elements, { Background = { AnsiColor = statusline_colors[cell_no] } })
+      table.insert(elements, { Text = " " .. text .. " " .. sep })
       if not is_last then
-        table.insert(elements, { Foreground = { Color = statusline_colors[cell_no + 1] } })
+        table.insert(elements, { Foreground = { AnsiColor = statusline_colors[cell_no + 1] } })
       end
       num_cells = num_cells + 1
     end
@@ -74,6 +93,12 @@ function M.setup()
     end
 
     window:set_right_status(wezterm.format(elements))
+
+    local left_elements = {}
+    table.insert(left_elements, { Foreground = { AnsiColor = "White" } })
+    table.insert(left_elements, { Background = { AnsiColor = "Black" } })
+    table.insert(left_elements, { Text = string.format("%s § ", window:active_workspace()) })
+    window:set_left_status(wezterm.format(left_elements))
   end)
 end
 
