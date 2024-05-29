@@ -34,13 +34,28 @@ function M.setup()
     require("config.statusline").init_lsp_progress()
   end
 
-  local lsp_configs = {
+  local servers = {
+    ansiblels = true,
+    bashls = true,
+    clojure_lsp = true,
+    cssls = true,
+    dockerls = true,
+    elixirls = true,
+    jdtls = true,
+    lexical = true,
+    ruff = true,
+    terraformls = true,
+    tsserver = true,
+
     basedpyright = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         basedpyright = {
+          -- using ruff organize imports
+          disableOrganizeInputs = true,
           analysis = {
+            ignore = { "*" },
             diagnosticSeverityOverrides = {
               reportUnusedCallResult = "information",
               reportUnusedExpression = "information",
@@ -56,34 +71,11 @@ function M.setup()
         },
       },
     },
-    pyright = false and {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        python = {
-          analysis = {
-            diagnosticSeverityOverrides = {
-              reportGeneralTypeIssues = "information",
-              reportPrivateImportUsage = "information",
-              reportOptionalOperand = "information",
-              reportOptionalSubscript = "information",
-              reportOptionalMemberAccess = "information",
-            },
-          },
-        },
-      },
+
+    clangd = {
+      init_options = { clangdFileStatus = true },
     },
-    pylyzer = false,
-    ruff_lsp = true,
-    jinja_lsp = true,
-    ast_grep = false,
-    jsonls = true,
-    clojure_lsp = true,
-    biome = false,
-    dockerls = true,
-    jdtls = true,
-    clangd = true,
-    terraformls = true,
+
     rust_analyzer = {
       on_attach = on_attach,
       capabilities = capabilities,
@@ -110,12 +102,17 @@ function M.setup()
         },
       },
     },
-    tsserver = true,
-    vimls = true,
-    ansiblels = true,
-    helm_ls = {
+
+    ocamllsp = {
       on_attach = on_attach,
       capabilities = capabilities,
+      settings = {
+        codelens = { enable = true },
+        inlayHints = { enable = true },
+      },
+    },
+
+    helm_ls = {
       settings = {
         ["helm-ls"] = {
           yamlls = {
@@ -124,47 +121,39 @@ function M.setup()
         },
       },
     },
-    elixirls = true,
-    ocamllsp = {
-      on_attach = on_attach,
-      capabilities = capabilities,
+
+    jsonls = {
       settings = {
-        codelens = { enable = true },
-      },
-    },
-    yamlls = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        yaml = {
-          schemaStore = {
-            enable = true,
-            url = "https://www.schemastore.org/api/json/catalog.json",
-          },
-          keyOrdering = false,
-          schemas = {
-            kubernetes = "*.yaml",
-            ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-            ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-            ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-            ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-            ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-            ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-            ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-            ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-            ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-            ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
-            ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
-            ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
-          },
+        json = {
+          schemas = require("schemastore").json.schemas(),
+          validate = { enable = true },
         },
       },
     },
+
+    yamlls = {
+      settings = {
+        json = {
+          schemas = require("schemastore").json.schemas(),
+          validate = { enable = true },
+        },
+      },
+    },
+
     gopls = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         gopls = {
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constatnsValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
           analyses = {
             unusedparams = true,
           },
@@ -183,6 +172,7 @@ function M.setup()
         },
       },
     },
+
     lua_ls = function()
       local runtime_path = vim.split(package.path, ";", {})
       table.insert(runtime_path, "lua/?.lua")
@@ -200,21 +190,16 @@ function M.setup()
               callSnippet = "Replace",
             },
             runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
               version = "LuaJIT",
-              -- Setup your lua path
               path = runtime_path,
             },
             diagnostics = {
-              -- Get the language server to recognize the `vim` global
               globals = { "vim" },
             },
             workspace = {
-              -- Make the server aware of Neovim runtime files
               library = vim.api.nvim_get_runtime_file("", true),
               checkThirdParty = false,
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
               enable = false,
             },
@@ -225,13 +210,18 @@ function M.setup()
   }
 
   --- init LSP configurations
-  --- lsp_configs is a table whose key is the lsp name and value is one of:
+  --- servers is a table whose key is the lsp name and value is one of:
   --- boolean: use default configuration
   --- table: pass as config to lspconfig.setup
   --- function: to be called for lsp server configuration
   ---@param configs table lsp configurations
   local function init_configs(configs, default_config)
     local config = default_config or { on_attach = on_attach, capabilities = capabilities }
+    local defaults = {
+
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
     for k, v in pairs(configs) do
       if type(v) == "boolean" then
         -- default configuration
@@ -240,6 +230,7 @@ function M.setup()
         end
       elseif type(v) == "table" then
         -- custom configuration
+        vim.tbl_deep_extend("keep", v, defaults)
         lspconfig[k].setup(v)
       elseif type(v) == "function" then
         v()
@@ -251,7 +242,7 @@ function M.setup()
   end
 
   local default_config = { on_attach = on_attach, capabilities = capabilities }
-  init_configs(lsp_configs, default_config)
+  init_configs(servers, default_config)
 
   -- stylua: ignore
   vim.api.nvim_create_autocmd("LspAttach", {
