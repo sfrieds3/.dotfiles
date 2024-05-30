@@ -117,7 +117,6 @@ return {
   },
   {
     "folke/trouble.nvim",
-    branch = "dev",
     dependencies = "nvim-tree/nvim-web-devicons",
 
     keys = {
