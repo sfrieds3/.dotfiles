@@ -53,7 +53,7 @@ function M.setup()
       settings = {
         basedpyright = {
           -- using ruff organize imports
-          disableOrganizeInputs = true,
+          -- disableOrganizeInputs = true,
           analysis = {
             ignore = { "*" },
             diagnosticSeverityOverrides = {
