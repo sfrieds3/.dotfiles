@@ -255,12 +255,4 @@ return {
     "nyoom-engineering/oxocarbon.nvim",
     event = "VeryLazy",
   },
-  {
-    "uloco/bluloco.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "xero/miasma.nvim",
-    event = "VeryLazy",
-  },
 }
