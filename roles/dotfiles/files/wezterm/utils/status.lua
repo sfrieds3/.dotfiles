@@ -60,7 +60,7 @@ function M.setup()
 
       local icon = get_icon(charge)
 
-      table.insert(cells, string.format("%.0f%% %s", charge, icon))
+      table.insert(cells, string.format("%.0f%% %s ", charge, icon))
     end
 
     local statusline_colors = {
@@ -80,7 +80,7 @@ function M.setup()
       local cell_no = num_cells + 1
       table.insert(elements, { Foreground = { AnsiColor = text_fg } })
       table.insert(elements, { Background = { AnsiColor = statusline_colors[cell_no] } })
-      table.insert(elements, { Text = " " .. text .. " " .. sep })
+      table.insert(elements, { Text = " " .. text .. sep })
       if not is_last then
         table.insert(elements, { Foreground = { AnsiColor = statusline_colors[cell_no + 1] } })
       end
