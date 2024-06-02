@@ -7,7 +7,18 @@ return {
   },
   { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
-  { "folke/neodev.nvim", ft = "lua", opts = {} },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        "luvit-meta/library",
+      },
+    },
+    dependenciew = {
+      { "Bilal2453/luvit-meta", lazy = true },
+    },
+  },
   {
     "tpope/vim-scriptease",
     cmd = {

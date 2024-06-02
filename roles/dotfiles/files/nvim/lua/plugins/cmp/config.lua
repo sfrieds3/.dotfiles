@@ -85,9 +85,8 @@ function M.setup()
       { name = "nvim_lsp" },
       { name = "nvim_lsp_signature_help" },
       { name = "luasnip", max_item_count = 10 },
-      { name = "nvim_lua" },
+      { name = "lazydev" },
       { name = "path" },
-      -- { name = 'ripgrep' },
     }, {
       { name = "buffer", max_item_count = 10 },
     }),
