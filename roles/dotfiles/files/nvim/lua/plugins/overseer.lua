@@ -44,7 +44,7 @@ function M.config()
   end, { nargs = "*", bang = true, complete = "file" })
   vim.keymap.set("n", "<localleader>g", ":Grep<space>")
 
-  vim.api.nvim_create_user_command("GrepCword", function()
+  vim.api.nvim_create_user_command("Grepcword", function()
     local params = {}
     params.args = vim.fn.expand("<cword>")
     -- Insert args at the '$*' in the grepprg
@@ -69,7 +69,7 @@ function M.config()
     })
     task:start()
   end, { nargs = "*", bang = true, complete = "file" })
-  vim.keymap.set("n", "<localleader>G", ":GrepCword<cr>")
+  vim.keymap.set("n", "<localleader>G", ":Grepcword<cr>")
 
   vim.api.nvim_create_user_command("Make", function(params)
     -- Insert args at the '$*' in the makeprg
