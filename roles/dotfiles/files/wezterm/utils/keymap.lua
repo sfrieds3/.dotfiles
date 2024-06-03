@@ -181,6 +181,11 @@ function keymap.apply_to_config(config)
       mods = "OPT|SHIFT",
       action = wezterm.action.CloseCurrentPane({ confirm = true }),
     },
+    {
+      key = "x",
+      mods = "OPT",
+      action = wezterm.action.CloseCurrentTab({ confirm = true }),
+    },
 
     -- panes
     {

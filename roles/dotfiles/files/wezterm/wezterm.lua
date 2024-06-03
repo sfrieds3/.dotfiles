@@ -8,11 +8,12 @@ local config = {
   },
   color_scheme = "Gruvbox dark, pale (base16)",
 
-  font = wezterm.font("Commit Mono", { weight = "Regular" }),
+  font = wezterm.font("JetBrains Mono", { weight = "Regular" }),
   line_height = 1.1,
   font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
 
+  automatically_reload_config = true,
   disable_default_key_bindings = true,
   native_macos_fullscreen_mode = true,
   use_fancy_tab_bar = false,
