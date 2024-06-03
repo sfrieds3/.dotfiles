@@ -34,6 +34,7 @@ local browser = "firefox"
 local terminal = "wezterm"
 local api_query = "Bruno"
 local passwords = "1Password"
+local music_app = "Music"
 
 hs.hotkey.bind({ "cmd", "shift" }, "a", function()
   focusandback("Safari")
@@ -63,7 +64,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "q", function()
   focusandback(api_query)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "s", function()
-  focusandback("Spotify")
+  focusandback(music_app)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "y", function()
   focusandback("Pocket Casts")
@@ -86,7 +87,7 @@ hs.hotkey.bind({ "ctrl", "cmd" }, "]", function()
   switchscreen.focusScreen(hs.mouse.getCurrentScreen():next())
 end)
 hs.hotkey.bind({ "ctrl", "cmd" }, "[", function()
-  switchscreen.focusScreen(hs.mouse.getCurrentScreen():previous())
+  switchscreen.fFromocusScreen(hs.mouse.getCurrentScreen():previous())
 end)
 
 -- move window to screen
@@ -106,18 +107,26 @@ hs.hotkey.bind({ "ctrl", "cmd", "shift" }, "[", function()
   windowToPreviousScreen()
 end)
 
--- spotify and volume
+-- music and volume
+local hs_music_app = function()
+  if music_app == "Music" then
+    return "itunes"
+  elseif music_app == "Spotify" then
+    return "spotify"
+  end
+end
+
 hs.hotkey.bind({ "cmd", "shift" }, "0", function()
-  hs.spotify.displayCurrentTrack()
+  hs[hs_music_app()].displayCurrentTrack()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "p", function()
-  hs.spotify.playpause()
+  hs[hs_music_app()].playpause()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "j", function()
-  hs.spotify.next()
+  hs[hs_music_app()].next()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "k", function()
-  hs.spotify.previous()
+  hs[hs_music_app()].previous()
 end)
 
 -- Volume control
