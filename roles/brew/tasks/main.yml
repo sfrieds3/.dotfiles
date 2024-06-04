@@ -14,6 +14,7 @@
       - chicken
       - clojure/tools/clojure
       - cmake
+      - cmake-docs
       - colima
       - coursier/formulas/coursier  # run cs setup
       - csvlens
