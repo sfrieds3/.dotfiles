@@ -8,7 +8,7 @@ local config = {
   },
   color_scheme = "Gruvbox dark, pale (base16)",
 
-  font = wezterm.font("JetBrains Mono", { weight = "Regular" }),
+  font = wezterm.font("Berkeley Mono", { weight = "Regular" }),
   line_height = 1.1,
   font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
