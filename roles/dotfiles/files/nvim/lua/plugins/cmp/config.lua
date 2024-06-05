@@ -26,14 +26,15 @@ function M.setup()
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<c-e>"] = cmp.mapping(
+    mapping = {
+      ["<C-e>"] = cmp.mapping(
         cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         }),
         { "i", "c" }
       ),
+
       ["<M-e>"] = cmp.mapping(
         cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
@@ -41,7 +42,8 @@ function M.setup()
         }),
         { "i", "c" }
       ),
-      ["<c-space>"] = cmp.mapping({
+
+      ["<C-space>"] = cmp.mapping({
         i = cmp.mapping.complete({
           reason = cmp.ContextReason.Manual,
           config = {
@@ -62,11 +64,7 @@ function M.setup()
           end
         end,
       }),
-      ["<C-n>"] = cmp.mapping.select_next_item(),
-      ["<C-p>"] = cmp.mapping.select_prev_item(),
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-q>"] = cmp.mapping.abort(),
+
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.confirm({ select = true })
@@ -74,13 +72,27 @@ function M.setup()
           fallback()
         end
       end, { "i", "s" }),
+
       ["<C-l>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          return cmp.complete_common_string()
+          cmp.complete_common_string()
         end
         fallback()
       end, { "i", "c" }),
-    }),
+
+      ["<Esc>"] = function(fallback)
+        cmp.abort()
+        fallback()
+      end,
+
+      ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
+      ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
+      ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
+      ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
+      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+      ["<C-q>"] = cmp.mapping(cmp.mapping.abort(), { "i", "s", "c" }),
+    },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "nvim_lsp_signature_help" },
