@@ -54,7 +54,7 @@ function M.setup()
         elseif charge_pct < 90 then
           return nf.fa_battery_three_quarters
         else
-          return nf.fa_battery_three_quarters
+          return nf.fa_battery_full
         end
       end
 
