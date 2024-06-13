@@ -5,3 +5,4 @@
 .tool-versions
 Session.vim
 .python-version
+.worktree
