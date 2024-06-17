@@ -250,6 +250,9 @@ return {
   {
     "comfysage/evergarden",
     event = "VeryLazy",
+    opts = {
+      contrast_dark = "hard",
+    },
   },
   {
     "nyoom-engineering/oxocarbon.nvim",

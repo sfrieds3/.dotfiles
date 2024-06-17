@@ -6,7 +6,8 @@ local config = {
     "/opt/homebrew/bin/fish",
     "--login",
   },
-  color_scheme = "Gruvbox dark, pale (base16)",
+  -- color_scheme = "Gruvbox dark, pale (base16)",
+  color_scheme = "kanagawabones",
 
   font = wezterm.font("Berkeley Mono", { weight = "Regular" }),
   line_height = 1.1,

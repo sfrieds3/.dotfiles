@@ -31,7 +31,6 @@ function FZFConfig.get_config()
           },
         },
         winopts = {
-          hl = { normal = "Pmenu" },
           border = "none",
           preview = {
             layout = "horizontal",
