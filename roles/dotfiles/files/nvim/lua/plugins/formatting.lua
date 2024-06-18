@@ -10,7 +10,6 @@ return {
 
   config = function()
     require("conform").setup({
-      lsp_fallback = true,
       formatters_by_ft = {
         c = { "clang_format" },
         clojure = { "joker" },
@@ -48,7 +47,7 @@ return {
     })
 
     vim.keymap.set({ "n", "o", "x", "v" }, "gq", function()
-      require("conform").format({ async = true, lsp_fallback = true })
+      require("conform").format({ lsp_format = "fallback" })
     end)
   end,
 }
