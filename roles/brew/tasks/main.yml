@@ -10,6 +10,7 @@
       - bash
       - bat
       - black
+      - btop
       - cargo-nextest
       - chicken
       - clojure/tools/clojure
