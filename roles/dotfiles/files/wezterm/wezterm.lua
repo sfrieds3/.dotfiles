@@ -13,6 +13,9 @@ local config = {
   line_height = 1.1,
   font_size = 11,
   use_cap_height_to_scale_fallback_fonts = true,
+  freetype_load_flags = "NO_HINTING",
+  freetype_load_target = "Normal",
+  front_end = "OpenGL",
 
   automatically_reload_config = true,
   disable_default_key_bindings = true,
