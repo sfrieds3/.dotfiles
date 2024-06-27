@@ -36,7 +36,7 @@ local api_query = "Bruno"
 local passwords = "1Password"
 local music_app = "Music"
 
-hs.hotkey.bind({ "cmd", "shift" }, "a", function()
+hs.hotkey.bind({ "cmd", "shift" }, "7", function()
   focusandback("Safari")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "d", function()
@@ -51,10 +51,10 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "g", function()
   focusandback("Google Chrome")
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "\\", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F1", function()
   focusandback("Microsoft Outlook")
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "l", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F2", function()
   focusandback("Calendar")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "m", function()
@@ -63,22 +63,22 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "q", function()
   focusandback(api_query)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "s", function()
+hs.hotkey.bind({ "cmd", "shift" }, "0", function()
   focusandback(music_app)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "y", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F3", function()
   focusandback("Pocket Casts")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, ",", function()
   focusandback(terminal)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, ";", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F9", function()
   focusandback("Reminders")
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "'", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F8", function()
   focusandback(passwords)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "`", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F7", function()
   focusandback("anybox")
 end)
 
@@ -116,7 +116,7 @@ local hs_music_app = function()
   end
 end
 
-hs.hotkey.bind({ "cmd", "shift" }, "0", function()
+hs.hotkey.bind({ "cmd", "shift" }, "9", function()
   hs[hs_music_app()].displayCurrentTrack()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "p", function()
@@ -162,7 +162,8 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "h", function()
   hs.alert.show([[
   Key bindings:
-    0 -> Current Track
+    0 -> Music
+    9 -> Current Song
     a -> Safari
     d -> DataGrip
     e -> PyCharm
@@ -174,16 +175,15 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     m -> Messaging
     p -> Play/Pause
     q -> Query
-    s -> Spotify
     u -> Mute Output
     w -> Volume Level
-    y -> Pocket Casts
-    \ -> Microsoft Outlook
     , -> Terminal
-    ; -> Reminders
-    ' -> Passwords
-    ` -> Anybox
     - -> Decrease Volume
     + -> Increase Volume
+    F1 -> Microsoft Outlook
+    F2 -> Calendar
+    F3 -> Pocket Casts
+    F7 -> Anybox
+    F8 -> Passwords
   ]])
 end)
