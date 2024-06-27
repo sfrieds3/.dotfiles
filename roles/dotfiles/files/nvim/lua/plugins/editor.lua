@@ -214,7 +214,7 @@ return {
     opts = {
       search = {
         multi_window = false,
-        trigger = ";",
+        trigger = "\\",
       },
     },
 
