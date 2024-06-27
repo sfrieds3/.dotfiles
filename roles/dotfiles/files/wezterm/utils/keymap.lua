@@ -285,6 +285,29 @@ function keymap.apply_to_config(config)
       { key = "Enter", mods = "NONE", action = "ActivateCopyMode" },
     },
   }
+  config.mouse_bindings = {
+    -- Change the default click behavior so that it only selects
+    -- text and doesn't open hyperlinks
+    {
+      event = { Up = { streak = 1, button = "Left" } },
+      mods = "NONE",
+      action = act.CompleteSelection("PrimarySelection"),
+    },
+
+    -- and make CTRL-Click open hyperlinks
+    {
+      event = { Up = { streak = 1, button = "Left" } },
+      mods = "SHIFT",
+      action = act.OpenLinkAtMouseCursor,
+    },
+
+    -- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
+    {
+      event = { Down = { streak = 1, button = "Left" } },
+      mods = "SHIFT",
+      action = act.Nop,
+    },
+  }
 end
 
 return keymap
