@@ -73,7 +73,7 @@ local function get_process(tab)
 end
 
 --- Get icon for current process in tabs
----@param process string tab details
+---@param process_name string tab details
 ---@return string
 local function get_process_icon(process_name, default_nerdfont)
   local nerdfont = default_nerdfont or "cod_terminal"
@@ -91,23 +91,6 @@ function M.setup()
   wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
     local tab_title_text =
       string.format(" %s: %s %s ", get_tab_index(tab), get_process_icon(get_process(tab)), get_current_working_dir(tab))
-
-    -- local has_unseen_output = false
-    -- for _, pane in ipairs(tab.panes) do
-    --   local proc = get_process(tab)
-    --   if pane.has_unseen_output and not process_exclude_unseen_output[proc] ~= nil then
-    --     has_unseen_output = true
-    --     break
-    --   end
-    -- end
-    -- if has_unseen_output then
-    --   return wezterm.format({
-    --     { Attribute = { Intensity = "Bold" } },
-    --     { Foreground = { AnsiColor = "Black" } },
-    --     { Background = { AnsiColor = "Red" } },
-    --     { Text = tab_title_text },
-    --   })
-    -- end
 
     return wezterm.format({
       { Attribute = { Intensity = "Bold" } },
