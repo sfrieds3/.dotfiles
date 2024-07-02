@@ -183,6 +183,9 @@ function M.setup()
         capabilities = capabilities,
         settings = {
           Lua = {
+            hint = {
+              enable = true,
+            },
             codeLens = {
               enable = true,
             },
