@@ -237,11 +237,39 @@ return {
     "danymat/neogen",
     keys = {
       {
-        "<Leader>cc",
+        "<leader>cc",
         function()
-          require("neogen").generate({})
+          require("neogen").generate({ type = "any" })
         end,
-        desc = "Neogen Comment",
+        desc = "Neogen Generate Any",
+      },
+      {
+        "<leader>cC",
+        function()
+          require("neogen").generate({ type = "class" })
+        end,
+        desc = "Neogen Generate Class",
+      },
+      {
+        "<leader>cF",
+        function()
+          require("neogen").generate({ type = "func" })
+        end,
+        desc = "Neogen Generate Function",
+      },
+      {
+        "<leader>cT",
+        function()
+          require("neogen").generate({ type = "type" })
+        end,
+        desc = "Neogen Generate Function",
+      },
+      {
+        "<leader>cL",
+        function()
+          require("neogen").generate({ type = "file" })
+        end,
+        desc = "Neogen Generate Function",
       },
     },
     opts = {
