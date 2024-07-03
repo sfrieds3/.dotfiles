@@ -1,9 +1,13 @@
 return {
-  { "ramojus/mellifluous.nvim", opts = {
-    transparent_background = {
-      enabled = false,
+  {
+    "ramojus/mellifluous.nvim",
+    opts = {
+      event = "VeryLazy",
+      transparent_background = {
+        enabled = false,
+      },
     },
-  } },
+  },
   { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
   {
     "projekt0n/github-nvim-theme",
@@ -113,7 +117,6 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
-    event = "VeryLazy",
 
     config = function()
       vim.opt.fillchars:append({
@@ -226,7 +229,6 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    event = "VeryLazy",
 
     opts = {
       style = "night",
