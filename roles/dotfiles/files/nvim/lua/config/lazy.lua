@@ -11,7 +11,7 @@ function M.init_lazy()
   require("lazy").setup("plugins", {
     install = { colorscheme = { "kanagawa", "habamax" } },
     dev = {
-      path = "~/dev/personal",
+      path = "~/code/personal",
       patterns = { "sfrieds3" },
     },
     change_detection = {
