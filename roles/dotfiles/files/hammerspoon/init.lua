@@ -32,7 +32,7 @@ end)
 -- focus windows
 local browser = "firefox"
 local terminal = "wezterm"
-local api_query = "Bruno"
+local api_query = "Insomnia"
 local passwords = "1Password"
 local music_app = "Music"
 
