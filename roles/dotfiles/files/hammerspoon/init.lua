@@ -48,9 +48,6 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "f", function()
   focusandback(browser)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "g", function()
-  focusandback("Google Chrome")
-end)
 hs.hotkey.bind({ "cmd", "shift" }, "F1", function()
   focusandback("Microsoft Outlook")
 end)
@@ -168,7 +165,6 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     d -> DataGrip
     e -> PyCharm
     f -> Browser
-    g -> Google Chrome
     j -> Next Song
     k -> Previous Song
     l -> Calendar
