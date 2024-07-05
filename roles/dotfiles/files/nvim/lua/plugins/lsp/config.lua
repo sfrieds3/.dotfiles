@@ -27,10 +27,6 @@ function M.setup()
       })
     end
 
-    if client.server_capabilities.documentSymbolProvider then
-      require("nvim-navic").attach(client, bufnr)
-    end
-
     require("config.statusline").init_lsp_progress()
   end
 
