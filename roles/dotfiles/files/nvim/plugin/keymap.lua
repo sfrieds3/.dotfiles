@@ -40,8 +40,7 @@ vim.keymap.set("n", "*", [[:let @/ = '\v' . expand('<cword>')<bar>set hlsearch<c
 vim.keymap.set("n", "#", "#``", { remap = true })
 
 -- easy access to black hole register
-vim.keymap.set("n", "<leader>d", '"_d')
-vim.keymap.set("x", "<leader>d", '"_d')
+vim.keymap.set({ "n", "x" }, "<leader>d", '"_d')
 vim.keymap.set("x", "<leader>p", '"_dP')
 
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
