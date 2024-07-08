@@ -181,5 +181,6 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     F3 -> Pocket Casts
     F7 -> Anybox
     F8 -> Passwords
+    F9 -> Reminders
   ]])
 end)
