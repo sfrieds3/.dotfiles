@@ -127,6 +127,8 @@ function keymap.apply_to_config(config)
 
     { key = "n", mods = "OPT", action = act.ActivateTabRelative(1) },
     { key = "p", mods = "OPT", action = act.ActivateTabRelative(-1) },
+    { key = "{", mods = "SHIFT|OPT", action = act.MoveTabRelative(-1) },
+    { key = "}", mods = "SHIFT|OPT", action = act.MoveTabRelative(1) },
     {
       key = "o",
       mods = "OPT",
