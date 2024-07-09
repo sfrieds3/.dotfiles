@@ -40,6 +40,7 @@ function M.setup()
     jdtls = true,
     lexical = true,
     ruff = true,
+    taplo = true,
     terraformls = true,
     tsserver = true,
 
