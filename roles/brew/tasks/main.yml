@@ -91,6 +91,7 @@
       - uv
       - virtualenv
       - watchexec
+      - wcurl
       - wget
       - wireshark
       - yq
