@@ -70,11 +70,9 @@ function keymap.apply_to_config(config)
 
     -- theme switcher
     {
-      key = "t",
-      mods = "OPT|SHIFT|CTRL",
-      action = wezterm.action_callback(function(window, pane)
-        require("theme_switcher").theme_switcher(window, pane)
-      end),
+      key = "T",
+      mods = "LEADER",
+      action = require("utils.theme_switcher").theme_switcher(),
     },
 
     -- scrollback

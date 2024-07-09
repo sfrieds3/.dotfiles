@@ -1,9 +1,9 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local M = {}
+local ThemeSwitcher = {}
 
-M.theme_switcher = function(window, pane)
+ThemeSwitcher.theme_switcher = function(extra_args)
   -- get builting color schemes
   local schemes = wezterm.get_builtin_color_schemes()
   local choices = {}
@@ -11,7 +11,7 @@ M.theme_switcher = function(window, pane)
 
   -- populate theme names in choices list
   for key, _ in pairs(schemes) do
-    table.insert(choices, { label = tostring(key) })
+    table.insert(choices, { id = key, label = tostring(key) })
   end
 
   -- sort choices list
@@ -19,30 +19,34 @@ M.theme_switcher = function(window, pane)
     return c1.label < c2.label
   end)
 
-  window:perform_action(
-    act.InputSelector({
-      title = "🎨 Pick a Theme!",
-      choices = choices,
-      fuzzy = true,
+  return wezterm.action_callback(function(window, pane)
+    window:perform_action(
+      act.InputSelector({
+        title = "🎨 Pick a Theme!",
+        choices = choices,
+        fuzzy = true,
 
-      -- execute 'sed' shell command to replace the line
-      -- responsible of colorscheme in my config
-      action = wezterm.action_callback(function(inner_window, inner_pane, _, label)
-        inner_window:perform_action(
-          act.SpawnCommandInNewTab({
-            args = {
-              "sed",
-              "-i",
-              '/^Colorscheme/c\\Colorscheme = "' .. label .. '"',
-              config_path,
-            },
-          }),
-          inner_pane
-        )
-      end),
-    }),
-    pane
-  )
+        -- execute 'sed' shell command to replace the line
+        -- responsible of colorscheme in my config
+        action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+          local cmd = 's/^config.color_scheme = .*/config.color_scheme = "' .. label .. '"/'
+          window:toast_notification("wezterm", "Setting theme to: " .. cmd .. " in: " .. config_path, nil, 1000)
+          -- inner_window:perform_action(
+          --   act.SpawnCommandInNewTab({
+          --     args = {
+          --       "sed",
+          --       "-i",
+          --       cmd,
+          --       config_path,
+          --     },
+          --   }),
+          -- inner_pane
+          -- )
+        end),
+      }),
+      pane
+    )
+  end)
 end
 
-return M
+return ThemeSwitcher
