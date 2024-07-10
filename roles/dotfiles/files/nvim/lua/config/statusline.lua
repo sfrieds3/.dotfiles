@@ -71,7 +71,7 @@ local function lsp_diagnostics()
   local count = {}
 
   for k, level in pairs(Statusline.diagnostic_levels) do
-    count[k] = vim.tbl_count(vim.diagnostic.get(0, { severity = level }))
+    count[k] = vim.diagnostic.count(0, { severity = level })[1] or 0
   end
 
   local errors = ""
