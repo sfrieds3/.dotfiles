@@ -1,5 +1,11 @@
 return {
-  { "rhysd/git-messenger.vim", cmd = { "GitMessenger" } },
+  {
+    "rhysd/git-messenger.vim",
+    cmd = { "GitMessenger" },
+    keys = {
+      { "<leader>gm", "<cmd>GitMessenger<cr>", desc = "Git Messenger" },
+    },
+  },
   { "akinsho/git-conflict.nvim", version = "*", config = true },
   {
     "tpope/vim-fugitive",

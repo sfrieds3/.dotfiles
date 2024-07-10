@@ -36,28 +36,6 @@ return {
     end,
   },
   {
-    "levouh/tint.nvim",
-
-    event = "WinEnter",
-
-    opts = {
-      tint = -10,
-      saturation = 0.6,
-      window_ignore_function = function(winid)
-        local exclude_filetypes = {
-          ["neo-tree"] = true,
-        }
-        local bufid = vim.api.nvim_win_get_buf(winid)
-        local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufid })
-        local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
-        local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufid })
-
-        -- Do not tint `terminal` or floating windows, tint everything else
-        return buftype == "terminal" or floating or exclude_filetypes[filetype]
-      end,
-    },
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     cmd = "Neotree",
@@ -75,6 +53,21 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
+      {
+        "s1n7ax/nvim-window-picker",
+        version = "v2.*",
+        config = true,
+        keys = {
+          {
+            "<Leader>w",
+            function()
+              local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
+              vim.api.nvim_set_current_win(winid)
+            end,
+            desc = "Pick a window",
+          },
+        },
+      },
     },
     config = function()
       vim.g.neo_tree_remove_legacy_commands = 1
@@ -207,7 +200,6 @@ return {
       },
     },
   },
-  { "kylechui/nvim-surround", keys = { "cs", "ds", "ys" }, event = "InsertEnter", config = true },
   {
     "folke/flash.nvim",
 
@@ -323,43 +315,18 @@ return {
     end,
   },
   {
-    "hedyhli/outline.nvim",
+    "stevearc/aerial.nvim",
+    cmd = { "AerialOpen", "AerialToggle", "AerialNavOpen", "AerialNavToggle" },
     opts = {
-      outline_items = {
-        highlight_hovered_item = true,
-        show_symbol_details = true,
-        show_symbol_lineno = false,
-      },
-      outline_window = {
-        show_cursorline = true,
-        hide_cursor = false,
-      },
-      symbol_folding = {
-        autofold_depth = 1,
-      },
-      winblend = 10,
-      keymaps = {
-        hover_symbol = "<leader>e",
-      },
+      filter_kind = false,
     },
-    cmd = { "Outline", "OutlineOpen" },
-    keys = {
-      { "<Leader><CR>", "<cmd>Outline<cr>", desc = "Outline: toggle" },
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
     },
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    version = "v2.*",
-    config = true,
     keys = {
-      {
-        "<Leader>w",
-        function()
-          local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
-          vim.api.nvim_set_current_win(winid)
-        end,
-        desc = "Pick a window",
-      },
+      { "<leader><cr>", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },
     },
   },
   {

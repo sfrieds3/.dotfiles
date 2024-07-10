@@ -18,7 +18,6 @@ function TelescopeConfig.get_config()
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
-      "Marskey/telescope-sg",
       "debugloop/telescope-undo.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },

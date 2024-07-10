@@ -6,6 +6,7 @@ return {
       transparent_background = {
         enabled = false,
       },
+      dim_inactive = true,
     },
   },
   { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
@@ -17,7 +18,7 @@ return {
     config = function()
       require("github-theme").setup({
         options = {
-          dim_inactive = false,
+          dim_inactive = true,
           styles = {
             functions = "italic",
           },
@@ -46,6 +47,11 @@ return {
       background = {
         light = "frappe",
         dark = "mocha",
+      },
+      dim_inactive = {
+        enabled = true,
+        shade = "dark",
+        percentage = 0.80,
       },
       term_colors = true,
       styles = {
@@ -87,7 +93,7 @@ return {
       vim.g.gruvbox_material_foreground = "material"
       vim.g.gruvbox_material_statusline_stype = "material"
       vim.g.gruvbox_better_performance = 1
-      vim.g.gruvbox_material_dim_inactive_windows = 0
+      vim.g.gruvbox_material_dim_inactive_windows = 1
     end,
   },
   {
@@ -97,6 +103,7 @@ return {
       invert_selection = false,
       invert_tabline = false,
       contrast = "hard",
+      dim_inactive = true,
     },
   },
   {
@@ -114,7 +121,7 @@ return {
       })
       require("kanagawa").setup({
         compile = true,
-        dimInactive = false,
+        dimInactive = true,
         globalStatus = true,
         terminalColors = true,
         background = {
@@ -144,9 +151,10 @@ return {
           terminal = false, -- Enable contrast for the built-in terminal
           sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
           floating_windows = false, -- Enable contrast for floating windows
-          cursor_line = false, -- Enable darker background for the cursor line
+          cursor_line = true, -- Enable darker background for the cursor line
+          lsp_virtual_text = true,
           non_current_windows = true, -- Enable darker background for non-current windows
-          filetypes = { "terminal", "packer" }, -- Specify which filetypes get the contrasted (darker) background
+          filetypes = { "terminal", "lazy", "mason" }, -- Specify which filetypes get the contrasted (darker) background
         },
 
         styles = { -- Give comments style such as bold, italic, underline etc.
@@ -162,24 +170,22 @@ return {
         plugins = { -- Uncomment the plugins that you use to highlight them
           -- Available plugins:
           "dap",
-          -- "dashboard",
+          "flash",
           "gitsigns",
-          -- "hop",
+          "illuminate",
           "indent-blankline",
-          -- "lspsaga",
-          -- "mini",
+          "mini",
+          "neo-tree",
           "neogit",
-          "neorg",
           "nvim-cmp",
-          -- "nvim-tree",
-          -- "sneak",
+          "nvim-web-devicons",
           "telescope",
           "trouble",
-          -- "which-key",
+          "which-key",
         },
 
         disable = {
-          colored_cursor = false, -- Disable the colored cursor
+          colored_cursor = true, -- Disable the colored cursor
           borders = false, -- Disable borders between verticaly split windows
           background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
           term_colors = false, -- Prevent the theme from setting terminal colors
@@ -190,8 +196,6 @@ return {
           lighter = false, -- Enable higher contrast text for lighter style
           darker = true, -- Enable higher contrast text for darker style
         },
-
-        lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
 
         async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
 
@@ -206,7 +210,7 @@ return {
     event = "VeryLazy",
     config = function()
       vim.g.sonokai_style = "shusia"
-      vim.g.sonokai_dim_inactive_windows = false
+      vim.g.sonokai_dim_inactive_windows = true
       vim.g.sonokai_better_performance = true
     end,
   },
@@ -226,16 +230,5 @@ return {
         floats = "transparent",
       },
     },
-  },
-  {
-    "comfysage/evergarden",
-    event = "VeryLazy",
-    opts = {
-      contrast_dark = "hard",
-    },
-  },
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    event = "VeryLazy",
   },
 }
