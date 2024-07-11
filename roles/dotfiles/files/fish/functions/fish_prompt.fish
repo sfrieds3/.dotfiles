@@ -135,6 +135,8 @@ function __ssh_prompt --description "TODO: use to determine username/host in ssh
 end
 
 function fish_prompt --description "Config prompt"
+    set -l last_status $status
+
     printf "\n"
     set_color red
     printf "∷ "
@@ -160,7 +162,6 @@ function fish_prompt --description "Config prompt"
     printf (prompt_pwd)
     set_color normal
 
-    set -l last_status $status
     if test $last_status -ne 0
         set_color $fish_color_error
         printf " [$last_status]"
