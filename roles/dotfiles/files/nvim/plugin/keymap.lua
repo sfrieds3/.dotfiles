@@ -76,13 +76,13 @@ vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
 vim.keymap.set("n", "\\q", "<cmd>bclose<cr>")
 vim.keymap.set("n", "]t", "<cmd>tabnext<cr>")
 vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>")
-vim.keymap.set("n", "_Q", "<cmd>tabclose<cr>")
 
 -- tab management
-vim.keymap.set("n", "<leader>tc", "<cmd>tabnew<cr>", { desc = "Create Tab" })
-vim.keymap.set("n", "<leader>tC", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+vim.keymap.set("n", "<leader><tab>c", "<cmd>tabnew<cr>", { desc = "Create Tab" })
+vim.keymap.set("n", "<leader><tab>C", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader><tab>X", "<cmd>tabclose<cr>")
+vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- arglist / quickfix / location list shortcuts
 vim.keymap.set("n", "]a", "<cmd>next<cr>")

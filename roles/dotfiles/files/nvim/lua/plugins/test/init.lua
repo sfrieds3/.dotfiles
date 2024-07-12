@@ -13,12 +13,11 @@ end
 return {
   {
     "folke/which-key.nvim",
-    optional = true,
     opts = {
-      defaults = {
-        ["<localleader>d"] = { name = "+Debug" },
-        ["<localleader>dt"] = { name = "+DebugTest" },
-        ["<localleader>t"] = { name = "+Test" },
+      spec = {
+        { "<localleader>d", group = "debug" },
+        { "<localleader>dt", group = "debug test" },
+        { "<localleader>t", group = "test" },
       },
     },
   },
