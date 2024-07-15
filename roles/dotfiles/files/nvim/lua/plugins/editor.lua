@@ -331,6 +331,13 @@ return {
     cmd = { "AerialOpen", "AerialToggle", "AerialNavOpen", "AerialNavToggle" },
     opts = {
       filter_kind = false,
+      link_tree_to_folds = false,
+      link_folds_to_tree = false,
+      show_guides = true,
+      layout = {
+        min_width = { 40, 0.025 },
+        max_width = { 80, 0.25 },
+      },
     },
     -- Optional dependencies
     dependencies = {
