@@ -108,37 +108,26 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
-
-    config = function()
-      vim.opt.fillchars:append({
-        horiz = "━",
-        horizup = "┻",
-        horizdown = "┳",
-        vert = "┃",
-        vertleft = "┨",
-        vertright = "┣",
-        verthoriz = "╋",
-      })
-      require("kanagawa").setup({
-        compile = true,
-        dimInactive = true,
-        globalStatus = true,
-        terminalColors = true,
-        background = {
-          dark = "dragon",
-          light = "wave",
-        },
-        colors = {
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = "none",
-              },
+    opts = {
+      compile = true,
+      dimInactive = true,
+      globalStatus = true,
+      terminalColors = true,
+      background = {
+        dark = "dragon",
+        light = "wave",
+      },
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
             },
           },
         },
-      })
-    end,
+      },
+    },
+    config = true,
   },
   {
     "marko-cerovac/material.nvim",

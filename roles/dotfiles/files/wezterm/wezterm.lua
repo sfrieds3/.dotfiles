@@ -8,9 +8,9 @@ config.default_prog = {
   "--login",
 }
 -- config.color_scheme = "Gruvbox dark, pale (base16)"
--- config.color_scheme = "kanagawabones"
+config.color_scheme = "kanagawabones"
 -- config.color_scheme = "tokyonight_night"
-config.color_scheme = "Catppuccin Mocha"
+-- config.color_scheme = "Catppuccin Mocha"
 
 config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 config.line_height = 1.1
