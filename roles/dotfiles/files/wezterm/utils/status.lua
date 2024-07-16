@@ -63,28 +63,18 @@ function M.setup()
       table.insert(cells, string.format("%.0f%% %s ", charge, icon))
     end
 
-    local statusline_colors = {
-      "Black",
-      "Black",
-      "Black",
-      "Black",
-    }
-
     local text_fg = "White"
 
     local elements = {}
-    local num_cells = 0
 
     local function push(text, is_last)
       local sep = wezterm.nerdfonts.ple_right_half_circle_thin
-      local cell_no = num_cells + 1
       table.insert(elements, { Foreground = { AnsiColor = text_fg } })
-      table.insert(elements, { Background = { AnsiColor = statusline_colors[cell_no] } })
+      table.insert(elements, { Background = { AnsiColor = "Black" } })
       table.insert(elements, { Text = " " .. text .. sep })
       if not is_last then
-        table.insert(elements, { Foreground = { AnsiColor = statusline_colors[cell_no + 1] } })
+        table.insert(elements, { Foreground = { AnsiColor = "Black" } })
       end
-      num_cells = num_cells + 1
     end
 
     while #cells > 0 do
