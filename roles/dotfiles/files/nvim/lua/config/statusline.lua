@@ -65,6 +65,16 @@ local function init_statusline_hl()
   )
 end
 
+--- Get running linters in buffer
+---@return string list of running linters
+local function get_linters()
+  local linters = require("lint").get_running()
+  if #linters == 0 then
+    return ""
+  end
+  return "  [" .. table.concat(linters, ", ") .. "]"
+end
+
 --- Get lsp diagnostics for statusline
 ---@return string lsp diagnostics string
 local function lsp_diagnostics()
@@ -257,6 +267,7 @@ build_statusline("%%<")
 build_statusline("%%#%s# ") -- filename_color
 build_statusline("%s") -- get_paste
 build_statusline("%s") -- get_readonly_space
+build_statusline("%s") -- linters
 build_statusline("%s") -- lsp
 build_statusline("%%<")
 build_statusline("%%<")
@@ -291,6 +302,7 @@ function Statusline.status()
       filename_color,
       get_paste(),
       get_readonly_space(),
+      get_linters(),
       lsp_diagnostics(),
       Statusline.lsp_progress(),
       vcs_color,
