@@ -3,11 +3,9 @@
 	; templatedir = $XDG_CONFIG_HOME/git/githooks
 [diff]
 	tool = difftastic
-        external = difft
-	; tool = vimdiff
-	; colorMoved = dimmed-zebra
-	; wsErrorHighlight = all
-	; algorithm = histogram
+	colorMoved = dimmed-zebra
+	wsErrorHighlight = all
+	algorithm = histogram
 [pager]
 	difftool = true
 [log]
