@@ -34,7 +34,7 @@ local browser = "firefox"
 local terminal = "wezterm"
 local api_query = "Insomnia"
 local passwords = "1Password"
-local music_app = "Music"
+local music_app = "Spotify"
 
 hs.hotkey.bind({ "cmd", "shift" }, "7", function()
   focusandback("Safari")
