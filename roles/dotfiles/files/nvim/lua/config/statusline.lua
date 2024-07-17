@@ -267,8 +267,8 @@ build_statusline("%%<")
 build_statusline("%%#%s# ") -- filename_color
 build_statusline("%s") -- get_paste
 build_statusline("%s") -- get_readonly_space
+build_statusline("%s") -- lsp diagnostics
 build_statusline("%s") -- linters
-build_statusline("%s") -- lsp
 build_statusline("%%<")
 build_statusline("%%<")
 build_statusline("%%=")
@@ -302,8 +302,8 @@ function Statusline.status()
       filename_color,
       get_paste(),
       get_readonly_space(),
-      get_linters(),
       lsp_diagnostics(),
+      get_linters(),
       Statusline.lsp_progress(),
       vcs_color,
       vcs(win_id),
