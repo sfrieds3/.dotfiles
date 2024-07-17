@@ -52,17 +52,21 @@ function M.setup()
           -- using ruff organize imports
           -- disableOrganizeInputs = true,
           analysis = {
-            ignore = { "*" },
+            -- ignore = { "*" },
             diagnosticSeverityOverrides = {
               reportUnusedCallResult = "information",
               reportUnusedExpression = "information",
+              reportIncompatibleMethodOverride = "information",
+              reportImplicitOverride = "none",
+              reportAny = "none",
+              reportUntypedClassDecorator = "none",
               reportUnknownMemberType = "none",
               reportUnknownLambdaType = "none",
               reportUnknownParameterType = "none",
               reportMissingParameterType = "none",
+              reportMissingTypeArgument = "none",
               reportUnknownVariableType = "none",
               reportUnknownArgumentType = "none",
-              reportAny = "none",
             },
           },
         },
