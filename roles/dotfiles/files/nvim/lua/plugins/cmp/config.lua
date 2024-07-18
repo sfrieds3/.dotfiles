@@ -87,8 +87,14 @@ function M.setup()
 
       ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
       ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
-      ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
-      ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
+      ["<C-n>"] = cmp.mapping(
+        cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        { "i", "s", "c" }
+      ),
+      ["<C-p>"] = cmp.mapping(
+        cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        { "i", "s", "c" }
+      ),
       ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
       ["<C-q>"] = cmp.mapping(cmp.mapping.abort(), { "i", "s", "c" }),
