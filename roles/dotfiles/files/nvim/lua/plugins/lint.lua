@@ -20,6 +20,17 @@ return {
       yaml = { "yamllint" },
     }
 
+    require("lint").linters["markdownlint"].args = {
+      "-r",
+      "~MD013",
+    }
+
+    require("lint").linters["pylint"].args = {
+      "-f",
+      "json",
+      "--disable=W0511",
+    }
+
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {
       group = vim.api.nvim_create_augroup("lint", { clear = true }),
       callback = function()
