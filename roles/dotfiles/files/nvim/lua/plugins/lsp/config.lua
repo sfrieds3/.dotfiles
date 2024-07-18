@@ -57,6 +57,7 @@ function M.setup()
               reportUnusedCallResult = "information",
               reportUnusedExpression = "information",
               reportIncompatibleMethodOverride = "information",
+              reportUnusedVariable = "information",
               reportImplicitOverride = "none",
               reportAny = "none",
               reportUntypedClassDecorator = "none",
