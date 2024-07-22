@@ -106,7 +106,13 @@ function M.setup()
       { name = "lazydev" },
       { name = "path" },
     }, {
-      { name = "buffer", max_item_count = 10 },
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = vim.api.nvim_list_bufs,
+        },
+        max_item_count = 10,
+      },
     }),
     sorting = {
       comparators = {
