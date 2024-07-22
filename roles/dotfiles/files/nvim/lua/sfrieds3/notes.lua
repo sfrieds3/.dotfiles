@@ -1,5 +1,10 @@
+if FORCE_RELOAD then
+  package.loaded["sfrieds3.notes"] = nil
+end
+
 local Notes = {}
 
+Notes.force_reload = true
 Notes.is_configured = false
 
 Notes.config = {
@@ -8,17 +13,18 @@ Notes.config = {
 }
 
 function Notes.get_float_fullscreen_opts()
-  local win_width = vim.api.nvim_win_get_width(0) - 2
-  local win_height = vim.api.nvim_win_get_height(0) - 2
+  local win_width = vim.api.nvim_win_get_width(0)
+  local win_height = vim.api.nvim_win_get_height(0)
   local row = 0
   local col = 0
 
   return {
-    relative = "editor",
-    width = win_width,
-    height = win_height,
-    row = row,
-    col = col,
+    relative = "win",
+    width = vim.fn.round(win_width * 0.75),
+    height = vim.fn.round(win_height * 0.75),
+    row = (win_height - (win_height * 0.75)) / 2,
+    col = (win_width - (win_width * 0.75)) / 2,
+    border = "rounded",
   }
 end
 
@@ -42,13 +48,14 @@ function Notes.open(opts)
   -- TODO: support floating window
   -- something like: `vim.api.nvim_open_win(0, 0, {relative='cursor', width=vim.api.nvim_win_get_width(0), height=vim.api.nvim_win_get_height(0), row=0, col=0, style='minimal'})
   if floating then
+    local original_winid = vim.api.nvim_get_current_win()
+    local win_opts = Notes.get_float_fullscreen_opts()
+    local bufnr = vim.api.nvim_create_buf(false, true)
+    local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
     require("fzf-lua").fzf_exec(files, {
       actions = {
         ["default"] = function(selected)
-          local original_winid = vim.api.nvim_get_current_win()
-          local win_opts = Notes.get_float_fullscreen_opts()
-          local bufnr = vim.api.nvim_create_buf(false, true)
-          local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
+          vim.bo[bufnr].bufhidden = "wipe"
           vim.cmd.edit({ args = selected })
         end,
       },
@@ -68,7 +75,7 @@ vim.api.nvim_create_user_command("NotesFloating", function()
   require("sfrieds3.notes").open({ floating = true })
 end, {})
 
-if not Notes.is_configured then
+if not Notes.is_configured or Notes.force_reload then
   Notes.setup({})
 end
 
