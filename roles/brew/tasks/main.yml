@@ -136,7 +136,7 @@
       - rectangle
       - spotify
       - vlc
-      - wezterm
+      - wezterm@nightly
       - wireshark
 
 - name: Upgrade homebrew packages
