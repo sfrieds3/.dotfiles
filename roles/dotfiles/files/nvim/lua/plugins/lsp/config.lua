@@ -209,11 +209,6 @@ function M.setup()
   ---@param configs table lsp configurations
   local function init_configs(configs, default_config)
     local config = default_config or { on_attach = on_attach, capabilities = capabilities }
-    local defaults = {
-
-      on_attach = on_attach,
-      capabilities = capabilities,
-    }
     for k, v in pairs(configs) do
       if type(v) == "boolean" then
         -- default configuration
@@ -222,7 +217,7 @@ function M.setup()
         end
       elseif type(v) == "table" then
         -- custom configuration
-        vim.tbl_deep_extend("keep", v, defaults)
+        vim.tbl_deep_extend("keep", v, default_config)
         lspconfig[k].setup(v)
       elseif type(v) == "function" then
         v()
