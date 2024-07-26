@@ -5,6 +5,7 @@ return {
     --   { "a", mode = { "x", "o" } },
     --   { "i", mode = { "x", "o" } },
     -- },
+    version = false,
     event = "VeryLazy",
     opts = function()
       local ai = require("mini.ai")
@@ -26,10 +27,7 @@ return {
     "echasnovski/mini.align",
     version = false,
     config = true,
-    keys = {
-      "ga",
-      "gA",
-    },
+    event = "VeryLazy",
   },
   {
     "echasnovski/mini.surround",
