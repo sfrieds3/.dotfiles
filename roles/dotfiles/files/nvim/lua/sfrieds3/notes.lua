@@ -33,7 +33,8 @@ end
 function Notes.setup(opts)
   vim.tbl_deep_extend("force", Notes.config, opts)
 
-  vim.keymap.set("n", "<leader>n", "<cmd>Notes<cr>", { desc = "Open Wiki Notes File" })
+  vim.keymap.set("n", "<leader>N", "<cmd>Notes<cr>", { desc = "Open Wiki Notes File" })
+  vim.keymap.set("n", "<leader>n", "<cmd>NotesFloating<cr>", { desc = "Open Wiki Notes File" })
   Notes.is_configured = true
 end
 
