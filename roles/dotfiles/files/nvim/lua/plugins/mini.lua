@@ -58,4 +58,12 @@ return {
       },
     },
   },
+  {
+    "echasnovski/mini.nvim",
+    config = function()
+      local mi = require("mini.icons")
+      mi.setup()
+      mi.mock_nvim_web_devicons()
+    end,
+  },
 }

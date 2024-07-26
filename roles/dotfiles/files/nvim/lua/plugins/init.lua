@@ -1,10 +1,5 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
-  {
-    "ibhagwan/fzf-lua",
-    cmd = "FzfLua",
-    dependencies = "nvim-tree/nvim-web-devicons",
-  },
   { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
   { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   {

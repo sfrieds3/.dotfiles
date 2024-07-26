@@ -21,9 +21,11 @@ function FZFConfig.get_config()
   return {
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",
-    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("fzf-lua").setup({
+        defaults = {
+          file_icons = "mini",
+        },
         keymap = {
           fzf = {
             ["ctrl-q"] = "select-all+accept",
@@ -225,6 +227,5 @@ else
   return {
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",
-    dependencies = "nvim-tree/nvim-web-devicons",
   }
 end

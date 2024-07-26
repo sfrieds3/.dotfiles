@@ -167,7 +167,6 @@ return {
           "neo-tree",
           "neogit",
           "nvim-cmp",
-          "nvim-web-devicons",
           "telescope",
           "trouble",
           "which-key",

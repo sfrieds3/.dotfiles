@@ -63,7 +63,6 @@ return {
       { "<leader>gs", "<Cmd>Neotree float git_status<CR>", desc = "Neotee Git Status" },
     },
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker",
@@ -122,7 +121,6 @@ return {
   },
   {
     "folke/trouble.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
     cmd = "Trouble",
 
     keys = {
@@ -345,7 +343,6 @@ return {
     -- Optional dependencies
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
     },
     keys = {
       { "<leader><cr>", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },

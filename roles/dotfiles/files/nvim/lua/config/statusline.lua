@@ -191,10 +191,13 @@ local function mode_name(mode)
   return string.upper(mode_table[mode] or "Normal")
 end
 
-local function grapple_icon()
+--- Get grapple icon
+---@param icon_hi string icon highlight color
+---@param filename_color string filename color
+local function get_grapple_icon(icon_hi, filename_color)
   if require("grapple").exists() then
     local icon = require("grapple").name_or_index()
-    return " (󰛢 " .. icon .. ")"
+    return string.format("%%#%s# (󰛢 %s)%%#%s#", icon_hi, icon, filename_color)
   else
     return ""
   end
@@ -203,26 +206,27 @@ end
 --- Return filename formatted for statusline
 ---@param buf_name string Buffer name
 ---@param win_id integer Id for window
+---@param filename_color string color for filename
 ---@param shorten boolean? Should we shorten filename?
-local function filename(buf_name, win_id, shorten, dev_icon)
+local function filename(buf_name, win_id, filename_color, shorten)
   local function format_filename(f)
     return " " .. f .. " "
   end
   shorten = shorten or false
-  dev_icon = dev_icon or true
   local base_name = fnamemodify(buf_name, [[:~:.]])
   local filename_ext = vim.fn.fnamemodify(buf_name, ":e")
-  local icon = string.format(" %s ", require("nvim-web-devicons").get_icon(buf_name, filename_ext, { default = true }))
-  local grapple_icon = grapple_icon()
+  local icon, hi, _ = require("mini.icons").get("file", buf_name)
+  local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
+  local grapple_icon = get_grapple_icon(hi, filename_color)
   if shorten then
     local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
     if string.len(base_name) <= space then
-      return icon .. format_filename(base_name .. grapple_icon)
+      return file_icon .. format_filename(base_name .. grapple_icon)
     else
-      return icon .. format_filename(pathshorten(base_name) .. grapple_icon)
+      return file_icon .. format_filename(pathshorten(base_name) .. grapple_icon)
     end
   else
-    return icon .. format_filename(base_name .. grapple_icon)
+    return file_icon .. format_filename(base_name .. grapple_icon)
   end
 end
 
@@ -286,9 +290,9 @@ function Statusline.status()
     local mode = get_mode().mode
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
-    local filename_segment = filename(bufname, win_id)
-    local filetype_segment = "%y"
     local mode_color, filename_color, filetype_color, vcs_color = "@type", "statusline", "statusline", "StatuslineVcs"
+    local filename_segment = filename(bufname, win_id, filename_color)
+    local filetype_segment = "%y"
     local line_col_segment = filename_segment ~= "" and "%#@namespace# ℓ:%l 𝚌:%c " or " "
     statuslines[win_id] = string.format(
       Statusline.format_string,

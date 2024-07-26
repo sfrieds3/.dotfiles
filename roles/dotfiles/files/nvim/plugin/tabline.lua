@@ -37,11 +37,9 @@ Tabline.build = function()
     s = s .. i .. " " --> Tab index
 
     -- Icon
-    if Tabline.has_devicons then
-      local ext = vim.fn.fnamemodify(curr_bufname, ":e")
-      local icon = Tabline.devicons.get_icon(curr_bufname, ext, { default = true }) .. " "
-      s = s .. icon
-    end
+    local ext = vim.fn.fnamemodify(curr_bufname, ":e")
+    local icon = require("mini.icons").get("file", curr_bufname) .. " "
+    s = s .. icon
 
     -- Current name of the tab
     local display_curr_bufname = vim.fn.fnamemodify(curr_bufname, ":t")
@@ -84,8 +82,6 @@ Tabline.build = function()
 end
 
 function Tabline.setup()
-  Tabline.has_devicons, Tabline.devicons = pcall(require, "nvim-web-devicons")
-
   function _G.nvim_tabline()
     return Tabline.build()
   end
