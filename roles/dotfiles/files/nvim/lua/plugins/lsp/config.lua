@@ -62,6 +62,7 @@ function M.setup()
               reportImplicitOverride = "none",
               reportAny = "none",
               reportUntypedClassDecorator = "none",
+              reportUntypedFunctionDecorator = "none",
               reportUnknownMemberType = "none",
               reportUnknownLambdaType = "none",
               reportUnknownParameterType = "none",
