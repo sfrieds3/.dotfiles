@@ -47,10 +47,21 @@ return {
           vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
         end
 
+        local nav_hunk_config = {
+          wrap = true,
+          navigation_message = true,
+          preview = true,
+        }
+
+        local nav_hunk_all_config = { target = "all" }
+        vim.tbl_deep_extend("keep", nav_hunk_all_config, nav_hunk_config)
+
         -- stylua: ignore start
         map("n", "<leader>gb", gs.blame, "Gitsigns Blame")
-        map("n", "]h", gs.next_hunk, "Next Hunk")
-        map("n", "[h", gs.prev_hunk, "Prev Hunk")
+        map("n", "]h", function() gs.nav_hunk("next", nav_hunk_config) end, "Next Unstaged Hunk")
+        map("n", "<leader>]h", function() gs.nav_hunk("next", nav_hunk_all_config) end, "Next Hunk")
+        map("n", "[h", function() gs.nav_hunk("prev", nav_hunk_config) end, "Prev Unstaged Hunk")
+        map("n", "<leader>[h", function() gs.nav_hunk("prev", nav_hunk_all_config) end, "Prev Hunk")
         map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
         map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
         map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")

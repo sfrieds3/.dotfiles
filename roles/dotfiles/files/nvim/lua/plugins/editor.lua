@@ -365,16 +365,20 @@ return {
       },
     },
 
+    setup = function(opts)
+      require("illuminate").configure(opts)
+    end,
+
     keys = {
       {
-        "[[",
+        "[r",
         function()
           require("illuminate").next_reference({ reverse = true, wrap = true })
         end,
         desc = "Previous Reference",
       },
       {
-        "]]",
+        "]r",
         function()
           require("illuminate").next_reference({ wrap = true })
         end,
@@ -410,8 +414,8 @@ return {
       { "<leader>:", "<cmd>Telescope grapple tags<cr>", desc = "Grapple Open Tags Telescope" },
       { "<leader>=", "<cmd>Grapple tag<cr>", desc = "Grapple Tag" },
       { "<leader>-", "<cmd>Grapple untag<cr>", desc = "Grapple Untag" },
-      { "<leader>]", "<cmd>Grapple cycle_forward<cr>", desc = "Grapple Cycle Forward" },
-      { "<leader>[", "<cmd>Grapple cycle_backward<cr>", desc = "Grapple Cycle Backward" },
+      { "<leader>]]", "<cmd>Grapple cycle_forward<cr>", desc = "Grapple Cycle Forward" },
+      { "<leader>[[", "<cmd>Grapple cycle_backward<cr>", desc = "Grapple Cycle Backward" },
       { "<leader>1", "<cmd>Grapple select index=1<cr>", desc = "Grapple Select Index 1" },
       { "<leader>2", "<cmd>Grapple select index=2<cr>", desc = "Grapple Select Index 2" },
       { "<leader>3", "<cmd>Grapple select index=3<cr>", desc = "Grapple Select Index 3" },
