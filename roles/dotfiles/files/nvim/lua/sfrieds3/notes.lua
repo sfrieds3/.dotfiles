@@ -7,9 +7,20 @@ local Notes = {}
 Notes.force_reload = true
 Notes.is_configured = false
 
+---@alias DefaultPickerOptions "fzf"
+
+---@class NotesConfiguration
+---@field notes_dir string
+---@field notes_filenames table[string]
+---@field default_file string|nil
+---@field use_default_file boolean
+---@field default_picker DefaultPickerOptions
 Notes.config = {
   notes_dir = "~/wiki",
   notes_filenames = { "notes.md" },
+  default_file = nil,
+  use_default_file = true,
+  default_picker = "fzf",
 }
 
 function Notes.get_float_fullscreen_opts()
@@ -38,33 +49,80 @@ function Notes.setup(opts)
   Notes.is_configured = true
 end
 
+--- Open a floating window.. reserving the right to have this function do more
+---@param file string file path to open in floating window
+---@param opts table|nil currently unused, reserved for future use
+function Notes.open_floating(file, opts)
+  print("in open floating...")
+  local opts = opts or {}
+  local original_winid = vim.api.nvim_get_current_win()
+  local win_opts = Notes.get_float_fullscreen_opts()
+  local bufnr = vim.api.nvim_create_buf(false, false)
+  local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
+  vim.bo[bufnr].bufhidden = "wipe"
+
+  vim.cmd.edit({ args = file })
+end
+
+---@class FilePromptOpts
+---@field handler function
+---@field handler_opts table[any]|nil
+
+--- Prompt the user to pick a filename and do something with it
+--- pass selected filename (along with opts.handler_opts) to opts.handler
+--- currently works with fzf, should extend in the future to suppor telescope or native
+---@param files table[string] list of files to provide user for prompt
+---@param opts FilePromptOpts handler for filename
+---@return string|nil filename to open
+function Notes.prompt_and_open_file(files, opts)
+  local config = Notes.config
+  local handler = opts["handler"] or Notes.open_floating
+  local handler_opts = opts["handler_opts"] or {}
+  local file = nil
+  require("fzf-lua").fzf_exec(files, {
+    actions = {
+      ["default"] = function(selected)
+        if config["use_default_file"] then
+          config.default_file = selected
+        end
+        handler(selected, handler_opts)
+      end,
+    },
+  })
+end
+
+--- Get a listing of notes files using config
+---@param opts table|nil reserved for future use
+---@return table[string] list of potential notes files
+function Notes.get_note_files(opts)
+  local config = Notes.config
+  return vim.fs.find(
+    config.notes_filenames,
+    { limit = math.huge, type = "file", path = vim.fn.expand(config.notes_dir) }
+  )
+end
+
 function Notes.open(opts)
   opts = opts or {}
   local floating = opts["floating"] or false
   local config = Notes.config
+  local use_default = opts["use_default"] or config["use_default_file"]
 
-  local files =
-    vim.fs.find(config.notes_filenames, { limit = math.huge, type = "file", path = vim.fn.expand(config.notes_dir) })
-
-  -- TODO: support floating window
-  -- something like: `vim.api.nvim_open_win(0, 0, {relative='cursor', width=vim.api.nvim_win_get_width(0), height=vim.api.nvim_win_get_height(0), row=0, col=0, style='minimal'})
+  local file = config["default_file"]
   if floating then
-    local original_winid = vim.api.nvim_get_current_win()
-    local win_opts = Notes.get_float_fullscreen_opts()
-    local bufnr = vim.api.nvim_create_buf(false, true)
-    local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
-    require("fzf-lua").fzf_exec(files, {
-      actions = {
-        ["default"] = function(selected)
-          vim.bo[bufnr].bufhidden = "wipe"
-          vim.cmd.edit({ args = selected })
-        end,
-      },
-    })
+    if not file or not use_default then
+      file = Notes.prompt_and_open_file(Notes.get_note_files(), { handler = Notes.open_floating, handler_opts = {} })
+    else
+      Notes.open_floating(file)
+    end
   else
-    require("fzf-lua").fzf_exec(files, { actions = {
-      ["default"] = require("fzf-lua").actions.file_edit,
-    } })
+    -- TODO: use `Notes.prompt_for_file` instead of default fzf stuff
+    require("fzf-lua").fzf_exec(
+      Notes.get_note_files(),
+      { actions = {
+        ["default"] = require("fzf-lua").actions.file_edit,
+      } }
+    )
   end
 end
 
