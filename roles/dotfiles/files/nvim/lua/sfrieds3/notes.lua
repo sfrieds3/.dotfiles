@@ -26,15 +26,17 @@ Notes.config = {
 function Notes.get_float_fullscreen_opts()
   local win_width = vim.api.nvim_win_get_width(0)
   local win_height = vim.api.nvim_win_get_height(0)
-  local row = 0
-  local col = 0
+  local rounded_width = vim.fn.round(win_width * 0.75)
+  local rounded_height = vim.fn.round(win_height * 0.75)
+  local row = (win_height - (win_height * 0.75)) / 2
+  local col = (win_width - (win_width * 0.75)) / 2
 
   return {
     relative = "win",
-    width = vim.fn.round(win_width * 0.75),
-    height = vim.fn.round(win_height * 0.75),
-    row = (win_height - (win_height * 0.75)) / 2,
-    col = (win_width - (win_width * 0.75)) / 2,
+    width = rounded_width,
+    height = rounded_height,
+    row = row,
+    col = col,
     border = "rounded",
   }
 end
@@ -54,10 +56,13 @@ end
 ---@param opts table|nil currently unused, reserved for future use
 function Notes.open_floating(file, opts)
   print("in open floating...")
+  ---@diagnostic disable-next-line: unused-local, redefined-local
   local opts = opts or {}
+  ---@diagnostic disable-next-line: unused-local
   local original_winid = vim.api.nvim_get_current_win()
   local win_opts = Notes.get_float_fullscreen_opts()
   local bufnr = vim.api.nvim_create_buf(false, false)
+  ---@diagnostic disable-next-line: unused-local
   local winid = vim.api.nvim_open_win(bufnr, true, win_opts)
   vim.bo[bufnr].bufhidden = "wipe"
 
@@ -78,7 +83,6 @@ function Notes.prompt_and_open_file(files, opts)
   local config = Notes.config
   local handler = opts["handler"] or Notes.open_floating
   local handler_opts = opts["handler_opts"] or {}
-  local file = nil
   require("fzf-lua").fzf_exec(files, {
     actions = {
       ["default"] = function(selected)
@@ -94,6 +98,7 @@ end
 --- Get a listing of notes files using config
 ---@param opts table|nil reserved for future use
 ---@return table[string] list of potential notes files
+---@diagnostic disable-next-line: unused-local
 function Notes.get_note_files(opts)
   local config = Notes.config
   return vim.fs.find(
