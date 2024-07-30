@@ -15,6 +15,6 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
   group = augroup("term-map"),
   callback = function()
     local buf_keymap_opts = { buffer = true }
-    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], buf_keymap_opts)
+    vim.keymap.set("t", '""', [[<C-\><C-n>]], buf_keymap_opts)
   end,
 })
