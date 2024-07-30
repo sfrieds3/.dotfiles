@@ -67,7 +67,7 @@ function M.setup()
 
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.confirm({ select = true })
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
         else
           fallback()
         end
