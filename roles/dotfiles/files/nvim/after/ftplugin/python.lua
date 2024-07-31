@@ -7,13 +7,12 @@ vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
 
 -- TODO: figure out what we want for makeprg here
-vim.bo.makeprg = "autopep8"
+vim.bo.makeprg = "ruff check %"
 vim.bo.suffixesadd = ".py"
 
 local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
 local disable_auto_format_files = { ".pynoautoformat", ".pydisableautoformat", ".pydisableformat" }
 
--- TODO: read project root dir in order to determine which of these to run
 local function format_file(opt)
   local bufnr = opt.bufnr
   local project_root = vim.fs.root(vim.fn.expand("%"), python_dir_markers)
