@@ -24,7 +24,7 @@
 	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [core]
 	editor = nvim
-	excludesfile = $XDG_CONFIG_HOME/git/gitignore
+	excludesfile = ~/.config/git/gitignore
 	pager = less -FMRiXx4
 [merge]
 	conflictstyle = zdiff3
