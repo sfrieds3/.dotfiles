@@ -8,3 +8,4 @@ venv/
 *.iws
 *.sw[op]
 target/
+.pynoautoformat

@@ -10,14 +10,31 @@ vim.bo.softtabstop = 4
 vim.bo.makeprg = "autopep8"
 vim.bo.suffixesadd = ".py"
 
+local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
+local disable_auto_format_files = { ".pynoautoformat", ".pydisableautoformat", ".pydisableformat" }
+
 -- TODO: read project root dir in order to determine which of these to run
-local function format_file()
-  -- if is_executable("isort") == 1 then
-  --   require("conform").format({ formatters = { "isort" }, bufnr = bufnr })
-  -- end
-  -- if is_executable("black") == 1 then
-  --   require("conform").format({ formatters = { "black" }, bufnr = bufnr })
-  -- end
+local function format_file(opt)
+  local bufnr = opt.bufnr
+  local project_root = vim.fs.root(vim.fn.expand("%"), python_dir_markers)
+  if #vim.fs.find(disable_auto_format_files, { path = project_root, type = "file", limit = 1 }) == 0 then
+    local has_formatted = false
+    local conform = require("conform")
+
+    -- respect local formatting packages first
+    if is_executable("isort") == 1 then
+      conform.format({ formatters = { "isort" }, bufnr = bufnr })
+    end
+    if is_executable("black") == 1 then
+      conform.format({ formatters = { "black" }, bufnr = bufnr })
+      has_formatted = true
+    end
+
+    -- default to ruff if project does not use black
+    if not has_formatted then
+      conform.format({ formatters = { "ruff" }, bufnr = bufnr })
+    end
+  end
 end
 
 local function lint_file()
@@ -31,8 +48,8 @@ local function lint_file()
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function()
-    format_file()
+  callback = function(opt)
+    format_file(opt)
   end,
   buffer = bufnr,
   group = vim.api.nvim_create_augroup("pyformat:" .. bufnr, {}),
