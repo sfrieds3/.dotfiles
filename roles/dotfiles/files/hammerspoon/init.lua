@@ -78,6 +78,9 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "F7", function()
   focusandback("anybox")
 end)
+hs.hotkey.bind({ "cmd", "shift" }, "F6", function()
+  focusandback("ChatGPT")
+end)
 
 -- switch screens quickly
 hs.hotkey.bind({ "ctrl", "cmd" }, "]", function()
@@ -179,6 +182,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     F1 -> Microsoft Outlook
     F2 -> Calendar
     F3 -> Pocket Casts
+    F6 -> ChatGPT
     F7 -> Anybox
     F8 -> Passwords
     F9 -> Reminders
