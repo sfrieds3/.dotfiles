@@ -9,7 +9,7 @@ function M.init_lazy()
   vim.opt.rtp:prepend(lazypath)
   vim.opt.runtimepath:prepend(lazypath)
   require("lazy").setup("plugins", {
-    install = { colorscheme = { "kanagawa", "catppuccin", "habamax" } },
+    install = { colorscheme = { "mellifluous", "kanagawa", "catppuccin", "habamax" } },
     dev = {
       path = "~/code/personal",
       patterns = { "sfrieds3" },
