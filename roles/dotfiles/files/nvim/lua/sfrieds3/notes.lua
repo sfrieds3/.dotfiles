@@ -8,6 +8,7 @@ Notes.force_reload = true
 Notes.is_configured = false
 
 ---@alias DefaultPickerOptions "fzf"
+---@alias NotesType "local" | "global"
 
 ---@class NotesConfiguration
 ---@field notes_dir string
@@ -15,12 +16,16 @@ Notes.is_configured = false
 ---@field default_file string|nil
 ---@field use_default_file boolean
 ---@field default_picker DefaultPickerOptions
+---@field default_notes_type NotesType
+---@field dir_markers table[string] list of strings which will be used to mark the project root
 Notes.config = {
   notes_dir = "~/wiki",
   notes_filenames = { "notes.md" },
   default_file = nil,
   use_default_file = true,
   default_picker = "fzf",
+  default_notes_type = "global",
+  dir_markers = { ".git" },
 }
 
 function Notes.get_float_fullscreen_opts()
@@ -87,6 +92,7 @@ function Notes.prompt_and_open_file(files, opts)
     actions = {
       ["default"] = function(selected)
         if config["use_default_file"] then
+          -- TODO: we need to store this based on if it is a local or global note
           config.default_file = selected
         end
         handler(selected, handler_opts)
@@ -95,28 +101,50 @@ function Notes.prompt_and_open_file(files, opts)
   })
 end
 
+--- Get the root directory of a filename, using `config.dir_markers`
+---@param filename string filename to get root dir of
+---@return string? root directory of filename
+function Notes.get_root_dir(filename)
+  local config = Notes.config
+  return vim.fs.root(vim.fn.expand(filename), config.dir_markers)
+end
+
+---@class GetNotesOpts
+---@field type NotesType?
+
 --- Get a listing of notes files using config
----@param opts table|nil reserved for future use
+---@param opts GetNotesOpts? opts passed by caller
 ---@return table[string] list of potential notes files
 ---@diagnostic disable-next-line: unused-local
 function Notes.get_note_files(opts)
+  opts = opts or {}
   local config = Notes.config
-  return vim.fs.find(
-    config.notes_filenames,
-    { limit = math.huge, type = "file", path = vim.fn.expand(config.notes_dir) }
-  )
+  local notes_type = opts.type or config.default_notes_type
+  local search_dir = notes_type == "global" and config.notes_dir or Notes.get_root_dir(vim.fn.expand("%s"))
+  return vim.fs.find(config.notes_filenames, { limit = math.huge, type = "file", path = vim.fn.expand(search_dir) })
 end
 
+---@class NotesOpts
+---@field type NotesType?
+---@field floating boolean?
+
+--- Open notes
+---@param opts NotesOpts opts to configure notes
 function Notes.open(opts)
   opts = opts or {}
   local floating = opts["floating"] or false
   local config = Notes.config
   local use_default = opts["use_default"] or config["use_default_file"]
+  ---@type NotesType
+  local notes_type = opts["type"] or "global"
 
   local file = config["default_file"]
   if floating then
     if not file or not use_default then
-      file = Notes.prompt_and_open_file(Notes.get_note_files(), { handler = Notes.open_floating, handler_opts = {} })
+      file = Notes.prompt_and_open_file(
+        Notes.get_note_files({ type = notes_type }),
+        { handler = Notes.open_floating, handler_opts = {} }
+      )
     else
       Notes.open_floating(file)
     end
@@ -133,11 +161,23 @@ end
 
 vim.api.nvim_create_user_command("Notes", function()
   require("sfrieds3.notes").open()
-end, {})
+end, { desc = "Open notes in current split" })
+
+vim.api.nvim_create_user_command("NotesL", function()
+  require("sfrieds3.notes").open({ type = "local" })
+end, { desc = "Open local project notes in current split" })
 
 vim.api.nvim_create_user_command("NotesFloating", function()
   require("sfrieds3.notes").open({ floating = true })
-end, {})
+end, { desc = "Open notes in floating window" })
+
+vim.api.nvim_create_user_command("NotesFloatingL", function()
+  require("sfrieds3.notes").open({ floating = true, type = "local" })
+end, { desc = "Open local notes in floating window" })
+
+vim.api.nvim_create_user_command("NotesInvalidateDefault", function()
+  require("sfrieds3.notes").config.default_file = nil
+end, { desc = "Reset default notes file" })
 
 if not Notes.is_configured or Notes.force_reload then
   Notes.setup({})
