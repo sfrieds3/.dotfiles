@@ -4,3 +4,4 @@ generated_completions
 completions
 fisher/*
 !fisher/.gitkeep
+fish_local.fish
