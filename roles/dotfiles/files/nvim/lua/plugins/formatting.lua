@@ -33,7 +33,7 @@ return {
         python = { "ruff_format", "ruff_organize_imports" },
         rust = { "rustfmt" },
         scala = { "scalafmt" },
-        sh = { "shellcheck" },
+        sh = { "beautysh" },
         yaml = { "yamlfmt" },
         ocaml = { "ocamlformat" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
