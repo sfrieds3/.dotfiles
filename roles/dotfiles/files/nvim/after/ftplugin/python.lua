@@ -6,17 +6,15 @@ vim.g.python_highlight_space_errors = 0
 vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
 
--- TODO: figure out what we want for makeprg here
 vim.bo.makeprg = "ruff check %"
 vim.bo.suffixesadd = ".py"
 
 local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
 local disable_auto_format_files = { ".pynoautoformat", ".pydisableautoformat", ".pydisableformat" }
 
-local function format_file(opt)
-  local bufnr = opt.bufnr
+local function format_file(opts)
   local project_root = vim.fs.root(vim.fn.expand("%"), python_dir_markers)
-  if #vim.fs.find(disable_auto_format_files, { path = project_root, type = "file", limit = 1 }) == 0 then
+  if #vim.fs.find(disable_auto_format_files, { path = project_root, type = "file", limit = 1, upward = true }) == 0 then
     local has_formatted = false
     local conform = require("conform")
 
@@ -47,8 +45,8 @@ local function lint_file()
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function(opt)
-    format_file(opt)
+  callback = function(opts)
+    format_file(opts)
   end,
   buffer = bufnr,
   group = vim.api.nvim_create_augroup("pyformat:" .. bufnr, {}),
