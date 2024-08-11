@@ -1,0 +1,41 @@
+---
+- community.general.homebrew:
+    name: stow
+    state: present
+- name: Ensure folders exist
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ lookup('env', 'HOME') }}/.config"
+    - "{{ lookup('env', 'HOME') }}/scratch"
+    - "{{ lookup('env', 'HOME') }}/bin"
+    - "{{ lookup('env', 'HOME') }}/code"
+    - "{{ lookup('env', 'HOME') }}/.local/bin"
+- name: Symlink dotfiles
+  shell: >
+    stow --dotfiles
+    alacritty
+    asdfrc
+    conda
+    eslintrc
+    fd
+    fish
+    git
+    hammerspoon
+    httpie
+    jetbrains
+    karabiner
+    nvim
+    ocamlinit
+    pdbrc
+    psql
+    python
+    ripgrep
+    ruff
+    tmux
+    wezterm
+    yamllint
+    zsh
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"

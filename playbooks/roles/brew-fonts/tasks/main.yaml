@@ -1,0 +1,17 @@
+- name: Install homebrew casks
+  community.general.homebrew:
+    name:
+      - font-andale-mono
+      - font-anonymous-pro
+      - font-commit-mono
+      - font-fira-code
+      - font-fira-mono
+      - font-hack
+      - font-ibm-plex
+      - font-inconsolata
+      - font-jetbrains-mono
+      - font-monaspace
+      - font-roboto-mono
+      - font-source-code-pro
+      - font-symbols-only-nerd-font
+      - font-victor-mono

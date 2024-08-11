@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  roles:
+    - stow
+    - dotfiles-submodules
+    - brew-devtools
+    - python-pipx

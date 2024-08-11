@@ -1,0 +1,18 @@
+- name: Instal brew mac apps
+  community.general.homebrew:
+    name:
+      - alt-tab
+      - audacity
+      - bartender
+      - drawio
+      - easy-move-plus-resize
+      - hammerspoon
+      - insomnia
+      - karabiner-elements
+      - maccy
+      - pocket-casts
+      - rectangle
+      - spotify
+      - vlc
+      - wireshark
+    state: present

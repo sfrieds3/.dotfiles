@@ -1,4 +1,0 @@
-# install
-sudo dnf install -y ansible
-# install community.general packages
-ansible-galaxy collection install community.general

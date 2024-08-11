@@ -1,0 +1,13 @@
+---
+- name: Install pipx packages
+  ansible.builtin.command:
+    cmd: >
+      pipx install
+      compiledb
+      ipython
+      pipdeptree
+      poetry
+      pre-commit
+      pynvim
+      tox
+      twine
