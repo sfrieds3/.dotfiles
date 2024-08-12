@@ -3,5 +3,5 @@
   roles:
     - stow
     - dotfiles-submodules
-    - brew-devtools
+    - brew-devtools-core
     - python-pipx

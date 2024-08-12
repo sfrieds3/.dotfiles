@@ -1,0 +1,32 @@
+- name: Install mac devtools
+  community.general.homebrew:
+    name:
+      - alacritty
+      - asdf
+      - btop
+      - cargo-nextest
+      - chicken
+      # - clojure/tools/clojure
+      - duckdb
+      - ffmpeg
+      - guile
+      - htop
+      - httpie
+      - kind
+      - mise
+      - neovim
+      - opam
+      - protobuf
+      - ruby-build
+      - rustup
+      - sbcl
+      - sk
+      - standard
+      - zig
+      - zoxide
+      - zsh
+      - zsh-autosuggestions
+      - zsh-completions
+      - zsh-history-substring-search
+      - zsh-syntax-highlighting
+    state: present
