@@ -9,3 +9,4 @@ venv/
 *.sw[op]
 target/
 .pynoautoformat
+Session.vim
