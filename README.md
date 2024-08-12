@@ -1,5 +1,11 @@
 # dotfiles
 
+Pre-reqs:
+
+1) install Homebrew
+2) `brew install ansible`
+
+
 To install:
 
 ```sh
