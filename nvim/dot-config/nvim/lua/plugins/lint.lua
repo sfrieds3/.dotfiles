@@ -20,15 +20,21 @@ return {
       yaml = { "yamllint" },
     }
 
+    -- markdownlint: disable line length warning
     require("lint").linters["markdownlint"].args = {
       "-r",
       "~MD013",
     }
 
+    -- pylint: disable todo warning
     require("lint").linters["pylint"].args = {
       "-f",
       "json",
       "--disable=W0511",
+      "--from-stdin",
+      function()
+        return vim.api.nvim_buf_get_name(0)
+      end,
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {
