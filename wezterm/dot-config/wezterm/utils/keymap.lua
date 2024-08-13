@@ -43,7 +43,16 @@ end
 
 function keymap.apply_to_config(config)
   config.leader = { key = "e", mods = "OPT", timeout_milliseconds = 1000 }
+
   config.keys = {
+    -- command palette
+    {
+      key = "p",
+      mods = "LEADER",
+      action = wezterm.action.ShowLauncherArgs({
+        flags = "COMMANDS",
+      }),
+    },
     -- window management
     { key = "Enter", mods = "OPT|SHIFT|CTRL", action = act.ToggleFullScreen },
 
