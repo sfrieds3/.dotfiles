@@ -82,6 +82,14 @@ local function get_process_icon(process_name, default_nerdfont)
   return icon
 end
 
+local function active_tab(tab)
+  if tab.is_active then
+    return "*"
+  else
+    return " "
+  end
+end
+
 ---@return action_callback
 function M.setup()
   local process_exclude_unseen_output = {
@@ -89,11 +97,27 @@ function M.setup()
     "vim",
   }
   wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-    local tab_title_text =
-      string.format(" %s: %s %s ", get_tab_index(tab), get_process_icon(get_process(tab)), get_current_working_dir(tab))
+    local tab_title_text = string.format(
+      " %s: %s %s%s",
+      get_tab_index(tab),
+      get_process_icon(get_process(tab)),
+      get_current_working_dir(tab),
+      active_tab(tab)
+    )
+
+    local color_scheme = config.resolved_palette
+    local fg = color_scheme.ansi[7]
+    local bg = color_scheme.background
+
+    if tab.is_active then
+      fg = color_scheme.foreground
+      bg = color_scheme.background
+    end
 
     return wezterm.format({
       { Attribute = { Intensity = "Bold" } },
+      { Foreground = { Color = fg } },
+      { Background = { Color = bg } },
       { Text = tab_title_text },
     })
   end)

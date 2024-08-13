@@ -33,12 +33,18 @@ config.tab_bar_at_bottom = true
 config.scrollback_lines = 1000000
 config.audible_bell = "Disabled"
 config.window_decorations = "RESIZE"
+config.window_background_opacity = 0.95
+config.macos_window_background_blur = 33
 config.window_close_confirmation = "AlwaysPrompt"
 config.window_padding = {
   left = 0,
   right = 0,
   top = 0,
   bottom = 0,
+}
+config.window_frame = {
+  font = wezterm.font({ family = "Berkeley Mono Variable", weight = "Bold" }),
+  font_size = 13,
 }
 
 config.quick_select_patterns = {

@@ -63,17 +63,19 @@ function M.setup()
       table.insert(cells, string.format("%.0f%% %s ", charge, icon))
     end
 
-    local text_fg = "White"
+    local color_scheme = window:effective_config().resolved_palette
+    local fg = color_scheme.foreground
+    local bg = color_scheme.background
 
     local elements = {}
 
     local function push(text, is_last)
       local sep = wezterm.nerdfonts.ple_right_half_circle_thin
-      table.insert(elements, { Foreground = { AnsiColor = text_fg } })
-      table.insert(elements, { Background = { AnsiColor = "Black" } })
+      table.insert(elements, { Foreground = { Color = fg } })
+      table.insert(elements, { Background = { Color = bg } })
       table.insert(elements, { Text = " " .. text .. sep })
       if not is_last then
-        table.insert(elements, { Foreground = { AnsiColor = "Black" } })
+        table.insert(elements, { Foreground = { Color = bg } })
       end
     end
 
@@ -85,8 +87,8 @@ function M.setup()
     window:set_right_status(wezterm.format(elements))
 
     local left_elements = {}
-    table.insert(left_elements, { Foreground = { AnsiColor = "White" } })
-    table.insert(left_elements, { Background = { AnsiColor = "Black" } })
+    table.insert(left_elements, { Foreground = { Color = fg } })
+    table.insert(left_elements, { Background = { Color = bg } })
     table.insert(left_elements, { Text = string.format("%s § ", window:active_workspace()) })
     window:set_left_status(wezterm.format(left_elements))
   end)
