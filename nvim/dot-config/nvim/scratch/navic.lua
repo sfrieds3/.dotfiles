@@ -1,6 +1,7 @@
-local function b_tos(bool)
+local function b_tos(status)
   return (status and "true") or "false"
 end
+
 local function run()
   local status, is_available = pcall(require("nvim-navic").is_available)
   if status or is_available then

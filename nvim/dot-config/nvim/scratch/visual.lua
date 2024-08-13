@@ -1,6 +1,6 @@
 -- this is a test
 
-function get_visual()
+local function get_visual()
   local visual_begin = vim.api.nvim_buf_get_mark(0, "<")
   local visual_end = vim.api.nvim_buf_get_mark(0, ">")
 
@@ -8,3 +8,5 @@ function get_visual()
 
   P(lines)
 end
+
+get_visual()

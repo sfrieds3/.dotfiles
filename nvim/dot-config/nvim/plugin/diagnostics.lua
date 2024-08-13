@@ -63,21 +63,21 @@ vim.api.nvim_create_user_command("ToggleVirtualText", function()
 end, {})
 
 local function goto_diagnostic(direction, severity, float)
-  local goto_diag = direction == "previous" and vim.diagnostic.goto_prev or vim.diagnostic.goto_next
+  local count = direction == "previous" and -1 or 1
   severity = severity and vim.diagnostic.severity[severity] or nil
   float = float or false
   return function()
-    goto_diag({ severity = severity, float = float })
+    vim.diagnostic.jump({ count = count, severity = severity, float = float })
   end
 end
 
 local function diagnostic_toggle_buf(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
-  if vim.diagnostic.is_disabled(bufnr) then
+  if not vim.diagnostic.is_enabled(bufnr) then
     vim.diagnostic.enable(bufnr)
     print("Enabled buffer diagnostics")
   else
-    vim.diagnostic.disable(bufnr)
+    vim.diagnostic.enable(false, { bufnr = bufnr })
     print("Disabled buffer diagnostics")
   end
 end
@@ -85,17 +85,23 @@ end
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "<leader>cf", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go To Previous Diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go To Next Diagnostic" })
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go To Previous Diagnostic" })
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go To Next Diagnostic" })
 vim.keymap.set("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "Diagnotics set Loclist" })
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Diagnotics set Quickfix" })
-vim.keymap.set("n", "<leader>cD", vim.diagnostic.disable, { desc = "Disable Global Diagnostics" })
+vim.keymap.set("n", "<leader>cD", function()
+  vim.diagnostic.enable(false)
+end, { desc = "Disable Global Diagnostics" })
 vim.keymap.set("n", "<leader>cd", function()
-  vim.diagnostic.disable(vim.api.nvim_get_current_buf())
+  vim.diagnostic.enable(false, { bufnr = vim.api.nvim_get_current_buf() })
 end, { desc = "Disable Buffer Diagnostics" })
 vim.keymap.set("n", "<leader>cE", vim.diagnostic.enable, { desc = "Enable Global Diagnosics" })
 vim.keymap.set("n", "<leader>ce", function()
-  vim.diagnostic.enable(vim.api.nvim_get_current_buf())
+  vim.diagnostic.enable(true, { bufnr = vim.api.nvim_get_current_buf() })
 end, { desc = "Enable Global Diagnosics" })
 vim.keymap.set("n", "<leader>ct", diagnostic_toggle_buf, { desc = "Toggle Diagnostics in Buffer" })
 vim.keymap.set("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Next Error" })
