@@ -3,10 +3,6 @@ local M = {}
 function M.setup()
   local cmp = require("cmp")
 
-  local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-  end
-
   local luasnip = require("luasnip")
   vim.keymap.set({ "i", "s" }, "<M-s>", function()
     if luasnip.locally_jumpable() then
@@ -80,11 +76,6 @@ function M.setup()
         fallback()
       end, { "i", "c" }),
 
-      ["<Esc>"] = function(fallback)
-        cmp.abort()
-        fallback()
-      end,
-
       ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
       ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
       ["<C-n>"] = cmp.mapping(
@@ -102,7 +93,7 @@ function M.setup()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "nvim_lsp_signature_help" },
-      { name = "luasnip", max_item_count = 10 },
+      { name = "luasnip" },
       { name = "lazydev" },
       { name = "path" },
     }, {
@@ -111,9 +102,9 @@ function M.setup()
         option = {
           get_bufnrs = vim.api.nvim_list_bufs,
         },
-        max_item_count = 10,
       },
     }),
+    ---@diagnostic disable-next-line: missing-fields
     sorting = {
       comparators = {
         cmp.config.compare.offset,
@@ -138,6 +129,7 @@ function M.setup()
         cmp.config.compare.order,
       },
     },
+    ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = require("lspkind").cmp_format({
         mode = "symbol",
@@ -146,6 +138,7 @@ function M.setup()
       }),
     },
     view = {
+      ---@diagnostic disable-next-line: missing-fields
       entries = {
         follow_cursor = true,
       },
@@ -154,6 +147,10 @@ function M.setup()
       ghost_text = {
         hl_group = "LspCodeLens",
       },
+    },
+    ---@diagnostic disable-next-line: missing-fields
+    performance = {
+      max_view_entries = 15,
     },
   })
 
