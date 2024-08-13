@@ -1,2 +1,12 @@
+\set QUIET 1
+\conninfo
+\pset format wrapped
+\timing
+\x auto
+\set client_min_messages = warning;
+\set VERBOSITY verbose
+\set HISTCONTROL ignoredups
+\set ON_ERROR_ROLLBACK interactive
+\setenv PAGER 'nvim -c "setlocal ft=man buftype=nofile"'
 \set PROMPT1 '(%n@%M:%>) %`date +%H:%M:%S` [%/] \n%x%\n=> '
 \set PROMPT2 ''
