@@ -21,7 +21,6 @@
       - rustup
       - sbcl
       - sk
-      - standard
       - zig
       - zoxide
       - zsh

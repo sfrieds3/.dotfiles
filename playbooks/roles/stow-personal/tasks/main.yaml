@@ -1,0 +1,6 @@
+- name: Symlink personal dotfiles
+  shell: >
+    stow --dotfiles
+    git_config
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"

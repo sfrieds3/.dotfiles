@@ -1,0 +1,12 @@
+---
+- name: Clone neovim
+  ansible.builtin.git:
+    repo: https://github.com/sfrieds3/neovim
+    dest: "{{ lookup('env', 'HOME') }}/code/personal"
+    update: false
+- name: Build neovim
+  ansible.builtin.command: make_nvim
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/code/personal"
+    creates: ~/.local/bin/nvim
+  become_user: "{{ ansible_user }}"
