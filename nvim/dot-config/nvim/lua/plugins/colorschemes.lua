@@ -2,7 +2,7 @@ return {
   {
     "ramojus/mellifluous.nvim",
     opts = {
-      event = "VeryLazy",
+      color_set = "mellifluous",
       transparent_background = {
         enabled = false,
       },
