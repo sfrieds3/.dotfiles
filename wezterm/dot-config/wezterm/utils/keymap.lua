@@ -238,7 +238,7 @@ function keymap.apply_to_config(config)
     split_nav("resize", "OPT|SHIFT", "l"),
 
     -- debug
-    { key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
+    { key = "l", mods = "CTRL|SHIFT", action = wezterm.action.ShowDebugOverlay },
 
     -- search for things that look like git hashes
     {

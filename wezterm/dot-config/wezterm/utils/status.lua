@@ -5,7 +5,7 @@ local M = {}
 
 function M.setup()
   wezterm.on("update-status", function(window, pane)
-    local cells = {}
+    local segments = {}
 
     local cwd_uri = pane:get_current_working_dir()
     if cwd_uri then
@@ -34,11 +34,11 @@ function M.setup()
         hostname = wezterm.hostname()
       end
 
-      table.insert(cells, cwd)
+      table.insert(segments, cwd)
     end
 
     local date = wezterm.strftime("%a %-d %b - %H:%M:%S")
-    table.insert(cells, date)
+    table.insert(segments, date)
 
     for _, b in ipairs(wezterm.battery_info()) do
       local nf = wezterm.nerdfonts
@@ -60,35 +60,39 @@ function M.setup()
 
       local icon = get_icon(charge)
 
-      table.insert(cells, string.format("%.0f%% %s ", charge, icon))
+      table.insert(segments, string.format("%.0f%% %s ", charge, icon))
     end
 
     local color_scheme = window:effective_config().resolved_palette
     local fg = color_scheme.foreground
-    local bg = color_scheme.background
+    local bg = wezterm.color.parse(color_scheme.background)
+
+    local gradient_from = bg
+    local gradient_to = gradient_from:lighten(0.1)
+
+    local gradient = wezterm.color.gradient({
+      orientation = "Horizontal",
+      colors = { gradient_from, gradient_to },
+    }, #segments)
 
     local elements = {}
+    local sep = wezterm.nerdfonts.ple_right_half_circle_thin
 
-    local function push(text, is_last)
-      local sep = wezterm.nerdfonts.ple_right_half_circle_thin
-      table.insert(elements, { Foreground = { Color = fg } })
-      table.insert(elements, { Background = { Color = bg } })
-      table.insert(elements, { Text = " " .. text .. sep })
-      if not is_last then
-        table.insert(elements, { Foreground = { Color = bg } })
+    for i, segment in ipairs(segments) do
+      if i == 1 then
+        table.insert(elements, { Background = { Color = "none" } })
       end
-    end
 
-    while #cells > 0 do
-      local cell = table.remove(cells, 1)
-      push(cell, #cells == 0)
+      table.insert(elements, { Foreground = { Color = fg } })
+      table.insert(elements, { Background = { Color = gradient[i] } })
+      table.insert(elements, { Text = " " .. segment .. sep })
     end
 
     window:set_right_status(wezterm.format(elements))
 
     local left_elements = {}
     table.insert(left_elements, { Foreground = { Color = fg } })
-    table.insert(left_elements, { Background = { Color = bg } })
+    table.insert(left_elements, { Background = { Color = gradient_to } })
     table.insert(left_elements, { Text = string.format("%s § ", window:active_workspace()) })
     window:set_left_status(wezterm.format(left_elements))
   end)
