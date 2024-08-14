@@ -1,6 +1,12 @@
 if status is-login
-    # load local config from ~/.fish_local, if available
-    set -l local_config "$HOME/.fish_local.fish"
+    # load local fish config
+    set -l local_config "$__fish_config_dir/fish_local.fish"
+    if test -e $local_config
+        source $local_config
+    end
+
+    # load local fish config
+    set -l local_config "$__fish_user_data_dir/fish_local.fish"
     if test -e $local_config
         source $local_config
     end
@@ -46,6 +52,12 @@ if status is-interactive
 
     # load local fish config
     set -l local_config "$__fish_config_dir/fish_local.fish"
+    if test -e $local_config
+        source $local_config
+    end
+
+    # load local fish config
+    set -l local_config "$__fish_user_data_dir/fish_local.fish"
     if test -e $local_config
         source $local_config
     end
