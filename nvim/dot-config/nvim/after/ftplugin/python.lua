@@ -35,7 +35,7 @@ local function format_file(opts)
 end
 
 local function lint_file()
-  -- using ruff_lsp instead, so not requred here
+  -- using ruff via lsp so not required here
   local linters = { "mypy", "flake8", "pylint" }
   for _, linter in ipairs(linters) do
     if is_executable(linter) == 1 then

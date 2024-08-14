@@ -53,14 +53,20 @@ return {
           preview = true,
         }
 
+        local nav_hunk_config_no_preview = {
+          wrap = true,
+          navigation_message = true,
+          preview = false,
+        }
+
         local nav_hunk_all_config = { target = "all" }
-        vim.tbl_deep_extend("keep", nav_hunk_all_config, nav_hunk_config)
+        nav_hunk_all_config = vim.tbl_deep_extend("keep", nav_hunk_all_config, nav_hunk_config)
 
         -- stylua: ignore start
         map("n", "<leader>gb", gs.blame, "Gitsigns Blame")
-        map("n", "]h", function() gs.nav_hunk("next", nav_hunk_config) end, "Next Unstaged Hunk")
+        map("n", "]h", function() gs.nav_hunk("next", nav_hunk_config_no_preview) end, "Next Unstaged Hunk")
         map("n", "<leader>]h", function() gs.nav_hunk("next", nav_hunk_all_config) end, "Next Hunk")
-        map("n", "[h", function() gs.nav_hunk("prev", nav_hunk_config) end, "Prev Unstaged Hunk")
+        map("n", "[h", function() gs.nav_hunk("prev", nav_hunk_config_no_preview) end, "Prev Unstaged Hunk")
         map("n", "<leader>[h", function() gs.nav_hunk("prev", nav_hunk_all_config) end, "Prev Hunk")
         map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
         map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
