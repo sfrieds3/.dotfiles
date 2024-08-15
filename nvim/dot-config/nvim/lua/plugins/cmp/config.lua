@@ -132,9 +132,10 @@ function M.setup()
     ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = require("lspkind").cmp_format({
-        mode = "symbol",
+        mode = "symbol_text",
         maxwidth = 50,
         ellipsis_char = "...",
+        symbol_map = { Codeium = "", Cody = "" },
       }),
     },
     view = {
