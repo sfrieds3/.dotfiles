@@ -1,5 +1,14 @@
 local Utils = {}
 
+Utils.unique_table = {
+  __newindex = function(table, key, val)
+    if not rawget(table, key) then
+      rawset(table, #table + 1, val)
+      rawset(table, key, true)
+    end
+  end,
+}
+
 function Utils.remove_key(tbl, key)
   local elem = tbl[key]
   tbl[key] = nil

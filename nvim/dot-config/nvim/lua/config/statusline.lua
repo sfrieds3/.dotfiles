@@ -1,6 +1,8 @@
 local Statusline = {}
 _G.Statusline = Statusline
 
+local utils = require("utils.utils")
+
 local get_mode = vim.api.nvim_get_mode
 local get_current_win = vim.api.nvim_get_current_win
 local get_window_buf = vim.api.nvim_win_get_buf
@@ -72,7 +74,12 @@ local function get_linters()
   if #linters == 0 then
     return ""
   end
-  return "  [" .. table.concat(linters, ", ") .. "]"
+
+  local unique_linters = setmetatable({}, utils.unique_table)
+  for _, linter in ipairs(linters) do
+    unique_linters[linter] = linter
+  end
+  return "  [" .. table.concat(unique_linters, ", ") .. "]"
 end
 
 --- Get lsp diagnostics for statusline
