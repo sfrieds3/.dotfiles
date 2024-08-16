@@ -4,6 +4,7 @@
     cmd: >
       pipx install
       compiledb
+      git-filter-repo
       ipython
       pipdeptree
       poetry
