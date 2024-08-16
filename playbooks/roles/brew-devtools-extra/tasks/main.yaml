@@ -13,7 +13,6 @@
       - htop
       - httpie
       - kind
-      - mise
       - neovim
       - opam
       - protobuf

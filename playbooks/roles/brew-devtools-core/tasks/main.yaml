@@ -44,7 +44,6 @@
       - perl
       - pipx
       - postgresql
-      - pre-commit
       - rclone
       - redis
       - ripgrep
