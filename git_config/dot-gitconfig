@@ -32,7 +32,7 @@
 	ff = only
 	rebase = true
 [user]
-	email = sfrieds3@gmail.com
+	email = s@sfrieds3.net
 	name = Scott F
 [http]
 	emptyAuth = true
