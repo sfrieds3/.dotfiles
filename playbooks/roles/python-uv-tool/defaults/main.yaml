@@ -1,0 +1,12 @@
+uv_tool_packages:
+  - compiledb
+  - cookiecutter
+  - cruft
+  - git-filter-repo
+  - ipython
+  - nox
+  - pipdeptree
+  - poetry
+  - pre-commit
+  - tox
+  - twine

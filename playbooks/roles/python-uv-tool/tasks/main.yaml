@@ -1,0 +1,5 @@
+---
+- name: Install uv tool packages
+  ansible.builtin.command:
+    cmd: uv tool install {{ item }}
+  loop: "{{ uv_tool_packages }}"

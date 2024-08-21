@@ -4,4 +4,4 @@
     - stow
     - dotfiles-submodules
     - brew-devtools-core
-    - python-pipx
+    - python-uv-tool
