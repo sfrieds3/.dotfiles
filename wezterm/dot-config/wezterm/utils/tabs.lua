@@ -98,7 +98,7 @@ function M.setup()
   }
   wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
     local tab_title_text = string.format(
-      " %s: %s %s%s",
+      " %s: %s %s%s ",
       get_tab_index(tab),
       get_process_icon(get_process(tab)),
       get_current_working_dir(tab),
