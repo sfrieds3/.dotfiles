@@ -9,7 +9,7 @@ end
 
 function M.setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+  capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
   local function on_attach(client, bufnr)
     if client.supports_method("textDocument/inlayHint") then
@@ -218,7 +218,7 @@ function M.setup()
         end
       elseif type(v) == "table" then
         -- custom configuration
-        vim.tbl_deep_extend("keep", v, default_config)
+        v = vim.tbl_deep_extend("keep", v, default_config)
         lspconfig[k].setup(v)
       elseif type(v) == "function" then
         v()
