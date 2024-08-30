@@ -19,7 +19,6 @@
       - ruby-build
       - rustup
       - sbcl
-      - sk
       - zig
       - zoxide
       - zsh

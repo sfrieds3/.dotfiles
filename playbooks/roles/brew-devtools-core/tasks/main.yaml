@@ -6,6 +6,7 @@
       - automake
       - bash
       - bat
+      - bfs
       - cmake
       - cmake-docs
       - csvlens
@@ -49,6 +50,7 @@
       - ripgrep
       - ruff
       - sd
+      - sk
       - the_silver_searcher
       - tig
       - tmux
