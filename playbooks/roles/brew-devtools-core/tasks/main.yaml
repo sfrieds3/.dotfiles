@@ -36,6 +36,7 @@
       - libgccjit
       - llvm
       - lua
+      - luajit
       - luarocks
       - miniconda
       - minikube
