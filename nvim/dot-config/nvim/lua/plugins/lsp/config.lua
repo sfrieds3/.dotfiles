@@ -43,7 +43,7 @@ function M.setup()
     ruff = true,
     taplo = true,
     terraformls = true,
-    tsserver = true,
+    ts_ls = true,
 
     basedpyright = {
       on_attach = on_attach,
