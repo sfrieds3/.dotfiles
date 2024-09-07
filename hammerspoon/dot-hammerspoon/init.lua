@@ -30,22 +30,20 @@ quitModal:bind("", "escape", function()
 end)
 
 -- focus windows
-local browser = "firefox"
+local browser = "safari"
 local terminal = "wezterm"
 local api_query = "Insomnia"
 local passwords = "1Password"
 local music_app = "Spotify"
+local message_app = "Mattermost"
 
-hs.hotkey.bind({ "cmd", "shift" }, "7", function()
-  focusandback("Safari")
-end)
 hs.hotkey.bind({ "cmd", "shift" }, "d", function()
   focusandback("DataGrip")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "e", function()
   focusandback("PyCharm Professional Edition")
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "f", function()
+hs.hotkey.bind({ "cmd", "shift" }, "F3", function()
   focusandback(browser)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "F1", function()
@@ -55,7 +53,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "F2", function()
   focusandback("Calendar")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "m", function()
-  focusandback("Mattermost")
+  focusandback(message_app)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "q", function()
   focusandback(api_query)
@@ -63,7 +61,7 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, "0", function()
   focusandback(music_app)
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "F3", function()
+hs.hotkey.bind({ "cmd", "shift" }, "7", function()
   focusandback("Pocket Casts")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, ",", function()
@@ -163,11 +161,10 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
   hs.alert.show([[
   Key bindings:
     0 -> Music
+    8 -> PocketCasts
     9 -> Current Song
-    a -> Safari
     d -> DataGrip
     e -> PyCharm
-    f -> Browser
     j -> Next Song
     k -> Previous Song
     l -> Calendar
@@ -181,7 +178,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "h", function()
     + -> Increase Volume
     F1 -> Microsoft Outlook
     F2 -> Calendar
-    F3 -> Pocket Casts
+    F3 -> Browser
     F6 -> ChatGPT
     F7 -> Anybox
     F8 -> Passwords
