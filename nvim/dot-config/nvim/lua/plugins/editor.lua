@@ -49,7 +49,6 @@ return {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
     cmd = "Neotree",
     keys = {
       { "<leader>\\", "<Cmd>Neotree reveal_force_cwd<CR>", desc = "Neotree Reveal CWD" },
@@ -80,31 +79,43 @@ return {
         },
       },
     },
-    config = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-      require("neo-tree").setup({
-        opts = {
-          filesystem = {
-            bind_to_cwd = false,
-            follow_current_file = true,
-          },
-          buffers = {
-            follow_current_file = true,
-          },
-          window = {
-            mappings = {
-              ["<space>"] = "none",
-            },
-            fuzzy_finder_mappings = {
-              ["<down>"] = "move_cursor_down",
-              ["<C-n"] = "move_cursor_down",
-              ["<up>"] = "move_cursor_up",
-              ["<C-u"] = "move_cursor_up",
-            },
+    opts = {
+      buffers = {
+        follow_current_file = {
+          enabled = true,
+        },
+      },
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = {
+          enabled = true,
+        },
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false,
+          hide_by_pattern = {
+            "**/.git",
+            "**/.DS_Store",
+            "**/node_modules",
           },
         },
-      })
-    end,
+      },
+      source_selector = {
+        winbar = true,
+      },
+      window = {
+        mappings = {
+          ["<space>"] = "none",
+        },
+        fuzzy_finder_mappings = {
+          ["<down>"] = "move_cursor_down",
+          ["<C-n"] = "move_cursor_down",
+          ["<up>"] = "move_cursor_up",
+          ["<C-u"] = "move_cursor_up",
+        },
+      },
+    },
   },
   {
     "stevearc/oil.nvim",
