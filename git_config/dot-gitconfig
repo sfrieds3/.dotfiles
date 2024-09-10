@@ -57,6 +57,7 @@
 	sc = status -uno
 	sp = stash show -p
 	st = status -sb
+	sl = stash list --stat
 	ol = log --pretty=onelinedetail -n 10
 	oll = log --pretty=onelinedetail
 	rst = rebase --autostash
