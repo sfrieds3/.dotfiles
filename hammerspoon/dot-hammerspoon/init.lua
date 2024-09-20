@@ -30,7 +30,7 @@ quitModal:bind("", "escape", function()
 end)
 
 -- focus windows
-local browser = "safari"
+local browser = "firefox"
 local terminal = "wezterm"
 local api_query = "Insomnia"
 local passwords = "1Password"
