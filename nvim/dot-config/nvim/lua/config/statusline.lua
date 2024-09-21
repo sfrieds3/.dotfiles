@@ -221,10 +221,9 @@ local function filename(buf_name, win_id, filename_color, shorten)
   end
   shorten = shorten or false
   local base_name = fnamemodify(buf_name, [[:~:.]])
-  local filename_ext = vim.fn.fnamemodify(buf_name, ":e")
   local icon, hi, _ = require("mini.icons").get("file", buf_name)
   local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
-  local grapple_icon = get_grapple_icon(hi, filename_color)
+  local grapple_icon = get_grapple_icon(filename_color, filename_color)
   if shorten then
     local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
     if string.len(base_name) <= space then
