@@ -65,3 +65,4 @@
       - wget
       - yq
     state: present
+    update_homebrew: true

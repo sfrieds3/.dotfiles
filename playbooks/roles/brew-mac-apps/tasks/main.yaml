@@ -16,3 +16,4 @@
       - vlc
       - wireshark
     state: present
+    update_homebrew: true

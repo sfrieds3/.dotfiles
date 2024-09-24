@@ -1,3 +1,7 @@
+- name: Tap mongodb tap
+  community.general.homebrew_tap:
+    name: mongodb/brew
+
 - name: Install mac devtools
   community.general.homebrew:
     name:
@@ -13,7 +17,7 @@
       - htop
       - httpie
       - kind
-      - neovim
+      - mongodb-community@7.0
       - opam
       - protobuf
       - ruby-build
@@ -27,3 +31,4 @@
       - zsh-history-substring-search
       - zsh-syntax-highlighting
     state: present
+    update_homebrew: true
