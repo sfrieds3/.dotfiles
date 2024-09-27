@@ -5,6 +5,8 @@ if status is-interactive
     set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
     set -gx PIP_REQUIRE_VIRTUALENV 1
 
+    set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/python/python_startup.py
+
     set -gx FZF_DEFAULT_COMMAND "fd -t f --hidden --absolute-path"
     #fzf --bind "ctrl-a:reload:eval $FZF_DEFAULT_COMMAND --no-ignore"
 
