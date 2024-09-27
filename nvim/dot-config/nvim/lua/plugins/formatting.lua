@@ -34,6 +34,7 @@ return {
         rust = { "rustfmt" },
         scala = { "scalafmt" },
         sh = { "beautysh" },
+        toml = { "taplo" },
         yaml = { "yamlfmt" },
         ocaml = { "ocamlformat" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
