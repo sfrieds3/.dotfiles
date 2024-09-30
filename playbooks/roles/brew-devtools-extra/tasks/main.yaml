@@ -13,12 +13,14 @@
       # - clojure/tools/clojure
       - duckdb
       - ffmpeg
+      - grafana
       - guile
       - htop
       - httpie
       - kind
       - mongodb-community@7.0
       - opam
+      - prometheus
       - protobuf
       - ruby-build
       - rustup
