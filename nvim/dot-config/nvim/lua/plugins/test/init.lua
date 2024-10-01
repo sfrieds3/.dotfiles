@@ -180,8 +180,14 @@ return {
         "rcarriga/nvim-dap-ui",
         -- stylua: ignore
         keys = {
-          { "<localleader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-          { "<localleader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+          { "<localleader>uu", function() require("dapui").toggle({reset = true }) end, desc = "Toggle Dap UI" },
+          { "<localleader>ue", function() require("dapui").eval() end, desc = "Dap UI Eval", mode = {"n", "v"} },
+          { "<localleader>uw", function() require("dapui").elements.watches.add() end, desc = "Dap UI Add watch" },
+          { "<localleader>uW", function() require("dapui").elements.watches.remove() end, desc = "Dap UI Add watch" },
+          ---@diagnostic disable-next-line: missing-parameter
+          { "<localleader>uf", function() require("dapui").float_element() end, desc = "Dap UI Float Element" },
+          { "<localleader>us", function() require("dapui").float_element("scopes") end, desc = "Dap UI Float Scopes" },
+          { "<localleader>ur", function() require("dapui").float_element("repl") end, desc = "Dap UI Float Repl" },
         },
         opts = {},
         config = function(_, opts)
