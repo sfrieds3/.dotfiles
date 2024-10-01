@@ -8,5 +8,6 @@ uv_tool_packages:
   - pipdeptree
   - poetry
   - pre-commit
+  - ruff
   - tox
   - twine
