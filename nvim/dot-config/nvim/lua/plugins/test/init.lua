@@ -217,6 +217,7 @@ return {
 
     -- stylua: ignore
     keys = {
+      ---@diagnostic disable-next-line: missing-fields
       { "<localleader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
       { "<localleader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
       { "<localleader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
@@ -234,8 +235,9 @@ return {
       { "<localleader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
       { "<localleader>ds", function() require("dap").session() end, desc = "Session" },
       { "<localleader>dT", function() require("dap").terminate() end, desc = "Terminate" },
-      { "<F3>", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<F2>", function() require("dap").terminate() end, desc = "Terminate" },
       { "<localleader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      ---@diagnostic disable-next-line: missing-fields
       { "<space>?", function() require("dapui").eval(nil, { enter = true }) end },
     },
   },

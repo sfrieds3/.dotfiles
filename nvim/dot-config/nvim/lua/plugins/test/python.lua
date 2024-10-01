@@ -88,11 +88,19 @@ function M.setup()
   -- stylua: ignore
   vim.keymap.set("n", "<localleader>dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
   vim.keymap.set("n", "<localleader>dtf", function()
-    dap_python.test_method()
+    ---@diagnostic disable-next-line: missing-fields
+    dap_python.test_method({ config = { justMyCode = false } })
   end, { desc = "dap-python: test function" })
-  vim.keymap.set("n", "<localleader>tc", function()
-    dap_python.test_class()
+  vim.keymap.set("n", "<localleader>dtF", function()
+    dap_python.test_method()
+  end, { desc = "dap-python: test function [project code only]" })
+  vim.keymap.set("n", "<localleader>dtc", function()
+    ---@diagnostic disable-next-line: missing-fields
+    dap_python.test_class({ config = { justMyCode = false } })
   end, { desc = "dap-python: test class" })
+  vim.keymap.set("n", "<localleader>dtC", function()
+    dap_python.test_class()
+  end, { desc = "dap-python: test class [project code only]" })
 
   vim.api.nvim_create_user_command("SetPythonTestRunner", set_python_test_runner, { nargs = 0 })
   vim.api.nvim_create_user_command("SetPythonDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
