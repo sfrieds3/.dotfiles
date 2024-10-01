@@ -25,5 +25,3 @@ vim.api.nvim_create_user_command("CargoTest", function(params)
   })
   task:start()
 end, { nargs = "*", bang = true, complete = "file" })
-
-require("plugins.test.rust").setup()

@@ -34,11 +34,11 @@ return {
     },
     opts = {
       adapters = {
-        ["neotest-python"] = {},
-        ["neotest-go"] = {},
-        ["neotest-rust"] = {
-          dap_adapter = "lldb",
+        ["neotest-python"] = {
+          dap = { justMyCode = false },
         },
+        ["neotest-go"] = {},
+        ["rustaceanvim.neotest"] = {},
       },
       status = { virtual_text = true },
       output = { enabled = true, open_on_run = false },
@@ -151,11 +151,6 @@ return {
     dependencies = {
       {
         "mfussenegger/nvim-dap-python",
-      -- stylua: ignore
-      keys = {
-        { "<localleader>dtt", function()   require("dap-python").test_method() end, desc = "Debug Method", ft = "python" },
-        { "<localleader>dtc", function()   require("dap-python").test_class() end, desc = "Debug Class", ft = "python" },
-      },
         config = function()
           local path = require("mason-registry").get_package("debugpy"):get_install_path()
           require("dap-python").setup(path .. "/venv/bin/python")
@@ -212,12 +207,6 @@ return {
       {
         "theHamsta/nvim-dap-virtual-text",
         config = true,
-      },
-      {
-        "nvim-telescope/telescope-dap.nvim",
-        config = function()
-          require("telescope").load_extension("dap")
-        end,
       },
     },
 
