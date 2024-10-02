@@ -184,7 +184,35 @@ return {
           { "<localleader>us", function() require("dapui").float_element("scopes") end, desc = "Dap UI Float Scopes" },
           { "<localleader>ur", function() require("dapui").float_element("repl") end, desc = "Dap UI Float Repl" },
         },
-        opts = {},
+        opts = {
+          force_buffers = false,
+          element_mappings = {
+            scopes = {
+              edit = "l",
+            },
+          },
+          layouts = {
+            {
+              elements = {
+                "scopes",
+                "breakpoints",
+                "stacks",
+                "watches",
+              },
+              size = 80,
+              position = "left",
+            },
+            {
+              elements = { "repl", "console" },
+              size = 0.25,
+              position = "bottom",
+            },
+          },
+          render = {
+            max_value_lines = 3,
+          },
+          floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
+        },
         config = function(_, opts)
           -- require("dap.ext.vscode").load_launchjs()
           local dap = require("dap")
