@@ -1,4 +1,5 @@
 local M = {}
+local dap_go = require("dap-go")
 
 function M.setup()
   local dap = require("dap")
@@ -35,6 +36,10 @@ function M.setup()
       program = "./${relativeFileDirname}",
     },
   }
+
+  vim.keymap.set("n", "<localleader>dtf", function()
+    dap_go.test_method()
+  end, { desc = "dap-python: test function" })
 end
 
 return M
