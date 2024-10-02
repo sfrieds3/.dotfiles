@@ -6,9 +6,10 @@ function M.init_lazy()
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
     vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   end
-  vim.opt.rtp:prepend(lazypath)
+
   vim.opt.runtimepath:prepend(lazypath)
-  require("lazy").setup("plugins", {
+  require("lazy").setup({
+    spec = { import = "plugins" },
     install = { colorscheme = { "mellifluous", "kanagawa", "catppuccin", "habamax" } },
     dev = {
       path = "~/code/personal",
