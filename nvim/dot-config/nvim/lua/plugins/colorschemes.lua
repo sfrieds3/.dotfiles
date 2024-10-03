@@ -219,4 +219,7 @@ return {
       },
     },
   },
+  {
+    "navarasu/onedark.nvim",
+  },
 }
