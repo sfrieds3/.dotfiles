@@ -29,6 +29,7 @@
       - git-absorb
       - git-gui
       - git-lfs
+      - helix
       - helm
       - jless
       - jq
