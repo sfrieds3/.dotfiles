@@ -128,7 +128,8 @@ return {
         desc = "Jump to context",
       },
     },
-
-    config = true,
+    opts = {
+      max_lines = 5,
+    },
   },
 }
