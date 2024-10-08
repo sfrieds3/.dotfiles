@@ -346,10 +346,15 @@ return {
       link_tree_to_folds = false,
       link_folds_to_tree = false,
       show_guides = true,
+      highlight_on_hover = false,
       layout = {
         min_width = { 40, 0.025 },
         max_width = { 80, 0.25 },
+        default_direction = "prefer_right",
       },
+      on_attach = function()
+        require("aerial").tree_close_all()
+      end,
     },
     -- Optional dependencies
     dependencies = {
