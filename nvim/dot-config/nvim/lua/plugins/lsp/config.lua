@@ -55,7 +55,7 @@ function M.setup()
           analysis = {
             -- ignore = { "*" },
             diagnosticSeverityOverrides = {
-              reportUnusedCallResult = "information",
+              reportUnusedCallResult = "none",
               reportUnusedExpression = "information",
               reportIncompatibleMethodOverride = "information",
               reportUnusedVariable = "information",
