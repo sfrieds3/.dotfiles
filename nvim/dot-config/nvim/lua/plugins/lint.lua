@@ -14,6 +14,7 @@ return {
       typescriptreact = { "eslint_d" },
       svelte = { "eslint_d" },
       json = { "jsonlint" },
+      rst = { "rstcheck" },
       -- lua = { "luacheck" },
       markdown = { "markdownlint" },
       sh = { "shellcheck" },
