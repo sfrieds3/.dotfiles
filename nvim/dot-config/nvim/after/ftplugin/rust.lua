@@ -1,6 +1,6 @@
 local bufnr = vim.api.nvim_get_current_buf()
 
-vim.bo.makeprg = "cargo clippy"
+vim.bo.makeprg = "cargo build"
 -- vim.bo.compiler = "cargo"
 
 vim.api.nvim_create_autocmd("BufWritePre", {
