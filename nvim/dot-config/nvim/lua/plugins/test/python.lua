@@ -69,6 +69,8 @@ function M.setup()
       :find()
   end
 
+  require("dap-python").test_runner = "pytest"
+
   local function set_django_settings_module_env()
     local prev_django_settings_module = vim.env.DJANGO_SETTINGS_MODULE or ""
     vim.ui.input(
