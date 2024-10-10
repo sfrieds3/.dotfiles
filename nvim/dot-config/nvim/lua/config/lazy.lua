@@ -1,5 +1,7 @@
 local M = {}
 
+local nvim_personal_plugins = vim.env.NVIM_PERSONAL_PLUGINS or "~/code/personal"
+
 function M.init_lazy()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -12,7 +14,7 @@ function M.init_lazy()
     spec = { import = "plugins" },
     install = { colorscheme = { "mellifluous", "kanagawa", "catppuccin", "habamax" } },
     dev = {
-      path = "~/code/personal",
+      path = nvim_personal_plugins,
       patterns = { "sfrieds3" },
     },
     change_detection = {
