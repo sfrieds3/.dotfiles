@@ -157,7 +157,7 @@ function Statusline.lsp_progress()
       else
         local client_names = {}
         for _, client in ipairs(active_clients) do
-          if client and client.name ~= "" then
+          if client and client.name ~= "" and not vim.tbl_contains(client_names, client.name) then
             table.insert(client_names, client.name)
           end
         end
