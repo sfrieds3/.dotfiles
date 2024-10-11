@@ -93,6 +93,7 @@
 (setq ring-bell-function #'ignore)
 
 ;;; transient-mark-mode
+(use-package transient)
 (setq transient-mark-mode t)
 
 ;;; spaces by default instead of tabs!
@@ -127,7 +128,7 @@
 (prettify-symbols-mode nil)
 
 (use-package my-defun
-  :elpaca nil
+  :ensure nil
   :demand t
   :config
   ;; remap some commands to use transient-mark-mode
@@ -154,43 +155,39 @@
          ([(control q)] . #'+sf/isearch-highlight-phrase))))
 
 (use-package toggle-commands
-  :elpaca nil
+  :ensure nil
   :after (theme-config ef-themes doom-themes)
   :config
   (+sf/cycle-font 0)
   (+sf/cycle-theme 0))
 
 (use-package my-config
-  :elpaca nil)
+  :ensure nil)
 
 (use-package modeline
   :after evil
-  :elpaca nil)
+  :ensure nil)
 
 (use-package tramp-config
-  :elpaca nil)
+  :ensure nil)
 
 ;;; language specific settings
 (use-package lang-config
-  :elpaca nil
+  :ensure nil
   :demand t)
 
 ;;; editor settings
 (use-package editor
-  :elpaca nil
-  :demand t)
-
-(use-package treesit-config
-  :elpaca nil
+  :ensure nil
   :demand t)
 
 (use-package editor-format
-  :elpaca nil
+  :ensure nil
   :demand)
 
 ;;; theme config
 (use-package theme-config
-  :elpaca nil
+  :ensure nil
   :demand
   :config
   (+sf/set-path)
@@ -201,10 +198,17 @@
 (use-package material-theme)
 (use-package ef-themes)
 (use-package standard-themes)
-(use-package zerodark
-  :elpaca (:host github :repo "NicolasPetton/zerodark-theme")
-  :no-require t)
-;; run all-the-icons-install-fonts
+(use-package catppuccin-theme
+  :config
+  (custom-set-faces
+   `(diff-hl-change ((t (:background unspecified :foreground ,(catppuccin-get-color 'blue))))))
+
+  (custom-set-faces
+   `(diff-hl-delete ((t (:background unspecified :foreground ,(catppuccin-get-color 'red))))))
+
+  (custom-set-faces
+   `(diff-hl-insert ((t (:background unspecified :foreground ,(catppuccin-get-color 'green)))))))
+
 (use-package all-the-icons)
 (use-package doom-themes
   :custom
@@ -231,7 +235,7 @@
 
 ;;; auto-revert everything
 (use-package autorevert
-  :elpaca nil
+  :ensure nil
   :commands (global-auto-revert-mode)
   :init
   (global-auto-revert-mode 1)
@@ -242,13 +246,13 @@
   (auto-save-hook . +sf/diff-hl--update))
 
 (use-package dired
-  :elpaca nil
+  :ensure nil
   :custom
   (dired-listing-switches "-alh")
   (dired-dwim-target t))
 
 (use-package dired-x
-  :elpaca nil
+  :ensure nil
   :config
   (setq dired-omit-files "\\.DS_Store$\\|__pycache__$\\|.pytest_cache$\\|\\.mypy_cache$\\|\\.egg-info$"))
 
@@ -285,7 +289,7 @@
     "SPC" #'consult-buffer
     "b" #'consult-project-buffer
     "d" #'consult-flycheck
-    "f" #'project-find-file
+    "ff" #'project-find-file
     "G" #'rg
     "gb" #'blamer-show-commit-info
     "gd" #'lsp-ui-peek-find-definitions
@@ -299,17 +303,16 @@
     "vd" #'consult-lsp-diagnostics
     "vt" #'hl-todo-occur
     "/"  #'consult-line
-    "\\" #'+sidebar--toggle
-    ":" #'consult-lsp-symbols
-    ";" #'consult-lsp-file-symbols)
+    "\\" #'+sidebar--toggle)
   (+sf/leader
     :keymaps 'visual
     "RET" #'execute-extended-command)
   (general-create-definer +sf/search-leader :prefix "SPC s")
   (+sf/search-leader
     :keymaps 'normal
-    "f" #'project-find-file
     "r" #'consult-recent-file
+    "S" #'consult-lsp-symbols
+    "s" #'consult-lsp-file-symbols
     "t" #'consult-lsp-symbols)
   (general-create-definer +sf/ctrl-c-leader :prefix "C-c")
   (+sf/ctrl-c-leader
@@ -336,7 +339,7 @@
 
 ;;; evil
 (use-package evil-config
-  :elpaca nil
+  :ensure nil
   :after (evil))
 
 (use-package evil
@@ -428,10 +431,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :config
   (global-evil-quickscope-mode t))
 
-(use-package evil-lion
-  :config
-  (evil-lion-mode))
-
 (use-package evil-matchit
   :after evil
   :config
@@ -513,7 +512,47 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 (use-package spinner)
 (use-package lv)
 
-;;; lsp-mode
+(use-package dape
+  :preface
+  ;; By default dape shares the same keybinding prefix as `gud'
+  ;; If you do not want to use any prefix, set it to nil.
+  ;; (setq dape-key-prefix "\C-x\C-a")
+
+  :hook
+  ;; Save breakpoints on quit
+  ((kill-emacs . dape-breakpoint-save)
+  ;; Load breakpoints on startup
+   (after-init . dape-breakpoint-load))
+
+  :config
+  ;; Turn on global bindings for setting breakpoints with mouse
+  (dape-breakpoint-global-mode)
+
+  ;; Info buffers to the right
+  (setq dape-buffer-window-arrangement 'right)
+
+  ;; Info buffers like gud (gdb-mi)
+  (setq dape-buffer-window-arrangement 'gud)
+  (setq dape-info-hide-mode-line nil)
+
+  ;; Pulse source line (performance hit)
+  (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+  ;; Showing inlay hints
+  (setq dape-inlay-hints t)
+
+  ;; Save buffers on startup, useful for interpreted languages
+  (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
+
+  ;; Kill compile buffer on build success
+  ;; (add-hook 'dape-compile-hook 'kill-buffer)
+
+  ;; Projectile users
+  (defun dape-root()
+    (project-root(project-current)))
+  (setq dape-cwd-fn 'dape-root))
+
+;;; Lsp-mode
 (use-package lsp-mode
   :demand t
   :custom
@@ -521,6 +560,13 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (lsp-file-watch-threshold 50000)
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-headerline-breadcrumb-segments '(project symbols))
+  (lsp-enable-suggest-server-download t)
+  (lsp-enable-symbol-highlighting t)
+  (lsp-enable-xref t)
+  (lsp-auto-configure t)
+  (lsp-inlay-hint-enable t)
+  (lsp-lens-enable t)
+  (tooltip-mode 1)
   :config
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
   (defun +sf/python-mode-hook()
@@ -562,12 +608,13 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; treesitter
 (use-package treesit
-  :elpaca nil)
+  :ensure nil)
 
 (use-package treesit-auto
   :custom
   (treesit-auto-install 'prompt)
   :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
 (use-package evil-textobj-tree-sitter
@@ -619,10 +666,10 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; context using treesitter
 (use-package posframe-plus
-  :elpaca (:host github :type git :repo "zbelial/posframe-plus" ))
+  :ensure (:host github :type git :repo "zbelial/posframe-plus" ))
 (use-package treesitter-context
   :after (treesit posframe-plus)
-  :elpaca (:type git :host github :repo "zbelial/treesitter-context.el")
+  :ensure (:type git :host github :repo "zbelial/treesitter-context.el")
   :commands (treesitter-context-toggle-show)
   :config
   (setq treesitter-context-idle-time 0.5)
@@ -641,7 +688,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; hideshow
 (use-package hideshow
-  :elpaca nil
+  :ensure nil
   :bind ("C-c h" . #'hs-toggle-hiding)
   :commands hs-toggle-hiding
   :config
@@ -651,12 +698,12 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; org-defun
 (use-package org-defun
-  :elpaca nil
+  :ensure nil
   :bind (("s-SPC" . #'$org-table--mark-field)))
 
 ;;; org-mode
 (use-package org
-  :elpaca nil
+  :ensure nil
   :commands (org-mode
              org-capture)
   :defer t
@@ -680,19 +727,19 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :hook
   (org-mode-hook . org-indent-mode))
 
-(use-package evil-org-mode
-  :elpaca (:host github :repo "Somelauw/evil-org-mode")
-  :after org
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  (defun $org-mode-hook ()
-    (evil-org-mode))
-  :hook (org-mode-hook . $org-mode-hook))
+;; (use-package evil-org-mode
+;;   :ensure (:host github :repo "Somelauw/evil-org-mode")
+;;   :after org
+;;   :config
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys)
+;;   (defun $org-mode-hook ()
+;;     (evil-org-mode))
+;;   :hook (org-mode-hook . $org-mode-hook))
 
 ;;; org-table
 (use-package org-table
-  :elpaca nil
+  :ensure nil
   :after org)
 
 (use-package dired-sidebar
@@ -727,7 +774,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; project
 (use-package project
-  :elpaca nil
+  :ensure nil
   :config
   (defun +sf/project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
@@ -757,7 +804,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (marginalia-mode))
 
 (use-package minibuffer
-  :elpaca nil
+  :ensure nil
   :config
   ;;; Add prompt indicator to `completing-read-multiple'.
   ;; (defun $crm-indicator (args)
@@ -879,7 +926,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
       (select-window (active-minibuffer-window)))))
 
 (use-package savehist
-  :elpaca nil
+  :ensure nil
   :custom
   (savehist-save-minibuffer-history t)
   (history-length 20000)
@@ -896,7 +943,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (savehist-mode t))
 
 (use-package orderless-defun
-  :elpaca nil)
+  :ensure nil)
 
 (use-package orderless
   :after (orderless-defun)
@@ -925,7 +972,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (define-key minibuffer-local-map (kbd "C-l") #'$match-components-literally))
 
 (use-package corfu
-  :elpaca (:files (:defaults "extensions/*"))
+  :ensure (:files (:defaults "extensions/*"))
   :custom
   (corfu-cycle t)
   (corfu-auto t)
@@ -1123,7 +1170,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :bind ("<f6>" . #'deadgrep))
 
 (use-package embark-defun
-  :elpaca nil)
+  :ensure nil)
 
 (use-package embark
   :after (embark-defun)
@@ -1154,7 +1201,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                  (window-parameters (mode-line-format . none)))))
 
 (use-package embark-this-buffer
-  :elpaca nil
+  :ensure nil
   :after (embark-consult))
 
 (use-package embark-consult
@@ -1164,7 +1211,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 (use-package vterm
   :demand t
-  :elpaca (:pre-build (setq vterm-always-compile-module t))
+  :ensure (:pre-build (setq vterm-always-compile-module t))
   :config
   (defun $vterm-mode-hook ()
     (setq-local evil-insert-state-cursor 'box)
@@ -1200,7 +1247,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; ansi-term
 (use-package term
-  :elpaca nil
+  :ensure nil
   :config
   (defun $ansi-term-dwim (arg)
     "Launch or switch to ansi-term.
@@ -1222,7 +1269,7 @@ no matter what."
 
 ;;; use fish shell
 (use-package shell
-  :elpaca nil
+  :ensure nil
   :custom
   (explicit-shell-file-name "fish"))
 
@@ -1254,7 +1301,7 @@ no matter what."
              git-messenger:popup-show-verbose))
 
 (use-package blamer
-  :elpaca (:host github :repo "artawower/blamer.el")
+  :ensure (:host github :repo "artawower/blamer.el")
   :custom
   (blamer-idle-time 0.3)
   (blamer-min-offset 70)
@@ -1273,14 +1320,14 @@ no matter what."
   (diff-hl-show-hunk-mouse-mode))
 
 (use-package diff-hl-flydiff
-  :elpaca nil
+  :ensure nil
   :commands diff-hl-flydiff-mode)
 
 (use-package git-timemachine)
 
 ;;; compile
 (use-package compile
-  :elpaca nil
+  :ensure nil
   :config
   (add-to-list 'compilation-error-regexp-alist-alist
                '(pyright "^[[:blank:]]+\\(.+\\):\\([0-9]+\\):\\([0-9]+\\).*$" 1 2 3))
@@ -1301,18 +1348,18 @@ no matter what."
 
 ;;; show matching parens
 (use-package paren
-  :elpaca nil
+  :ensure nil
   :config
   (show-paren-mode 1))
 
 ;;; smart parens
 (use-package elec-pair
-  :elpaca nil
+  :ensure nil
   :commands (electric-pair-mode))
 
 ;;; highlight current line
 (use-package hl-line
-  :elpaca nil
+  :ensure nil
   :config
   (set-face-attribute hl-line-face nil :underline nil)
   :bind (([f9]. #'hl-line-mode)))
@@ -1323,7 +1370,7 @@ no matter what."
 
 ;;; nXml-mode
 (use-package nxml-mode
-  :elpaca nil
+  :ensure nil
   :defer t
   :config
   (defun $pretty-xml ()
@@ -1376,7 +1423,7 @@ no matter what."
 ;;; eldoc
 (use-package eldoc
   :diminish
-  :elpaca nil)
+  :ensure nil)
 
 (use-package eldoc-box
   :diminish((eldoc-box-hover-mode . "")
@@ -1394,7 +1441,7 @@ no matter what."
 
 ;;; uniquify
 (use-package uniquify
-  :elpaca nil
+  :ensure nil
   :custom
   (uniquify-buffer-name-style 'forward)
   (uniquify-separator "/")
@@ -1408,7 +1455,7 @@ no matter what."
 
 ;;; display-buffer (most/all of this taken from prot)
 (use-package window
-  :elpaca nil
+  :ensure nil
   :custom
   (display-buffer-alist
    '(;; top side window
@@ -1483,13 +1530,13 @@ no matter what."
 ;;; winner-mode
 (use-package winner
   ;; TODO: set C-w [ and ] to winner-undo and winner-redo
-  :elpaca nil
+  :ensure nil
   :hook
   (after-init-hook . winner-mode))
 
 ;;; tab-bar (again, most/all of this taken from prot)
 (use-package tab-bar
-  :elpaca nil
+  :ensure nil
   :custom
   (tab-bar-close-button-show nil)
   (tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
@@ -1602,7 +1649,7 @@ questions.  Else use completion to select the tab to switch to."
 
 ;;; hi-lock
 (use-package hi-lock
-  :elpaca nil
+  :ensure nil
   :config
   ;; make hl-lock play nice with idle-highlight-mode
   (defun $enable-idle-highlight-mode ()
@@ -1732,7 +1779,7 @@ questions.  Else use completion to select the tab to switch to."
          (text-mode-hook . tempel-setup-capf)))
 
 (use-package tempel-collection
-  :elpaca (:host github :repo "Crandel/tempel-collection"))
+  :ensure (:host github :repo "Crandel/tempel-collection"))
 
 ;;; load local settings
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))

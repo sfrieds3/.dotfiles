@@ -11,9 +11,9 @@
   (setf (alist-get 'isort apheleia-formatters)
         '("isort" "--stdout" "-"))
   (setf (alist-get 'python-mode apheleia-mode-alist)
-        '(isort black))
+        '(ruff))
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
-        '(isort black)))
+        '(ruff)))
 
 ;;; TODO: investigate emacs-reformatter
 (use-package reformatter)

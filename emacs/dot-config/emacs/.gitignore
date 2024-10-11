@@ -1,6 +1,7 @@
 local-settings.el
 tmp
 backups
+backup
 auto-save-list
 recentf
 savehist

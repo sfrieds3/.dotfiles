@@ -318,12 +318,14 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                        (t (list $mode-line--inactive-buffer-identification)))
 
                  ;; right hand side
+                 (cond ((mode-line-window-selected-p)
                  (list
                   $mode-line-git-status
                   $mode-line-position
                   " "
                   $mode-line-percent-position
-                  " "))))
+                  " "))
+                       (t nil)))))
 
 (defun $mode-line--force-update ()
   "Force update of mode line."

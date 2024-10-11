@@ -188,7 +188,7 @@ Also resizees `doom-variable-pitch-font' and `doom-serif-font'."
     (when-let* ((face (car map))
                 (font (cdr map)))
       (dolist (frame (frame-list))
-        (when (display-multi-font-p frame)
+        (when (displag-multi-font-p frame)
           (set-face-attribute face frame
                               :width 'normal :weight 'normal
                               :slant 'normal :font font)))

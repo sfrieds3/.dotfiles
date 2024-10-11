@@ -39,10 +39,12 @@
             (setq gc-cons-threshold 16777216 gc-cons-percentage 0.1)))
 
 ;;; increase amount of data emacs reads from process
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq read-process-output-max (* 1024 1024 4)) ;; 4mb
 
 ;;; do not warn cl deprecated
 (setq byte-compile-warnings '(cl-functions))
+
+(native-compile-prune-cache)
 
 (provide 'early-init)
 ;;; early-init.el ends here
