@@ -2,8 +2,7 @@ return {
   "saghen/blink.cmp",
   event = { "InsertEnter", "CmdLineEnter" },
   dependencies = "rafamadriz/friendly-snippets",
-
-  version = "v0.*",
+  build = "cargo build --release",
 
   opts = {
     keymap = {
@@ -13,8 +12,8 @@ return {
       select_prev = { "<Up>", "<C-p>" },
       select_next = { "<Down>", "<C-n>" },
 
-      show_documentation = {},
-      hide_documentation = {},
+      show_documentation = "<C-space>",
+      hide_documentation = "<C-space>",
       scroll_documentation_up = "<C-b>",
       scroll_documentation_down = "<C-f>",
 
