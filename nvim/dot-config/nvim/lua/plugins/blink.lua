@@ -25,7 +25,7 @@ return {
     },
     nerd_font_variant = "mono",
 
-    accept = { auto_brackets = { enabled = true } },
+    accept = { auto_brackets = { enabled = false } },
 
     trigger = { signature_help = { enabled = true } },
   },

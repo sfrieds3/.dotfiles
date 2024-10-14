@@ -130,6 +130,7 @@ return {
     },
     opts = {
       max_lines = 5,
+      trim_scope = "inner",
     },
   },
 }
