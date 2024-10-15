@@ -164,6 +164,8 @@ function FZFConfig.get_config()
           },
         },
         grep = {
+          rg_glob = true,
+
           winopts = {
             preview = {
               layout = "horizontal",
@@ -194,7 +196,7 @@ function FZFConfig.get_config()
       { "<leader>fR", function() require("fzf-lua").files({ cwd = vim.fn.expand('%:p:h') }) end, desc = "Find Related Files" },
       { "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Old files" },
       { "<leader>fF", function() require("fzf-lua").files({ cmd = "fd --color=never --type f --hidden --follow --exclude .git --no-ignore" }) end, desc = "Find All Files" },
-      { "<leader>sF", function() require("fzf-lua").grep({ rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e --no-ignore --hidden" }) end, desc = "Search All Files" },
+      { "<leader>sF", function() require("fzf-lua").grep({ cmd = "rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 --no-ignore --hidden" }) end, desc = "Search All Files" },
       { "<leader>sS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Workspace Symbols" },
       { "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols" },
       { "<leader>gR", "<cmd>FzfLua lsp_references<cr>", desc = "LSP References" },
@@ -203,6 +205,7 @@ function FZFConfig.get_config()
       { "<leader>O", "<cmd>FzfLua lsp_outgoing_calls<cr>", desc = "Outgiong calls" },
       { "<leader>gg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
       { "<leader>rg", "<cmd>FzfLua live_grep_glob<cr>", desc = "FzfLua: multi [r]ip[g]rep" },
+      { "<leader>rG", function() require("fzf-lua").live_grep({ cmd = "rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 --no-ignore --hidden" }) end, desc = "FzfLua: live grep in all files" },
       { "<leader>g/", "<cmd>FzfLua grep_last<cr>", desc = "Grep Last Search" },
       { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
       -- { "<leader>di", function() Utils("installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
