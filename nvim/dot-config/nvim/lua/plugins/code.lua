@@ -10,6 +10,8 @@ return {
     },
 
     config = function()
+      vim.snippet.expand = require("luasnip").lsp_expand
+      vim.snippet.stop = require("luasnip").unlink_current
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_lua").lazy_load({ paths = { vim.fn.stdpath("data") .. "/snippets_local" } })
     end,
