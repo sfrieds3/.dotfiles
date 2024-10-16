@@ -86,7 +86,7 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
     cmd = {
       "DiffviewOpen",
-      "DiffViewFileHistory",
+      "DiffciewFileHistory",
     },
 
     opts = {
