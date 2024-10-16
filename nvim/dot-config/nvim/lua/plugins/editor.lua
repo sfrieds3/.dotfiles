@@ -124,7 +124,9 @@ return {
     opts = {
       default_file_explorer = true,
       delete_to_trash = true,
-      show_hidden = true,
+      view_options = {
+        show_hidden = true,
+      },
     },
     -- stylua: ignore
     keys = {
