@@ -71,15 +71,11 @@ local function goto_diagnostic(direction, severity, float)
   end
 end
 
-local function diagnostic_toggle_buf(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-  if not vim.diagnostic.is_enabled(bufnr) then
-    vim.diagnostic.enable(bufnr)
-    print("Enabled buffer diagnostics")
-  else
-    vim.diagnostic.enable(false, { bufnr = bufnr })
-    print("Disabled buffer diagnostics")
-  end
+local function toggle_diagnostics(opts)
+  opts = opts or {}
+  local enable = not vim.diagnostic.is_enabled(opts)
+  vim.diagnostic.enable(enable, opts)
+  print(enable and "Disabled buffer diagnostics" or "Enabled buffer diagnostics")
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -93,17 +89,13 @@ vim.keymap.set("n", "]d", function()
 end, { desc = "Go To Next Diagnostic" })
 vim.keymap.set("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "Diagnotics set Loclist" })
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Diagnotics set Quickfix" })
-vim.keymap.set("n", "<leader>cD", function()
-  vim.diagnostic.enable(false)
-end, { desc = "Disable Global Diagnostics" })
 vim.keymap.set("n", "<leader>cd", function()
-  vim.diagnostic.enable(false, { bufnr = vim.api.nvim_get_current_buf() })
-end, { desc = "Disable Buffer Diagnostics" })
-vim.keymap.set("n", "<leader>cE", vim.diagnostic.enable, { desc = "Enable Global Diagnosics" })
-vim.keymap.set("n", "<leader>ce", function()
-  vim.diagnostic.enable(true, { bufnr = vim.api.nvim_get_current_buf() })
-end, { desc = "Enable Global Diagnosics" })
-vim.keymap.set("n", "<leader>ct", diagnostic_toggle_buf, { desc = "Toggle Diagnostics in Buffer" })
+  toggle_diagnostics({ bufnr = vim.api.nvim_get_current_buf() })
+end, { desc = "Toggle Buffer Diagnostics" })
+vim.keymap.set("n", "<leader>cD", function()
+  toggle_diagnostics()
+end, { desc = "Toggle Global Diagnostics" })
+vim.keymap.set("n", "<M-d>", toggle_diagnostics, { desc = "Toggle Global Diagnostics" })
 vim.keymap.set("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Next Error" })
 vim.keymap.set("n", "[e", goto_diagnostic("previous", "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", goto_diagnostic("next", "WARN"), { desc = "Next Warning" })
