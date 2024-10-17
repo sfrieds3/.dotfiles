@@ -197,6 +197,7 @@ function FZFConfig.get_config()
       { "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Old files" },
       { "<leader>fF", function() require("fzf-lua").files({ cmd = "fd --color=never --type f --hidden --follow --exclude .git --no-ignore" }) end, desc = "Find All Files" },
       { "<leader>sF", function() require("fzf-lua").grep({ cmd = "rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 --no-ignore --hidden" }) end, desc = "Search All Files" },
+      { "<leader>gdf", function()require("fzf-lua").grep({raw_cmd = [[git status -su | rg "^\s*M" | cut -d ' ' -f3 | xargs rg --hidden --column --line-number --no-heading --color=always  --with-filename -e '']]}) end, desc = "Grep Git Diff Files"},
       { "<leader>sS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Workspace Symbols" },
       { "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols" },
       { "<leader>gR", "<cmd>FzfLua lsp_references<cr>", desc = "LSP References" },
