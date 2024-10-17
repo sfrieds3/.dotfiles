@@ -85,7 +85,6 @@ return {
               end
             end
           end)
-          return {}
         end
       end
 
@@ -120,9 +119,12 @@ return {
     -- stylua: ignore
     keys = {
       { "<localleader>tt", function() require("neotest").run.run() end, desc = "Run Nearest" },
+      { "<M-t>", function() require("neotest").run.run() end, desc = "Run Nearest" },
       { "<localleader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
+      { "<M-S-T>", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File" },
       { "<localleader>tF", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files" },
       { "<localleader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary" },
+      { "<M-y>", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
       { "<localleader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output" },
       { "<localleader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
       { "<localleader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
@@ -177,6 +179,7 @@ return {
         -- stylua: ignore
         keys = {
           { "<localleader>uu", function() require("dapui").toggle({reset = true }) end, desc = "Toggle Dap UI" },
+          { "<M-u>", function() require("dapui").toggle({reset = true }) end, desc = "Toggle Dap UI" },
           { "<localleader>ue", function() require("dapui").eval() end, desc = "Dap UI Eval", mode = {"n", "v"} },
           { "<localleader>uw", function() require("dapui").elements.watches.add() end, desc = "Dap UI Add watch" },
           { "<localleader>uW", function() require("dapui").elements.watches.remove() end, desc = "Dap UI Add watch" },
@@ -244,7 +247,9 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       { "<localleader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
       { "<localleader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
+      { "<M-S-b>", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
       { "<localleader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<M-b>", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
       { "<localleader>dc", function() require("dap").continue() end, desc = "Continue" },
       { "<localleader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
       { "<localleader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },

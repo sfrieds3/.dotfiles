@@ -31,7 +31,10 @@ return {
 
       vim.keymap.set("n", "<localleader>dtf", function()
         vim.cmd.RustLsp("debug")
-      end, { desc = "dap-python: test function" })
+      end, { desc = "Rust: Debug Function" })
+      vim.keymap.set("n", "<M-S-d>", function()
+        vim.cmd.RustLsp("debug")
+      end, { desc = "Rust: Debug Function" })
     end,
   },
 }
