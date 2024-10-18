@@ -450,7 +450,7 @@ return {
       },
     },
     keys = {
-      { "<leader>cl", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
+      { "<M-i>", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
     },
   },
 }
