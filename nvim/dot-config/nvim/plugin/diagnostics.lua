@@ -75,7 +75,7 @@ local function toggle_diagnostics(opts)
   opts = opts or {}
   local enable = not vim.diagnostic.is_enabled(opts)
   vim.diagnostic.enable(enable, opts)
-  print(enable and "Disabled buffer diagnostics" or "Enabled buffer diagnostics")
+  print(enable and "Enabled buffer diagnostics" or "Disabled buffer diagnostics")
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
