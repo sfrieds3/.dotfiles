@@ -1,7 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    enabled = true,
+    enabled = false,
     event = { "InsertEnter", "CmdLineEnter" },
     config = function()
       require("plugins.cmp.config").setup()

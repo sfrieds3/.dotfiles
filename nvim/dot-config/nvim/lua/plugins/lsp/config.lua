@@ -9,7 +9,10 @@ end
 
 function M.setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+  local err, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+  if err == nil then
+    capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+  end
 
   local function on_attach(client, bufnr)
     if client.supports_method("textDocument/inlayHint") then
