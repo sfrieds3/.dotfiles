@@ -1,14 +1,19 @@
 local Path = require("plenary.path")
 local Job = require("plenary.job")
+local TSUtils = require("nvim-treesitter.ts_utils")
 
 local project_markers = { ".git", "pyproject.toml", "setup.py", "setup.cfg" }
 
+--- Get project root for a given file based on configured project_markers
+---@param file string filename for which to find root directory
+---@return string? root directory for `file`
 local function get_project_root(file)
   return vim.fs.root(vim.fn.expand(file), project_markers)
 end
 
 local data_path = string.format("%s/pytest_fixtures.nvim", vim.fn.stdpath("data"))
 local data_path_exists = false
+--- Ensure configured data path exists
 local function ensure_data_path_exists()
   if data_path_exists then
     return
@@ -22,13 +27,21 @@ local function ensure_data_path_exists()
 end
 
 ensure_data_path_exists()
-local file = "~/code/prefect/setup.py"
-local project_root = get_project_root(file)
-local project_hash = vim.fn.sha256(project_root)
-local full_path = string.format("%s/%s.json", data_path, project_hash)
 
-local function store_fixtures(fixtures)
-  Path:new(full_path):write(vim.json.encode(fixtures), "w")
+--- Get a `Path` object to store pytest fixture data for a project
+---@param project_hash string unique hash for project
+---@return Path path object to store project data
+local function get_storage_path_for_project(project_hash)
+  local full_path = string.format("%s/%s.json", data_path, project_hash)
+  return Path:new(full_path)
+end
+
+--- Store fixture to unique `project_hash` location for project
+---@param project_hash string unique hash for project
+---@param fixtures table pytest fixtures for a given file  -- TODO: better typing for this
+local function store_fixtures(project_hash, fixtures)
+  local path = get_storage_path_for_project(project_hash)
+  path:write(vim.json.encode(fixtures), "w")
 end
 
 local function get_fixtures(file_path)
@@ -44,51 +57,54 @@ local ts_query_text = [[
   name: (identifier) @function)
   ]]
 
-local function ts_query(bufnr, current_pos)
+local function get_test_args()
+  local function_at_cursor = TSUtils.get_node_at_cursor()
+
+  -- Traverse up to find the function definition node
+  while function_at_cursor and function_at_cursor:type() ~= "function_definition" do
+    function_at_cursor = function_at_cursor:parent()
+  end
+
+  if not function_at_cursor then
+    return
+  end
+
+  local function_name = vim.treesitter.get_node_text(function_at_cursor:field("name")[1], 0)
+
+  -- Query the arguments of the function
+  local query_string = [[
+    (function_definition
+      name: (identifier) @name
+      parameters: (parameters (identifier) @args))
+  ]]
+
   local lang = "python"
-  local parser = vim.treesitter.get_parser(bufnr, lang)
-  assert(parser ~= nil, "parser should not be nil")
-  local tree = parser:parse()
-  assert(tree ~= nil, "tree should not be nil")
-  local root = tree[1]:root()
-  local query = vim.treesitter.query.parse("python", ts_query_text)
+  local parser = vim.treesitter.get_parser(0, lang)
+  if parser == nil then
+    return
+  end
+  local tree = parser:parse()[1]
+  local root = tree:root()
+  local query = vim.treesitter.query.parse(lang, query_string)
 
-  local current_row, _ = unpack(current_pos)
-
-  local offset = 0
-  local max_offset = 10
-  local nodes = {}
-  while true do
-    local start_row = math.max(current_row - offset, 0)
-    local end_row = (current_row + offset)
-
-    for id, node in query:iter_captures(root, 0, start_row, end_row) do
-      local name = query.captures[id]
-      local type = node:type()
-      table.insert(nodes, { node = node, name = name, type = type })
-    end
-
-    offset = offset + 1
-    if #nodes > 0 or offset > max_offset then
-      break
+  local args = {}
+  for id, node, _ in query:iter_captures(root, 0) do
+    local capture_name = query.captures[id]
+    if capture_name == "args" then
+      table.insert(args, vim.treesitter.get_node_text(node, 0))
     end
   end
 
-  local funcs = {}
-  for _, node in ipairs(nodes) do
-    table.insert(funcs, vim.treesitter.get_node_text(node.node, bufnr))
-  end
-
-  return funcs
+  return function_name, args
 end
 
 local function goto_fixture(bufnr, cursor_pos)
   print(string.format("Get fixture for bufnr: %s cursor pos: %s", bufnr, cursor_pos))
-  local funcs = ts_query(bufnr, cursor_pos)
-  P(funcs)
+  local func, args = get_test_args()
+  print(func, vim.inspect(args))
 end
 
-local function store_pytext_fixtures(output_lines)
+local function store_pytext_fixtures(project_hash, output_lines)
   local fixtures = {}
   local current_test = nil
 
@@ -105,17 +121,18 @@ local function store_pytext_fixtures(output_lines)
     end
   end
 
-  store_fixtures(fixtures)
+  store_fixtures(project_hash, fixtures)
 end
 
-local function refresh_pytest_fixture_cache()
+local function refresh_pytest_fixture_cache(project_hash)
   local result = {}
+  print("Refreshing pytest fixtures cache..")
   Job:new({
     command = "pytest",
     args = { "--fixtures-per-test" },
     on_exit = function(j, _)
       result = j:result()
-      store_pytext_fixtures(result)
+      store_pytext_fixtures(project_hash, result)
     end,
   }):start()
 end
@@ -133,9 +150,20 @@ local function has_pytest()
   return vim.fn.executable("pytest") == 1
 end
 
+local function should_refresh_fixtures(project_hash)
+  _ = project_hash
+  return true
+end
+
 local function maybe_refresh_pytest_fixture_cache(buf_file)
-  if get_project_root(file) and is_python(buf_file) and has_pytest() then
-    refresh_pytest_fixture_cache()
+  local project_root = get_project_root(buf_file)
+  if project_root == nil then
+    return
+  end
+
+  local project_hash = vim.fn.sha256(project_root)
+  if project_root and is_python(buf_file) and has_pytest() and should_refresh_fixtures(project_hash) then
+    refresh_pytest_fixture_cache(project_hash)
   end
 end
 
