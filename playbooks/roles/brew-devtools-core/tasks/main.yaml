@@ -32,6 +32,7 @@
       - helix
       - helm
       - jless
+      - just
       - jq
       - kubernetes-cli
       - libgccjit
