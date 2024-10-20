@@ -135,7 +135,7 @@ return {
       },
     },
     opts = {
-      snippet_engine = "luasnip",
+      snippet_engine = "nvim",
       languages = {
         python = {
           template = {
