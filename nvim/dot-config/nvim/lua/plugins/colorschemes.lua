@@ -1,6 +1,7 @@
 return {
   {
     "ramojus/mellifluous.nvim",
+    event = "VeryLazy",
     opts = {
       color_set = "mellifluous",
       transparent_background = {
@@ -204,6 +205,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
+    event = "VeryLazy",
 
     opts = {
       style = "night",
@@ -219,7 +221,7 @@ return {
       },
     },
   },
-  {
-    "navarasu/onedark.nvim",
-  },
+  { "navarasu/onedark.nvim", event = "VeryLazy" },
+
+  { "rose-pine/neovim", name = "rose-pine", event = "VeryLazy" },
 }
