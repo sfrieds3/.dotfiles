@@ -1,0 +1,14 @@
+{
+  "home dir (node)": {
+    "body": "os.homedir()",
+    "prefix": "home dir (node)"
+  },
+  "os (module)": {
+    "body": "import * as os from \"os\";",
+    "prefix": "os (module)"
+  },
+  "shebang (node)": {
+    "body": "#!/usr/bin/env node",
+    "prefix": "shebang (node)"
+  }
+}

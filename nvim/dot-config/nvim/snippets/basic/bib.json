@@ -1,0 +1,33 @@
+{
+  "keywords (key)": {
+    "body": "keywords = {$0},",
+    "prefix": "keywords (key)"
+  },
+  "new entry template": {
+    "body": [
+      "@${1:article}{${2:citekey},",
+      "\ttitle = {{${3:title}}},",
+      "\tauthor = {${4:names}},",
+      "\tyear = ${5:year},",
+      "\tkeywords = {$6}",
+      "}",
+      "$0"
+    ],
+    "prefix": "new entry"
+  },
+  "number (key) + issue (key)": {
+    "body": "number = {$0},",
+    "prefix": [
+      "number (key)",
+      "issue (key)"
+    ]
+  },
+  "pages (key)": {
+    "body": "pages = {$1--$0},",
+    "prefix": "pages (key)"
+  },
+  "volume (key)": {
+    "body": "volume = {$0},",
+    "prefix": "volume (key)"
+  }
+}

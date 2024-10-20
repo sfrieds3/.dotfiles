@@ -3,11 +3,9 @@ local is_executable = vim.fn.executable
 return {
   {
     "L3MON4D3/LuaSnip",
+    enabled = false,
     event = "InsertEnter",
     build = "make install_jsregexp",
-    dependencies = {
-      { "rafamadriz/friendly-snippets" },
-    },
 
     config = function()
       vim.snippet.expand = require("luasnip").lsp_expand
