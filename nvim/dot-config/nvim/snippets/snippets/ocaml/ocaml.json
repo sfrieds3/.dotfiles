@@ -1,0 +1,93 @@
+{
+  "function": {
+    "body": [
+      "function\n| $0"
+    ],
+    "description": "Snippet for a match function definition",
+    "prefix": "func"
+  },
+  "lambda": {
+    "body": [
+      "fun (${1:pattern}) -> ${2:${1:pattern}}"
+    ],
+    "description": "Snippet for a lambda function definition",
+    "prefix": "fun"
+  },
+  "let (toplevel)": {
+    "body": [
+      "let ${1:pattern} = $0"
+    ],
+    "description": "Snippet for a let definition",
+    "prefix": "let"
+  },
+  "let .. in": {
+    "body": [
+      "let ${1:pattern} = ${2:()} in$0"
+    ],
+    "description": "Snippet for a let .. in binding",
+    "prefix": "let"
+  },
+  "match": {
+    "body": [
+      "match ${1:scrutinee} with\n| ${2:pattern} -> ${3:${2:pattern}}"
+    ],
+    "description": "Snippet for a pattern match block definition",
+    "prefix": "match"
+  },
+  "module": {
+    "body": [
+      "module ${1:M} = struct\n  ${2}\nend$0"
+    ],
+    "description": "Snippet for a module definition",
+    "prefix": "module"
+  },
+  "module signature": {
+    "body": [
+      "module ${1:M} : sig\n  ${2}\nend$0"
+    ],
+    "description": "Snippet for a module signature definition",
+    "prefix": "module"
+  },
+  "module type": {
+    "body": [
+      "module type ${1:M} = sig\n  ${2}\nend$0"
+    ],
+    "description": "Snippet for a module type definition",
+    "prefix": "module"
+  },
+  "sig": {
+    "body": [
+      "sig\n  ${1}\nend$0"
+    ],
+    "description": "Snippet for a signature block",
+    "prefix": "sig"
+  },
+  "struct": {
+    "body": [
+      "struct\n  ${1}\nend$0"
+    ],
+    "description": "Snippet for a struct block",
+    "prefix": "struct"
+  },
+  "type declaration": {
+    "body": [
+      "type ${1:name} = $0"
+    ],
+    "description": "Snippet for a type declaration",
+    "prefix": "type"
+  },
+  "val": {
+    "body": [
+      "val ${1:name} : $0"
+    ],
+    "description": "Snippet for a value definition",
+    "prefix": "val"
+  },
+  "variant pattern": {
+    "body": [
+      "| ${1:_} -> $0"
+    ],
+    "description": "Snippet for a variant definition",
+    "prefix": "|"
+  }
+}

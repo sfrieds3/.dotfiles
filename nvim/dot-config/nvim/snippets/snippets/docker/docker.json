@@ -1,0 +1,88 @@
+{
+  "ADD": {
+    "body": [
+      "ADD ${1:src} ${2:dst}"
+    ],
+    "prefix": "a"
+  },
+  "CMD": {
+    "body": [
+      "CMD ${1:command}"
+    ],
+    "prefix": "C"
+  },
+  "COPY": {
+    "body": [
+      "COPY ${1:src} ${2:dest}"
+    ],
+    "prefix": "cp"
+  },
+  "ENTRYPOINT": {
+    "body": "ENTRYPOINT ${1:command}",
+    "prefix": "ent"
+  },
+  "ENV": {
+    "body": [
+      "ENV ${1:key} ${2: value}"
+    ],
+    "prefix": "env"
+  },
+  "EXPOSE": {
+    "body": [
+      "EXPOSE ${1:port}"
+    ],
+    "prefix": "exp"
+  },
+  "FROM": {
+    "body": "FROM ${1:ubuntu}",
+    "prefix": "F"
+  },
+  "HEAD": {
+    "body": [
+      "# ${1:description}",
+      "#  ",
+      "# VERSION ${2:0.1.0}",
+      "${3}"
+    ],
+    "prefix": "head"
+  },
+  "LABEL": {
+    "body": "LABEL ${1:label}=\"${2:value}\"",
+    "prefix": "L"
+  },
+  "Label maintainer": {
+    "body": "LABEL maintainer=\"${1:name}\"",
+    "prefix": "m"
+  },
+  "ONBUILD": {
+    "body": "ONBUILD ${1}",
+    "prefix": "o"
+  },
+  "RUN": {
+    "body": [
+      "RUN ${1:command}"
+    ],
+    "prefix": "R"
+  },
+  "USER": {
+    "body": "USER ${1:name}",
+    "prefix": "u"
+  },
+  "Update Packages": {
+    "body": [
+      "RUN echo \"deb http://archive.ubuntu.com/ubuntu ${1:precise} main universe\" > /etc/apt/sources.list; \\",
+      "apt-get update && apt-get -y upgrade; \\ ",
+      "${2}; \\",
+      "rm -rf /var/lib/apt/lists/*"
+    ],
+    "prefix": "upd"
+  },
+  "VOLUME": {
+    "body": "VOLUME [\"${1:path}\"]",
+    "prefix": "v"
+  },
+  "WORKDIR": {
+    "body": "WORKDIR ${1:name}",
+    "prefix": "w"
+  }
+}

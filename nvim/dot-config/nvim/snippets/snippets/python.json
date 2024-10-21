@@ -76,16 +76,28 @@
     "description": "List comprehension for creating a list based on existing lists.",
     "prefix": "list comprehension"
   },
-  "pytest (parametrize)": {
+  "pytest_fixture": {
     "body": [
-      "@pytest.mark.parametrize(",
-      "    \"${1:arg}\",",
-      "    [",
-      "        (${2:val}),",
-      "    ],",
-      ")"
+      "@pytest.fixture",
+      "def ${1:fixture_name}(${2:request}):",
+      "\t${3:code}"
     ],
-    "prefix": "pytest (parametrize)"
+    "description": "Pytest (fixture)",
+    "prefix": "fixture"
+  },
+  "pytest_mark": {
+    "body": [
+      "@pytest.mark"
+    ],
+    "description": "Pytest (mark)",
+    "prefix": "mark"
+  },
+  "pytest_parametrize": {
+    "body": [
+      "@pytest.mark.parametrize('${1:name}', [${2:parameters}])"
+    ],
+    "description": "Pytest (parametrize)",
+    "prefix": "parametrize"
   },
   "replace (regex)": {
     "body": "re.sub(r\"${1:regex}\", r\"${2:replace}\", ${3:str})$0",

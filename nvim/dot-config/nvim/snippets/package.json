@@ -11,32 +11,32 @@
         "language": [
           "just"
         ],
-        "path": "./basic/justfile.json"
+        "path": "./snippets/justfile.json"
       },
       {
         "language": [
           "query"
         ],
-        "path": "./basic/scm.json"
+        "path": "./snippets/scm.json"
       },
       {
         "language": [
           "markdown"
         ],
-        "path": "./basic/markdown.json"
+        "path": "./snippets/markdown.json"
       },
       {
         "language": [
           "python"
         ],
-        "path": "./basic/python.json"
+        "path": "./snippets/python.json"
       },
       {
         "language": [
           "css",
           "scss"
         ],
-        "path": "./basic/css.json"
+        "path": "./snippets/css.json"
       },
       {
         "language": [
@@ -44,7 +44,7 @@
           "zsh",
           "just"
         ],
-        "path": "./basic/sh.json"
+        "path": "./snippets/sh.json"
       },
       {
         "language": [
@@ -52,51 +52,38 @@
           "zsh",
           "just"
         ],
-        "path": "./basic/ansi-color-codes.json"
+        "path": "./snippets/ansi-color-codes.json"
       },
       {
         "language": [
           "lua"
         ],
-        "path": "./basic/lua.json"
+        "path": "./snippets/lua.json"
       },
       {
         "language": [
           "applescript"
         ],
-        "path": "./basic/applescript.json"
+        "path": "./snippets/applescript.json"
       },
       {
         "language": [
           "bib"
         ],
-        "path": "./basic/bib.json"
+        "path": "./snippets/bib.json"
       },
       {
         "language": [
           "javascript",
           "typescript"
         ],
-        "path": "./basic/javascript.json"
-      },
-      {
-        "language": [
-          "javascript",
-          "typescript"
-        ],
-        "path": "./basic/node-js.json"
-      },
-      {
-        "language": [
-          "javascript"
-        ],
-        "path": "./basic/jxa.json"
+        "path": "./snippets/javascript.json"
       },
       {
         "language": [
           "yaml"
         ],
-        "path": "./basic/yaml.json"
+        "path": "./snippets/yaml.json"
       },
       {
         "language": [
@@ -105,16 +92,55 @@
         "path": "./projects-specific/karabiner-modifications.json"
       },
       {
+        "language": "yaml",
+        "path": "./snippets/docker/docker-compose.json"
+      },
+      {
+        "language": "dockerfile",
+        "path": "./snippets/docker/docker_file.json"
+      },
+      {
+        "language": "rust",
+        "path": "./snippets/rust/rust.json"
+      },
+      {
+        "language": "rustdoc",
+        "path": "./snippets/rust/rustdoc.json"
+      },
+      {
         "language": [
           "lua"
         ],
         "path": "./projects-specific/nvim-lua.json"
       },
       {
+        "language": "yaml",
+        "path": "./snippets/kubernetes.json"
+      },
+      {
         "language": [
           "scissors-snippet"
         ],
         "path": "./scissors-snippet.json"
+      },
+      {
+        "language": [
+          "ocaml",
+          "ocamlinterface"
+        ],
+        "path": "./snippets/ocaml/ocaml.json"
+      },
+      {
+        "language": "ocaml.ocamllex",
+        "path": "./snippets/ocaml/ocamllex.json"
+      },
+      {
+        "language": "dune-project",
+        "path": "./snippets/ocaml/dune-project.json"
+      },
+      {
+        "language": "dune",
+        "path": "./snippets/ocaml/dune.json"
       }
     ]
   },

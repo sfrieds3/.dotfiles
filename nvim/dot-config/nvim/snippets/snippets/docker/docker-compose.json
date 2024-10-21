@@ -1,0 +1,523 @@
+{
+  "Args": {
+    "body": [
+      "args:",
+      "\t\t${1:name}: ${2:value}"
+    ],
+    "description": "",
+    "prefix": "ar"
+  },
+  "Build": {
+    "body": [
+      "build:",
+      "\t\t${1:value}"
+    ],
+    "description": "",
+    "prefix": "bu"
+  },
+  "CPU Quota": {
+    "body": [
+      "cpu_quota: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "cpu_q"
+  },
+  "CPU Set": {
+    "body": [
+      "cpuset: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "cpus"
+  },
+  "CPU Shares": {
+    "body": [
+      "cpu_shares: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "cpu_s"
+  },
+  "Cap Add": {
+    "body": [
+      "cap_add:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "cap_a"
+  },
+  "Cap Drop": {
+    "body": [
+      "cap_drop:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "cap_d"
+  },
+  "Command": {
+    "body": [
+      "command: ${1:command}"
+    ],
+    "description": "",
+    "prefix": "com"
+  },
+  "Container Name": {
+    "body": [
+      "container_name: ${1:name}"
+    ],
+    "description": "",
+    "prefix": "conta"
+  },
+  "Context": {
+    "body": [
+      "context: ${1:dir}"
+    ],
+    "description": "",
+    "prefix": "conte"
+  },
+  "DNS": {
+    "body": [
+      "dns:",
+      "\t\t- ${1:ip}"
+    ],
+    "description": "",
+    "prefix": "dn"
+  },
+  "DNS Search": {
+    "body": [
+      "dns_search:",
+      "\t\t- ${1:ip}"
+    ],
+    "description": "",
+    "prefix": "dns_"
+  },
+  "Depends on": {
+    "body": [
+      "depends_on:",
+      "\t\t${1:value}"
+    ],
+    "description": "",
+    "prefix": "dep"
+  },
+  "Devices": {
+    "body": [
+      "devices:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "dev"
+  },
+  "DockerCompose": {
+    "body": [
+      "version: '3'",
+      "services:",
+      "\t$1:",
+      "\t\timage: ${2:image}",
+      "\t\tcontainer_name: ${3:container_name}",
+      "\t\tports:",
+      "\t\t\t- \"${4:host_port}:${5:container_port}\"",
+      "\t\tvolumes:",
+      "\t\t\t- ${6:host_volume}:${7:container_volume}",
+      "\t\tenvironment:",
+      "\t\t\t- ${8:env_var}=${9:env_value}"
+    ],
+    "description": "A full Docker Compose example snippet",
+    "prefix": "docker-compose"
+  },
+  "Dockerfile": {
+    "body": [
+      "dockerfile: ${1:file}"
+    ],
+    "description": "",
+    "prefix": "doc"
+  },
+  "Domain Name": {
+    "body": [
+      "domainname: ${1:name}"
+    ],
+    "description": "",
+    "prefix": "dom"
+  },
+  "Driver": {
+    "body": [
+      "driver: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "driver"
+  },
+  "Driver Opts": {
+    "body": [
+      "driver_opts:",
+      "\t\t${1:key}: ${2:value}"
+    ],
+    "description": "",
+    "prefix": "driver_"
+  },
+  "Entrypoint": {
+    "body": [
+      "entrypoint: ${1:command}"
+    ],
+    "description": "",
+    "prefix": "ent"
+  },
+  "Env File": {
+    "body": [
+      "env_file:",
+      "\t\t- ${1:file}"
+    ],
+    "description": "",
+    "prefix": "env_"
+  },
+  "Environment": {
+    "body": [
+      "environment:",
+      "\t\t${1:name}: ${2:value}"
+    ],
+    "description": "",
+    "prefix": "env"
+  },
+  "Expose": {
+    "body": [
+      "expose:",
+      "\t\t- ${1:port}"
+    ],
+    "description": "",
+    "prefix": "exp"
+  },
+  "Extends": {
+    "body": [
+      "extends:",
+      "\t\tfile: ${1:file}",
+      "\t\tservice: ${2:name}"
+    ],
+    "description": "",
+    "prefix": "exten"
+  },
+  "External": {
+    "body": [
+      "external: ${1:boolean}"
+    ],
+    "description": "",
+    "prefix": "exter"
+  },
+  "Extra Hosts": {
+    "body": [
+      "extra_hosts:",
+      "\t\t- ${1:host}:${2:ip}"
+    ],
+    "description": "",
+    "prefix": "extr"
+  },
+  "Group Add": {
+    "body": [
+      "group_add:",
+      "\t\t- ${1:name}"
+    ],
+    "description": "",
+    "prefix": "gr"
+  },
+  "Health Check": {
+    "body": [
+      "healthcheck:",
+      "\t\ttest: ${1:command}"
+    ],
+    "description": "",
+    "prefix": "hc"
+  },
+  "Hostname": {
+    "body": [
+      "hostname: ${1:name}"
+    ],
+    "description": "",
+    "prefix": "ho"
+  },
+  "IPAM": {
+    "body": [
+      "ipam:",
+      "\t\t${1:value}"
+    ],
+    "description": "",
+    "prefix": "ipa"
+  },
+  "IPC": {
+    "body": [
+      "ipc: ${1:host}"
+    ],
+    "description": "",
+    "prefix": "ipc"
+  },
+  "Image": {
+    "body": [
+      "image: ${1:image}"
+    ],
+    "description": "",
+    "prefix": "im"
+  },
+  "Ipv4 Address": {
+    "body": [
+      "ipv4_address: ${1:ip}"
+    ],
+    "description": "",
+    "prefix": "ipv4"
+  },
+  "Ipv6 Address": {
+    "body": [
+      "ipv6_address: ${1:ip}"
+    ],
+    "description": "",
+    "prefix": "ipv6"
+  },
+  "JenkinsCompose": {
+    "body": [
+      "jenkins:",
+      "\timage: jenkins/jenkins:lts",
+      "\tcontainer_name: jenkins",
+      "\tports:",
+      "\t\t- \"8080:8080\"",
+      "\t\t- \"50000:50000\"",
+      "\tvolumes:",
+      "\t\t- jenkins_home:/var/jenkins_home",
+      "\tenvironment:",
+      "\t\t- JENKINS_OPTS=--prefix=/Jenkins"
+    ],
+    "description": "A Jenkins Docker Compose example snippet",
+    "prefix": "jenkins-compose"
+  },
+  "Labels": {
+    "body": [
+      "labels:",
+      "\t\t${1:dns}: ${2:label}"
+    ],
+    "description": "",
+    "prefix": "la"
+  },
+  "Link Local IPs": {
+    "body": [
+      "link_local_ips:",
+      "\t\t- ${1:ip}"
+    ],
+    "description": "",
+    "prefix": "link_"
+  },
+  "Links": {
+    "body": [
+      "links:",
+      "\t\t- ${1:name}"
+    ],
+    "description": "",
+    "prefix": "links"
+  },
+  "Log Driver": {
+    "body": [
+      "log_driver: ${1:driver}"
+    ],
+    "description": "",
+    "prefix": "log_d"
+  },
+  "Log Options": {
+    "body": [
+      "log_opt:",
+      "\t\t${1:value}"
+    ],
+    "description": "",
+    "prefix": "log_o"
+  },
+  "Logging": {
+    "body": [
+      "logging:",
+      "\t\tdriver: ${1:driver}",
+      "\t\toptions:",
+      "\t\t\t${2:value}"
+    ],
+    "description": "",
+    "prefix": "logg"
+  },
+  "Mem swap Limit": {
+    "body": [
+      "memswap_limit: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "mems"
+  },
+  "Memory Limit": {
+    "body": [
+      "mem_limit: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "mem_"
+  },
+  "Net": {
+    "body": [
+      "net: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "net"
+  },
+  "Network Mode": {
+    "body": [
+      "network_mode: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "network_"
+  },
+  "Networks": {
+    "body": [
+      "networks:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "networks"
+  },
+  "OOM Score Adj": {
+    "body": [
+      "oom_score_adj: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "oom"
+  },
+  "PID": {
+    "body": [
+      "pid: ${1:host}"
+    ],
+    "description": "",
+    "prefix": "pi"
+  },
+  "Ports": {
+    "body": [
+      "ports:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "po"
+  },
+  "Privileged": {
+    "body": [
+      "privileged: ${1:boolean}"
+    ],
+    "description": "",
+    "prefix": "pr"
+  },
+  "Read Only": {
+    "body": [
+      "read_only: ${1:boolean}"
+    ],
+    "description": "",
+    "prefix": "rea"
+  },
+  "Restart": {
+    "body": [
+      "restart: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "res"
+  },
+  "SHM Size": {
+    "body": [
+      "shm_size: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "sh"
+  },
+  "Security Opt": {
+    "body": [
+      "security_opt:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "sec"
+  },
+  "Services": {
+    "body": [
+      "services:",
+      "\t\t${1:name}"
+    ],
+    "description": "",
+    "prefix": "ser"
+  },
+  "Stdin Open": {
+    "body": [
+      "stdin_open: ${1:boolean}"
+    ],
+    "description": "",
+    "prefix": "std"
+  },
+  "Stop Signal": {
+    "body": [
+      "stop_signal: ${1:signal}"
+    ],
+    "description": "",
+    "prefix": "sto"
+  },
+  "TTY": {
+    "body": [
+      "tty: ${1:boolean}"
+    ],
+    "description": "",
+    "prefix": "tt"
+  },
+  "Ulimits": {
+    "body": [
+      "ulimits:",
+      "\t\t${1:value}"
+    ],
+    "description": "",
+    "prefix": "ul"
+  },
+  "User": {
+    "body": [
+      "user: ${1:value}"
+    ],
+    "description": "",
+    "prefix": "us"
+  },
+  "Version": {
+    "body": [
+      "version: '${1:3}'"
+    ],
+    "description": "",
+    "prefix": "ver"
+  },
+  "Volume Driver": {
+    "body": [
+      "volume_driver: ${1:driver}"
+    ],
+    "description": "",
+    "prefix": "volume_"
+  },
+  "Volumes": {
+    "body": [
+      "volumes:",
+      "\t\t- ${1:value}"
+    ],
+    "description": "",
+    "prefix": "volumes"
+  },
+  "Volumes From": {
+    "body": [
+      "volumes_from:",
+      "\t\t- ${1:name}"
+    ],
+    "description": "",
+    "prefix": "volumes_"
+  },
+  "Working Directory": {
+    "body": [
+      "working_dir: ${1:dir}"
+    ],
+    "description": "",
+    "prefix": "wo"
+  },
+  "cgroup_parent": {
+    "body": [
+      "cgroup_parent: ${1:cgroup}"
+    ],
+    "description": "",
+    "prefix": "cgr"
+  },
+  "tmpfs": {
+    "body": [
+      "tmpfs:",
+      "\t\t- ${1:dir}"
+    ],
+    "description": "",
+    "prefix": "tm"
+  }
+}
