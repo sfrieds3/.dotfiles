@@ -76,6 +76,29 @@
     "description": "List comprehension for creating a list based on existing lists.",
     "prefix": "list comprehension"
   },
+  "pytest (mark asyncio)": {
+    "body": [
+      "@pytest.mark.asyncio",
+      "async def ${1:func}(${2:args}):",
+      "    ${3:body}"
+    ],
+    "description": "Pytest (mark asyncio)",
+    "prefix": "pytest (mark asyncio)"
+  },
+  "pytest (mark parametrize)": {
+    "body": [
+      "@pytest.mark.parametrize('${1:name}', [${2:parameters}])"
+    ],
+    "description": "Pytest (mark parametrize)",
+    "prefix": "pytest (mark parametrize)"
+  },
+  "pytest (mark)": {
+    "body": [
+      "@pytest.mark"
+    ],
+    "description": "Pytest (mark)",
+    "prefix": "pytest (mark)"
+  },
   "pytest_fixture": {
     "body": [
       "@pytest.fixture",
@@ -84,20 +107,6 @@
     ],
     "description": "Pytest (fixture)",
     "prefix": "fixture"
-  },
-  "pytest_mark": {
-    "body": [
-      "@pytest.mark"
-    ],
-    "description": "Pytest (mark)",
-    "prefix": "mark"
-  },
-  "pytest_parametrize": {
-    "body": [
-      "@pytest.mark.parametrize('${1:name}', [${2:parameters}])"
-    ],
-    "description": "Pytest (parametrize)",
-    "prefix": "parametrize"
   },
   "replace (regex)": {
     "body": "re.sub(r\"${1:regex}\", r\"${2:replace}\", ${3:str})$0",
