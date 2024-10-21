@@ -1,8 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    enabled = true,
-    event = "BufReadPre",
+    lazy = false,
     version = "v0.*",
     dependencies = {
       "chrisgrieser/nvim-scissors",
