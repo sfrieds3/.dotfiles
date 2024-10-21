@@ -2,7 +2,7 @@ return {
   {
     "saghen/blink.cmp",
     enabled = true,
-    event = { "InsertEnter", "CmdLineEnter" },
+    event = "BufReadPre",
     version = "v0.*",
     dependencies = {
       "chrisgrieser/nvim-scissors",
