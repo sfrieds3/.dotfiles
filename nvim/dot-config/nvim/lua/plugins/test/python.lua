@@ -87,19 +87,25 @@ function M.setup()
     )
   end
 
+  local just_my_code = false
+  local function toggle_just_my_code()
+    just_my_code = not just_my_code
+    print("justMyCode is now %s", just_my_code and "Enabled" or "Disabled")
+  end
+
   -- stylua: ignore start
   vim.keymap.set("n", "<localleader>dpt", set_python_test_runner, { desc = "Set Dap Python Test Runner" })
   ---@diagnostic disable-next-line: missing-fields
-  vim.keymap.set("n", "<M-d>", function() dap_python.test_method({ config = { justMyCode = false } }) end, { desc = "dap-python: debug function" })
+  vim.keymap.set("n", "<M-d>", function() dap_python.test_method({ config = { justMyCode = just_my_code } }) end, { desc = "dap-python: debug function" })
   ---@diagnostic disable-next-line: missing-fields
-  vim.keymap.set("n", "<localleader>dtf", function() dap_python.test_method({ config = { justMyCode = false } }) end, { desc = "dap-python: debug function" })
+  vim.keymap.set("n", "<localleader>dtf", function() dap_python.test_method({ config = { justMyCode = just_my_code } }) end, { desc = "dap-python: debug function" })
   vim.keymap.set("n", "<localleader>dtF", function() dap_python.test_method() end, { desc = "dap-python: debug function [project code only]" })
-  vim.keymap.set("n", "<M-S-d>", function() dap_python.test_method() end, { desc = "dap-python: debug function [project code only]" })
   ---@diagnostic disable-next-line: missing-fields
   vim.keymap.set("n", "<localleader>dtc", function() dap_python.test_class({ config = { justMyCode = false } }) end, { desc = "dap-python: debug class" })
   vim.keymap.set("n", "<localleader>dtC", function() dap_python.test_class() end, { desc = "dap-python: test class [project code only]" })
   -- stylua: ignore end
 
+  vim.api.nvim_create_user_command("TogglePythonJustMyCode", toggle_just_my_code, { nargs = 0 })
   vim.api.nvim_create_user_command("SetPythonTestRunner", set_python_test_runner, { nargs = 0 })
   vim.api.nvim_create_user_command("SetPythonDjangoSettingsModule", set_django_settings_module_env, { nargs = 0 })
   vim.api.nvim_create_user_command("SetPythonLoadVsCodeLaunchJson", load_vscode_launch_config, { nargs = 0 })

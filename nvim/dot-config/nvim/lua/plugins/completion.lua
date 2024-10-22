@@ -11,7 +11,7 @@ return {
       keymap = {
         show = "<C-space>",
         hide = "<C-e>",
-        accept = "<Tab>",
+        accept = { "<Tab>", "<C-;>" },
         select_prev = { "<Up>", "<C-p>" },
         select_next = { "<Down>", "<C-n>" },
 
@@ -33,6 +33,20 @@ return {
           keyword_range = "full",
         },
         signature_help = { enabled = true },
+      },
+    },
+    keys = {
+      {
+        "<M-.>",
+        function()
+          if vim.snippet.active() then
+            vim.schedule(vim.snippet.stop)
+          else
+            vim.schedule(require("blink.cmp").hide)
+          end
+        end,
+        mode = "i",
+        desc = "Hide Completion and/or Stop Snippet",
       },
     },
   },

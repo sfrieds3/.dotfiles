@@ -126,7 +126,6 @@ end
 
 local function refresh_pytest_fixture_cache(project_hash)
   local result = {}
-  print("Refreshing pytest fixtures cache..")
   Job:new({
     command = "pytest",
     args = { "--fixtures-per-test" },
