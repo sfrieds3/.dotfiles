@@ -247,7 +247,7 @@ return {
     event = "BufRead",
     opts = {
       highlight = {
-        comments_only = false,
+        comments_only = true,
       },
     },
     config = true,
