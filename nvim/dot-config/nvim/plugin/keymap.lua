@@ -27,14 +27,6 @@ vim.keymap.set(
   { desc = "Better scrolling with C-f", expr = true }
 )
 
--- better c-n/c-p in cmdline -- match behavior of up/down
-vim.keymap.set("c", "<C-n>", function()
-  return vim.fn.wildmenumode() == 1 and "<C-n>" or "<down>"
-end, { expr = true })
-vim.keymap.set("c", "<C-p>", function()
-  return vim.fn.wildmenumode() == 1 and "<C-P>" or "<up>"
-end, { expr = true })
-
 -- do not jump to first match with * or #
 vim.keymap.set("n", "*", [[:let @/ = '\v' . expand('<cword>')<bar>set hlsearch<cr>]], { remap = true })
 vim.keymap.set("n", "#", "#``", { remap = true })
@@ -176,7 +168,5 @@ vim.keymap.set("c", "<c-b>", "<Left>")
 vim.keymap.set("c", "<c-d>", "<Del>")
 vim.keymap.set("c", "<c-e>", "<End>")
 vim.keymap.set("c", "<c-f>", "<Right>")
-vim.keymap.set("c", "<c-n>", "<Down>")
-vim.keymap.set("c", "<c-p>", "<Up>")
 vim.keymap.set("c", "<m-b>", "<S-Left>")
 vim.keymap.set("c", "<m-f>", "<S-Right>")
