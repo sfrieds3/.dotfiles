@@ -119,9 +119,12 @@ local function store_pytext_fixtures(project_hash, output_lines)
       current_test = test_match
       fixtures[current_test] = {}
     elseif current_test then
-      local fixture_name, file_path = line:match("^(.-)%s*%-%-%s*(.+)$")
+      local fixture_name, file_path, line_number = line:match("([%w_]+)%s*%-%-%s*([%w%p]+):(%d+)")
       if fixture_name and file_path then
-        fixtures[current_test][fixture_name] = file_path
+        fixtures[current_test][fixture_name] = {
+          file_path = file_path,
+          line_number = line_number,
+        }
       end
     end
   end
@@ -156,7 +159,8 @@ end
 
 local function should_refresh_fixtures(project_hash)
   _ = project_hash
-  return true
+  -- TODO: need to add a delay here
+  return false
 end
 
 local function generate_project_hash(project_root)
@@ -176,20 +180,50 @@ local function parse_fixtures_for_test(test_name)
   local project_fixture_file_path = get_storage_path_for_project(project_hash)
   local fixtures = get_fixtures(project_fixture_file_path)
   local function_fixtures = fixtures[test_name]
+  return function_fixtures
+end
 
-  print("FUNCTION FIXTURES: ", vim.inspect(function_fixtures))
+--- Open a file at a specified line number
+---@param file_path string file path to open
+---@param line_number integer line number to jump to
+local function open_file_at_line(file_path, line_number)
+  vim.cmd("edit " .. file_path)
+  vim.api.nvim_win_set_cursor(0, { line_number, 0 })
 end
 
 local function goto_fixture(bufnr, cursor_pos)
   local test_name, test_args = get_all_test_args()
-  local fixtures = parse_fixtures_for_test(test_name)
-  print(test_name, vim.inspect(test_args))
+  -- TODO: we need to look at filename of test too, not just the test name
+  local function_fixtures = parse_fixtures_for_test(test_name)
+  local fixtures = {}
+  print("parsing fixtures")
+  for fixture, _ in pairs(function_fixtures) do
+    table.insert(fixtures, fixture)
+  end
+
+  vim.ui.select(fixtures, {
+    prompt = string.format("Go to fixture for test %s: ", test_name),
+    format_item = function(item)
+      return item
+    end,
+  }, function(fixture)
+    if fixture == nil then
+      return
+    end
+
+    local fixture_info = function_fixtures[fixture]
+    local fixture_line_number = tonumber(fixture_info.line_number) or 0
+    -- TODO: should add to tagstack (and make this configurable)
+    open_file_at_line(fixture_info.file_path, fixture_line_number)
+  end)
 end
 
-local function maybe_refresh_pytest_fixture_cache(buf_file)
+local function maybe_refresh_pytest_fixture_cache(buf_file, opts)
+  opts = opts or {}
+  local force = opts.force or false
   local project_root, project_hash = get_current_project_and_hash(buf_file)
 
-  if project_root and is_python(buf_file) and has_pytest() and should_refresh_fixtures(project_hash) then
+  if force or (project_root and is_python(buf_file) and has_pytest() and should_refresh_fixtures(project_hash)) then
     refresh_pytest_fixture_cache(project_hash)
   end
 end
@@ -200,7 +234,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.api.nvim_create_user_command("PytestFixturesRefresh", function()
       print("Refreshing for " .. vim.fn.expand("%:p"))
-      maybe_refresh_pytest_fixture_cache(vim.fn.expand("%"))
+      maybe_refresh_pytest_fixture_cache(vim.fn.expand("%"), { force = true })
     end, {})
     vim.api.nvim_create_user_command("PytestFixturesProjectCachePath", function()
       local _, project_hash = get_current_project_and_hash()
