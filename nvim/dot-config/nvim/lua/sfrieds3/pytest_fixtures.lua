@@ -57,7 +57,7 @@ local ts_query_text = [[
   name: (identifier) @function)
   ]]
 
-local function get_test_args()
+local function get_all_test_args()
   local function_at_cursor = TSUtils.get_node_at_cursor()
 
   -- Traverse up to find the function definition node
@@ -83,25 +83,21 @@ local function get_test_args()
   if parser == nil then
     return
   end
-  local tree = parser:parse()[1]
-  local root = tree:root()
-  local query = vim.treesitter.query.parse(lang, query_string)
 
-  local args = {}
-  for id, node, _ in query:iter_captures(root, 0) do
-    local capture_name = query.captures[id]
-    if capture_name == "args" then
-      table.insert(args, vim.treesitter.get_node_text(node, 0))
+  local query = vim.treesitter.query.parse(lang, query_string)
+  local root_node = parser:parse()[1]
+
+  local function_args = {}
+  for pattern, match, metadata in query:iter_matches(root_node:root(), 0, 0, -1, { all = true }) do
+    local name = vim.treesitter.get_node_text(match[1][1], 0)
+
+    if name == function_name then
+      local arg = vim.treesitter.get_node_text(match[2][1], 0)
+      table.insert(function_args, arg)
     end
   end
 
-  return function_name, args
-end
-
-local function goto_fixture(bufnr, cursor_pos)
-  print(string.format("Get fixture for bufnr: %s cursor pos: %s", bufnr, cursor_pos))
-  local func, args = get_test_args()
-  print(func, vim.inspect(args))
+  return function_name, function_args
 end
 
 local function store_pytext_fixtures(project_hash, output_lines)
@@ -154,13 +150,37 @@ local function should_refresh_fixtures(project_hash)
   return true
 end
 
-local function maybe_refresh_pytest_fixture_cache(buf_file)
-  local project_root = get_project_root(buf_file)
-  if project_root == nil then
-    return
-  end
-
+local function generate_project_hash(project_root)
   local project_hash = vim.fn.sha256(project_root)
+  return project_hash
+end
+
+local function get_current_project_and_hash(buf_file)
+  buf_file = buf_file or vim.fn.expand("%")
+  local project_root = get_project_root(buf_file)
+  local hash = generate_project_hash(project_root)
+  return project_root, hash
+end
+
+local function parse_fixtures_for_test(test_name)
+  local _, project_hash = get_current_project_and_hash()
+  local project_fixture_file_path = get_storage_path_for_project(project_hash)
+  local fixtures = get_fixtures(project_fixture_file_path)
+
+  print("------FIXTURES------")
+  print(vim.inspect(fixtures))
+  print("------END FIXTURES------")
+end
+
+local function goto_fixture(bufnr, cursor_pos)
+  local test_name, test_args = get_all_test_args()
+  local fixtures = parse_fixtures_for_test(test_name)
+  print(test_name, vim.inspect(test_args))
+end
+
+local function maybe_refresh_pytest_fixture_cache(buf_file)
+  local project_root, project_hash = get_current_project_and_hash(buf_file)
+
   if project_root and is_python(buf_file) and has_pytest() and should_refresh_fixtures(project_hash) then
     refresh_pytest_fixture_cache(project_hash)
   end
