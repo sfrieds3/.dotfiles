@@ -11,7 +11,7 @@ local function get_project_root(file)
   return vim.fs.root(vim.fn.expand(file), project_markers)
 end
 
-local data_path = string.format("%s/pytest_fixtures.nvim", vim.fn.stdpath("data"))
+local data_path = string.format("%s/pytest_fixtures", vim.fn.stdpath("data"))
 local data_path_exists = false
 --- Ensure configured data path exists
 local function ensure_data_path_exists()
@@ -54,22 +54,31 @@ end
 
 local ts_query_text = [[
 (function_definition
-  name: (identifier) @function)
+  name: (identifier) @function
+  #match? @function "test_")
   ]]
 
+local function get_parent_test_function()
+  local node_at_cursor = TSUtils.get_node_at_cursor()
+
+  while node_at_cursor do
+    if node_at_cursor:type() == "function_definition" then
+      local function_name_node = node_at_cursor:field("name")[1]
+      if function_name_node then
+        local function_name = vim.treesitter.get_node_text(function_name_node, 0)
+        if function_name:match("^test_") then
+          return function_name
+        end
+      end
+    end
+    node_at_cursor = node_at_cursor:parent()
+  end
+
+  return nil
+end
+
 local function get_all_test_args()
-  local function_at_cursor = TSUtils.get_node_at_cursor()
-
-  -- Traverse up to find the function definition node
-  while function_at_cursor and function_at_cursor:type() ~= "function_definition" do
-    function_at_cursor = function_at_cursor:parent()
-  end
-
-  if not function_at_cursor then
-    return
-  end
-
-  local function_name = vim.treesitter.get_node_text(function_at_cursor:field("name")[1], 0)
+  local function_name = get_parent_test_function()
 
   -- Query the arguments of the function
   local query_string = [[
@@ -166,10 +175,9 @@ local function parse_fixtures_for_test(test_name)
   local _, project_hash = get_current_project_and_hash()
   local project_fixture_file_path = get_storage_path_for_project(project_hash)
   local fixtures = get_fixtures(project_fixture_file_path)
+  local function_fixtures = fixtures[test_name]
 
-  print("------FIXTURES------")
-  print(vim.inspect(fixtures))
-  print("------END FIXTURES------")
+  print("FUNCTION FIXTURES: ", vim.inspect(function_fixtures))
 end
 
 local function goto_fixture(bufnr, cursor_pos)
@@ -191,8 +199,13 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("pytest_fixtures:user-commands", { clear = true }),
   callback = function()
     vim.api.nvim_create_user_command("PytestFixturesRefresh", function()
-      print("refreshing for " .. vim.fn.expand("%:p"))
+      print("Refreshing for " .. vim.fn.expand("%:p"))
       maybe_refresh_pytest_fixture_cache(vim.fn.expand("%"))
+    end, {})
+    vim.api.nvim_create_user_command("PytestFixturesProjectCachePath", function()
+      local _, project_hash = get_current_project_and_hash()
+      local cache = get_storage_path_for_project(project_hash)
+      print("Project cache location: ", cache)
     end, {})
   end,
 })
