@@ -184,7 +184,7 @@ return {
           multiplexer_integration = nil,
         },
       })
-      -- TODO: conver these to lazy key
+      -- TODO: convert these to lazy key
       vim.keymap.set("n", "<A-S-h>", require("smart-splits").resize_left, { desc = "smart-split resize left" })
       vim.keymap.set("n", "<A-S-j>", require("smart-splits").resize_down, { desc = "smart-split resize down" })
       vim.keymap.set("n", "<A-S-k>", require("smart-splits").resize_up, { desc = "smart-split resize up" })
@@ -247,8 +247,9 @@ return {
     event = "BufRead",
     opts = {
       highlight = {
-        comments_only = true,
+        comments_only = false,
       },
+      pattern = [[\b(KEYWORDS)\b]],
     },
     config = true,
     keys = {
@@ -266,10 +267,10 @@ return {
         end,
         desc = "Previous todo comment",
       },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+      { "<leader>xt", "<cmd>TodoTrouble filter.buf=0<cr>", desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+      { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoFzfLua keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },
   },
   {
