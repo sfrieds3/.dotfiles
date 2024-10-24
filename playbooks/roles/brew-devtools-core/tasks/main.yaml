@@ -54,6 +54,7 @@
       - ruff
       - sd
       - sk
+      - starship
       - the_silver_searcher
       - tig
       - tmux

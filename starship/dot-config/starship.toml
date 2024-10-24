@@ -1,0 +1,58 @@
+# format = '$time$kubernetes$docker_context$c$cmake$conda$container$go$python$conda$nodejs$package$cmd_duration$memory_usage$line_break$jobs$status$sudo$directory$character'
+# right_format = '$git_commit$git_branch$git_status$username$hostname'
+continuation_prompt = ''
+
+[time]
+disabled = false
+# format = '[∷ $time ∷ ]($style) '
+# time_format = '%Y-%m-%d %H:%M:%S'
+# style = 'bold dimmed red'
+#
+# [cmd_duration]
+# format = '[$duration]($style) '
+# show_milliseconds = false
+# style = 'bold italic dimmed yellow'
+#
+# [hostname]
+# ssh_only = false
+# format = '[$hostname]($style)'
+# style = 'bold dimmed green'
+#
+# [username]
+# format = '[$user]($style):'
+# style_user = 'bold dimmed blue'
+#
+# [git_commit]
+# tag_disabled = false
+# style = 'bold green'
+#
+# [directory]
+# fish_style_pwd_dir_length = 3
+# read_only = ' ro'
+# style = 'bold green'
+
+# [git_branch]
+# symbol = 'λ:'
+# format = '[$symbol](italic yellow)[\($branch(:$remote_branch)\)]($style) '
+# style = 'bold italic dimmed red'
+
+# [git_status]
+# ahead = '<${count}'
+# diverged = '<><${ahead_count}>${behind_count}'
+# behind = '>${count}'
+# deleted = 'x'
+# renamed = 'r'
+# style = 'bold dimmed red'
+
+[git_metrics]
+disabled = false
+
+[kubernetes]
+disabled = false
+
+[memory_usage]
+disabled = true
+# style = 'bold dimmed red'
+
+# [status]
+# disabled = false

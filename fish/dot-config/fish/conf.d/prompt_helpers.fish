@@ -3,6 +3,7 @@ function __kubectl_status -d "Get k8s ctx/ns"
     [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR /
     set -l config $KUBECONFIG
     set --local KUBECTL_PROMPT_ICON "k8s:"
+    set --local KUBECTL_PROMPT_ICON ☸
     [ -z "$config" ]; and set -l config "$HOME/.kube/config"
     if [ ! -f $config ]
         echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
@@ -23,8 +24,8 @@ end
 
 function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
-        set -l venv_icon 
         set -l venv_icon py-venv
+        set -l venv_icon 
         set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
         set_color green
         printf " ($venv_icon $venv_location)"
@@ -34,8 +35,8 @@ end
 
 function __python_version -d "Get python version"
     if test -e .python-version
-        set -l py_icon 🐍
         set -l py_icon py
+        set -l py_icon 🐍
         set -l py_version (asdf current python | awk '{print $2}')
         set_color green
         printf " ($py_icon $py_version)"
@@ -91,8 +92,8 @@ function __node_version -d "Get node version"
 end
 
 function __docker_context -d "Get docker context"
-    set -l docker_icon 🐳
     set -l docker_icon "docker:"
+    set -l docker_icon 🐳
     set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml"
     for dockerfile in $dockerfiles
         if test -e $dockerfile
