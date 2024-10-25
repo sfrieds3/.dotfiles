@@ -77,8 +77,21 @@ local function get_parent_test_function()
   return nil
 end
 
-local function get_all_test_args()
+local function get_relative_path(base_dir, target_path)
+  local base_abs = vim.fn.fnamemodify(base_dir, ":p")
+  local target_abs = vim.fn.fnamemodify(target_path, ":p")
+
+  if target_abs:sub(1, #base_abs) == base_abs then
+    return target_abs:sub(#base_abs + 1)
+  else
+    return target_abs
+  end
+end
+
+local function get_current_test_info()
   local function_name = get_parent_test_function()
+  local test_file = vim.fn.expand("%")
+  local relative_file_name = get_relative_path(get_project_root(test_file), test_file)
 
   -- Query the arguments of the function
   local query_string = [[
@@ -106,25 +119,41 @@ local function get_all_test_args()
     end
   end
 
-  return function_name, function_args
+  return relative_file_name, function_name, function_args
 end
 
 local function store_pytext_fixtures(project_hash, output_lines)
-  local fixtures = {}
-  local current_test = nil
+  local fixtures = setmetatable({}, {
+    __index = function(tbl, key)
+      tbl[key] = {}
+      return tbl[key]
+    end,
+  })
+
+  local current_test_name = nil
+  local current_test_file_path = nil
+  local last_line_was_test_heading = false
 
   for _, line in ipairs(output_lines) do
-    local test_match = line:match("fixtures used by ([%w_%[%]-]+)")
-    if test_match then
-      current_test = test_match
-      fixtures[current_test] = {}
-    elseif current_test then
-      local fixture_name, file_path, line_number = line:match("([%w_]+)%s*%-%-%s*([%w%p]+):(%d+)")
-      if fixture_name and file_path then
-        fixtures[current_test][fixture_name] = {
-          file_path = file_path,
-          line_number = line_number,
-        }
+    if last_line_was_test_heading then
+      current_test_file_path = line:match("%((.-):")
+      assert(current_test_name, "current test name is nil")
+      fixtures[current_test_file_path][current_test_name] = {}
+      last_line_was_test_heading = false
+    else
+      local test_match = line:match("fixtures used by ([%w_]+)")
+      if test_match then
+        current_test_name = test_match
+        current_test_file_path = nil
+        last_line_was_test_heading = true
+      elseif current_test_name then
+        local fixture_name, file_path, line_number = line:match("([%w_]+)%s*%-%-%s*([%w%p]+):(%d+)")
+        if fixture_name and file_path then
+          fixtures[current_test_file_path][current_test_name][fixture_name] = {
+            file_path = file_path,
+            line_number = line_number,
+          }
+        end
       end
     end
   end
@@ -175,11 +204,11 @@ local function get_current_project_and_hash(buf_file)
   return project_root, hash
 end
 
-local function parse_fixtures_for_test(test_name)
+local function parse_fixtures_for_test(test_file_name, test_name)
   local _, project_hash = get_current_project_and_hash()
   local project_fixture_file_path = get_storage_path_for_project(project_hash)
   local fixtures = get_fixtures(project_fixture_file_path)
-  local function_fixtures = fixtures[test_name]
+  local function_fixtures = fixtures[test_file_name][test_name]
   return function_fixtures
 end
 
@@ -192,11 +221,13 @@ local function open_file_at_line(file_path, line_number)
 end
 
 local function goto_fixture(bufnr, cursor_pos)
-  local test_name, test_args = get_all_test_args()
-  -- TODO: we need to look at filename of test too, not just the test name
-  local function_fixtures = parse_fixtures_for_test(test_name)
+  local test_file_name, test_name, test_args = get_current_test_info()
+  local function_fixtures = parse_fixtures_for_test(test_file_name, test_name)
+  if function_fixtures == nil then
+    print("No fixtures found!")
+    return
+  end
   local fixtures = {}
-  print("parsing fixtures")
   for fixture, _ in pairs(function_fixtures) do
     table.insert(fixtures, fixture)
   end
