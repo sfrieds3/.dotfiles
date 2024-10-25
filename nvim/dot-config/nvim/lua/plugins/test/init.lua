@@ -35,7 +35,7 @@ return {
     opts = {
       adapters = {
         ["neotest-python"] = {
-          dap = { justMyCode = false },
+          args = { "-vv", "-s", "--color=no" },
         },
         ["neotest-go"] = {},
         ["rustaceanvim.neotest"] = {},
@@ -102,8 +102,11 @@ return {
               local meta = getmetatable(adapter)
               if adapter.setup then
                 adapter.setup(config)
+              elseif adapter.adapter then
+                adapter.adapter(config)
+                adapter = adapter.adapter
               elseif meta and meta.__call then
-                adapter(config)
+                adapter = adapter(config)
               else
                 error("Adapter " .. name .. " does not support setup")
               end
