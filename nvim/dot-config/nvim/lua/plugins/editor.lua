@@ -66,7 +66,9 @@ return {
       {
         "s1n7ax/nvim-window-picker",
         version = "v2.*",
-        config = true,
+        opts = {
+          hint = "floating-big-letter",
+        },
         keys = {
           {
             "<Leader>w",
@@ -74,7 +76,7 @@ return {
               local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
               vim.api.nvim_set_current_win(winid)
             end,
-            desc = "Pick a window",
+            desc = "Nvim Window Picker: Pick a Window",
           },
         },
       },
@@ -152,7 +154,6 @@ return {
   },
   {
     "mrjones2014/smart-splits.nvim",
-    -- build = "./kitty/install-kittens.bash",
 
     config = function()
       require("smart-splits").setup({
