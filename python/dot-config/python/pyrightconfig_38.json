@@ -1,0 +1,18 @@
+{
+  "pythonVersion": "3.8",
+  "reportAny": "none",
+  "reportImplicitOverride": "none",
+  "reportIncompatibleMethodOverride": "information",
+  "reportMissingParameterType": "none",
+  "reportMissingTypeArgument": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownLambdaType": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownParameterType": "none",
+  "reportUnknownVariableType": "none",
+  "reportUntypedClassDecorator": "none",
+  "reportUntypedFunctionDecorator": "none",
+  "reportUnusedCallResult": "none",
+  "reportUnusedExpression": "information",
+  "reportUnusedVariable": "information"
+}
