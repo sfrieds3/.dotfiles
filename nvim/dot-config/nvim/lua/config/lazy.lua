@@ -22,7 +22,7 @@ function M.init_lazy()
       notify = false,
     },
     diff = {
-      cmd = "diffview.nvim",
+      cmd = "git",
     },
     pkg = {
       enabled = true,
