@@ -145,6 +145,10 @@
     "body": "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
     "prefix": "today ISO date INSERT"
   },
+  "tree": {
+    "body": "└─",
+    "prefix": "tree"
+  },
   "vim modeline": {
     "body": "$LINE_COMMENT vim: ft=${1:filetype}",
     "prefix": "vim modeline (filetype)"
