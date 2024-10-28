@@ -64,7 +64,7 @@ if status is-interactive
 
     fish_set_virtual_env
 
-    starship init fish | source
+    # starship init fish | source
 end
 
 

@@ -2,8 +2,8 @@ function __kubectl_status -d "Get k8s ctx/ns"
     [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
     [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR /
     set -l config $KUBECONFIG
-    set --local KUBECTL_PROMPT_ICON "k8s:"
     set --local KUBECTL_PROMPT_ICON ☸
+    set --local KUBECTL_PROMPT_ICON "k8s:"
     [ -z "$config" ]; and set -l config "$HOME/.kube/config"
     if [ ! -f $config ]
         echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
@@ -24,8 +24,8 @@ end
 
 function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
-        set -l venv_icon py-venv
         set -l venv_icon 
+        set -l venv_icon "py-venv:"
         set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
         set -l pyversion (python --version | sed 's/^Python //')
         set_color green
@@ -35,9 +35,9 @@ function __python_venv -d "Get python venv"
 end
 
 function __python_version -d "Get python version"
-    if test -e .python-version
-        set -l py_icon py
+    if test -e .python-version; or test -e .tool-versions
         set -l py_icon 🐍
+        set -l py_icon "py-version:"
         set -l py_version (asdf current python | awk '{print $2}')
         set_color green
         printf " ($py_icon $py_version)"
@@ -48,6 +48,7 @@ end
 function __python_path -d "Get python path"
     if not set -q VIRTUAL_ENV; and not set -q CONDA_PREFIX
         set -l py_icon 
+        set -l py_icon "py:"
         set -l pyversion (python --version | sed 's/^Python //')
         set -l whichpy (which python)
         set -l venv_location (string replace $HOME/ '' $whichpy)
@@ -61,6 +62,7 @@ end
 function __conda_env -d "Get conda env"
     if set -q CONDA_PREFIX
         set -l conda_icon 🅒
+        set -l conda_icon "conda:"
         set -l conda_environment (basename $CONDA_PREFIX)
         set_color green
         printf " ($conda_icon $conda_environment)"
@@ -93,8 +95,8 @@ function __node_version -d "Get node version"
 end
 
 function __docker_context -d "Get docker context"
-    set -l docker_icon "docker:"
     set -l docker_icon 🐳
+    set -l docker_icon "docker:"
     set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml"
     for dockerfile in $dockerfiles
         if test -e $dockerfile
@@ -110,6 +112,7 @@ end
 function __rust_version --description "Get rust toolchain version"
     set -l flist "Cargo.toml" "*rs"
     set -l rust_icon 🦀
+    set -l rust_icon "rust-version:"
     for file in $flist
         if test -e $file
             set -l _rust_version (rustc --version | awk '{print $2}')
@@ -151,7 +154,7 @@ function _prompt_helpers --on-event fish_prompt
     set --local __prompt_kubectl_status (__kubectl_status)
     set --local __prompt_docker_context (__docker_context)
     set --local __prompt_python_venv (__python_venv)
-    set --local __prompt_python_version (__python_version)
+    # set --local __prompt_python_version (__python_version)
     set --local __prompt_python_path (__python_path)
     set --local __prompt_conda_env (__conda_env)
     set --local __prompt_node_version (__node_version)
