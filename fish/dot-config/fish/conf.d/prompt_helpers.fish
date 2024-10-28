@@ -27,8 +27,9 @@ function __python_venv -d "Get python venv"
         set -l venv_icon py-venv
         set -l venv_icon 
         set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
+        set -l pyversion (python --version | sed 's/^Python //')
         set_color green
-        printf " ($venv_icon $venv_location)"
+        printf " ($venv_icon $venv_location [$pyversion])"
         set_color normal
     end
 end
