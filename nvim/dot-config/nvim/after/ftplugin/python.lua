@@ -5,6 +5,7 @@ vim.g.python_highlight_space_errors = 0
 
 vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
+vim.bo.textwidth = 120
 
 vim.bo.makeprg = "ruff check %"
 vim.bo.suffixesadd = ".py"
