@@ -129,7 +129,8 @@ return {
     "NeogitOrg/neogit",
     cmd = { "Neogit" },
     keys = {
-      { "_G", "<Cmd>Neogit<CR>" },
+      { "<leader>G", "<Cmd>Neogit<CR>" },
+      desc = "Neogit",
     },
     dependencies = {
       "nvim-lua/plenary.nvim",

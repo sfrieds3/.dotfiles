@@ -32,14 +32,14 @@ return {
     },
     keys = {
       {
-        "__",
+        "<localleader>W",
         function()
           require("which-key").show({ global = true })
         end,
         desc = "All keymaps",
       },
       {
-        "_?",
+        "<localleader>w",
         function()
           require("which-key").show({ global = false })
         end,

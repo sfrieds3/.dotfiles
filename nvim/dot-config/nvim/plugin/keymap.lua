@@ -103,16 +103,16 @@ vim.keymap.set("n", "<leader>>", "<cmd>'[,']><cr>", { desc = "Indent last edit" 
 vim.keymap.set("x", "<", "<gv")
 vim.keymap.set("x", ">", ">gv")
 
-vim.keymap.set({ "n", "x" }, "_L", "<cmd>setlocal list! list?<cr>", { desc = "Toggle list" })
+vim.keymap.set({ "n", "x" }, "<leader>tL", "<cmd>setlocal list! list?<cr>", { desc = "Toggle list" })
 
 -- other various keymaps
-vim.keymap.set("n", "_s", "<cmd>setocal spell! spell?<cr>", { desc = "Toggle spellcheck" })
-vim.keymap.set("n", "_t", "<cmd>set filetype?<cr>", { desc = "Echo filetype" })
-vim.keymap.set("n", "_T", "<cmd>doautocmd filetypedetect BufRead<cr>", { desc = "Reload filetype plugins" })
-vim.keymap.set("n", "_f", "<cmd>echo expand('%:p')<cr>", { desc = "Echo full file path" })
+vim.keymap.set("n", "<leader>ts", "<cmd>setocal spell! spell?<cr>", { desc = "Toggle spellcheck" })
+vim.keymap.set("n", "<leader>tt", "<cmd>set filetype?<cr>", { desc = "Echo filetype" })
+vim.keymap.set("n", "<leader>tT", "<cmd>doautocmd filetypedetect BufRead<cr>", { desc = "Reload filetype plugins" })
+vim.keymap.set("n", "<leader>fp", "<cmd>echo expand('%:p')<cr>", { desc = "Echo full file path" })
 vim.keymap.set("n", "\\c", "<cmd>set cursorline! cursorline?<cr>", { desc = "Toggle cursorline" })
 vim.keymap.set("n", "\\C", "<cmd>set cursorcolumn! cursorcolumn?<cr>", { desc = "Toggle cursorcolumn" })
-vim.keymap.set("n", "_a", [[/[^\x00-\x7F]<cr>]], { desc = "Search for non-ASCII characters" })
+vim.keymap.set("n", "<leader>sa", [[/[^\x00-\x7F]<cr>]], { desc = "Search for non-ASCII characters" })
 vim.keymap.set("i", "<c-u>", "<esc>gUiwea", { desc = "Upcase last word in insert mode" })
 vim.keymap.set("i", "<s-tab>", "<C-v><tab>", { desc = "Insert actual <Tab> character in insert mode" })
 -- vim.keymap.set("n", "<c-l>", "<cmd>nohlsearch<cr>", { desc = "Clear hlsearch highlights" })
@@ -159,7 +159,7 @@ vim.keymap.set("n", "gp", "`[v`]")
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- replace last search term
-vim.keymap.set("n", "_R", "':%s/' . @/ . '/'", { desc = "Replace last search term", expr = true })
+vim.keymap.set("n", "<leader>tR", "':%s/' . @/ . '/'", { desc = "Replace last search term", expr = true })
 
 -- command line mappings
 vim.cmd([[ set cedit=\<C-Y> ]])

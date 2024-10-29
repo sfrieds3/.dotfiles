@@ -89,7 +89,7 @@ return {
 
     keys = {
       {
-        "_C",
+        "<leader>tc",
         "<Cmd>ColorizerToggle<CR>",
         desc = "[C]olorizer toggle",
       },
