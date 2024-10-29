@@ -140,11 +140,14 @@ function __ssh_prompt --description "TODO: use to determine username/host in ssh
 end
 
 function _prompt_status_postexec --on-event fish_postexec
-    set --global _status " │ "
+    # set --global _status " │ "
+    # set --global _status " ❱ "
+    set --global _status " ❯ "
     set --local __last_status $pipestatus
     for code in $__last_status
         if test $code -ne 0
-            set --global _status (echo (set_color $fish_color_error) "[$code] !! ")
+            # set --global _status (echo (set_color $fish_color_error) "[$code] !! ")
+            set --global _status (echo (set_color $fish_color_error) "[$code] ❱ ")
             break
         end
     end
@@ -155,14 +158,16 @@ function _prompt_helpers --on-event fish_prompt
     set --local __prompt_docker_context (__docker_context)
     set --local __prompt_python_venv (__python_venv)
     # set --local __prompt_python_version (__python_version)
-    set --local __prompt_python_path (__python_path)
+    # set --local __prompt_python_path (__python_path)
     set --local __prompt_conda_env (__conda_env)
-    set --local __prompt_node_version (__node_version)
-    set --local __prompt_rust_version (__rust_version)
+    # set --local __prompt_node_version (__node_version)
+    # set --local __prompt_rust_version (__rust_version)
 
-    set --global __prompt_statuses "$__prompt_kubectl_status$__prompt_docker_context$__prompt_python_venv$__prompt_python_version$__prompt_python_path$__prompt_conda_env$__prompt_node_version$__prompt_rust_version"
+    set --global __prompt_statuses "$__prompt_kubectl_status$__prompt_docker_context$__prompt_python_venv$__prompt_conda_env"
 
-    set --query _status || set --global _status " │ "
+    # set --query _status || set --global _status " │ "
+    # set --query _status || set --global _status " ❱  "
+    set --query _status || set --global _status " ❯ "
 end
 
 function __get_prompt_pwd --on-variable PWD

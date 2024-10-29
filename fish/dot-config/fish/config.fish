@@ -48,7 +48,8 @@ if status is-interactive
 
     set --global --export JAVA_HOME (/usr/libexec/java_home -v17)
 
-    set -U async_prompt_functions fish_right_prompt
+    # acomagu/fish-async-prompt
+    # set -U async_prompt_functions fish_right_prompt
 
     # load local fish config
     set -l local_config "$__fish_config_dir/fish_local.fish"
@@ -64,7 +65,8 @@ if status is-interactive
 
     fish_set_virtual_env
 
-    # starship init fish | source
+    starship init fish | source
+    enable_transience
 end
 
 
