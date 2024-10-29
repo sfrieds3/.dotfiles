@@ -7,12 +7,12 @@ disabled = false
 # format = '[∷ $time ∷ ]($style) '
 # time_format = '%Y-%m-%d %H:%M:%S'
 # style = 'bold dimmed red'
-#
-# [cmd_duration]
-# format = '[$duration]($style) '
-# show_milliseconds = false
-# style = 'bold italic dimmed yellow'
-#
+
+[cmd_duration]
+format = '[$duration]($style) '
+show_milliseconds = false
+style = 'bold italic dimmed yellow'
+
 # [hostname]
 # ssh_only = false
 # format = '[$hostname]($style)'
@@ -21,28 +21,13 @@ disabled = false
 # [username]
 # format = '[$user]($style):'
 # style_user = 'bold dimmed blue'
-#
-# [git_commit]
-# tag_disabled = false
-# style = 'bold green'
-#
-# [directory]
-# fish_style_pwd_dir_length = 3
-# read_only = ' ro'
-# style = 'bold green'
 
-# [git_branch]
-# symbol = 'λ:'
-# format = '[$symbol](italic yellow)[\($branch(:$remote_branch)\)]($style) '
-# style = 'bold italic dimmed red'
+[git_commit]
+tag_disabled = false
+style = 'bold green'
 
-# [git_status]
-# ahead = '<${count}'
-# diverged = '<><${ahead_count}>${behind_count}'
-# behind = '>${count}'
-# deleted = 'x'
-# renamed = 'r'
-# style = 'bold dimmed red'
+[directory]
+fish_style_pwd_dir_length = 3
 
 [git_metrics]
 disabled = false
@@ -52,7 +37,7 @@ disabled = false
 
 [memory_usage]
 disabled = true
-# style = 'bold dimmed red'
+style = 'bold dimmed red'
 
-# [status]
-# disabled = false
+[status]
+disabled = false
