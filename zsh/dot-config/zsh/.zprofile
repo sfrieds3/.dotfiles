@@ -49,6 +49,8 @@ export PIP_REQUIRE_VIRTUALENV=1
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --absolute-path"
 export FZF_DEFAULT_OPTS=--color="bg:-1,bg+:-1,fg:red,fg+:white,border:black,spinner:0,hl:yellow,header:blue,info:green,pointer:red,marker:blue,prompt:white,hl+:red"
 
+export EZA_PARAMS=('--git' '--group' '--group-directories-first' '--time-style=long-iso' '--color-scale=all' '--icons')
+
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal

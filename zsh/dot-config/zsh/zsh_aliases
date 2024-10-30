@@ -3,12 +3,15 @@
 alias d='dirs -v'
 for index ({0..9}) alias "$index"="cd +${index}"; unset index
 
-alias ls='eza'
-
-# some more ls aliases
-# alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
+alias ls="eza"
+alias l="eza $EZA_PARAMS"
+alias lg"eza --git-ignore $EZA_PARAMS"
+alias ll="eza --all --header --long $EZA_PARAMS"
+alias llm="eza --all --header --long --sort=modified $EZA_PARAMS"
+alias la="eza -lbhHigUmuSa"
+alias lx="eza -lbhHigUmuSa@"
+alias lt="eza --tree $EZA_PARAMS"
+alias tree="eza --tree $EZA_PARAMS"
 
 alias gg='$HOME/bin/git/git_recent.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
