@@ -35,6 +35,7 @@
       - just
       - jq
       - kubernetes-cli
+      - kubectx
       - libgccjit
       - llvm
       - lua
