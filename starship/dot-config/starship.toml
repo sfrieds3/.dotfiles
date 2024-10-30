@@ -26,8 +26,8 @@ style = 'bold italic dimmed yellow'
 tag_disabled = false
 style = 'bold green'
 
-[directory]
-fish_style_pwd_dir_length = 3
+# [directory]
+# fish_style_pwd_dir_length = 3
 
 [git_metrics]
 disabled = false
