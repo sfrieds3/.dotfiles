@@ -9,19 +9,19 @@ return {
 
     opts = {
       keymap = {
-        show = "<C-space>",
-        hide = "<C-e>",
-        accept = { "<Tab>", "<C-;>" },
-        select_prev = { "<Up>", "<C-p>" },
-        select_next = { "<Down>", "<C-n>" },
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<Tab>"] = { "select_and_accept", "fallback" },
+        ["<C-y>"] = { "select_and_accept", "fallback" },
+        ["<C-;>"] = { "select_and_accept" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
 
-        show_documentation = "<C-space>",
-        hide_documentation = "<C-space>",
-        scroll_documentation_up = "<C-b>",
-        scroll_documentation_down = "<C-f>",
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-        snippet_forward = "<M-s>",
-        snippet_backward = "<M-S-s>",
+        ["<M-s>"] = { "snippet_forward" },
+        ["<M-S-s>"] = { "snippet_backward" },
       },
       highlight = {
         use_nvim_cmp_as_default = true,
