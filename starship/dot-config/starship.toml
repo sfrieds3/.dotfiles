@@ -1,11 +1,11 @@
 # format = '$time$kubernetes$docker_context$c$cmake$conda$container$go$python$conda$nodejs$package$cmd_duration$memory_usage$line_break$jobs$status$sudo$directory$character'
 # right_format = '$git_commit$git_branch$git_status$username$hostname'
-continuation_prompt = ''
+right_format = '$time'
+continuation_prompt = ' '
 
 [time]
 disabled = false
-# format = '[∷ $time ∷ ]($style) '
-# time_format = '%Y-%m-%d %H:%M:%S'
+time_format = '%Y-%m-%d %H:%M:%S'
 # style = 'bold dimmed red'
 
 [cmd_duration]
