@@ -37,7 +37,6 @@ export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 DISABLE_AUTO_TITLE="true"
 
 bindkey -M emacs '^O' fzf-history-widget
-bindkey -M emacs '^T' atuin-search
 
 autoload -U colors && colors
 autoload -U add-zsh-hook
@@ -48,7 +47,7 @@ autoload zmv
 source $ZDOTDIR/zsh_functions
 source $ZDOTDIR/zsh_completion
 source $ZDOTDIR/zsh_bindings
-source $ZDOTDIR/zsh_prompt
+# source $ZDOTDIR/zsh_prompt
 source $ZDOTDIR/zsh_aliases
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
@@ -58,3 +57,5 @@ export EDITOR="nvim"
 # kubernetes and helm completion
 source <(kubectl completion zsh)
 source <(helm completion zsh)
+
+eval "$(starship init zsh)"

@@ -13,19 +13,28 @@ export ZSH_DATA_DIR=$XDG_DATA_HOME/zsh
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export EMACS_VTERM_PATH=$XDG_CONFIG_DIR/emacs/straight/repos/emacs/libvterm
 export GOPATH=$HOME/go
-GOBIN=$GOPATH/bin
-BREWSBIN=$HOMEBREW_PREFIX/sbin
-BREWBIN=$HOMEBREW_PREFIX/bin
-LUAROCKSBIN=$HOME/.luarocks/bin
-PERL5BIN=$HOME/perl5/bin
+export GOBIN=$GOPATH/bin
+BREWSBIN="$HOMEBREW_PREFIX/sbin"
+BREWBIN="$HOMEBREW_PREFIX/bin"
+LUAROCKSBIN="$HOME/.luarocks/bin"
+PERL5BIN="$HOME/perl5/bin"
 USRLOCALBIN=/usr/local/bin
-LOCALBIN=$HOME/.local/bin
+LOCALBIN="$HOME/.local/bin"
 PYTHON3_VENV_BIN=$HOME/.venv/venv/bin
-OPENJDKBIIN=/opt/homebrew/opt/openjdk/bin
-SCALA_COURSIER=$HOME/Library/Application\ Support/Coursier/bin
+OPENJDKBIIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
+SCALA_COURSIER="$HOME/Library/Application\ Support/Coursier/bin"
+JETBRAINS_TOOLBOX="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+CYTHON_BIN="$HOMEBREW_PREFIX/opt/cython/bin"
 
 # set path and stuff
-export PATH=$LOCALBIN:$BREWBIN:$BREWSBIN:$GOBIN:$PERL5BIN:$LUAROCKSBIN:$PATH:$USRLOCALBIN:$SCALA_COURSIER:$PYTHON3_VENV_BIN:$OPENJDKBIIN
+export PATH=$LOCALBIN:$BREWBIN:$BREWSBIN:$CYTHON_BIN:$GOBIN:$PERL5BIN:$LUAROCKSBIN:$PATH:$USRLOCALBIN:$SCALA_COURSIER:$PYTHON3_VENV_BIN:$OPENJDKBIIN:$JETBRAINS_TOOLBOX
+
+if [[ -n "$KREW_ROOT" ]]; then
+    KREWBIN="$KREW_ROOT/.krew/bin"
+else
+    KREWBIN="$HOME/.krew/bin"
+fi
+
 # export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/python_startup.py
 export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
 export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}

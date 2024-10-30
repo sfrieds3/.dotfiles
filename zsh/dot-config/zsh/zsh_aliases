@@ -3,11 +3,12 @@
 alias d='dirs -v'
 for index ({0..9}) alias "$index"="cd +${index}"; unset index
 
+alias ls='eza'
+
 # some more ls aliases
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
 
 alias gg='$HOME/bin/git/git_recent.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
@@ -31,12 +32,15 @@ alias dskspc='sudo du -h --max-depth=1 | sort -h'
 # kubernetes
 alias k='kubectl'
 
+# pre-commit
+alias pcr='pre-commit run'
+
 # fuzzy kill tmux sessions
 alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do tmux kill-session -t \$s; done;"
 
 # git aliases
 alias gs='git status'
-alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch'
+alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch --detach'
 alias gb='git branch | fzf-tmux -p | sed s/^\*// | xargs git switch'
 alias gap='git add --patch'
 alias gcp='git checkout --patch'

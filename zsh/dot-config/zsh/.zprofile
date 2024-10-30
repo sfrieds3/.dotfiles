@@ -10,7 +10,6 @@ source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 
 # source plugins
 source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
-source $ZDOTDIR/plugins/vendor/com.github/superbrothers/zsh-kubectl-prompt/kubectl.zsh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -20,10 +19,6 @@ eval "$(zoxide init zsh)"
 
 # asdf
 source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
-
-# atuin
-export ATUIN_NOBIND="true"
-eval "$(atuin init zsh)"
 
 # ocaml
 [[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
@@ -49,20 +44,10 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON3_VENV=$PYTHON3_VENV_BIN/python3
+export PIP_REQUIRE_VIRTUALENV=1
 
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --absolute-path"
-# export FZF_DEFAULT_OPTS=--color="bg:-1,\
-# fg:gray,\
-# fg+:white,\
-# border:black,\
-# spinner:0,\
-# hl:yellow,\
-# header:blue,\
-# info:green,\
-# pointer:red,\
-# marker:blue,\
-# prompt:gray,\
-# hl+:red"
+export FZF_DEFAULT_OPTS=--color="bg:-1,bg+:-1,fg:red,fg+:white,border:black,spinner:0,hl:yellow,header:blue,info:green,pointer:red,marker:blue,prompt:white,hl+:red"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.

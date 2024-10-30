@@ -8,11 +8,11 @@ vim.g.python3_host_prog = "$PYTHON3_VENV"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- set zsh executable dir
+local shell = "zsh"
 if IS_MAC then
-  vim.opt.shell = "/opt/homebrew/bin/fish"
+  vim.opt.shell = string.format("/opt/homebrew/bin/%s", shell)
 else
-  vim.opt.shell = "/usr/bin/fish"
+  vim.opt.shell = string.format("/usr/bin/%s", shell)
 end
 
 vim.opt.termguicolors = true

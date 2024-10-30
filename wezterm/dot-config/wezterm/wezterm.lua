@@ -3,8 +3,9 @@ require("utils.workspace")
 
 local config = {}
 
+local default_shell = "zsh"
 config.default_prog = {
-  "/opt/homebrew/bin/fish",
+  string.format("/opt/homebrew/bin/%s", default_shell),
   "--login",
 }
 -- config.color_scheme = "Gruvbox dark, pale (base16)"

@@ -98,36 +98,6 @@ function cursor_mode() {
 #     npm $@
 # }
 
-function vterm_printf() {
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-function vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
-}
-
-function vterm_set_directory() {
-    vterm_cmd update-pwd "/-:""$USER""@""$HOSTNAME"":""$PWD/"
-}
-
-function vterm_cmd() {
-    local vterm_elisp
-    vterm_elisp=""
-    while [ $# -gt 0 ]; do
-        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
-        shift
-    done
-    vterm_printf "51;E$vterm_elisp"
-}
-
 function relpath() {
     python -c "import os,sys;print(os.path.relpath(*(sys.argv[1:]), start=os.path.expanduser('~')))" "$@";
 }
@@ -188,12 +158,20 @@ function make_nvim() {
 }
 
 # convert timestamp
-function ts() {
-    local _ts=$(("$1" / (1000)))
-    if [ $# -gt 0 ]
-    then
-        date -jf "%s" "$_ts" +"%Y-%m-%d %H:%M:%S"
-    else
-        echo "Usage: $0 {timestamp}"
+function tsconvert() {
+    # Description: Convert unix timestamp to UTC time
+    local timestamp="$1"
+
+    if [[ -z "$timestamp" ]]; then
+        echo "Usage: tsconvert <timestamp>"
+        return 1
     fi
+
+    local utc_time=$(python3 -c "
+import datetime
+timestamp = '$timestamp'.replace(',', '')
+print(datetime.datetime.fromtimestamp(int(timestamp) / (1e3 if len(timestamp) > 10 else 1), datetime.UTC).strftime('%Y-%m-%d %H:%M:%S UTC')
+    ")
+
+    echo "$utc_time"
 }
