@@ -175,3 +175,64 @@ print(datetime.datetime.fromtimestamp(int(timestamp) / (1e3 if len(timestamp) > 
 
     echo "$utc_time"
 }
+
+function venv() {
+    # Description: Activate virtual environment in the current project, or create one if it doesn't exist
+    local venv_dirs=(".venv" "venv")
+
+    # Function to check if a directory exists
+    dir_exists() {
+        [[ -d "$1" ]]
+    }
+
+    # Get the current directory
+    local current_dir="$(pwd)"
+
+    # Get the Git root directory
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+    # Check for virtual environment in the current directory
+    for venv_dir in "${venv_dirs[@]}"; do
+        if dir_exists "$current_dir/$venv_dir"; then
+            echo "Activating virtual environment in $current_dir/$venv_dir"
+            source "$current_dir/$venv_dir/bin/activate"
+            return
+        fi
+    done
+
+    # Check for virtual environment in the Git project root
+    if [[ -n "$git_root" ]]; then
+        for venv_dir in "${venv_dirs[@]}"; do
+            if dir_exists "$git_root/$venv_dir"; then
+                echo "Activating virtual environment in $git_root/$venv_dir"
+                source "$git_root/$venv_dir/bin/activate"
+                return
+            fi
+        done
+    fi
+
+    # If no virtual environment is found, call uv venv
+    echo "No virtual environment found, calling uv venv"
+    uv venv
+}
+
+function wezup() {
+    brew upgrade --cask wezterm@nightly --no-quarantine --greedy-latest
+}
+
+function flushdns() {
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
+}
+
+function asdf_install_python() {
+  # Install Python version using pyenv and Homebrew libs
+  if [ -z "$1" ]; then
+    echo "Please provide a Python version to install"
+    return 1
+  fi
+
+  echo "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib\" pyenv install --verbose $1"
+  CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" asdf install python "$1"
+}
