@@ -224,4 +224,5 @@ return {
   { "navarasu/onedark.nvim", event = "VeryLazy" },
 
   { "rose-pine/neovim", name = "rose-pine", event = "VeryLazy" },
+  { "aliqyan-21/darkvoid.nvim", event = "VeryLazy" },
 }
