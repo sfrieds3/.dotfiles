@@ -58,4 +58,5 @@ export EDITOR="nvim"
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
+source $(brew --prefix)/opt/spaceship/spaceship.zsh
