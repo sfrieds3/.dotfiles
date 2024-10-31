@@ -37,6 +37,7 @@
     python
     ripgrep
     ruff
+    spaceship
     starship
     tmux
     wezterm
