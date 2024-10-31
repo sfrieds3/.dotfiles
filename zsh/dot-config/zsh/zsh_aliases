@@ -3,6 +3,8 @@
 alias d='dirs -v'
 for index ({0..9}) alias "$index"="cd +${index}"; unset index
 
+alias -- -="cd -"
+
 alias ls="eza"
 alias l="eza $EZA_PARAMS"
 alias lg"eza --git-ignore $EZA_PARAMS"
