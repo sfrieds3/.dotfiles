@@ -165,7 +165,7 @@ function FZFConfig.get_config()
         },
         grep = {
           rg_glob = true,
-
+          rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --max-columns=4096 -e",
           winopts = {
             preview = {
               layout = "horizontal",
