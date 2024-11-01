@@ -48,21 +48,21 @@ return {
           enabled = true,
         },
       },
-      sources = {
-        completion = {
-          enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },
-        },
-        providers = {
-          lazydev = {
-            name = "lazydev",
-            module = "blink.compat.source",
-          },
-          cody = {
-            name = "cody",
-            module = "blink.compat.source",
-          },
-        },
-      },
+      -- sources = {
+      --   completion = {
+      --     enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },
+      --   },
+      --   providers = {
+      --     lazydev = {
+      --       name = "lazydev",
+      --       module = "blink.compat.source",
+      --     },
+      --     cody = {
+      --       name = "cody",
+      --       module = "blink.compat.source",
+      --     },
+      --   },
+      -- },
     },
     keys = {
       {
