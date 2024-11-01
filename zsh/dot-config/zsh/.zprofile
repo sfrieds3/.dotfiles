@@ -17,8 +17,8 @@ source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring
 # zoxide
 eval "$(zoxide init zsh)"
 
-# asdf
-source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+# mise
+eval "$(mise activate zsh)"
 
 # ocaml
 [[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

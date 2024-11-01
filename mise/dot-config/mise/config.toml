@@ -1,0 +1,7 @@
+[settings]
+paranoid = false
+
+[tools]
+go = "latest"
+python = "latest"
+node = "latest"
