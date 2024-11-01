@@ -25,11 +25,10 @@ bindkey '^\' accept-and-hold
 bindkey '^[[F' end-of-line
 bindkey '^[[H' beginning-of-line
 
-# use vim keys in completion menus
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect '^H' vi-backward-char
+bindkey -M menuselect '^K' vi-up-line-or-history
+bindkey -M menuselect '^L' vi-forward-char
+bindkey -M menuselect '^J' vi-down-line-or-history
 bindkey -M menuselect '\e' send-break
 
 # allow ctrl-x ctrl-e to edit command in vim

@@ -3,6 +3,8 @@
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 # complist autoloaded before compinit
 zmodload zsh/complist
+zmodload -i zsh/stat
+disable stat
 autoload -Uz compinit && compinit -u
 
 # complete hidden files/directories without requiring leading '.'
@@ -14,15 +16,15 @@ zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # complete ..<Tab> to parent dir
 zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(..) ]] && reply=(..)'
 
-# show ls -alh output by default
-zstyle ':completion:*' file-list list=20 insert=10
+# show 20 matches at a time, insert in command line if less than 10
+zstyle ':completion:*' file-list list=20 insert=0
 
 # sort by date modified for cp and less
 zstyle ':completion:*:*:cp:*' file-sort modification
 zstyle ':completion:*:*:less:*' file-sort modification
 
 # general completion
-zstyle ':completion:*' completer _complete _ignored
+zstyle ':completion:*' completer _expand_alias _extensions _complete _match _approximate
 
 # use cache
 zstyle ':completion:*' use-cache on
@@ -31,9 +33,7 @@ zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 # partial completion suggestions
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
 
-# required for git-completion.zsh
-# git-completion.zsh -> $XDG_CONFIG_HOME/zsh/_git
-zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' menu yes select interactive
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -45,20 +45,11 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
 # format group names
-# zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
 
-# Fuzzy match mistyped completions.
-# zstyle ':completion:*' completer _complete _match _approximate
-# zstyle ':completion:*:match:*' original only
-# zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-# Make completion (Wincent):
 # - Try exact (case-sensitive) match first.
 # - Then fall back to case-insensitive.
 # - Accept abbreviations after . or _ or - (ie. f.b -> foo.bar).
 # - Substring complete (ie. bar -> foobar).
 zstyle ':completion:*' matcher-list '' '+m:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}' '+m:{_-}={-_}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# group completions by name
-zstyle ':completion:*' group-name ''
