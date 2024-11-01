@@ -5,6 +5,16 @@ return {
     version = "v0.*",
     dependencies = {
       "chrisgrieser/nvim-scissors",
+      {
+        "saghen/blink.compat",
+        opts = {
+          -- lazydev.nvim only registers the completion source when nvim-cmp is
+          -- loaded, so pretend that we are nvim-cmp, and that nvim-cmp is loaded.
+          -- this option only has effect when using lazy.nvim
+          -- this should not be required in most cases
+          impersontate_nvim_cmp = true,
+        },
+      },
     },
 
     opts = {
@@ -33,9 +43,24 @@ return {
         },
         signature_help = { enabled = true },
       },
-      sources = {
+      windows = {
         ghost_text = {
           enabled = true,
+        },
+      },
+      sources = {
+        completion = {
+          enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },
+        },
+        providers = {
+          lazydev = {
+            name = "lazydev",
+            module = "blink.compat.source",
+          },
+          cody = {
+            name = "cody",
+            module = "blink.compat.source",
+          },
         },
       },
     },
