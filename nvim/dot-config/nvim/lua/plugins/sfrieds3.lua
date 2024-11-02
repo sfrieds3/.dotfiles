@@ -11,4 +11,8 @@ return {
       workon_home = "$HOME/.venv",
     },
   },
+  {
+    "sfrieds3/pytest_fixtures.nvim",
+    opts = {},
+  },
 }
