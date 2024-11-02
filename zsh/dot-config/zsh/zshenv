@@ -1,5 +1,6 @@
 # Increase from default value (256)
 ulimit -n 10240
+ulimit -u 2048
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_DIRS="/etc/xdg"

@@ -25,14 +25,6 @@ bindkey '^\' accept-and-hold
 bindkey '^[[F' end-of-line
 bindkey '^[[H' beginning-of-line
 
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect '^N' menu-complete
-bindkey -M menuselect '^P' reverse-menu-complete
-bindkey -M menuselect '\e' send-break
-
 # allow ctrl-x ctrl-e to edit command in vim
 autoload edit-command-line
 zle -N edit-command-line

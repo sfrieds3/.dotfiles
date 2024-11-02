@@ -26,6 +26,9 @@ zstyle ':completion:*:*:less:*' file-sort modification
 # general completion
 zstyle ':completion:*' completer _expand_alias _extensions _complete _match _approximate
 
+# complete options after `-`, not directory stack
+zstyle ':completion:*' complete-options true
+
 # use cache
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
@@ -34,6 +37,7 @@ zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 
+# menu select options
 zstyle ':completion:*' menu select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
@@ -45,9 +49,29 @@ zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
+# menu select keymaps
+bindkey -M menuselect '^n' menu-complete
+bindkey -M menuselect '^p' reverse-menu-complete
+bindkey -M menuselect '\e' send-break
+bindkey -M menuselect '^s' vi-insert  # toggle between normal and interactive
+bindkey -M menuselect '^xg' clear-screen
+bindkey -M menuselect '^xi' vi-insert
+bindkey -M menuselect '^xh' accept-and-hold
+bindkey -M menuselect '^xn' accept-and-infer-next-history
+bindkey -M menuselect '^xu' undo
+
 # format group names
 zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
+
+# for cd, complete local directories, directories on stack, and directories in path
+# zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+
+# for commands, complete aliases, builtin, functions, then path commands
+# zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
+
+# when completing, keep the prefix around
+zstyle ':completion:*' keep-prefix true
 
 # - Try exact (case-sensitive) match first.
 # - Then fall back to case-insensitive.
