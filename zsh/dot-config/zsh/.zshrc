@@ -44,11 +44,11 @@ autoload -U add-zsh-hook
 # https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
 autoload zmv
 
-source $ZDOTDIR/zsh_functions
-source $ZDOTDIR/zsh_completion
-source $ZDOTDIR/zsh_bindings
-# source $ZDOTDIR/zsh_prompt
-source $ZDOTDIR/zsh_aliases
+source $ZDOTDIR/functions.zsh
+source $ZDOTDIR/completion.zsh
+source $ZDOTDIR/bindings.zsh
+# source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/aliases.zsh
 test -f $HOME/.zsh_local && source $HOME/.zsh_local
 
 # nvim as editor
