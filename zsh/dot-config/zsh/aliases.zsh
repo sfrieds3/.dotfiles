@@ -45,8 +45,8 @@ alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1
 
 # git aliases
 alias gs='git status'
-alias gba='git branch -a | fzf-tmux -p | sed s/^\*// | xargs git switch --detach'
-alias gb='git branch | fzf-tmux -p | sed s/^\*// | xargs git switch'
+alias gba="git branch -a | fzf-tmux -p | sed 's/^[ \t]*//' | xargs git switch --detach"
+alias gb="git branch | fzf-tmux -p | sed 's/^[ \t]*//' | xargs git switch"
 alias gap='git add --patch'
 alias gcp='git checkout --patch'
 alias gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
