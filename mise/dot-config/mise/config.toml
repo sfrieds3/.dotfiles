@@ -3,5 +3,5 @@ paranoid = false
 
 [tools]
 go = "latest"
-python = "latest"
-node = "latest"
+node = "23.1.0"
+python = "3.13.0"
