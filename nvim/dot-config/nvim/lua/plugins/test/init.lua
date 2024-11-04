@@ -70,21 +70,23 @@ return {
           end
           local tree = assert(client:get_position(nil, { adapter = adapter_id }))
 
-          local failed = 0
+          local failed = false
           for pos_id, result in pairs(results) do
             if result.status == "failed" and tree:get_key(pos_id) then
-              failed = failed + 1
+              failed = true
+              break
             end
           end
           vim.schedule(function()
             local trouble = require("trouble")
             if trouble.is_open() then
               trouble.refresh()
-              if failed == 0 then
+              if not failed then
                 trouble.close()
               end
             end
           end)
+          return {}
         end
       end
 
