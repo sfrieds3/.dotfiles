@@ -43,6 +43,7 @@
       - luarocks
       - miniconda
       - minikube
+      - mise
       - mysql
       - ninja
       - openjdk
