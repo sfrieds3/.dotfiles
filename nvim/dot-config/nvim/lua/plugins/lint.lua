@@ -6,6 +6,7 @@ return {
   config = function()
     require("lint").linters_by_ft = {
       -- gitcommit = { "codespell" },
+      ["yaml.ansible"] = { "ansible_lint" },
       dockerfile = { "hadolint" },
       django = { "djlint" },
       javascript = { "eslint_d" },

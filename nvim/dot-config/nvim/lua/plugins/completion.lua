@@ -45,7 +45,7 @@ return {
       },
       windows = {
         ghost_text = {
-          enabled = true,
+          enabled = false,
         },
       },
       -- sources = {

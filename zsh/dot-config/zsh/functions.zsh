@@ -224,6 +224,9 @@ function venv() {
     # If no virtual environment is found, call uv venv
     echo "No virtual environment found, calling uv venv"
     uv venv
+
+    # and source our new venv
+    source ./venv/bin/activate
 }
 
 function wezup() {
