@@ -1,7 +1,9 @@
 # emacs keybindings
 bindkey -e
 
-# keybindings
+# fzf
+bindkey -M emacs '^O' fzf-history-widget
+
 # search for line up/down
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search

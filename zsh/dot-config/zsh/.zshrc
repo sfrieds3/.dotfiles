@@ -15,7 +15,6 @@ setopt   HISTVERIFY           # show history expansions
 setopt   IGNORE_EOF           # ignore EOF (but still close after 10 consecutive)
 setopt   NO_CLOBBER           # prohibit 'cat foo > bar' if bar exists. use >! instead
 setopt   EXTENDED_GLOB        # enables various things, most notably ^negation. '^', '#' and forgotwhich :/ see cheatsheet & http://zsh.dotsrc.org/Intro/intro_2.html#SEC2
-setopt   MULTIOS              # cmd > >(cmd1) > >(cmd2) would redirect stdout from cmd to stdin of cmd1,2
 setopt   NOTIFY               # [on] this will put info from finished background processes over the current line
 
 # history
@@ -43,13 +42,14 @@ DISABLE_AUTO_TITLE="true"
 # auto cd dirs
 cdpath=($HOME/code $HOME/wiki $HOME/.config $HOME/.dotfiles)
 
-bindkey -M emacs '^O' fzf-history-widget
-
 autoload -U colors && colors
 autoload -U add-zsh-hook
 
 # https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
 autoload zmv
+
+# custom completions
+fpath=($ZDOTDIR/completions $fpath)
 
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/completion.zsh
@@ -71,8 +71,8 @@ export EDITOR="nvim"
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 
-# eval "$(starship init zsh)"
-source $(brew --prefix)/opt/spaceship/spaceship.zsh
+eval "$(starship init zsh)"
+# source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
 	if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi

@@ -14,6 +14,9 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+# custom completions
+fpath=($ZDOTDIR/completions $fpath)
+
 # zoxide
 eval "$(zoxide init zsh)"
 
