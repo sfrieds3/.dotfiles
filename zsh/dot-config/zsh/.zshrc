@@ -40,6 +40,9 @@ export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 # we will set our own title
 DISABLE_AUTO_TITLE="true"
 
+# auto cd dirs
+cdpath=($HOME/code $HOME/wiki $HOME/.config $HOME/.dotfiles)
+
 bindkey -M emacs '^O' fzf-history-widget
 
 autoload -U colors && colors
