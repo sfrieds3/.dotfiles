@@ -70,5 +70,10 @@
       - wcurl
       - wget
       - yq
+      - zsh
+      - zsh-autosuggestions
+      - zsh-completions
+      - zsh-history-substring-search
+      - zsh-syntax-highlighting
     state: present
     update_homebrew: true
