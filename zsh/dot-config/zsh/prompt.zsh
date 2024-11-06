@@ -18,14 +18,14 @@ zstyle ':vcs_info:git*:*' actionformats '%{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{
 function +vi-git-untracked() {
 emulate -L zsh
 if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
-  hook_com[unstaged]+="%F{red} …%f"  # nf-fa-question
+    hook_com[unstaged]+="%F{red} …%f"  # nf-fa-question
 fi
 }
 
 function +vi-git-stashed() {
 emulate -L zsh
 if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-  hook_com[unstaged]+="%F{blue} ⚑%f"  # nf-fa-inbox
+    hook_com[unstaged]+="%F{blue} ⚑%f"  # nf-fa-inbox
 fi
 }
 
@@ -59,70 +59,81 @@ local remote
 
     # Are we on a remote-tracking branch?
     remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
-      --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
     # The first test will show a tracking branch whenever there is one. The
     # second test, however, will only show the remote branch's name if it
     # differs from the local one.
     # if [[ -n ${remote} ]] ; then
-    if [[ -n ${remote} && ${remote#*/} != ${hook_com[branch]} ]] ; then
-      hook_com[branch]="${hook_com[branch]}→[${remote}]"
+    if [[ -n ${remote} && ${remote#*/} != ${hook_com[branch]} ]]; then
+        hook_com[branch]="${hook_com[branch]}→[${remote}]"
     fi
-  }
+}
 
-  function __prompt_precmd() {
+function __prompt_precmd() {
     vcs_info
-  }
+}
 
-  function precmd() {
+function precmd() {
+    EXIT_CODE=$?
     echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
-  }
+}
 
-  function __python_venv() {
+function __python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
-    [ $VIRTUAL_ENV ] && echo 'venv('`relpath $VIRTUAL_ENV`') '
-  }
+    local __pyv=`python --version | sed 's/^Python //'`
+    [[ -n $VIRTUAL_ENV ]] && echo "venv(`relpath $VIRTUAL_ENV` [$__pyv]) "
+}
 
-  function __conda_env() {
+function __conda_env() {
     [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
-  }
+}
 
-  function __node_dir() {
+function __node_dir() {
     # TODO this could be better done in a loop
     [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
-  }
+}
 
-  function __node_version() {
+function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
-  }
+}
 
-  function __kubectl_prompt() {
-    echo "k8s($ZSH_KUBECTL_PROMPT) "
-  }
+function __kubectl_prompt() {
+    __kube_ctx=$(kubectl config current-context 2> /dev/null)
+    __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
+    __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
+    echo "k8s($__kube_ver:$__kube_ctx/$__kube_ns) "
+}
 
-  function __pyenv_version() {
+function __pyenv_version() {
     [ -f .python-version ] 2> /dev/null && echo 'pyenv('`python3 --version | sed "s/^[^ ]* //"`') '
-  }
+}
 
-  function __python_path() {
-    local _pyv=`python --version | sed 's/^Python //'`
-    local _pp=`which python`
-      echo "py(`relpath $_pp` [$_pyv]) "
-  }
+function __python_path() {
+    local __pyv=`python --version | sed 's/^Python //'`
+    local __pp=`which python`
+    [[ -z $VIRTUAL_ENV ]] && echo "py(`relpath $__pp` [$__pyv]) "
+}
 
-  PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}%F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)$(__pyenv_version)%F{cyan}$(__python_path)%F{magenta}$(__node_version)$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}= .%F{red}!! )%f'
+# __PROMPT_SUCCESS="│ "
+# __PROMPT_SUCCESS="❱  "
+__PROMPT_SUCCESS="❯ "
+__PROMPT_ERROR="!! "
 
-  function __set_rprompt() {
+PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PS2=' '
+
+function __set_rprompt() {
     RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-  }
+}
 
-  autoload -U add-zsh-hook
-  add-zsh-hook precmd __prompt_precmd
-  add-zsh-hook precmd __set_rprompt
-  add-zsh-hook precmd __timings_precmd
-  add-zsh-hook precmd __zsh_title__precmd
-  add-zsh-hook preexec __zsh_title__preexec
-  add-zsh-hook preexec __timings_preexec
+autoload -U add-zsh-hook
+add-zsh-hook precmd __prompt_precmd
+add-zsh-hook precmd __set_rprompt
+add-zsh-hook precmd __timings_precmd
+add-zsh-hook precmd __zsh_title__precmd
+add-zsh-hook preexec __zsh_title__preexec
+add-zsh-hook preexec __timings_preexec
 
 #-------------------------------------------------------------------------------
 #           Execution time
@@ -133,15 +144,15 @@ local remote
 # 165392 => 1d 21h 56m 32s
 # https://github.com/sindresorhus/pretty-time-zsh
 __human_time_to_var() {
-  local human total_seconds=$1 var=$2
-  local days=$(( total_seconds / 60 / 60 / 24 ))
-  local hours=$(( total_seconds / 60 / 60 % 24 ))
-  local minutes=$(( total_seconds / 60 % 60 ))
-  local seconds=$(( total_seconds % 60 ))
-  (( days > 0 )) && human+="${days}d "
-  (( hours > 0 )) && human+="${hours}h "
-  (( minutes > 0 )) && human+="${minutes}m "
-  human+="${seconds}s"
+    local human total_seconds=$1 var=$2
+    local days=$(( total_seconds / 60 / 60 / 24 ))
+    local hours=$(( total_seconds / 60 / 60 % 24 ))
+    local minutes=$(( total_seconds / 60 % 60 ))
+    local seconds=$(( total_seconds % 60 ))
+    (( days > 0 )) && human+="${days}d "
+    (( hours > 0 )) && human+="${hours}h "
+    (( minutes > 0 )) && human+="${minutes}m "
+    human+="${seconds}s"
 
   # Store human readable time in a variable as specified by the caller
   typeset -g "${var}"="${human}"
@@ -150,20 +161,20 @@ __human_time_to_var() {
 # Stores (into cmd_exec_time) the execution
 # time of the last command if set threshold was exceeded.
 __check_cmd_exec_time() {
-  integer elapsed
-  (( elapsed = EPOCHSECONDS - ${cmd_timestamp:-$EPOCHSECONDS} ))
-  typeset -g cmd_exec_time=
-  (( elapsed > 1 )) && {
-    __human_time_to_var $elapsed "cmd_exec_time"
-  }
+    integer elapsed
+    (( elapsed = EPOCHSECONDS - ${cmd_timestamp:-$EPOCHSECONDS} ))
+    typeset -g cmd_exec_time=
+    (( elapsed > 1 )) && {
+        __human_time_to_var $elapsed "cmd_exec_time"
+    }
 }
 
 __timings_preexec() {
-  emulate -L zsh
-  typeset -g cmd_timestamp=$EPOCHSECONDS
+    emulate -L zsh
+    typeset -g cmd_timestamp=$EPOCHSECONDS
 }
 
 __timings_precmd() {
-  __check_cmd_exec_time
-  unset cmd_timestamp
+    __check_cmd_exec_time
+    unset cmd_timestamp
 }

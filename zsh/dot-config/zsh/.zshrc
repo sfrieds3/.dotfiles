@@ -54,7 +54,7 @@ fpath=($ZDOTDIR/completions $fpath)
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/bindings.zsh
-# source $ZDOTDIR/prompt.zsh
+source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/aliases.zsh
 
 # easily cd to directories (e.g. ~dot for ~/.dotfiles)
@@ -71,7 +71,7 @@ export EDITOR="nvim"
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 # source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
