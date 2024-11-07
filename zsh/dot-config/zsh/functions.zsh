@@ -11,11 +11,53 @@ function exists() { (( $+commands[$1] )); }
 
 # reloads all functions
 # http://www.zsh.org/mla/users/2002/msg00232.html
-r() {
+function r() {
     local f
     f=($XDG_CONFIG_HOME/functions.d/*(.))
     unfunction $f:t 2> /dev/null
     autoload -U $f:t
+}
+
+function __python_venv() {
+    # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
+    # local __pyv=`python --version | sed 's/^Python //'`
+    [[ -n $VIRTUAL_ENV ]] && echo "venv(`basename ${VIRTUAL_ENV:h}`) "
+}
+
+function __conda_env() {
+    [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
+}
+
+function __node_dir() {
+    # TODO this could be better done in a loop
+    [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
+}
+
+function __node_version() {
+    __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
+}
+
+function __kubectl_prompt() {
+    __kube_ctx=$(kubectl config current-context 2> /dev/null)
+    __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
+    # __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
+    # echo "k8s($__kube_ver:$__kube_ctx/$__kube_ns) "
+    echo "k8s($__kube_ctx/$__kube_ns) "
+}
+
+function __pyenv_version() {
+    [ -f .python-version ] 2> /dev/null && echo 'pyenv('`python3 --version | sed "s/^[^ ]* //"`') '
+}
+
+function __python_path() {
+    local __pyv=`python --version | sed 's/^Python //'`
+    local __pp=`which python`
+    [[ -z $VIRTUAL_ENV ]] && echo "py(`relpath $__pp` [$__pyv]) "
+}
+
+# current status
+function s() {
+    (__kubectl_prompt && __python_path && __python_venv && __conda_env && __pyenv_version && __node_version) || return 0
 }
 
 function _update_title() {

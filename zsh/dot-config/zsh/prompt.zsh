@@ -79,52 +79,19 @@ function precmd() {
     echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
 }
 
-function __python_venv() {
-    # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
-    local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo "venv(`relpath $VIRTUAL_ENV` [$__pyv]) "
-}
-
-function __conda_env() {
-    [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
-}
-
-function __node_dir() {
-    # TODO this could be better done in a loop
-    [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]
-}
-
-function __node_version() {
-    __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
-}
-
-function __kubectl_prompt() {
-    __kube_ctx=$(kubectl config current-context 2> /dev/null)
-    __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
-    __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
-    echo "k8s($__kube_ver:$__kube_ctx/$__kube_ns) "
-}
-
-function __pyenv_version() {
-    [ -f .python-version ] 2> /dev/null && echo 'pyenv('`python3 --version | sed "s/^[^ ]* //"`') '
-}
-
-function __python_path() {
-    local __pyv=`python --version | sed 's/^Python //'`
-    local __pp=`which python`
-    [[ -z $VIRTUAL_ENV ]] && echo "py(`relpath $__pp` [$__pyv]) "
-}
 
 # __PROMPT_SUCCESS="│ "
 # __PROMPT_SUCCESS="❱  "
 __PROMPT_SUCCESS="❯ "
 __PROMPT_ERROR="!! "
 
-PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+# PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PROMPT='$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)∷ $prompt_newline%F{green}$(basename $PWD) %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 PS2=' '
 
 function __set_rprompt() {
-    RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
+    # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
+    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}${vcs_info_msg_0_} %F{cyan}%f${PWD/#$HOME/~}"
 }
 
 autoload -U add-zsh-hook
