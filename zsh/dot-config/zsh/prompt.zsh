@@ -91,7 +91,7 @@ PS2=' '
 
 function __set_rprompt() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%}${vcs_info_msg_0_} %F{cyan}%f${PWD/#$HOME/~}"
+    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_} %F{cyan}%f${PWD/#$HOME/~}"
 }
 
 autoload -U add-zsh-hook
