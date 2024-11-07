@@ -25,7 +25,7 @@ fi
 function +vi-git-stashed() {
 emulate -L zsh
 if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{blue} ⚑%f"  # nf-fa-inbox
+    hook_com[unstaged]+="%F{blue} ≡%f"  # ⚑
 fi
 }
 
@@ -86,7 +86,7 @@ __PROMPT_SUCCESS="❯ "
 __PROMPT_ERROR="!! "
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-PROMPT='$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)∷ $prompt_newline%F{green}$(basename $PWD) %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PROMPT='$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%f∷ $prompt_newline%F{green}$(basename $PWD) %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 PS2=' '
 
 function __set_rprompt() {
