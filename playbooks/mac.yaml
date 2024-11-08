@@ -2,3 +2,4 @@
 - hosts: localhost
   roles:
     - brew-mac-apps
+    - mac-defaults

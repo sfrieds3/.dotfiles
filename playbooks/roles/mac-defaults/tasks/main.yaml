@@ -1,0 +1,29 @@
+- name: Expand save panel by default
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSNavPanelExpandedStateForSaveMode
+    value: true
+    type: bool
+  changed_when: false
+- name: Expand save panel by default
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSNavPanelExpandedStateForSaveMode2
+    value: true
+    type: bool
+  changed_when: false
+
+# `osx_defaults` does not like writing a dict value, so use `command` instead
+- name: Disable "Select the previous input source" shortcut
+  ansible.builtin.command:
+    cmd: >
+      defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys
+      -dict-add 60 "<dict><key>enabled</key><false/></dict>"
+  changed_when: false
+
+- name: Disable "Select the next input source" shortcut
+  ansible.builtin.command:
+    cmd: >
+      defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys
+      -dict-add 61 "<dict><key>enabled</key><false/></dict>"
+  changed_when: false
