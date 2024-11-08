@@ -2,11 +2,18 @@
 # Example of using a shell command in the status line
 #set -g status-right "#[fg=yellow]#(uptime | cut -d ',' -f 2-)"
 
-set-option -g status on
-set-option -g status-justify left
-set-option -g status-left-length 20
+# set-option -g status on
+# set-option -g status-justify left
+# set-option -g status-left-length 20
+# set-option -g status-left "#[fg=blue,dim]#{session_name} § #[default]"
+# set-option -g status-right "#[fg=blue,dim]%Y-%m-%d | %H:%M#[default]"
+# set-window-option -g window-status-format "#[fg=white,dim]#{window_index} #{window_name}:#{b:pane_current_path}#F "
+# set-window-option -g window-status-current-format "#[fg=white,dim]#{window_index}#[default] #{window_name}:#{b:pane_current_path}#F "
+
+
 set-option -g status-style bg=default,fg=default
-set-option -g status-left "#[fg=blue,dim]#{session_name} § #[default]"
-set-option -g status-right "#[fg=blue,dim]%Y-%m-%d | %H:%M#[default]"
-set-window-option -g window-status-format "#[fg=white,dim]#{window_index} #{window_name}:#{b:pane_current_path}#F "
-set-window-option -g window-status-current-format "#[fg=white,dim]#{window_index}#[default] #{window_name}:#{b:pane_current_path}#F "
+set-option -g status-left-length 40
+set-option -g status-left '#[fg=yellow,bold,italics]#{session_name} § '
+set-option -g status-right "#[fg=yellow,bold,italics]$USER@#{host_short} #[fg=magenta]%Y-%m-%d |%l:%M %p"
+set-option -w -g window-status-current-format '#[reverse] #{window_index}: #{window_name}:#{b:pane_current_path}#{window_flags} '
+set-option -w -g window-status-format ' #{window_index}: #{window_name}:#{b:pane_current_path}#{?#{==:#{window_flags},},  ,#{window_flags} }'

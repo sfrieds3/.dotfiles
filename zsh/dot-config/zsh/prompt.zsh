@@ -1,11 +1,12 @@
 # set prompt
 autoload -U promptinit && promptinit
 zmodload zsh/datetime
-
-# a lot of this from https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
-# and https://github.com/akinsho/dotfiles/blob/5e5d579742f0edcd63c5b6e6c210a95242a35feb/.config/zsh/.zshrc
-# # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
+autoload -U add-zsh-hook
 autoload -Uz vcs_info
+
+# https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
+# https://github.com/akinsho/dotfiles/blob/5e5d579742f0edcd63c5b6e6c210a95242a35feb/.config/zsh/.zshrc
+# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "%F{green} ●%f"  # nf-fa-check (default 'S')
@@ -16,46 +17,46 @@ zstyle ':vcs_info:git*:*' formats '%{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{magenta
 zstyle ':vcs_info:git*:*' actionformats '%{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{magenta}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f%F{red}%f'  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
-emulate -L zsh
-if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{red} …%f"  # nf-fa-question
-fi
+    emulate -L zsh
+    if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
+        hook_com[unstaged]+="%F{red} …%f"  # nf-fa-question
+    fi
 }
 
 function +vi-git-stashed() {
-emulate -L zsh
-if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{blue} ≡%f"  # ⚑
-fi
+    emulate -L zsh
+    if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
+        hook_com[unstaged]+="%F{blue} ≡%f"  # ⚑
+    fi
 }
 
 # git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
 # Make sure you have added misc to your 'formats':  %m
 # source: https://github.com/zsh-users/zsh/blob/545c42cdac25b73134a9577e3c0efa36d76b4091/Misc/vcs_info-examples#L180
 function +vi-git-compare() {
-local ahead behind
-local -a gitstatus
+    local ahead behind
+    local -a gitstatus
 
-  # Exit early in case the worktree is on a detached HEAD
-  git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
+    # Exit early in case the worktree is on a detached HEAD
+    git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
 
-  local -a ahead_and_behind=(
-  $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
-)
+    local -a ahead_and_behind=(
+    $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+    )
 
-ahead=${ahead_and_behind[1]}
-behind=${ahead_and_behind[2]}
+    ahead=${ahead_and_behind[1]}
+    behind=${ahead_and_behind[2]}
 
-local ahead_symbol="%{$fg[red]%}⇡%{$reset_color%}${ahead}"
-local behind_symbol="%{$fg[cyan]%}⇣%{$reset_color%}${behind}"
-(( $ahead )) && gitstatus+=( "${ahead_symbol}" )
-(( $behind )) && gitstatus+=( "${behind_symbol}" )
-hook_com[misc]+=${(j:/:)gitstatus}
+    local ahead_symbol="%{$fg[red]%}⇡%{$reset_color%}${ahead}"
+    local behind_symbol="%{$fg[cyan]%}⇣%{$reset_color%}${behind}"
+    (( $ahead )) && gitstatus+=( "${ahead_symbol}" )
+    (( $behind )) && gitstatus+=( "${behind_symbol}" )
+    hook_com[misc]+=${(j:/:)gitstatus}
 }
 
 ## git: Show remote branch name for remote-tracking branches
 function +vi-git-remotebranch() {
-local remote
+    local remote
 
     # Are we on a remote-tracking branch?
     remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
@@ -70,37 +71,34 @@ local remote
     fi
 }
 
-function __prompt_precmd() {
+function __prompt__precmd() {
     vcs_info
-}
-
-function precmd() {
     EXIT_CODE=$?
     echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
 }
+add-zsh-hook precmd __prompt__precmd
 
+function __mark_prompt() {
+    print -Pn "\e]133;A\007"
+}
+
+local __PROMPT_CHARACTERS="$(printf '❯' {1..$SHLVL-1}) "
 
 # __PROMPT_SUCCESS="│ "
 # __PROMPT_SUCCESS="❱  "
-__PROMPT_SUCCESS="❯ "
-__PROMPT_ERROR="!! "
+local __PROMPT_SUCCESS="❯ "
+local __PROMPT_ERROR="!! "
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-PROMPT='$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%f∷ $prompt_newline%F{green}$(basename $PWD) %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PS1='$(__mark_prompt)$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%f∷ $prompt_newline%F{green}$(basename $PWD) %F{yellow}%B%(1j.[%j] .)%b%(?.%F{green}$__PROMPT_CHARACTERS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 PS2=' '
 
-function __set_rprompt() {
+function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
     RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_} %F{cyan}%f${PWD/#$HOME/~}"
 }
+add-zsh-hook precmd __set_rprompt__precmd
 
-autoload -U add-zsh-hook
-add-zsh-hook precmd __prompt_precmd
-add-zsh-hook precmd __set_rprompt
-add-zsh-hook precmd __timings_precmd
-add-zsh-hook precmd __zsh_title__precmd
-add-zsh-hook preexec __zsh_title__preexec
-add-zsh-hook preexec __timings_preexec
 
 #-------------------------------------------------------------------------------
 #           Execution time
@@ -110,7 +108,7 @@ add-zsh-hook preexec __timings_preexec
 # Turns seconds into human readable time.
 # 165392 => 1d 21h 56m 32s
 # https://github.com/sindresorhus/pretty-time-zsh
-__human_time_to_var() {
+function __human_time_to_var() {
     local human total_seconds=$1 var=$2
     local days=$(( total_seconds / 60 / 60 / 24 ))
     local hours=$(( total_seconds / 60 / 60 % 24 ))
@@ -127,7 +125,7 @@ __human_time_to_var() {
 
 # Stores (into cmd_exec_time) the execution
 # time of the last command if set threshold was exceeded.
-__check_cmd_exec_time() {
+function __check_cmd_exec_time() {
     integer elapsed
     (( elapsed = EPOCHSECONDS - ${cmd_timestamp:-$EPOCHSECONDS} ))
     typeset -g cmd_exec_time=
@@ -136,12 +134,14 @@ __check_cmd_exec_time() {
     }
 }
 
-__timings_preexec() {
+__timings__preexec() {
     emulate -L zsh
     typeset -g cmd_timestamp=$EPOCHSECONDS
 }
+add-zsh-hook preexec __timings__preexec
 
-__timings_precmd() {
+__timings__precmd() {
     __check_cmd_exec_time
     unset cmd_timestamp
 }
+add-zsh-hook precmd __timings__precmd

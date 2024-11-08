@@ -28,7 +28,7 @@ config.disable_default_key_bindings = true
 config.native_macos_fullscreen_mode = true
 config.use_fancy_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = false
+config.hide_tab_bar_if_only_one_tab = true
 config.status_update_interval = 1000
 config.tab_max_width = 60
 config.tab_bar_at_bottom = true
@@ -61,8 +61,16 @@ wezterm.on("window-config-reloaded", function(window, pane)
   window:toast_notification("wezterm", "configuration reloaded!", nil, 4000)
 end)
 
-require("utils.tabs").setup()
-require("utils.status").setup()
-require("utils.keymap").apply_to_config(config)
+config.keys = {
+  { key = "Enter", mods = "OPT|SHIFT|CTRL", action = wezterm.action.ToggleFullScreen },
+  { key = "=", mods = "CMD", action = wezterm.action.IncreaseFontSize },
+  { key = "=", mods = "OPT", action = wezterm.action.IncreaseFontSize },
+  { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
+  { key = "-", mods = "OPT", action = wezterm.action.DecreaseFontSize },
+}
+
+-- require("utils.tabs").setup()
+-- require("utils.status").setup()
+-- require("utils.keymap").apply_to_config(config)
 
 return config
