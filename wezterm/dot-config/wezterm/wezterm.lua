@@ -67,6 +67,8 @@ config.keys = {
   { key = "=", mods = "OPT", action = wezterm.action.IncreaseFontSize },
   { key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
   { key = "-", mods = "OPT", action = wezterm.action.DecreaseFontSize },
+  { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+  { key = "v", mods = "OPT|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
 }
 
 -- require("utils.tabs").setup()

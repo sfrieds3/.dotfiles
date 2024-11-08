@@ -261,6 +261,7 @@ return {
       { "<M-right>", function() require("dap").step_over() end, desc = "Step Over" },
       { "<M-left>", function() require("dap").step_back() end, desc = "Step Into" },
       { "<F2>", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<M-S-e>", function() require("dap").terminate() end, desc = "Terminate" },
       { "<M-S-r>", function() require("dap").continue() end, desc = "Continue" },
       { "<F7>", function() require("dap").step_into() end, desc = "Step Into" },
       { "<F8>", function() require("dap").step_over() end, desc = "Step Over" },

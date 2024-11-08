@@ -38,9 +38,10 @@ function __node_version() {
 }
 
 function __kubectl_prompt() {
-    __kube_ctx=$(kubectl config current-context 2> /dev/null)
-    __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
-    # __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
+    local __kube_ctx=$(kubectl config current-context 2> /dev/null)
+    local __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
+    # local __kube_user=$(kubectl config view --minify -o jsonpath='{.contexts[0].context.user}')
+    # local __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
     # echo "k8s($__kube_ver:$__kube_ctx/$__kube_ns) "
     echo "k8s($__kube_ctx/$__kube_ns) "
 }

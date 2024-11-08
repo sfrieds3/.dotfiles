@@ -16,3 +16,4 @@
 
 # search in hidden files/directories
 --hidden
+--glob=!.git/
