@@ -225,4 +225,5 @@ return {
 
   { "rose-pine/neovim", name = "rose-pine", event = "VeryLazy" },
   { "aliqyan-21/darkvoid.nvim", event = "VeryLazy" },
+  { "nyoom-engineering/oxocarbon.nvim", event = "VeryLazy" },
 }
