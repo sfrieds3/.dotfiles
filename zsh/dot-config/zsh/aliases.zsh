@@ -15,12 +15,10 @@ alias lx="eza -lbhHigUmuSa@"
 alias lt="eza --tree $EZA_PARAMS"
 alias tree="eza --tree $EZA_PARAMS"
 
-alias gg='$HOME/bin/git/git_recent.sh'
-alias cdr='cd $(git rev-parse --show-toplevel)'
+alias gr='cd $(git rev-parse --show-toplevel)'
 
 # alias grep='grep -HIn0 --exclude=tags --color=auto'
 alias rgrep='grep -r'
-alias tmux='tmux -2'
 
 alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 

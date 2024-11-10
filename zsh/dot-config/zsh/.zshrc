@@ -36,6 +36,13 @@ ZSH_DATA_DIR=${ZSH_DATA_DIR:=$XDG_DATA_HOME/zsh}
 export HISTFILE=$ZSH_DATA_DIR/zsh_history
 export ALT_HISTFILE=$ZSH_DATA_DIR/.full_history
 
+# Create a hash table for globally stashing variables without polluting main
+# scope with a bunch of identifiers.
+typeset -A __DOTS
+
+__DOTS[ITALIC_ON]=$'\e[3m'
+__DOTS[ITALIC_OFF]=$'\e[23m'
+
 # we will set our own title
 DISABLE_AUTO_TITLE="true"
 
@@ -75,5 +82,5 @@ source <(helm completion zsh)
 # source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
-	if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi
+    if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi
 done
