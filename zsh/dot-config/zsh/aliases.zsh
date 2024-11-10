@@ -67,8 +67,7 @@ alias gapf='git ls-files -m --exclude-standard | fzf --print0 -m | xargs -0 -t -
 alias gcpf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
 alias gdf='git ls-files -m -o --exclude-standard | fzf-tmux -p | xargs git diff'
 
-# python virtualenv
-alias workon_venv='source $HOME/.venv/venv/bin/activate'
+# python
 alias condata='conda activate data'
 
 # other various aliases
