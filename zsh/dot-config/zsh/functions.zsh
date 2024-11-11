@@ -262,7 +262,7 @@ function venv() {
     uv venv
 
     # and source our new venv
-    source ./venv/bin/activate
+    source ./.venv/bin/activate
 }
 
 function wezup() {
