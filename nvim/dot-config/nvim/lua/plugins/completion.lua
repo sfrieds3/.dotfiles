@@ -48,6 +48,7 @@ return {
           enabled = false,
         },
       },
+      opts_extend = { "sources.completion.enabled_providers" },
       -- sources = {
       --   completion = {
       --     enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },

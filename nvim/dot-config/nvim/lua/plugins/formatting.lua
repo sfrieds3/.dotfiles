@@ -18,6 +18,7 @@ return {
         fish = { "fish_indent" },
         go = { "gofmt", "goimports" },
         java = { "clang_format" },
+        jinja = { "djlint" },
         -- json = { "jq" },
         javascript = { "prettierd", "prettier" },
         typescript = { "prettierd", "prettier" },
