@@ -47,6 +47,7 @@ function M.setup()
     taplo = true,
     terraformls = true,
     ts_ls = true,
+    jinja_lsp = true,
 
     basedpyright = {
       on_attach = on_attach,
