@@ -1,0 +1,11 @@
+#compdef git-switch
+
+# Enable branch name completion for `git switch -C` with `remotes/origin/`
+_git_branch_names() {
+  local remote_branches
+  remote_branches=("${(f)$(git for-each-ref --format='%(refname:short)' refs/remotes/origin)}")
+  compadd -Q -- $remote_branches
+}
+
+compdef '_git_branch_names' 'git-switch'
+zstyle ':completion:*:*:git-switch:*' menu select

@@ -3,8 +3,7 @@
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 # complist autoloaded before compinit
 zmodload zsh/complist
-autoload -U compinit
-compinit -u
+autoload -Uz compinit && compinit -u
 
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs

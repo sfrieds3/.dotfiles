@@ -1,0 +1,11 @@
+#compdef pytest
+
+# Custom completion function for pytest to show test names
+_pytest_project_tests() {
+  local tests
+  tests=("${(f)$(pytest --collect-only -q | grep '::' | sed 's/::/./g')}")
+  compadd -Q -- $tests
+}
+
+compdef '_pytest_project_tests' 'pytest'
+zstyle ':completion:*:*:pytest:*' menu select
