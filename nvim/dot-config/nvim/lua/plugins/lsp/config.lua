@@ -11,7 +11,7 @@ function M.setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   local err, cmp_lsp = pcall(require, "cmp_nvim_lsp")
   if err == nil then
-    capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
   end
 
   local function on_attach(client, bufnr)
@@ -187,21 +187,21 @@ function M.setup()
   ---@param configs table lsp configurations
   local function init_configs(configs, default_config)
     local config = default_config or { on_attach = on_attach, capabilities = capabilities }
-    for k, v in pairs(configs) do
-      if type(v) == "boolean" then
+    for server, server_config in pairs(configs) do
+      if type(server_config) == "boolean" then
         -- default configuration
-        if v then
-          lspconfig[k].setup(config)
+        if server_config then
+          lspconfig[server].setup(config)
         end
-      elseif type(v) == "table" then
+      elseif type(server_config) == "table" then
         -- custom configuration
-        v = vim.tbl_deep_extend("keep", v, default_config)
-        lspconfig[k].setup(v)
-      elseif type(v) == "function" then
-        v()
+        server_config = vim.tbl_deep_extend("keep", server_config, default_config)
+        lspconfig[server].setup(server_config)
+      elseif type(server_config) == "function" then
+        server_config()
       else
         -- ivalid configuration
-        print("Error: invalid LSP configuration: ", k, v)
+        print("Error: invalid LSP configuration: ", server, server_config)
       end
     end
   end

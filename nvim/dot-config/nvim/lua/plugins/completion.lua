@@ -49,6 +49,13 @@ return {
         },
       },
       opts_extend = { "sources.completion.enabled_providers" },
+      draw = {
+        padding = { 1, 0 },
+        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+        components = {
+          kind_icon = { width = { fill = true } },
+        },
+      },
       -- sources = {
       --   completion = {
       --     enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },
