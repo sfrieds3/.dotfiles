@@ -6,7 +6,8 @@ vim.bo.tabstop = 2
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
-    require("conform").format({ formatters = { "gofmt", "goimports" }, bufnr = args.bufnr })
+    require("conform").format({ formatters = { "gofmt" }, bufnr = args.bufnr })
+    require("conform").format({ formatters = { "goimports" }, bufnr = args.bufnr })
   end,
   buffer = vim.api.nvim_get_current_buf(),
   group = augroup("goformat:" .. vim.api.nvim_get_current_buf()),
