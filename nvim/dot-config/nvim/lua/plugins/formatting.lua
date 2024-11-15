@@ -42,6 +42,8 @@ return {
       },
     })
 
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
     vim.api.nvim_create_autocmd("BufWritePre", {
       callback = function(args)
         require("conform").format({ formatters = { "trim_whitespace", "trim_newlines" }, bufnr = args.bufnr })
