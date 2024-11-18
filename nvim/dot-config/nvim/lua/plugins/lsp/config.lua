@@ -48,6 +48,7 @@ function M.setup()
     terraformls = true,
     ts_ls = true,
     jinja_lsp = true,
+    volar = true,
 
     basedpyright = {
       on_attach = on_attach,
