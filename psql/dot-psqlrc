@@ -7,6 +7,7 @@
 \set VERBOSITY verbose
 \set HISTCONTROL ignoredups
 \set ON_ERROR_ROLLBACK interactive
+\pset null '[NULL]'
 \setenv PAGER 'nvim -c "setlocal ft=man buftype=nofile"'
 \set PROMPT1 '(%n@%M:%>) %`date +%H:%M:%S` [%/] \n%x%\n=> '
 \set PROMPT2 ''
