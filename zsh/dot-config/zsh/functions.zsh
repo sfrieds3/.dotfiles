@@ -120,29 +120,6 @@ function cursor_mode() {
     zle -N zle-line-init
 }
 
-# function lazy_load_nvm() {
-#     unset -f node
-#     unset -f nvm
-#     unset -f npm
-#     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# }
-#
-# function node() {
-#     lazy_load_nvm
-#     node $@
-# }
-#
-# function nvm() {
-#     lazy_load_nvm
-#     nvm $@
-# }
-#
-# function npm() {
-#     lazy_load_nvm
-#     npm $@
-# }
-
 function relpath() {
     python -c "import os,sys;print(os.path.relpath(*(sys.argv[1:]), start=os.path.expanduser('~')))" "$@";
 }
@@ -192,7 +169,7 @@ function javaenv() {
     esac
 }
 
-function make_nvim() {
+function make-nvim() {
     if [ $# -gt 0 ]
     then
         make -j "$1" CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
@@ -225,19 +202,15 @@ function venv() {
     # Description: Activate virtual environment in the current project, or create one if it doesn't exist
     local venv_dirs=(".venv" "venv")
 
-    # Function to check if a directory exists
     dir_exists() {
         [[ -d "$1" ]]
     }
 
-    # Get the current directory
     local current_dir="$(pwd)"
 
-    # Get the Git root directory
     local git_root
     git_root=$(git rev-parse --show-toplevel 2>/dev/null)
 
-    # Check for virtual environment in the current directory
     for venv_dir in "${venv_dirs[@]}"; do
         if dir_exists "$current_dir/$venv_dir"; then
             echo "Activating virtual environment in $current_dir/$venv_dir"
@@ -246,7 +219,6 @@ function venv() {
         fi
     done
 
-    # Check for virtual environment in the Git project root
     if [[ -n "$git_root" ]]; then
         for venv_dir in "${venv_dirs[@]}"; do
             if dir_exists "$git_root/$venv_dir"; then
@@ -257,11 +229,9 @@ function venv() {
         done
     fi
 
-    # If no virtual environment is found, call uv venv
     echo "No virtual environment found, calling uv venv"
     uv venv
 
-    # and source our new venv
     source ./.venv/bin/activate
 }
 
@@ -274,13 +244,9 @@ function flushdns() {
     sudo killall -HUP mDNSResponder
 }
 
-function asdf_install_python() {
-  # Install Python version using pyenv and Homebrew libs
-  if [ -z "$1" ]; then
-    echo "Please provide a Python version to install"
-    return 1
-  fi
+function make-python() {
+    cd "$HOME/code/lib/cpython"
+    ./configure --enable-optimizations --prefix="$HOME/.local/bin/python"
 
-  echo "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib\" pyenv install --verbose $1"
-  CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" asdf install python "$1"
+  CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" make
 }
