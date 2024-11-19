@@ -10,9 +10,9 @@ vim.g.maplocalleader = "\\"
 
 local shell = "zsh"
 if IS_MAC then
-  vim.opt.shell = string.format("/opt/homebrew/bin/%s", shell)
+  vim.opt.shell = string.format("/opt/homebrew/bin/%s", shell, "--login")
 else
-  vim.opt.shell = string.format("/usr/bin/%s", shell)
+  vim.opt.shell = string.format("/usr/bin/%s", shell, "--login")
 end
 
 vim.opt.termguicolors = true
