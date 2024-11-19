@@ -14,6 +14,6 @@
 set-option -g status-style bg=default,fg=default
 set-option -g status-left-length 40
 set-option -g status-left '#[fg=yellow,bold,italics]#{session_name} § '
-set-option -g status-right "#[fg=yellow,bold,italics]$USER@#{host_short} #[fg=magenta]%Y-%m-%d |%l:%M %p"
+set-option -g status-right "#[fg=yellow,bold,italics]$USER@#{host_short} #[fg=magenta]%Y-%m-%d | %H:%M"
 set-option -w -g window-status-current-format '#[reverse] #{window_index}: #{window_name}:#{b:pane_current_path}#{window_flags} '
 set-option -w -g window-status-format ' #{window_index}: #{window_name}:#{b:pane_current_path}#{?#{==:#{window_flags},},  ,#{window_flags} }'
