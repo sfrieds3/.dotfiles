@@ -34,9 +34,9 @@ function M.setup()
         show_scores = true,
         show_unindexed = true,
       },
-      ["ui-select"] = {
-        require("telescope.themes").get_dropdown({}),
-      },
+      -- ["ui-select"] = {
+      --   require("telescope.themes").get_dropdown({}),
+      -- },
     },
     defaults = {
       file_ignore_patterns = { "^tags$", "^TAGS$", "^.git/", "^venv/" },
