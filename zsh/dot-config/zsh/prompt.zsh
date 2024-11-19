@@ -95,7 +95,7 @@ PS2=' '
 
 function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_} %F{cyan}%f${PWD/#$HOME/~}"
+    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_} %F{cyan}${PWD/#$HOME/~}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
 
