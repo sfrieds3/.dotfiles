@@ -75,9 +75,6 @@ export EDITOR="nvim"
 source <(kubectl completion zsh)
 source <(helm completion zsh)
 
-# eval "$(starship init zsh)"
-# source $(brew --prefix)/opt/spaceship/spaceship.zsh
-
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
     if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi
 done
