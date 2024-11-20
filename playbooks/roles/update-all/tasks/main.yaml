@@ -1,0 +1,13 @@
+---
+- name: Update uv tool packages
+  ansible.builtin.command:
+    cmd: uv tool upgrade --all
+
+- name: Update installed homebrew apps
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+
+- name: Update submodules in $HOME/.dotfiles repo
+  command:
+    cmd: git submodule update --recursive --remote

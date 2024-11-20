@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  roles:
+    - stow
+    - dotfiles-submodules
+    - brew-devtools-core
+    - python-uv-tool
+    - brew-devtools-extra
+    - brew-mac-apps
+    - mac-defaults
+    - python-uv-tool
+    - update-all
