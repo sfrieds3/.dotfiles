@@ -255,6 +255,19 @@ function venv() {
     echo "Did not find a pip or conda environment to source, please create one first..."
 }
 
+function uv-venv-install-requirements() {
+    fd --type f --extension txt --exact-depth 1 requirements --exec uv pip install -r {}
+}
+
+function uv-pytest() {
+    uv run --no-project pytest "$@"
+}
+
+function uv-pytest-cov() {
+    uv run --no-project coverage run -m pytest "$@"
+    uv run --no-project coverage report -m
+}
+
 function wezup() {
     brew upgrade --cask wezterm@nightly --no-quarantine --greedy-latest
 }
