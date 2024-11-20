@@ -18,7 +18,7 @@ function __python_venv() {
 }
 
 function __conda_env() {
-    [ $CONDA_PREFIX ] && echo 'conda('`basename $CONDA_PREFIX`') '
+    [ $CONDA_PREFIX ] && echo 'conda('`basename ${CONDA_PREFIX:h}`') '
 }
 
 function __node_dir() {
@@ -201,6 +201,7 @@ print(datetime.datetime.fromtimestamp(int(timestamp) / (1e3 if len(timestamp) > 
 function venv() {
     # Description: Activate virtual environment in the current project, or create one if it doesn't exist
     local venv_dirs=(".venv" "venv")
+    local conda_dirs=(".cenv" ".condaenv" "cenv" "condaenv")
 
     dir_exists() {
         [[ -d "$1" ]]
@@ -210,6 +211,8 @@ function venv() {
 
     local git_root
     git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+    echo "Attempting to activate a local venv..."
 
     for venv_dir in "${venv_dirs[@]}"; do
         if dir_exists "$current_dir/$venv_dir"; then
@@ -229,10 +232,27 @@ function venv() {
         done
     fi
 
-    echo "No virtual environment found, calling uv venv"
-    uv venv
+    echo "Did not find venv, attempting to activate a local conda env..."
 
-    source ./.venv/bin/activate
+    for conda_dir in "${conda_dirs[@]}"; do
+        if dir_exists "$current_dir/$conda_dir"; then
+            echo "Activating conda environment in $current_dir/$conda_dir"
+            conda activate "$current_dir/$conda_dir"
+            return
+        fi
+    done
+
+    if [[ -n "$git_root" ]]; then
+        for conda_dir in "${conda_dirs[@]}"; do
+            if dir_exists "$git_root/$conda_dir"; then
+                echo "Activating conda environment in $git_root/$conda_dir"
+                conda activate "$git_root/$conda_dir"
+                return
+            fi
+        done
+    fi
+
+    echo "Did not find a pip or conda environment to source, please create one first..."
 }
 
 function wezup() {
