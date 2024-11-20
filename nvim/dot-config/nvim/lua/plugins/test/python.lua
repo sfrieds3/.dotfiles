@@ -90,7 +90,7 @@ function M.setup()
   local just_my_code = true
   local function toggle_just_my_code()
     just_my_code = not just_my_code
-    print("justMyCode is now ", just_my_code and "Enabled" or "Disabled")
+    print("justMyCode is", just_my_code and "Enabled" or "Disabled")
   end
 
   -- stylua: ignore start

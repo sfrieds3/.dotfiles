@@ -82,7 +82,7 @@ return {
             vim.schedule(require("blink.cmp").hide)
           end
         end,
-        mode = "i",
+        mode = { "n", "i" },
         desc = "Hide Completion and/or Stop Snippet",
       },
     },
