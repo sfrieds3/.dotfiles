@@ -45,7 +45,7 @@ return {
       },
       windows = {
         ghost_text = {
-          enabled = false,
+          enabled = true,
         },
       },
       opts_extend = { "sources.completion.enabled_providers" },
