@@ -1,4 +1,4 @@
-- name: Instal brew mac apps
+- name: Install brew mac apps
   community.general.homebrew:
     name:
       - alt-tab

@@ -5,8 +5,6 @@
 - name: Install mac devtools
   community.general.homebrew:
     name:
-      - alacritty
-      - asdf
       - btop
       - cargo-nextest
       - chicken
