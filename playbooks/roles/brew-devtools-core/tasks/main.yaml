@@ -56,8 +56,6 @@
       - ruff
       - sd
       - sk
-      - spaceship
-      - starship
       - the_silver_searcher
       - tig
       - tmux
@@ -71,6 +69,7 @@
       - wget
       - yq
       - zsh
+      - zsh-async
       - zsh-autosuggestions
       - zsh-completions
       - zsh-history-substring-search
