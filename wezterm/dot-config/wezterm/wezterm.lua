@@ -15,10 +15,11 @@ config.default_prog = {
 -- config.color_scheme = "tokyonight_night"
 config.color_scheme = "Catppuccin Macchiato"
 
-config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
+config.font = wezterm.font_with_fallback({ "Berkeley Mono", "Symbols Nerd Font Mono" })
+
 config.line_height = 1.1
 config.font_size = 11
-config.use_cap_height_to_scale_fallback_fonts = true
+config.use_cap_height_to_scale_fallback_fonts = false
 config.freetype_load_flags = "NO_HINTING"
 config.freetype_load_target = "Normal"
 config.front_end = "OpenGL"
@@ -44,8 +45,9 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
+
 config.window_frame = {
-  font = wezterm.font({ family = "Berkeley Mono Variable", weight = "Bold" }),
+  font = wezterm.font({ family = "Berkeley Mono Variable" }),
   font_size = 13,
 }
 
