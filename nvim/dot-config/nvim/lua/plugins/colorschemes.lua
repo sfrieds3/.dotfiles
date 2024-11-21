@@ -59,22 +59,17 @@ return {
         booleans = { "bold" },
       },
       integrations = {
-        cmp = true,
-        dap = true,
-        gitsigns = true,
+        aerial = true,
+        blink_cmp = true,
+        diffview = true,
         dropbar = {
           enabled = true,
           color_mode = true,
         },
-        mini = true,
-        mason = true,
-        neogit = true,
-        neotree = true,
-        symbols_outline = true,
-        telescope = true,
-        treesitter = true,
-        treesitter_context = true,
         lsp_trouble = true,
+        mason = true,
+        overseer = true,
+        which_key = true,
       },
       -- color_overrides = {
       --   mocha = {
