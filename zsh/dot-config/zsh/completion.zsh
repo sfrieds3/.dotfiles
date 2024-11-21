@@ -65,10 +65,10 @@ bindkey -M menuselect '^xu' undo
 zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
 
-zstyle ':completion:*:*:cdr:*:*' menu select
-zstyle ':chpwd:*' recent-dirs-file ${ZSH_CACHE_DIR:=$XDG_CACHE_HOME/zsh}/.chpwd-recent-dirs +
-zstyle ':completion:*' recent-dirs-insert always
-zstyle ':chpwd:*' recent-dirs-default yes
+# zstyle ':completion:*:*:cdr:*:*' menu select
+# zstyle ':chpwd:*' recent-dirs-file ${ZSH_CACHE_DIR:=$XDG_CACHE_HOME/zsh}/.chpwd-recent-dirs +
+# zstyle ':completion:*' recent-dirs-insert always
+# zstyle ':chpwd:*' recent-dirs-default yes
 
 # for cd, complete local directories, directories on stack, and directories in path
 # zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories

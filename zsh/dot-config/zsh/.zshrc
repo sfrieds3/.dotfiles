@@ -62,11 +62,11 @@ source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/aliases.zsh
 
 # easily cd to directories (e.g. ~dot for ~/.dotfiles)
-hash -d dot="$HOME/.dotfiles"
-hash -d code="$HOME/code"
-hash -d wiki="$HOME/wiki"
-hash -d nvim="$XDG_CONFIG_HOME/nvim"
-hash -d zsh="$XDG_CONFIG_HOME/zsh"
+# hash -d dot="$HOME/.dotfiles"
+# hash -d code="$HOME/code"
+# hash -d wiki="$HOME/wiki"
+# hash -d nvim="$XDG_CONFIG_HOME/nvim"
+# hash -d zsh="$XDG_CONFIG_HOME/zsh"
 
 # nvim as editor
 export EDITOR="nvim"
