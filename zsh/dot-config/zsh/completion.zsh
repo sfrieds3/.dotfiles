@@ -25,7 +25,10 @@ zstyle ':completion:*:*:cp:*' file-sort modification
 zstyle ':completion:*:*:less:*' file-sort modification
 
 # general completion
-zstyle ':completion:*' completer _expand_alias _extensions _complete _match _approximate
+zstyle ':completion:*' completer _complete _ignored
+
+# ignored completions
+zstyle ':completion:*:ignored' format 'Ignored: %d'
 
 # complete options after `-`, not directory stack
 zstyle ':completion:*' complete-options true

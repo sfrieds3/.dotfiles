@@ -169,7 +169,7 @@ function javaenv() {
     esac
 }
 
-function make-nvim() {
+function make_nvim() {
     if [ $# -gt 0 ]
     then
         make -j "$1" CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
@@ -255,19 +255,6 @@ function venv() {
     echo "Did not find a pip or conda environment to source, please create one first..."
 }
 
-function uv-venv-install-requirements() {
-    fd --type f --extension txt --exact-depth 1 requirements --exec uv pip install -r {}
-}
-
-function uv-pytest() {
-    uv run --no-project pytest "$@"
-}
-
-function uv-pytest-cov() {
-    uv run --no-project coverage run -m pytest "$@"
-    uv run --no-project coverage report -m
-}
-
 function wezup() {
     brew upgrade --cask wezterm@nightly --no-quarantine --greedy-latest
 }
@@ -277,7 +264,7 @@ function flushdns() {
     sudo killall -HUP mDNSResponder
 }
 
-function make-python() {
+function make_python() {
     cd "$HOME/code/lib/cpython"
     ./configure --enable-optimizations --prefix="$HOME/.local/bin/python"
 
