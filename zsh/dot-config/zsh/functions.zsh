@@ -14,11 +14,11 @@ function r() {
 function __python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     # local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo "venv(`basename ${VIRTUAL_ENV:h}`) "
+    [[ -n $VIRTUAL_ENV ]] && echo "  `basename ${VIRTUAL_ENV:h}` "
 }
 
 function __conda_env() {
-    [ $CONDA_PREFIX ] && echo 'conda('`basename ${CONDA_PREFIX:h}`') '
+    [ $CONDA_PREFIX ] && echo "[conda] `basename ${CONDA_PREFIX:h}` "
 }
 
 function __node_dir() {
@@ -36,7 +36,7 @@ function __kubectl_prompt() {
     # local __kube_user=$(kubectl config view --minify -o jsonpath='{.contexts[0].context.user}')
     # local __kube_ver=$(kubectl version 2>/dev/null | grep "Server Version" | sed 's/Server Version: \(.*\)/\1/')
     # echo "k8s($__kube_ver:$__kube_ctx/$__kube_ns) "
-    echo "k8s($__kube_ctx/$__kube_ns) "
+    echo "  $__kube_ctx/$__kube_ns "
 }
 
 function __pyenv_version() {

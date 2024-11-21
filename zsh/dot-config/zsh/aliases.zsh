@@ -31,6 +31,9 @@ alias dskspc='sudo du -h --max-depth=1 | sort -h'
 
 # kubernetes
 alias k='kubectl'
+alias ks='kubectx && kubens'
+alias kc='kubectx'
+alias kn='kubens'
 
 # pre-commit
 alias pcr='pre-commit run'
@@ -81,9 +84,3 @@ alias nvimdiff='nvim -d'
 # test nvim
 alias testnvim='nvim --clean -u $HOME/dev/minimal_init.vim'
 alias testnvimlua='nvim --clean -u $HOME/dev/minimal_init.lua'
-
-# ctags on mac
-if [[ $(uname) == "Darwin" ]]
-then
-    alias ctags="`brew --prefix`/bin/ctags"
-fi
