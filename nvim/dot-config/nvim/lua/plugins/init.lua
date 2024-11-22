@@ -1,7 +1,6 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
   { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
-  { "AndrewRadev/linediff.vim", cmd = { "LinediffAdd" } },
   {
     "folke/lazydev.nvim",
     ft = "lua",
