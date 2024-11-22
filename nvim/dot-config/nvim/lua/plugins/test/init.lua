@@ -60,36 +60,6 @@ return {
         },
       }, neotest_ns)
 
-      opts.consumers = opts.consumers or {}
-      -- Refresh and auto close trouble after running tests
-      ---@type neotest.Consumer
-      opts.consumers.trouble = function(client)
-        client.listeners.results = function(adapter_id, results, partial)
-          if partial then
-            return
-          end
-          local tree = assert(client:get_position(nil, { adapter = adapter_id }))
-
-          local failed = false
-          for pos_id, result in pairs(results) do
-            if result.status == "failed" and tree:get_key(pos_id) then
-              failed = true
-              break
-            end
-          end
-          vim.schedule(function()
-            local trouble = require("trouble")
-            if trouble.is_open() then
-              trouble.refresh()
-              if not failed then
-                trouble.close()
-              end
-            end
-          end)
-          return {}
-        end
-      end
-
       if opts.adapters then
         local adapters = {}
         for name, config in pairs(opts.adapters or {}) do
