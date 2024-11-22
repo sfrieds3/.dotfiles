@@ -82,7 +82,10 @@ function __mark_prompt() {
     print -Pn "\e]133;A\007"
 }
 
-local __PROMPT_CHARACTERS="$(printf '❯' {1..$SHLVL-1}) "
+
+function __prompt_characters() {
+    echo "$(eval printf '❯%.0s' {1..$((SHLVL-1))}) "
+}
 
 # __PROMPT_SUCCESS="│ "
 # __PROMPT_SUCCESS="❱  "
@@ -90,12 +93,12 @@ local __PROMPT_SUCCESS="❯ "
 local __PROMPT_ERROR="!! "
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-PS1='$(__mark_prompt)$prompt_newline∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)$(__conda_env)%f∷ $prompt_newline%F{green}$(basename $PWD) %F{yellow}%B%(1j.[%j] .)%b%(?.%F{green}$__PROMPT_CHARACTERS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PS1='$(__mark_prompt)$prompt_newline%F{green}$(__python_venv)$(__conda_env)%f%F{cyan}$(basename $PWD)%F{yellow}%B%(1j. [%j] .) %b%(?.%F{blue}$(__prompt_characters).%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 PS2=' '
 
 function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_} %F{cyan}${PWD/#$HOME/~}%f"
+    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} %F{blue}$(__kubectl_prompt)%F{red}∷ ${vcs_info_msg_0_} %F{magenta}${PWD/#$HOME/~}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
 
