@@ -70,7 +70,7 @@ alias gdf='git ls-files -m -o --exclude-standard | fzf-tmux -p | xargs git diff'
 
 # python
 alias condata='conda activate data'
-alias uv-venv-install-requirements='fd --type f --extension txt --exact-depth 1 requirements --exec uv pip install -r {}'
+alias uv-pip-install-requirements='fd --type f --extension txt --exact-depth 1 requirements --exec uv pip install -r {}'
 alias uv-pytest='uv run --no-project pytest'
 alias uv-pytest-cov='uv run --no-project coverage run -m pytest'
 alias uv-pytest-cov-report='uv run --no-project coverage report -m'
