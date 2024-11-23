@@ -78,3 +78,10 @@ source <(helm completion zsh)
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
     if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi
 done
+
+# ghostty shell integration
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+    autoload -Uz -- "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+    ghostty-integration
+    unfunction ghostty-integration
+fi

@@ -84,7 +84,13 @@ function __mark_prompt() {
 
 
 function __prompt_characters() {
-    echo "$(eval printf '❯%.0s' {1..$((SHLVL-1))}) "
+    local IN_TMUX=$([[ "$TERM" =~ "tmux" ]] && echo tmux)
+    local _LVL=$(($SHLVL))
+    if [ -n "$IN_TMUX" ]; then
+        _LVL=$(($SHLVL-1))
+    fi
+
+    echo "$(eval printf '❯%.0s' {1..$_LVL}) "
 }
 
 # __PROMPT_SUCCESS="│ "

@@ -31,7 +31,7 @@ end)
 
 -- focus windows
 local browser = "firefox"
-local terminal = "wezterm"
+local terminal = "ghostty"
 local api_query = "Insomnia"
 local passwords = "1Password"
 local music_app = "Spotify"
