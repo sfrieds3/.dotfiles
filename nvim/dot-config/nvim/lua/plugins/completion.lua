@@ -2,7 +2,7 @@ return {
   {
     "saghen/blink.cmp",
     lazy = false,
-    version = "v0.*",
+    build = "cargo build --release",
     dependencies = {
       "chrisgrieser/nvim-scissors",
       {
@@ -47,30 +47,33 @@ return {
         ghost_text = {
           enabled = true,
         },
-      },
-      opts_extend = { "sources.completion.enabled_providers" },
-      draw = {
-        padding = { 1, 0 },
-        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
-        components = {
-          kind_icon = { width = { fill = true } },
+        autocomplete = {
+          draw = {
+            padding = { 1, 0 },
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+            components = {
+              kind_icon = { width = { fill = true } },
+            },
+          },
         },
       },
-      -- sources = {
-      --   completion = {
-      --     enabled_providers = { "lsp", "cody", "lazydev", "path", "snippets", "buffer" },
-      --   },
-      --   providers = {
-      --     lazydev = {
-      --       name = "lazydev",
-      --       module = "blink.compat.source",
-      --     },
-      --     cody = {
-      --       name = "cody",
-      --       module = "blink.compat.source",
-      --     },
-      --   },
-      -- },
+      opts_extend = { "sources.completion.enabled_providers" },
+      sources = {
+        completion = {
+          enabled_providers = { "lsp", "cody", "path", "snippets", "buffer", "lazydev" },
+        },
+        providers = {
+          lsp = { fallback_for = { "lazydev" } },
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+          },
+          cody = {
+            name = "cody",
+            module = "blink.compat.source",
+          },
+        },
+      },
     },
     keys = {
       {

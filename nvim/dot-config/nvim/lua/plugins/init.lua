@@ -6,10 +6,10 @@ return {
     ft = "lua",
     opts = {
       library = {
-        "luvit-meta/library",
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
-    dependenciew = {
+    dependencies = {
       { "Bilal2453/luvit-meta", lazy = true },
     },
   },
