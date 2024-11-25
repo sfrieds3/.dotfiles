@@ -31,7 +31,9 @@ return {
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
         ["<M-s>"] = { "snippet_forward" },
+        ["<C-l>"] = { "snippet_forward" },
         ["<M-S-s>"] = { "snippet_backward" },
+        ["<C-h>"] = { "snippet_backward" },
       },
       highlight = {
         use_nvim_cmp_as_default = true,
