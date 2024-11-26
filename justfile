@@ -37,3 +37,7 @@ personal:
 # run python ansible playbook
 python:
     ansible-playbook ./playbooks/python.yaml
+
+# run update ansible playbook
+update:
+    ansible-playbook ./playbooks/update.yaml
