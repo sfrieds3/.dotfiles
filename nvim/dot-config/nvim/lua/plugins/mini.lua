@@ -57,7 +57,7 @@ return {
     },
   },
   {
-    "echasnovski/mini.nvim",
+    "echasnovski/mini.icons",
     config = function()
       local mi = require("mini.icons")
       mi.setup()
