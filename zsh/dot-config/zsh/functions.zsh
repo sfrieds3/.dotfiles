@@ -14,12 +14,12 @@ function r() {
 function __python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     # local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo "(`basename ${VIRTUAL_ENV:h}`) "
+    [[ -n $VIRTUAL_ENV ]] && echo "(${VIRTUAL_ENV:t}) "
 }
 
 function __conda_env() {
     if
-        [ $CONDA_PREFIX ] && echo "(`basename ${CONDA_PREFIX}`) "
+        [ $CONDA_PREFIX ] && echo "(${CONDA_PREFIX:t}) "
 }
 
 function __node_dir() {
