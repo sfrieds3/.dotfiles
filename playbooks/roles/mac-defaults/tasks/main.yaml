@@ -12,6 +12,13 @@
     value: true
     type: bool
   changed_when: false
+- name: Enable window drag on gesture
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: NSWindowShouldDragOnGesture
+    value: true
+    type: bool
+  changed_when: false
 
 # `osx_defaults` does not like writing a dict value, so use `command` instead
 - name: Disable "Select the previous input source" shortcut
