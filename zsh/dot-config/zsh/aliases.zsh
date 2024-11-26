@@ -74,6 +74,8 @@ alias uv-pip-install-requirements='fd --type f --extension txt --exact-depth 1 r
 alias uv-pytest='uv run --no-project pytest'
 alias uv-pytest-cov='uv run --no-project coverage run -m pytest'
 alias uv-pytest-cov-report='uv run --no-project coverage report -m'
+alias uv-run='uv run --no-project'
+alias uv-pipdeptree='uv run --no-project pipdeptree'
 
 # other various aliases
 alias cleardns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
