@@ -49,6 +49,7 @@ function M.setup()
     ts_ls = true,
     jinja_lsp = true,
     volar = true,
+    zls = true,
 
     basedpyright = {
       on_attach = on_attach,
