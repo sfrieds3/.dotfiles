@@ -77,6 +77,10 @@ alias uv-pytest-cov-report='uv run --no-project coverage report -m'
 alias uv-run='uv run --no-project'
 alias uv-pipdeptree='uv run --no-project pipdeptree'
 
+# mise
+alias mx='mise exec'
+alias mr='mise run'
+
 # other various aliases
 alias cleardns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 
