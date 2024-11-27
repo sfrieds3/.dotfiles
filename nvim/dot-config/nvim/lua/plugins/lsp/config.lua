@@ -75,6 +75,7 @@ function M.setup()
               reportMissingTypeArgument = "none",
               reportUnknownVariableType = "none",
               reportUnknownArgumentType = "none",
+              reportShadowedImports = "none",
             },
           },
         },
