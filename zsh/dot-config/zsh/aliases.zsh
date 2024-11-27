@@ -76,6 +76,8 @@ alias uv-pytest-cov='uv run --no-project coverage run -m pytest'
 alias uv-pytest-cov-report='uv run --no-project coverage report -m'
 alias uv-run='uv run --no-project'
 alias uv-pipdeptree='uv run --no-project pipdeptree'
+alias pdoc='python3 -m pydoc'
+alias pydocbuiltin='python3 -m pydoc builtins'
 
 # mise
 alias mx='mise exec'

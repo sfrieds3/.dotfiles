@@ -4,29 +4,75 @@ zmodload zsh/datetime
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
 
+# example configuration
+zstyle ':sfrieds3:prompt:separator:*' icon '∷'
+zstyle ':sfrieds3:prompt:git:stagedstr:*' color green
+zstyle ':sfrieds3:prompt:git:unstagedstr:*' color red
+zstyle ':sfrieds3:prompt:git:branch-icon:*' color yellow
+zstyle ':sfrieds3:prompt:git:branch:*' color magenta
+zstyle ':sfrieds3:prompt:git:stashed:*' color blue
+zstyle ':sfrieds3:prompt:git:stashed:*' icon ' ≡'
+zstyle ':sfrieds3:prompt:git:staged:*' color green
+zstyle ':sfrieds3:prompt:git:staged:*' icon ' ●'
+zstyle ':sfrieds3:prompt:git:unstaged:*' color red
+zstyle ':sfrieds3:prompt:git:unstaged:*' icon ' ●'
+zstyle ':sfrieds3:prompt:python:*' color green
+zstyle ':sfrieds3:prompt:kube:*' icon ''
+zstyle ':sfrieds3:prompt:kube:*' color blue
+zstyle ':sfrieds3:prompt:pwd:dir:*' color cyan
+zstyle ':sfrieds3:prompt:pwd:*' color magneta
+zstyle ':sfrieds3:prompt:jobs:*' color yellow
+zstyle ':sfrieds3:prompt:character:success:*' icon '❯'
+zstyle ':sfrieds3:prompt:character:success:*' color blue
+zstyle ':sfrieds3:prompt:character:error:*' icon '❯'
+zstyle ':sfrieds3:prompt:exectime:*' color yellow
+
+# load zstyle configurations
+zstyle -s ':sfrieds3:prompt:git:stagedstr:*' color PROMPT_STAGED_COLOR || PROMPT_STAGED_COLOR=green
+zstyle -s ':sfrieds3:prompt:git:unstagedstr:*' color PROMPT_UNSTAGED_COLOR || PROMPT_UNSTAGED_COLOR=red
+zstyle -s ':sfrieds3:prompt:git:branch-icon:*' color PROMPT_BRANCH_ICON_COLOR || PROMPT_BRANCH_ICON_COLOR=yellow
+zstyle -s ':sfrieds3:prompt:git:branch:*' color PROMPT_BRANCH_COLOR || PROMPT_BRANCH_COLOR=magenta
+zstyle -s ':sfrieds3:prompt:git:stashed:*' color PROMT_STASHED_COLOR || PROMT_STASHED_COLOR=blue
+zstyle -s ':sfrieds3:prompt:git:stashed:*' icon PROMPT_STASHED_ICON || PROMPT_STASHED_ICON=' ≡'
+zstyle -s ':sfrieds3:prompt:git:staged:*' color PROMT_STAGED_COLOR || PROMT_STAGED_COLOR=green
+zstyle -s ':sfrieds3:prompt:git:staged:*' icon PROMPT_STAGED_ICON || PROMPT_STAGED_ICON=' ●'
+zstyle -s ':sfrieds3:prompt:git:unstaged:*' color PROMPT_UNSTAGED_COLOR || PROMPT_UNSTAGED_COLOR=red
+zstyle -s ':sfrieds3:prompt:git:unstaged:*' icon PROMPT_UNSTAGED_ICON || PROMPT_UNSTAGED_ICON=' ●'
+zstyle -s ':sfrieds3:prompt:python:*' color PROMPT_PYTHON_COLOR || PROMPT_PYTHON_COLOR=green
+zstyle -s ':sfrieds3:prompt:kube:*' color PROMPT_KUBE_COLOR || PROMPT_KUBE_COLOR=blue
+zstyle -s ':sfrieds3:prompt:kube:*' icon PROMPT_KUBE_ICON || PROMPT_KUBE_ICON=''
+zstyle -s ':sfrieds3:prompt:pwd:dir:*' color PROMPT_DIR_COLOR || PROMPT_DIR_COLOR=cyan
+zstyle -s ':sfrieds3:prompt:pwd:*' color PROMPT_PWD_COLOR || PROMPT_PWD_COLOR=magenta
+zstyle -s ':sfrieds3:prompt:jobs:*' color PROMPT_JOBS_COLOR || PROMPT_JOBS_COLOR=yellow
+zstyle -s ':sfrieds3:prompt:character:success:*' color PROMPT_CHARACTER_COLOR || PROMPT_CHARACTER_COLOR='❯'
+zstyle -s ':sfrieds3:prompt:character:success:*' icon PROMPT_CHARACTER_ICON || PROMPT_CHARACTER_ICON=blue
+zstyle -s ':sfrieds3:prompt:character:error:*' color PROMPT_CHARACTER_ERROR_COLOR || PROMPT_CHARACTER_ERROR_COLOR=red
+zstyle -s ':sfrieds3:prompt:character:error:*' icon PROMPT_CHARACTER_ERROR_ICON || PROMPT_CHARACTER_ERROR_ICON='!!'
+zstyle -s ':sfrieds3:prompt:exectime:*' color PROMPT_EXEC_TIME_COLOR || PROMPT_EXEC_TIME_COLOR=yellow
+
 # https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
 # https://github.com/akinsho/dotfiles/blob/5e5d579742f0edcd63c5b6e6c210a95242a35feb/.config/zsh/.zshrc
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green} ●%f"  # nf-fa-check (default 'S')
-zstyle ':vcs_info:*' unstagedstr "%F{red} ✚%f"  # nf-fa-close (default 'U')
+zstyle ':vcs_info:*' stagedstr "%F{$PROMPT_STAGED_COLOR}$PROMPT_STAGED_ICON%f"  # nf-fa-check (default 'S')
+zstyle ':vcs_info:*' unstagedstr "%F{$PROMPT_UNSTAGED_COLOR}$PROMPT_UNSTAGED_ICON%f"  # nf-fa-close (default 'U')
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed git-compare git-remotebranch
-zstyle ':vcs_info:git*:*' formats '%{$__DOTS[ITALIC_ON]%}%F{yellow}λ:%F{magenta}(%b)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f%F{red}%f'  # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats '%{$__DOTS[ITALIC_ON]%}(%F{yellow}λ:%F{magenta}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f%F{red}%f'  # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git*:*' formats "%{$__DOTS[ITALIC_ON]%}%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}(%b)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats "%{$__DOTS[ITALIC_ON]%}(%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
     emulate -L zsh
     if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
-        hook_com[unstaged]+="%F{red} …%f"  # nf-fa-question
+        hook_com[unstaged]+="%F{$PROMPT_UNSTAGED_COLOR}$PROMPT_UNSTAGED_ICON%f"  # nf-fa-question
     fi
 }
 
 function +vi-git-stashed() {
     emulate -L zsh
     if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-        hook_com[unstaged]+="%F{blue} ≡%f"  # ⚑
+        hook_com[unstaged]+="%F{$PROMT_STASHED_COLOR}$PROMPT_STASHED_ICON%f"  # ⚑
     fi
 }
 
@@ -41,7 +87,7 @@ function +vi-git-compare() {
     git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
 
     local -a ahead_and_behind=(
-    $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+        $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
     )
 
     ahead=${ahead_and_behind[1]}
@@ -73,7 +119,6 @@ function +vi-git-remotebranch() {
 
 function __prompt__precmd() {
     vcs_info
-    EXIT_CODE=$?
     echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
 }
 add-zsh-hook precmd __prompt__precmd
@@ -82,7 +127,6 @@ function __mark_prompt() {
     print -Pn "\e]133;A\007"
 }
 
-
 function __prompt_characters() {
     local IN_TMUX=$([[ "$TERM" =~ "tmux" ]] && echo tmux)
     local _LVL=$(($SHLVL))
@@ -90,21 +134,19 @@ function __prompt_characters() {
         _LVL=$(($SHLVL-1))
     fi
 
-    echo "$(eval printf '❯%.0s' {1..$_LVL}) "
+    echo "$(eval printf \"$PROMPT_CHARACTER_ICON%.0s\" {1..$_LVL})"
 }
 
 # __PROMPT_SUCCESS="│ "
 # __PROMPT_SUCCESS="❱  "
-local __PROMPT_SUCCESS="❯ "
-local __PROMPT_ERROR="!! "
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-PS1='$(__mark_prompt)$prompt_newline%F{green}$(__python_venv)$(__conda_env)%f%F{cyan}$(basename $PWD)%F{yellow}%B%(1j. [%j] .) %b%(?.%F{blue}$(__prompt_characters).%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} %F{blue}$(__kubectl_prompt)%F{red}∷ ${vcs_info_msg_0_} %F{magenta}${PWD/#$HOME/~}%f"
+    RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} %F{$PROMPT_KUBE_COLOR}$(__kubectl_prompt)${vcs_info_msg_0_} %F{$PROMPT_PWD_COLOR}${PWD/#$HOME/~}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
 
