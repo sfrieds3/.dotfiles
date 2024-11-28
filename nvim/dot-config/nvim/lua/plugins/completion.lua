@@ -35,21 +35,13 @@ return {
         ["<M-S-s>"] = { "snippet_backward" },
         ["<C-h>"] = { "snippet_backward" },
       },
-      highlight = {
-        use_nvim_cmp_as_default = true,
-      },
       nerd_font_variant = "mono",
-      trigger = {
-        completion = {
-          keyword_range = "full",
+      signature = { enabled = true },
+      completion = {
+        keyword = {
+          range = "full",
         },
-        signature_help = { enabled = true },
-      },
-      windows = {
-        ghost_text = {
-          enabled = true,
-        },
-        autocomplete = {
+        menu = {
           draw = {
             padding = { 1, 0 },
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
@@ -57,6 +49,9 @@ return {
               kind_icon = { width = { fill = true } },
             },
           },
+        },
+        ghost_text = {
+          enabled = true,
         },
       },
       opts_extend = { "sources.completion.enabled_providers" },
