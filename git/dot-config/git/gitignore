@@ -10,3 +10,4 @@ venv/
 target/
 .pynoautoformat
 Session.vim
+mise.toml
