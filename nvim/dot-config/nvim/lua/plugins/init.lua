@@ -1,6 +1,5 @@
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
-  { "tami5/sqlite.lua", event = "VeryLazy", module = "sqlite" },
   {
     "folke/lazydev.nvim",
     ft = "lua",
@@ -22,5 +21,4 @@ return {
       "Scriptnames",
     },
   },
-  { "chrisbra/csv.vim", ft = "csv" },
 }

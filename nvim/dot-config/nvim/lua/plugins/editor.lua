@@ -362,10 +362,6 @@ return {
         require("aerial").tree_close_all()
       end,
     },
-    -- Optional dependencies
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
     keys = {
       { "<leader><cr>", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },
     },
@@ -441,6 +437,9 @@ return {
   },
   {
     "gbprod/yanky.nvim",
+    dependencies = {
+      { "kkharji/sqlite.lua" },
+    },
     opts = {
       ring = { storage = "sqlite" },
     },

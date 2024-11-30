@@ -1,11 +1,4 @@
 return {
-  {
-    "rhysd/git-messenger.vim",
-    cmd = { "GitMessenger" },
-    keys = {
-      { "<leader>gm", "<cmd>GitMessenger<cr>", desc = "Git Messenger" },
-    },
-  },
   { "akinsho/git-conflict.nvim", version = "*", config = true },
   {
     "tpope/vim-fugitive",
@@ -82,66 +75,6 @@ return {
         map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
       end,
-    },
-  },
-  {
-    "sindrets/diffview.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewFileHistory",
-    },
-
-    opts = {
-      keymaps = {
-        view = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        file_panel = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        file_history_panel = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        diff1 = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        diff2 = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        diff3 = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-        diff4 = {
-          ["q"] = "<cmd>DiffviewClose<cr>",
-        },
-      },
-    },
-
-    keys = {
-      { "<leader>gvd", "<cmd>DiffviewOpen<cr>", desc = "DiffView Open" },
-      { "<leader>gvu", "<cmd>DiffviewOpen @ @{updstream}<cr>", desc = "DiffView @ @{updstream}" },
-      { "<leader>gvm", "<cmd>DiffviewOpen master..HEAD<cr>", desc = "DiffView master..HEAD" },
-      { "<leader>gvM", "<cmd>DiffviewOpen main..HEAD<cr>", desc = "DiffView main..HEAD" },
-      { "<leader>gvh", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffView Buffer File History" },
-      { "<leader>gvH", "<cmd>DiffviewFileHistory<cr>", desc = "DiffView File History" },
-    },
-  },
-
-  {
-    "NeogitOrg/neogit",
-    cmd = { "Neogit" },
-    keys = {
-      { "<leader>G", "<Cmd>Neogit<CR>" },
-      desc = "Neogit",
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-    },
-
-    opts = {
-      integrations = { diffview = true },
     },
   },
 }

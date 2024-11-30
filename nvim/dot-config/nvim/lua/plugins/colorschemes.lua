@@ -190,15 +190,6 @@ return {
     end,
   },
   {
-    "sainnhe/sonokai",
-    event = "VeryLazy",
-    config = function()
-      vim.g.sonokai_style = "shusia"
-      vim.g.sonokai_dim_inactive_windows = true
-      vim.g.sonokai_better_performance = true
-    end,
-  },
-  {
     "folke/tokyonight.nvim",
     event = "VeryLazy",
 
@@ -217,8 +208,5 @@ return {
     },
   },
   { "navarasu/onedark.nvim", event = "VeryLazy" },
-
-  { "rose-pine/neovim", name = "rose-pine", event = "VeryLazy" },
-  { "aliqyan-21/darkvoid.nvim", event = "VeryLazy" },
-  { "nyoom-engineering/oxocarbon.nvim", event = "VeryLazy" },
+  { "olivercederborg/poimandres.nvim", event = "VeryLazy" },
 }
