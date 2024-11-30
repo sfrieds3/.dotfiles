@@ -4,6 +4,7 @@ theme = "poimandres"
 line-number = "relative"
 mouse = true
 soft-wrap.enable = true
+auto-pairs = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -12,3 +13,17 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.statusline]
+left = ["mode", "file-type", "file-name", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "spinner", "version-control", "spacer", "selections", "position", "position-percentage", "total-line-numbers"]
+separator = "|"
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "error"

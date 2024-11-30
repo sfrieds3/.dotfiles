@@ -28,6 +28,8 @@ keybind = alt+n=esc:n
 keybind = alt+o=esc:o
 keybind = alt+p=esc:p
 keybind = alt+q=esc:q
+keybind = alt+s=esc:s
+keybind = alt+comma=esc:comma
 keybind = alt+shift+h=esc:H
 keybind = alt+shift+j=esc:J
 keybind = alt+shift+k=esc:K
