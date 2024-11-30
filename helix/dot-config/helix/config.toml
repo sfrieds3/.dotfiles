@@ -1,8 +1,9 @@
-theme = "onedark"
+theme = "poimandres"
 
 [editor]
 line-number = "relative"
-mouse = false
+mouse = true
+soft-wrap.enable = true
 
 [editor.cursor-shape]
 insert = "bar"
