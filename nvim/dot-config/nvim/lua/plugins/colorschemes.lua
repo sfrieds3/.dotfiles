@@ -208,5 +208,11 @@ return {
     },
   },
   { "navarasu/onedark.nvim", event = "VeryLazy" },
-  { "olivercederborg/poimandres.nvim", event = "VeryLazy" },
+  {
+    "olivercederborg/poimandres.nvim",
+    event = "VeryLazy",
+    opts = {
+      dim_nc_background = true,
+    },
+  },
 }
