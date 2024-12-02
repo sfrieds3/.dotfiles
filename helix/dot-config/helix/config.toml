@@ -1,10 +1,14 @@
-theme = "poimandres"
+theme = "catppuccin_macchiato"
 
 [editor]
 line-number = "relative"
 mouse = true
 soft-wrap.enable = true
 auto-pairs = false
+scrolloff = 3
+shell = ["zsh", "--login"]
+bufferline = "never"
+color-modes = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -21,9 +25,18 @@ display-inlay-hints = true
 [editor.statusline]
 left = ["mode", "file-type", "file-name", "file-modification-indicator"]
 center = []
-right = ["diagnostics", "spinner", "version-control", "spacer", "selections", "position", "position-percentage", "total-line-numbers"]
+right = [
+  "diagnostics",
+  "spinner",
+  "version-control",
+  "spacer",
+  "selections",
+  "position",
+  "position-percentage",
+  "total-line-numbers",
+]
 separator = "|"
 
-[editor.inline-diagnostics]
-cursor-line = "hint"
-other-lines = "error"
+# [editor.inline-diagnostics]
+# cursor-line = "hint"
+# other-lines = "error"
