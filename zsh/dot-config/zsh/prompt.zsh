@@ -5,7 +5,8 @@ autoload -U add-zsh-hook
 autoload -Uz vcs_info
 
 # example configuration
-zstyle ':sfrieds3:prompt:separator:*' icon '∷'
+zstyle ':sfrieds3:prompt:separator:*' icon ' ∷ '
+zstyle ':sfrieds3:prompt:separator:*' color red
 zstyle ':sfrieds3:prompt:git:stagedstr:*' color green
 zstyle ':sfrieds3:prompt:git:unstagedstr:*' color red
 zstyle ':sfrieds3:prompt:git:branch-icon:*' color yellow
@@ -49,6 +50,8 @@ zstyle -s ':sfrieds3:prompt:character:success:*' icon PROMPT_CHARACTER_ICON || P
 zstyle -s ':sfrieds3:prompt:character:error:*' color PROMPT_CHARACTER_ERROR_COLOR || PROMPT_CHARACTER_ERROR_COLOR=red
 zstyle -s ':sfrieds3:prompt:character:error:*' icon PROMPT_CHARACTER_ERROR_ICON || PROMPT_CHARACTER_ERROR_ICON='!!'
 zstyle -s ':sfrieds3:prompt:exectime:*' color PROMPT_EXEC_TIME_COLOR || PROMPT_EXEC_TIME_COLOR=yellow
+zstyle -s ':sfrieds3:prompt:separator:*' icon PROMPT_SEPARATOR_ICON || PROMPT_SEPARATOR_ICON=' │ '
+zstyle -s ':sfrieds3:prompt:separator:*' color PROMPT_SEPARATOR_COLOR || PROMPT_SEPARATOR_COLOR=red
 
 # https://github.com/wincent/wincent/blob/main/aspects/dotfiles/files/.zshrc
 # https://github.com/akinsho/dotfiles/blob/5e5d579742f0edcd63c5b6e6c210a95242a35feb/.config/zsh/.zshrc
@@ -141,12 +144,13 @@ function __prompt_characters() {
 # __PROMPT_SUCCESS="❱  "
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
+# PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%F{$PROMPT_SEPARATOR_COLOR}$PROMPT_SEPARATOR_ICON%F{$PROMPT_KUBE_COLOR}$(__kubectl_prompt)%f$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} %F{$PROMPT_KUBE_COLOR}$(__kubectl_prompt)${vcs_info_msg_0_} %F{$PROMPT_PWD_COLOR}${PWD/#$HOME/~}%f"
+    RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
 

@@ -220,6 +220,7 @@ function FZFConfig.get_config()
       { "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace Diagnostics" },
       { "<leader>sq", "<cmd>FzfLua quickfix<cr>", desc = "Quickfix" },
       { "<leader>sl", "<cmd>FzfLua loclist<cr>", desc = "Loclist" },
+      { "<leader>si", "<cmd>FzfLua treesitter<cr>", desc = "Treesitter" },
     },
   }
 end
