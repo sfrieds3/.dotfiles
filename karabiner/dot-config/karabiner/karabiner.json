@@ -23,7 +23,7 @@
                     "type": "frontmost_application_if"
                   }
                 ],
-                "description": "Change command to option for terminals",
+                "description": "Change left command to left option for terminals",
                 "from": {
                   "key_code": "left_command",
                   "modifiers": {
@@ -35,6 +35,35 @@
                 "to": [
                   {
                     "key_code": "left_option"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^net\\.kovidgoyal\\.kitty$",
+                      "^org\\.alacritty",
+                      "^com\\.github\\.wez\\.wezterm$",
+                      "org.gnu.Emacs"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "description": "Change left option to left command for terminals",
+                "from": {
+                  "key_code": "left_option",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_command"
                   }
                 ],
                 "type": "basic"
