@@ -9,10 +9,7 @@ end
 
 function M.setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  local err, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-  if err == nil then
-    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-  end
+  capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
   local function on_attach(client, bufnr)
     if client.supports_method("textDocument/inlayHint") then

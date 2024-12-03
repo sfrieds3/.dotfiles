@@ -162,7 +162,6 @@ return {
           "mini",
           "neo-tree",
           "neogit",
-          "nvim-cmp",
           "telescope",
           "trouble",
           "which-key",
