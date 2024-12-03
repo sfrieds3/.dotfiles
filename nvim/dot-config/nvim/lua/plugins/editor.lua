@@ -442,6 +442,10 @@ return {
     },
     opts = {
       ring = { storage = "sqlite" },
+      highlight = {
+        on_put = false,
+        on_yank = false,
+      },
     },
     keys = {
       { "<leader>p", "<cmd>YankyRingHistory<cr>", desc = "Open Yank History" },
