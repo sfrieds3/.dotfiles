@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # setops
 setopt   INTERACTIVE_COMMENTS # allow comments even in interactive shells
 unsetopt AUTO_CD              # assume cd if directory passed
@@ -87,3 +89,5 @@ if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
     ghostty-integration
     unfunction ghostty-integration
 fi
+
+# zprof
