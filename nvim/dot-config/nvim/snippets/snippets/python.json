@@ -92,6 +92,13 @@
     "description": "Pytest (mark parametrize)",
     "prefix": "pytest (mark parametrize)"
   },
+  "pytest (mark usefixture)": {
+    "body": [
+      "@pytest.mark.usefixture('${1:fixture}')"
+    ],
+    "description": "Pytest (mark usefixture)",
+    "prefix": "pytest (mark usefixture)"
+  },
   "pytest (mark)": {
     "body": [
       "@pytest.mark"
