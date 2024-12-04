@@ -275,5 +275,26 @@ function make_python() {
     cd "$HOME/code/lib/cpython"
     ./configure --enable-optimizations --prefix="$HOME/.local/bin/python"
 
-  CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" make
+    CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" make
+}
+
+function git-rebase() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: git-rebase <branch>"
+        return 1
+    fi
+
+    local base_branch=$1
+    local merge_base
+
+    # Calculate the merge base
+    merge_base=$(git merge-base HEAD "origin/$base_branch")
+
+    if [[ -z $merge_base ]]; then
+        echo "Error: Could not determine merge base with origin/$base_branch"
+        return 1
+    fi
+
+    # Perform the interactive rebase
+    git rebase --interactive "${merge_base}~"
 }
