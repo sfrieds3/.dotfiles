@@ -9,5 +9,6 @@ uv_tool_packages:
   - poetry
   - pre-commit
   - ruff
+  - toml-cli
   - tox
   - twine
