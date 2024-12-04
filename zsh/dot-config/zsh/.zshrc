@@ -20,8 +20,8 @@ setopt   EXTENDED_GLOB        # enables various things, most notably ^negation. 
 setopt   NOTIFY               # [on] this will put info from finished background processes over the current line
 
 # history
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt SHARE_HISTORY           # share history across multiple zsh sessions
 setopt APPEND_HISTORY          # append to history
 setopt INC_APPEND_HISTORY      # adds commands as they are typed, not at shell exit
