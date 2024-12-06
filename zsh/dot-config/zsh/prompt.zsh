@@ -3,6 +3,7 @@ autoload -U promptinit && promptinit
 zmodload zsh/datetime
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
+autoload -Uz async && async
 
 # example configuration
 zstyle ':sfrieds3:prompt:separator:*' icon ' ∷ '
@@ -61,9 +62,9 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "%F{$PROMPT_STAGED_COLOR}$PROMPT_STAGED_ICON%f"  # nf-fa-check (default 'S')
 zstyle ':vcs_info:*' unstagedstr "%F{$PROMPT_UNSTAGED_COLOR}$PROMPT_UNSTAGED_ICON%f"  # nf-fa-close (default 'U')
 zstyle ':vcs_info:*' use-simple true
-zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-stashed git-compare git-remotebranch
-zstyle ':vcs_info:git*:*' formats "%{$__DOTS[ITALIC_ON]%}%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}(%b)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats "%{$__DOTS[ITALIC_ON]%}(%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}(%b|%a)%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b|%a]%...c%u-'
+zstyle ':vcs_info:git+set-message:*' hooks git-untracked git-remotebranch git-compare # git-stashed
+zstyle ':vcs_info:git*:*' formats "%{$__DOTS[ITALIC_ON]%}%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}%b%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats "%{$__DOTS[ITALIC_ON]%}(%F{$PROMPT_BRANCH_ICON_COLOR}λ:%F{$PROMPT_BRANCH_COLOR}%b|%a%{$__DOTS[ITALIC_OFF]%}%f%m%c%u%f"  # default ' (%s)-[%b|%a]%...c%u-'
 
 function +vi-git-untracked() {
     emulate -L zsh
@@ -145,7 +146,7 @@ function __prompt_characters() {
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 # PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%F{$PROMPT_SEPARATOR_COLOR}$PROMPT_SEPARATOR_ICON%F{$PROMPT_KUBE_COLOR}$(__kubectl_prompt)%f$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {
