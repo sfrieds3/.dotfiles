@@ -11,5 +11,6 @@ target/
 .pynoautoformat
 Session.vim
 mise.toml
+.mise.toml
 scratch/
 .tool-versions
