@@ -119,6 +119,10 @@
     "body": "re.sub(r\"${1:regex}\", r\"${2:replace}\", ${3:str})$0",
     "prefix": "replace (regex)"
   },
+  "shebang": {
+    "body": "#!/usr/bin/env python3",
+    "prefix": "shebang"
+  },
   "ternary": {
     "body": "${1:value1} if ${2:condition} else ${3:value2}",
     "prefix": "ternary"
