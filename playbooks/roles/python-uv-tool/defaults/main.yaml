@@ -1,4 +1,5 @@
 uv_tool_packages:
+  - bump-my-version
   - compiledb
   - cookiecutter
   - cruft
