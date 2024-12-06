@@ -3,12 +3,12 @@ local bufnr = vim.api.nvim_get_current_buf()
 
 vim.g.python_highlight_space_errors = 0
 
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 4
-vim.bo.textwidth = 120
+vim.opt_local.shiftwidth = 4
+vim.opt_local.softtabstop = 4
+vim.opt_local.textwidth = 120
 
-vim.bo.makeprg = "ruff check %"
-vim.bo.suffixesadd = ".py"
+vim.opt_local.makeprg = "ruff check %"
+vim.opt_local.suffixesadd = ".py"
 
 vim.api.nvim_create_autocmd("BufEnter", {
   buffer = bufnr,
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
       or string.find(file_path, ".venv/") ~= nil
       or string.find(file_path, "site-packages/") ~= nil
     then
-      vim.bo.modifiable = false
+      vim.opt_local.modifiable = false
     end
   end,
   desc = "Set any files not in project to `modifiable` = `false `",
