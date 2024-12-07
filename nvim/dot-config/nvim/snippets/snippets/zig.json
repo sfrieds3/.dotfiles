@@ -1,0 +1,31 @@
+{
+  "CImport": {
+    "body": [
+      "const c = @cImport({",
+      "    @cDefine(\"${1}\")",
+      "});"
+    ],
+    "description": "Importing C Header Files",
+    "prefix": "cimport"
+  },
+  "Import": {
+    "body": [
+      "const ${1} = @import(\"${1}\")"
+    ],
+    "description": "Importing Libraries",
+    "prefix": "import"
+  },
+  "buildExe": {
+    "body": [
+      "const exe = b.addExecutable(.{",
+      "    .name = \"${1}\",",
+      "    .root_source_file = b.path(\"${2:path}\"),",
+      "    .target = target,",
+      "    .optimize = optimize,",
+      "});",
+      "b.installArtifact(exe);"
+    ],
+    "description": "Building an exe",
+    "prefix": "bExe"
+  }
+}
