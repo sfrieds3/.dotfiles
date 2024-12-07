@@ -109,10 +109,6 @@ return {
       dimInactive = true,
       globalStatus = true,
       terminalColors = true,
-      background = {
-        dark = "dragon",
-        light = "wave",
-      },
       colors = {
         theme = {
           all = {
@@ -193,8 +189,7 @@ return {
     event = "VeryLazy",
 
     opts = {
-      style = "night",
-      dim_inactive = false,
+      dim_inactive = true,
       sidebars = {},
       styles = {
         comments = { italic = true },
@@ -214,4 +209,5 @@ return {
       dim_nc_background = true,
     },
   },
+  { "savq/melange-nvim", event = "VeryLazy" },
 }

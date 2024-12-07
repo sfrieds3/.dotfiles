@@ -3,7 +3,8 @@ mouse-hide-while-typing = true
 background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
-theme = catppuccin-macchiato
+# catppuccin-macchiato
+theme = GruvboxDark
 
 # Visuals
 font-family = "Berkeley Mono"
