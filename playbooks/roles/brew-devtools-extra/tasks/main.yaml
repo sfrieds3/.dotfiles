@@ -23,7 +23,7 @@
       - ruby-build
       - rustup
       - sbcl
-      - zig
+      - utm
       - zoxide
     state: present
     update_homebrew: true
