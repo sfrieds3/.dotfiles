@@ -10,22 +10,6 @@ vim.opt_local.textwidth = 120
 vim.opt_local.makeprg = "ruff check %"
 vim.opt_local.suffixesadd = ".py"
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  buffer = bufnr,
-  group = vim.api.nvim_create_augroup("python:set-proj-modifiable" .. bufnr, {}),
-  callback = function(t)
-    local file_path = t.match
-    if
-      string.find(file_path, "venv/") ~= nil
-      or string.find(file_path, ".venv/") ~= nil
-      or string.find(file_path, "site-packages/") ~= nil
-    then
-      vim.opt_local.modifiable = false
-    end
-  end,
-  desc = "Set any files not in project to `modifiable` = `false `",
-})
-
 local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
 local disable_auto_format_files = { ".pynoautoformat", ".pydisableautoformat", ".pydisableformat" }
 
