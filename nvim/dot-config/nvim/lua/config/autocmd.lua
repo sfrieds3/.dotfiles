@@ -68,10 +68,42 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 local disable_list_ft = { "go" }
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable listchars for certain ft",
-  group = augroup("nolist_bufenter"),
+  group = augroup("nolist-bufenter"),
   callback = function(t)
     if vim.tbl_contains(disable_list_ft, vim.bo[t.buf].filetype) then
       vim.opt.list = false
     end
+  end,
+})
+
+local function map(tbl, func)
+  local return_table = {}
+  for x, y in pairs(tbl) do
+    return_table[x] = func(y)
+  end
+  return return_table
+end
+
+local proj_dirs = { "~/code" }
+local format_func = function(d)
+  return string.format("%s/*", vim.fn.expand(d))
+end
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "Set files not in project to `modifiable` = `false`",
+  pattern = map(proj_dirs, format_func),
+  group = augroup("set-proj-modifiable"),
+  callback = function(t)
+    local file_path = vim.fn.expand(t.file)
+    vim.system(
+      { "git", "ls-files", "--cached", "--others", "--error-unmatch", "--exclude-standard", file_path },
+      {},
+      function(out)
+        vim.schedule(function()
+          if out.code == 1 then
+            vim.opt_local.modifiable = false
+          end
+        end)
+      end
+    )
   end,
 })
