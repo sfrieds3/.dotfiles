@@ -44,7 +44,7 @@ return {
     name = "catppuccin",
 
     opts = {
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
+      flavour = "frappe", -- latte, frappe, macchiato, mocha
       background = {
         light = "frappe",
         dark = "mocha",
@@ -122,69 +122,6 @@ return {
     config = true,
   },
   {
-    "marko-cerovac/material.nvim",
-    event = "VeryLazy",
-
-    config = function()
-      vim.g.material_style = "darker"
-      require("material").setup({
-        contrast = {
-          terminal = false, -- Enable contrast for the built-in terminal
-          sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-          floating_windows = false, -- Enable contrast for floating windows
-          cursor_line = true, -- Enable darker background for the cursor line
-          lsp_virtual_text = true,
-          non_current_windows = true, -- Enable darker background for non-current windows
-          filetypes = { "terminal", "lazy", "mason" }, -- Specify which filetypes get the contrasted (darker) background
-        },
-
-        styles = { -- Give comments style such as bold, italic, underline etc.
-          comments = { italic = true },
-          strings = {},
-          keywords = {},
-          functions = { bold = true },
-          variables = {},
-          operators = {},
-          types = {},
-        },
-
-        plugins = { -- Uncomment the plugins that you use to highlight them
-          -- Available plugins:
-          "dap",
-          "flash",
-          "gitsigns",
-          "illuminate",
-          "indent-blankline",
-          "mini",
-          "neo-tree",
-          "neogit",
-          "telescope",
-          "trouble",
-          "which-key",
-        },
-
-        disable = {
-          colored_cursor = true, -- Disable the colored cursor
-          borders = false, -- Disable borders between verticaly split windows
-          background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
-          term_colors = false, -- Prevent the theme from setting terminal colors
-          eob_lines = false, -- Hide the end-of-buffer lines
-        },
-
-        high_visibility = {
-          lighter = false, -- Enable higher contrast text for lighter style
-          darker = true, -- Enable higher contrast text for darker style
-        },
-
-        async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
-
-        custom_colors = nil, -- If you want to everride the default colors, set this to a function
-
-        custom_highlights = {}, -- Overwrite highlights with your own
-      })
-    end,
-  },
-  {
     "folke/tokyonight.nvim",
     event = "VeryLazy",
 
@@ -210,4 +147,8 @@ return {
     },
   },
   { "savq/melange-nvim", event = "VeryLazy" },
+  {
+    "olimorris/onedarkpro.nvim",
+    event = "VeryLazy",
+  },
 }
