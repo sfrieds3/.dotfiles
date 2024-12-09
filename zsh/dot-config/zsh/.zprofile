@@ -1,6 +1,5 @@
 if type /opt/homebrew/bin/brew &>/dev/null
 then
-    eval $(/opt/homebrew/bin/brew shellenv)
     fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
     fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fi
@@ -22,24 +21,6 @@ eval "$(zoxide init zsh)"
 
 # mise
 eval "$(mise activate zsh)"
-
-# ocaml
-[[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 # java version
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
@@ -88,7 +69,3 @@ export LS_COLORS
 
 GREP_COLORS="fn=38;5;65:mt=38;5;67"
 export GREP_COLORS
-
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi
