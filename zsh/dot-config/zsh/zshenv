@@ -12,28 +12,45 @@ export XDG_RUNTIME_DIR="$TMPDIR"
 export ZSH_DATA_DIR="$XDG_DATA_HOME/zsh"
 export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+# run this before setting the rest of $PATH
+if type /opt/homebrew/bin/brew &>/dev/null
+then
+    eval $(/opt/homebrew/bin/brew shellenv)
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fi
+
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# ocaml
+[[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# >>> conda initialize >>>
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-BREWSBIN="$HOMEBREW_PREFIX/sbin"
-BREWBIN="$HOMEBREW_PREFIX/bin"
-LUAROCKSBIN="$HOME/.luarocks/bin"
-PERL5BIN="$HOME/perl5/bin"
-USRLOCALBIN="/usr/local/bin"
+
 LOCALBIN="$HOME/.local/bin"
-PYTHON3_VENV_BIN="$HOME/.venv/venv/bin"
-OPENJDKBIIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
-SCALA_COURSIER="$HOME/Library/Application\ Support/Coursier/bin"
-JETBRAINS_TOOLBOX="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
 CYTHON_BIN="$HOMEBREW_PREFIX/opt/cython/bin"
 KREW_BIN="${KREW_ROOT:-$HOME/.krew}/bin"
 
-export PATH=$LOCALBIN:$BREWBIN:$BREWSBIN:$CYTHON_BIN:$GOBIN:$PERL5BIN:$LUAROCKSBIN:$PATH:$USRLOCALBIN:$SCALA_COURSIER:$PYTHON3_VENV_BIN:$OPENJDKBIIN:$JETBRAINS_TOOLBOX:$KREW_BIN
-
-# export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/python_startup.py
-export PERL5LIB=${PERL5LIB:=$HOME/perl5/lib/perl5}
-export PERL_LOCAL_LIB_ROOT=${PERL_LOCAL_LIB_ROOT:=$HOME/perl5}
-export PERL_MB_OPT=${PERL_MB_OPT:=--install_base \"$HOME/perl5\"}
-export PERL_MM_OPT=${PERL_MM_OPT:=INSTALL_BASE=$HOME/perl5}
+export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
 
 typeset -U path PATH
 typeset -U fpath
