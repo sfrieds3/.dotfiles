@@ -60,16 +60,15 @@ return {
       signature = {
         enabled = true,
       },
-      opts_extend = { "sources.completion.enabled_providers" },
+      opts_extend = { "sources.default" },
       sources = {
-        completion = {
-          enabled_providers = { "lsp", "cody", "path", "snippets", "buffer", "lazydev" },
-        },
+        default = { "lsp", "cody", "path", "snippets", "buffer", "lazydev" },
         providers = {
-          lsp = { fallback_for = { "lazydev" } },
+          lsp = {},
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
+            fallback = "lsp",
           },
           cody = {
             name = "cody",
