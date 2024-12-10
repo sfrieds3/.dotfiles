@@ -27,8 +27,8 @@ return {
         ["<C-p>"] = { "select_prev", "fallback" },
         ["<C-n>"] = { "select_next", "fallback" },
 
-        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
 
         ["<M-s>"] = { "snippet_forward" },
         ["<C-l>"] = { "snippet_forward" },
@@ -36,7 +36,6 @@ return {
         ["<C-h>"] = { "snippet_backward" },
       },
       nerd_font_variant = "mono",
-      signature = { enabled = true },
       completion = {
         keyword = {
           range = "full",
@@ -50,9 +49,16 @@ return {
             },
           },
         },
+        documentation = {
+          auto_show = false,
+          auto_show_delay_ms = 500,
+        },
         ghost_text = {
           enabled = true,
         },
+      },
+      signature = {
+        enabled = true,
       },
       opts_extend = { "sources.completion.enabled_providers" },
       sources = {
