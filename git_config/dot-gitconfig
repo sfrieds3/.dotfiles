@@ -26,6 +26,10 @@
 	editor = nvim
 	excludesfile = ~/.config/git/gitignore
 	pager = less -FMRiXx4
+	fsmonitor = true
+	untrackedCache = true
+[feature]
+	manyFiles = true
 [merge]
 	conflictstyle = zdiff3
 [pull]
