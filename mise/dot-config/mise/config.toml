@@ -1,6 +1,9 @@
 [settings]
 paranoid = false
 
+[settings.python]
+uv_venv_auto = true
+
 [tools]
 go = "latest"
 node = ["latest"]
