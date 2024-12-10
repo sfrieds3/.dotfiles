@@ -31,7 +31,7 @@ function __node_version() {
     __node_dir 2> /dev/null && command -v node > /dev/null && echo 'node('`node --version`') '
 }
 
-function __kubectl_prompt() {
+function __kubectl_info() {
     local __kube_ctx=$(kubectl config current-context 2> /dev/null)
     local __kube_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}') 2> /dev/null
     # local __kube_user=$(kubectl config view --minify -o jsonpath='{.contexts[0].context.user}')

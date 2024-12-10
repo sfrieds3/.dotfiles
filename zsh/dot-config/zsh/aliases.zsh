@@ -34,6 +34,7 @@ alias k='kubectl'
 alias ks='kubectx && kubens'
 alias kc='kubectx'
 alias kn='kubens'
+alias kk='__kubectl_info'
 
 # pre-commit
 alias pcr='pre-commit run'
