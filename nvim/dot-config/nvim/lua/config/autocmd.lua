@@ -94,6 +94,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = augroup("set-proj-modifiable"),
   callback = function(t)
     local file_path = vim.fn.expand(t.file)
+
+    if file_path == "" or vim.fn.empty(vim.fn.bufname()) == 1 then
+      return
+    end
+
+    if vim.fn.match(file_path, ".*/.git/.*") ~= -1 then
+      return
+    end
+
     vim.system(
       { "git", "ls-files", "--cached", "--others", "--error-unmatch", "--exclude-standard", file_path },
       {},
