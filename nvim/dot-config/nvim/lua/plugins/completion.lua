@@ -17,6 +17,7 @@ return {
       },
     },
 
+    opts_extend = { "sources.default" },
     opts = {
       keymap = {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -35,7 +36,6 @@ return {
         ["<M-S-s>"] = { "snippet_backward" },
         ["<C-h>"] = { "snippet_backward" },
       },
-      nerd_font_variant = "mono",
       completion = {
         keyword = {
           range = "full",
@@ -60,15 +60,26 @@ return {
       signature = {
         enabled = true,
       },
-      opts_extend = { "sources.default" },
       sources = {
+        cmdline = function()
+          local type = vim.fn.getcmdtype()
+          -- Search forward and backward
+          if type == "/" or type == "?" then
+            return { "buffer" }
+          end
+          -- Commands
+          if type == ":" then
+            return { "cmdline" }
+          end
+          return {}
+        end,
         default = { "lsp", "cody", "path", "snippets", "buffer", "lazydev" },
         providers = {
           lsp = {},
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
-            fallback = "lsp",
+            fallbacks = { "lsp" },
           },
           cody = {
             name = "cody",
@@ -76,18 +87,6 @@ return {
           },
         },
       },
-      cmdline = function()
-        local type = vim.fn.getcmdtype()
-        -- Search forward and backward
-        if type == "/" or type == "?" then
-          return { "buffer" }
-        end
-        -- Commands
-        if type == ":" then
-          return { "cmdline" }
-        end
-        return {}
-      end,
     },
     keys = {
       {
