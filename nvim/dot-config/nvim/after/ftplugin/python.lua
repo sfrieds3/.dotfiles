@@ -1,6 +1,8 @@
 local is_executable = vim.fn.executable
 local bufnr = vim.api.nvim_get_current_buf()
 
+vim.b[bufnr].disable_conform_autoformat = true
+
 vim.opt_local.shiftwidth = 4
 vim.opt_local.softtabstop = 4
 vim.opt_local.textwidth = 120
@@ -17,11 +19,13 @@ local function format_file(opts)
   end
 
   local has_formatted = false
+  local ran_isort = false
   local conform = require("conform")
 
   -- respect local formatting packages first
   if is_executable("isort") == 1 then
     conform.format({ formatters = { "isort" }, bufnr = bufnr })
+    ran_isort = true
   end
   if is_executable("black") == 1 then
     conform.format({ formatters = { "black" }, bufnr = bufnr })
@@ -29,8 +33,10 @@ local function format_file(opts)
   end
 
   -- default to ruff if project does not use black
-  if not has_formatted then
+  if not ran_isort then
     conform.format({ formatters = { "ruff_organize_imports" }, bufnr = bufnr })
+  end
+  if not has_formatted then
     conform.format({ formatters = { "ruff_format" }, bufnr = bufnr })
   end
 end
