@@ -80,6 +80,10 @@ alias uv-pytest-cov='uv run --no-project coverage run -m pytest'
 alias uv-pytest-cov-report='uv run --no-project coverage report -m'
 alias uv-pipdeptree='uv run --no-project --with=pipdeptree pipdeptree'
 alias uv-jupyterlab='uv run --no-project --with=jupyterlab jupyter lab'
+alias uv-pudb='uv run --no-project --with=pudb --with=pytest pytest --pdbcls pudb.debugger:Debugger --pdb --capture=no'
+alias uv-tox='uv run --no-project --with=tox --with=tox-uv --with=pytest tox'
+alias set-pudb-breakpoint='export PYTHONBREAKPOINT="pudb.set_trace"'
+alias unset-pudb-breakpoint='unset PYTHONBREAKPOINT'
 
 # mise
 alias mx='mise exec'

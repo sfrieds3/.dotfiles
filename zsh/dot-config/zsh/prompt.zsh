@@ -8,8 +8,6 @@ autoload -Uz async && async
 # example configuration
 zstyle ':sfrieds3:prompt:separator:*' icon ' ∷ '
 zstyle ':sfrieds3:prompt:separator:*' color red
-zstyle ':sfrieds3:prompt:git:stagedstr:*' color green
-zstyle ':sfrieds3:prompt:git:unstagedstr:*' color red
 zstyle ':sfrieds3:prompt:git:branch-icon:*' color yellow
 zstyle ':sfrieds3:prompt:git:branch:*' color magenta
 zstyle ':sfrieds3:prompt:git:stashed:*' color blue
@@ -30,9 +28,6 @@ zstyle ':sfrieds3:prompt:character:error:*' icon '❯'
 zstyle ':sfrieds3:prompt:exectime:*' color yellow
 
 # load zstyle configurations
-zstyle -s ':sfrieds3:prompt:git:stagedstr:*' color PROMPT_STAGED_COLOR || PROMPT_STAGED_COLOR=green
-zstyle -s ':sfrieds3:prompt:git:unstagedstr:*' color PROMPT_UNSTAGED_COLOR || PROMPT_UNSTAGED_COLOR=red
-zstyle -s ':sfrieds3:prompt:git:branch-icon:*' color PROMPT_BRANCH_ICON_COLOR || PROMPT_BRANCH_ICON_COLOR=yellow
 zstyle -s ':sfrieds3:prompt:git:branch:*' color PROMPT_BRANCH_COLOR || PROMPT_BRANCH_COLOR=magenta
 zstyle -s ':sfrieds3:prompt:git:stashed:*' color PROMT_STASHED_COLOR || PROMT_STASHED_COLOR=blue
 zstyle -s ':sfrieds3:prompt:git:stashed:*' icon PROMPT_STASHED_ICON || PROMPT_STASHED_ICON=' ≡'
