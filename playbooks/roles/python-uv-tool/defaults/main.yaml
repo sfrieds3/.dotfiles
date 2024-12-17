@@ -9,7 +9,8 @@ uv_tool_packages:
   - pipdeptree
   - poetry
   - pre-commit
+  - pudb
   - ruff
   - toml-cli
-  - tox
+  - tox --with tox-uv
   - twine
