@@ -84,35 +84,35 @@ local function map(tbl, func)
   return return_table
 end
 
-local proj_dirs = { "~/code" }
-local format_func = function(d)
-  return string.format("%s/*", vim.fn.expand(d))
-end
-vim.api.nvim_create_autocmd("BufEnter", {
-  desc = "Set files not in project to `modifiable` = `false`",
-  pattern = map(proj_dirs, format_func),
-  group = augroup("set-proj-modifiable"),
-  callback = function(t)
-    local file_path = vim.fn.expand(t.file)
-
-    if file_path == "" or vim.fn.empty(vim.fn.bufname()) == 1 then
-      return
-    end
-
-    if vim.fn.match(file_path, ".*/.git/.*") ~= -1 then
-      return
-    end
-
-    vim.system(
-      { "git", "ls-files", "--cached", "--others", "--error-unmatch", "--exclude-standard", file_path },
-      {},
-      function(out)
-        vim.schedule(function()
-          if out.code == 1 then
-            vim.opt_local.modifiable = false
-          end
-        end)
-      end
-    )
-  end,
-})
+-- local proj_dirs = { "~/code" }
+-- local format_func = function(d)
+--   return string.format("%s/*", vim.fn.expand(d))
+-- end
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   desc = "Set files not in project to `modifiable` = `false`",
+--   pattern = map(proj_dirs, format_func),
+--   group = augroup("set-proj-modifiable"),
+--   callback = function(t)
+--     local file_path = vim.fn.expand(t.file)
+--
+--     if file_path == "" or vim.fn.empty(vim.fn.bufname()) == 1 then
+--       return
+--     end
+--
+--     if vim.fn.match(file_path, ".*/.git/.*") ~= -1 then
+--       return
+--     end
+--
+--     vim.system(
+--       { "git", "ls-files", "--cached", "--others", "--error-unmatch", "--exclude-standard", file_path },
+--       {},
+--       function(out)
+--         vim.schedule(function()
+--           if out.code == 1 then
+--             vim.opt_local.modifiable = false
+--           end
+--         end)
+--       end
+--     )
+--   end,
+-- })
