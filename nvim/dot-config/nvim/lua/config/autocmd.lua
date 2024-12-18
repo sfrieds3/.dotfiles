@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("InsertLeave", { command = "set list", group = augro
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_on_yank"),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 

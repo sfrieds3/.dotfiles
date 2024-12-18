@@ -211,7 +211,7 @@ function FZFConfig.get_config()
       { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
       -- { "<leader>di", function() Utils("installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
       -- { "<leader>gi", function() Utils("grep_installed_plugins", { type = "custom" }) end, desc = "Installed Plugins" },
-      { "<leader>u", "<cmd>FzfLua changes<cr>", desc = "Undo (Changes)" },
+      { "<leader>U", "<cmd>FzfLua changes<cr>", desc = "Undo (Changes)" },
       { "<leader>sj", "<cmd>FzfLua jumps<cr>", desc = "Jumplist" },
       { "<leader>sm", "<cmd>FzfLua marks<cr>", desc = "Marks" },
       { "<leader>sr", "<cmd>FzfLua registers<cr>", desc = "Registers" },
