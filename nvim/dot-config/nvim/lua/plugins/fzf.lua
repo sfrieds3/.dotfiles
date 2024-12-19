@@ -165,6 +165,8 @@ function FZFConfig.get_config()
         },
         grep = {
           rg_glob = true,
+          glob_flag = "--iglob",
+          glob_separator = "%s%-%-",
           rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --glob=!.git/ --max-columns=4096 -e",
           winopts = {
             preview = {
