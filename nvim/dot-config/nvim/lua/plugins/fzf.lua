@@ -50,15 +50,16 @@ function FZFConfig.get_config()
           formatter = "path.filename_first",
           git_icons = true,
           prompt = "files:",
-          preview_opts = "hidden",
+          winopts = {
+            preview = { hidden = "hidden" },
+          },
         },
         buffers = {
           formatter = "path.filename_first",
           prompt = "buffers:",
-          preview_opts = "hidden",
           no_header = true,
           fzf_opts = { ["--delimiter"] = " ", ["--with-nth"] = "-1.." },
-          winopts = lower_third,
+          winopts = vim.tbl_extend("force", lower_third, { preview = { hidden = "hidden" } }),
           actions = {
             ["ctrl-d"] = function(selected)
               require("fzf-lua").actions.buf_del(selected)
@@ -68,8 +69,7 @@ function FZFConfig.get_config()
         },
         helptags = {
           prompt = "💡:",
-          preview_opts = "hidden",
-          winopts = lower_third,
+          winopts = vim.tbl_extend("force", lower_third, { preview = { hidden = "hidden" } }),
         },
         git = {
           bcommits = {
@@ -84,8 +84,7 @@ function FZFConfig.get_config()
                 vim.api.nvim_feedkeys(switch, "t", false)
               end,
             },
-            preview_opts = "nohidden",
-            winopts = lower_third_vertical_preview,
+            winopts = vim.tbl_extend("force", lower_third_vertical_preview, { preview = { hidden = "nohidden" } }),
           },
           branches = {
             prompt = "branches:",
