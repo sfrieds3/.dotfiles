@@ -326,9 +326,6 @@ return {
         desc = "Dropbar Pick",
       },
     },
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-    },
     opts = {
       sources = {
         path = {
@@ -399,8 +396,6 @@ return {
       },
       filetypes_denylist = {
         "fugitive",
-        "NvimTree",
-        "TelescopePrompt",
       },
     },
 
