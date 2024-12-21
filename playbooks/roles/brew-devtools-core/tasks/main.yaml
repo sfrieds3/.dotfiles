@@ -49,6 +49,7 @@
       - openjdk
       - perl
       - pipx
+      - podman
       - postgresql
       - rclone
       - redis
