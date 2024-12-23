@@ -51,7 +51,7 @@ __DOTS[ITALIC_OFF]=$'\e[23m'
 DISABLE_AUTO_TITLE="true"
 
 # auto cd dirs
-cdpath=($HOME/code $HOME/wiki $HOME/.config $HOME/.dotfiles)
+# cdpath=($HOME/code $HOME/wiki $HOME/.config $HOME/.dotfiles)
 
 autoload -U colors && colors
 autoload -U add-zsh-hook
