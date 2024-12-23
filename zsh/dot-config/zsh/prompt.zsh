@@ -16,6 +16,8 @@ zstyle ':sfrieds3:prompt:git:staged:*' color green
 zstyle ':sfrieds3:prompt:git:staged:*' icon ' ●'
 zstyle ':sfrieds3:prompt:git:unstaged:*' color red
 zstyle ':sfrieds3:prompt:git:unstaged:*' icon ' ●'
+zstyle ':sfrieds3:prompt:git:untracked:*' color yellow
+zstyle ':sfrieds3:prompt:git:untracked:*' icon ' ●'
 zstyle ':sfrieds3:prompt:python:*' color green
 zstyle ':sfrieds3:prompt:kube:*' icon ''
 zstyle ':sfrieds3:prompt:kube:*' color blue
@@ -35,6 +37,8 @@ zstyle -s ':sfrieds3:prompt:git:staged:*' color PROMT_STAGED_COLOR || PROMT_STAG
 zstyle -s ':sfrieds3:prompt:git:staged:*' icon PROMPT_STAGED_ICON || PROMPT_STAGED_ICON=' ●'
 zstyle -s ':sfrieds3:prompt:git:unstaged:*' color PROMPT_UNSTAGED_COLOR || PROMPT_UNSTAGED_COLOR=red
 zstyle -s ':sfrieds3:prompt:git:unstaged:*' icon PROMPT_UNSTAGED_ICON || PROMPT_UNSTAGED_ICON=' ●'
+zstyle -s ':sfrieds3:prompt:git:untracked:*' color PROMPT_UNTRACKED_COLOR || PROMPT_UNTRACKED_COLOR=yellow
+zstyle -s ':sfrieds3:prompt:git:untracked:*' icon PROMPT_UNTRACKED_ICON || PROMPT_UNTRACKED_ICON=' ●'
 zstyle -s ':sfrieds3:prompt:python:*' color PROMPT_PYTHON_COLOR || PROMPT_PYTHON_COLOR=green
 zstyle -s ':sfrieds3:prompt:kube:*' color PROMPT_KUBE_COLOR || PROMPT_KUBE_COLOR=blue
 zstyle -s ':sfrieds3:prompt:kube:*' icon PROMPT_KUBE_ICON || PROMPT_KUBE_ICON=''
@@ -64,7 +68,7 @@ zstyle ':vcs_info:git*:*' actionformats "%{$__DOTS[ITALIC_ON]%}(%F{$PROMPT_BRANC
 function +vi-git-untracked() {
     emulate -L zsh
     if [[ -n $(git ls-files --directory --no-empty-directory --exclude-standard --others 2> /dev/null) ]]; then
-        hook_com[unstaged]+="%F{$PROMPT_UNSTAGED_COLOR}$PROMPT_UNSTAGED_ICON%f"  # nf-fa-question
+        hook_com[unstaged]+="%F{$PROMPT_UNTRACKED_COLOR}$PROMPT_UNTRACKED_ICON%f"  # nf-fa-question
     fi
 }
 
