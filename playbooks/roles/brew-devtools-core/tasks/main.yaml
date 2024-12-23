@@ -50,6 +50,7 @@
       - perl
       - pipx
       - podman
+      - podman-desktop
       - postgresql
       - rclone
       - redis
