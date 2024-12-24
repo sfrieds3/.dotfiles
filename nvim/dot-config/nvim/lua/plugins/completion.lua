@@ -38,7 +38,7 @@ return {
       },
       completion = {
         keyword = {
-          range = "full",
+          range = "prefix",
         },
         menu = {
           draw = {
