@@ -25,7 +25,8 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.config/git/gitignore
-	pager = less -FMRiXx4
+	; pager = less -FMRiXx4
+	pager = less --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --ignore-case --no-init --tabs=4
 	fsmonitor = true
 	untrackedCache = true
 [feature]
