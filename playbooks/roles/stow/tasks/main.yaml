@@ -1,4 +1,3 @@
----
 - name: Ensure stow is brew installed
   community.general.homebrew:
     name: stow
@@ -17,33 +16,7 @@
     - "{{ lookup('env', 'HOME') }}/.local/bin"
 - name: Symlink dotfiles
   ansible.builtin.shell: >
-    stow --dotfiles
-    alacritty
-    asdfrc
-    conda
-    eslintrc
-    fd
-    fish
-    ghostty
-    git
-    hammerspoon
-    helix
-    httpie
-    jetbrains
-    karabiner
-    mise
-    nvim
-    ocamlinit
-    pdbrc
-    psql
-    python
-    ripgrep
-    ruff
-    spaceship
-    starship
-    tmux
-    wezterm
-    yamllint
-    zsh
+    stow --dotfiles alacritty asdfrc conda eslintrc fd fish ghostty git hammerspoon httpie jetbrains karabiner mise nvim ocamlinit pdbrc psql python ripgrep ruff spaceship starship tmux wezterm yamllint zsh
+
   args:
     chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"
