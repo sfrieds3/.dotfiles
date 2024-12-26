@@ -12,7 +12,7 @@ return {
           -- loaded, so pretend that we are nvim-cmp, and that nvim-cmp is loaded.
           -- this option only has effect when using lazy.nvim
           -- this should not be required in most cases
-          impersontate_nvim_cmp = true,
+          impersonate_nvim_cmp = true,
         },
       },
     },
@@ -20,13 +20,13 @@ return {
     opts_extend = { "sources.default" },
     opts = {
       keymap = {
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        preset = "none",
+        ["<M-e>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide" },
         ["<Tab>"] = { "select_and_accept", "fallback" },
         ["<C-y>"] = { "select_and_accept", "fallback" },
-        ["<C-;>"] = { "select_and_accept" },
-        ["<C-p>"] = { "select_prev", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-p>"] = { "show", "select_prev", "fallback" },
+        ["<C-n>"] = { "show", "select_next", "fallback" },
 
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
@@ -40,7 +40,15 @@ return {
         keyword = {
           range = "prefix",
         },
+        list = {
+          selection = function(ctx)
+            return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+          end,
+        },
         menu = {
+          auto_show = function(ctx)
+            return ctx.mode == "cmdline"
+          end,
           draw = {
             padding = { 1, 0 },
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
@@ -54,7 +62,7 @@ return {
           auto_show_delay_ms = 500,
         },
         ghost_text = {
-          enabled = true,
+          enabled = false,
         },
       },
       signature = {
