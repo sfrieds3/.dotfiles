@@ -142,6 +142,11 @@ return {
 
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      {
+        "<leader>xe",
+        "<cmd>Trouble diagnostics filter.severity=vim.diagnostic.severity.ERROR<cr>",
+        desc = "ERROR Level Diagnostics (Trouble)",
+      },
       { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
       { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
       {
@@ -151,6 +156,41 @@ return {
       },
     },
     opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    opts = {
+      highlight = {
+        comments_only = false,
+      },
+      pattern = [[\b(KEYWORDS)\b]],
+    },
+    config = true,
+    keys = {
+      {
+        "]T",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "[T",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous todo comment",
+      },
+      { "<leader>xt", "<cmd>Trouble todo filter.buf=0<cr>", desc = "Todo (Trouble)" },
+      {
+        "<leader>xT",
+        "<cmd>Trouble todo filter.tag=TODO,FIX,FIXME,XXX<cr>",
+        desc = "Todo/Fix/Fixme (Trouble)",
+      },
+      { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoFzfLua filter.tag=TODO,FIX,FIXME,XXX<cr>", desc = "Todo/Fix/Fixme" },
+    },
   },
   {
     "mrjones2014/smart-splits.nvim",
@@ -241,37 +281,6 @@ return {
       { "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash", },
       { "R", function() require("flash").treesitter_search() end, mode = { "o", "x" }, desc = "Treesitter Search", },
       { "<c-s>", function() require("flash").toggle() end, mode = { "c" }, desc = "Toggle Flash Search", },
-    },
-  },
-  {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    opts = {
-      highlight = {
-        comments_only = false,
-      },
-      pattern = [[\b(KEYWORDS)\b]],
-    },
-    config = true,
-    keys = {
-      {
-        "]T",
-        function()
-          require("todo-comments").jump_next()
-        end,
-        desc = "Next todo comment",
-      },
-      {
-        "[T",
-        function()
-          require("todo-comments").jump_prev()
-        end,
-        desc = "Previous todo comment",
-      },
-      { "<leader>xt", "<cmd>TodoTrouble filter.buf=0<cr>", desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoFzfLua keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },
   },
   {
