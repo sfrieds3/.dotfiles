@@ -2,6 +2,11 @@
 -- local data_dir = vim.fn.stdpath("data")
 -- local config_path = vim.fn.stdpath("config")
 
+-- https://github.com/neovim/neovim/commit/a389dc2
+local termfeatures = vim.g.termfeatures or {}
+termfeatures.osc52 = false
+vim.g.termfeatures = termfeatures
+
 vim.g.python3_host_prog = "$PYTHON3_VENV"
 
 -- space as leader, \ as localleader
