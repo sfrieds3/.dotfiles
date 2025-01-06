@@ -3,11 +3,6 @@ local M = {}
 function M.setup()
   local dap = require("dap")
   local dap_python = require("dap-python")
-  local actions = require("telescope.actions")
-  local state = require("telescope.actions.state")
-  local config = require("telescope.config")
-  local pickers = require("telescope.pickers")
-  local finders = require("telescope.finders")
 
   -- default python
   -- table.insert(dap.configurations.python, {
@@ -49,24 +44,13 @@ function M.setup()
 
   local function set_python_test_runner(opts)
     opts = opts or {}
-    pickers
-      .new(opts, {
-        prompt_title = "Choose Python test runner:",
-        finder = finders.new_table({
-          results = { "django", "unittest", "pytest" },
-        }),
-        sorter = config.values.generic_sorter(opts),
-        attach_mappings = function(prompt_bufnr, _)
-          actions.select_default:replace(function()
-            actions.close(prompt_bufnr)
-            local selection = state.get_selected_entry()
-            require("dap-python").test_runner = selection.value
-            print("dap-python test_runner: " .. require("dap-python").test_runner)
-          end)
-          return true
-        end,
-      })
-      :find()
+    vim.ui.select({ "django", "unittest", "pytest" }, { prompt = "Choose Python test runner:" }, function(item)
+      if item == nil then
+        return
+      end
+      require("dap-python").test_runner = item
+      print("dap-python test_runner: " .. require("dap-python").test_runner)
+    end)
   end
 
   require("dap-python").test_runner = "pytest"
