@@ -22,7 +22,7 @@ return {
       keymap = {
         preset = "none",
         ["<M-e>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide" },
+        ["<C-z>"] = { "hide" },
         ["<Tab>"] = { "select_and_accept", "fallback" },
         ["<C-y>"] = { "select_and_accept", "fallback" },
         ["<C-p>"] = { "show", "select_prev", "fallback" },
@@ -41,9 +41,11 @@ return {
           range = "prefix",
         },
         list = {
-          selection = function(ctx)
-            return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-          end,
+          selection = {
+            preselect = function(ctx)
+              return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+            end,
+          },
         },
         menu = {
           auto_show = function(ctx)
