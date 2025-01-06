@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         title_pos = "left",
         header = "",
       },
-      underline = true,
+      underline = false,
       update_in_insert = false,
       severity_sort = true,
       virtual_text = false,
@@ -41,25 +41,32 @@ local virtual_text_config = {
   end,
 }
 
-vim.api.nvim_create_user_command("EnableVirtualText", function()
+vim.api.nvim_create_user_command("EnableDiagnosticVirtualText", function()
   vim.diagnostic.config({ virtual_text = virtual_text_config })
   print("virtual_text enabled")
 end, {})
 
-vim.api.nvim_create_user_command("DisableVirtualText", function()
+vim.api.nvim_create_user_command("DisableDiagnosticVirtualText", function()
   vim.diagnostic.config({ virtual_text = false })
   print("virtual_text disabled")
 end, {})
 
 local virtual_text_enabled = false
-vim.api.nvim_create_user_command("ToggleVirtualText", function()
+vim.api.nvim_create_user_command("ToggleDiagnosticVirtualText", function()
   if virtual_text_enabled then
-    vim.cmd.DisableVirtualText()
+    vim.cmd.DisableDiagnosticVirtualText()
     virtual_text_enabled = false
   else
-    vim.cmd.EnableVirtualText()
+    vim.cmd.EnableDiagnosticVirtualText()
     virtual_text_enabled = true
   end
+end, {})
+
+local underline_enabled = false
+vim.api.nvim_create_user_command("ToggleDiagnosticUnderline", function()
+  vim.diagnostic.config({ underline = not underline_enabled })
+  underline_enabled = not underline_enabled
+  print(underline_enabled and "Enabled diagnostic underlines" or "Disabled diagnostic underlines")
 end, {})
 
 local function goto_diagnostic(direction, severity, float)
@@ -95,9 +102,10 @@ end, { desc = "Toggle Buffer Diagnostics" })
 vim.keymap.set("n", "<leader>cD", function()
   toggle_diagnostics()
 end, { desc = "Toggle Global Diagnostics" })
-vim.keymap.set("n", "<M-;>", toggle_diagnostics, { desc = "Toggle Global Diagnostics" })
+vim.keymap.set("n", "<M-:>", toggle_diagnostics, { desc = "Toggle Global Diagnostics" })
+vim.keymap.set("n", "<M-;>", "<cmd>ToggleDiagnosticUnderline<cr>", { desc = "Toggle Diagnostic Underline" })
 vim.keymap.set("n", "]e", goto_diagnostic("next", "ERROR"), { desc = "Next Error" })
 vim.keymap.set("n", "[e", goto_diagnostic("previous", "ERROR"), { desc = "Prev Error" })
 vim.keymap.set("n", "]w", goto_diagnostic("next", "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "[w", goto_diagnostic("previous", "WARN"), { desc = "Prev Warning" })
-vim.keymap.set("n", "<leader>ce", "<cmd>ToggleVirtualText<cr>", { desc = "Toggle Virtual Text" })
+vim.keymap.set("n", "<leader>ce", "<cmd>ToggleDiagnosticVirtualText<cr>", { desc = "Toggle Virtual Text" })
