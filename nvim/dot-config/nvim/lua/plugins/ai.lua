@@ -2,7 +2,6 @@ return {
   {
     "sourcegraph/sg.nvim",
     event = "InsertEnter",
-    enabled = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
   },
