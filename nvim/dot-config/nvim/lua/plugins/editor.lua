@@ -300,21 +300,11 @@ return {
         path = {
           modified = function(sym)
             return sym:merge({
-              name = sym["name"] .. " [●]",
+              name = sym["name"] .. " []",
               name_hl = "StatuslineDiagnosticSignError",
               icon_hl = "StatuslineDiagnosticSignError",
             })
           end,
-        },
-      },
-      icons = {
-        ui = {
-          bar = {
-            separator = " ",
-          },
-        },
-        menu = {
-          separator = " ",
         },
       },
     },
