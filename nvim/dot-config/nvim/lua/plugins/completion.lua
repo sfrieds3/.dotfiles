@@ -1,6 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
+    enabled = false,
     lazy = false,
     build = "cargo build --release",
     dependencies = {
