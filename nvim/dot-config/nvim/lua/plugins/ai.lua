@@ -5,12 +5,4 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
   },
-  {
-    "Exafunction/codeium.nvim",
-    enabled = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    opts = {},
-  },
 }

@@ -7,7 +7,28 @@ vim.opt_local.shiftwidth = 4
 vim.opt_local.softtabstop = 4
 vim.opt_local.textwidth = 120
 
-vim.opt_local.makeprg = "ruff check %"
+-- vim.opt_local.makeprg = "ruff check %"
+vim.opt_local.makeprg = "pytest % $*"
+
+-- Add pytest error format
+vim.opt.errorformat:append({
+  [[\%EE\ \ \ \ \ File\ \"%f\"\\,\ line\ %l]],
+  [[\%CE\ \ \ %p^]],
+  [[\%ZE\ \ \ %[%^\ ]%\\@=%m]],
+  [[\%Afile\ %f\\,\ line\ %l]],
+  [[\%+ZE\ %mnot\ found]],
+  [[\%CE\ %.%#]],
+  [[\%-G_%\\+\ ERROR%.%#\ _%\\+]],
+  [[\%A_%\\+\ %o\ _%\\+]],
+  [[\%C%f:%l:\ in\ %o]],
+  [[\%ZE\ %\\{3}%m]],
+  [[\%EImportError%.%#\'%f\'\.]],
+  [[\%C%.%#]],
+  [[\%+G%[=]%\\+\ %*\\d\ passed%.%#]],
+  [[\%-G%[%^E]%.%#]],
+  [[\%-G]],
+})
+
 vim.opt_local.suffixesadd = ".py"
 
 local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
