@@ -171,7 +171,5 @@
   :bind ((:map c-mode-base-map
                ("<tab>" . #'indent-for-tab-command))))
 
-(use-package lsp-java)
-
 (provide 'lang-config)
 ;;; lang-config.el ends here

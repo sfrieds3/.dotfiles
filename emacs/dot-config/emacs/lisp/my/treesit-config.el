@@ -36,7 +36,7 @@ The path is represented as a list of strings and integers,
 corresponding to the object keys and array indices that lead from
 the root to the element at POS."
   (named-let loop ((node (treesit-node-at pos)) (acc nil))
-    (if-let ((parent (treesit-parent-until
+    (if-let* ((parent (treesit-parent-until
                       node
                       (lambda (n)
                         (member (treesit-node-type n)

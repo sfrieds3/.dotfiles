@@ -298,8 +298,6 @@ Containing LEFT, CENTER and RIGHT aligned respectively."
                  ;; left hand side
                  (cond ((mode-line-window-selected-p)
                         (list "%e"
-                              evil-mode-line-tag
-                              " "
                               mode-line-mule-info
                               mode-line-modified
                               " "

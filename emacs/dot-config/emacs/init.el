@@ -6,12 +6,12 @@
 ;;; Code:
 
 ;;; bootstrap elpaca
-(defvar elpaca-installer-version 0.6)
+(defvar elpaca-installer-version 0.8)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil
+                              :ref nil :depth 1
                               :files (:defaults "elpaca-test.el" (:exclude "extensions"))
                               :build (:not elpaca--activate-package)))
 (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
@@ -23,16 +23,18 @@
     (make-directory repo t)
     (when (< emacs-major-version 28) (require 'subr-x))
     (condition-case-unless-debug err
-        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                 ((zerop (call-process "git" nil buffer t "clone"
-                                       (plist-get order :repo) repo)))
-                 ((zerop (call-process "git" nil buffer t "checkout"
-                                       (or (plist-get order :ref) "--"))))
-                 (emacs (concat invocation-directory invocation-name))
-                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                 ((require 'elpaca))
-                 ((elpaca-generate-autoloads "elpaca" repo)))
+        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                  ,@(when-let* ((depth (plist-get order :depth)))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                  ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (concat invocation-directory invocation-name))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
             (progn (message "%s" (buffer-string)) (kill-buffer buffer))
           (error "%s" (with-current-buffer buffer (buffer-string))))
       ((error) (warn "%s" err) (delete-directory repo 'recursive))))
@@ -62,13 +64,15 @@
 
 ;;; add everything in lisp/ dir to load path
 (let ((default-directory  (expand-file-name "lisp" user-emacs-directory)))
+  (when (file-exists-p default-directory)
   (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
+  (normal-top-level-add-subdirs-to-load-path)))
 
 ;;; add everything in site-lisp/ dir to load path
 (let ((default-directory  (expand-file-name "site-lisp" user-emacs-directory)))
+  (when (file-exists-p default-directory)
   (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
+  (normal-top-level-add-subdirs-to-load-path)))
 
 ;;; home.el
 (let ((home-settings (expand-file-name "home.el" user-emacs-directory)))
@@ -77,6 +81,9 @@
 
 ;;; shared config not in init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+;;; set font
+(set-frame-font "Berkeley Mono 14" nil t)
 
 ;;; make scrolling more logical
 (setq scroll-conservatively 25)
@@ -154,29 +161,13 @@
    (:map isearch-mode-map
          ([(control q)] . #'+sf/isearch-highlight-phrase))))
 
-(use-package toggle-commands
-  :ensure nil
-  :after (theme-config ef-themes doom-themes)
-  :config
-  (+sf/cycle-font 0)
-  (+sf/cycle-theme 0))
-
 (use-package my-config
   :ensure nil)
 
 (use-package modeline
-  :after evil
   :ensure nil)
 
-(use-package tramp-config
-  :ensure nil)
-
-;;; language specific settings
-(use-package lang-config
-  :ensure nil
-  :demand t)
-
-;;; editor settings
+;;; Editor settings
 (use-package editor
   :ensure nil
   :demand t)
@@ -185,19 +176,11 @@
   :ensure nil
   :demand)
 
-;;; theme config
-(use-package theme-config
-  :ensure nil
-  :demand
-  :config
-  (+sf/set-path)
-  :custom
-  (custom-safe-themes t)
-  (fringe-mode 0))
-
 (use-package material-theme)
 (use-package ef-themes)
-(use-package standard-themes)
+(use-package standard-themes
+  :config
+  (load-theme 'standard-dark t))
 (use-package catppuccin-theme
   :config
   (custom-set-faces
@@ -210,22 +193,11 @@
    `(diff-hl-insert ((t (:background unspecified :foreground ,(catppuccin-get-color 'green)))))))
 
 (use-package all-the-icons)
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  (doom-modeline-indent-info t)
-  (size-indication-mode t)
-  (column-number-mode t)
-  :config
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
 
 ;;; match env to shell
 (use-package exec-path-from-shell
   :custom
-  (exec-path-from-shell-shell-name "/opt/homebrew/bin/fish")
+  (exec-path-from-shell-shell-name "/opt/homebrew/bin/zsh")
   :init
   :config
   (dolist (var '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME" "JAVA_HOME"))
@@ -262,209 +234,6 @@
   :commands (dired-git-info-mode dired-git-info-auto-enable)
   :bind (:map dired-mode-map
          (")" . #'dired-git-info-mode)))
-
-;;; general
-(use-package general
-  :config
-  (general-evil-setup)
-  (general-create-definer +sf/bslocalleader :prefix "\\")
-  (+sf/bslocalleader
-   :keymaps 'normal
-   "c" #'evil-delete-buffer
-   "gb" #'magit-branch-checkout
-   "\\" #'evil-execute-in-emacs-state)
-  (general-create-definer +sf/localleader :prefix "_")
-  (+sf/localleader
-    :keymaps 'normal
-    "D" #'magit-diff-dwim
-    "G" #'magit
-    "cf" #'+sf/cycle-font
-    "ct" #'+sf/cycle-theme
-    "e" #'eval-buffer
-    "x" #'eval-last-sexp)
-  (general-create-definer +sf/leader :prefix "SPC")
-  (+sf/leader
-    :keymaps 'normal
-    "RET" #'execute-extended-command
-    "SPC" #'consult-buffer
-    "b" #'consult-project-buffer
-    "d" #'consult-flycheck
-    "ff" #'project-find-file
-    "G" #'rg
-    "gb" #'blamer-show-commit-info
-    "gd" #'lsp-ui-peek-find-definitions
-    "gg" #'consult-ripgrep
-    "gr" #'lsp-ui-peek-find-references
-    "hr" #'diff-hl-revert-hunk
-    "hv" #'diff-hl-show-hunk
-    "l" #'consult-line
-    "R" #'lsp-rename
-    "rg" #'deadgrep
-    "vd" #'consult-lsp-diagnostics
-    "vt" #'hl-todo-occur
-    "/"  #'consult-line
-    "\\" #'+sidebar--toggle)
-  (+sf/leader
-    :keymaps 'visual
-    "RET" #'execute-extended-command)
-  (general-create-definer +sf/search-leader :prefix "SPC s")
-  (+sf/search-leader
-    :keymaps 'normal
-    "r" #'consult-recent-file
-    "S" #'consult-lsp-symbols
-    "s" #'consult-lsp-file-symbols
-    "t" #'consult-lsp-symbols)
-  (general-create-definer +sf/ctrl-c-leader :prefix "C-c")
-  (+sf/ctrl-c-leader
-    :keymaps 'normal
-    "j" #'diff-hl-next-hunk
-    "k" #'diff-hl-previous-hunk)
-  (general-create-definer +sf/next :prefix "]")
-  (+sf/next
-    :keymaps 'normal
-    "b" #'next-buffer
-    "d" #'flycheck-next-error
-    "t" #'tab-next)
-  (general-create-definer +sf/previous :prefix "[")
-  (+sf/previous
-    :keymaps 'normal
-    "b" #'previous-buffer
-    "d" #'flycheck-previous-error
-    "t" #'tab-previous)
-  (general-def 'normal
-    "M-n" #'tab-next
-    "M-p" #'tab-previous))
-;;; we may want to use general keyword later
-(elpaca-wait)
-
-;;; evil
-(use-package evil-config
-  :ensure nil
-  :after (evil))
-
-(use-package evil
-  :demand t
-  :init
-  (setq evil-want-keybinding nil)
-  (setq evil-disable-insert-state-bindings t)
-  :config
-  (evil-mode t)
-  (defalias #'forward-evil-word #'forward-evil-symbol)
-  (defun +sf/evil--nohl ()
-    (progn
-      (redraw-frame)
-      (evil-ex-nohighlight)))
-  (defun +sf/evil--eval-visual-region ()
-    (interactive)
-    (call-interactively 'eval-region)
-    (evil-force-normal-state))
-  ;; replaced be evil-goggles
-  (defun +sf/evil--yank-advice (orig-fn beg end &rest args)
-    "Advice to be added to `evil-yank' to highlight yanked region.
-Pass ORIG-FN, BEG, END, TYPE, ARGS."
-    (pulse-momentary-highlight-region beg end 'region)
-    (apply orig-fn beg end args))
-  ;; (advice-add 'evil-yank :around '+sf/evil--yank-advice)
-  :custom
-  (evil-undo-system 'undo-fu)
-  (evil-want-integration t)
-  (evil-want-C-u-scroll t)
-  (evil-want-C-i-jump t)
-  (evil-want-Y-yank-to-eol t)
-  (evil-split-window-below t)
-  (evil-split-window-right t)
-  (evil-vsplit-window-right t)
-  (evil-search-module 'evil-search)
-  (scroll-margin 3) ; set scrolloff=3
-  :bind
-  ((:map evil-normal-state-map
-         ([(control l)] . #'evil-ex-nohighlight)
-         ([(control j)] . #'evil-next-line)
-         ([(control k)] . #'evil-previous-line)
-         ([(control return)] . #'eval-last-sexp)
-         ([(control |)] . #'+sf/revert-buffer-noconfirm-and-update-diff-hl)
-         ("j" . #'evil-next-visual-line)
-         ("k" . #'evil-previous-visual-line)
-         ("gj" . #'evil-next-line)
-         ("gk" . #'evil-previous-line)
-         ("gq" . #'+format/region-or-buffer)
-         ([(control shift v)] . #'evil-paste-after)
-         ([(meta h)] . #'evil-window-left)
-         ([(meta j)] . #'evil-window-down)
-         ([(meta k)] . #'evil-window-up)
-         ([(meta l)] . #'evil-window-right)
-         ([(shift up)] . #'evil-window-increase-height)
-         ([(shift right)] . #'evil-window-increase-width)
-         ([(shift down)] . #'evil-window-decrease-height)
-         ([(shift left)] . #'evil-window-decrease-width))
-   (:map evil-insert-state-map
-         ([(control shift c)] . #'evil-yank)
-         ([(control shift v)] . #'yank))
-   (:map evil-visual-state-map
-         ([(control shift c)] . #'evil-yank)
-         ([(control shift v)] . #'evil-visual-paste)
-         (";" . #'+sf/evil--eval-visual-region)
-         ("SPC RET" . #'execute-extended-command))))
-;;; we may want to use evil keyword later
-(elpaca-wait)
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init)
-  (diminish 'evil-collection-unimpaired-mode))
-
-(use-package evil-goggles
-  :after evil
-  :diminish
-  :config
-  (evil-goggles-mode))
-
-(use-package evil-commentary
-  :after evil
-  :diminish
-  :init
-  (evil-commentary-mode))
-
-(use-package evil-quickscope
-  :after evil
-  :config
-  (global-evil-quickscope-mode t))
-
-(use-package evil-matchit
-  :after evil
-  :config
-  (global-evil-matchit-mode t))
-
-(use-package evil-surround
-  :after evil
-  :config
-  (global-evil-surround-mode t))
-
-(use-package evil-visualstar
-  :after evil
-  :config
-  (global-evil-visualstar-mode)
-  :custom
-  (evil-visualstar/persist t))
-
-(use-package evil-textobj-line)
-(use-package evil-textobj-syntax)
-(use-package evil-indent-plus
-  :config
-  (define-key evil-inner-text-objects-map "i" 'evil-indent-plus-i-indent)
-  (define-key evil-outer-text-objects-map "i" 'evil-indent-plus-a-indent)
-  (define-key evil-inner-text-objects-map "I" 'evil-indent-plus-i-indent-up)
-  (define-key evil-outer-text-objects-map "I" 'evil-indent-plus-a-indent-up)
-  (define-key evil-inner-text-objects-map "J" 'evil-indent-plus-i-indent-up-down)
-  (define-key evil-outer-text-objects-map "J" 'evil-indent-plus-a-indent-up-down))
-
-(use-package evil-numbers
-  :after (evil)
-  :commands (evil-numbers/inc-at-pt-incremental evil-numbers/dec-at-pt-incremental)
-  :init
-  (define-key evil-normal-state-map (kbd "C-; C-a") 'evil-numbers/inc-at-pt-incremental)
-  (define-key evil-normal-state-map (kbd "C-; C-x") 'evil-numbers/dec-at-pt-incremental))
 
 ;;; undo stuff
 (use-package undo-fu
@@ -512,100 +281,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 (use-package spinner)
 (use-package lv)
 
-(use-package dape
-  :preface
-  ;; By default dape shares the same keybinding prefix as `gud'
-  ;; If you do not want to use any prefix, set it to nil.
-  ;; (setq dape-key-prefix "\C-x\C-a")
-
-  :hook
-  ;; Save breakpoints on quit
-  ((kill-emacs . dape-breakpoint-save)
-  ;; Load breakpoints on startup
-   (after-init . dape-breakpoint-load))
-
-  :config
-  ;; Turn on global bindings for setting breakpoints with mouse
-  (dape-breakpoint-global-mode)
-
-  ;; Info buffers to the right
-  (setq dape-buffer-window-arrangement 'right)
-
-  ;; Info buffers like gud (gdb-mi)
-  (setq dape-buffer-window-arrangement 'gud)
-  (setq dape-info-hide-mode-line nil)
-
-  ;; Pulse source line (performance hit)
-  (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
-
-  ;; Showing inlay hints
-  (setq dape-inlay-hints t)
-
-  ;; Save buffers on startup, useful for interpreted languages
-  (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))
-
-  ;; Kill compile buffer on build success
-  ;; (add-hook 'dape-compile-hook 'kill-buffer)
-
-  ;; Projectile users
-  (defun dape-root()
-    (project-root(project-current)))
-  (setq dape-cwd-fn 'dape-root))
-
-;;; Lsp-mode
-(use-package lsp-mode
-  :demand t
-  :custom
-  (lsp-completion-provider :none)
-  (lsp-file-watch-threshold 50000)
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-headerline-breadcrumb-segments '(project symbols))
-  (lsp-enable-suggest-server-download t)
-  (lsp-enable-symbol-highlighting t)
-  (lsp-enable-xref t)
-  (lsp-auto-configure t)
-  (lsp-inlay-hint-enable t)
-  (lsp-lens-enable t)
-  (tooltip-mode 1)
-  :config
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\venv\\'")
-  (defun +sf/python-mode-hook()
-    (require 'lsp-pyright)
-    (lsp-deferred))
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((json-ts-mode-hook . lsp-deferred)
-         (js-json-mode-hook . lsp-deferred)
-         (yaml-mode-hook . lsp-deferred)
-         (yaml-ts-mode-hook . lsp-deferred)
-         (rust-mode-hook . lsp-deferred)
-         (rust-ts-mode-hook . lsp-deferred)
-         ;; (tsx-ts-mode-hook . lsp-deferred)
-         ;; (typescript-ts-mode-hook . lsp-deferred)
-         (lsp-mode-hook . lsp-enable-which-key-integration)
-         (python-ts-mode-hook . +sf/python-mode-hook)
-         (python-mode-hook . +sf/python-mode-hook)
-         (java-mode-hook . lsp-deferred)
-         (java-ts-mode-hook . lsp-deferred)))
-
-(use-package lsp-ui
-  :after lsp
-  :commands lsp-ui-mode)
-
-(use-package lsp-pyright
-  :after lsp)
-
-(use-package consult-lsp
-  :after (consult lsp))
-
-;; debugging
-(use-package realgud
-  :commands (realgud-pdb)
-  :bind (:map python-ts-mode-map
-              ([f5] . #'realgud:pdb)
-              :map python-mode-map
-              ([f5] . #'realgud:pdb)))
-
 ;;; treesitter
 (use-package treesit
   :ensure nil)
@@ -617,56 +292,9 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-(use-package evil-textobj-tree-sitter
-  :after (evil treesit)
-  :config
-  (defmacro $inlambda (functionname &rest args)
-    "Create an interactive lambda of existing function `FUNCTIONNAME' with `ARGS'."
-    (let ((funsymbol (concat "ilambda/" (symbol-name functionname))))
-      `(cons ,funsymbol (lambda () (interactive) (apply #',functionname ',args)))))
-  (defmacro $ilambda (functionname &rest args)
-    "Create an interactive lambda of existing function `FUNCTIONNAME' with `ARGS'."
-    `(lambda () (interactive) (apply #',functionname ',args)))
-
-  (define-key evil-outer-text-objects-map "m" (evil-textobj-tree-sitter-get-textobj "import"
-                                                '((python-mode . [(import_statement) @import])
-                                                  (go-mode . [(import_spec) @import])
-                                                  (rust-mode . [(use_declaration) @import]))))
-  (define-key evil-outer-text-objects-map "f" (cons "evil-outer-function" (evil-textobj-tree-sitter-get-textobj "function.outer")))
-  (define-key evil-inner-text-objects-map "f" (cons "evil-inner-function" (evil-textobj-tree-sitter-get-textobj "function.inner")))
-  (define-key evil-outer-text-objects-map "c" (cons "evil-outer-class" (evil-textobj-tree-sitter-get-textobj "class.outer")))
-  (define-key evil-inner-text-objects-map "c" (cons "evil-inner-class" (evil-textobj-tree-sitter-get-textobj "class.inner")))
-  (define-key evil-outer-text-objects-map "n" (cons "evil-outer-comment" (evil-textobj-tree-sitter-get-textobj "comment.outer")))
-  (define-key evil-inner-text-objects-map "n" (cons "evil-outer-comment" (evil-textobj-tree-sitter-get-textobj "comment.outer")))
-  (define-key evil-outer-text-objects-map "v" (cons "evil-outer-conditional-loop" (evil-textobj-tree-sitter-get-textobj ("conditional.outer" "loop.outer"))))
-  (define-key evil-inner-text-objects-map "v" (cons "evil-inner-conditional-loop" (evil-textobj-tree-sitter-get-textobj ("conditional.inner" "loop.inner"))))
-  (define-key evil-inner-text-objects-map "a" (cons "evil-inner-parameter" (evil-textobj-tree-sitter-get-textobj "parameter.inner")))
-  (define-key evil-outer-text-objects-map "a" (cons "evil-outer-parameter" (evil-textobj-tree-sitter-get-textobj "parameter.outer")))
-
-  (define-key evil-normal-state-map (kbd "]a") (cons "goto-parameter-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner")))
-  (define-key evil-normal-state-map (kbd "[a") (cons "goto-parameter-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" t)))
-  (define-key evil-normal-state-map (kbd "]A") (cons "goto-parameter-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" nil t)))
-  (define-key evil-normal-state-map (kbd "[A") (cons "goto-parameter-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "parameter.inner" t t)))
-  (define-key evil-normal-state-map (kbd "]v") (cons "goto-conditional-start" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer"))))
-  (define-key evil-normal-state-map (kbd "[v") (cons "goto-conditional-start" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") t)))
-  (define-key evil-normal-state-map (kbd "]V") (cons "goto-conditional-end" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") nil t)))
-  (define-key evil-normal-state-map (kbd "[V") (cons "goto-conditional-end" ($ilambda evil-textobj-tree-sitter-goto-textobj ("conditional.outer" "loop.outer") t t)))
-  (define-key evil-normal-state-map (kbd "]c") (cons "goto-class-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer")))
-  (define-key evil-normal-state-map (kbd "[c") (cons "goto-class-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" t)))
-  (define-key evil-normal-state-map (kbd "]C") (cons "goto-class-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" nil t)))
-  (define-key evil-normal-state-map (kbd "[C") (cons "goto-class-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "class.outer" t t)))
-  (define-key evil-normal-state-map (kbd "]n") (cons "goto-comment-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer")))
-  (define-key evil-normal-state-map (kbd "[n") (cons "goto-comment-start" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" t)))
-  (define-key evil-normal-state-map (kbd "]N") (cons "goto-comment-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" nil t)))
-  (define-key evil-normal-state-map (kbd "[N") (cons "goto-comment-end" ($ilambda evil-textobj-tree-sitter-goto-textobj "comment.outer" t t)))
-  (define-key evil-normal-state-map (kbd "]f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer") (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "[f") (cons "goto-function-start" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t) (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "]F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" nil t) (reposition-window)))))
-  (define-key evil-normal-state-map (kbd "[F") (cons "goto-function-end" (lambda () (interactive) (progn (evil-textobj-tree-sitter-goto-textobj "function.outer" t t) (reposition-window))))))
-
-;;; context using treesitter
 (use-package posframe-plus
   :ensure (:host github :type git :repo "zbelial/posframe-plus" ))
+
 (use-package treesitter-context
   :after (treesit posframe-plus)
   :ensure (:type git :host github :repo "zbelial/treesitter-context.el")
@@ -682,9 +310,9 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 
 ;;; avy
 (use-package avy
-  :bind
-  (:map evil-normal-state-map
-        ("s" . #'avy-goto-word-1)))
+  :bind (("C-:" . #'avy-goto-char)
+         ("C-'" . #'avy-goto-char-2)
+         ("M-g w" . #'avy-goto-word-1)))
 
 ;;; hideshow
 (use-package hideshow
@@ -704,6 +332,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 ;;; org-mode
 (use-package org
   :ensure nil
+
   :commands (org-mode
              org-capture)
   :defer t
@@ -726,16 +355,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
      (sequence "NEW(n)" "WORK(k!)" "PUSH-DEV(p!)" "REOPENED(r@/!)" "|" "STAGED(S!)" "RELEASED(R!)" "WONTFIX(w@)")))
   :hook
   (org-mode-hook . org-indent-mode))
-
-;; (use-package evil-org-mode
-;;   :ensure (:host github :repo "Somelauw/evil-org-mode")
-;;   :after org
-;;   :config
-;;   (require 'evil-org-agenda)
-;;   (evil-org-agenda-set-keys)
-;;   (defun $org-mode-hook ()
-;;     (evil-org-mode))
-;;   :hook (org-mode-hook . $org-mode-hook))
 
 ;;; org-table
 (use-package org-table
@@ -775,22 +394,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
 ;;; project
 (use-package project
   :ensure nil
-  :config
-  (defun +sf/project-override (dir)
-    (let ((override (locate-dominating-file dir ".project.el")))
-      (if override
-          (cons 'vc override)
-        nil)))
-  (defun +sf/project--default-directory ()
-    (if (project-current)
-        (setq default-directory (cdr (project-current)))
-      (if (buffer-file-name)
-          (setq default-directory (file-name-parent-directory (buffer-file-name)))
-        (setq default-directory (getenv "HOME")))))
-  :hook
-  ;; (find-file-hook . #'+sf/project--default-directory)
-  ;; note: this is *not* `PROJECT-FIND-FUNCTIONS-HOOK`
-  (project-find-functions . +sf/project-override))
+  :bind (("C-c f" . #'project-find-file)))
 
 ;;; marginalia
 (use-package marginalia
@@ -962,8 +566,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
                                  $dispatch:prefixes))
   (completion-category-defaults nil)
   (completion-category-overrides
-   '((lsp-mode (styles . (orderless)))
-     (file (styles . (basic partial-completion orderless)))
+   '((file (styles . (basic partial-completion orderless)))
      (project-file (styles . (basic substring partial-completion orderless)))
      (imenu (styles . (basic substring orderless)))
      (kill-ring (styles . (basic substring orderless)))
@@ -984,9 +587,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
     (let ((completion-extra-properties corfu--extra)
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
-  (defun corfu-lsp-setup ()
-    (setq-local completion-styles '(orderless)
-                completion-category-defaults nil))
   (defun corfu-enable-always-in-minibuffer ()
     "Enable Corfu in the minibuffer if Vertico/Mct are not active."
     (unless (or (bound-and-true-p mct--active)
@@ -1005,7 +605,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
         ("M-q" . #'corfu-quick-complete)
         ("C-q" . #'corfu-quick-insert)
         ("RET". nil))
-  :hook (lsp-mode-hook . corfu-lsp-setup)
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode t)
@@ -1148,7 +747,6 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-file-register
    consult--source-recent-file consult--source-project-recent-file
-   consult-lsp-symbols consult-lsp-file-symbols consult-lsp-diagnostics
    :preview-key "M-.")
 
   (setq consult-narrow-key "<")
@@ -1177,10 +775,7 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :bind
   (("C-," . #'embark-act)
    ("M-," . #'$embark-act-noquit)
-   ("C-M-," . #'embark-dwim) :map embark-general-map
-   ([(control y)] . #'symbol-overlay-put)
-   ([(control g)] . #'consult-ripgrep)
-   ([(control G)] . #'rg))
+   ("C-M-," . #'embark-dwim))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   :custom
@@ -1213,12 +808,9 @@ Pass ORIG-FN, BEG, END, TYPE, ARGS."
   :demand t
   :ensure (:pre-build (setq vterm-always-compile-module t))
   :config
-  (defun $vterm-mode-hook ()
-    (setq-local evil-insert-state-cursor 'box)
-    (evil-insert-state))
   (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path))))
   :custom
-  (vterm-shell "fish")
+  (vterm-shell "zsh")
   (vterm-max-scrollback 100000)
   (vterm-buffer-name-string "*vterm* %s")
   :hook
@@ -1260,18 +852,17 @@ no matter what."
     (let ((abuf "*ansi-term*"))
       (cond
        (arg
-        (ansi-term "fish"))
+        (ansi-term "zsh"))
        ((string= abuf (buffer-name))
         (previous-buffer))
        ((try-completion abuf (mapcar #'buffer-name (buffer-list)))
         (switch-to-buffer abuf))
-       (t (ansi-term "fish"))))))
+       (t (ansi-term "zsh"))))))
 
-;;; use fish shell
 (use-package shell
   :ensure nil
   :custom
-  (explicit-shell-file-name "fish"))
+  (explicit-shell-file-name "/opt/homebrew/bin/zsh"))
 
 ;; magit
 (use-package magit
@@ -1392,17 +983,6 @@ no matter what."
   :config
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'typescript-tslint 'web-mode)
-  (defun $flycheck--configure-python-checkers ()
-    (flycheck-add-next-checker 'lsp 'python-pylint))
-  (defun $flycheck--configure-json-checkers ()
-    (flycheck-add-next-checker 'lsp 'json-jsonlint))
-  (defun $flycheck--configure-ts-checkers ()
-    (flycheck-add-next-checker 'lsp 'javascript-eslint))
-  ;; :hook ((python-mode-hook . $flycheck--configure-python-checkers)
-  ;;        (python-ts-mode-hook . $flycheck--configure-python-checkers)
-  ;;        (json-js-mode-hook . $flycheck--configure-json-checkers)
-  ;;        (json-ts-mode-hook . $flycheck--configure-json-checkers)
-  ;;        (typescript-ts-mode-hook . $flycheck--configure-ts-checkers))
   :init
   (global-flycheck-mode t))
 
@@ -1598,48 +1178,7 @@ questions.  Else use completion to select the tab to switch to."
   :config
   (which-key-mode))
 
-(use-package dimmer
-  :custom
-  (dimmer-fraction 0.10)
-  (dimmer-watch-frame-focus-events nil)
-  :config
-  (defun +dimmer--advise-dimmer-config-change-handler ()
-    "Advise to only force process if no predicate is truthy."
-    (let ((ignore (cl-some (lambda (f) (and (fboundp f) (funcall f)))
-                           dimmer-prevent-dimming-predicates)))
-      (unless ignore
-        (when (fboundp 'dimmer-process-all)
-          (dimmer-process-all t)))))
-
-  (defun +sf/corfu--frame-p ()
-    "Check if the buffer is a corfu frame buffer."
-    (string-match-p "\\` \\*corfu" (buffer-name)))
-
-  (defun +dimmer--configure-corfu ()
-    "Convenience settings for corfu users."
-    (add-to-list
-     'dimmer-prevent-dimming-predicates
-     #'+sf/corfu--frame-p))
-
-  (advice-add
-   'dimmer-config-change-handler
-   :override '+dimmer--advise-dimmer-config-change-handler)
-  (+dimmer--configure-corfu)
-
-  (defun dimmer--config-change-handler-patch (orig-fun &rest args)
-    (run-at-time 0.2 nil #'apply orig-fun args))
-  (advice-add 'dimmer-config-change-handler :around #'dimmer--config-change-handler-patch)
-
-  (dimmer-mode t)
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit)
-  (dimmer-configure-posframe))
-
-;;; idle-highlight-mode
-(use-package idle-highlight-mode
-  :custom
-  (idle-highlight-idle-time 1.0)
-  :bind (([(control f7)] . idle-highlight-mode)))
+ind (([(control f7)] . idle-highlight-mode)))
 
 (use-package symbol-overlay
   :bind (("C-c j" . #'symbol-overlay-jump-next)
