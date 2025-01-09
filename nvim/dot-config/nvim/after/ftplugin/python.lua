@@ -79,18 +79,3 @@ local function set_python_format_config()
   })
 end
 set_python_format_config()
-
--- set up python test config
-require("plugins.test.python").setup()
-
-vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-  callback = function()
-    if vim.fn.executable("pytest") then
-      require("dap-python").test_runner = "pytest"
-    else
-      require("dap-python").test_runner = "unittest"
-    end
-  end,
-  buffer = bufnr,
-  group = vim.api.nvim_create_augroup("set-python-test-runner" .. bufnr, {}),
-})

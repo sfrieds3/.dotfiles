@@ -23,6 +23,3 @@ vim.api.nvim_buf_create_user_command(vim.api.nvim_get_current_buf(), "RunOnSaveD
     print("Error running RunOnSaveDisable.. no augroup with name " .. augroup_name .. " exists")
   end
 end, {})
-
--- set up golang test config
-require("plugins.test.golang").setup()
