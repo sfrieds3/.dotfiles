@@ -12,39 +12,11 @@ return {
   },
   { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
   {
-    "projekt0n/github-nvim-theme",
-    event = "VeryLazy",
-    version = "*",
-
-    config = function()
-      require("github-theme").setup({
-        options = {
-          dim_inactive = true,
-          styles = {
-            functions = "italic",
-          },
-          inverse = { -- Inverse highlight for different types
-            match_paren = true,
-            visual = true,
-            search = true,
-          },
-          darken = {
-            floats = true,
-            sidebars = {
-              enable = true,
-              list = { "qf", "terminal" },
-            },
-          },
-        },
-      })
-    end,
-  },
-  {
     "catppuccin/nvim",
     name = "catppuccin",
 
     opts = {
-      flavour = "frappe", -- latte, frappe, macchiato, mocha
+      flavour = "frappe",
       background = {
         light = "frappe",
         dark = "mocha",
@@ -138,17 +110,11 @@ return {
       },
     },
   },
-  { "navarasu/onedark.nvim", event = "VeryLazy" },
   {
     "olivercederborg/poimandres.nvim",
     event = "VeryLazy",
     opts = {
       dim_nc_background = true,
     },
-  },
-  { "savq/melange-nvim", event = "VeryLazy" },
-  {
-    "olimorris/onedarkpro.nvim",
-    event = "VeryLazy",
   },
 }
