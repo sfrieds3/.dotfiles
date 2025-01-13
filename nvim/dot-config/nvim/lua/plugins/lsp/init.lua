@@ -13,6 +13,7 @@ return {
         cmd = { "Mason" },
         opts = {
           providers = { "mason.providers.client", "mason.providers.registry-api" },
+          PATH = "append",
         },
         dependencies = {
           "williamboman/mason-lspconfig.nvim",
