@@ -196,14 +196,13 @@
 
 ;;; match env to shell
 (use-package exec-path-from-shell
-  :custom
-  (exec-path-from-shell-shell-name "/opt/homebrew/bin/zsh")
-  :init
   :config
   (dolist (var '("XDG_CONFIG_HOME" "XDG_DATA_HOME" "XDG_CACHE_HOME" "JAVA_HOME"))
     (add-to-list 'exec-path-from-shell-variables var))
   (add-to-list 'exec-path (substitute-in-file-name "$XDG_DATA_HOME/nvim/mason/bin"))
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (setenv "PATH" (concat (getenv "PATH") ":/home/user/.local/share/mise/shims"))
+  (setq exec-path (append exec-path '("/home/user/.local/share/mise/shims"))))
 
 ;;; auto-revert everything
 (use-package autorevert
@@ -1174,11 +1173,10 @@ questions.  Else use completion to select the tab to switch to."
 
 ;; which-key
 (use-package which-key
+  :ensure nil
   :diminish
   :config
   (which-key-mode))
-
-ind (([(control f7)] . idle-highlight-mode)))
 
 (use-package symbol-overlay
   :bind (("C-c j" . #'symbol-overlay-jump-next)
@@ -1324,6 +1322,8 @@ ind (([(control f7)] . idle-highlight-mode)))
 (let ((local-settings (expand-file-name "local-settings.el" user-emacs-directory)))
   (when (file-exists-p local-settings)
     (load-file local-settings)))
+
+(message "loaded init.el!")
 
 (provide 'init.el)
 ;;; init.el ends here

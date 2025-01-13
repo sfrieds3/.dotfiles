@@ -11,7 +11,7 @@
   `(load-theme ',(car (read-from-string theme)) t))
 
 (defvar +sf/themes)
-(put '+sf/themes :themes ["catppuccin" "standard-dark" "doom-monokai-pro" "doom-material-dark" "doom-miramare" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
+(put '+sf/themes :themes ["standard-dark" "doom-monokai-pro" "doom-material-dark" "doom-miramare" "zerodark" "doom-nord" "doom-1337" "doom-xcode" "doom-gruvbox" "modus-vivendi" "ef-duo-dark" "ef-trio-dark"])
 
 (defvar +sf/fonts)
 (put '+sf/fonts :fonts ["Berkeley Mono"])
