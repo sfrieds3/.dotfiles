@@ -15,7 +15,7 @@
 [difftool]
 	prompt = false
 [difftool "difftastic"]
-        cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft "$LOCAL" "$REMOTE"
 [commit]
 	verbose = true
 [mergetool]
@@ -49,10 +49,11 @@
 	blm = blame -wM
 	br = branch
 	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
-        dft = difftool
+	dft = difftool
+	du = diff @{upstream}
 	fpush = push --force-with-lease
 	la = log --graph --oneline --decorate --all
-        lb = log --graph --decorate
+	lb = log --graph --decorate
 	lf = log -p --pretty=fuller --abbrev-commit
 	lg = log --pretty=fuller --abbrev-commit --stat
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
