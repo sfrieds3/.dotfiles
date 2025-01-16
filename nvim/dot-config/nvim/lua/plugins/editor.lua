@@ -2,7 +2,6 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    config = true,
     opts = {
       preset = "modern",
       spec = {
@@ -166,7 +165,6 @@ return {
       },
       pattern = [[\b(KEYWORDS)\b]],
     },
-    config = true,
     keys = {
       {
         "]T",
@@ -195,36 +193,36 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
 
-    config = function()
-      require("smart-splits").setup({
-        -- Ignored filetypes (only while resizing)
-        ignored_filetypes = {
-          "nofile",
-          "quickfix",
-          "prompt",
-          "Outline",
-          "neo-tree",
+    opts = {
+      -- Ignored filetypes (only while resizing)
+      ignored_filetypes = {
+        "nofile",
+        "quickfix",
+        "prompt",
+        "Outline",
+        "neo-tree",
+      },
+      -- Ignored buffer types (only while resizing)
+      ignored_buftypes = { "neo-tree" },
+      resize_mode = {
+        -- key to exit persistent resize mode
+        quit_key = "<ESC>",
+        -- keys to use for moving in resize mode
+        -- in order of left, down, up' right
+        resize_keys = { "h", "j", "k", "l" },
+        -- set to true to silence the notifications
+        -- when entering/exiting persistent resize mode
+        silent = false,
+        -- must be functions, they will be executed when
+        -- entering or exiting the resize mode
+        hooks = {
+          on_enter = nil,
+          on_leave = nil,
         },
-        -- Ignored buffer types (only while resizing)
-        ignored_buftypes = { "neo-tree" },
-        resize_mode = {
-          -- key to exit persistent resize mode
-          quit_key = "<ESC>",
-          -- keys to use for moving in resize mode
-          -- in order of left, down, up' right
-          resize_keys = { "h", "j", "k", "l" },
-          -- set to true to silence the notifications
-          -- when entering/exiting persistent resize mode
-          silent = false,
-          -- must be functions, they will be executed when
-          -- entering or exiting the resize mode
-          hooks = {
-            on_enter = nil,
-            on_leave = nil,
-          },
-          multiplexer_integration = nil,
-        },
-      })
+        multiplexer_integration = nil,
+      },
+    },
+    init = function()
       -- TODO: convert these to lazy key
       vim.keymap.set("n", "<A-S-h>", require("smart-splits").resize_left, { desc = "smart-split resize left" })
       vim.keymap.set("n", "<A-S-j>", require("smart-splits").resize_down, { desc = "smart-split resize down" })
@@ -313,7 +311,7 @@ return {
     "andymass/vim-matchup",
     event = { "CursorMoved", "BufReadPost" },
 
-    config = function()
+    init = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
       vim.g.matchup_matchparen_deferred_show_delay = 500
       vim.g.matchup_matchparen_deferred_hide_delay = 500
@@ -392,22 +390,6 @@ return {
       { "<leader>-", function() require("arrow.persist").previous() end, desc = "Arrow Previous", },
       { "<leader>=", function() require("arrow.persist").next() end, desc = "Arrow Next", },
       { "<C-s>", function() require("arrow.persist").toggle() end, desc = "Arrow Toggle", },
-    },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {
-      enabled = false,
-      indent = {
-        smart_indent_cap = true,
-      },
-      scope = {
-        enabled = true,
-      },
-    },
-    keys = {
-      { "<M-i>", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Blankline" },
     },
   },
 }

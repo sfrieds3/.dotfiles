@@ -2,6 +2,7 @@ local M = {
   "stevearc/overseer.nvim",
   cmd = {
     "Grep",
+    "GrepAll",
     "GrepCWord",
     "GrepVWord",
     "Make",
@@ -65,6 +66,7 @@ function M.config()
     Grep = {},
     GrepAll = { rg_flags = "-uuu --hidden" },
     GrepHidden = { rg_flags = "--hidden" },
+    -- TODO: this does not work
     GrepCWord = { params = {
       args = function()
         return vim.fn.expand("<cword>")

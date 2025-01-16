@@ -42,7 +42,7 @@ function M.setup()
     elixirls = true,
     jdtls = true,
     lexical = true,
-    ltex = true,
+    ltex = false,
     marksman = true,
     ruff = true,
     taplo = true,

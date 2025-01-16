@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
+    init = function()
       local ensure_installed = { "jsonls", "lua_ls", "pyright", "ts_ls" }
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("plugins.lsp.config").setup()

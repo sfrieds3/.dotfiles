@@ -26,7 +26,6 @@ return {
   {
     "echasnovski/mini.align",
     version = false,
-    config = true,
     event = "VeryLazy",
   },
   {
@@ -58,10 +57,11 @@ return {
   },
   {
     "echasnovski/mini.icons",
-    config = function()
+    opts = function()
       local mi = require("mini.icons")
       mi.setup()
       mi.mock_nvim_web_devicons()
+      return {}
     end,
   },
 }

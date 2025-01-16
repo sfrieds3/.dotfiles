@@ -10,7 +10,6 @@ return {
   {
     "Wansmer/treesj",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = true,
     -- stylua: ignore
     keys = {
       { "<leader>cm", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
@@ -25,93 +24,91 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "RRethy/nvim-treesitter-textsubjects",
     },
-
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = "all",
-        sync_install = false,
-        auto_install = true,
-        ignore_install = {},
-        highlight = {
-          enable = true,
-          disable = function(lang, buf)
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize and lang ~= "go" then
-              return true
-            end
-          end,
+    opts = {
+      ensure_installed = "all",
+      sync_install = false,
+      auto_install = true,
+      ignore_install = {},
+      highlight = {
+        enable = true,
+        -- disable = function(lang, buf)
+        --   local max_filesize = 100 * 1024 -- 100 KB
+        --   local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+        --   if ok and stats and stats.size > max_filesize and lang ~= "go" then
+        --     return true
+        --   end
+        -- end,
+      },
+      additional_vim_regex_highlighting = false,
+      indent = {
+        enable = true,
+      },
+      matchup = {
+        enable = true,
+      },
+      -- RRethy/nvim-treesitter-textsubjects
+      textsubjects = {
+        enable = true,
+        prev_selection = ",",
+        keymaps = {
+          ["."] = "textsubjects-smart",
+          [";"] = "textsubjects-container-outer",
+          ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
         },
-        additional_vim_regex_highlighting = false,
-        indent = {
+      },
+      textobjects = {
+        select = {
           enable = true,
-        },
-        matchup = {
-          enable = true,
-        },
-        -- RRethy/nvim-treesitter-textsubjects
-        textsubjects = {
-          enable = true,
-          prev_selection = ",", -- (Optional) keymap to select the previous selection
+          lookahead = true,
           keymaps = {
-            ["."] = "textsubjects-smart",
-            [";"] = "textsubjects-container-outer",
-            ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+            ["aa"] = "@parameter.outer",
+            ["ia"] = "@parameter.inner",
+            ["am"] = "@function.outer",
+            ["im"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["al"] = "@loop.outer",
+            ["il"] = "@loop.inner",
+            ["uc"] = "@comment.outer",
           },
         },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-              ["am"] = "@function.outer",
-              ["im"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["al"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["uc"] = "@comment.outer",
-            },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]f"] = "@function.outer",
+            ["]m"] = "@function.outer",
+            ["]c"] = "@class.outer",
           },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]f"] = "@function.outer",
-              ["]m"] = "@function.outer",
-              ["]c"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]F"] = "@function.outer",
-              ["]M"] = "@function.outer",
-              ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[f"] = "@function.outer",
-              ["[m"] = "@function.outer",
-              ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[F"] = "@function.outer",
-              ["[M"] = "@function.outer",
-              ["[C"] = "@class.outer",
-            },
+          goto_next_end = {
+            ["]F"] = "@function.outer",
+            ["]M"] = "@function.outer",
+            ["]C"] = "@class.outer",
           },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["<leader>a"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader>A"] = "@parameter.inner",
-            },
+          goto_previous_start = {
+            ["[f"] = "@function.outer",
+            ["[m"] = "@function.outer",
+            ["[c"] = "@class.outer",
+          },
+          goto_previous_end = {
+            ["[F"] = "@function.outer",
+            ["[M"] = "@function.outer",
+            ["[C"] = "@class.outer",
           },
         },
-      })
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<leader>a"] = "@parameter.inner",
+          },
+          swap_previous = {
+            ["<leader>A"] = "@parameter.inner",
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
   {

@@ -32,7 +32,7 @@ vim.opt.errorformat:append({
 vim.opt_local.suffixesadd = ".py"
 
 local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
-local disable_auto_format_files = { ".pynoautoformat", ".pydisableautoformat", ".pydisableformat" }
+local disable_auto_format_files = { ".noautoformat", ".disableformat", ".pynoautoformat" }
 
 local function format_file(opts)
   if vim.g.disable_autoformat or vim.b[opts.buf].disable_autoformat then
