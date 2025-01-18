@@ -41,10 +41,6 @@ local function get_grep_cmd(params, opts)
   params = opts.params or params
   local rg_flags = opts.rg_flags or ""
 
-  if type(params.args) == "function" then
-    params.args = params.args()
-  end
-
   -- Insert args at the '$*' in the grepprg
   local cmd, num_subs = vim.o.grepprg:gsub("%$%*", params.args)
   if num_subs == 0 then
@@ -66,7 +62,6 @@ function M.config()
     Grep = {},
     GrepAll = { rg_flags = "-uuu --hidden" },
     GrepHidden = { rg_flags = "--hidden" },
-    -- TODO: this does not work
     GrepCWord = { params = {
       args = function()
         return vim.fn.expand("<cword>")
