@@ -34,7 +34,7 @@ function M.setup()
   end
 
   local servers = {
-    ansiblels = false,
+    ansiblels = true,
     bashls = true,
     clojure_lsp = true,
     cssls = true,
