@@ -223,16 +223,15 @@ local function filename(buf_name, win_id, filename_color, shorten)
   local base_name = fnamemodify(buf_name, [[:~:.]])
   local icon, hi, _ = require("mini.icons").get("file", buf_name)
   local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
-  local mark_icon = require("arrow.statusline").text_for_statusline_with_icons()
   if shorten then
     local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
     if string.len(base_name) <= space then
-      return file_icon .. format_filename(base_name .. " " .. mark_icon)
+      return file_icon .. format_filename(base_name)
     else
-      return file_icon .. format_filename(pathshorten(base_name) .. " " .. mark_icon)
+      return file_icon .. format_filename(pathshorten(base_name))
     end
   else
-    return file_icon .. format_filename(base_name .. " " .. mark_icon)
+    return file_icon .. format_filename(base_name)
   end
 end
 

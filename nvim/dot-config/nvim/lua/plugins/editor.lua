@@ -377,19 +377,4 @@ return {
       },
     },
   },
-  {
-    "otavioschwanck/arrow.nvim",
-    event = "VeryLazy",
-    opts = {
-      show_icons = true,
-      leader_key = "<M-'>",
-      buffer_leader_key = '<M-">',
-    },
-    -- stylua: ignore
-    keys = {
-      { "<leader>-", function() require("arrow.persist").previous() end, desc = "Arrow Previous", },
-      { "<leader>=", function() require("arrow.persist").next() end, desc = "Arrow Next", },
-      { "<C-s>", function() require("arrow.persist").toggle() end, desc = "Arrow Toggle", },
-    },
-  },
 }
