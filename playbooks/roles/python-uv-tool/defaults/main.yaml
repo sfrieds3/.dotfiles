@@ -1,15 +1,18 @@
 uv_tool_packages:
+  - ansible-lint
+  - ansible-dev-tools
+  - beautysh
   - bump-my-version
   - compiledb
-  - cookiecutter
-  - cruft
   - git-filter-repo
   - ipython
+  - mdformat
   - nox
   - pipdeptree
   - poetry
   - pre-commit
   - pudb
+  - rstcheck
   - ruff
   - toml-cli
   - tox --with tox-uv

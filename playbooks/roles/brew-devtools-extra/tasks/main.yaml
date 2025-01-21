@@ -1,7 +1,6 @@
 - name: Tap mongodb tap
   community.general.homebrew_tap:
     name: mongodb/brew
-
 - name: Install mac devtools
   community.general.homebrew:
     name:
@@ -16,6 +15,7 @@
       - htop
       - httpie
       - kind
+      - libomp
       - mongodb-community@7.0
       - opam
       - prometheus

@@ -1,0 +1,6 @@
+- name: Install devtools casks
+  community.general.homebrew_cask:
+    name:
+      - miniconda
+      - podman-desktop
+    state: present
