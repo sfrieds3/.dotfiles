@@ -8,6 +8,7 @@ return {
     picker = { enabled = true },
     indent = { enabled = false },
     bufdelete = { enabled = true },
+    words = { enabled = true },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
@@ -36,6 +37,8 @@ return {
   keys = {
     { "<localleader>q", function() Snacks.bufdelete() end, desc = "BufDelete" },
     { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
+    { "[r", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Previous" },
+    { "]r", function() Snacks.words.jump(1, true) end, desc = "Words Jump Next" },
 
  --    { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
  --    { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
