@@ -37,7 +37,7 @@ local function overseer_grep_components(params)
   }
 end
 
-local function get_grep_cmd(params, opts)
+local function build_grep_cmd(params, opts)
   params = opts.params or params
   local rg_flags = opts.rg_flags or ""
 
@@ -62,17 +62,26 @@ function M.config()
     Grep = {},
     GrepAll = { rg_flags = "-uuu --hidden" },
     GrepHidden = { rg_flags = "--hidden" },
-    GrepCWord = { params = {
-      args = function()
-        return vim.fn.expand("<cword>")
-      end,
-    } },
+    GrepCWord = {
+      params = {
+        args = function()
+          return vim.fn.expand("<cword>")
+        end,
+      },
+    },
+    GrepVWord = {
+      params = {
+        args = function()
+          return require("utils.utils").get_visual_selection()
+        end,
+      },
+    },
   }
 
   for cmd, opts in pairs(grep_cmds) do
     vim.api.nvim_create_user_command(cmd, function(params)
       local task = overseer.new_task({
-        cmd = get_grep_cmd(params, opts),
+        cmd = build_grep_cmd(params, opts),
         components = overseer_grep_components(params),
       })
       task:start()
@@ -81,32 +90,6 @@ function M.config()
 
   vim.keymap.set("n", "<localleader>g", ":Grep<space>")
   vim.keymap.set("n", "<localleader>G", ":GrepCWord<cr>")
-
-  vim.api.nvim_create_user_command("GrepVWord", function()
-    local params = {}
-    params.args = require("utils.utils").get_visual_selection(0)
-    -- Insert args at the '$*' in the grepprg
-    local cmd, num_subs = vim.o.grepprg:gsub("%$%*", params.args)
-    if num_subs == 0 then
-      cmd = cmd .. " " .. params.args
-    end
-    local task = overseer.new_task({
-      cmd = vim.fn.expandcmd(cmd),
-      components = {
-        {
-          "on_output_quickfix",
-          errorformat = vim.o.grepformat,
-          open = not params.bang,
-          open_height = 8,
-          items_only = true,
-        },
-        -- We don't care to keep this around as long as most tasks
-        { "on_complete_dispose", timeout = 30 },
-        "default",
-      },
-    })
-    task:start()
-  end, { nargs = "*", bang = true, complete = "file" })
   vim.keymap.set("x", "<localleader>G", ":<C-u>GrepVWord<cr>")
 
   vim.api.nvim_create_user_command("Make", function(params)

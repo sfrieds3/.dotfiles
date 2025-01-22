@@ -84,7 +84,7 @@ end
 
 --- Gets visual selection on a single line
 --- At some point, should make this work across lines.. but I'm too lazy right now
----@param bufnr integer buffer number
+---@param bufnr? integer buffer number
 ---@return string visual selection string
 function Utils.get_visual_selection(bufnr)
   bufnr = bufnr or 0
