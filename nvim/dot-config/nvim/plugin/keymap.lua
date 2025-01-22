@@ -69,7 +69,6 @@ vim.keymap.set("n", "gb", "<cmd>bnext<cr>")
 vim.keymap.set("n", "gB", "<cmd>bprevious<cr>")
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>")
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
-vim.keymap.set("n", "\\q", "<cmd>bdelete<cr>")
 vim.keymap.set("n", "]t", "<cmd>tabnext<cr>")
 vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>")
 

@@ -7,6 +7,7 @@ return {
     debug = { enabled = true },
     picker = { enabled = true },
     indent = { enabled = false },
+    bufdelete = { enabled = true },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
@@ -33,6 +34,7 @@ return {
   end,
   -- stylua: ignore
   keys = {
+    { "<localleader>q", function() Snacks.bufdelete() end, desc = "BufDelete" },
     { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
 
  --    { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
