@@ -185,7 +185,7 @@ function FZFConfig.get_config()
 
     -- stylua: ignore
     keys = {
-      { "<leader><leader>", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+      -- { "<leader><leader>", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
       { "<leader>/", "<cmd>FzfLua lgrep_curbuf<cr>", desc = "Curent Buffer Fuzzy Find" },
       { "<leader>gr", "<cmd>FzfLua grep_cword theme=ivy<cr>", mode = { "n"}, desc = "Grep String" },
       { "<leader>gr", "<cmd>FzfLua grep_visual theme=ivy<cr>", mode = { "v"}, desc = "Grep String" },
