@@ -13,7 +13,6 @@ return {
         event = "LspAttach",
         opts = {},
       },
-      "saghen/blink.cmp",
     },
   },
 }

@@ -47,78 +47,6 @@ return {
     },
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree",
-    keys = {
-      { "<leader>\\", "<Cmd>Neotree reveal_force_cwd<CR>", desc = "Neotree Reveal CWD" },
-      { "<leader>|", "<Cmd>Neotree reveal<CR>", desc = "Neotree Reveal" },
-      {
-        "<leader>s|",
-        "<Cmd>Neotree float reveal_file=<cfile> reveal_force_cwd<CR>",
-        desc = "Neotree Float Reveal CWD",
-      },
-      { "<leader>sb", "<Cmd>Neotree toggle show buffers right<CR>", desc = "Neotree Buffers" },
-      { "<leader>gs", "<Cmd>Neotree float git_status<CR>", desc = "Neotee Git Status" },
-    },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        "s1n7ax/nvim-window-picker",
-        version = "v2.*",
-        opts = {
-          hint = "floating-big-letter",
-        },
-        keys = {
-          {
-            "<Leader>w",
-            function()
-              local winid = require("window-picker"):pick_window() or vim.api.nvim_get_current_win()
-              vim.api.nvim_set_current_win(winid)
-            end,
-            desc = "Nvim Window Picker: Pick a Window",
-          },
-        },
-      },
-    },
-    opts = {
-      buffers = {
-        follow_current_file = {
-          enabled = true,
-        },
-      },
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = {
-          enabled = true,
-        },
-        filtered_items = {
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          hide_hidden = false,
-          hide_by_pattern = {
-            "**/.git",
-            "**/.DS_Store",
-            "**/node_modules",
-          },
-        },
-      },
-      source_selector = {
-        winbar = true,
-      },
-      window = {
-        mappings = {
-          ["<space>"] = "none",
-        },
-        fuzzy_finder_mappings = {
-          ["<down>"] = "move_cursor_down",
-          ["<C-n"] = "move_cursor_down",
-          ["<up>"] = "move_cursor_up",
-          ["<C-u"] = "move_cursor_up",
-        },
-      },
-    },
-  },
-  {
     "stevearc/oil.nvim",
     cmd = "Oil",
     event = "VeryLazy",
@@ -339,42 +267,6 @@ return {
     },
     keys = {
       { "<leader><cr>", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },
-    },
-  },
-  {
-    "RRethy/vim-illuminate",
-
-    opts = {
-      providers = { "lsp", "treesitter", "regex" },
-      delay = 200,
-      large_file_cutff = 2000,
-      large_file_override = {
-        providers = { "lsp" },
-      },
-      filetypes_denylist = {
-        "fugitive",
-      },
-    },
-
-    setup = function(opts)
-      require("illuminate").configure(opts)
-    end,
-
-    keys = {
-      {
-        "[r",
-        function()
-          require("illuminate").next_reference({ reverse = true, wrap = true })
-        end,
-        desc = "Previous Reference",
-      },
-      {
-        "]r",
-        function()
-          require("illuminate").next_reference({ wrap = true })
-        end,
-        desc = "Next Reference",
-      },
     },
   },
 }
