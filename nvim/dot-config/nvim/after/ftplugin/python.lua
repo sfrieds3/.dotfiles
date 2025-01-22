@@ -54,7 +54,7 @@ local function format_file(opts)
   end
 
   -- default to ruff if project does not use black
-  if not ran_isort then
+  if not ran_isort and not has_formatted then
     conform.format({ formatters = { "ruff_organize_imports" }, bufnr = bufnr })
   end
   if not has_formatted then
