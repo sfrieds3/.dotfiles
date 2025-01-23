@@ -6,6 +6,7 @@
       - autoconf
       - automake
       - bash
+      - bash-language-server
       - bat
       - bfs
       - cmake
