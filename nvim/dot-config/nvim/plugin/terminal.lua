@@ -13,10 +13,20 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+local esc_timer = vim.uv.new_timer()
+
 vim.api.nvim_create_autocmd({ "TermEnter" }, {
   group = augroup("term-map"),
   callback = function()
     local buf_keymap_opts = { buffer = true }
-    vim.keymap.set("t", "<C-.>", [[<C-\><C-n>]], buf_keymap_opts)
+    vim.keymap.set("t", "<esc>", function()
+      if esc_timer:is_active() then
+        esc_timer:stop()
+        vim.cmd("stopinsert")
+      else
+        esc_timer:start(200, 0, function() end)
+        return "<esc>"
+      end
+    end, buf_keymap_opts)
   end,
 })
