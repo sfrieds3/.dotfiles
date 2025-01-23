@@ -9,9 +9,9 @@ vim.keymap.set("n", "gk", "k")
 vim.keymap.set("n", "g^", "^")
 vim.keymap.set("n", "g$", "$")
 
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Source File" })
-vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "Execute Lua File" })
-vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "Execute Lua Selection" })
+vim.keymap.set("n", "<localleader><localleader>x", "<cmd>source %<CR>", { desc = "Source File" })
+vim.keymap.set("n", "<localleader>x", ":.lua<CR>", { desc = "Execute Lua File" })
+vim.keymap.set("v", "<localleader>x", ":lua<CR>", { desc = "Execute Lua Selection" })
 
 -- drag lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down one" })

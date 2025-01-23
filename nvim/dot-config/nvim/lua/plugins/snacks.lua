@@ -37,8 +37,8 @@ return {
   keys = {
     { "<localleader>q", function() Snacks.bufdelete() end, desc = "BufDelete" },
     { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
-    { "[r", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Previous" },
-    { "]r", function() Snacks.words.jump(1, true) end, desc = "Words Jump Next" },
+    { "<C-j>", function() Snacks.words.jump(1, true) end, desc = "Words Jump Previous" },
+    { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Next" },
 
  --    { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
  --    { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
