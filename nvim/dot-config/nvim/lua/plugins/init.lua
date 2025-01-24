@@ -1,5 +1,4 @@
 return {
-  { "nvim-lua/plenary.nvim", lazy = true },
   {
     "folke/lazydev.nvim",
     ft = "lua",

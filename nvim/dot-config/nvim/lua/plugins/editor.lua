@@ -48,7 +48,6 @@ return {
   },
   {
     "stevearc/oil.nvim",
-    cmd = "Oil",
     event = "VeryLazy",
     opts = {
       default_file_explorer = true,
