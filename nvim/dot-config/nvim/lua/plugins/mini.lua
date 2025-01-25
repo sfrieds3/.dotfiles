@@ -52,5 +52,12 @@ return {
     local mf = require("mini.files")
     mf.setup()
     vim.keymap.set("n", "<leader>\\", mf.open, { desc = "Mini Files Open" })
+
+    local hipatterns = require("mini.hipatterns")
+    hipatterns.setup({
+      highlighters = {
+        hex_color = hipatterns.gen_highlighter.hex_color(),
+      },
+    })
   end,
 }

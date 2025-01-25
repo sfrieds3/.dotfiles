@@ -2,27 +2,6 @@ local is_executable = vim.fn.executable
 
 return {
   {
-    "norcalli/nvim-colorizer.lua",
-    ft = { "html", "css", "javascript", "vim", "eruby" },
-    cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
-
-    config = function()
-      require("colorizer").setup({
-        default_options = {
-          RGB = false,
-        },
-      })
-    end,
-
-    keys = {
-      {
-        "<leader>tc",
-        "<Cmd>ColorizerToggle<CR>",
-        desc = "[C]olorizer toggle",
-      },
-    },
-  },
-  {
     "danymat/neogen",
     keys = {
       {
