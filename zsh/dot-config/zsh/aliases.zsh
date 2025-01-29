@@ -91,6 +91,7 @@ alias mr='mise run'
 
 # other various aliases
 alias cleardns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+alias whatsmyip='python3 -c "from socket import gethostbyname, gethostname; print(gethostbyname(gethostname()))"'
 
 # nvim diff
 alias nvimdiff='nvim -d'
