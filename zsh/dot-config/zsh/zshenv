@@ -13,14 +13,6 @@ export ZSH_DATA_DIR="$XDG_DATA_HOME/zsh"
 export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-# run this before setting the rest of $PATH
-if type /opt/homebrew/bin/brew &>/dev/null
-then
-    eval $(/opt/homebrew/bin/brew shellenv)
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
-fi
-
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
@@ -44,16 +36,6 @@ unset __conda_setup
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-
-LOCALBIN="$HOME/.local/bin"
-OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
-CYTHON_BIN="$HOMEBREW_PREFIX/opt/cython/bin"
-KREW_BIN="${KREW_ROOT:-$HOME/.krew}/bin"
-
-export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
-
-typeset -U path PATH
-typeset -U fpath
 
 if [ ! -d $ZSH_DATA_DIR ]; then
     mkdir $ZSH_DATA_DIR
