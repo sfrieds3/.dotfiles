@@ -1,3 +1,18 @@
+# set PATH
+if type /opt/homebrew/bin/brew &>/dev/null
+then
+    eval $(/opt/homebrew/bin/brew shellenv)
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fi
+
+LOCALBIN="$HOME/.local/bin"
+OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
+CYTHON_BIN="$HOMEBREW_PREFIX/opt/cython/bin"
+KREW_BIN="${KREW_ROOT:-$HOME/.krew}/bin"
+
+export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
+
 if type /opt/homebrew/bin/brew &>/dev/null
 then
     fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
@@ -21,6 +36,9 @@ eval "$(zoxide init zsh)"
 
 # mise
 eval "$(mise activate zsh)"
+
+typeset -U path PATH
+typeset -U fpath
 
 # java version
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
