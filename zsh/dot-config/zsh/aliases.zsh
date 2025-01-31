@@ -59,15 +59,15 @@ alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commi
 alias gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(date)"'
 
 # fzf helpers
-alias glf='git ls-files --exclude-standard | fzf | xargs git lf'
+alias glf='git ls-files --exclude-standard --deduplicate | fzf | xargs git lf'
 alias cdf='cd $(fd | fzf-tmux -p --print0 | xargs -0 dirname)'
 # alias cdd='cd $(fd -t d | fzf --preview="stat {}" --preview-label="[ Dir stat ]")'
 alias cdd='cd $(fd -t d | fzf-tmux -p)'
 alias ef='fzf-tmux -p | xargs nvim'
-alias gaf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add'
-alias gapf='git ls-files -m --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --patch'
-alias gcpf='git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
-alias gdf='git ls-files -m -o --exclude-standard | fzf-tmux -p | xargs git diff'
+alias gaf='git ls-files -m -o --exclude-standard --deduplicate | fzf --print0 -m | xargs -0 -t -o git add'
+alias gapf='git ls-files -m --exclude-standard --deduplicate | fzf --print0 -m | xargs -0 -t -o git add --patch'
+alias gcpf='git ls-files -m -o --exclude-standard --deduplicate | fzf --print0 -m | xargs -0 -t -o git checkout --patch'
+alias gdf='git ls-files -m -o --exclude-standard --deduplicate | fzf-tmux -p | xargs git diff'
 
 # python
 alias condata='conda activate data'
