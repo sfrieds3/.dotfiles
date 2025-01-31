@@ -14,3 +14,4 @@ mise.toml
 .mise.toml
 scratch/
 .tool-versions
+.noautoformat
