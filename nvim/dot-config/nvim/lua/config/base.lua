@@ -62,7 +62,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldcolumn = "0"
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto"
 vim.opt.inccommand = "split"
 vim.opt.switchbuf:append({ "useopen", "uselast" })
 

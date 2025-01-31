@@ -67,7 +67,11 @@ return {
     cmd = "Trouble",
 
     keys = {
-      { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle filter.buf=0 filter.severity=vim.diagnostic.severity.ERROR<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
       {
         "<leader>xe",
         "<cmd>Trouble diagnostics filter.severity=vim.diagnostic.severity.ERROR<cr>",
