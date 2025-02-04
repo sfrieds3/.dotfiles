@@ -14,5 +14,6 @@ return {
   {
     "sfrieds3/pytest_fixtures.nvim",
     opts = {},
+    dependencies = "nvim-lua/plenary.nvim",
   },
 }

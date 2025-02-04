@@ -5,7 +5,19 @@ return {
   opts = {
     bigfile = { enabled = true },
     debug = { enabled = true },
-    picker = { enabled = true },
+    picker = {
+      layout = { preset = "vertical" },
+      win = {
+        preview = {
+          wo = { number = false },
+        },
+      },
+      formatters = {
+        file = {
+          filename_first = true,
+        },
+      },
+    },
     indent = { enabled = false },
     bufdelete = { enabled = true },
     words = { enabled = true },
@@ -36,11 +48,12 @@ return {
   -- stylua: ignore
   keys = {
     { "<localleader>q", function() Snacks.bufdelete() end, desc = "BufDelete" },
-    { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
     { "<C-j>", function() Snacks.words.jump(1, true) end, desc = "Words Jump Previous" },
     { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Next" },
 
- --    { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>,", function() Snacks.picker.smart() end, desc = "Smart" },
+    { "<leader>\\", function() Snacks.picker.explorer() end, desc = "Explorer" },
  --    { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
  --    { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
  --    { "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files" },

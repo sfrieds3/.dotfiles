@@ -49,10 +49,6 @@ return {
     mi.setup()
     mi.mock_nvim_web_devicons()
 
-    local mf = require("mini.files")
-    mf.setup()
-    vim.keymap.set("n", "<leader>\\", mf.open, { desc = "Mini Files Open" })
-
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({
       highlighters = {
