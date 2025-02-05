@@ -3,7 +3,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   group = group,
   callback = function()
     vim.diagnostic.config({
-      -- virtual_text = { source = false },
+      virtual_text = {
+        current_line = true,
+      },
       float = {
         source = true,
         border = "rounded",
@@ -33,16 +35,27 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
-local virtual_text_config = {
-  format = function(diagnostic)
-    -- Replace newline and tab characters with space for more compact diagnostics
-    local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-    return message
-  end,
-}
+local function get_virtual_text_config(opts)
+  return vim.tbl_extend("force", {
+    format = function(diagnostic)
+      -- Replace newline and tab characters with space for more compact diagnostics
+      local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+      return message
+    end,
+  }, opts)
+end
+
+-- local diagnostic_autocmds = {
+--   EnableDiagnosticVirtualText,
+--   DisableDiagnosticVirtualText,
+--   ToggleDiagnosticVirtualText,
+--   EnableDiagnosticVirtualTextLine,
+--   DisableDiagnosticVirtualTextLine,
+--   ToggleDiagnosticVirtualTextLine,
+-- }
 
 vim.api.nvim_create_user_command("EnableDiagnosticVirtualText", function()
-  vim.diagnostic.config({ virtual_text = virtual_text_config })
+  vim.diagnostic.config({ virtual_text = get_virtual_text_config() })
   print("virtual_text enabled")
 end, {})
 
@@ -53,6 +66,26 @@ end, {})
 
 local virtual_text_enabled = false
 vim.api.nvim_create_user_command("ToggleDiagnosticVirtualText", function()
+  if virtual_text_enabled then
+    vim.cmd.DisableDiagnosticVirtualText()
+    virtual_text_enabled = false
+  else
+    vim.cmd.EnableDiagnosticVirtualText()
+    virtual_text_enabled = true
+  end
+end, {})
+
+vim.api.nvim_create_user_command("EnableDiagnosticVirtualTextLine", function()
+  vim.diagnostic.config({ virtual_text = get_virtual_text_config({ current_line = true }) })
+  print("virtual_text enabled")
+end, {})
+
+vim.api.nvim_create_user_command("DisableDiagnosticVirtualTextLine", function()
+  vim.diagnostic.config({ virtual_text = false })
+  print("virtual_text disabled")
+end, {})
+
+vim.api.nvim_create_user_command("ToggleDiagnosticVirtualTextLine", function()
   if virtual_text_enabled then
     vim.cmd.DisableDiagnosticVirtualText()
     virtual_text_enabled = false
