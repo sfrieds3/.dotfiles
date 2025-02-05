@@ -1,13 +1,6 @@
 return {
   { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
   {
-    "mfussenegger/nvim-treehopper",
-    keys = {
-      { "m", "<cmd><C-U>lua require('tsht').nodes()<cr>", mode = { "o" }, desc = "Treehopper" },
-      { "m", "<cmd>lua require('tsht').nodes()<cr>", mode = { "x" }, desc = "Treehopper" },
-    },
-  },
-  {
     "Wansmer/treesj",
     dependencies = "nvim-treesitter/nvim-treesitter",
     -- stylua: ignore
