@@ -3,8 +3,8 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
-    bigfile = { enabled = true },
-    debug = { enabled = true },
+    bigfile = {},
+    debug = {},
     picker = {
       layout = { preset = "vertical" },
       win = {
@@ -19,8 +19,9 @@ return {
       },
     },
     indent = { enabled = false },
-    bufdelete = { enabled = true },
-    words = { enabled = true },
+    bufdelete = {},
+    words = {},
+    statuscolumn = {},
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
