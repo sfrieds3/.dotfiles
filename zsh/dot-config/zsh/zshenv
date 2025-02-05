@@ -2,6 +2,9 @@
 ulimit -n 10240
 ulimit -u 2048
 
+HISTSIZE=1000000
+SAVEHIST=1000000
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_DIRS="/etc/xdg"
 export XDG_DATA_HOME="$HOME/.local/share"
