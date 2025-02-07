@@ -52,16 +52,16 @@ return {
     { "<C-j>", function() Snacks.words.jump(1, true) end, desc = "Words Jump Previous" },
     { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Next" },
 
-    { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>,", function() Snacks.picker.smart() end, desc = "Smart" },
     { "<leader>\\", function() Snacks.picker.explorer() end, desc = "Explorer" },
+    -- { "<leader>ff", function() Snacks.picker.files({layout = { preset = "ivy"} }) end, desc = "Find Files" },
+    -- { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+ --    { "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files" },
  --    { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
  --    { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
- --    { "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files" },
  --    -- find
  --    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
  --    { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
- --    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
  --    { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
  --    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
  --    -- git
