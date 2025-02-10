@@ -47,9 +47,17 @@ function M.setup()
     ruff = true,
     taplo = true,
     terraformls = true,
-    ts_ls = true,
+    ts_ls = false,
     jinja_lsp = true,
-    volar = true,
+    volar = {
+      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+      init_options = {
+        vue = {
+          -- use embedded ts_ls
+          hybridMode = false,
+        },
+      },
+    },
     zls = true,
 
     basedpyright = {
