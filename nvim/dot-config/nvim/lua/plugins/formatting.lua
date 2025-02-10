@@ -7,6 +7,14 @@ return {
   keys = {
     "gq",
     "<leader>F",
+    {
+      "<leader>cF",
+      function()
+        require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+      end,
+      mode = { "n", "v" },
+      desc = "Format Injected Langs",
+    },
   },
 
   config = function()
@@ -25,7 +33,7 @@ return {
         go = { "gofmt", "goimports" },
         java = { "clang_format" },
         jinja = { "djlint" },
-        -- json = { "jq" },
+        json = { "jq" },
         javascript = { "prettier" },
         typescript = { "prettier" },
         javascriptreact = { "prettier" },
@@ -45,6 +53,19 @@ return {
         yaml = { "yamlfmt" },
         ocaml = { "ocamlformat" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
+      },
+      formatters = {
+        jq = function(bufnr)
+          local sw = vim.bo[bufnr].shiftwidth or 2
+          return {
+            name = "jq",
+            inherit = true,
+            append_args = {
+              "--indent",
+              tostring(sw),
+            },
+          }
+        end,
       },
     })
 
