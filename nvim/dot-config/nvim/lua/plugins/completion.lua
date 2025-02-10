@@ -77,17 +77,13 @@ return {
           end
           return {}
         end,
-        default = { "lsp", "cody", "path", "snippets", "buffer", "lazydev" },
+        default = { "lsp", "path", "snippets", "buffer", "lazydev" },
         providers = {
           lsp = {},
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             fallbacks = { "lsp" },
-          },
-          cody = {
-            name = "cody",
-            module = "blink.compat.source",
           },
         },
       },
