@@ -20,6 +20,7 @@ zstyle ':sfrieds3:prompt:git:untracked:*' color yellow
 zstyle ':sfrieds3:prompt:git:untracked:*' icon ' ●'
 zstyle ':sfrieds3:prompt:docker:*' icon ''
 zstyle ':sfrieds3:prompt:docker:*' color blue
+zstyle ':sfrieds3:prompt:python:*' icon ''
 zstyle ':sfrieds3:prompt:python:*' color green
 zstyle ':sfrieds3:prompt:kube:*' icon ''
 zstyle ':sfrieds3:prompt:kube:*' color blue
@@ -42,6 +43,7 @@ zstyle -s ':sfrieds3:prompt:git:unstaged:*' icon PROMPT_UNSTAGED_ICON || PROMPT_
 zstyle -s ':sfrieds3:prompt:git:untracked:*' color PROMPT_UNTRACKED_COLOR || PROMPT_UNTRACKED_COLOR=yellow
 zstyle -s ':sfrieds3:prompt:git:untracked:*' icon PROMPT_UNTRACKED_ICON || PROMPT_UNTRACKED_ICON=' ●'
 zstyle -s ':sfrieds3:prompt:python:*' color PROMPT_PYTHON_COLOR || PROMPT_PYTHON_COLOR=green
+zstyle -s ':sfrieds3:prompt:python:*' icon PROMPT_PYTHON_ICON || PROMPT_PYTHON_ICON=''
 zstyle -s ':sfrieds3:prompt:docker:*' color PROMPT_DOCKER_COLOR || PROMPT_DOCKER_COLOR=blue
 zstyle -s ':sfrieds3:prompt:docker:*' icon PROMPT_DOCKER_ICON || PROMPT_DOCKER_ICON=''
 zstyle -s ':sfrieds3:prompt:kube:*' color PROMPT_KUBE_COLOR || PROMPT_KUBE_COLOR=blue
@@ -149,7 +151,7 @@ function __prompt_characters() {
 
 # PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
 # PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)%F{$PROMPT_PYTHON_COLOR}$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {

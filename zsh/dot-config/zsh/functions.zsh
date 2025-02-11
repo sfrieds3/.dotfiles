@@ -14,12 +14,11 @@ function r() {
 function __prompt__python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     # local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo "(${VIRTUAL_ENV:t}) "
+    [[ -n $VIRTUAL_ENV ]] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON${VIRTUAL_ENV:t})%f "
 }
 
 function __prompt__conda_env() {
-    if
-        [ $CONDA_PREFIX ] && echo "(${CONDA_PREFIX:t}) "
+    [ $CONDA_PREFIX ] && echo -n "%F{$PROMPT_PYTHON_COLOR}(${CONDA_PREFIX:t})%f "
 }
 
 function __node_dir() {
@@ -306,9 +305,7 @@ function docker_context() {
 
 
 function __prompt__docker_context() {
-    zstyle -s ':sfrieds3:prompt:docker:*' color PROMPT_DOCKER_COLOR || PROMPT_DOCKER_COLOR=blue
-    zstyle -s ':sfrieds3:prompt:docker:*' icon PROMPT_DOCKER_ICON || PROMPT_DOCKER_ICON=''
-    local dockerfiles=("docker-compose.yaml" "docker-compose.yml" "Dockerfile" "compose.yaml" "compose.yml")
+    local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml', 'Chart.yaml')
 
     for dockerfile in "${dockerfiles[@]}"; do
         if [[ -e "$dockerfile" ]]; then
