@@ -20,6 +20,7 @@
       - docker-buildx
       - docker-completion
       - docker-compose
+      - docker-credential-helper
       - dockerfile-language-server
       - eslint
       - eza
