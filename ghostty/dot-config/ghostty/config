@@ -4,7 +4,9 @@ background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
 # theme = catppuccin-frappe
-theme = Mellifluous
+# theme = Mellifluous
+# theme = gruvbox-material
+theme = GruvboxDarkHard
 
 # Visuals
 font-family = "Berkeley Mono"
