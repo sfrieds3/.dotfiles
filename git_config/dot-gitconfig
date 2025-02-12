@@ -68,14 +68,14 @@
 	oll = log --pretty=onelinedetail
 	rst = rebase --autostash
 	uu = ls-files --others --exclude-standard
-[color "status"]
-	untracked = white
-	changed = white normal dim
-	nobranch = 131 bold ul
-[color "diff"]
-	old = 131
-	new = 101
-	whitespace = 131 reverse
+;[color "status"]
+;	untracked = white
+;	changed = white normal dim
+;	nobranch = 131 bold ul
+;[color "diff"]
+;	old = 131
+;	new = 101
+;	whitespace = 131 reverse
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
