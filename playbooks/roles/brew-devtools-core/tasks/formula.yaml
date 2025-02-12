@@ -90,6 +90,7 @@
       - yaml-language-server
       - yamlfmt
       - yamllint
+      - yarn
       - yq
       - zsh
       - zsh-async
