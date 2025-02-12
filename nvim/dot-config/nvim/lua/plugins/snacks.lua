@@ -54,6 +54,10 @@ return {
 
     { "<leader>,", function() Snacks.picker.smart() end, desc = "Smart" },
     { "<leader>\\", function() Snacks.picker.explorer() end, desc = "Explorer" },
+    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines [fuzzy]" },
+    { "<leader>?", function() Snacks.picker.lines() end, desc = "Buffer Lines [fuzzy]" },
+    { "<leader>/", function() Snacks.picker.lines({ matcher = { fuzzy = false } }) end, desc = "Buffer Lines [strict]" },
+    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     -- { "<leader>ff", function() Snacks.picker.files({layout = { preset = "ivy"} }) end, desc = "Find Files" },
     -- { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "Buffers" },
  --    { "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files" },
@@ -68,8 +72,6 @@ return {
  --    { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log" },
  --    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
  --    -- Grep
- --    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
- --    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
  --    { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
  --    { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
  --    -- search
