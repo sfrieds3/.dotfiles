@@ -64,8 +64,8 @@ return {
       signature = {
         enabled = false,
       },
-      sources = {
-        cmdline = function()
+      cmdline = {
+        sources = function()
           local type = vim.fn.getcmdtype()
           -- Search forward and backward
           if type == "/" or type == "?" then
@@ -77,6 +77,8 @@ return {
           end
           return {}
         end,
+      },
+      sources = {
         default = { "lsp", "path", "snippets", "buffer", "lazydev" },
         providers = {
           lsp = {},
