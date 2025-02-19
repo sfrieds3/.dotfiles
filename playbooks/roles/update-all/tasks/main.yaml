@@ -5,6 +5,9 @@
   community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
+- name: Upgrade all casks
+  community.general.homebrew_cask:
+    upgrade_all: true
 - name: Update submodules in $HOME/.dotfiles repo
   ansible.builtin.command:
     cmd: git submodule update --recursive --remote
