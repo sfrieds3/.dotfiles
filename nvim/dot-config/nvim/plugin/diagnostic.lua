@@ -55,7 +55,7 @@ end
 -- }
 
 vim.api.nvim_create_user_command("EnableDiagnosticVirtualText", function()
-  vim.diagnostic.config({ virtual_text = get_virtual_text_config() })
+  vim.diagnostic.config({ virtual_text = get_virtual_text_config({}) })
   print("virtual_text enabled")
 end, {})
 
@@ -120,7 +120,6 @@ end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "<leader>cf", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "[d", function()
   vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Go To Previous Diagnostic" })
