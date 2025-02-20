@@ -65,6 +65,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("qf-filter"),
+  pattern = "qf",
+  callback = function(event)
+    vim.keymap.set("n", "zf", function()
+      require("snacks").picker.qflist()
+    end, { buffer = event.buf, silent = true })
+  end,
+})
+
 local disable_list_ft = { "go" }
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable listchars for certain ft",
