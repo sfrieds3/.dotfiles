@@ -4,11 +4,11 @@ local namespace = vim.api.nvim_create_namespace("treesitter.diagnostics")
 
 --- @param args vim.api.keyset.create_autocmd.callback_args
 local function diagnose(args)
-  if not vim.diagnostic.is_enabled({ bufnr = args.buf }) then
-    return
-  end
-  -- don't diagnose strange stuff
-  if vim.bo[args.buf].buftype ~= "" then
+  if
+    not vim.diagnostic.is_enabled({ bufnr = args.buf })
+    or not vim.api.nvim_buf_is_valid(args.buf)
+    or vim.bo[args.buf].buftype ~= ""
+  then
     return
   end
 
