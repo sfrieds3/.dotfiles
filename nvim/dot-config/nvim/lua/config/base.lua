@@ -65,6 +65,7 @@ vim.opt.foldcolumn = "0"
 vim.opt.signcolumn = "auto"
 vim.opt.inccommand = "split"
 vim.opt.switchbuf:append({ "useopen", "uselast" })
+vim.opt.diffopt:append({ "vertical" })
 
 vim.opt.listchars = { tab = "  ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·", eol = " " }
 vim.opt.list = true
@@ -80,7 +81,6 @@ vim.opt.wildignorecase = true
 vim.opt.wildignore = { "*.o", "*.pyc", "__pycache__/*", ".venv/*" }
 vim.opt.wildcharm = 26 -- <C-z>
 vim.opt.tags = "./tags;,tags;"
--- vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.completeopt = { "menu", "menuone", "preview" }
 vim.opt.path = ".,,"
 vim.opt.clipboard = "unnamed"

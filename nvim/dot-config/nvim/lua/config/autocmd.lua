@@ -86,6 +86,28 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.wo.diff then
+      print("In diff mode!")
+      vim.keymap.set({ "n", "v" }, "<localleader>dl", ":diffget LOCAL<CR>", { buffer = true, desc = "Get from LOCAL" })
+      vim.keymap.set(
+        { "n", "x" },
+        "<localleader>dr",
+        ":diffget REMOTE<CR>",
+        { buffer = true, desc = "Get from REMOTE" }
+      )
+
+      vim.keymap.set(
+        { "n", "x" },
+        "gdb",
+        ":diffget BASE<CR>:diffget REMOTE<CR>",
+        { buffer = true, desc = "Accept both" }
+      )
+    end
+  end,
+})
+
 local function map(tbl, func)
   local return_table = {}
   for x, y in pairs(tbl) do
