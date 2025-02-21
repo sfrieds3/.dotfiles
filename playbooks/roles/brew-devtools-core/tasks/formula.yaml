@@ -61,7 +61,7 @@
       - perl
       - pipx
       - podman
-      - postgresql
+      - postgresql@17
       - prettier
       - rclone
       - redis
@@ -90,7 +90,6 @@
       - yaml-language-server
       - yamlfmt
       - yamllint
-      - yarn
       - yq
       - zsh
       - zsh-async
