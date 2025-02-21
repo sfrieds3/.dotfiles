@@ -32,6 +32,7 @@
 [feature]
 	manyFiles = true
 [merge]
+	tool = nvimdiff
 	conflictstyle = zdiff3
 [pull]
 	ff = only
