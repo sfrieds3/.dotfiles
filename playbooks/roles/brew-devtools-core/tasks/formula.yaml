@@ -38,6 +38,7 @@
       - helix
       - helm
       - helm-ls
+      - imagemagick
       - jdtls
       - jless
       - jq
@@ -72,6 +73,7 @@
       - sk
       - stylua
       - taplo
+      - tectonic
       - terraform-ls
       - the_silver_searcher
       - tig
