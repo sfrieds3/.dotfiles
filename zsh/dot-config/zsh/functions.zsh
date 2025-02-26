@@ -14,7 +14,7 @@ function r() {
 function __prompt__python_venv() {
     # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
     # local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON${VIRTUAL_ENV:t})%f "
+    [[ -n $VIRTUAL_ENV ]] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON ${VIRTUAL_ENV:t})%f "
 }
 
 function __prompt__conda_env() {
