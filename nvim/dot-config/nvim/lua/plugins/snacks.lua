@@ -103,6 +103,7 @@ return {
     { "<leader>/", function() Snacks.picker.lines({ matcher = { fuzzy = false } }) end, desc = "Buffer Lines [strict]" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     { "<leader>ff", function() Snacks.picker.files({layout = { preset = "ivy"} }) end, desc = "Find Files" },
+    { "<leader>fF", function() Snacks.picker.files({layout = { preset = "ivy"}, hidden=true, ignored=true }) end, desc = "Find All Files" },
     { "<leader><leader>", function() Snacks.picker.buffers({layout = { preset = "ivy"} }) end, desc = "Buffers" },
     { "<leader>rg", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>rG", function() live_grep_all_files() end, desc = "Live Grep in All Files" },
