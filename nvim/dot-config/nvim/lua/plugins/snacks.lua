@@ -48,7 +48,7 @@ return {
       layout = { preset = "vertical" },
       win = {
         preview = {
-          wo = { 
+          wo = {
             number = false,
             relativenumber = false,
           },

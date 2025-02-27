@@ -6,12 +6,15 @@
 	colorMoved = dimmed-zebra
 	wsErrorHighlight = all
 	algorithm = histogram
+	mnemonicPrefix = true
 [pager]
 	difftool = true
 [log]
 	date = iso
 [branch]
 	sort = -committerdate
+[tag]
+	sort = version:refname
 [difftool]
 	prompt = false
 [difftool "difftastic"]
