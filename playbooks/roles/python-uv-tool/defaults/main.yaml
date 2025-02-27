@@ -15,5 +15,5 @@ uv_tool_packages:
   - rstcheck
   - ruff
   - toml-cli
-  - tox --with tox-uv
+  - tox
   - twine
