@@ -48,7 +48,10 @@ return {
       layout = { preset = "vertical" },
       win = {
         preview = {
-          wo = { number = false },
+          wo = { 
+            number = false,
+            relativenumber = false,
+          },
         },
       },
       formatters = {
