@@ -89,7 +89,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.wo.diff then
-      print("In diff mode!")
       vim.keymap.set({ "n", "v" }, "<localleader>dl", ":diffget LOCAL<CR>", { buffer = true, desc = "Get from LOCAL" })
       vim.keymap.set(
         { "n", "x" },
