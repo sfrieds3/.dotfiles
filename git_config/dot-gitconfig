@@ -14,7 +14,7 @@
 [branch]
 	sort = -committerdate
 [tag]
-	sort = version:refname
+	sort = -version:refname
 [difftool]
 	prompt = false
 [difftool "difftastic"]
