@@ -7,6 +7,7 @@ uv_tool_packages:
   - git-filter-repo
   - ipython
   - mdformat
+  - nbstripout
   - nox
   - pipdeptree
   - poetry
