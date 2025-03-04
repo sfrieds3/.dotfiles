@@ -12,7 +12,7 @@ target/
 Session.vim
 mise.toml
 .mise.toml
-scratch/
+sfscratch/
 .tool-versions
 .noautoformat
 TODO
