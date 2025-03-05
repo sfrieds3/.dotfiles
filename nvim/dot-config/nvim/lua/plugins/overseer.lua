@@ -12,11 +12,14 @@ local M = {
     "OverseerRun",
     "OverseerRunCmd",
     "OverseerToggle",
+    "OverseerQuickAction",
+    "OverseerTaskAction",
   },
   keys = {
     "<localleader>g",
     "<localleader>G",
     { "<localleader>G", mode = { "x" } },
+    { "<localleader>.", "<cmd>OverseerQuickAction restart<cr>", desc = "Overseer restart" },
   },
 }
 
