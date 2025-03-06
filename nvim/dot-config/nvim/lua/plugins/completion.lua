@@ -3,15 +3,6 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     build = "cargo build --release",
-    dependencies = {
-      "chrisgrieser/nvim-scissors",
-      {
-        "saghen/blink.compat",
-        opts = {
-          impersonate_nvim_cmp = true,
-        },
-      },
-    },
 
     opts_extend = { "sources.default" },
     opts = {

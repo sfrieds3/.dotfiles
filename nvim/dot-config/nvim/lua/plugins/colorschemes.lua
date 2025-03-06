@@ -126,11 +126,4 @@ return {
       },
     },
   },
-  {
-    "olivercederborg/poimandres.nvim",
-    event = "VeryLazy",
-    opts = {
-      dim_nc_background = true,
-    },
-  },
 }
