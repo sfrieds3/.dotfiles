@@ -33,6 +33,7 @@ vim.filetype.add({
     jinja = "jinja",
     jinja2 = "jinja",
     j2 = "jinja",
+    mdx = "markdown",
   },
   filename = {
     ["Chart.yaml"] = "yaml",
