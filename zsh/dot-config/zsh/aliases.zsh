@@ -1,4 +1,7 @@
 # aliases
+# update history
+alias hupdate='fc -RI'
+
 # aliases for directory stack
 alias d='dirs -v'
 for index ({0..9}) alias "$index"="cd +${index}"; unset index
