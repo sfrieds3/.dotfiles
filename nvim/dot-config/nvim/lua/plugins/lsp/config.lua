@@ -70,6 +70,7 @@ function M.setup()
           analysis = {
             -- ignore = { "*" },
             diagnosticSeverityOverrides = {
+              reportUnannotatedClassAttribute = "none",
               reportUnusedCallResult = "none",
               reportUnusedExpression = "information",
               reportIncompatibleMethodOverride = "information",
