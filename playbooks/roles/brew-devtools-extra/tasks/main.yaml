@@ -4,7 +4,9 @@
 - name: Install mac devtools
   community.general.homebrew:
     name:
+      - apache-arrow
       - btop
+      - bufbuild/buf/buf
       - cargo-nextest
       - chicken
       # - clojure/tools/clojure
