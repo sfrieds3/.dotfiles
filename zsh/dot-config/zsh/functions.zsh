@@ -51,11 +51,6 @@ function __python_path() {
     [[ -z $VIRTUAL_ENV ]] && echo "py(`relpath $__pp` [$__pyv]) "
 }
 
-# current status
-function s() {
-    (__kubectl_prompt && __python_path && __python_venv && __conda_env && __pyenv_version && __node_version) || return 0
-}
-
 function _update_title() {
   local a
   # escape '%' in $1, make nonprintables visible
