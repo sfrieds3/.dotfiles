@@ -65,7 +65,7 @@ vim.opt.foldcolumn = "0"
 vim.opt.signcolumn = "auto"
 vim.opt.inccommand = "split"
 vim.opt.switchbuf:append({ "useopen", "uselast" })
-vim.opt.diffopt:append({ "vertical" })
+vim.opt.diffopt:append({ "vertical", "algorithm:histogram" })
 
 vim.opt.listchars = { tab = "  ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·", eol = " " }
 vim.opt.list = true
