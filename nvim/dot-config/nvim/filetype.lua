@@ -63,5 +63,75 @@ vim.filetype.add({
         return "yaml.ansible"
       end
     end,
+    [".*"] = {
+      function(path, bufnr)
+        local line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] or ""
+        line = line:match("^%s*(.-)%s*$") -- trim
+
+        -- JSON
+        if line:match("^%{") or line:match("^%[") then
+          return "json"
+        end
+
+        -- YAML
+        if line:match("^%-%-%-") or line:match("^%w+:%s") then
+          return "yaml"
+        end
+
+        -- TOML
+        if line:match("^%w+%s-=%s-[\"']?") then
+          return "toml"
+        end
+
+        -- CSV
+        if line:match("^[^,]+,[^,]+") then
+          return "csv"
+        end
+
+        -- INI
+        if line:match("^%[.-%]") or line:match("^%w+%s-=%s-") then
+          return "dosini"
+        end
+
+        -- .env / dotenv
+        if line:match("^%w[%w_]*=") then
+          return "sh" -- or 'dosini', depending on your preference
+        end
+
+        -- Dockerfile
+        if line:match("^FROM ") or line:match("^RUN ") or line:match("^CMD ") then
+          return "dockerfile"
+        end
+
+        -- XML
+        if line:match("^<%?xml") or line:match("^<[%w_]+") then
+          return "xml"
+        end
+
+        -- HTML
+        if line:match("^<!DOCTYPE html>") or line:match("^<html>") then
+          return "html"
+        end
+
+        -- Markdown
+        if line:match("^#") or line:match("^%* ") or line:match("^```") then
+          return "markdown"
+        end
+
+        -- SQL
+        if line:match("^%s*SELECT ") or line:match("^%s*CREATE ") or line:match("^%s*INSERT ") then
+          return "sql"
+        end
+
+        -- ReStructuredText
+        if line:match("^==+$") or line:match("^%-%-+$") or line:match("^%.%. ") then
+          return "rst"
+        end
+
+        -- fallback to default filename detection
+        return vim.filetype.match({ filename = path })
+      end,
+      { priority = -math.huge },
+    },
   },
 })
