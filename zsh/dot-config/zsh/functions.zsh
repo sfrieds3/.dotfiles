@@ -313,3 +313,17 @@ function __prompt__docker_context() {
         fi
     done
 }
+
+function k8s_pod_images() {
+    kubectl get pods -o json | jq -r '
+    [.items[] |
+        {
+            namespace: .metadata.namespace,
+            name: .metadata.name,
+            images: (.spec.containers | map(.image) | join(", "))
+        }
+    ] |
+        (["NAMESPACE", "NAME", "IMAGES"] | @tsv),
+    (.[] | [.namespace, .name, .images] | @tsv)
+    ' | column -t
+}
