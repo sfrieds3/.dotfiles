@@ -115,6 +115,18 @@ local function map(tbl, func)
   return return_table
 end
 
+--Add yanks to numbered registers
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    local event = vim.v.event
+    if event.operator == "y" then
+      for i = 9, 1, -1 do
+        vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
+      end
+    end
+  end,
+})
+
 -- local proj_dirs = { "~/code" }
 -- local format_func = function(d)
 --   return string.format("%s/*", vim.fn.expand(d))
