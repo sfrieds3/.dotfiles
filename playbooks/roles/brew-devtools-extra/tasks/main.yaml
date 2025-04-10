@@ -21,6 +21,7 @@
       - libomp
       - mongodb-community@7.0
       - opam
+      - opentofu
       - prometheus
       - protobuf
       - ruby-build
