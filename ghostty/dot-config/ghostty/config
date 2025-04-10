@@ -4,10 +4,13 @@ background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
 theme = catppuccin-macchiato
-cursor-color = #eed49f
 # theme = Mellifluous
 # theme = gruvbox-material
 # theme = GruvboxDarkHard
+
+shell-integration-features = no-cursor
+cursor-color = #eed49f
+cursor-style = block
 
 # Visuals
 font-family = "Berkeley Mono"
