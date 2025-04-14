@@ -300,7 +300,7 @@ function docker_context() {
 
 
 function __prompt__docker_context() {
-    local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml', 'Chart.yaml', 'docker')
+    local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml' 'Chart.yaml' 'docker')
 
     for dockerfile in "${dockerfiles[@]}"; do
         if [[ -e "$dockerfile" ]]; then
