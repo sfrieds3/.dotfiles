@@ -50,6 +50,9 @@ vim.filetype.add({
     ["*zshrc"] = "zsh",
     -- docker
     ["Dockerfile.*"] = "dockerfile",
+    -- k8s/helm
+    [".*.json.gotmpl"] = "json",
+    [".*.md.gotmpl"] = "markdown",
     -- ansible
     [".*/host_vars/.*%.ya?ml"] = "yaml.ansible",
     [".*/group_vars/.*%.ya?ml"] = "yaml.ansible",
