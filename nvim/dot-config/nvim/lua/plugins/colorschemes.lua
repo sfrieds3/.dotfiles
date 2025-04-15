@@ -126,4 +126,11 @@ return {
       },
     },
   },
+  {
+    "WTFox/jellybeans.nvim",
+    event = "VeryLazy",
+    opts = {
+      palette = "jellybeans_muted",
+    },
+  },
 }
