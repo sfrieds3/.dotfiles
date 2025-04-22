@@ -16,7 +16,8 @@ alias llm="eza --all --header --long --sort=modified $EZA_PARAMS"
 alias la="eza -lbhHigUmuSa"
 alias lx="eza -lbhHigUmuSa@"
 alias lt="eza --tree $EZA_PARAMS"
-alias tree="eza --tree $EZA_PARAMS"
+alias tree="eza --tree $EZA_PARAMS --git-ignore"
+alias treea="eza --tree $EZA_PARAMS"
 
 alias gr='cd $(git rev-parse --show-toplevel)'
 
@@ -56,6 +57,7 @@ alias kddep='kubectl describe deployment'
 alias kdsvc='kubectl describe service'
 alias kdsvcw='kubectl describe service --watch'
 alias kdcm='kubectl describe configmap'
+alias kjoc='kubectl get jobs --field_selector=status.successful=1'
 
 # pre-commit
 alias pcr='pre-commit run'
