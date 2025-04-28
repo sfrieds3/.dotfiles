@@ -37,6 +37,10 @@
 [merge]
 	tool = nvimdiff
 	conflictstyle = zdiff3
+[rebase]
+	autosquash = true
+	autostash = true
+	updateRefs = true
 [pull]
 	ff = only
 	rebase = true
@@ -89,3 +93,5 @@
 	onelinedetail = %C(bold red)%h %Creset%s %C(bold green)%aN %C(bold blue)(%ar)%Creset%C(yellow)%d%Creset
 [rerere]
 	enabled = true
+[grep]
+	patternType = perl
