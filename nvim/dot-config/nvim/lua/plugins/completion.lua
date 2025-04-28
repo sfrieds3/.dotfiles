@@ -33,9 +33,9 @@ return {
           },
         },
         menu = {
-          auto_show = function(ctx)
-            return ctx.mode == "cmdline"
-          end,
+          -- auto_show = function(ctx)
+          --   return ctx.mode == "cmdline"
+          -- end,
           draw = {
             padding = { 1, 0 },
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
@@ -49,7 +49,7 @@ return {
           auto_show_delay_ms = 500,
         },
         ghost_text = {
-          enabled = false,
+          enabled = true,
         },
       },
       signature = {

@@ -133,4 +133,9 @@ return {
       palette = "jellybeans_muted",
     },
   },
+  {
+    "bluz71/vim-moonfly-colors",
+    name = "moonfly",
+    event = "VeryLazy",
+  },
 }
