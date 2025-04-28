@@ -18,8 +18,26 @@ return {
   },
 
   config = function()
+    local exact_excludes = { [".gitlab-ci.yml"] = true, [".gitlab-ci.yaml"] = true }
+    local pattern_excludes = {
+      "%.lock$",
+      "%.min%.js$",
+    }
     require("conform").setup({
       format_on_save = function(bufnr)
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        local basename = vim.fn.fnamemodify(filename, ":t")
+
+        if exact_excludes[basename] then
+          return
+        end
+
+        for _, pattern in ipairs(pattern_excludes) do
+          if basename:match(pattern) then
+            return
+          end
+        end
+
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat or vim.b[bufnr].disable_conform_autoformat then
           return
         end
