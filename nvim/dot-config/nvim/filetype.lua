@@ -42,6 +42,8 @@ vim.filetype.add({
   pattern = {
     -- markdown
     ["TODO"] = "markdown",
+    -- git
+    [".*gitconfig"] = "gitconfig",
     -- zsh
     ["${XDG_CONFIG_HOME}/git"] = "git",
     ["${XDG_CONFIG_HOME}/zsh"] = "zsh",
