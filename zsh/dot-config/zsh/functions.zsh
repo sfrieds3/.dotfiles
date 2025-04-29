@@ -315,7 +315,25 @@ function __prompt__docker_context() {
 }
 
 function k8s_pod_images() {
-    kubectl get pods -o json | jq -r '
+    local namespace=""
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -n|--namespace)
+                namespace="$2"
+                shift 2
+                ;;
+            *)
+                echo "Usage: k8s_pod_images [-n|--namespace <namespace>]"
+                return 1
+                ;;
+        esac
+    done
+
+    if [ -n "$namespace" ]; then
+        kubectl get pods -n "$namespace" -o json
+    else
+        kubectl get pods -o json
+    fi | jq -r '
     [.items[] |
         {
             namespace: .metadata.namespace,
