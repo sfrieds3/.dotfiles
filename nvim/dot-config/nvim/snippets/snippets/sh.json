@@ -232,7 +232,10 @@
     "prefix": "sed substitution"
   },
   "shebang": {
-    "body": "#!/usr/bin/env zsh",
+    "body": [
+      "#!/usr/bin/env bash",
+      "set -euo pipefail"
+    ],
     "prefix": "shebang"
   },
   "slice": {
