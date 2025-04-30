@@ -1,7 +1,7 @@
 local M = {}
 
 function M.set_colorscheme()
-  vim.cmd([[ colorscheme catppuccin-mocha ]])
+  vim.cmd([[ colorscheme moonfly ]])
 end
 
 return M
