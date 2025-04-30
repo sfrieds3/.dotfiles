@@ -139,8 +139,13 @@ function __mark_prompt() {
 function __prompt_characters() {
     local IN_TMUX=$([[ "$TERM" =~ "tmux" ]] && echo tmux)
     local _LVL=$(($SHLVL))
+
     if [ -n "$IN_TMUX" ]; then
         _LVL=$(($SHLVL-1))
+    fi
+
+    if [ -n "$NVIM" ]; then
+        _LVL=$(($SHLVL-2))
     fi
 
     echo "$(eval printf \"$PROMPT_CHARACTER_ICON%.0s\" {1..$_LVL})"
