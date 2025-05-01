@@ -12,6 +12,7 @@
       - cmake
       - cmake-docs
       - colima
+      - coreutils
       - csvlens
       - ctags
       - curl
