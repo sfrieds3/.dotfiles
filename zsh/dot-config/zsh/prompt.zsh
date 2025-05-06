@@ -30,6 +30,7 @@ zstyle ':sfrieds3:prompt:jobs:*' color yellow
 zstyle ':sfrieds3:prompt:character:success:*' icon '❯'
 zstyle ':sfrieds3:prompt:character:success:*' color blue
 zstyle ':sfrieds3:prompt:character:error:*' icon '❯'
+zstyle ':sfrieds3:prompt:userhost:*' color green
 zstyle ':sfrieds3:prompt:exectime:*' color yellow
 
 # load zstyle configurations
@@ -55,6 +56,7 @@ zstyle -s ':sfrieds3:prompt:character:success:*' color PROMPT_CHARACTER_COLOR ||
 zstyle -s ':sfrieds3:prompt:character:success:*' icon PROMPT_CHARACTER_ICON || PROMPT_CHARACTER_ICON=blue
 zstyle -s ':sfrieds3:prompt:character:error:*' color PROMPT_CHARACTER_ERROR_COLOR || PROMPT_CHARACTER_ERROR_COLOR=red
 zstyle -s ':sfrieds3:prompt:character:error:*' icon PROMPT_CHARACTER_ERROR_ICON || PROMPT_CHARACTER_ERROR_ICON='!!'
+zstyle -s ':sfrieds3:prompt:userhost:*' color PROMPT_USER_HOST_COLOR || PROMPT_USER_HOST_COLOR='green'
 zstyle -s ':sfrieds3:prompt:exectime:*' color PROMPT_EXEC_TIME_COLOR || PROMPT_EXEC_TIME_COLOR=yellow
 zstyle -s ':sfrieds3:prompt:separator:*' icon PROMPT_SEPARATOR_ICON || PROMPT_SEPARATOR_ICON=' │ '
 zstyle -s ':sfrieds3:prompt:separator:*' color PROMPT_SEPARATOR_COLOR || PROMPT_SEPARATOR_COLOR=red
@@ -151,12 +153,13 @@ function __prompt_characters() {
     echo "$(eval printf \"$PROMPT_CHARACTER_ICON%.0s\" {1..$_LVL})"
 }
 
-# __PROMPT_SUCCESS="│ "
-# __PROMPT_SUCCESS="❱  "
+function __maybe_add_user_host() {
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        echo "\u@\h"
+    fi
+}
 
-# PROMPT='$prompt_newline%F{red}∷ 20%D %* ∷ %F{blue}$(__kubectl_prompt)%F{green}$(__python_venv)%F{green}$(__conda_env)%F{cyan}$(__python_path)%F{magenta}$(__node_version)%F{yellow}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time} %{$__DOTS[ITALIC_OFF]%}$prompt_newline%F{green}${PWD/#$HOME/~} %(1j.[%j] .)%(?.%F{green}$__PROMPT_SUCCESS.%F{red}[$EXIT_CODE]$__PROMPT_ERROR)%f'
-# PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_PYTHON_COLOR}$(__python_venv)$(__conda_env)%f%F{$PROMPT_DIR_COLOR}$(basename $PWD)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .) %b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$PROMPT_CHARACTER_ERROR_ICON)%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$(__prompt_character))%f '
 PS2=' '
 
 function __set_rprompt__precmd() {
