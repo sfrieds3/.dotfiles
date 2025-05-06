@@ -12,6 +12,7 @@
       # - clojure/tools/clojure
       - duckdb
       - ffmpeg
+      - gh
       - gitlab-ci-local
       - grafana
       - guile
