@@ -155,11 +155,11 @@ function __prompt_characters() {
 
 function __maybe_add_user_host() {
     if [[ -n "$SSH_CONNECTION" ]]; then
-        echo "\u@\h"
+        echo "%n@%m "
     fi
 }
 
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}$(__prompt_characters).%F{$PROMPT_CHARACTER_ERROR_COLOR}$(__prompt_character))%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {

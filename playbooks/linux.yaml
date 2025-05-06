@@ -1,0 +1,6 @@
+- hosts: localhost
+  roles:
+    - stow
+    - dotfiles-submodules
+    - python-uv-tool
+    - dnf-packages

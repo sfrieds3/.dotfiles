@@ -1,29 +1,30 @@
----
 - name: Install dnf packages
   become: true
   ansible.builtin.dnf:
     name:
       - ShellCheck
       - bat
-      - chicken
       - clang
       - clang-tools-extra
       - cmake
       - curl
       - dconf
+      - eza
       - fd-find
       - fontconfig-devel
       - freetype-devel
       - fzf
       - g++
+      - gcc
+      - gettext
       - giflib-devel
       - gimp
       - git-core
       - gitk
+      - glibc-gconv-extra
       - gnome-tweaks
       - gnutls-devel
       - gtk2-devel
-      - guile
       - htop
       - jansson-devel
       - java-11-openjdk-devel
@@ -39,11 +40,11 @@
       - libxkbcommon-devel
       - llvm
       - lua
+      - make
+      - mise
       - nasm
       - ncurses-devel
-      - neovim
       - ninja-build
-      - openjpeg-devel
       - perl-core
       - ripgrep
       - rsync
@@ -52,32 +53,24 @@
       - sqlite-devel
       - texinfo
       - util-linux-user
-      - zig
+      - zoxide
       - zsh
-      - '@C Development Tools and Libraries'
-      - '@virtualization'
-      - '@Development Tools'
     state: present
-
 - name: Ensure $XDG_CONFIG_HOME folder is created
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.config"
     state: directory
     mode: '0775'
-
 - name: Ensure $HOME/.local/bin folder is created
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
     mode: '0755'
-
 - name: Check if rust is installed
   ansible.builtin.shell: command -v rustc
   register: cargo_exists
   ignore_errors: true
-  tags:
-    rust
-
+  tags: rust
 - name: Install Rust
   ansible.builtin.shell: set -o pipefail && curl https://sh.rustup.rs -sSf | sh -s -- -y
   when: cargo_exists is failed

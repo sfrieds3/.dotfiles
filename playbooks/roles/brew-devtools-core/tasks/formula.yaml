@@ -73,6 +73,7 @@
       - sd
       - shellcheck
       - sk
+      - stow
       - stylua
       - taplo
       - tectonic

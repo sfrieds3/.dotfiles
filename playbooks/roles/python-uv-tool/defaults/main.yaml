@@ -4,6 +4,7 @@ uv_tool_packages:
   - beautysh
   - bump-my-version
   - compiledb
+  - cython
   - git-filter-repo
   - ipython
   - mdformat

@@ -1,7 +1,3 @@
-- name: Ensure stow is brew installed
-  community.general.homebrew:
-    name: stow
-    state: present
 - name: Ensure folders exist
   ansible.builtin.file:
     path: "{{ item }}"

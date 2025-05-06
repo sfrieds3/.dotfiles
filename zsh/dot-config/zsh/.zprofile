@@ -1,32 +1,38 @@
 # set PATH
-if type /opt/homebrew/bin/brew &>/dev/null
-then
-    eval $(/opt/homebrew/bin/brew shellenv)
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if type /opt/homebrew/bin/brew &>/dev/null
+    then
+        eval $(/opt/homebrew/bin/brew shellenv)
+        fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+        fpath=($(brew --prefix)/share/zsh-completions $fpath)
+        OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
+    fi
+    OPENJDKBIN=""
+    CYTHON_BIN=""
+    export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    source /usr/share/fzf/shell/key-bindings.zsh
+    export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which javac)")")")"
+    export OPENJDKBIN="$JAVA_HOME/bin"
+else
+  echo "Unknown OS: $OSTYPE"
 fi
 
 LOCALBIN="$HOME/.local/bin"
-OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
-CYTHON_BIN="$HOMEBREW_PREFIX/opt/cython/bin"
 KREW_BIN="${KREW_ROOT:-$HOME/.krew}/bin"
+CYTHON_BIN="~/.local/bin/cython"
 
 export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
 
-if type /opt/homebrew/bin/brew &>/dev/null
-then
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
-fi
-
-source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
-
 # source plugins
 source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZDOTDIR/plugins/zsh-async/async.zsh
 
 # custom completions
 fpath=($ZDOTDIR/completions $fpath)
@@ -39,9 +45,6 @@ eval "$(mise activate zsh)"
 
 typeset -U path PATH
 typeset -U fpath
-
-# java version
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1
