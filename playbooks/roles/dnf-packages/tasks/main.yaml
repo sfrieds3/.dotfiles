@@ -28,11 +28,11 @@
       - htop
       - jansson-devel
       - java-11-openjdk-devel
-      - kitty
-      - libgccjit-devel
       - libX11-devel
       - libXpm-devel
+      - libgccjit-devel
       - libpng-devel
+      - libstdc++-static
       - libtiff-devel
       - libtool
       - libvterm
