@@ -46,6 +46,9 @@ eval "$(mise activate zsh)"
 typeset -U path PATH
 typeset -U fpath
 
+# for docker/colima
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYTHON3_VENV=$PYTHON3_VENV_BIN/python3
