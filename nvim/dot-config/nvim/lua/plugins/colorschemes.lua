@@ -130,12 +130,14 @@ return {
     "WTFox/jellybeans.nvim",
     event = "VeryLazy",
     opts = {
-      palette = "jellybeans_muted",
+      background = {
+        dark = "jellybeans_muted", -- default dark palette
+        light = "jellybeans_muted_light", -- default light palette
+      },
     },
   },
   {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
-    event = "VeryLazy",
   },
 }
