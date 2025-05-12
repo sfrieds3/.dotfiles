@@ -132,7 +132,7 @@ return {
     opts = {
       background = {
         dark = "jellybeans_muted", -- default dark palette
-        light = "jellybeans_muted_light", -- default light palette
+        light = "jellybeans_mono", -- default light palette
       },
     },
   },
