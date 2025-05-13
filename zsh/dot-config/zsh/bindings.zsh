@@ -1,6 +1,14 @@
 # emacs keybindings
 bindkey -e
 
+# sync history
+function sync-history-widget() {
+  fc -RI
+  zle reset-prompt
+}
+zle -N sync-history-widget
+bindkey '^G' sync-history-widget
+
 # fzf
 bindkey -M emacs '^O' fzf-history-widget
 
