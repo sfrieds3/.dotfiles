@@ -67,6 +67,15 @@ vim.opt.inccommand = "split"
 vim.opt.switchbuf:append({ "useopen", "uselast" })
 vim.opt.diffopt:append({ "vertical", "algorithm:histogram" })
 
+vim.opt.fillchars = {
+  horiz = "━",
+  horizup = "┻",
+  horizdown = "┳",
+  vert = "┃",
+  vertleft = "┫",
+  vertright = "┣",
+  verthoriz = "╋",
+}
 vim.opt.listchars = { tab = "  ", extends = "›", precedes = "‹", nbsp = "␣", trail = "·", eol = " " }
 vim.opt.list = true
 
