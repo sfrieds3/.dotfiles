@@ -1,5 +1,14 @@
 return {
   {
+    "WTFox/jellybeans.nvim",
+    opts = {
+      background = {
+        dark = "jellybeans_muted", -- default dark palette
+        light = "jellybeans_mono", -- default light palette
+      },
+    },
+  },
+  {
     "ramojus/mellifluous.nvim",
     event = "VeryLazy",
     opts = {
@@ -14,6 +23,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    event = "VeryLazy",
 
     opts = {
       flavour = "frappe",
@@ -92,6 +102,7 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
+    event = "VeryLazy",
     opts = {
       compile = true,
       dimInactive = true,
@@ -127,17 +138,8 @@ return {
     },
   },
   {
-    "WTFox/jellybeans.nvim",
-    event = "VeryLazy",
-    opts = {
-      background = {
-        dark = "jellybeans_muted", -- default dark palette
-        light = "jellybeans_mono", -- default light palette
-      },
-    },
-  },
-  {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
+    event = "VeryLazy",
   },
 }
