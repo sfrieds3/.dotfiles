@@ -3,6 +3,7 @@ tags
 .worktrees/
 .DS_Store
 venv/
+.venv/
 *.iml
 *.ipr
 *.iws
