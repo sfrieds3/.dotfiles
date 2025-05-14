@@ -13,7 +13,8 @@ config.default_prog = {
 -- config.color_scheme = "Kanagawa Dragon (Gogh)"
 -- config.color_scheme = "OneDark (base16)"
 -- config.color_scheme = "tokyonight_night"
-config.color_scheme = "Catppuccin Macchiato"
+-- config.color_scheme = "Catppuccin Macchiato"
+config.color_scheme = "Jellybeans"
 
 config.font = wezterm.font_with_fallback({ "Berkeley Mono", "Symbols Nerd Font Mono" })
 
