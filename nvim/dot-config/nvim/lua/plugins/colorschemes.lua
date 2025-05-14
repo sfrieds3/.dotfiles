@@ -121,23 +121,6 @@ return {
     config = true,
   },
   {
-    "folke/tokyonight.nvim",
-    event = "VeryLazy",
-
-    opts = {
-      dim_inactive = true,
-      sidebars = {},
-      styles = {
-        comments = { italic = true },
-        keywords = { italic = true },
-        functions = {},
-        variables = {},
-        sidebars = "normal",
-        floats = "transparent",
-      },
-    },
-  },
-  {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
     event = "VeryLazy",
