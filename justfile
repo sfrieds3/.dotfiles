@@ -8,7 +8,7 @@ stylua:
 
 # check for merge conflicts on all files
 merge-conflicts:
-    pre-commit run --all-files check-merge-conflicts
+    pre-commit run --all-files check-merge-conflict
 
 # check for trailing whitespace in all files
 whitespace:
