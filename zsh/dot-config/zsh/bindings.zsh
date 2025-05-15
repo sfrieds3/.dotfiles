@@ -3,7 +3,8 @@ bindkey -e
 
 # sync history
 function sync-history-widget() {
-  fc -RI
+  fc -I
+  fc -R
   zle reset-prompt
 }
 zle -N sync-history-widget
