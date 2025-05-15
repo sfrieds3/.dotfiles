@@ -25,6 +25,11 @@ return {
         keyword = {
           range = "prefix",
         },
+        accept = {
+          auto_brackets = {
+            enabled = false,
+          },
+        },
         list = {
           selection = {
             preselect = function(ctx)
