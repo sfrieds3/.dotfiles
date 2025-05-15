@@ -5,6 +5,14 @@
   community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
+  when: ansible_facts['os_family'] == 'Darwin'
+- name: Run dnf upgrade
+  become: true
+  ansible.builtin.dnf:
+    name: '*'
+    state: latest
+    update_cache: true
+  when: ansible_facts['pkg_mgr'] == 'dnf'
 - name: Upgrade all casks
   community.general.homebrew_cask:
     upgrade_all: true
