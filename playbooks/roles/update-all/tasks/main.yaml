@@ -6,6 +6,13 @@
     update_homebrew: true
     upgrade_all: true
   when: ansible_facts['os_family'] == 'Darwin'
+- name: Upgrade all casks
+  community.general.homebrew_cask:
+    upgrade_all: true
+  when: ansible_facts['os_family'] == 'Darwin'
+- name: Update submodules in $HOME/.dotfiles repo
+  ansible.builtin.command:
+    cmd: git submodule update --recursive --remote
 - name: Run dnf upgrade
   become: true
   ansible.builtin.dnf:
@@ -13,9 +20,3 @@
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'dnf'
-- name: Upgrade all casks
-  community.general.homebrew_cask:
-    upgrade_all: true
-- name: Update submodules in $HOME/.dotfiles repo
-  ansible.builtin.command:
-    cmd: git submodule update --recursive --remote
