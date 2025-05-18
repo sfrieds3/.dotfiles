@@ -46,6 +46,11 @@
       - ncurses-devel
       - ninja-build
       - perl-core
+      - podman
+      - podman-gvproxy
+      - podman-compose
+      - qemu-img
+      - qemu-kvm
       - ripgrep
       - rsync
       - ruby-devel
