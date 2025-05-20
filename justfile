@@ -40,4 +40,8 @@ python:
 
 # run update ansible playbook
 update:
-    ansible-playbook ./playbooks/update.yaml
+    if [ "$(uname)" = "Darwin" ]; then \
+        ansible-playbook ./playbooks/update.yaml; \
+    else \
+        ansible-playbook ./playbooks/update.yaml -K; \
+    fi
