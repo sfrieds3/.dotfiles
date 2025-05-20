@@ -2,7 +2,6 @@
   become: true
   ansible.builtin.dnf:
     name:
-      - ShellCheck
       - bat
       - clang
       - clang-tools-extra
@@ -35,6 +34,7 @@
       - libstdc++-static
       - libtiff-devel
       - libtool
+      - libvirt
       - libvterm
       - libxcb-devel
       - libxkbcommon-devel
@@ -47,17 +47,20 @@
       - ninja-build
       - perl-core
       - podman
-      - podman-gvproxy
       - podman-compose
+      - podman-gvproxy
       - qemu-img
       - qemu-kvm
       - ripgrep
       - rsync
       - ruby-devel
+      - shellcheck
       - sqlite
       - sqlite-devel
       - texinfo
       - util-linux-user
+      - virt-install
+      - virt-manager
       - zoxide
       - zsh
     state: present
