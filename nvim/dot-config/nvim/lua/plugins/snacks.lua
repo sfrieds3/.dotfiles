@@ -110,6 +110,7 @@ return {
     { "<leader>ff", function() Snacks.picker.files({layout = { preset = "ivy"} }) end, desc = "Find Files" },
     { "<leader>fF", function() Snacks.picker.files({layout = { preset = "ivy"}, hidden=true, ignored=true }) end, desc = "Find All Files" },
     { "<leader><leader>", function() Snacks.picker.buffers({layout = { preset = "ivy"} }) end, desc = "Buffers" },
+    { "<leader>sr", function() Snacks.picker.grep({layout = { preview = 'main', preset = 'ivy' }, jump = { match = true } }) end, desc = "Grep" },
     { "<leader>rg", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>rG", function() live_grep_all_files() end, desc = "Live Grep in All Files" },
     { "<leader>gr", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
