@@ -97,7 +97,7 @@ function M.config()
 
   vim.api.nvim_create_user_command("Make", function(params)
     -- Insert args at the '$*' in the makeprg
-    local cmd, num_subs = vim.o.makeprg:gsub("%$%*", params.args)
+    local cmd, num_subs = vim.o.grepprg:gsub("%$%*", vim.fn.shellescape(params.args))
     if num_subs == 0 then
       cmd = cmd .. " " .. params.args
     end
