@@ -5,6 +5,7 @@
   community.general.homebrew:
     name:
       - apache-arrow
+      - awscli
       - btop
       - bufbuild/buf/buf
       - cargo-nextest
