@@ -13,6 +13,7 @@
       # - clojure/tools/clojure
       - codex
       - duckdb
+      - eksctl
       - ffmpeg
       - gh
       - gitlab-ci-local
