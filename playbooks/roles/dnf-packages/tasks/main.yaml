@@ -2,6 +2,9 @@
   become: true
   ansible.builtin.dnf:
     name:
+      - '@C Development Tools and Libraries'
+      - '@virtualization'
+      - '@Development Tools'
       - bat
       - clang
       - clang-tools-extra
