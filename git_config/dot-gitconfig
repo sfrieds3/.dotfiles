@@ -59,7 +59,7 @@
 	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
 	dft = difftool
 	du = diff @{upstream}
-	fpush = push --force-with-lease
+	fpush = push --force-with-lease --force-if-includes
 	la = log --graph --oneline --decorate --all
 	lb = log --graph --decorate
 	lf = log -p --pretty=fuller --abbrev-commit
