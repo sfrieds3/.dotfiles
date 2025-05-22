@@ -345,3 +345,16 @@ function k8s_pod_images() {
     (.[] | [.namespace, .name, .images] | @tsv)
     ' | column -t
 }
+
+function drun() {
+  local args=("$@")
+  local selection image
+
+  selection=$(docker images --format '{{.Repository}}:{{.Tag}}\t{{.ID}}' | sort -u | fzf --prompt="Select image: " --header='NAME:TAG\tIMAGE ID')
+  [[ -z "$selection" ]] && return 1
+
+  image=${selection%%$'\t'*}  # Get image name (before tab)
+
+  echo "Running: docker run ${args[*]} $image"
+  docker run "${args[@]}" "$image"
+}
