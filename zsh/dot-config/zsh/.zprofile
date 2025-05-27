@@ -43,6 +43,10 @@ eval "$(zoxide init zsh)"
 # mise
 eval "$(mise activate zsh)"
 
+# atuin
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+
 typeset -U path PATH
 typeset -U fpath
 

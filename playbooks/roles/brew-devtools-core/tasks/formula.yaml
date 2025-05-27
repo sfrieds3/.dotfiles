@@ -3,6 +3,7 @@
     name:
       - ansible-language-server
       - ast-grep
+      - atuin
       - autoconf
       - automake
       - bash

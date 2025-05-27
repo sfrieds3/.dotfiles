@@ -11,7 +11,10 @@ zle -N sync-history-widget
 bindkey '^G' sync-history-widget
 
 # fzf
-bindkey -M emacs '^O' fzf-history-widget
+# bindkey -M emacs '^O' fzf-history-widget
+
+# atuin
+bindkey -M emacs '^O' atuin-search
 
 # search for line up/down
 autoload -U up-line-or-beginning-search
