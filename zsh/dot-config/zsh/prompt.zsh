@@ -161,7 +161,12 @@ function __maybe_add_user_host() {
 
 function __prompt__python_venv() {
     if [[ -n $VIRTUAL_ENV && -x "$VIRTUAL_ENV/bin/python" ]]; then
-        echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON ${VIRTUAL_ENV:t})%f "
+        if [[ -n $VIRTUAL_ENV_PROMPT ]]; then
+            local VIRTUAL_ENV_NAME=$VIRTUAL_ENV_PROMPT
+        else
+            local VIRTUAL_ENV_NAME=${VIRTUAL_ENV:t}
+        fi
+        echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON $VIRTUAL_ENV_NAME)%f "
     fi
 }
 
