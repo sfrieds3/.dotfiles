@@ -8,6 +8,22 @@ autoload -Uz compinit && compinit -u
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 
+# source dynamic completions
+source <(kubectl completion zsh)
+source <(helm completion zsh)
+source <(docker completion zsh)
+source <(uv generate-shell-completion zsh)
+
+# Fix completions for uv run.
+_uv_run_mod() {
+    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+        _arguments '*:filename:_files -g "*.py"'
+    else
+        _uv "$@"
+    fi
+}
+compdef _uv_run_mod uv
+
 # complete hidden files/directories without requiring leading '.'
 _comp_options+=(globdots)
 
