@@ -75,9 +75,10 @@ source $ZDOTDIR/aliases.zsh
 # nvim as editor
 export EDITOR="nvim"
 
-# kubernetes and helm completion
+# source dynamic completions
 source <(kubectl completion zsh)
 source <(helm completion zsh)
+source <(docker completion zsh)
 
 foreach localfile (/etc/zsh/local ~/.zsh_local ~/.zshrc.local ~/.zshrc.$HOST ~/.zshrc.$USER); do
     if [[ -r $localfile ]]; then; echo "Sourcing $localfile"; source $localfile; fi
