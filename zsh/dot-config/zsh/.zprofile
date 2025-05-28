@@ -35,7 +35,12 @@ source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-searc
 source $ZDOTDIR/plugins/zsh-async/async.zsh
 
 # custom completions
-fpath=($ZDOTDIR/completions $fpath)
+fpath=(
+    $ZDOTDIR/completions
+    /usr/local/share/zsh/site-functions
+    $HOMEBREW_PREFIX/share/zsh/site-functions
+    $fpath
+)
 
 # zoxide
 eval "$(zoxide init zsh)"
