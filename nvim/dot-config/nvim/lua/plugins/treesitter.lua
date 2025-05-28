@@ -5,7 +5,7 @@ return {
     dependencies = "nvim-treesitter/nvim-treesitter",
     -- stylua: ignore
     keys = {
-      { "<leader>cm", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
+      { "<leader>cj", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
     },
   },
   {
