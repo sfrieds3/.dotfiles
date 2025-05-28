@@ -19,8 +19,8 @@ if status is-interactive
     # zoxide
     zoxide init fish | source
 
-    # asdf
-    source (brew --prefix asdf)/libexec/asdf.fish
+    # atuin
+    atuin init fish | source
 
     # conda
     if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
@@ -36,9 +36,6 @@ if status is-interactive
         source "$HOME/.cargo/env.fish"
     end
 
-    # load kubectl completions
-    kubectl completion fish | source
-
     # configure fzf bindings
     fzf_configure_bindings --history=\co --directory=\eff --git_log=\efl --processes=\efp --variables=\efv
 
@@ -49,7 +46,7 @@ if status is-interactive
     set --global --export JAVA_HOME (/usr/libexec/java_home -v17)
 
     # acomagu/fish-async-prompt
-    # set -U async_prompt_functions fish_right_prompt
+    set -U async_prompt_functions fish_right_prompt
 
     # load local fish config
     set -l local_config "$__fish_config_dir/fish_local.fish"
@@ -64,11 +61,7 @@ if status is-interactive
     end
 
     fish_set_virtual_env
-
-    starship init fish | source
-    enable_transience
 end
-
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:

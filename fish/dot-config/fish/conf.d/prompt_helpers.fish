@@ -24,12 +24,12 @@ end
 
 function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
-        set -l venv_icon 
-        set -l venv_icon "py-venv:"
-        set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
+        set -l venv_icon 
+        # set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
+        set -l venv_location (basename $VIRTUAL_ENV)
         set -l pyversion (python --version | sed 's/^Python //')
         set_color green
-        printf " ($venv_icon $venv_location [$pyversion])"
+        printf "($venv_icon $venv_location [$pyversion]) "
         set_color normal
     end
 end
@@ -40,7 +40,7 @@ function __python_version -d "Get python version"
         set -l py_icon "py-version:"
         set -l py_version (asdf current python | awk '{print $2}')
         set_color green
-        printf " ($py_icon $py_version)"
+        printf "($py_icon $py_version)"
         set_color normal
     end
 end
@@ -53,7 +53,7 @@ function __python_path -d "Get python path"
         set -l whichpy (which python)
         set -l venv_location (string replace $HOME/ '' $whichpy)
         set_color cyan
-        echo " ($py_icon $venv_location [$pyversion])"
+        echo "($py_icon $venv_location [$pyversion])"
         set_color normal
     end
 
@@ -65,7 +65,7 @@ function __conda_env -d "Get conda env"
         set -l conda_icon "conda:"
         set -l conda_environment (basename $CONDA_PREFIX)
         set_color green
-        printf " ($conda_icon $conda_environment)"
+        printf "($conda_icon $conda_environment)"
         set_color normal
     end
 end
@@ -89,20 +89,19 @@ function __node_version -d "Get node version"
         set -l node_icon "node:"
         set -l _node_version (asdf current nodejs | awk '{print $2}')
         set_color magenta
-        printf " ($node_icon v$_node_version)"
+        printf "($node_icon v$_node_version)"
         set_color normal
     end
 end
 
 function __docker_context -d "Get docker context"
-    set -l docker_icon 🐳
-    set -l docker_icon "docker:"
+    set -l docker_icon 
     set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml"
     for dockerfile in $dockerfiles
         if test -e $dockerfile
             set -l _docker_context (docker context show)
             set_color blue
-            printf " ($docker_icon $_docker_context)"
+            printf "($docker_icon $_docker_context) "
             set_color normal
             return
         end
@@ -117,16 +116,14 @@ function __rust_version --description "Get rust toolchain version"
         if test -e $file
             set -l _rust_version (rustc --version | awk '{print $2}')
             set_color red
-            printf " ($rust_icon $_rust_version)"
+            printf "($rust_icon $_rust_version)"
             set_color normal
             return
         end
     end
 end
 
-function __ssh_prompt --description "TODO: use to determine username/host in ssh or container"
-    # Only show host if in SSH or container
-    # Store this in a global variable because it's slow and unchanging
+function __ssh_prompt --description "Show host if in SSH or container"
     if not set -q prompt_host
         set -g prompt_host ""
         if set -q SSH_TTY
@@ -134,40 +131,30 @@ function __ssh_prompt --description "TODO: use to determine username/host in ssh
                 command -sq systemd-detect-virt
                 and systemd-detect-virt -q
             end
-            set prompt_host $usercolor$USER$normal@(set_color $fish_color_host)$hostname$normal":"
+            printf "$USER@$hostname:"
         end
     end
 end
 
 function _prompt_status_postexec --on-event fish_postexec
-    # set --global _status " │ "
-    # set --global _status " ❱ "
-    set --global _status " ❯ "
+    set --global _status "❯ "
     set --local __last_status $pipestatus
     for code in $__last_status
         if test $code -ne 0
-            # set --global _status (echo (set_color $fish_color_error) "[$code] !! ")
-            set --global _status (echo (set_color $fish_color_error) "[$code] ❱ ")
+            set --global _status (echo (set_color $fish_color_error)"❯ ")
             break
         end
     end
 end
 
 function _prompt_helpers --on-event fish_prompt
-    set --local __prompt_kubectl_status (__kubectl_status)
     set --local __prompt_docker_context (__docker_context)
     set --local __prompt_python_venv (__python_venv)
-    # set --local __prompt_python_version (__python_version)
-    # set --local __prompt_python_path (__python_path)
-    set --local __prompt_conda_env (__conda_env)
-    # set --local __prompt_node_version (__node_version)
-    # set --local __prompt_rust_version (__rust_version)
+    set --local __maybe_ssh_prompt (__ssh_prompt)
 
-    set --global __prompt_statuses "$__prompt_kubectl_status$__prompt_docker_context$__prompt_python_venv$__prompt_conda_env"
+    set --global __prompt_statuses "$__prompt_docker_context$__prompt_python_venv$__maybe_ssh_prompt"
 
-    # set --query _status || set --global _status " │ "
-    # set --query _status || set --global _status " ❱  "
-    set --query _status || set --global _status " ❯ "
+    set --query _status || set --global _status "❯ "
 end
 
 function __get_prompt_pwd --on-variable PWD
