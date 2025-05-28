@@ -11,12 +11,6 @@ function r() {
     autoload -U $f:t
 }
 
-function __prompt__python_venv() {
-    # [ $VIRTUAL_ENV ] && echo 'venv('`basename $VIRTUAL_ENV`') '
-    # local __pyv=`python --version | sed 's/^Python //'`
-    [[ -n $VIRTUAL_ENV ]] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON ${VIRTUAL_ENV:t})%f "
-}
-
 function __prompt__conda_env() {
     [ $CONDA_PREFIX ] && echo -n "%F{$PROMPT_PYTHON_COLOR}(${CONDA_PREFIX:t})%f "
 }
@@ -296,22 +290,6 @@ function git-rebase() {
 function docker_context() {
     local __DOCKER_CONTEXT="$(docker context show)"
     echo $__DOCKER_CONTEXT
-}
-
-
-function __prompt__docker_context() {
-    local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml' 'Chart.yaml' 'docker')
-
-    for dockerfile in "${dockerfiles[@]}"; do
-        if [[ -e "$dockerfile" ]]; then
-            local _docker_context
-            _docker_context=$(docker context show 2>/dev/null)
-            [[ -z "$_docker_context" ]] && return
-
-            echo -n "%F{$PROMPT_DOCKER_COLOR}($PROMPT_DOCKER_ICON $_docker_context)%f "
-            return
-        fi
-    done
 }
 
 function k8s_pod_images() {

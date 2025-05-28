@@ -159,6 +159,28 @@ function __maybe_add_user_host() {
     fi
 }
 
+function __prompt__python_venv() {
+    if [[ -n $VIRTUAL_ENV && -x "$VIRTUAL_ENV/bin/python" ]]; then
+        echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_PYTHON_ICON ${VIRTUAL_ENV:t})%f "
+    fi
+}
+
+function __prompt__docker_context() {
+    local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml' 'Chart.yaml' 'docker')
+
+    for dockerfile in "${dockerfiles[@]}"; do
+        if [[ -e "$dockerfile" ]]; then
+            local _docker_context
+            _docker_context=$(docker context show 2>/dev/null)
+            [[ -z "$_docker_context" ]] && return
+
+            echo -n "%F{$PROMPT_DOCKER_COLOR}($PROMPT_DOCKER_ICON $_docker_context)%f "
+            return
+        fi
+    done
+}
+
+
 PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
 PS2=' '
 
