@@ -11,10 +11,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     OPENJDKBIN=""
     CYTHON_BIN=""
     export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    source /usr/share/fzf/shell/key-bindings.zsh
     export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which javac)")")")"
     export OPENJDKBIN="$JAVA_HOME/bin"
 else
@@ -33,6 +30,10 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/plugins/zsh-async/async.zsh
+
+# fzf
+source $ZDOTDIR/plugins/fzf/shell/completion.zsh
+source $ZDOTDIR/plugins/fzf/shell/key-bindings.zsh
 
 # custom completions
 fpath=(
