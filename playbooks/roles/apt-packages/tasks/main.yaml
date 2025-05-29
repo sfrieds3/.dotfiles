@@ -55,6 +55,7 @@
       - ripgrep
       - rsync
       - ruby-dev
+      - ruby-mdl
       - shellcheck
       - sqlite3
       - libsqlite3-dev
