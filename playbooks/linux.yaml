@@ -3,5 +3,5 @@
     - stow
     - dotfiles-submodules
     - python-uv-tool
-    - dnf-packages
+    - apt-packages
     - cargo-install

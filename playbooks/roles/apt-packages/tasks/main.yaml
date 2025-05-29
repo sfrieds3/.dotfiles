@@ -1,0 +1,83 @@
+- name: Install apt packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - manpages-dev
+      - virt-manager
+      - qemu-kvm
+      - libvirt-daemon-system
+      - libvirt-clients
+      - bridge-utils
+      - bat
+      - clang
+      - clang-tools
+      - cmake
+      - curl
+      - dconf-cli
+      - eza
+      - fd-find
+      - libfontconfig1-dev
+      - libfreetype6-dev
+      - fzf
+      - g++
+      - gcc
+      - gettext
+      - libgif-dev
+      - gimp
+      - git
+      - gitk
+      - gnome-tweaks
+      - libgnutls28-dev
+      - libgtk2.0-dev
+      - htop
+      - libjansson-dev
+      - libx11-dev
+      - libxpm-dev
+      - libgccjit-12-dev
+      - libpng-dev
+      - libtiff-dev
+      - libtool
+      - libvterm-dev
+      - libxcb1-dev
+      - libxkbcommon-dev
+      - llvm
+      - lua5.4
+      - make
+      - mise
+      - nasm
+      - libncurses-dev
+      - ninja-build
+      - perl
+      - podman
+      - podman-compose
+      - qemu-utils
+      - ripgrep
+      - rsync
+      - ruby-dev
+      - shellcheck
+      - sqlite3
+      - libsqlite3-dev
+      - texinfo
+      - util-linux
+      - virtinst
+      - zsh
+    state: present
+- name: Ensure $XDG_CONFIG_HOME folder is created
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.config"
+    state: directory
+    mode: '0775'
+- name: Ensure $HOME/.local/bin folder is created
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    state: directory
+    mode: '0755'
+- name: Check if rust is installed
+  ansible.builtin.shell: command -v rustc
+  register: cargo_exists
+  ignore_errors: true
+  tags: rust
+- name: Install Rust
+  ansible.builtin.shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  when: cargo_exists is failed
