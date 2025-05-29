@@ -118,6 +118,9 @@ alias mr='mise run'
 alias cleardns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias whatsmyip='python3 -c "from socket import gethostbyname, gethostname; print(gethostbyname(gethostname()))"'
 
+# update cargo install packages
+alias cargo-install-update="cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
+
 # nvim diff
 alias nvimdiff='nvim -d'
 

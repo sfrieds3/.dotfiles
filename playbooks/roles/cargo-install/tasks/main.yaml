@@ -1,0 +1,6 @@
+- name: Install cargo packages
+  community.general.cargo:
+    name:
+      - atuin
+      - exa
+      - zoxide
