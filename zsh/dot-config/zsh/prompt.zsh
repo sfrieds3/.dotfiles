@@ -25,7 +25,7 @@ zstyle ':sfrieds3:prompt:python:*' color green
 zstyle ':sfrieds3:prompt:kube:*' icon ''
 zstyle ':sfrieds3:prompt:kube:*' color blue
 zstyle ':sfrieds3:prompt:pwd:dir:*' color cyan
-zstyle ':sfrieds3:prompt:pwd:*' color magneta
+zstyle ':sfrieds3:prompt:pwd:*' color magenta
 zstyle ':sfrieds3:prompt:jobs:*' color yellow
 zstyle ':sfrieds3:prompt:character:success:*' icon '❯'
 zstyle ':sfrieds3:prompt:character:success:*' color blue
@@ -35,7 +35,7 @@ zstyle ':sfrieds3:prompt:exectime:*' color yellow
 
 # load zstyle configurations
 zstyle -s ':sfrieds3:prompt:git:branch:*' color PROMPT_BRANCH_COLOR || PROMPT_BRANCH_COLOR=magenta
-zstyle -s ':sfrieds3:prompt:git:stashed:*' color PROMT_STASHED_COLOR || PROMT_STASHED_COLOR=blue
+zstyle -s ':sfrieds3:prompt:git:stashed:*' color PROMPT_STASHED_COLOR || PROMPT_STASHED_COLOR=blue
 zstyle -s ':sfrieds3:prompt:git:stashed:*' icon PROMPT_STASHED_ICON || PROMPT_STASHED_ICON=' ≡'
 zstyle -s ':sfrieds3:prompt:git:staged:*' color PROMT_STAGED_COLOR || PROMT_STAGED_COLOR=green
 zstyle -s ':sfrieds3:prompt:git:staged:*' icon PROMPT_STAGED_ICON || PROMPT_STAGED_ICON=' ●'
@@ -52,8 +52,8 @@ zstyle -s ':sfrieds3:prompt:kube:*' icon PROMPT_KUBE_ICON || PROMPT_KUBE_ICON='�
 zstyle -s ':sfrieds3:prompt:pwd:dir:*' color PROMPT_DIR_COLOR || PROMPT_DIR_COLOR=cyan
 zstyle -s ':sfrieds3:prompt:pwd:*' color PROMPT_PWD_COLOR || PROMPT_PWD_COLOR=magenta
 zstyle -s ':sfrieds3:prompt:jobs:*' color PROMPT_JOBS_COLOR || PROMPT_JOBS_COLOR=yellow
-zstyle -s ':sfrieds3:prompt:character:success:*' color PROMPT_CHARACTER_COLOR || PROMPT_CHARACTER_COLOR='❯'
-zstyle -s ':sfrieds3:prompt:character:success:*' icon PROMPT_CHARACTER_ICON || PROMPT_CHARACTER_ICON=blue
+zstyle -s ':sfrieds3:prompt:character:success:*' color PROMPT_CHARACTER_COLOR || PROMPT_CHARACTER_COLOR=blue
+zstyle -s ':sfrieds3:prompt:character:success:*' icon PROMPT_CHARACTER_ICON || PROMPT_CHARACTER_ICON='❯'
 zstyle -s ':sfrieds3:prompt:character:error:*' color PROMPT_CHARACTER_ERROR_COLOR || PROMPT_CHARACTER_ERROR_COLOR=red
 zstyle -s ':sfrieds3:prompt:character:error:*' icon PROMPT_CHARACTER_ERROR_ICON || PROMPT_CHARACTER_ERROR_ICON='!!'
 zstyle -s ':sfrieds3:prompt:userhost:*' color PROMPT_USER_HOST_COLOR || PROMPT_USER_HOST_COLOR='green'
@@ -83,7 +83,7 @@ function +vi-git-untracked() {
 function +vi-git-stashed() {
     emulate -L zsh
     if [[ -n $(git rev-list --walk-reflogs --count refs/stash 2> /dev/null) ]]; then
-        hook_com[unstaged]+="%F{$PROMT_STASHED_COLOR}$PROMPT_STASHED_ICON%f"  # ⚑
+        hook_com[unstaged]+="%F{$PROMPT_STASHED_COLOR}$PROMPT_STASHED_ICON%f"  # ⚑
     fi
 }
 
