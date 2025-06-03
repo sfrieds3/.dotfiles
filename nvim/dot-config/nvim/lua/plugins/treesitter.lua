@@ -111,7 +111,9 @@ return {
     keys = {
       {
         "<M-t>",
-        "<cmd>TSContextToggle<cr>",
+        function()
+          require("treesitter-context").toggle()
+        end,
         desc = "Toggle treesitter-context",
       },
       {
