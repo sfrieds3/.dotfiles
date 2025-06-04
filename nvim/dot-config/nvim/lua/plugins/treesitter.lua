@@ -15,7 +15,6 @@ return {
 
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "RRethy/nvim-treesitter-textsubjects",
     },
     opts = {
       ensure_installed = "all",
@@ -38,16 +37,6 @@ return {
       },
       matchup = {
         enable = true,
-      },
-      -- RRethy/nvim-treesitter-textsubjects
-      textsubjects = {
-        enable = true,
-        prev_selection = ",",
-        keymaps = {
-          ["."] = "textsubjects-smart",
-          [";"] = "textsubjects-container-outer",
-          ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
-        },
       },
       textobjects = {
         select = {
