@@ -125,4 +125,18 @@ return {
     name = "moonfly",
     event = "VeryLazy",
   },
+  {
+    "webhooked/kanso.nvim",
+    opts = {
+      background = {
+        dark = "zen",
+        light = "pearl",
+      },
+      overrides = function(colors)
+        return {
+          WinSeparator = { fg = colors.theme.ui.nontext },
+        }
+      end,
+    },
+  },
 }
