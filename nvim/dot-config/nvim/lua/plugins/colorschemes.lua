@@ -139,4 +139,12 @@ return {
       end,
     },
   },
+  {
+    "scottmckendry/cyberdream.nvim",
+    event = "VeryLazy",
+  },
+  {
+    "thesimonho/kanagawa-paper.nvim",
+    event = "VeryLazy",
+  },
 }

@@ -15,7 +15,7 @@ local pathshorten = vim.fn.pathshorten
 ---@param ns integer namespace
 ---@param opts string[] opts for hl
 function Statusline.set_statusline_hl(ns, opts)
-  local statusline_bg = vim.api.nvim_get_hl(0, { name = "statusline", link = false })["bg"]
+  local statusline_bg = vim.api.nvim_get_hl(0, { name = "Statusline", link = false })["bg"]
 
   if opts["bg"] ~= nil then
     statusline_bg = opts["bg"]
@@ -295,7 +295,7 @@ function Statusline.status()
     local mode = get_mode().mode
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
-    local mode_color, filename_color, filetype_color, vcs_color = "@type", "statusline", "statusline", "StatuslineVcs"
+    local mode_color, filename_color, filetype_color, vcs_color = "@type", "Statusline", "Statusline", "StatuslineVcs"
     local filename_segment = filename(bufname, win_id, filename_color)
     local filetype_segment = "%y"
     local line_col_segment = filename_segment ~= "" and "%#@namespace# ℓ:%l 𝚌:%c " or " "
