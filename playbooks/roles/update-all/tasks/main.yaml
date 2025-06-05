@@ -11,8 +11,8 @@
     upgrade_all: true
   when: ansible_facts['os_family'] == 'Darwin'
 - name: Update submodules in $HOME/.dotfiles repo
-  ansible.builtin.command:
-    cmd: git submodule update --recursive --remote
+  ansible.builtin.shell: |
+    git submodule update --init --remote && git submodule update --recursive
 - name: Run dnf upgrade
   become: true
   ansible.builtin.dnf:
@@ -27,3 +27,6 @@
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'apt'
+- name: Update installed nvim packages
+  ansible.builtin.shell: |
+    nvim --headless ':Lazy update' +qa
