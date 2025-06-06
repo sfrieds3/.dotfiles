@@ -21,6 +21,9 @@ return {
         ["<C-l>"] = { "snippet_forward" },
         ["<C-h>"] = { "snippet_backward" },
       },
+      enabled = function()
+        return not vim.tbl_contains({ "oil" }, vim.bo.filetype)
+      end,
       completion = {
         keyword = {
           range = "prefix",
