@@ -135,6 +135,7 @@ return {
       overrides = function(colors)
         return {
           WinSeparator = { fg = colors.theme.ui.nontext },
+          StatusLine = { bg = colors.theme.ui.bg_p2 },
         }
       end,
     },
