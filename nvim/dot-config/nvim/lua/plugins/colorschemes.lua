@@ -130,7 +130,7 @@ return {
     opts = {
       background = {
         dark = "zen",
-        light = "pearl",
+        light = "mist",
       },
       overrides = function(colors)
         return {
