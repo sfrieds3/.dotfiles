@@ -1,0 +1,6 @@
+- name: Update ghostty themes from nvim colorscheme extras
+  ansible.builtin.shell: |
+    zsh -c '
+      setopt extended_glob
+      cp ~/.local/share/nvim/lazy/**/extras/ghostty/**/*~*.md(.N) {{ lookup('env', 'XDG_CONFIG_HOME') }}/ghostty/themes
+    '

@@ -3,7 +3,7 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ lookup('env', 'HOME') }}/.config"
+    - "{{ lookup('env', 'XDG_CONFIG_HOME') }}"
     - "{{ lookup('env', 'HOME') }}/scratch"
     - "{{ lookup('env', 'HOME') }}/bin"
     - "{{ lookup('env', 'HOME') }}/code"
