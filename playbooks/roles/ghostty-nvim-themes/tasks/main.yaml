@@ -4,3 +4,17 @@
       setopt extended_glob
       cp ~/.local/share/nvim/lazy/**/extras/ghostty/**/*~*.md(.N) {{ lookup('env', 'XDG_CONFIG_HOME') }}/ghostty/themes
     '
+- name: Find all theme files (non-.md)
+  ansible.builtin.find:
+    paths: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/ghostty/repo-themes"
+    patterns: "*"
+    recurse: yes
+    file_type: file
+  register: theme_files
+- name: Copy ghostty theme files with .conf stripped
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/ghostty/themes/{{ item.path | basename | regex_replace('\\.conf$', '') }}"
+    remote_src: yes
+  loop: "{{ theme_files.files }}"
+  when: "'ghostty' in item.path and '/themes/' in item.path and not item.path.endswith('.md')"

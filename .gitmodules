@@ -22,3 +22,6 @@
 [submodule "zsh/dot-config/zsh/plugins/fzf"]
 	path = zsh/dot-config/zsh/plugins/fzf
 	url = git@github.com:junegunn/fzf.git
+[submodule "ghostty/dot-config/ghostty/repo-themes/catppuccin-ghostty"]
+	path = ghostty/dot-config/ghostty/repo-themes/catppuccin-ghostty
+	url = git@github.com:catppuccin/ghostty.git
