@@ -47,6 +47,7 @@
       - jq
       - jsonlint
       - just
+      - k9s
       - kubectx
       - kubernetes-cli
       - libgccjit
