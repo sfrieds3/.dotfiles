@@ -1,0 +1,170 @@
+" basic settings
+filetype plugin indent on
+set hidden
+set autoread
+set nomodeline
+set ignorecase
+set infercase
+set smartcase
+set showmatch
+set splitbelow
+set splitright
+set autoindent
+set incsearch
+set hlsearch
+set shiftwidth=4
+let softtabstop = &shiftwidth
+set tabstop=4
+set scrolloff=3
+set shiftround
+set expandtab
+set smarttab
+
+" other setting stuff
+set laststatus=2
+set backspace=indent,eol,start
+set encoding=utf8
+set fileencoding=utf8
+set showtabline=1
+set formatoptions=qrn1j
+set nrformats-=octal
+set redrawtime=50000
+set showbreak=...
+
+if has('mouse')
+    set mouse=a
+endif
+
+if has('foldmethod')
+    set foldmethod=manual
+endif
+if has('foldcolumn')
+    set foldcolumn=0
+endif
+
+" listchars
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:␣,trail:·
+set list
+
+" do not show listchars in insert
+augroup ListChar
+    autocmd!
+    autocmd InsertEnter * set nolist
+    autocmd InsertLeave * set list
+augroup END
+
+" allow moving beyond buffer text in visual block
+if exists('+virtualedit')
+    set virtualedit+=block
+endif
+
+" timeout on key codes but not on mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+let mapleader = "\\"
+let maplocalleader = "_"
+
+" use rg if available, else fall back to git grep
+"if executable('rg')
+"    set grepprg=rg\ -HS\ --no-heading\ --vimgrep\ $*
+"    set errorformat^=%f:%l:%c:%m,%f
+"else
+"    set grepprg=git\ grep\ -in\ $*
+"endif
+
+" enable syntax
+if !exists("g:syntax_on")
+    syntax enable
+endif
+
+set wildmenu
+set wildignore+=*.pyc
+set wildignorecase
+set wildcharm=<C-z>
+if !has('nvim')
+    set wildmode=list:longest,full
+endif
+
+set tags=./tags;,tags;
+
+set omnifunc=syntaxcomplete#Complete
+set complete+=d
+set completeopt=longest,menuone,preview
+
+" simple default path
+set path=.,,
+
+runtime! macros/matchit.vim
+
+" easy manpages with <leader>K or :Man <manpage>
+runtime! ftplugin/man.vim
+
+if has('patch-8.1.0311')
+    packadd cfilter
+endif
+
+if !&ruler
+    set ruler
+endif
+
+set undofile
+set backup
+set backupext=.bak
+set noswapfile
+
+" save lots of history
+set viminfo='1000,f1,<1000,/10000,:10000
+
+set undodir=~/.vim/tmp/undo// " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+
+nnoremap j gj
+nnoremap k gk
+nnoremap ^ g^
+nnoremap $ g$
+nnoremap gj j
+nnoremap gk k
+nnoremap g^ ^
+nnoremap g$ $
+
+" commonly mistyped commands
+command -bang -bar -complete=file -nargs=? E edit<bang> <args>
+command -bang -bar -complete=file -nargs=? W write<bang> <args>
+command -bang -bar -complete=file -nargs=? WQ wq<bang> <args>
+command -bang -bar -complete=file -nargs=? Wq wq<bang> <args>
+command -bang -bar Q quit<bang>
+command -bang -bar Qa qall<bang>
+command -bang -bar QA qall<bang>
+command -bang -bar Wa wall<bang>
+command -bang -bar WA wa<bang>
+
+" fuzzy find in path
+nnoremap \f :find **/*
+nnoremap \F :find **/
+
+nnoremap \b :buffer<Space>
+
+" silent grep
+nnoremap \g :silent! grep<Space>
+
+" stay where you are on *
+nnoremap <silent> * :let lloc = winsaveview()<cr>*:call winrestview(lloc)<cr>
+
+" auto open quickfix/locationlist
+augroup AutoQuickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l* lwindow
+augroup END
+
+runtime! config/*.vim
