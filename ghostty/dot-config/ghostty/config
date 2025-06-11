@@ -3,12 +3,6 @@ mouse-hide-while-typing = true
 background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
-# theme = catppuccin-macchiato
-# theme = moonfly
-# theme = jellybeans
-# theme = Mellifluous
-# theme = gruvbox-material
-# theme = GruvboxDarkHard
 theme = kanso-zen
 
 shell-integration-features = no-cursor

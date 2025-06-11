@@ -24,8 +24,8 @@ palette = 19=#595959
 palette = 20=#7a8490
 palette = 21=#f8f8f8
 
-background = fdf6ec
-foreground = 252525
-cursor-color = 252525
-selection-background = 787878
-selection-foreground = fdf6ec
+background = #fdf6ec
+foreground = #252525
+cursor-color = #252525
+selection-background = #787878
+selection-foreground = #fdf6ec
