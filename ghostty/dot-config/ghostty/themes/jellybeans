@@ -1,4 +1,4 @@
-# name = "jellybeans-dark"
+# name = "jellybeans"
 # author = "A. Fox"
 
 palette = 0=#151515
@@ -29,4 +29,3 @@ foreground = #e8e8d3
 cursor-color = #b0d0f0
 selection-background = #404040
 selection-foreground = #e8e8d3
-
