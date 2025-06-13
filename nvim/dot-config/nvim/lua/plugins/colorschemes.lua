@@ -148,4 +148,8 @@ return {
     "thesimonho/kanagawa-paper.nvim",
     event = "VeryLazy",
   },
+  {
+    "vague2k/vague.nvim",
+    event = "VeryLazy",
+  },
 }
