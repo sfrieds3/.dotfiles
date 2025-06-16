@@ -54,7 +54,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "notify",
     "oil",
     "qf",
-    "spectre_panel",
     "startuptime",
     "tsplayground",
     "gitsigns-blame",
