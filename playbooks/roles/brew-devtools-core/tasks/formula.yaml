@@ -61,6 +61,7 @@
       - minikube
       - mise
       - mysql
+      - ncdu
       - ninja
       - openjdk
       - perl
