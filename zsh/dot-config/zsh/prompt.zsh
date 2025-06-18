@@ -160,7 +160,7 @@ function __maybe_add_user_host() {
 }
 
 function __prompt__python_venv() {
-    if [[ -n $VIRTUAL_ENV && -x "$VIRTUAL_ENV/bin/python" ]]; then
+    if [[ -n $VIRTUAL_ENV && -x "$VIRTUAL_ENV/bin/python" && "$(which python)" == "$VIRTUAL_ENV/bin/python" ]]; then
         if [[ -n $VIRTUAL_ENV_PROMPT ]]; then
             local VIRTUAL_ENV_NAME=$VIRTUAL_ENV_PROMPT
         else
