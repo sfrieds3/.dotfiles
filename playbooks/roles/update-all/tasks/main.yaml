@@ -27,8 +27,5 @@
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'apt'
-- name: Update installed nvim packages
-  ansible.builtin.shell: |
-    nvim --headless ':Lazy update' +qa
 - name: run rustup update
   ansible.builtin.shell: rustup update

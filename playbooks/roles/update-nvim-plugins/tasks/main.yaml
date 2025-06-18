@@ -1,0 +1,3 @@
+- name: Update installed nvim plugins
+  ansible.builtin.shell: |
+    nvim --headless ':Lazy update' +qa
