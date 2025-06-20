@@ -95,3 +95,5 @@
 	enabled = true
 [grep]
 	patternType = perl
+[help]
+	autocorrect = prompt
