@@ -46,10 +46,10 @@ update:
         ansible-playbook ./playbooks/update.yaml -K; \
     fi
 
-# run full-update ansible playbook
-full-update:
+# run update-all ansible playbook
+update-all:
     if [ "$(uname)" = "Darwin" ]; then \
-        ansible-playbook ./playbooks/full-update.yaml; \
+        ansible-playbook ./playbooks/update-all.yaml; \
     else \
-        ansible-playbook ./playbooks/full-update.yaml -K; \
+        ansible-playbook ./playbooks/update-all.yaml -K; \
     fi
