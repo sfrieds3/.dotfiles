@@ -11,10 +11,6 @@ function r() {
     autoload -U $f:t
 }
 
-function __prompt__conda_env() {
-    [ $CONDA_PREFIX ] && echo -n "%F{$PROMPT_PYTHON_COLOR}(${CONDA_PREFIX:t})%f "
-}
-
 function __node_dir() {
     # TODO this could be better done in a loop
     [ -f package.json ] || [ -f .node-version ] || [ -f .nvmrc ] || [ -f node_modules ] || [ -f *.js ] || [ -f *.mjs ] || [ -f *.cjs ] || [ -f *.ts ] || [ -f *.mts ] || [ -f *.cts ]

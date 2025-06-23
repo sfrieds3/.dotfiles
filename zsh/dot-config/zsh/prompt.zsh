@@ -22,6 +22,7 @@ zstyle ':sfrieds3:prompt:docker:*' icon ''
 zstyle ':sfrieds3:prompt:docker:*' color blue
 zstyle ':sfrieds3:prompt:python:*' icon ''
 zstyle ':sfrieds3:prompt:python:*' color green
+zstyle ':sfrieds3:prompt:conda:*' icon '🅒'
 zstyle ':sfrieds3:prompt:kube:*' icon ''
 zstyle ':sfrieds3:prompt:kube:*' color blue
 zstyle ':sfrieds3:prompt:pwd:dir:*' color cyan
@@ -45,6 +46,7 @@ zstyle -s ':sfrieds3:prompt:git:untracked:*' color PROMPT_UNTRACKED_COLOR || PRO
 zstyle -s ':sfrieds3:prompt:git:untracked:*' icon PROMPT_UNTRACKED_ICON || PROMPT_UNTRACKED_ICON=' ●'
 zstyle -s ':sfrieds3:prompt:python:*' color PROMPT_PYTHON_COLOR || PROMPT_PYTHON_COLOR=green
 zstyle -s ':sfrieds3:prompt:python:*' icon PROMPT_PYTHON_ICON || PROMPT_PYTHON_ICON=''
+zstyle -s ':sfrieds3:prompt:conda:*' icon PROMPT_CONDA_ICON || PROMPT_CONDA_ICON='🅒'
 zstyle -s ':sfrieds3:prompt:docker:*' color PROMPT_DOCKER_COLOR || PROMPT_DOCKER_COLOR=blue
 zstyle -s ':sfrieds3:prompt:docker:*' icon PROMPT_DOCKER_ICON || PROMPT_DOCKER_ICON=''
 zstyle -s ':sfrieds3:prompt:kube:*' color PROMPT_KUBE_COLOR || PROMPT_KUBE_COLOR=blue
@@ -170,6 +172,10 @@ function __prompt__python_venv() {
     fi
 }
 
+function __prompt__conda_env() {
+    [ $CONDA_PREFIX ] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_CONDA_ICON ${CONDA_PREFIX:t})%f "
+}
+
 function __prompt__docker_context() {
     local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml' 'Chart.yaml' 'docker')
 
@@ -184,7 +190,6 @@ function __prompt__docker_context() {
         fi
     done
 }
-
 
 PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
 PS2=' '
