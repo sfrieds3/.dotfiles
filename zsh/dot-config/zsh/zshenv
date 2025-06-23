@@ -17,6 +17,9 @@ export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export POETRY_DATA_DIR="$XDG_CONFIG_HOME/pypoetry"
 
+# create uv venv with pip/setuptools/wheel
+export UV_VENV_SEED=1
+
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
