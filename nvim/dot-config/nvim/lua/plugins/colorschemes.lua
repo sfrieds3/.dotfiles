@@ -75,22 +75,6 @@ return {
     end,
   },
   {
-    "sainnhe/sonokai",
-    event = "VeryLazy",
-    config = function()
-      vim.g.sonokai_style = "shusia"
-      vim.g.sonokai_dim_inactive_windows = true
-      vim.g.sonokai_better_performance = 1
-    end,
-  },
-  {
-    "sainnhe/edge",
-    event = "VeryLazy",
-    config = function()
-      vim.g.edge_better_performance = 1
-    end,
-  },
-  {
     "ellisonleao/gruvbox.nvim",
     event = "VeryLazy",
     opts = {
@@ -139,10 +123,6 @@ return {
         }
       end,
     },
-  },
-  {
-    "scottmckendry/cyberdream.nvim",
-    event = "VeryLazy",
   },
   {
     "thesimonho/kanagawa-paper.nvim",
