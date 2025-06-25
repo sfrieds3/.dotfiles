@@ -1,4 +1,7 @@
-# rull all pre-commit hooks on all files
+_default:
+    @just update
+
+# run all pre-commit hooks on all files
 pcr-all:
     pre-commit run --all-files
 
