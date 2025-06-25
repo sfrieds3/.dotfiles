@@ -25,3 +25,6 @@
 [submodule "ghostty/dot-config/ghostty/repo-themes/catppuccin-ghostty"]
 	path = ghostty/dot-config/ghostty/repo-themes/catppuccin-ghostty
 	url = git@github.com:catppuccin/ghostty.git
+[submodule "zsh/dot-config/zsh/plugins/zsh-completions"]
+	path = zsh/dot-config/zsh/plugins/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git

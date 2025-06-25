@@ -5,7 +5,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     then
         eval $(/opt/homebrew/bin/brew shellenv)
         fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-        fpath=($(brew --prefix)/share/zsh-completions $fpath)
         OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
     fi
     OPENJDKBIN=""
@@ -38,6 +37,7 @@ source $ZDOTDIR/plugins/fzf/shell/key-bindings.zsh
 # custom completions
 fpath=(
     $ZDOTDIR/completions
+    $ZDOTDIR/plugins/zsh-completions/src
     /usr/local/share/zsh/site-functions
     $HOMEBREW_PREFIX/share/zsh/site-functions
     $fpath
