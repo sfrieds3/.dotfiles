@@ -103,8 +103,9 @@ function M.setup()
             loadOutDirsFromCheck = true,
             runBuildScripts = true,
           },
-          checkOnSave = {
-            allFeatures = true,
+          checkOnSave = true,
+          check = {
+            features = "all",
             command = "clippy",
             extraArgs = { "--no-deps" },
           },
