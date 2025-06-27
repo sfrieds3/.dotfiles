@@ -29,13 +29,26 @@ quitModal:bind("", "escape", function()
   quitModal:exit()
 end)
 
+local hostname = hs.host.localizedName()
+
 -- focus windows
-local browser = "firefox"
+local browser
+if hostname == "Mixolydian" then
+  browser = "safari"
+else
+  browser = "firefox"
+end
 local terminal = "ghostty"
 local api_query = "Insomnia"
 local passwords = "1Password"
 local music_app = "Spotify"
-local message_app = "Mattermost"
+
+local message_app
+if hostname == "Mixolydian" then
+  message_app = "Messages"
+else
+  message_app = "Mattermost"
+end
 
 hs.hotkey.bind({ "cmd", "shift" }, "d", function()
   focusandback("DataGrip")
