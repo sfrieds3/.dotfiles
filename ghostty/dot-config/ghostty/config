@@ -8,8 +8,9 @@ theme = kanso-zen
 shell-integration-features = no-cursor
 cursor-style = block
 
-# Visuals
+# Font
 font-family = "Berkeley Mono"
+adjust-cell-height = 10%
 
 # Keybindings
 keybind = clear
