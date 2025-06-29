@@ -1,5 +1,5 @@
 - hosts: localhost
   roles:
-    - update-all
+    - update
     - ghostty-nvim-themes
     - update-nvim-plugins
