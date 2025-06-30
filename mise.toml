@@ -1,0 +1,58 @@
+# pre-commit tasks
+[tasks.pcr-all]
+description = "Run all pre-commit hooks on all files"
+run = "pre-commit run --all-files"
+
+[tasks.pcr]
+description = "Run pre-commit"
+run = "pre-commit run"
+
+[tasks.stylua]
+description = "Run stylua on all files"
+run = "pre-commit run --all-files stylua"
+
+[tasks.whitespace]
+description = "Check for trailing whitespace in all files"
+run = "pre-commit run --all-files trailing-whitespace"
+
+# ansible tasks
+[tasks.update]
+alias = "default"
+description = "Run update ansible playbook"
+run = """
+if [ "$(uname)" = "Darwin" ]; then
+    ansible-playbook ./playbooks/update.yaml;
+else
+    ansible-playbook ./playbooks/update.yaml -K;
+fi
+"""
+
+[tasks.update-all]
+description = "Run update ansible playbook"
+run = """
+if [ "$(uname)" = "Darwin" ]; then
+    ansible-playbook ./playbooks/update-all.yaml;
+else
+    ansible-playbook ./playbooks/update-all.yaml -K;
+fi
+"""
+
+[tasks.core]
+description = "Run core ansible playbook"
+run = "ansible-playbook ./playbooks/core.yaml"
+
+[tasks.extras]
+description = "Run extras ansible playbook"
+run = "ansible-playbook ./playbooks/extras.yaml"
+
+[tasks.mac]
+description = "Run mac ansible playbook"
+run = "ansible-playbook ./playbooks/mac.yaml"
+
+[tasks.personal]
+description = "Run personal ansible playbook"
+run = "ansible-playbook ./playbooks/personal.yaml"
+
+[tasks.python]
+description = "Run python ansible playbook"
+run = "ansible-playbook ./playbooks/python.yaml"

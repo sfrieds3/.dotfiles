@@ -11,7 +11,6 @@ venv/
 target/
 .pynoautoformat
 Session.vim
-mise.toml
 .mise.toml
 sfscratch/
 .tool-versions
