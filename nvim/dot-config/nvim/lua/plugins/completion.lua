@@ -10,6 +10,7 @@ return {
         preset = "none",
         ["<M-e>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-z>"] = { "hide" },
+        ["<C-e>"] = { "hide" },
         ["<Tab>"] = { "select_and_accept", "fallback" },
         ["<C-y>"] = { "select_and_accept", "fallback" },
         ["<C-p>"] = { "show", "select_prev", "fallback" },
@@ -41,9 +42,9 @@ return {
           },
         },
         menu = {
-          -- auto_show = function(ctx)
-          --   return ctx.mode == "cmdline"
-          -- end,
+          auto_show = function(ctx)
+            return ctx.mode == "cmdline"
+          end,
           draw = {
             padding = { 1, 0 },
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
@@ -57,7 +58,7 @@ return {
           auto_show_delay_ms = 500,
         },
         ghost_text = {
-          enabled = true,
+          enabled = false,
         },
       },
       signature = {
