@@ -133,7 +133,7 @@ end
 hs.hotkey.bind({ "cmd", "shift" }, "9", function()
   hs[hs_music_app()].displayCurrentTrack()
 end)
-hs.hotkey.bind({ "cmd", "shift" }, "p", function()
+hs.hotkey.bind({ "cmd", "shift" }, "space", function()
   hs[hs_music_app()].playpause()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "j", function()
