@@ -17,6 +17,7 @@
       - ffmpeg
       - gh
       - gitlab-ci-local
+      - google-cloud-sdk
       - grafana
       - guile
       - htop

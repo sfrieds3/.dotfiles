@@ -1,0 +1,4 @@
+- hosts: localhost
+  roles:
+    - brew-devtools-core
+    - brew-devtools-extra

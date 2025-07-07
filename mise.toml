@@ -56,3 +56,7 @@ run = "ansible-playbook ./playbooks/personal.yaml"
 [tasks.python]
 description = "Run python ansible playbook"
 run = "ansible-playbook ./playbooks/python.yaml"
+
+[tasks.sync]
+description = "Sync brew packages (mac apps + core + extra)"
+run = "ansible-playbook ./playbooks/brew-sync.yaml"
