@@ -332,3 +332,10 @@ function drun() {
   echo "Running: docker run ${args[*]} $image"
   docker run "${args[@]}" "$image"
 }
+
+function maybe_source() {
+    local script_path="$1"
+    if [[ -f "$script_path" ]]; then
+        source "$script_path"
+    fi
+}

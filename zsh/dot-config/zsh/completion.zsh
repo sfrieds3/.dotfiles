@@ -13,6 +13,7 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 source <(docker completion zsh)
 source <(uv generate-shell-completion zsh)
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # Fix completions for uv run.
 _uv_run_mod() {
