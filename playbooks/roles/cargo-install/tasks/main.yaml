@@ -3,6 +3,7 @@
     name:
       - atuin
       - exa
+      - jinja-lsp
       - just
       - taplo-cli
       - zoxide
