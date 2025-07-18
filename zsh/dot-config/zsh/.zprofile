@@ -57,7 +57,7 @@ typeset -U path PATH
 typeset -U fpath
 
 # for docker/colima
-export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
+# export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
 
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/ripgreprc
 export VIRTUAL_ENV_DISABLE_PROMPT=1

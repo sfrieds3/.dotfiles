@@ -1,10 +1,12 @@
 - name: Install devtools casks
   community.general.homebrew_cask:
     name:
+      - docker
+      - miniconda
+      - openlens
+      - zulu
       - zulu@11
       - zulu@17
       - zulu@21
-      - zulu
-      - miniconda
-      - podman-desktop
+      # - podman-desktop
     state: present
