@@ -25,6 +25,8 @@ zstyle ':sfrieds3:prompt:python:*' color green
 zstyle ':sfrieds3:prompt:conda:*' icon '🅒'
 zstyle ':sfrieds3:prompt:kube:*' icon ''
 zstyle ':sfrieds3:prompt:kube:*' color blue
+zstyle ':sfrieds3:prompt:aws:*' color green
+zstyle ':sfrieds3:prompt:aws:*' icon ''
 zstyle ':sfrieds3:prompt:pwd:dir:*' color cyan
 zstyle ':sfrieds3:prompt:pwd:*' color magenta
 zstyle ':sfrieds3:prompt:jobs:*' color yellow
@@ -51,6 +53,8 @@ zstyle -s ':sfrieds3:prompt:docker:*' color PROMPT_DOCKER_COLOR || PROMPT_DOCKER
 zstyle -s ':sfrieds3:prompt:docker:*' icon PROMPT_DOCKER_ICON || PROMPT_DOCKER_ICON=''
 zstyle -s ':sfrieds3:prompt:kube:*' color PROMPT_KUBE_COLOR || PROMPT_KUBE_COLOR=blue
 zstyle -s ':sfrieds3:prompt:kube:*' icon PROMPT_KUBE_ICON || PROMPT_KUBE_ICON=''
+zstyle -s ':sfrieds3:prompt:aws:*' color PROMPT_AWS_COLOR || PROMPT_AWS_COLOR=green
+zstyle -s ':sfrieds3:prompt:aws:*' icon PROMPT_AWS_ICON || PROMPT_AWS_ICON=''
 zstyle -s ':sfrieds3:prompt:pwd:dir:*' color PROMPT_DIR_COLOR || PROMPT_DIR_COLOR=cyan
 zstyle -s ':sfrieds3:prompt:pwd:*' color PROMPT_PWD_COLOR || PROMPT_PWD_COLOR=magenta
 zstyle -s ':sfrieds3:prompt:jobs:*' color PROMPT_JOBS_COLOR || PROMPT_JOBS_COLOR=yellow
@@ -176,6 +180,12 @@ function __prompt__conda_env() {
     [ $CONDA_PREFIX ] && echo -n "%F{$PROMPT_PYTHON_COLOR}($PROMPT_CONDA_ICON ${CONDA_PREFIX:t})%f "
 }
 
+function __prompt__aws_profile() {
+    if [[ -v AWS_PROFILE ]]; then
+        echo -n "%F{PROMPT_AWS_COLOR}($PROMPT_AWS_ICON $AWS_PROFILE)%f "
+    fi
+}
+
 function __prompt__docker_context() {
     local dockerfiles=('docker-compose.yaml' 'docker-compose.yml' 'Dockerfile' 'compose.yaml' 'compose.yml' 'Chart.yaml' 'docker')
 
@@ -191,7 +201,7 @@ function __prompt__docker_context() {
     done
 }
 
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__aws_profile)$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
 PS2=' '
 
 function __set_rprompt__precmd() {
