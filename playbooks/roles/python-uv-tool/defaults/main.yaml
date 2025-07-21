@@ -16,6 +16,5 @@ uv_tool_packages:
   - pudb
   - rstcheck
   - ruff
-  - toml-cli
   - tox
   - twine
