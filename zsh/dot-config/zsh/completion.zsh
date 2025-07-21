@@ -3,7 +3,13 @@
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 # complist autoloaded before compinit
 zmodload zsh/complist
-autoload -Uz compinit && compinit -u
+
+autoload -Uz compinit
+
+# cache zcompdump
+ZSH_COMPDUMP=${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zcompdump}
+mkdir -p "${ZSH_COMPDUMP:h}"
+compinit -u -d "$ZSH_COMPDUMP"
 
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
