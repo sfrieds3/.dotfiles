@@ -49,8 +49,6 @@
       - libncurses-dev
       - ninja-build
       - perl
-      - podman
-      - podman-compose
       - qemu-utils
       - ripgrep
       - rsync

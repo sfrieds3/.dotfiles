@@ -67,7 +67,6 @@
       - perl
       - pipx
       - pixi
-      - podman
       - postgresql@17
       - prettier
       - rclone

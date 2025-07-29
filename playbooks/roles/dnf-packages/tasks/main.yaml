@@ -49,9 +49,6 @@
       - ncurses-devel
       - ninja-build
       - perl-core
-      - podman
-      - podman-compose
-      - podman-gvproxy
       - qemu-img
       - qemu-kvm
       - ripgrep
