@@ -85,43 +85,11 @@ end
 --- Get lsp diagnostics for statusline
 ---@return string lsp diagnostics string
 local function lsp_diagnostics()
-  local count = {}
-
-  for k, level in pairs(Statusline.diagnostic_levels) do
-    count[k] = vim.diagnostic.count(0, { severity = level })[1] or 0
-  end
-
-  local errors = ""
-  local warnings = ""
-  local hints = ""
-  local info = ""
-
-  local has_diagnostics = false
-  if count["Error"] ~= 0 then
-    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.ERROR]
-    errors = " %#" .. "StatuslineDiagnosticSignError" .. "#" .. symbol .. " " .. count["Error"]
-    has_diagnostics = true
-  end
-  if count["Warn"] ~= 0 then
-    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.WARN]
-    warnings = " %#" .. "StatuslineDiagnosticSignWarn" .. "#" .. symbol .. " " .. count["Warn"]
-    has_diagnostics = true
-  end
-  if count["Hint"] ~= 0 then
-    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.INFO]
-    hints = " %#" .. "StatuslineDiagnosticSignInfo" .. "#" .. symbol .. " " .. count["Hint"]
-    has_diagnostics = true
-  end
-  if count["Info"] ~= 0 then
-    local symbol = vim.diagnostic.config().signs.text[vim.diagnostic.severity.HINT]
-    info = " %#" .. "StatuslineDiagnosticSignHint" .. "#" .. symbol .. " " .. count["Info"]
-    has_diagnostics = true
-  end
-
-  if has_diagnostics then
-    return "[" .. errors .. warnings .. hints .. info .. "%#statusline#" .. " ]"
+  local status = vim.diagnostic.status()
+  if #status > 0 then
+    return "[ " .. status .. " ]"
   else
-    return ""
+    return status
   end
 end
 
