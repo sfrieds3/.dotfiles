@@ -28,3 +28,6 @@
 [submodule "zsh/dot-config/zsh/plugins/zsh-completions"]
 	path = zsh/dot-config/zsh/plugins/zsh-completions
 	url = git@github.com:zsh-users/zsh-completions.git
+[submodule "zsh/dot-config/zsh/plugins/fzf-tab"]
+	path = zsh/dot-config/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab

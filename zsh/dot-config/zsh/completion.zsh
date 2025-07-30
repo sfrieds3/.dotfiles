@@ -5,6 +5,7 @@
 zmodload zsh/complist
 
 autoload -Uz compinit
+source "${ZDOTDIR:-$HOME/.config/zsh}/plugins/fzf-tab/fzf-tab.plugin.zsh"
 
 # cache zcompdump
 ZSH_COMPDUMP=${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zcompdump}
@@ -65,7 +66,7 @@ zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
 
 # menu select options
-zstyle ':completion:*' menu select
+# zstyle ':completion:*' menu select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
