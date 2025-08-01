@@ -3,6 +3,9 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     build = "cargo build --release",
+    dependencies = {
+      "Exafunction/windsurf.nvim",
+    },
 
     opts_extend = { "sources.default" },
     opts = {
@@ -43,7 +46,8 @@ return {
         },
         menu = {
           auto_show = function(ctx)
-            return ctx.mode == "cmdline"
+            -- return ctx.mode == "cmdline"
+            return true
           end,
           draw = {
             padding = { 1, 0 },
@@ -54,15 +58,18 @@ return {
           },
         },
         documentation = {
-          auto_show = false,
+          auto_show = true,
           auto_show_delay_ms = 500,
         },
         ghost_text = {
-          enabled = false,
+          enabled = true,
         },
       },
       signature = {
-        enabled = false,
+        enabled = true,
+        window = {
+          direction_priority = { "s", "n" },
+        },
       },
       cmdline = {
         sources = function()
@@ -79,7 +86,7 @@ return {
         end,
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+        default = { "lsp", "path", "snippets", "buffer", "lazydev", "codeium" },
         providers = {
           lsp = {},
           lazydev = {
@@ -87,6 +94,7 @@ return {
             module = "lazydev.integrations.blink",
             fallbacks = { "lsp" },
           },
+          codeium = { name = "Codeium", module = "codeium.blink", async = true },
         },
       },
     },

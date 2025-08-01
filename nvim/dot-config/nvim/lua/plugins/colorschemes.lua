@@ -112,6 +112,7 @@ return {
   {
     "webhooked/kanso.nvim",
     opts = {
+      compile = true,
       background = {
         dark = "zen",
         light = "mist",
