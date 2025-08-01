@@ -263,26 +263,33 @@ function Statusline.status()
     local mode = get_mode().mode
     local buf_nr = get_window_buf(win_id)
     local bufname = buf_get_name(buf_nr)
-    local mode_color, filename_color, filetype_color, vcs_color = "@type", "Statusline", "Statusline", "StatuslineVcs"
-    local filename_segment = filename(bufname, win_id, filename_color)
+    local colors = {
+      -- mode_color: @type, Search, Substitute
+      mode_color = "Substitute",
+      filename_color = "Statusline",
+      filetype_color = "Statusline",
+      vcs_color = "StatuslineVcs",
+      line_col_color = "IncSearch",
+    }
+    local filename_segment = filename(bufname, win_id, colors.filename_color)
     local filetype_segment = "%y"
-    local line_col_segment = filename_segment ~= "" and "%#@namespace# ℓ:%l 𝚌:%c " or " "
+    local line_col_segment = filename_segment ~= "" and " %#" .. colors.line_col_color .. "# ℓ:%l 𝚌:%c " or " " -- @namesapce
     statuslines[win_id] = string.format(
       Statusline.format_string,
-      mode_color,
+      colors.mode_color,
       mode_name(mode),
-      filename_color,
+      colors.filename_color,
       filename_segment,
       set_modified_symbol(vim.bo.modified),
-      filetype_color,
+      colors.filetype_color,
       filetype_segment,
-      filename_color,
+      colors.filename_color,
       get_paste(),
       get_readonly_space(),
       lsp_diagnostics(),
       get_linters(),
       Statusline.lsp_progress(),
-      vcs_color,
+      colors.vcs_color,
       vcs(win_id),
       line_col_segment
     )
