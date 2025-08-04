@@ -7,7 +7,6 @@
       - apache-arrow
       - awscli
       - btop
-      - bufbuild/buf/buf
       - cargo-nextest
       - chicken
       # - clojure/tools/clojure
