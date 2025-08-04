@@ -19,6 +19,7 @@
       - google-cloud-sdk
       - grafana
       - guile
+      - helmfile
       - htop
       - httpie
       - kind
