@@ -233,8 +233,10 @@ local function build_statusline(section)
   Statusline.format_string = Statusline.format_string .. section
 end
 
+build_statusline("%%#%s#") -- mode leftseparator
 build_statusline("%%#%s#") -- mode_color
-build_statusline(" %s ") -- mode_name
+build_statusline("%s") -- mode_name
+build_statusline("%%#%s#") -- mode leftseparator
 build_statusline("%%#%s#") -- filename_color
 build_statusline("%s") -- filename_segment
 build_statusline("%s") -- modified symbol
@@ -254,6 +256,13 @@ build_statusline("%%#%s#") -- vcs color
 build_statusline("%s") -- vcs
 build_statusline("%s") -- line_col_segment
 
+local function generate_inverse_hi(base_highlight_name, bg_override)
+  local inverse_color_name = string.format("%s_inverse", base_highlight_name)
+  local color = vim.api.nvim_get_hl(0, { name = base_highlight_name, link = false })
+  vim.api.nvim_set_hl(0, inverse_color_name, { fg = color["bg"], bg = bg_override or color["fg"] })
+  return inverse_color_name
+end
+
 local statuslines = {}
 --- Generate the statusline string
 ---@return string The statusline string
@@ -269,15 +278,26 @@ function Statusline.status()
       filename_color = "Statusline",
       filetype_color = "Statusline",
       vcs_color = "StatuslineVcs",
-      line_col_color = "IncSearch",
+      line_col_color = "IncSearch", -- @namespace
+    }
+    local inverse_colors = {
+      line_col_color_inverse = generate_inverse_hi(colors.line_col_color),
+      mode_color_inverse = generate_inverse_hi(
+        colors.mode_color,
+        vim.api.nvim_get_hl(0, { name = "Statusline", link = false })["bg"]
+      ),
     }
     local filename_segment = filename(bufname, win_id, colors.filename_color)
     local filetype_segment = "%y"
-    local line_col_segment = filename_segment ~= "" and " %#" .. colors.line_col_color .. "# ℓ:%l 𝚌:%c " or " " -- @namesapce
+    local line_col_segment = filename_segment ~= ""
+        and " %#" .. inverse_colors.line_col_color_inverse .. "#%#" .. colors.line_col_color .. "#ℓ:%l 𝚌:%c%#" .. inverse_colors.line_col_color_inverse .. "#"
+      or " "
     statuslines[win_id] = string.format(
       Statusline.format_string,
+      inverse_colors.mode_color_inverse,
       colors.mode_color,
       mode_name(mode),
+      inverse_colors.mode_color_inverse,
       colors.filename_color,
       filename_segment,
       set_modified_symbol(vim.bo.modified),
