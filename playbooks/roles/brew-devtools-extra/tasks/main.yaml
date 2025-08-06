@@ -23,8 +23,10 @@
       - htop
       - httpie
       - kind
+      - llama.cpp
       - libomp
       - mongodb-community@7.0
+      - ollama
       - opam
       - opentofu
       - prometheus
