@@ -9,12 +9,11 @@
       - btop
       - cargo-nextest
       - chicken
-      # - clojure/tools/clojure
       - codex
       - duckdb
       - eksctl
       - ffmpeg
-      - gh
+      - gemini-cli
       - gitlab-ci-local
       - google-cloud-sdk
       - grafana
