@@ -15,6 +15,13 @@ return {
         end,
         desc = "Toggle FFF",
       },
+      {
+        "<localleader>F",
+        function()
+          require("fff").scan_files()
+        end,
+        desc = "FFF Rescan Files",
+      },
     },
   },
   {
