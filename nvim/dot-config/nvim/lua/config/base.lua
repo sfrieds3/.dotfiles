@@ -66,6 +66,7 @@ vim.opt.signcolumn = "auto"
 vim.opt.inccommand = "split"
 vim.opt.switchbuf:append({ "useopen", "uselast" })
 vim.opt.diffopt:append({ "vertical", "algorithm:histogram" })
+vim.opt.jumpoptions = "stack"
 
 vim.opt.fillchars = {
   horiz = "━",
