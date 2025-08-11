@@ -301,4 +301,26 @@ return {
       global_keymaps = true,
     },
   },
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    lazy = true,
+    cmd = "Obsidian",
+    event = {
+      "BufReadPre " .. vim.fn.expand("~") .. "/wiki/*.md",
+      "BufNewFile " .. vim.fn.expand("~") .. "/wiki/*.md",
+    },
+    opts = {
+      legacy_commands = false,
+      workspaces = {
+        {
+          name = "wiki",
+          path = "~/wiki",
+        },
+      },
+      daily_notes = {
+        date_format = "%Y/%m/%Y-%m-%d",
+      },
+    },
+  },
 }

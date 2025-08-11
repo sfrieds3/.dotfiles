@@ -38,6 +38,20 @@ return {
           end
         end
 
+        -- Disable formatting for obsidian notes
+        local home = os.getenv("HOME")
+        if home and filename:match("^" .. home .. "/wiki/") then
+          return
+        end
+
+        -- Check if obsidian-ls is active
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
+        for _, client in ipairs(clients) do
+          if client.name == "obsidian" or client.name == "obsidian_new" then
+            return
+          end
+        end
+
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat or vim.b[bufnr].disable_conform_autoformat then
           return
         end
