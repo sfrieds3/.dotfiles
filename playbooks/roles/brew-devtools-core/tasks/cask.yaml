@@ -4,6 +4,7 @@
       - claude-code
       - docker-desktop
       - miniconda
+      - ollama
       - openlens
       - zulu
       - zulu@11

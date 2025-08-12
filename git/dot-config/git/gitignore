@@ -16,3 +16,5 @@ sfscratch/
 .tool-versions
 .noautoformat
 TODO
+.aider
+CLAUDE.md
