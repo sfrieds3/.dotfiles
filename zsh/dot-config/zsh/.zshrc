@@ -51,7 +51,7 @@ __DOTS[ITALIC_OFF]=$'\e[23m'
 DISABLE_AUTO_TITLE="true"
 
 # auto cd dirs
-# cdpath=($HOME/code $HOME/wiki $HOME/.config $HOME/.dotfiles)
+# cdpath=($HOME/code $HOME/vault $HOME/.config $HOME/.dotfiles)
 
 autoload -U colors && colors
 autoload -U add-zsh-hook
@@ -68,7 +68,7 @@ source $ZDOTDIR/aliases.zsh
 # easily cd to directories (e.g. ~dot for ~/.dotfiles)
 # hash -d dot="$HOME/.dotfiles"
 # hash -d code="$HOME/code"
-# hash -d wiki="$HOME/wiki"
+# hash -d vault="$HOME/vault"
 # hash -d nvim="$XDG_CONFIG_HOME/nvim"
 # hash -d zsh="$XDG_CONFIG_HOME/zsh"
 

@@ -307,15 +307,15 @@ return {
     lazy = true,
     cmd = "Obsidian",
     event = {
-      "BufReadPre " .. vim.fn.expand("~") .. "/wiki/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/wiki/*.md",
+      "BufReadPre " .. vim.fn.expand("~") .. "/vault/*.md",
+      "BufNewFile " .. vim.fn.expand("~") .. "/vault/*.md",
     },
     opts = {
       legacy_commands = false,
       workspaces = {
         {
-          name = "wiki",
-          path = "~/wiki",
+          name = "vault",
+          path = "~/vault",
         },
       },
       daily_notes = {
