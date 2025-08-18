@@ -39,7 +39,6 @@ else
   browser = "firefox"
 end
 local terminal = "ghostty"
-local api_query = "Insomnia"
 local passwords = "1Password"
 local music_app = "Spotify"
 
@@ -72,7 +71,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "m", function()
   focusandback(message_app)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "q", function()
-  focusandback(api_query)
+  focusandback("Obsidian")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "0", function()
   focusandback(music_app)
@@ -82,9 +81,6 @@ hs.hotkey.bind({ "cmd", "shift" }, "7", function()
 end)
 hs.hotkey.bind({ "cmd", "shift" }, ",", function()
   focusandback(terminal)
-end)
-hs.hotkey.bind({ "cmd", "shift" }, "F9", function()
-  focusandback("Obsidian")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "F8", function()
   focusandback(passwords)
