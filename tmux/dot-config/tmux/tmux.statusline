@@ -11,10 +11,10 @@
 # set-window-option -g window-status-current-format "#[fg=white,dim]#{window_index}#[default] #{window_name}:#{b:pane_current_path}#F "
 
 
-set-option -g status-style bg=default,fg=default
+set-option -g status-style bg=default,fg=blue
 set-option -g status-left-length 40
 set-option -g status-right-length 120
 set-option -g status-left '#[fg=yellow,bold,italics]#{session_name} § '
 set-option -g status-right "#[fg=blue, bold, italics]  #(kubectl config current-context 2> /dev/null)/#(kubectl config view --minify --output 'jsonpath={..namespace}') #[fg=yellow,bold,italics]$USER@#{host_short} #[fg=magenta, bold, italics]%Y-%m-%d %H:%M"
-set-option -w -g window-status-current-format '#[reverse]#{window_index}:#{window_name}#{window_flags}'
+set-option -w -g window-status-current-format '#[reverse]#{window_index}:#{window_name}#{window_flags}#[noreverse]'
 set-option -w -g window-status-format '#{window_index}:#{window_name}#{?#{==:#{window_flags},}, ,#{window_flags}}'
