@@ -2,13 +2,6 @@
 # update history
 alias hupdate='fc -RI'
 
-# aliases for directory stack
-alias d='dirs -v'
-for index ({0..9}) alias "$index"="cd +${index}"; unset index
-
-alias -- -="cd -"
-
-alias ls="eza"
 alias l="eza $EZA_PARAMS"
 alias lg"eza --git-ignore $EZA_PARAMS"
 alias ll="eza --all --header --long $EZA_PARAMS"
@@ -34,7 +27,6 @@ alias ..='cd ..'
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
 
 # kubernetes
-alias k='kubectl'
 alias ks='kubectx && kubens'
 alias kc='kubectx'
 alias kn='kubens'

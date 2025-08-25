@@ -31,3 +31,9 @@
 [submodule "zsh/dot-config/zsh/plugins/fzf-tab"]
 	path = zsh/dot-config/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+[submodule "zsh/dot-config/zsh/plugins/zsh-abbr"]
+	path = zsh/dot-config/zsh/plugins/zsh-abbr
+	url = https://github.com/olets/zsh-abbr
+[submodule "zsh/dot-config/zsh/plugins/zsh-autosuggestions-abbreviations-strategy"]
+	path = zsh/dot-config/zsh/plugins/zsh-autosuggestions-abbreviations-strategy
+	url = git@github.com:olets/zsh-autosuggestions-abbreviations-strategy.git
