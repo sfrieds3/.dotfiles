@@ -109,6 +109,7 @@ alias uv-pudb='uv runx --with=pudb --with=pytest pytest --pdbcls pudb.debugger:D
 alias uv-tox='uv runx --with=tox --with=tox-uv --with=pytest tox'
 alias set-pudb-breakpoint='export PYTHONBREAKPOINT="pudb.set_trace"'
 alias unset-pudb-breakpoint='unset PYTHONBREAKPOINT'
+alias uvw='uv tool run --with'
 
 # mise
 alias mx='mise exec'
