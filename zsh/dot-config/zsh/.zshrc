@@ -68,11 +68,15 @@ source $ZDOTDIR/aliases.zsh
 # zsh-abbr
 export ABBR_USER_ABBREVIATIONS_FILE=$XDG_DATA_HOME/zsh/abbr.zsh
 export ABBR_QUIET=1
+export ABBR_QUIETER=1
 export ABBR_FORCE=1
 source $ZDOTDIR/plugins/zsh-abbr/zsh-abbr.zsh
-source $ZDOTDIR/abbr.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions-abbreviations-strategy/zsh-autosuggestions-abbreviations-strategy.zsh
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
+
+function update_abbrs() {
+    source $ZDOTDIR/abbr.zsh
+}
 
 # easily cd to directories (e.g. ~dot for ~/.dotfiles)
 # hash -d dot="$HOME/.dotfiles"
