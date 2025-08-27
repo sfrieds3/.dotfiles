@@ -133,4 +133,8 @@ return {
     "vague2k/vague.nvim",
     event = "VeryLazy",
   },
+  {
+    "neanias/everforest-nvim",
+    event = "VeryLazy",
+  }
 }
