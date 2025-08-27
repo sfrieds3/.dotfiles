@@ -112,7 +112,7 @@ return {
 
     keys = {
       { "<leader>gvd", "<cmd>DiffviewOpen<cr>", desc = "DiffView Open" },
-      { "<leader>gvu", "<cmd>DiffviewOpen @ @{updstream}<cr>", desc = "DiffView @ @{updstream}" },
+      { "<leader>gvu", "<cmd>DiffviewOpen @ @{upstream}<cr>", desc = "DiffView @ @{upstream}" },
       { "<leader>gvm", "<cmd>DiffviewOpen master..HEAD<cr>", desc = "DiffView master..HEAD" },
       { "<leader>gvM", "<cmd>DiffviewOpen main..HEAD<cr>", desc = "DiffView main..HEAD" },
       { "<leader>gvh", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffView Buffer File History" },
