@@ -134,7 +134,8 @@ return {
     event = "VeryLazy",
   },
   {
-    "neanias/everforest-nvim",
+  	"rose-pine/neovim",
+  	name = "rose-pine",
     event = "VeryLazy",
   }
 }
