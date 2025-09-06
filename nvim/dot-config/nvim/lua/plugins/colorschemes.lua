@@ -1,32 +1,26 @@
 return {
   {
-    "WTFox/jellybeans.nvim",
+    "webhooked/kanso.nvim",
     opts = {
+      compile = true,
       background = {
-        dark = "jellybeans_muted", -- default dark palette
-        light = "jellybeans_mono", -- default light palette
+        dark = "zen",
+        light = "mist",
       },
+      overrides = function(colors)
+        return {
+          WinSeparator = { fg = colors.theme.ui.nontext },
+          StatusLine = { bg = colors.theme.ui.bg_p2 },
+        }
+      end,
     },
   },
-  {
-    "ramojus/mellifluous.nvim",
-    event = "VeryLazy",
-    opts = {
-      color_set = "mellifluous",
-      transparent_background = {
-        enabled = false,
-      },
-      dim_inactive = true,
-    },
-  },
-  { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    event = "VeryLazy",
 
     opts = {
-      flavour = "frappe",
+      flavour = "mocha",
       background = {
         light = "frappe",
         dark = "mocha",
@@ -62,6 +56,28 @@ return {
       -- },
     },
   },
+  {
+    "WTFox/jellybeans.nvim",
+    event = "VeryLazy",
+    opts = {
+      background = {
+        dark = "jellybeans_muted", -- default dark palette
+        light = "jellybeans_mono", -- default light palette
+      },
+    },
+  },
+  {
+    "ramojus/mellifluous.nvim",
+    event = "VeryLazy",
+    opts = {
+      color_set = "mellifluous",
+      transparent_background = {
+        enabled = false,
+      },
+      dim_inactive = true,
+    },
+  },
+  { "loctvl842/monokai-pro.nvim", event = "VeryLazy" },
   {
     "sainnhe/gruvbox-material",
     event = "VeryLazy",
@@ -110,22 +126,6 @@ return {
     event = "VeryLazy",
   },
   {
-    "webhooked/kanso.nvim",
-    opts = {
-      compile = true,
-      background = {
-        dark = "zen",
-        light = "mist",
-      },
-      overrides = function(colors)
-        return {
-          WinSeparator = { fg = colors.theme.ui.nontext },
-          StatusLine = { bg = colors.theme.ui.bg_p2 },
-        }
-      end,
-    },
-  },
-  {
     "thesimonho/kanagawa-paper.nvim",
     event = "VeryLazy",
   },
@@ -134,8 +134,8 @@ return {
     event = "VeryLazy",
   },
   {
-  	"rose-pine/neovim",
-  	name = "rose-pine",
+    "rose-pine/neovim",
+    name = "rose-pine",
     event = "VeryLazy",
-  }
+  },
 }

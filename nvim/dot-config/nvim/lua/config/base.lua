@@ -56,7 +56,6 @@ vim.opt.formatoptions = "qrn1j"
 vim.opt.mouse = "a"
 vim.opt.redrawtime = 50000
 vim.opt.showbreak = "..."
-vim.opt.conceallevel = 1
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99

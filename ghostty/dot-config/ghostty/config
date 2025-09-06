@@ -3,7 +3,7 @@ mouse-hide-while-typing = true
 background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
-theme = kanso-zen
+theme = catppuccin-macchiato
 
 shell-integration-features = no-cursor
 cursor-style = block
