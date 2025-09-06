@@ -40,6 +40,7 @@ abbr add gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(
 
 # docker
 abbr add drb='docker run -it --rm --entrypoint bash'
+abbr add dil='docker image ls'
 
 # k8s
 abbr add k='kubectl'
@@ -78,7 +79,7 @@ abbr add helmsra='helm search repo --devel --versions'
 # python
 abbr add pc='pre-commit'
 abbr add pcr='pre-commit run'
-abbr add pcra='pre-commit run all'
+abbr add pcra='pre-commit run --all-files'
 abbr add pdoc='python3 -m pydoc'
 abbr add pydocbuiltin='python3 -m pydoc builtins'
 abbr add uvxi='uvx --isolated'
