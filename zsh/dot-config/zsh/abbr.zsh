@@ -17,6 +17,12 @@ abbr add ..='cd ..'
 abbr add rgrep='grep -r'
 abbr add nvimdiff='nvim -d'
 
+# terminal helpers
+abbr add listports='lsof -nP -iTCP -sTCP:LISTEN'
+abbr add largefiles='du -ah . | sort -h | tail -n 20'
+abbr add pubsshcopy='pbcopy < ~/.ssh/id_rsa.pub'
+abbr add diskusage='df -h'
+
 # update history
 abbr add hupdate='fc -RI'
 
