@@ -34,9 +34,9 @@ local hostname = hs.host.localizedName()
 -- focus windows
 local browser
 if hostname == "Mixolydian" then
-  browser = "safari"
+  browser = "vivaldi"
 else
-  browser = "firefox"
+  browser = "vivaldi"
 end
 local terminal = "ghostty"
 local passwords = "1Password"

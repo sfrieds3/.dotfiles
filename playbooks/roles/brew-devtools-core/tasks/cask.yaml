@@ -6,6 +6,7 @@
       - miniconda
       - ollama
       - openlens
+      - vivaldi
       - zulu
       - zulu@11
       - zulu@17
