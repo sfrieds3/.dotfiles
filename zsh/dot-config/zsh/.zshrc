@@ -59,6 +59,37 @@ autoload -U add-zsh-hook
 # https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
 autoload zmv
 
+# source plugins
+source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZDOTDIR/plugins/zsh-async/async.zsh
+
+# fzf
+source $ZDOTDIR/plugins/fzf/shell/completion.zsh
+source $ZDOTDIR/plugins/fzf/shell/key-bindings.zsh
+
+# custom completions
+fpath=(
+    $ZDOTDIR/completions
+    $ZDOTDIR/plugins/zsh-completions/src
+    /usr/local/share/zsh/site-functions
+    $HOMEBREW_PREFIX/share/zsh/site-functions
+    $fpath
+)
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# mise
+eval "$(mise activate zsh)"
+export MISE_ENV_FILE=.env
+
+# atuin
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/bindings.zsh
@@ -112,5 +143,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+typeset -U path PATH
+typeset -U fpath
 
 # zprof

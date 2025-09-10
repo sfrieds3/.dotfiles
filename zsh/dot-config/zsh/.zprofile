@@ -23,39 +23,6 @@ CYTHON_BIN="~/.local/bin/cython"
 
 export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
 
-# source plugins
-source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
-source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source $ZDOTDIR/plugins/zsh-async/async.zsh
-
-# fzf
-source $ZDOTDIR/plugins/fzf/shell/completion.zsh
-source $ZDOTDIR/plugins/fzf/shell/key-bindings.zsh
-
-# custom completions
-fpath=(
-    $ZDOTDIR/completions
-    $ZDOTDIR/plugins/zsh-completions/src
-    /usr/local/share/zsh/site-functions
-    $HOMEBREW_PREFIX/share/zsh/site-functions
-    $fpath
-)
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-# mise
-eval "$(mise activate zsh)"
-
-# atuin
-export ATUIN_NOBIND="true"
-eval "$(atuin init zsh)"
-
-typeset -U path PATH
-typeset -U fpath
-
 # for docker/colima
 # export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
 
