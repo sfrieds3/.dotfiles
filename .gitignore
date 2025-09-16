@@ -31,3 +31,4 @@ roles/dotfiles/files/emacs/!site-lisp/.gitkeep
 local-settings.el
 roles/dotfiles/files/karabiner/automatic_backups
 .DS_Store
+.ansible
