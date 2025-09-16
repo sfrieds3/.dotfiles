@@ -12,7 +12,7 @@ function M.init_lazy()
   vim.opt.runtimepath:prepend(lazypath)
   require("lazy").setup({
     spec = { import = "plugins" },
-    install = { colorscheme = { "kanso", "mellifluous", "habamax" } },
+    install = { colorscheme = { "catppuccin", "kanso", "habamax" } },
     dev = {
       path = nvim_personal_plugins,
       patterns = { "sfrieds3" },
