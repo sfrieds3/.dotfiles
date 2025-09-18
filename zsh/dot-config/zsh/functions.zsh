@@ -156,16 +156,6 @@ function javaenv() {
     esac
 }
 
-function make_nvim() {
-    if [ $# -gt 0 ]
-    then
-        make -j "$1" CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
-        return
-    fi
-
-    make -j 8 CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release
-}
-
 function make_helix() {
     cargo install --root ~/.local/bin/helix --path helix-term --locked
 }
