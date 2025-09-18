@@ -1,5 +1,4 @@
 local M = {}
-local lspconfig = require("lspconfig")
 
 --- Toggle inlay hints
 ---@param bufnr integer buffer number
@@ -47,17 +46,17 @@ function M.setup()
     ruff = true,
     taplo = true,
     terraformls = true,
-    ts_ls = false,
+    ts_ls = true,
     jinja_lsp = true,
-    volar = {
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-      init_options = {
-        vue = {
-          -- use embedded ts_ls
-          hybridMode = false,
-        },
-      },
-    },
+    -- vue_ls = {
+    --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+    --   init_options = {
+    --     vue = {
+    --       -- use embedded ts_ls
+    --       hybridMode = false,
+    --     },
+    --   },
+    -- },
     zls = true,
 
     basedpyright = {
@@ -186,7 +185,7 @@ function M.setup()
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
 
-      lspconfig.lua_ls.setup({
+      vim.lsp.config["lua_ls"] = {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -216,7 +215,7 @@ function M.setup()
             },
           },
         },
-      })
+      }
     end,
   }
 
@@ -232,14 +231,16 @@ function M.setup()
       if type(server_config) == "boolean" then
         -- default configuration
         if server_config then
-          lspconfig[server].setup(config)
+          vim.lsp.enable(server)
         end
       elseif type(server_config) == "table" then
         -- custom configuration
         server_config = vim.tbl_deep_extend("keep", server_config, default_config)
-        lspconfig[server].setup(server_config)
+        vim.lsp.config[server] = server_config
+        vim.lsp.enable(server)
       elseif type(server_config) == "function" then
         server_config()
+        vim.lsp.enable(server)
       else
         -- ivalid configuration
         print("Error: invalid LSP configuration: ", server, server_config)
