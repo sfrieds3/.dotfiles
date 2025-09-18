@@ -31,7 +31,7 @@ vim.opt.errorformat:append({
 
 vim.opt_local.suffixesadd = ".py"
 
-local python_dir_markers = { "pyprojec.toml", "setup.py", "setup.cfg", ".git" }
+local python_dir_markers = { "pyproject.toml", "setup.py", "setup.cfg", ".git" }
 local disable_auto_format_files = { ".noautoformat", ".disableformat", ".pynoautoformat" }
 
 local function format_file(opts)
