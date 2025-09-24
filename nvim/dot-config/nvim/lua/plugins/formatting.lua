@@ -76,7 +76,7 @@ return {
         -- yaml = { "prettier" },
         graphql = { "prettier" },
         lua = { "stylua" },
-        markdown = { "mdformat" },
+        markdown = { "prettier" }, -- mdformat does not handle frontmatter
         python = { "ruff_format", "ruff_organize_imports" },
         rust = { "rustfmt" },
         scala = { "scalafmt" },

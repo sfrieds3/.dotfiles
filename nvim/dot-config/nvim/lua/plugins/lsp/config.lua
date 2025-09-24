@@ -35,12 +35,9 @@ function M.setup()
   local servers = {
     ansiblels = true,
     bashls = true,
-    clojure_lsp = true,
     cssls = true,
     dockerls = true,
-    elixirls = true,
     jdtls = true,
-    lexical = true,
     ltex = false,
     marksman = true,
     ruff = true,
