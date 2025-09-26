@@ -101,6 +101,7 @@ export ABBR_USER_ABBREVIATIONS_FILE=$XDG_DATA_HOME/zsh/abbr.zsh
 export ABBR_QUIET=1
 export ABBR_QUIETER=1
 export ABBR_FORCE=1
+export ABBR_SET_EXPANSION_CURSOR=1
 source $ZDOTDIR/plugins/zsh-abbr/zsh-abbr.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions-abbreviations-strategy/zsh-autosuggestions-abbreviations-strategy.zsh
 ZSH_AUTOSUGGEST_STRATEGY=( abbreviations $ZSH_AUTOSUGGEST_STRATEGY )
