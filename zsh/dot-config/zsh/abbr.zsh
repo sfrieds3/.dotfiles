@@ -47,8 +47,23 @@ abbr add gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git co
 abbr add gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(date)"'
 
 # docker
-abbr add drb='docker run -it --rm --entrypoint bash'
-abbr add dil='docker image ls'
+abbr add dk='docker'
+abbr add dkb='docker build'
+abbr add dkB='docker build --no-cache'
+abbr add dki='docker images'
+abbr add dkl='docker logs'
+abbr add dklf='docker logs --follow'
+abbr add dkrb='docker run -it --rm --entrypoint bash'
+abbr add dkil='docker image ls'
+
+## docker compose
+abbr add dkc='docker compose'
+abbr add dkcUb='docker compose up --build'
+abbr add dkcub='docker compose up --build -d'
+abbr add dkcd='docker compose down'
+abbr add dkcD='docker compose down -v'
+abbr add dkcb='docker compose build'
+abbr add dkcB='docker compose build --no-cache'
 
 # k8s
 abbr add k='kubectl'
