@@ -257,9 +257,10 @@ function M.setup()
 
       -- Buffer local mappings.
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      vim.keymap.set("n", "<Leader>cgd", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go To Declaration" })
+      vim.keymap.set("n", "<leader>cgd", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "LSP: Go To Declaration" })
+      vim.keymap.set("n", "gi", vim.lsp.buf.incoming_calls, { buffer = ev.buf, desc = "LSP: [g]oto [i]ncoming calls" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "LSP: [g]oto [d]efinition" })
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: [g]oto [i]mplementation" })
+      vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = ev.buf, desc = "LSP: [g]oto [i]mplementation" })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP: hover" })
       vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "LSP: signature help" })
       vim.keymap.set("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [a]dd folder" })
