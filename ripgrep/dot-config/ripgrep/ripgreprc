@@ -1,19 +1,16 @@
-# limit size of long lines to show
---max-columns=150
---max-columns-preview
-
-# ignore git dir
---glob=!git/*
-
-# no headings... make it like grep
---no-heading
-
-# show line numbers
--n
-
-# match case... smartly
---smart-case
-
-# search in hidden files/directories
---hidden
---glob=!.git/
+# # limit size of long lines to show
+# --max-columns=150
+# --max-columns-preview
+#
+# # no headings... make it like grep
+# --no-heading
+#
+# # show line numbers
+# -n
+#
+# # match case... smartly
+# --smart-case
+#
+# # search in hidden files/directories
+# --hidden
+# --glob=!.git/
