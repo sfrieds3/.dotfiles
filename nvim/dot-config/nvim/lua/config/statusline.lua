@@ -275,8 +275,8 @@ function Statusline.status()
     local colors = {
       -- mode_color: @type, Search, Substitute
       mode_color = "Substitute",
-      filename_color = "Statusline",
-      filetype_color = "Statusline",
+      filename_color = "StatusLine",
+      filetype_color = "StatusLine",
       vcs_color = "StatuslineVcs",
       line_col_color = "IncSearch", -- @namespace
     }

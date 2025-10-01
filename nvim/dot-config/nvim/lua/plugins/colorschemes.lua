@@ -138,4 +138,19 @@ return {
     name = "rose-pine",
     event = "VeryLazy",
   },
+  {
+    "projekt0n/github-nvim-theme",
+    config = function(opts)
+      require("github-theme").setup({
+        options = {
+          dim_inactive = true,
+        },
+        groups = {
+          all = {
+            StatusLine = { bg = "bg0" },
+          },
+        },
+      })
+    end,
+  },
 }
