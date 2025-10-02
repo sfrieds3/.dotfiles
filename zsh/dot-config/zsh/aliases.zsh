@@ -1,5 +1,6 @@
 # aliases
 alias gr='cd $(git rev-parse --show-toplevel)'
+alias gwr='cd $(git rev-parse --path-format=absolute --git-common-dir | sed "s|/\.git/worktrees/.*||")'
 
 alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 

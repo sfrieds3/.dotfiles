@@ -96,6 +96,11 @@ source $ZDOTDIR/bindings.zsh
 source $ZDOTDIR/prompt.zsh
 source $ZDOTDIR/aliases.zsh
 
+# source zsh files in fucntions.d
+for file in $ZDOTDIR/functions.d/*.zsh; do
+    source "$file"
+done
+
 # zsh-abbr
 export ABBR_USER_ABBREVIATIONS_FILE=$XDG_DATA_HOME/zsh/abbr.zsh
 export ABBR_QUIET=1
