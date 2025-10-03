@@ -92,6 +92,7 @@
       - virtualenv
       - vscode-langservers-extracted
       - vue-language-server
+      - watch
       - watchexec
       - wcurl
       - wget
