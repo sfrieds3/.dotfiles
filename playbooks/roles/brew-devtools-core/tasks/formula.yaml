@@ -10,6 +10,7 @@
       - bash-language-server
       - bat
       - bfs
+      - cloc
       - cmake
       - cmake-docs
       - colima
