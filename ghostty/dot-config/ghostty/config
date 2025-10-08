@@ -3,8 +3,7 @@ mouse-hide-while-typing = true
 background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
-# theme = catppuccin-macchiato
-theme = Github Dark
+theme = catppuccin-macchiato
 
 shell-integration-features = no-cursor
 cursor-style = block

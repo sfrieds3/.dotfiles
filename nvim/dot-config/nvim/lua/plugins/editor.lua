@@ -324,6 +324,7 @@ return {
   },
   {
     "obsidian-nvim/obsidian.nvim",
+    enabled = false,
     version = "*",
     lazy = true,
     cmd = "Obsidian",
