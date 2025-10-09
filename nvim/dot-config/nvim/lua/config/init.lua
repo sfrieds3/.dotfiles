@@ -7,4 +7,5 @@ require("config.autocmd")
 require("config.lazy").init_lazy()
 require("sfrieds3")
 require("config.colorscheme").set_colorscheme()
--- require("config.statuscol")
+
+vim.cmd.packadd("nvim.undotree")

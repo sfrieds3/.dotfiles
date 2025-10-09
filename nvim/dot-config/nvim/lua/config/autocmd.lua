@@ -57,6 +57,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "startuptime",
     "tsplayground",
     "gitsigns-blame",
+    "nvim-undotree",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
