@@ -49,12 +49,30 @@ git-wt-create() {
       } | grep -vE '^(HEAD|origin/HEAD)$' | sort -u
     ) || return 1
 
-    branch=$(print -r -- "$choices" | fzf \
+    local fzf_result fzf_exit
+    fzf_result=$(print -r -- "$choices" | fzf \
+      --print-query \
       --prompt="branch > " \
       --header="Select a branch to create a worktree for (remote: ${REMOTE})" \
       --preview='git log --oneline --decorate -20 -- {1} 2>/dev/null || true' \
       --preview-window="right:50%" --reverse --border --ansi
-    ) || return 130
+    ) || fzf_exit=$?
+
+    # Exit codes: 0=match selected, 1=no match but Enter pressed, 130=cancelled (Esc/Ctrl-C)
+    [[ ${fzf_exit:-0} -eq 130 ]] && return 130
+
+    # fzf with --print-query returns:
+    #   - If match selected: query on line 1, selection on line 2 (exit 0)
+    #   - If no match but Enter: just query on line 1 (exit 1)
+    # We prefer the selection if present, otherwise use the query
+    local lines; lines=("${(@f)fzf_result}")
+    if [[ ${#lines[@]} -ge 2 ]]; then
+      # Has selection, use it
+      branch="${lines[2]}"
+    else
+      # No selection, use query
+      branch="${lines[1]}"
+    fi
   fi
 
   # allow remote/branch input; normalize to branch only (but only if remote exists)
@@ -70,19 +88,19 @@ git-wt-create() {
 
   if [[ -n "$1" ]]; then
     # explicit arg -> new branch at HEAD
-    git -C "$main_worktree" worktree add -b "$branch" "$dir" || return 1
+    git -C "$main_worktree" worktree add -b "$branch" "$dir" >&2 || return 1
   else
     if __branch_exists_local "$branch"; then
-      git -C "$main_worktree" worktree add "$dir" "$branch" || return 1
+      git -C "$main_worktree" worktree add "$dir" "$branch" >&2 || return 1
     else
       # prefer selected remote; fall back to any remote that has it
       local src_remote="$REMOTE"
       __branch_exists_remote_on "$REMOTE" "$branch" || src_remote="$(__find_remote_for_branch "$branch")"
       if [[ -n "$src_remote" ]]; then
-        git -C "$main_worktree" worktree add -b "$branch" "$dir" "$src_remote/$branch" || return 1
+        git -C "$main_worktree" worktree add -b "$branch" "$dir" "$src_remote/$branch" >&2 || return 1
       else
         # no remote has it -> create new at HEAD
-        git -C "$main_worktree" worktree add -b "$branch" "$dir" || return 1
+        git -C "$main_worktree" worktree add -b "$branch" "$dir" >&2 || return 1
       fi
     fi
   fi
