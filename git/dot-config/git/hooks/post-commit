@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -eu
+
+BLACK_LIST="NOCOMMIT"
+
+# Get all files changed in the latest commit
+FILES=$(git diff-tree --no-commit-id --name-only -r HEAD)
+
+found=false
+for FILE in $FILES; do
+  if [ -f "$FILE" ] && rg --quiet "$BLACK_LIST" "$FILE"; then
+    echo "⚠️  $FILE contains $BLACK_LIST"
+    found=true
+  fi
+done
+
+if [ "$found" = true ]; then
+  echo "⚠️  Warning: your last commit includes files with '$BLACK_LIST'."
+  echo "⚠️  Use 'git reset --soft HEAD~1' if you want to undo it."
+fi

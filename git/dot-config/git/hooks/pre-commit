@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel 2>/dev/null || exit 0)"
+gitdir="$(git rev-parse --git-dir 2>/dev/null || exit 0)"
+
+caller_dir="$(pwd -P)"
+
+cd "$root"
+
+# --- Find the nearest .pre-commit-config.yaml from caller_dir up to root ---
+cfg=""
+dir="$caller_dir"
+while :; do
+  if [ -f "$dir/.pre-commit-config.yaml" ]; then
+    cfg="$dir/.pre-commit-config.yaml"
+    break
+  fi
+  # Stop at repo root (don't traverse outside the repo)
+  [ "$dir" = "$root" ] && break
+  parent="$(dirname "$dir")"
+  [ "$parent" = "$dir" ] && break
+  dir="$parent"
+done
+
+# If no config found anywhere, quietly skip
+[ -n "${cfg:-}" ] || exit 0
+
+# Share caches across repos/worktrees
+export PRE_COMMIT_HOME="${PRE_COMMIT_HOME:-$HOME/.cache/pre-commit}"
+
+# Run pre-commit with the discovered config
+if command -v pre-commit >/dev/null 2>&1; then
+  pre-commit run --hook-stage pre-commit --config "$cfg"
+elif command -v pipx >/dev/null 2>&1; then
+  pipx run pre-commit run --hook-stage pre-commit --config "$cfg"
+elif command -v python3 >/dev/null 2>&1; then
+  python3 -m pre_commit run --hook-stage pre-commit --config "$cfg"
+else
+  echo "pre-commit not found; skipping checks." >&2
+fi
+
+# chain a repo-local extra hook
+local_hook="$gitdir/hooks/pre-commit.local"
+if [ -x "$local_hook" ]; then
+  "$local_hook"
+fi
+
+exit 0
