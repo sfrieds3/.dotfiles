@@ -3,6 +3,7 @@
     name:
       - claude-code
       - docker-desktop
+      - jordanbaird-ice
       - miniconda
       - ollama
       - openlens
