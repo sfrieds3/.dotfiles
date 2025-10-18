@@ -2,7 +2,7 @@
 	defaultBranch = main
 	; templatedir = $XDG_CONFIG_HOME/git/githooks
 [diff]
-	tool = difftastic
+	tool = nvim_difftool
 	colorMoved = dimmed-zebra
 	wsErrorHighlight = all
 	algorithm = histogram
@@ -17,6 +17,8 @@
 	sort = -version:refname
 [difftool]
 	prompt = false
+[difftool "nvim_difftool"]
+	cmd = nvim -c "DiffTool $LOCAL $REMOTE"
 [difftool "difftastic"]
 	cmd = difft "$LOCAL" "$REMOTE"
 [commit]
