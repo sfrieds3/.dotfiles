@@ -2,23 +2,19 @@
 	defaultBranch = main
 	; templatedir = $XDG_CONFIG_HOME/git/githooks
 [diff]
-	tool = difftastic
+	tool = nvim_difftool
 	colorMoved = dimmed-zebra
 	wsErrorHighlight = all
 	algorithm = histogram
 	mnemonicPrefix = true
 [pager]
-	difftool = true
+	difftool = false
 [log]
 	date = iso
 [branch]
 	sort = -committerdate
 [tag]
 	sort = -version:refname
-[difftool]
-	prompt = false
-[difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
 [commit]
 	verbose = true
 [mergetool]
@@ -59,7 +55,7 @@
 	br = branch
 	clone-bare = "\\!f() { git clone --bare \"$1\" \"$2\" && cd \"$2\" && git config remote.origin.fetch \"+refs/heads/*:refs/remotes/origin/*\" && git fetch origin; }; f"
 	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
-	dft = difftool
+	difftoold = difftool -d
 	du = diff @{upstream}
 	fpush = push --force-with-lease --force-if-includes
 	la = log --graph --oneline --decorate --all
@@ -99,3 +95,9 @@
 	patternType = perl
 [help]
 	autocorrect = prompt
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
+[difftool "nvim_difftool"]
+	cmd = nvim -c 'packadd nvim.difftool' -c \"DiffTool $LOCAL $REMOTE\"

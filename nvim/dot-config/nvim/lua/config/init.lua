@@ -9,3 +9,4 @@ require("sfrieds3")
 require("config.colorscheme").set_colorscheme()
 
 vim.cmd.packadd("nvim.undotree")
+vim.cmd.packadd("nvim.difftool")
