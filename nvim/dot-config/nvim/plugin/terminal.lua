@@ -28,5 +28,11 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
         return "<esc>"
       end
     end, buf_keymap_opts)
+
+    for key, cmd in pairs({ h = "left", j = "down", k = "up", l = "right" }) do
+      vim.keymap.set("t", "<m-" .. key .. ">", function()
+        require("smart-splits")["move_cursor_" .. cmd]()
+      end, buf_keymap_opts)
+    end
   end,
 })

@@ -21,7 +21,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up one" })
 vim.keymap.set(
   "n",
   "<C-b>",
-  "max([winheight(0) - 2, 1]) . '<C-u>' . (line('.') < 1         + winheight(0) ? 'H' : 'L')",
+  "max([winheight(0) - 2, 1]) . '<C-u>' . (line('.') < 1 + winheight(0) ? 'H' : 'L')",
   { desc = "Better scrolling with C-b", expr = true }
 )
 vim.keymap.set(
