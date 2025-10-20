@@ -60,7 +60,8 @@ return {
       formatters = {
         file = {
           filename_first = true,
-          truncate = 120,
+          truncate = "left",
+          min_width = 30,
         },
       },
     },
