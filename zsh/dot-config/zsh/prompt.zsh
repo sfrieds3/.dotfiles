@@ -201,12 +201,12 @@ function __prompt__docker_context() {
     done
 }
 
-PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline$(__prompt__aws_profile)$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
-PS2=' '
+PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$prompt_newline%F{$PROMPT_JOBS_COLOR}%B%(1j. [%j] .)%b%F{$PROMPT_USER_HOST_COLOR}$(__maybe_add_user_host)%f%(?.%F{$PROMPT_CHARACTER_COLOR}.%F{$PROMPT_CHARACTER_ERROR_COLOR})$(__prompt_characters)%f '
+PS2='%F{yellow}%^%f '
 
 function __set_rprompt__precmd() {
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
-    RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} ${vcs_info_msg_0_}%f"
+    RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} $(__prompt__aws_profile)$(__prompt__docker_context)$(__prompt__python_venv)$(__prompt__conda_env)${vcs_info_msg_0_}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
 

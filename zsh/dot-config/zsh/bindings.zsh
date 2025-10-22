@@ -1,6 +1,7 @@
 # emacs keybindings
 bindkey -e
 
+# CTRL-G CTRL-G
 # sync history
 function sync-history-widget() {
   fc -I
@@ -8,11 +9,12 @@ function sync-history-widget() {
   zle reset-prompt
 }
 zle -N sync-history-widget
-bindkey '^G' sync-history-widget
+bindkey '^G^G' sync-history-widget
 
 # fzf
 # bindkey -M emacs '^O' fzf-history-widget
 
+# CTRL-O
 # atuin
 bindkey -M emacs '^O' atuin-search
 
@@ -39,15 +41,27 @@ bindkey '^\' accept-and-hold
 bindkey '^[[F' end-of-line
 bindkey '^[[H' beginning-of-line
 
-# allow ctrl-x ctrl-e to edit command in vim
+# CTRL-X CTRL-E
+# edit command in vim
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^X^e' edit-command-line
 
-# copy earlier word in line with alt-;.. VERY useful with M-.
+# ALT-;
+# copy earlier word in line.. VERY useful with M-.
 autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
-bindkey "^[;" copy-earlier-word
+bindkey '^[;' copy-earlier-word
+
+# ALT-U
+# on main prompt: push current command to stack, and replace with previous command
+# on continuation prompt: move all entered lines to main prompt
+# Use ALT-G to re-insert command
+bindkey '^[u' push-line-or-edit
+
+# ALT-v
+# describe next keybinding
+bindkey '^[v' describe-key-briefly
 
 # do history expansion on space
 bindkey ' ' magic-space

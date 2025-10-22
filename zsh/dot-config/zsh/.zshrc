@@ -18,6 +18,7 @@ setopt   IGNORE_EOF           # ignore EOF (but still close after 10 consecutive
 setopt   NO_CLOBBER           # prohibit 'cat foo > bar' if bar exists. use >! instead
 setopt   EXTENDED_GLOB        # enables various things, most notably ^negation. '^', '#' and forgotwhich :/ see cheatsheet & http://zsh.dotsrc.org/Intro/intro_2.html#SEC2
 setopt   NOTIFY               # [on] this will put info from finished background processes over the current line
+setopt   TRANSIENT_RPROMPT    # remove rprompt on enter
 
 # history
 HISTSIZE=1000000
