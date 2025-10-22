@@ -90,6 +90,7 @@ return {
         Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
         Snacks.toggle.inlay_hints():map("<C-h>")
         Snacks.toggle.indent():map("<M-\\>")
+        Snacks.toggle.line_number():map("<leader>n")
         Snacks.toggle.option("cursorline"):map("<localleader>c")
         Snacks.toggle.option("cursorcolumn"):map("<localleader>C")
       end,
