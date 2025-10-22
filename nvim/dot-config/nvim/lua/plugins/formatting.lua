@@ -81,6 +81,7 @@ return {
         rust = { "rustfmt" },
         scala = { "scalafmt" },
         sh = { "beautysh" },
+        terraform = { "tofu_fmt" },
         toml = { "taplo" },
         yaml = { "yamlfmt" },
         ocaml = { "ocamlformat" },
