@@ -42,7 +42,8 @@ function M.setup()
     marksman = true,
     ruff = true,
     taplo = true,
-    terraformls = true,
+    terraformls = false,
+    tofu_ls = true,
     ts_ls = true,
     jinja_lsp = true,
     -- vue_ls = {

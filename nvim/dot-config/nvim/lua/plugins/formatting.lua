@@ -77,6 +77,7 @@ return {
         graphql = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier" }, -- mdformat does not handle frontmatter
+        opentofu = { "tofu_fmt" },
         python = { "ruff_format", "ruff_organize_imports" },
         rust = { "rustfmt" },
         scala = { "scalafmt" },
