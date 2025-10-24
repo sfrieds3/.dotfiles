@@ -2,10 +2,12 @@
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gwr='cd $(git rev-parse --path-format=absolute --git-common-dir | sed "s|/\.git/worktrees/.*||")'
 
-alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
+# kubecolor
+alias kubectl='kubecolor'
 
 # disk space
 alias dskspc='sudo du -h --max-depth=1 | sort -h'
+alias duh='du -sh * .[^.]* 2> /dev/null | sort -h'
 
 # fuzzy kill tmux sessions
 alias tk="echo 'kill session:'; for s in \$(tmux list-sessions | awk '{print \$1}' | sed s/:\$// | fzf); do tmux kill-session -t \$s; done;"

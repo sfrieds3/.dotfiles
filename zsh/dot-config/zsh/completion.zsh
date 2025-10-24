@@ -17,6 +17,7 @@ add-zsh-hook chpwd chpwd_recent_dirs
 
 # source dynamic completions
 source <(kubectl completion zsh)
+compdef kubecolor=kubectl
 source <(helm completion zsh)
 source <(docker completion zsh)
 source <(uv generate-shell-completion zsh)

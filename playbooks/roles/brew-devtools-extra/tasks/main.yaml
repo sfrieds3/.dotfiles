@@ -23,6 +23,7 @@
       - htop
       - httpie
       - kind
+      - kubecolor
       - llama.cpp
       - libomp
       - mongodb-community@7.0
