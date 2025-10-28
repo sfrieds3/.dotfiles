@@ -39,7 +39,6 @@ end
 
 return {
   "folke/snacks.nvim",
-  priority = 1000,
   lazy = false,
   opts = {
     bigfile = {},
@@ -47,6 +46,7 @@ return {
     debug = {},
     scratch = {},
     git = {},
+    image = {},
     picker = {
       layout = { preset = "vertical" },
       win = {
@@ -102,8 +102,8 @@ return {
     { "<localleader>q", function() Snacks.bufdelete() end, desc = "BufDelete" },
 
     -- words
-    { "<C-j>", function() Snacks.words.jump(1, true) end, desc = "Words Jump Previous" },
-    { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Next" },
+    { "<C-j>", function() Snacks.words.jump(1, true) end, desc = "Words Jump Next" },
+    { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Previous" },
 
     -- scratch
     { "<leader>h",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },

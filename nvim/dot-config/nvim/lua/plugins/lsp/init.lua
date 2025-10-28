@@ -2,8 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    init = function()
-      local ensure_installed = { "jsonls", "lua_ls", "pyright", "ts_ls" }
+    config = function()
       require("plugins.lsp.config").setup()
     end,
     dependencies = {
