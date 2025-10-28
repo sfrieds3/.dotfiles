@@ -2,6 +2,7 @@
 abbr add cg='cargo'
 abbr add make_nvim='make CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release -j 8'
 abbr add renovate-config-validator='npx --yes --package renovate -- renovate-config-validator'
+abbr add wt='watch -c -n 10'
 
 abbr add --quiet ls="eza"
 abbr add l="eza $EZA_PARAMS"
@@ -40,6 +41,7 @@ abbr add gdh='git diff origin/HEAD'
 abbr add gbp='git checkout -'
 abbr add gd='git diff'
 abbr add gdt='git difftool -d'
+abbr add gdts='git difftool -d --staged'
 abbr add gdw='git diff --word-diff'
 abbr add gdc='git diff --cached'
 abbr add gdu='git diff @{upstream}'
