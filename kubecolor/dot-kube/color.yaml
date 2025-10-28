@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=https://github.com/kubecolor/kubecolor/raw/main/config-schema.json
+kubectl: kubectl # path to kubectl executable
+preset: dark # color theme preset
+objFreshThreshold: 60 # ages below this uses theme.data.durationfresh coloring

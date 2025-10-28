@@ -12,7 +12,7 @@
     - "{{ lookup('env', 'HOME') }}/.local/bin"
 - name: Symlink dotfiles
   ansible.builtin.shell: >
-    stow --dotfiles alacritty asdfrc conda eslintrc fd fish ghostty git hammerspoon httpie jetbrains karabiner mise nvim ocamlinit pdbrc poetry psql python ripgrep ruff tmux vim wezterm yamllint zsh
+    stow --dotfiles alacritty asdfrc conda eslintrc fd fish ghostty git hammerspoon httpie jetbrains karabiner kubecolor mise nvim ocamlinit pdbrc poetry psql python ripgrep ruff tmux vim wezterm yamllint zsh
 
   args:
     chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"
