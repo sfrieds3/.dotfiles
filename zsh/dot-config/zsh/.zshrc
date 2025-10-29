@@ -59,6 +59,14 @@ autoload -U add-zsh-hook
 
 # https://github.com/zsh-users/zsh/blob/8e1c6ed6bf416e7716b4c6d5c6822ec752db7b36/Functions/Misc/zmv
 autoload zmv
+alias zmv='zmv -Mv'
+alias zcp='zmv -Cv'
+alias zln='zmv -Lv'
+
+# associate files names with program to open them
+alias -s {log,out}=$PAGER
+alias -s {txt,md,xml,yml}=$EDITOR
+alias -s gz='gzip l'
 
 # source plugins
 source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh
