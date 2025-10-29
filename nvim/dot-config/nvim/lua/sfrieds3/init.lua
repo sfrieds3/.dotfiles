@@ -41,7 +41,7 @@ local function extcmd(cmd, qf, close_qf, novsplit)
   end
 end
 
-vim.keymap.set("n", "<leader>q", scratch_to_quickfix)
+vim.keymap.set("n", "<leader>Q", scratch_to_quickfix)
 -- vim.keymap.set("n", "<leader>ss", function()
 --   vim.ui.input({ prompt = "> " }, function(p)
 --     if p then

@@ -106,8 +106,8 @@ return {
     { "<C-k>", function() Snacks.words.jump(-1, true) end, desc = "Words Jump Previous" },
 
     -- scratch
-    { "<leader>h",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>H",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>s;",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>s:",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
 
     -- git
     { "<leader>B",  function() Snacks.git.blame_line() end, desc = "Git Blame Line" },

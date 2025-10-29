@@ -79,11 +79,7 @@ vim.keymap.set("n", "<leader><tab>X", "<cmd>tabclose<cr>")
 vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- arglist / quickfix / location list shortcuts
-vim.keymap.set("n", "]a", "<cmd>next<cr>")
-vim.keymap.set("n", "[a", "<cmd>previous<cr>")
-vim.keymap.set("n", "[A", "<cmd>first<cr>")
-vim.keymap.set("n", "]A", "<cmd>last<cr>")
+-- quickfix / location list shortcuts
 vim.keymap.set("n", "<leader>[q", "<cmd>colder<cr>")
 vim.keymap.set("n", "<leader>]q", "<cmd>cnewer<cr>")
 vim.keymap.set("n", "<c-n>", "<cmd>cnext<cr>")
@@ -160,3 +156,59 @@ vim.keymap.set("c", "<c-e>", "<End>")
 vim.keymap.set("c", "<c-f>", "<Right>")
 vim.keymap.set("c", "<m-b>", "<S-Left>")
 vim.keymap.set("c", "<m-f>", "<S-Right>")
+
+-- argilst
+-- append
+vim.keymap.set("n", "<leader>H", function()
+  vim.cmd("argadd %")
+  vim.cmd("argdedup")
+  print("Added file to arg list: " .. vim.fn.expand("%"))
+end, { silent = true, desc = "Add current file to arg list" })
+
+-- assign arg to each number
+for i = 1, 9 do
+  vim.keymap.set("n", "<leader>" .. i, "<CMD>argument " .. i .. "<CR>", { silent = true, desc = "Go to arg " .. i })
+  vim.keymap.set("n", "<leader>h" .. i, function()
+    vim.cmd(i - 1 .. "argadd")
+  end, { silent = true, desc = "Add current to arg " .. i })
+  vim.keymap.set("n", "<leader>D" .. i, function()
+    vim.cmd(i .. "argdelete")
+  end, { silent = true, desc = "Delete current arg" })
+end
+
+-- prev/next
+vim.keymap.set("n", "]a", function()
+  vim.cmd("next")
+end, { silent = true })
+vim.keymap.set("n", "[a", function()
+  vim.cmd("previous")
+end, { silent = true })
+vim.keymap.set("n", "<leader>j", function()
+  vim.cmd("next")
+end, { silent = true })
+vim.keymap.set("n", "<leader>k", function()
+  vim.cmd("previous")
+end, { silent = true })
+vim.keymap.set("n", "[A", function()
+  vim.cmd("first")
+end, { silent = true })
+vim.keymap.set("n", "]A", function()
+  vim.cmd("last")
+end, { silent = true })
+
+-- show arglist in qf
+vim.keymap.set("n", "<leader>hq", function()
+  local list = vim.fn.argv()
+  if #list > 0 then
+    local qf_items = {}
+    for _, filename in ipairs(list) do
+      table.insert(qf_items, {
+        filename = filename,
+        lnum = 1,
+        text = filename,
+      })
+    end
+    vim.fn.setqflist(qf_items, "r")
+    vim.cmd.copen()
+  end
+end, { silent = true, desc = "Show args in qf" })
