@@ -32,6 +32,7 @@
       - fzf
       - gcc
       - gettext
+      - ghostscript
       - git
       - git-absorb
       - git-gui
