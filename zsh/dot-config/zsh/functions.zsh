@@ -252,7 +252,7 @@ function make_python() {
     CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" make
 }
 
-function git-rebase() {
+function git_rebase() {
     if [[ $# -ne 1 ]]; then
         echo "Usage: git-rebase <branch>"
         return 1
@@ -328,4 +328,16 @@ function maybe_source() {
     if [[ -f "$script_path" ]]; then
         source "$script_path"
     fi
+}
+
+function git_local_hooks() {
+    local hooks_path="${1:-.git/hooks}"
+
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        echo "Error: Not in a git repository"
+        return 1
+    fi
+
+    git config --local core.hooksPath "$hooks_path"
+    echo "Set local core.hooksPath to: $hooks_path"
 }
