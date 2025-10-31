@@ -4,8 +4,8 @@ return {
     cmd = "Git",
     ft = "gitcommit",
     keys = {
-      { "<leader>gl", "<cmd>Git log %<cr>", desc = "Git Log File" },
-      { "<leader>gL", "<cmd>Git log<cr>", desc = "Git Log Repo" },
+      { "<leader>gLF", "<cmd>Git log %<cr>", desc = "Git Log File" },
+      { "<leader>gLL", "<cmd>Git log<cr>", desc = "Git Log Repo" },
       { "<leader>gdd", "<cmd>Git diff<cr>", desc = "Git Diff" },
       { "<leader>gdc", "<cmd>Git diff --cached<cr>", desc = "Git Diff --cached" },
     },

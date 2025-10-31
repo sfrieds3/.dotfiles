@@ -132,7 +132,7 @@ return {
     { "<leader>U", function() Snacks.picker.undo() end, desc = "Undo (Changes)" },
     { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
     { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
-    { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log" },
+    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
     { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>sr", function() Snacks.picker.registers() end, desc = "Registers" },
