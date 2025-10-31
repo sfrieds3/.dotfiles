@@ -53,7 +53,7 @@
 	bb = branch -vv --sort=-committerdate
 	blm = blame -wM
 	br = branch
-	clone-bare = "\\!f() { git clone --bare \"$1\" \"$2\" && cd \"$2\" && git config remote.origin.fetch \"+refs/heads/*:refs/remotes/origin/*\" && git fetch origin; }; f"
+	clone-bare = "!f() { local dir=\"${2:-$(basename \"$1\" .git).git}\"; git clone --bare \"$1\" \"$dir\" && cd \"$dir\" && git config remote.origin.fetch \"+refs/heads/*:refs/remotes/origin/*\" && git fetch origin; }; f"
 	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
 	difftoold = difftool -d
 	du = diff @{upstream}
