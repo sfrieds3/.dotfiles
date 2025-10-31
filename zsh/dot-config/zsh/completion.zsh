@@ -5,7 +5,6 @@
 zmodload zsh/complist
 
 autoload -Uz compinit
-source "${ZDOTDIR:-$HOME/.config/zsh}/plugins/fzf-tab/fzf-tab.plugin.zsh"
 
 # cache zcompdump
 ZSH_COMPDUMP=${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zcompdump}
@@ -23,6 +22,9 @@ source <(docker completion zsh)
 source <(uv generate-shell-completion zsh)
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
+## fzf-tab
+source "${ZDOTDIR:-$HOME/.config/zsh}/plugins/fzf-tab/fzf-tab.plugin.zsh"
+
 # Fix completions for uv run.
 _uv_run_mod() {
     if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
@@ -35,6 +37,19 @@ compdef _uv_run_mod uv
 
 # complete hidden files/directories without requiring leading '.'
 _comp_options+=(globdots)
+
+# show group headers
+zstyle ':fzf-tab:*' show-group full
+zstyle ':fzf-tab:*' single-group color header
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# preview directory's content with eza when completing cd
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# custom fzf flags
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
@@ -68,11 +83,13 @@ zstyle ':completion:*' expand prefix suffix
 
 # menu select options
 # zstyle ':completion:*' menu select
+zstyle ':completion:*' menu no
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
 zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:descriptions' format '[%d]'
+# zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 zstyle ':completion:*' group-name ''
@@ -90,8 +107,9 @@ bindkey -M menuselect '^xn' accept-and-infer-next-history
 bindkey -M menuselect '^xu' undo
 
 # format group names
-zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
+# NOTE: fzf-tab ignores escape sequences in format, so use simple format
+# zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+# zstyle ':completion:*' format %F{yellow}%B%U%{$__DOTS[ITALIC_ON]%}%d%{$__DOTS[ITALIC_OFF]%}%b%u%f
 
 # zstyle ':completion:*:*:cdr:*:*' menu select
 # zstyle ':chpwd:*' recent-dirs-file ${ZSH_CACHE_DIR:=$XDG_CACHE_HOME/zsh}/.chpwd-recent-dirs +
