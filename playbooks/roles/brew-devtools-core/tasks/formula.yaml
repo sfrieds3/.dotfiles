@@ -38,6 +38,7 @@
       - git-gui
       - git-lfs
       - gnutls
+      - gnupg
       - gopls
       - hadolint
       - helix
