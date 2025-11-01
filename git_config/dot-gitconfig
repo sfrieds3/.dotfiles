@@ -25,7 +25,7 @@
 	editor = nvim
 	excludesfile = ~/.config/git/gitignore
 	; pager = less -FMRiXx4
-	pager = less --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --ignore-case --no-init --tabs=4
+        pager = $(brew --prefix git)/share/git-core/contrib/diff-highlight/diff-highlight | less --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --ignore-case --no-init --tabs=4
 	hooksPath = /Users/sfriedri/.config/git/hooks
 	fsmonitor = true
 	untrackedCache = true
