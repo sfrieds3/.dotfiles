@@ -25,7 +25,7 @@
 	editor = nvim
 	excludesfile = ~/.config/git/gitignore
 	; pager = less -FMRiXx4
-        pager = $(brew --prefix git)/share/git-core/contrib/diff-highlight/diff-highlight | less --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --ignore-case --no-init --tabs=4
+	pager = $(brew --prefix git)/share/git-core/contrib/diff-highlight/diff-highlight | less --quit-if-one-screen --LONG-PROMPT --RAW-CONTROL-CHARS --ignore-case --no-init --tabs=4
 	hooksPath = /Users/sfriedri/.config/git/hooks
 	fsmonitor = true
 	untrackedCache = true
@@ -58,6 +58,7 @@
 	difftoold = difftool -d
 	du = diff @{upstream}
 	fpush = push --force-with-lease --force-if-includes
+	jump = "!$(brew --prefix git)/share/git-core/contrib/git-jump/git-jump"
 	la = log --graph --oneline --decorate --all
 	lb = log --graph --decorate
 	lf = log -p --pretty=fuller --abbrev-commit
