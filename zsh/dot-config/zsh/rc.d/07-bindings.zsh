@@ -1,6 +1,3 @@
-# emacs keybindings
-bindkey -e
-
 # CTRL-G CTRL-G
 # sync history
 function sync-history-widget() {
@@ -63,5 +60,13 @@ bindkey '^[u' push-line-or-edit
 # describe next keybinding
 bindkey '^[v' describe-key-briefly
 
-# do history expansion on space
-bindkey ' ' magic-space
+# Combined abbr expansion + magic-space
+# Expands abbreviations AND does history expansion (!!,  !$, etc.)
+abbr-magic-space() {
+    # First, try to expand abbreviation
+    zle abbr-expand
+    # Then do history expansion
+    zle magic-space
+}
+zle -N abbr-magic-space
+bindkey ' ' abbr-magic-space

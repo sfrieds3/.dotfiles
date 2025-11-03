@@ -1,3 +1,7 @@
+# Increase from default value (256)
+ulimit -n 10240
+ulimit -u 2048
+
 # set PATH
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

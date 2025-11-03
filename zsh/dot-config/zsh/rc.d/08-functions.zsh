@@ -2,6 +2,11 @@
 # https://www.topbug.net/blog/2016/10/11/speed-test-check-the-existence-of-a-command-in-bash-and-zsh/
 function exists() { (( $+commands[$1] )); }
 
+# source functions in functions.d
+for file in $ZDOTDIR/functions.d/*.zsh; do
+    source "$file"
+done
+
 # reloads all functions
 # http://www.zsh.org/mla/users/2002/msg00232.html
 function r() {

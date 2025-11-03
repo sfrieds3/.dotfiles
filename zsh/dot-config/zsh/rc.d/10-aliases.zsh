@@ -1,4 +1,14 @@
 # aliases
+alias zmv='zmv -Mv'
+alias zcp='zmv -Cv'
+alias zln='zmv -Lv'
+
+# associate files names with program to open them
+alias -s {log,out}=$PAGER
+alias -s {txt,md,xml,yml}=$EDITOR
+alias -s gz='gzip l'
+
+# git
 alias gr='cd $(git rev-parse --show-toplevel)'
 alias gwr='cd $(git rev-parse --path-format=absolute --git-common-dir | sed "s|/\.git/worktrees/.*||")'
 
