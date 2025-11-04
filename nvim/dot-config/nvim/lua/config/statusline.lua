@@ -187,7 +187,7 @@ local function filename(buf_name, win_id, filename_color, shorten)
   local function format_filename(f)
     return " " .. f .. " "
   end
-  shorten = shorten or false
+  shorten = shorten or true
   local base_name = fnamemodify(buf_name, [[:~:.]])
   local icon, hi, _ = require("mini.icons").get("file", buf_name)
   local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
@@ -242,15 +242,13 @@ build_statusline("%s") -- filename_segment
 build_statusline("%s") -- modified symbol
 build_statusline("%%#%s#") -- filetype_color
 build_statusline("%s") -- filetype_segment
-build_statusline("%%<")
 build_statusline("%%#%s# ") -- filename_color
 build_statusline("%s") -- get_paste
 build_statusline("%s") -- get_readonly_space
 build_statusline("%s") -- lsp diagnostics
 build_statusline("%s") -- linters
-build_statusline("%%<")
-build_statusline("%%<")
 build_statusline("%%=")
+build_statusline("%%<")
 build_statusline(" %s ") -- lsp
 build_statusline("%%#%s#") -- vcs color
 build_statusline("%s") -- vcs
