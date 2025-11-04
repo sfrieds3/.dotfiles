@@ -37,8 +37,8 @@
       - git-absorb
       - git-gui
       - git-lfs
-      - gnutls
       - gnupg
+      - gnutls
       - gopls
       - hadolint
       - helix
@@ -48,6 +48,7 @@
       - jdtls
       - jless
       - jq
+      - json5
       - jsonlint
       - just
       - k9s
