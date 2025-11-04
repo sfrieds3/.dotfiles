@@ -348,7 +348,7 @@ return {
         },
       },
       daily_notes = {
-        date_format = "%Y/%m/%Y-%m-%d",
+        date_format = "20 Area/20.00 Journal/00.10 Daily/%Y/%m/%Y-%m-%d",
       },
       completion = {
         nvim_cmp = false,
