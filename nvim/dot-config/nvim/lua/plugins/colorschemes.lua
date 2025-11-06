@@ -153,4 +153,10 @@ return {
       })
     end,
   },
+  {
+    dir = vim.fn.stdpath("config") .. "/lua/ghostty-default",
+    name = "ghostty-default",
+    lazy = false,
+    priority = 1000,
+  },
 }
