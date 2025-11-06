@@ -147,12 +147,12 @@ function M.setup(colors)
   hl.TreesitterContext = { bg = colors.bg_highlight }
 
   hl["@variable"] = { fg = colors.white }
-  hl["@variable.builtin"] = { fg = colors.bright_red }
+  hl["@variable.builtin"] = { fg = colors.red }
   hl["@variable.parameter"] = { fg = colors.red }
   hl["@variable.member"] = { fg = colors.magenta }
 
-  hl["@constant"] = { fg = colors.bright_cyan }
-  hl["@constant.builtin"] = { fg = colors.bright_cyan }
+  hl["@constant"] = { fg = colors.cyan }
+  hl["@constant.builtin"] = { fg = colors.cyan }
   hl["@constant.macro"] = { fg = colors.cyan }
 
   hl["@module"] = { fg = colors.cyan }
@@ -312,6 +312,7 @@ function M.setup(colors)
   hl.BlinkCmpKindEvent = { fg = colors.magenta }
   hl.BlinkCmpKindOperator = { fg = colors.cyan }
   hl.BlinkCmpKindTypeParameter = { fg = colors.yellow }
+  hl.BlinkCmpGhostText = { fg = colors.bright_black }
 
   hl.MasonHeader = { fg = colors.bg, bg = colors.bright_blue, bold = true }
   hl.MasonHighlight = { fg = colors.bright_blue }
@@ -430,6 +431,29 @@ function M.setup(colors)
   hl.MatchParen = { fg = colors.bright_yellow, bg = colors.bg_highlight, bold = true }
   hl.MatchWord = { bg = colors.bg_visual }
   hl.MatchParenOffscreen = { fg = colors.comment, bg = colors.bg_highlight }
+
+  hl["@lsp.type.variable"] = { fg = colors.red }
+  hl["@lsp.type.parameter"] = { fg = colors.red }
+  hl["@lsp.type.property"] = { link = "@property" }
+  hl["@lsp.type.function"] = { link = "@function" }
+  hl["@lsp.type.method"] = { link = "@function.method" }
+  hl["@lsp.type.class"] = { link = "@type" }
+  hl["@lsp.type.struct"] = { link = "@type" }
+  hl["@lsp.type.interface"] = { link = "@type" }
+  hl["@lsp.type.enum"] = { link = "@type" }
+  hl["@lsp.type.type"] = { link = "@type" }
+  hl["@lsp.type.typeParameter"] = { link = "@type" }
+  hl["@lsp.type.namespace"] = { link = "@module" }
+  hl["@lsp.type.keyword"] = { link = "@keyword" }
+  hl["@lsp.type.comment"] = { link = "@comment" }
+  hl["@lsp.type.operator"] = { link = "@operator" }
+  hl["@lsp.type.macro"] = { link = "@constant.macro" }
+  hl["@lsp.type.string"] = { link = "@string" }
+  hl["@lsp.type.number"] = { link = "@number" }
+  hl["@lsp.type.boolean"] = { link = "@boolean" }
+  hl["@lsp.type.decorator"] = { link = "@attribute" }
+  hl["@lsp.mod.readonly"] = { link = "@constant" }
+  hl["@lsp.mod.deprecated"] = { fg = colors.comment, strikethrough = true }
 
   return hl
 end
