@@ -37,10 +37,11 @@ zstyle ':sfrieds3:prompt:userhost:*' color green
 zstyle ':sfrieds3:prompt:exectime:*' color yellow
 
 # load zstyle configurations
+zstyle -s ':sfrieds3:prompt:git:branch-icon:*' color PROMPT_BRANCH_ICON_COLOR || PROMPT_BRANCH_ICON_COLOR=yellow
 zstyle -s ':sfrieds3:prompt:git:branch:*' color PROMPT_BRANCH_COLOR || PROMPT_BRANCH_COLOR=magenta
 zstyle -s ':sfrieds3:prompt:git:stashed:*' color PROMPT_STASHED_COLOR || PROMPT_STASHED_COLOR=blue
 zstyle -s ':sfrieds3:prompt:git:stashed:*' icon PROMPT_STASHED_ICON || PROMPT_STASHED_ICON=' ≡'
-zstyle -s ':sfrieds3:prompt:git:staged:*' color PROMT_STAGED_COLOR || PROMT_STAGED_COLOR=green
+zstyle -s ':sfrieds3:prompt:git:staged:*' color PROMPT_STAGED_COLOR || PROMPT_STAGED_COLOR=green
 zstyle -s ':sfrieds3:prompt:git:staged:*' icon PROMPT_STAGED_ICON || PROMPT_STAGED_ICON=' ●'
 zstyle -s ':sfrieds3:prompt:git:unstaged:*' color PROMPT_UNSTAGED_COLOR || PROMPT_UNSTAGED_COLOR=red
 zstyle -s ':sfrieds3:prompt:git:unstaged:*' icon PROMPT_UNSTAGED_ICON || PROMPT_UNSTAGED_ICON=' ●'
