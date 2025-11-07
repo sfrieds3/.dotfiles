@@ -120,6 +120,7 @@ return {
     { "<leader>/", function() Snacks.picker.lines({ matcher = { fuzzy = false } }) end, desc = "Buffer Lines [strict]" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     { "<leader>ff", function() Snacks.picker.files({ layout = { preset = "ivy" }, hidden=true }) end, desc = "Find Files" },
+    { "<leader>fd", function() Snacks.picker.files({ layout = { preset = "ivy" }, hidden=true, cwd = vim.fn.expand("%:h") }) end, desc = "Find Files in Directory" },
     { "<leader>fF", function() Snacks.picker.files({ layout = { preset = "ivy" }, hidden=true, ignored=true }) end, desc = "Find All Files" },
     { "<leader><leader>", function() Snacks.picker.buffers({ layout = { preset = "ivy"} }) end, desc = "Buffers" },
     { "<leader>G", function() Snacks.picker.grep({ layout = { preview = 'main', preset = 'ivy' }, jump = { match = true } }) end, desc = "Grep" },
