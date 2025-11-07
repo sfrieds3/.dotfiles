@@ -28,37 +28,40 @@ M.colors = {
   cursor_fg = "#353a44",
   selection_bg = "#ffffff",
   selection_fg = "#282c34",
+
+  bg_highlight = "#353a44",
+  bg_visual = "#3e4451",
+  bg_sidebar = "#23272e",
+
+  fg_gutter = "#4b5263",
+  fg_sidebar = "#abb2bf",
+
+  comment = "#8a8a8a",
+
+  diff_add = "#2d3a2f",
+  diff_delete = "#3d2e2e",
+  diff_change = "#3a3a2f",
+  diff_text = "#4a4a3f",
 }
 
-M.colors.bg_dark = "#1d1f21"
-M.colors.bg_highlight = "#353a44"
-M.colors.bg_visual = "#3e4451"
-M.colors.bg_float = "#282c34"
-M.colors.bg_sidebar = "#23272e"
-M.colors.bg_statusline = "#23272e"
-M.colors.bg_popup = "#23272e"
+M.colors.bg_dark = M.colors.black
+M.colors.bg_float = M.colors.bg
+M.colors.bg_statusline = M.colors.bg_sidebar
+M.colors.bg_popup = M.colors.bg_sidebar
 
-M.colors.fg_dark = "#c4c8c6"
-M.colors.fg_gutter = "#4b5263"
-M.colors.fg_sidebar = "#abb2bf"
+M.colors.fg_dark = M.colors.white
 
-M.colors.border = "#4b5263"
-M.colors.comment = "#8a8a8a"
-M.colors.nontext = "#3e4451"
+M.colors.border = M.colors.fg_gutter
+M.colors.nontext = M.colors.bg_visual
 
-M.colors.git_add = "#b6bd68"
-M.colors.git_change = "#f0c674"
-M.colors.git_delete = "#cc6566"
-M.colors.git_text = "#82a2be"
+M.colors.git_add = M.colors.green
+M.colors.git_change = M.colors.yellow
+M.colors.git_delete = M.colors.red
+M.colors.git_text = M.colors.blue
 
-M.colors.error = "#d54e53"
-M.colors.warning = "#e7c547"
-M.colors.info = "#7aa6da"
-M.colors.hint = "#70c0b1"
-
-M.colors.diff_add = "#2d3a2f"
-M.colors.diff_delete = "#3d2e2e"
-M.colors.diff_change = "#3a3a2f"
-M.colors.diff_text = "#4a4a3f"
+M.colors.error = M.colors.bright_red
+M.colors.warning = M.colors.bright_yellow
+M.colors.info = M.colors.bright_blue
+M.colors.hint = M.colors.bright_cyan
 
 return M
