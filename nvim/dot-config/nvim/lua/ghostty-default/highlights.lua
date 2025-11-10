@@ -432,8 +432,8 @@ function M.setup(colors)
   hl.MatchWord = { bg = colors.bg_visual }
   hl.MatchParenOffscreen = { fg = colors.comment, bg = colors.bg_highlight }
 
-  hl["@lsp.type.variable"] = { fg = colors.red }
-  hl["@lsp.type.parameter"] = { fg = colors.red }
+  hl["@lsp.type.variable"] = { link = "@variable" }
+  hl["@lsp.type.parameter"] = { link = "@variable.parameter" }
   hl["@lsp.type.property"] = { link = "@property" }
   hl["@lsp.type.function"] = { link = "@function" }
   hl["@lsp.type.method"] = { link = "@function.method" }
