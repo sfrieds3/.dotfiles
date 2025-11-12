@@ -69,6 +69,7 @@ return {
     bufdelete = {},
     words = {},
     statuscolumn = {},
+    terminal = {},
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
@@ -112,9 +113,12 @@ return {
     -- git
     { "<leader>B",  function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
 
+    -- terminal
+    { "<c-\\>", function() Snacks.terminal.toggle() end, { desc = "Toggle Terminal" } },
+
     -- picker
     { "<leader>,", function() Snacks.picker.smart() end, desc = "Smart" },
-    { "<leader>\\", function() Snacks.picker.explorer() end, desc = "Explorer" },
+    { "<leader><cr>", function() Snacks.picker.explorer() end, desc = "Explorer" },
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines [fuzzy]" },
     { "<leader>?", function() Snacks.picker.lines() end, desc = "Buffer Lines [fuzzy]" },
     { "<leader>/", function() Snacks.picker.lines({ matcher = { fuzzy = false } }) end, desc = "Buffer Lines [strict]" },

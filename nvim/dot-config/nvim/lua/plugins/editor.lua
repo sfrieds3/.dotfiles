@@ -315,7 +315,7 @@ return {
       end,
     },
     keys = {
-      { "<leader><cr>", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },
+      { "<leader>\\", "<cmd>AerialOpen<cr>", desc = "AerialOpen" },
     },
   },
   {
