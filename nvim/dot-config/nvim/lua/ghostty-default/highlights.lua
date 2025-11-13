@@ -362,6 +362,7 @@ function M.setup(colors)
   hl.SnacksPickerPreview = { fg = colors.fg, bg = colors.bg_float }
   hl.SnacksPickerCursor = { fg = colors.bg, bg = colors.blue }
   hl.SnacksPickerMatch = { fg = colors.bright_yellow, bold = true }
+  hl.SnacksPickerGitStatusUntracked = { fg = colors.comment }
 
   hl.FlashLabel = { fg = colors.bg, bg = colors.bright_magenta, bold = true }
   hl.FlashMatch = { fg = colors.bright_cyan, bg = colors.bg_highlight }
