@@ -8,6 +8,8 @@ theme = Ghostty Default Style Dark
 shell-integration-features = no-cursor
 cursor-style = block
 
+quick-terminal-size = 33%,75%
+
 # Font
 font-family = "Berkeley Mono"
 adjust-cell-height = 10%
