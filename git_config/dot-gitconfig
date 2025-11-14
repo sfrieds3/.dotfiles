@@ -38,9 +38,10 @@
 	autosquash = true
 	autostash = true
 	updateRefs = true
+	rebaseMerges = true
 [pull]
 	ff = only
-	rebase = true
+	rebase = merges
 [user]
 	email = s@sfrieds3.net
 	name = Scott F
