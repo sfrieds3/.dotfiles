@@ -1,0 +1,1133 @@
+{
+  "Do-While Statement": {
+    "body": [
+      "do {",
+      "\t$0",
+      "} while (${1:condition});"
+    ],
+    "description": "Do-While Statement",
+    "prefix": "dowhile"
+  },
+  "For Loop": {
+    "body": [
+      "for (let ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
+      "\tconst ${3:element} = ${2:array}[${1:index}];",
+      "\t$0",
+      "}"
+    ],
+    "description": "For Loop",
+    "prefix": "for"
+  },
+  "For-Await-Of Loop": {
+    "body": [
+      "for await (const ${1:iterator} of ${2:object}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "For-Await-Of Loop",
+    "prefix": "forawaitof"
+  },
+  "For-Each Loop": {
+    "body": [
+      "${1:array}.forEach(${2:element} => {",
+      "\t$0",
+      "});"
+    ],
+    "description": "For-Each Loop",
+    "prefix": "foreach"
+  },
+  "For-In Loop": {
+    "body": [
+      "for (const ${1:key} in ${2:object}) {",
+      "\tif (${2:object}.hasOwnProperty(${1:key})) {",
+      "\t\tconst ${3:element} = ${2:object}[${1:key}];",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "For-In Loop",
+    "prefix": "forin"
+  },
+  "For-Of Loop": {
+    "body": [
+      "for (const ${1:iterator} of ${2:object}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "For-Of Loop",
+    "prefix": "forof"
+  },
+  "Function Statement": {
+    "body": [
+      "function ${1:name}(${2:params}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Function Statement",
+    "prefix": "function"
+  },
+  "If Statement": {
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "If Statement",
+    "prefix": "if"
+  },
+  "If-Else Statement": {
+    "body": [
+      "if (${1:condition}) {",
+      "\t$2",
+      "} else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "If-Else Statement",
+    "prefix": "ifelse"
+  },
+  "Import external module.": {
+    "body": [
+      "import { $0 } from \"${1:module}\";"
+    ],
+    "description": "Import external module.",
+    "prefix": "import statement"
+  },
+  "JSON.parse()": {
+    "body": "JSON.parse($0)",
+    "prefix": "jp"
+  },
+  "JSON.stringify()": {
+    "body": "JSON.stringify($0)",
+    "prefix": "js"
+  },
+  "Log error to console": {
+    "body": [
+      "console.error($1);",
+      "$0"
+    ],
+    "description": "Log error to the console",
+    "prefix": "error"
+  },
+  "Log warning to console": {
+    "body": [
+      "console.warn($1);",
+      "$0"
+    ],
+    "description": "Log warning to the console",
+    "prefix": "warn"
+  },
+  "New Statement": {
+    "body": [
+      "const ${1:name} = new ${2:type}(${3:arguments});$0"
+    ],
+    "description": "New Statement",
+    "prefix": "new"
+  },
+  "Node callback": {
+    "body": "function (err, ${1:value}) {\n\tif (err) throw err\n\t${0}\n}",
+    "prefix": "cb"
+  },
+  "Object.assign": {
+    "body": "Object.assign(${1:dest}, ${2:source})",
+    "prefix": "oa"
+  },
+  "Object.create": {
+    "body": "Object.create(${1:obj})",
+    "prefix": "oc"
+  },
+  "Object.defineProperty": {
+    "body": "Object.defineProperty(${1:dest}, '${2:prop}', {\n\t${0}\n})",
+    "prefix": "od"
+  },
+  "Object.entries": {
+    "body": "Object.entries(${1:obj})",
+    "prefix": "oe"
+  },
+  "Object.getOwnPropertyDescriptor": {
+    "body": "Object.getOwnPropertyDescriptor(${1:obj}, '${2:prop}')",
+    "prefix": "og"
+  },
+  "Object.keys": {
+    "body": "Object.keys(${1:obj})",
+    "prefix": "ok"
+  },
+  "Object.values": {
+    "body": "Object.values(${1:obj})",
+    "prefix": "ov"
+  },
+  "Promise": {
+    "body": "Promise",
+    "prefix": "p"
+  },
+  "Promise.all": {
+    "body": "Promise.all(${1:value})",
+    "prefix": "pa"
+  },
+  "Promise.catch": {
+    "body": "${1:promise}.catch(error => {\n\t${0}\n})",
+    "prefix": "pc"
+  },
+  "Promise.reject": {
+    "body": "Promise.reject(${1:value})",
+    "prefix": "prj"
+  },
+  "Promise.resolve": {
+    "body": "Promise.resolve(${1:value})",
+    "prefix": "prs"
+  },
+  "Promise.then": {
+    "body": "${1:promise}.then((${2:value}) => {\n\t${0}\n})",
+    "prefix": "pt"
+  },
+  "Region End": {
+    "body": [
+      "//#endregion"
+    ],
+    "description": "Folding Region End",
+    "prefix": "#endregion"
+  },
+  "Region Start": {
+    "body": [
+      "//#region $0"
+    ],
+    "description": "Folding Region Start",
+    "prefix": "#region"
+  },
+  "Set Interval Function": {
+    "body": [
+      "setInterval(() => {",
+      "\t$0",
+      "}, ${1:interval});"
+    ],
+    "description": "Set Interval Function",
+    "prefix": "setinterval"
+  },
+  "Set Timeout Function": {
+    "body": [
+      "setTimeout(() => {",
+      "\t$0",
+      "}, ${1:timeout});"
+    ],
+    "description": "Set Timeout Function",
+    "prefix": "settimeout"
+  },
+  "Switch Statement": {
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement",
+    "prefix": "switch"
+  },
+  "Try-Catch Statement": {
+    "body": [
+      "try {",
+      "\t$0",
+      "} catch (${1:error}) {",
+      "\t",
+      "}"
+    ],
+    "description": "Try-Catch Statement",
+    "prefix": "trycatch"
+  },
+  "While Statement": {
+    "body": [
+      "while (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "While Statement",
+    "prefix": "while"
+  },
+  "addEventListener": {
+    "body": "${1:document}.addEventListener('${2:event}', ${3:ev} => {\n\t${0}\n})",
+    "prefix": "ae"
+  },
+  "after": {
+    "body": "after(() => {\n\t${0}\n})",
+    "prefix": "aft"
+  },
+  "afterEach": {
+    "body": "afterEach(() => {\n\t${0}\n})",
+    "prefix": "afe"
+  },
+  "anonymous function": {
+    "body": "function (${1:arguments}) {${0}}",
+    "prefix": "fan"
+  },
+  "appendChild": {
+    "body": "${1:el}.appendChild(${2:elem})",
+    "prefix": "heac"
+  },
+  "apply": {
+    "body": [
+      "apply($1);",
+      "$0"
+    ],
+    "description": "The apply() method calls the specified function with a given this value, and arguments provided as an array (or an array-like object).",
+    "prefix": "apply"
+  },
+  "arrow function": {
+    "body": "(${1:arguments}) => ${2:statement}",
+    "prefix": "af"
+  },
+  "arrow function with body": {
+    "body": "(${1:arguments}) => {\n\t${0}\n}",
+    "prefix": "f"
+  },
+  "arrow function with destructuring": {
+    "body": "({${1:arguments}}) => ${2:statement}",
+    "prefix": "fd"
+  },
+  "arrow function with destructuring returning destructured": {
+    "body": "({${1:arguments}}) => ${1:arguments}",
+    "prefix": "fdr"
+  },
+  "arrow function with return": {
+    "body": "(${1:arguments}) => {\n\treturn ${0}\n}",
+    "prefix": "fr"
+  },
+  "async arrow function": {
+    "body": "async (${1:arguments}) => {\n\t${0}\n}",
+    "prefix": "aa"
+  },
+  "async function": {
+    "body": "async function (${1:arguments}) {\n\t${0}\n}",
+    "prefix": "asf"
+  },
+  "async immediately-invoked function expression": {
+    "body": ";(async (${1:arguments}) => {\n\t${0}\n})(${2})",
+    "prefix": "aiife"
+  },
+  "await": {
+    "body": "await ${0}",
+    "prefix": "a"
+  },
+  "await Promise.all": {
+    "body": "await Promise.all(${1:value})",
+    "prefix": "apa"
+  },
+  "await Promise.all map": {
+    "body": "await Promise.all(${1:array}.map(async (${2:value}) => {\n\t${0}\n}))",
+    "prefix": "apm"
+  },
+  "await Promise.all with destructuring": {
+    "body": "const [${0}] = await Promise.all(${1:value})",
+    "prefix": "apad"
+  },
+  "await sleep": {
+    "body": "await new Promise((r) => setTimeout(r, ${0}))",
+    "prefix": "ast"
+  },
+  "before": {
+    "body": "before(async () => {\n\t${0}\n})",
+    "prefix": "bf"
+  },
+  "beforeAll": {
+    "body": "beforeAll(async () => {\n\t${0}\n})",
+    "prefix": "ba"
+  },
+  "beforeEach": {
+    "body": "beforeEach(async () => {\n\t${0}\n})",
+    "prefix": "bfe"
+  },
+  "bind": {
+    "body": [
+      "bind($1);",
+      "$0"
+    ],
+    "description": "The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.",
+    "prefix": "bind"
+  },
+  "blur": {
+    "body": [
+      "blur()"
+    ],
+    "description": "",
+    "prefix": "blur"
+  },
+  "call": {
+    "body": [
+      "call($1);",
+      "$0"
+    ],
+    "description": "The call() method calls the function with a given this value and arguments provided individually.",
+    "prefix": "call"
+  },
+  "class": {
+    "body": "class ${1:name} {\n\tconstructor (${2:arguments}) {\n\t\t${0}\n\t}\n}",
+    "prefix": "cs"
+  },
+  "class extends": {
+    "body": "class ${1:name} extends ${2:base} {\n\tconstructor (${3:arguments}) {\n\t\tsuper(${3:arguments})\n\t\t${0}\n\t}\n}",
+    "prefix": "csx"
+  },
+  "classList.add": {
+    "body": "${1:el}.classList.add('${2:class}')",
+    "prefix": "hecla"
+  },
+  "classList.remove": {
+    "body": "${1:el}.classList.remove('${2:class}')",
+    "prefix": "heclr"
+  },
+  "classList.toggle": {
+    "body": "${1:el}.classList.toggle('${2:class}')",
+    "prefix": "hect"
+  },
+  "concat": {
+    "body": [
+      "concat($1);",
+      "$0"
+    ],
+    "description": "The concat() method concatenates the string arguments to the calling string and returns a new string.",
+    "prefix": "concat"
+  },
+  "console.dir": {
+    "body": "console.dir('${1}:', ${1})",
+    "prefix": "cod"
+  },
+  "console.error": {
+    "body": "console.error(${0})",
+    "prefix": "ce"
+  },
+  "console.log": {
+    "body": "console.log(${0})",
+    "prefix": "cl"
+  },
+  "console.log a variable": {
+    "body": "console.log('${1}:', ${1})",
+    "prefix": "cv"
+  },
+  "console.log with log": {
+    "body": "console.log(${0})",
+    "prefix": "log"
+  },
+  "console.warn": {
+    "body": "console.warn(${0})",
+    "prefix": "cw"
+  },
+  "const array": {
+    "body": "const ${1:name} = [\n\t${0}\n]",
+    "prefix": "car"
+  },
+  "const arrow function assignment": {
+    "body": "const ${1:name} = (${2:arguments}) => {\n\treturn ${0}\n}",
+    "prefix": "cf"
+  },
+  "const assignment awaited": {
+    "body": "const ${1:name} = await ${2:value}",
+    "prefix": "ca"
+  },
+  "const assignment yielded": {
+    "body": "const ${1:name} = yield ${2:value}",
+    "prefix": "cy"
+  },
+  "const destructuring assignment awaited": {
+    "body": "const { ${1:name} } = await ${2:value}",
+    "prefix": "cda"
+  },
+  "const module = require('module')": {
+    "body": "const ${1:module} = require('${1:module}')",
+    "prefix": "cr"
+  },
+  "const object": {
+    "body": "const ${1:name} = {\n\t${0}\n}",
+    "prefix": "co"
+  },
+  "const statement": {
+    "body": "const ${1:name}",
+    "prefix": "c"
+  },
+  "const statement from array destructuring": {
+    "body": "const [ ${2:prop} ] = ${1:value}",
+    "prefix": "cad"
+  },
+  "const statement from destructuring": {
+    "body": "const { ${2:prop} } = ${1:value}",
+    "prefix": "cd"
+  },
+  "constructor": {
+    "body": "constructor () {\n\t${0}\n}",
+    "prefix": "cn"
+  },
+  "createDocumentFragment": {
+    "body": "${1:document}.createDocumentFragment(${2:elem})",
+    "prefix": "cdf"
+  },
+  "createElement": {
+    "body": "${1:document}.createElement(${2:elem})",
+    "prefix": "cel"
+  },
+  "define module": {
+    "body": [
+      "define([",
+      "\t'require',",
+      "\t'${1:dependency}'",
+      "], function(require, ${2:factory}) {",
+      "\t'use strict';",
+      "\t$0",
+      "});"
+    ],
+    "description": "define module",
+    "prefix": "define"
+  },
+  "defineProperties": {
+    "body": [
+      "defineProperties($1, $2);",
+      "$0"
+    ],
+    "description": "",
+    "prefix": "defineProperties"
+  },
+  "describe": {
+    "body": "describe('${1:description}', () => {\n\t${0}\n})",
+    "prefix": "desc"
+  },
+  "describe top level": {
+    "body": "describe('${TM_FILENAME_BASE}', () => {\n\t${0}\n})",
+    "prefix": "dt"
+  },
+  "dom event cancel default and propagation": {
+    "body": "ev.preventDefault()\nev.stopPropagation()\nreturn false",
+    "prefix": "evc"
+  },
+  "else if statement": {
+    "body": "else if (${1:condition}) {\n\t${0}\n}",
+    "prefix": "ei"
+  },
+  "else statement": {
+    "body": "else {\n\t${0}\n}",
+    "prefix": "el"
+  },
+  "endsWith": {
+    "body": [
+      "endsWith($1);",
+      "$0"
+    ],
+    "description": "The endsWith() method determines whether a string ends with the characters of a specified string, returning true or false as appropriate.    ",
+    "prefix": "endsWith"
+  },
+  "entries": {
+    "body": [
+      "entries($1);",
+      "$0"
+    ],
+    "description": "The Object.entries() method returns an array of a given object's own enumerable string-keyed property key-value pairs.",
+    "prefix": "entries"
+  },
+  "event handler": {
+    "body": "${1:emitter}.on('${2:event}', (${3:arguments}) => {\n\t${0}\n})",
+    "prefix": "on"
+  },
+  "every": {
+    "body": "${1:iterable}.every((${2:item}) => {\n\t${0}\n})",
+    "prefix": "every"
+  },
+  "export named function": {
+    "body": "export function ${1:member} (${2:arguments}) {\n\t${0}\n}",
+    "prefix": "ef"
+  },
+  "exports.member": {
+    "body": "exports.${1:member} = ${2:value}",
+    "prefix": "em"
+  },
+  "filter": {
+    "body": "${1:iterable}.filter((${2:item}) => {\n\t${0}\n})",
+    "prefix": "filter"
+  },
+  "find": {
+    "body": "${1:iterable}.find((${2:item}) => {\n\t${0}\n})",
+    "prefix": "find"
+  },
+  "focus": {
+    "body": [
+      "focus()"
+    ],
+    "description": "The HTMLElement.focus() method sets focus on the specified element, if it can be focused. The focused element is the element that will receive keyboard and similar events by default.",
+    "prefix": "focus"
+  },
+  "forEach loop": {
+    "body": "${1:iterable}.forEach((${2:item}) => {\n\t${0}\n})",
+    "prefix": "fe"
+  },
+  "fromCharCode": {
+    "body": [
+      "fromCharCode($1);",
+      "$0"
+    ],
+    "description": "The static String.fromCharCode() method returns a string created from the specified sequence of UTF-16 code units.",
+    "prefix": "fromCharCode"
+  },
+  "generate array of integers starting with 0": {
+    "body": "[...Array(${1:length}).keys()]",
+    "prefix": "gari0"
+  },
+  "generate array of integers starting with 1": {
+    "body": "Array.from({ length: ${1:length} }, (v, k) => k + 1)",
+    "prefix": "gari"
+  },
+  "generator function": {
+    "body": "function* (${1:arguments}) {\n\t${0}\n}",
+    "prefix": "gf"
+  },
+  "getAttribute": {
+    "body": "${1:el}.getAttribute('${2:attr}')",
+    "prefix": "hega"
+  },
+  "getElementById": {
+    "body": "${1:document}.getElementById('${2:id}')",
+    "prefix": "gi"
+  },
+  "getElementsByClassName": {
+    "body": "Array.from(${1:document}.getElementsByClassName('${2:class}'))",
+    "prefix": "gc"
+  },
+  "getElementsByTagName": {
+    "body": "Array.from(${1:document}.getElementsByTagName('${2:tag}'))",
+    "prefix": "gt"
+  },
+  "getter": {
+    "body": "get ${1:property} () {\n\t${0}\n}",
+    "prefix": "get"
+  },
+  "getter + setter": {
+    "body": "get ${1:property} () {\n\t${0}\n}\nset ${1:property} (${2:value}) {\n\t\n}",
+    "prefix": "gs"
+  },
+  "immediately-invoked function expression": {
+    "body": ";(function (${1:arguments}) {\n\t${0}\n})(${2})",
+    "prefix": "iife"
+  },
+  "import module": {
+    "body": "import ${2:*} from '${1:module}'",
+    "prefix": "im"
+  },
+  "import module as": {
+    "body": "import ${2:*} as ${3:name} from '${1:module}'",
+    "prefix": "ia"
+  },
+  "import module destructured": {
+    "body": "import {$2} from '${1:module}'",
+    "prefix": "id"
+  },
+  "includes": {
+    "body": [
+      "includes($1);",
+      "$0"
+    ],
+    "description": "The includes() method performs a case-sensitive search to determine whether one string may be found within another string, returning true or false as appropriate.",
+    "prefix": "includes"
+  },
+  "indexOf": {
+    "body": [
+      "indexOf($1);",
+      "$0"
+    ],
+    "description": "The indexOf() method, given one argument: a substring to search for, searches the entire calling string, and returns the index of the first occurrence of the specified substring. Given a second argument: a number, the method returns the first occurrence of the specified substring at an index greater than or equal to the specified number.",
+    "prefix": "indexOf"
+  },
+  "innerText": {
+    "body": [
+      "innerText"
+    ],
+    "description": "The innerText property of the HTMLElement interface represents the rendered text content of a node and its descendants.",
+    "prefix": "innerText"
+  },
+  "instanceof": {
+    "body": "${1:source} instanceof ${2:Object}",
+    "prefix": "iof"
+  },
+  "isFinite": {
+    "body": [
+      "isFinite($1);",
+      "$0"
+    ],
+    "description": "The Number.isFinite() method determines whether the passed value is a finite number — that is, it checks that a given value is a number, and the number is neither positive Infinity, negative Infinity, nor NaN.",
+    "prefix": "isFinite"
+  },
+  "isNaN": {
+    "body": [
+      "isNaN($1);",
+      "$0"
+    ],
+    "description": "The Number.isNaN() method determines whether the passed value is the number value NaN, and returns false if the input is not of the Number type. It is a more robust version of the original, global isNaN() function.",
+    "prefix": "isNaN"
+  },
+  "it asynchronous": {
+    "body": "it('${1:description}', async () => {\n\t${0}\n})",
+    "prefix": "it"
+  },
+  "it synchronous": {
+    "body": "it('${1:description}', () => {\n\t${0}\n})",
+    "prefix": "its"
+  },
+  "it with a callback": {
+    "body": "it('${1:description}', (done) => {\n\t${0}\n})",
+    "prefix": "itd"
+  },
+  "it.todo": {
+    "body": "it.todo('${1:description}')",
+    "prefix": "itt"
+  },
+  "lastIndexOf": {
+    "body": [
+      "lastIndexOf($1);",
+      "$0"
+    ],
+    "description": "The lastIndexOf() method, given one argument: a substring to search for, searches the entire calling string, and returns the index of the last occurrence of the specified substring. Given a second argument: a number, the method returns the last occurrence of the specified substring at an index less than or equal to the specified number.",
+    "prefix": "lastIndexOf"
+  },
+  "let and if statement": {
+    "body": "let ${0} \n if (${2:condition}) {\n\t${1}\n}",
+    "prefix": "lif"
+  },
+  "let assignment awaited": {
+    "body": "let ${1:name} = await ${2:value}",
+    "prefix": "la"
+  },
+  "let assignment yielded": {
+    "body": "let ${1:name} = yield ${2:value}",
+    "prefix": "ly"
+  },
+  "let statement": {
+    "body": "let ${1:name}",
+    "prefix": "l"
+  },
+  "localeCompare": {
+    "body": [
+      "localeCompare($1);",
+      "$0"
+    ],
+    "description": "The localeCompare() method returns a number indicating whether a reference string comes before, or after, or is the same as the given string in sort order. In implementations with Intl.Collator API support, this method simply calls Intl.Collator.",
+    "prefix": "localeCompare"
+  },
+  "map": {
+    "body": "${1:iterable}.map((${2:item}) => {\n\t${0}\n})",
+    "prefix": "map"
+  },
+  "match": {
+    "body": [
+      "match($1);",
+      "$0"
+    ],
+    "description": "The match() method retrieves the result of matching a string against a regular expression.",
+    "prefix": "match"
+  },
+  "matchAll": {
+    "body": [
+      "matchAll($1);",
+      "$0"
+    ],
+    "description": "The matchAll() method returns an iterator of all results matching a string against a regular expression, including capturing groups.",
+    "prefix": "matchAll"
+  },
+  "method": {
+    "body": "${1:method} (${2:arguments}) {\n\t${0}\n}",
+    "prefix": "m"
+  },
+  "module as class": {
+    "body": "class ${1:name} {\n\tconstructor (${2:arguments}) {\n\t\t${0}\n\t}\n}\n\nmodule.exports = ${1:name}\n",
+    "prefix": "mec"
+  },
+  "module default export": {
+    "body": "export default ${1:member}",
+    "prefix": "ed"
+  },
+  "module default export function": {
+    "body": "export default function ${1:name} (${2:arguments}) {\n\t${0}\n}",
+    "prefix": "edf"
+  },
+  "module export": {
+    "body": "export ${1:member}",
+    "prefix": "e"
+  },
+  "module export const": {
+    "body": "export const ${1:member} = ${2:value}",
+    "prefix": "ec"
+  },
+  "module.exports": {
+    "body": "module.exports = ${1:name}",
+    "prefix": "me"
+  },
+  "named function": {
+    "body": "function ${1:name} (${2:arguments}) {\n\t${0}\n}",
+    "prefix": "fn"
+  },
+  "named generator": {
+    "body": "function* ${1:name}(${2:arguments}) {\n\t${0}\n}",
+    "prefix": "gfn"
+  },
+  "new Promise": {
+    "body": "new Promise((resolve, reject) => {\n\t${0}\n})",
+    "prefix": "np"
+  },
+  "normalize": {
+    "body": [
+      "normalize($1);",
+      "$0"
+    ],
+    "description": "The normalize() method returns the Unicode Normalization Form of the string.",
+    "prefix": "normalize"
+  },
+  "parseFloat": {
+    "body": [
+      "parseFloat($1);",
+      "$0"
+    ],
+    "description": "The Number.parseFloat() method parses an argument and returns a floating point number. If a number cannot be parsed from the argument, it returns NaN.",
+    "prefix": "parseFloat"
+  },
+  "parseInt": {
+    "body": [
+      "parseInt($1);",
+      "$0"
+    ],
+    "description": "The Number.parseInt() method parses a string argument and returns an integer of the specified radix or base.",
+    "prefix": "parseInt"
+  },
+  "process.env": {
+    "body": "process.env",
+    "prefix": "pe"
+  },
+  "prototype method": {
+    "body": "${1:Class}.prototype.${2:method} = function (${3:arguments}) {\n\t${0}\n}",
+    "prefix": "proto"
+  },
+  "push": {
+    "body": [
+      "push($1);",
+      "$0"
+    ],
+    "description": "The push() method adds one or more elements to the end of an array and returns the new length of the array.",
+    "prefix": "push"
+  },
+  "querySelector": {
+    "body": "${1:document}.querySelector('${2:selector}')",
+    "prefix": "qs"
+  },
+  "querySelectorAll": {
+    "body": "Array.from(${1:document}.querySelectorAll('${2:selector}'))",
+    "prefix": "qsa"
+  },
+  "reduce": {
+    "body": "${1:iterable}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial})",
+    "prefix": "reduce"
+  },
+  "removeAttribute": {
+    "body": "${1:el}.removeAttribute('${2:attr}')",
+    "prefix": "hera"
+  },
+  "removeChild": {
+    "body": "${1:el}.removeChild(${2:elem})",
+    "prefix": "herc"
+  },
+  "removeEventListener": {
+    "body": "${1:document}.removeEventListener('${2:event}', ${3:listener})",
+    "prefix": "rel"
+  },
+  "repeat": {
+    "body": [
+      "repeat($1);",
+      "$0"
+    ],
+    "description": "The repeat() method constructs and returns a new string which contains the specified number of copies of the string on which it was called, concatenated together.",
+    "prefix": "repeat"
+  },
+  "replace": {
+    "body": [
+      "replace($1, $2);",
+      "$0"
+    ],
+    "description": "The replace() method returns a new string with one, some, or all matches of a pattern replaced by a replacement. The pattern can be a string or a RegExp, and the replacement can be a string or a function called for each match. If pattern is a string, only the first occurrence will be replaced. The original string is left unchanged.",
+    "prefix": "replace"
+  },
+  "replaceAll": {
+    "body": [
+      "replaceAll($1, $2);",
+      "$0"
+    ],
+    "description": "The replaceAll() method returns a new string with all matches of a pattern replaced by a replacement. The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match. The original string is left unchanged.",
+    "prefix": "replaceAll"
+  },
+  "require": {
+    "body": "require('${1:module}')",
+    "prefix": "rq"
+  },
+  "return": {
+    "body": "return ${0}",
+    "prefix": "r"
+  },
+  "return arrow function": {
+    "body": "return (${1:arguments}) => ${2:statement}",
+    "prefix": "rf"
+  },
+  "return new array": {
+    "body": "return [\n\t${0}\n]",
+    "prefix": "ra"
+  },
+  "return new object": {
+    "body": "return {\n\t${0}\n}",
+    "prefix": "ro"
+  },
+  "return null": {
+    "body": "return null",
+    "prefix": "rn"
+  },
+  "return promise": {
+    "body": "return new Promise((resolve, reject) => {\n\t${0}\n})",
+    "prefix": "rp"
+  },
+  "return this": {
+    "body": "return ${0:this}",
+    "prefix": "rt"
+  },
+  "reverse": {
+    "body": [
+      "reverse();",
+      "$0"
+    ],
+    "description": "The reverse() method reverses an array in place and returns the reference to the same array, the first array element now becoming the last, and the last array element becoming the first. In other words, elements order in the array will be turned towards the direction opposite to that previously stated.",
+    "prefix": "reverse"
+  },
+  "search": {
+    "body": [
+      "search($1);",
+      "$0"
+    ],
+    "description": "The search() method executes a search for a match between a regular expression and this String object.",
+    "prefix": "search"
+  },
+  "setAttribute": {
+    "body": "${1:el}.setAttribute('${2:attr}', ${3:value})",
+    "prefix": "hesa"
+  },
+  "setDate": {
+    "body": [
+      "setDate($1);",
+      "$0"
+    ],
+    "description": "The setDate() method changes the day of the month of a given Date instance, based on local time.",
+    "prefix": "setDate"
+  },
+  "setImmediate": {
+    "body": "setImmediate(() => {\n\t${0}\n})",
+    "prefix": "sim"
+  },
+  "setTime": {
+    "body": [
+      "setTime($1);",
+      "$0"
+    ],
+    "description": "The setTime() method sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC.",
+    "prefix": "setTime"
+  },
+  "setter": {
+    "body": "set ${1:property} (${2:value}) {\n\t${0}\n}",
+    "prefix": "set"
+  },
+  "slice": {
+    "body": [
+      "slice($1);",
+      "$0"
+    ],
+    "description": "The slice() method extracts a section of a string and returns it as a new string, without modifying the original string.",
+    "prefix": "slice"
+  },
+  "some": {
+    "body": "${1:iterable}.some((${2:item}) => {\n\t${0}\n})",
+    "prefix": "some"
+  },
+  "sort": {
+    "body": [
+      "sort($1);",
+      "$0"
+    ],
+    "description": "The sort() method sorts the elements of an array in place and returns the reference to the same array, now sorted. The default sort order is ascending, built upon converting the elements into strings, then comparing their sequences of UTF-16 code units values.",
+    "prefix": "sort"
+  },
+  "splice": {
+    "body": [
+      "splice($1);",
+      "$0"
+    ],
+    "description": "The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place. To access part of an array without modifying it, see slice().",
+    "prefix": "splice"
+  },
+  "split": {
+    "body": [
+      "split($1);",
+      "$0"
+    ],
+    "description": "The split() method takes a pattern and divides a String into an ordered list of substrings by searching for the pattern, puts these substrings into an array, and returns the array.",
+    "prefix": "split"
+  },
+  "startsWith": {
+    "body": [
+      "startsWith($1);",
+      "$0"
+    ],
+    "description": "The startsWith() method determines whether a string begins with the characters of a specified string, returning true or false as appropriate.",
+    "prefix": "startsWith"
+  },
+  "substring": {
+    "body": [
+      "substring($1);",
+      "$0"
+    ],
+    "description": "The substring() method returns the part of the string between the start and end indexes, or to the end of the string.",
+    "prefix": "substring"
+  },
+  "ternary": {
+    "body": "${1:cond} ? ${2:true} : ${3:false}",
+    "prefix": "te"
+  },
+  "ternary assignment": {
+    "body": "const ${0} = ${1:cond} ? ${2:true} : ${3:false}",
+    "prefix": "ta"
+  },
+  "this": {
+    "body": "this.",
+    "prefix": "t"
+  },
+  "throw new Error": {
+    "body": "throw new ${0:error}",
+    "prefix": "tn"
+  },
+  "toDateString": {
+    "body": [
+      "toDateString();",
+      "$0"
+    ],
+    "description": "",
+    "prefix": "toDateString"
+  },
+  "toFixed": {
+    "body": [
+      "toFixed($1);",
+      "$0"
+    ],
+    "description": "The toFixed() method formats a number using fixed-point notation.",
+    "prefix": "toFixed"
+  },
+  "toJSON": {
+    "body": [
+      "toJSON();",
+      "$0"
+    ],
+    "description": "The toJSON() method returns a string representation of the Date object.",
+    "prefix": "toJSON"
+  },
+  "toLocaleLowerCase": {
+    "body": [
+      "toLocaleLowerCase($1);",
+      "$0"
+    ],
+    "description": "The toLocaleLowerCase() method returns the calling string value converted to lower case, according to any locale-specific case mappings.",
+    "prefix": "toLocaleLowerCase"
+  },
+  "toLocaleString": {
+    "body": [
+      "toLocaleString($1);",
+      "$0"
+    ],
+    "description": "The toLocaleString() method returns a string with a language-sensitive representation of this number. In implementations with Intl.NumberFormat API support, this method simply calls Intl.NumberFormat.",
+    "prefix": "toLocaleString"
+  },
+  "toLocaleUpperCase": {
+    "body": [
+      "toLocaleUpperCase($1);",
+      "$0"
+    ],
+    "description": "The toLocaleUpperCase() method returns the calling string value converted to upper case, according to any locale-specific case mappings.",
+    "prefix": "toLocaleUpperCase"
+  },
+  "toLowerCase": {
+    "body": [
+      "toLowerCase()"
+    ],
+    "description": "The toLowerCase() method returns the calling string value converted to lower case.",
+    "prefix": "toLowerCase"
+  },
+  "toString": {
+    "body": [
+      "toString()"
+    ],
+    "description": "The toString() method returns a string representing the specified string value.",
+    "prefix": "toString"
+  },
+  "toUpperCase": {
+    "body": [
+      "toUpperCase()"
+    ],
+    "description": "The toUpperCase() method returns the calling string value converted to uppercase (the value will be converted to a string if it isn't one).",
+    "prefix": "toUpperCase"
+  },
+  "try/catch": {
+    "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n}",
+    "prefix": "tc"
+  },
+  "try/catch/finally": {
+    "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}",
+    "prefix": "tcf"
+  },
+  "try/finally": {
+    "body": "try {\n\t${0}\n} finally {\n\t\n}",
+    "prefix": "tf"
+  },
+  "typeof": {
+    "body": "typeof ${1:source} === '${2:undefined}'",
+    "prefix": "to"
+  },
+  "use strict": {
+    "body": "'use strict'",
+    "prefix": "uss"
+  },
+  "valueOf": {
+    "body": [
+      "valueOf()"
+    ],
+    "description": "The valueOf() method returns the primitive value of a String object.",
+    "prefix": "valueOf"
+  },
+  "values": {
+    "body": [
+      "values($1);",
+      "$0"
+    ],
+    "description": "The Object.values() method returns an array of a given object's own enumerable string-keyed property values.",
+    "prefix": "values"
+  },
+  "var assignment": {
+    "body": "var ${1:name} = ${2:value}",
+    "prefix": "va"
+  },
+  "var statement": {
+    "body": "var ${1:name}",
+    "prefix": "v"
+  },
+  "while iteration decrementing": {
+    "body": "let ${1:array}Index = ${1:array}.length\nwhile (${1:array}Index--) {\n\t${0}\n}",
+    "prefix": "wid"
+  },
+  "wrap selection in arrow function": {
+    "body": "() => {\n\t{$TM_SELECTED_TEXT}\n}",
+    "description": "wraps text in arrow function",
+    "prefix": "wrap selection in arrow function"
+  },
+  "wrap selection in async arrow function": {
+    "body": "async () => {\n\t{$TM_SELECTED_TEXT}\n}",
+    "description": "wraps text in arrow function",
+    "prefix": "wrap selection in async arrow function"
+  },
+  "yield": {
+    "body": "yield ${0}",
+    "prefix": "y"
+  }
+}
