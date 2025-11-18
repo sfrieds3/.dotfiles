@@ -1,6 +1,7 @@
 - name: Install devtools casks
   community.general.homebrew_cask:
     name:
+      - claude
       - claude-code
       - docker-desktop
       - jordanbaird-ice
