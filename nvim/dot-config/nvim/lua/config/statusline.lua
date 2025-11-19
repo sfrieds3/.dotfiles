@@ -65,6 +65,11 @@ local function init_statusline_hl()
     0,
     { name = "StatuslineVcs", fg = vim.api.nvim_get_hl(0, { name = "@function", link = false })["fg"] }
   )
+
+  -- line/col indicator
+  local bg_color = vim.api.nvim_get_hl(0, { name = "Normal", link = false })["bg"]
+  local blue_color = vim.api.nvim_get_hl(0, { name = "@function", link = false })["fg"]
+  Statusline.set_statusline_hl(0, { name = "StatuslineLineCol", fg = bg_color, bg = blue_color })
 end
 
 --- Get running linters in buffer
@@ -276,7 +281,7 @@ function Statusline.status()
       filename_color = "StatusLine",
       filetype_color = "StatusLine",
       vcs_color = "StatuslineVcs",
-      line_col_color = "IncSearch", -- @namespace
+      line_col_color = "StatuslineLineCol",
     }
     local inverse_colors = {
       line_col_color_inverse = generate_inverse_hi(colors.line_col_color),
