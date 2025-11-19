@@ -192,7 +192,7 @@ local function filename(buf_name, win_id, filename_color, shorten)
   local icon, hi, _ = require("mini.icons").get("file", buf_name)
   local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
   if shorten then
-    local space = math.min(50, math.floor(0.5 * get_window_width(win_id)))
+    local space = math.floor(0.5 * get_window_width(win_id))
     if string.len(base_name) <= space then
       return file_icon .. format_filename(base_name)
     else
