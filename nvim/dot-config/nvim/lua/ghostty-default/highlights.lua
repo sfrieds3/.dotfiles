@@ -21,9 +21,9 @@ function M.setup(colors)
 
   hl.Visual = { bg = colors.bg_visual }
   hl.VisualNOS = { bg = colors.bg_visual }
-  hl.Search = { fg = colors.bg, bg = colors.yellow }
-  hl.IncSearch = { fg = colors.bg, bg = colors.bright_yellow }
-  hl.CurSearch = { fg = colors.bg, bg = colors.bright_yellow }
+  hl.Search = { fg = colors.bright_white, bg = colors.yellow, bold = true }
+  hl.IncSearch = { fg = colors.bright_white, bg = colors.bright_yellow, bold = true }
+  hl.CurSearch = { fg = colors.bright_white, bg = colors.bright_yellow, bold = true }
   hl.Substitute = { fg = colors.bg, bg = colors.green }
 
   hl.Pmenu = { fg = colors.fg, bg = colors.bg_popup }
