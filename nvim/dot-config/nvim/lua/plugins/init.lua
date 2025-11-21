@@ -20,4 +20,11 @@ return {
       "Scriptnames",
     },
   },
+  {
+    "tpope/vim-abolish",
+    cmd = {
+      "S",
+      "Subvert",
+    },
+  },
 }

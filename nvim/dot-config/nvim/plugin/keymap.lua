@@ -4,8 +4,8 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, si
 
 vim.keymap.set("n", "^", "g^")
 vim.keymap.set("n", "$", "g$")
-vim.keymap.set("n", "gj", "j")
-vim.keymap.set("n", "gk", "k")
+vim.keymap.set("n", "gj", "j", { silent = true })
+vim.keymap.set("n", "gk", "k", { silent = true })
 vim.keymap.set("n", "g^", "^")
 vim.keymap.set("n", "g$", "$")
 
