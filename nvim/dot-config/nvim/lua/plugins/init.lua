@@ -12,15 +12,6 @@ return {
     },
   },
   {
-    "tpope/vim-scriptease",
-    cmd = {
-      "Messages",
-      "Verbose",
-      "Time",
-      "Scriptnames",
-    },
-  },
-  {
     "tpope/vim-abolish",
     cmd = {
       "S",
