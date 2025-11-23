@@ -18,3 +18,6 @@ vim.cmd([[wincmd J]])
 
 -- set default qf height to 1/3 of window
 vim.cmd([[let &l:winheight = &lines / 3]])
+
+-- Cfilter command (:Cfilter[!] /{pat}/)
+vim.cmd.packadd('cfilter')
