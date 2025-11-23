@@ -74,10 +74,27 @@
       },
       {
         "language": [
-          "javascript",
+          "javascript"
+        ],
+        "path": "./snippets/javascript/javascript.json"
+      },
+      {
+        "language": [
+          "javascriptreact"
+        ],
+        "path": "./snippets/javascript/react.json"
+      },
+      {
+        "language": [
           "typescript"
         ],
-        "path": "./snippets/javascript.json"
+        "path": "./snippets/javascript/typescript.json"
+      },
+      {
+        "language": [
+          "typescriptreact"
+        ],
+        "path": "./snippets/javascript/react-ts.json"
       },
       {
         "language": [
