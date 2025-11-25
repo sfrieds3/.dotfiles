@@ -54,6 +54,7 @@ abbr add gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(
 abbr add dk='docker'
 abbr add dkb='docker build'
 abbr add dkB='docker build --no-cache'
+abbr add dkbtmp='docker build -t tmp .'
 abbr add dki='docker images'
 abbr add dklo='docker logs'
 abbr add dklof='docker logs --follow'
@@ -71,8 +72,8 @@ abbr add dkcB='docker compose build --no-cache'
 
 # k8s
 abbr add k='kubectl'
-abbr add 'kubectl logs'='kubectl logs --timestamp'
-abbr add klo='kubectl logs --timestamps'
+abbr add 'kubectl logs'='kubectl logs --timestamps=true'
+abbr add klo='kubectl logs --timestamps=tru'
 abbr add ks='kubectx && kubens'
 abbr add kc='kubectx'
 abbr add kn='kubens'
