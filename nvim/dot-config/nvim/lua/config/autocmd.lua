@@ -127,6 +127,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup,
+  callback = function()
+    if vim.v.event.operator == 'y' then
+      for i = 9, 1, -1 do -- Shift all numbered registers.
+        vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
+      end
+    end
+  end,
+})
+
 -- local proj_dirs = { "~/code" }
 -- local format_func = function(d)
 --   return string.format("%s/*", vim.fn.expand(d))
