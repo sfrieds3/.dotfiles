@@ -1,4 +1,4 @@
-return {
+local colorschemes = {
   {
     "webhooked/kanso.nvim",
     opts = {
@@ -160,3 +160,5 @@ return {
     priority = 1000,
   },
 }
+
+return {}
