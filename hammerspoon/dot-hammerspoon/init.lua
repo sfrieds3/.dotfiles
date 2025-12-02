@@ -34,9 +34,9 @@ local hostname = hs.host.localizedName()
 -- focus windows
 local browser
 if hostname == "Mixolydian" then
-  browser = "vivaldi"
+  browser = "zen"
 else
-  browser = "vivaldi"
+  browser = "zen"
 end
 local terminal = "ghostty"
 local passwords = "1Password"
@@ -65,7 +65,7 @@ hs.hotkey.bind({ "cmd", "shift" }, "F3", function()
   focusandback(browser)
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "F4", function()
-  focusandback("ChatGPT")
+  focusandback("claude")
 end)
 hs.hotkey.bind({ "cmd", "shift" }, "m", function()
   focusandback(message_app)
