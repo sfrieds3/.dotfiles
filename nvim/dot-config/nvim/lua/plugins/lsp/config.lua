@@ -1,5 +1,21 @@
 local M = {}
 
+-- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+--   callback = function()
+--     -- Extend neovim's client capabilities with the completion ones.
+--     vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
+--
+--     local servers = vim
+--       .iter(vim.api.nvim_get_runtime_file("lsp/pytest_lsp.lua", true)) -- change to `lsp/*.lua`
+--       :map(function(file)
+--         return vim.fn.fnamemodify(file, ":t:r")
+--       end)
+--       :totable()
+--     vim.lsp.enable(servers)
+--   end,
+--   once = true,
+-- })
+
 --- Toggle inlay hints
 ---@param bufnr integer buffer number
 function M.toggle_inlay_hints(bufnr)
@@ -40,6 +56,7 @@ function M.setup()
     jdtls = true,
     ltex = false,
     marksman = true,
+    pytest_lsp = dofile(vim.fn.stdpath("config") .. "/lsp/pytest_lsp.lua"),
     ruff = true,
     taplo = true,
     terraformls = false,
@@ -232,7 +249,6 @@ function M.setup()
           vim.lsp.enable(server)
         end
       elseif type(server_config) == "table" then
-        -- custom configuration
         server_config = vim.tbl_deep_extend("keep", server_config, default_config)
         vim.lsp.config[server] = server_config
         vim.lsp.enable(server)

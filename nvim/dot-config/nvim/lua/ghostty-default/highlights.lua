@@ -405,6 +405,8 @@ function M.setup(colors)
   hl.OilMove = { fg = colors.magenta, bold = true }
   hl.OilCopy = { fg = colors.yellow, bold = true }
   hl.OilChange = { fg = colors.warning, bold = true }
+  hl.OilConfirmBorder = { fg = colors.border, bg = colors.bg_float }
+  hl.OilConfirmFloat = { fg = colors.fg, bg = colors.bg_float }
 
   hl.MiniIconsAzure = { fg = colors.blue }
   hl.MiniIconsBlue = { fg = colors.blue }

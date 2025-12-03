@@ -55,6 +55,12 @@ return {
       view_options = {
         show_hidden = true,
       },
+      confirmation = {
+        border = "rounded",
+        win_options = {
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        },
+      },
     },
     -- stylua: ignore
     keys = {
