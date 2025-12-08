@@ -94,7 +94,7 @@ return {
             module = "lazydev.integrations.blink",
             fallbacks = { "lsp" },
           },
-          codeium = { name = "Codeium", module = "codeium.blink", async = true },
+          codeium = { name = "Codeium", module = "codeium.blink", async = true, score_offset = -100 },
         },
       },
     },
