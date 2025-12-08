@@ -32,8 +32,6 @@ abbr add hupdate='fc -RI'
 # git
 abbr add g='git'
 abbr add gs='git status'
-abbr add gba="git branch -a | fzf-tmux -p | sed 's/^[ \t]*//' | xargs git switch --detach"
-abbr add gb="git branch | fzf-tmux -p | sed 's/^[ \t]*//' | xargs git switch"
 abbr add gap='git add --patch'
 abbr add gcp='git checkout --patch'
 abbr add gdo='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
@@ -46,9 +44,6 @@ abbr add gdts='git difftool -d --staged'
 abbr add gdw='git diff --word-diff'
 abbr add gdc='git diff --cached'
 abbr add gdu='git diff @{upstream}'
-abbr add gia='git ls-files -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add --intent-to-add'
-abbr add gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "[WIP]: $(date)"'
-abbr add gswip='git stash push -m "[WIP: $(git rev-parse --abbrev-ref HEAD)]: $(date)"'
 
 # docker
 abbr add dk='docker'
