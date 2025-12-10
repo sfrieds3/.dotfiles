@@ -68,6 +68,7 @@
       - ncdu
       - ninja
       - openjdk
+      - oven-sh/bun/bun
       - perl
       - pipx
       - pixi
