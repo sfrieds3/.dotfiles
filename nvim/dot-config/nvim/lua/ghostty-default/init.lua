@@ -1,14 +1,14 @@
 local M = {}
 
-function M.load()
+function M.load(colors_name, palette)
   if vim.g.colors_name then
     vim.cmd("hi clear")
   end
 
   vim.o.termguicolors = true
-  vim.g.colors_name = "ghostty-default"
+  vim.g.colors_name = colors_name
 
-  local palette = require("ghostty-default.palette")
+  local palette = require(palette)
   local highlights = require("ghostty-default.highlights")
 
   local colors = palette.colors

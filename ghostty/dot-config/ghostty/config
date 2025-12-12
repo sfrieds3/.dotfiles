@@ -3,7 +3,11 @@ mouse-hide-while-typing = true
 background-opacity = 0.99
 macos-titlebar-style = transparent
 window-theme = auto
-theme = Ghostty Default Style Dark
+theme = calm
+# theme = Ghostty Default Style Dark
+# Override black (0) for better readability on dark backgrounds
+# real: #1d1f21
+# palette = 0=#3a3f4b
 
 shell-integration-features = no-cursor
 cursor-style = block

@@ -6,7 +6,7 @@ M.colors = {
   bg = "#282c34",
   fg = "#ffffff",
 
-  black = "#1d1f21",
+  black = "#3a3f4b", -- real: #1d1f21
   red = "#cc6566",
   green = "#b6bd68",
   yellow = "#f0c674",
