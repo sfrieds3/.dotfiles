@@ -53,7 +53,8 @@ git-wt-create() {
     fzf_result=$(print -r -- "$choices" | fzf \
       --print-query \
       --prompt="branch > " \
-      --header="Select a branch to create a worktree for (remote: ${REMOTE})" \
+      --header="Select branch (Enter=select match, Ctrl-T=use typed value)" \
+      --bind='ctrl-t:clear-selection+accept' \
       --preview='git log --oneline --decorate -20 -- {1} 2>/dev/null || true' \
       --preview-window="right:50%" --reverse --border --ansi
     ) || fzf_exit=$?
