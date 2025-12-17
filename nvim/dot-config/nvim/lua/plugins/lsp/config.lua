@@ -56,12 +56,17 @@ function M.setup()
     jdtls = true,
     ltex = false,
     marksman = true,
-    pytest_lsp = dofile(vim.fn.stdpath("config") .. "/lsp/pytest_lsp.lua"),
     ruff = true,
     taplo = true,
     terraformls = false,
     tofu_ls = true,
     ts_ls = true,
+    ty = {
+      inlayHints = {
+        variableTypes = true,
+        callArgumentNames = true,
+      },
+    },
     jinja_lsp = true,
     -- vue_ls = {
     --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
@@ -74,38 +79,38 @@ function M.setup()
     -- },
     zls = true,
 
-    basedpyright = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        basedpyright = {
-          -- using ruff organize imports
-          -- disableOrganizeInputs = true,
-          analysis = {
-            -- ignore = { "*" },
-            diagnosticSeverityOverrides = {
-              reportUnannotatedClassAttribute = "none",
-              reportUnusedCallResult = "none",
-              reportUnusedExpression = "information",
-              reportIncompatibleMethodOverride = "information",
-              reportUnusedVariable = "information",
-              reportImplicitOverride = "none",
-              reportAny = "none",
-              reportUntypedClassDecorator = "none",
-              reportUntypedFunctionDecorator = "none",
-              reportUnknownMemberType = "none",
-              reportUnknownLambdaType = "none",
-              reportUnknownParameterType = "none",
-              reportMissingParameterType = "none",
-              reportMissingTypeArgument = "none",
-              reportUnknownVariableType = "none",
-              reportUnknownArgumentType = "none",
-              reportShadowedImports = "none",
-            },
-          },
-        },
-      },
-    },
+    -- basedpyright = {
+    --   on_attach = on_attach,
+    --   capabilities = capabilities,
+    --   settings = {
+    --     basedpyright = {
+    --       -- using ruff organize imports
+    --       -- disableOrganizeInputs = true,
+    --       analysis = {
+    --         -- ignore = { "*" },
+    --         diagnosticSeverityOverrides = {
+    --           reportUnannotatedClassAttribute = "none",
+    --           reportUnusedCallResult = "none",
+    --           reportUnusedExpression = "information",
+    --           reportIncompatibleMethodOverride = "information",
+    --           reportUnusedVariable = "information",
+    --           reportImplicitOverride = "none",
+    --           reportAny = "none",
+    --           reportUntypedClassDecorator = "none",
+    --           reportUntypedFunctionDecorator = "none",
+    --           reportUnknownMemberType = "none",
+    --           reportUnknownLambdaType = "none",
+    --           reportUnknownParameterType = "none",
+    --           reportMissingParameterType = "none",
+    --           reportMissingTypeArgument = "none",
+    --           reportUnknownVariableType = "none",
+    --           reportUnknownArgumentType = "none",
+    --           reportShadowedImports = "none",
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
 
     rust_analyzer = {
       on_attach = on_attach,

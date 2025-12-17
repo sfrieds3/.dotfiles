@@ -18,5 +18,5 @@ uv_tool_packages:
   - rstcheck
   - ruff
   - tox
-  - ty
+  - ty@latest
   - twine
