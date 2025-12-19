@@ -126,3 +126,91 @@ git-wt-create-widget() {
 zle -N git-wt-create-widget
 bindkey '^g^n' git-wt-create-widget   # Ctrl-g, Ctrl-n
 alias gwc='git-wt-create'
+
+# --- cleanup worktrees -------------------------------------------------------
+__get_default_branch() {
+  local remote="${1:-origin}"
+  git symbolic-ref "refs/remotes/$remote/HEAD" 2>/dev/null | sed "s#refs/remotes/$remote/##" \
+    || git config init.defaultBranch 2>/dev/null \
+    || echo "main"
+}
+
+git-wt-cleanup() {
+  setopt local_options no_aliases err_return
+  git rev-parse --git-dir >/dev/null 2>&1 || { echo "Not a git repo." >&2; return 1; }
+
+  local remote="${GIT_WORKTREE_REMOTE:-origin}"
+  local default_branch merged_branches
+  default_branch=$(__get_default_branch "$remote")
+  merged_branches=$(git branch --merged "${remote}/${default_branch}" --format='%(refname:short)' 2>/dev/null | grep -v "^${default_branch}$")
+
+  local merged_wts=() unmerged_wts=()
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    local wt_path wt_branch
+    wt_path=$(echo "$line" | awk '{print $1}')
+    wt_branch=$(echo "$line" | sed -n 's/.*\[//;s/\].*//p')
+
+    [[ -z "$wt_branch" ]] && continue
+    [[ "$wt_branch" == "$default_branch" ]] && continue
+
+    if echo "$merged_branches" | grep -qx "$wt_branch"; then
+      merged_wts+=("[merged]	${wt_path}	${wt_branch}")
+    else
+      unmerged_wts+=("        	${wt_path}	${wt_branch}")
+    fi
+  done < <(git worktree list)
+
+  if [[ ${#merged_wts[@]} -eq 0 && ${#unmerged_wts[@]} -eq 0 ]]; then
+    echo "No worktrees found." >&2
+    return 0
+  fi
+
+  local choices
+  choices=$(printf '%s\n' "${merged_wts[@]}" "${unmerged_wts[@]}")
+
+  local fzf_result fzf_exit
+  fzf_result=$(print -r -- "$choices" | fzf \
+    --multi \
+    --prompt="Select worktrees to delete > " \
+    --header="TAB=select  Enter=delete" \
+    --preview='git log --oneline --decorate -10 {3} 2>/dev/null || true' \
+    --preview-window="right:50%" --reverse --border --ansi
+  ) || fzf_exit=$?
+
+  [[ ${fzf_exit:-0} -ne 0 ]] && return 0
+
+  local selected_paths=()
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    local path=$(echo "$line" | cut -f2)
+    selected_paths+=("$path")
+  done <<< "$fzf_result"
+
+  if [[ ${#selected_paths[@]} -eq 0 ]]; then
+    echo "No worktrees selected." >&2
+    return 0
+  fi
+
+  echo "Removing ${#selected_paths[@]} worktree(s)..." >&2
+  for wt_path in "${selected_paths[@]}"; do
+    echo "  Removing: $wt_path" >&2
+    git worktree remove --force "$wt_path" 2>&1 || echo "    Failed to remove $wt_path" >&2
+  done
+
+  git worktree prune
+  echo "Done." >&2
+}
+
+git-wt-cleanup-widget() {
+  local output
+  output=$(git-wt-cleanup 2>&1)
+  if [[ -n "$output" ]]; then
+    zle -M "$output"
+  fi
+  zle reset-prompt
+}
+
+zle -N git-wt-cleanup-widget
+bindkey '^g^k' git-wt-cleanup-widget   # Ctrl-g, Ctrl-k
+alias gwclean='git-wt-cleanup'
