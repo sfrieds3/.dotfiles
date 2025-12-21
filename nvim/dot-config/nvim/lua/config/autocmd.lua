@@ -1,5 +1,21 @@
 local augroup = require("utils.utils").augroup
 
+-- Enable treesitter highlighting
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("treesitter_highlight"),
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
+
+-- Enable treesitter indentation
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("treesitter_indent"),
+  callback = function()
+    vim.opt_local.indentexpr = "v:lua.vim.treesitter.indentexpr()"
+  end,
+})
+
 vim.api.nvim_create_autocmd("InsertEnter", { command = "set nolist", group = augroup("nolist_insertenter") })
 vim.api.nvim_create_autocmd("InsertLeave", { command = "set list", group = augroup("list_insertleave") })
 vim.api.nvim_create_autocmd("TextYankPost", {
