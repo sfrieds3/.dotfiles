@@ -9,8 +9,11 @@
       - font-hack
       - font-ibm-plex
       - font-inconsolata
+      - font-jetbrains-maple-mono
       - font-jetbrains-mono
+      - font-maple-mono
       - font-monaspace
+      - font-new-computer-modern
       - font-roboto-mono
       - font-source-code-pro
       - font-symbols-only-nerd-font
