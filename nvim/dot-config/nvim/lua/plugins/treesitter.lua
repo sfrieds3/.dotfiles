@@ -1,5 +1,4 @@
 return {
-  { "nvim-treesitter/nvim-treesitter-textobjects", lazy = false },
   {
     "Wansmer/treesj",
     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -19,10 +18,18 @@ return {
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         auto_install = true,
-      })
-
-      -- Setup textobjects
-      require("nvim-treesitter.configs").setup({
+        highlight = { enable = true },
+        indent = { enable = true },
+        matchup = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+          },
+        },
         textobjects = {
           select = {
             enable = true,
@@ -44,15 +51,19 @@ return {
             set_jumps = true,
             goto_next_start = {
               ["]m"] = "@function.outer",
+              ["]c"] = "@class.outer",
             },
             goto_next_end = {
               ["]M"] = "@function.outer",
+              ["]C"] = "@class.outer",
             },
             goto_previous_start = {
               ["[m"] = "@function.outer",
+              ["[c"] = "@class.outer",
             },
             goto_previous_end = {
               ["[M"] = "@function.outer",
+              ["[C"] = "@class.outer",
             },
           },
           swap = {
