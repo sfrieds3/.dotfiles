@@ -1,0 +1,9 @@
+utils:
+  is-fixture-function:
+    kind: function_definition
+    follows:
+      kind: decorator
+      has:
+        kind: identifier
+        regex: ^fixture$
+        stopBy: end

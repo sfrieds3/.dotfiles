@@ -31,7 +31,7 @@ function M.setup()
 
   local function on_attach(client, bufnr)
     if client:supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(true)
+      vim.lsp.inlay_hint.enable(false)
     end
 
     -- TODO: support toggling code lens on and off
@@ -50,6 +50,7 @@ function M.setup()
 
   local servers = {
     ansiblels = true,
+    ast_grep = true,
     bashls = true,
     cssls = true,
     dockerls = true,
@@ -177,6 +178,15 @@ function M.setup()
         json = {
           schemas = require("schemastore").json.schemas(),
           validate = { enable = true },
+        },
+        yaml = {
+          schemas = {
+
+            ["https://raw.githubusercontent.com/ast-grep/ast-grep/main/schemas/rule.json"] = {
+              "**/rules/**/*.yml",
+              "**/rules/**/*.yaml",
+            },
+          },
         },
       },
     },

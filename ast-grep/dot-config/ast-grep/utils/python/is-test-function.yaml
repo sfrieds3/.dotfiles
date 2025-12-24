@@ -1,0 +1,6 @@
+utils:
+  is-test-function:
+    kind: function_definition
+    has:
+      field: name
+      regex: ^test_

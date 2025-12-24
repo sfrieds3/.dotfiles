@@ -1,0 +1,9 @@
+utils:
+  is-pytest-context:
+    # Pytest context is a node inside a pytest
+    # test/fixture
+    inside:
+      stopBy: end
+      any:
+        - matches: is-fixture-function
+        - matches: is-test-function

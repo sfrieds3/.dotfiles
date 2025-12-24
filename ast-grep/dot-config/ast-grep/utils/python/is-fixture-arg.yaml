@@ -1,0 +1,9 @@
+utils:
+  is-fixture-arg:
+    # Fixture arguments are identifiers inside the
+    # parameters of a test/fixture function
+    all:
+      - kind: identifier
+      - inside:
+          kind: parameters
+      - matches: is-pytest-context
