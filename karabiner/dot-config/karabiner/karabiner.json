@@ -65,6 +65,34 @@
                     }
                 ]
             },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_game_pad": true,
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 3616,
+                        "vendor_id": 13364
+                    },
+                    "ignore": false
+                },
+                {
+                    "identifiers": {
+                        "is_pointing_device": true,
+                        "product_id": 53296,
+                        "vendor_id": 13364
+                    },
+                    "ignore": false
+                },
+                {
+                    "identifiers": {
+                        "is_game_pad": true,
+                        "product_id": 53296,
+                        "vendor_id": 13364
+                    },
+                    "ignore": false
+                }
+            ],
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
