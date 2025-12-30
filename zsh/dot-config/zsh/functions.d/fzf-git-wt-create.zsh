@@ -183,8 +183,8 @@ git-wt-cleanup() {
   local selected_paths=()
   while IFS= read -r line; do
     [[ -z "$line" ]] && continue
-    local path=$(echo "$line" | cut -f2)
-    selected_paths+=("$path")
+    local wt_path="${${line#*	}%%	*}"
+    selected_paths+=("$wt_path")
   done <<< "$fzf_result"
 
   if [[ ${#selected_paths[@]} -eq 0 ]]; then
@@ -194,8 +194,12 @@ git-wt-cleanup() {
 
   echo "Removing ${#selected_paths[@]} worktree(s)..." >&2
   for wt_path in "${selected_paths[@]}"; do
-    echo "  Removing: $wt_path" >&2
-    git worktree remove --force "$wt_path" 2>&1 || echo "    Failed to remove $wt_path" >&2
+    print -n "  $wt_path ... " >&2
+    if git worktree remove --force "$wt_path" 2>/dev/null; then
+      echo "✓" >&2
+    else
+      echo "✗" >&2
+    fi
   done
 
   git worktree prune
