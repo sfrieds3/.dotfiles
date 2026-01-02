@@ -8,7 +8,6 @@ local get_current_win = vim.api.nvim_get_current_win
 local get_window_buf = vim.api.nvim_win_get_buf
 local buf_get_name = vim.api.nvim_buf_get_name
 local fnamemodify = vim.fn.fnamemodify
-local get_window_width = vim.api.nvim_win_get_width
 local pathshorten = vim.fn.pathshorten
 
 --- Set hl for use in the statusline
@@ -37,7 +36,7 @@ local function vcs(win_id)
   local removed = git_info.removed and ("-" .. git_info.removed .. " ") or ""
   local pad = ((added ~= "") or (removed ~= "") or (modified ~= "")) and " " or ""
   local diff_str = string.format("[%s%s%s%s]%s", pad, added, removed, modified, pad)
-  local max_size = math.min(75, math.floor(0.33 * get_window_width(win_id)))
+  local max_size = math.min(75, math.floor(0.33 * vim.o.columns))
   local git_str = string.format("%s(%s:%s)", diff_str, branch_sign, git_info.head)
   if string.len(git_str) > max_size then
     git_str = string.format("(%s:%s)", branch_sign, git_info.head)
@@ -197,7 +196,7 @@ local function filename(buf_name, win_id, filename_color, shorten)
   local icon, hi, _ = require("mini.icons").get("file", buf_name)
   local file_icon = string.format("%%#%s# %s %%#%s#", hi, icon, filename_color)
   if shorten then
-    local space = math.floor(0.5 * get_window_width(win_id))
+    local space = math.floor(0.5 * vim.o.columns)
     if string.len(base_name) <= space then
       return file_icon .. format_filename(base_name)
     else
