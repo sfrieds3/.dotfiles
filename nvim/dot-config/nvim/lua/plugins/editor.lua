@@ -336,38 +336,4 @@ return {
       global_keymaps = true,
     },
   },
-  {
-    "obsidian-nvim/obsidian.nvim",
-    enabled = false,
-    version = "*",
-    lazy = true,
-    cmd = "Obsidian",
-    event = {
-      "BufReadPre " .. vim.fn.expand("~") .. "/vault/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/vault/*.md",
-    },
-    keys = {
-      { "<localleader>of", "<cmd>Obsidian quick_switch<cr>", desc = "Obsidian QuickSwitch" },
-      { "<localleader>ol", "<cmd>Obsidian links<cr>", desc = "Obsidian Links" },
-      { "<localleader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Obsidian Backlinks" },
-      { "<localleader>oc", "<cmd>Obsidian check<cr>", desc = "Obsidian Check" },
-      { "<localleader>oo", "<cmd>Obsidian open<cr>", desc = "Obsidian Open" },
-    },
-    opts = {
-      legacy_commands = false,
-      workspaces = {
-        {
-          name = "vault",
-          path = "~/vault",
-        },
-      },
-      daily_notes = {
-        date_format = "20 Area/20.00 Journal/00.10 Daily/%Y/%m/%Y-%m-%d",
-      },
-      completion = {
-        nvim_cmp = false,
-        blink = true,
-      },
-    },
-  },
 }
