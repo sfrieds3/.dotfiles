@@ -1,13 +1,5 @@
 return {
   {
-    "Wansmer/treesj",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    -- stylua: ignore
-    keys = {
-      { "<leader>cj", function() require("treesj").toggle() end, desc = "Treesj Toggle" },
-    },
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
