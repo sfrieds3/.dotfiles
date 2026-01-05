@@ -8,8 +8,10 @@ function M.setup(colors)
   hl.FloatBorder = { fg = colors.border, bg = colors.bg_float }
   hl.FloatTitle = { fg = colors.bright_blue, bg = colors.bg_float }
 
-  hl.Cursor = { fg = colors.cursor_fg, bg = colors.cursor_bg }
-  hl.lCursor = { fg = colors.cursor_fg, bg = colors.cursor_bg }
+  hl.Cursor = { fg = colors.bg, bg = colors.bright_magenta }
+  hl.lCursor = { fg = colors.bg, bg = colors.bright_magenta }
+  hl.TermCursor = { fg = colors.bg, bg = colors.bright_magenta }
+  hl.TermCursorNC = { bg = colors.comment }
   hl.CursorLine = { bg = colors.bg_highlight }
   hl.CursorColumn = { bg = colors.bg_highlight }
   hl.CursorLineNr = { fg = colors.bright_yellow, bold = true }
@@ -23,7 +25,7 @@ function M.setup(colors)
   hl.VisualNOS = { bg = colors.bg_visual }
   hl.Search = { fg = colors.bg, bg = colors.yellow, bold = true }
   hl.IncSearch = { fg = colors.bg, bg = colors.bright_yellow, bold = true }
-  hl.CurSearch = { fg = colors.bg, bg = colors.bright_yellow, bold = true }
+  hl.CurSearch = { fg = colors.bright_yellow, bg = colors.bg_visual, bold = true }
   hl.Substitute = { fg = colors.bg, bg = colors.green }
 
   hl.Pmenu = { fg = colors.fg, bg = colors.bg_popup }
