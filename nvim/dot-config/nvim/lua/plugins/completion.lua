@@ -86,14 +86,9 @@ return {
         end,
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "lazydev", "codeium" },
+        default = { "lsp", "path", "snippets", "buffer", "codeium" },
         providers = {
           lsp = {},
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
-            fallbacks = { "lsp" },
-          },
           codeium = { name = "Codeium", module = "codeium.blink", async = true, score_offset = -100 },
         },
       },

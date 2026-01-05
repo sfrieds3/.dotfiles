@@ -19,6 +19,11 @@
     "globalsRegex": [],
     "severity": {}
   },
+  "workspace": {
+    "library": [
+      "$HOME/.local/share/nvim/runtime/lua"
+    ]
+  },
   "workspace.IgnoreDir": [
     "lazy"
   ]
