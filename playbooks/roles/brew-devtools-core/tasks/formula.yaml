@@ -25,6 +25,7 @@
       - docker-compose
       - docker-credential-helper
       - dockerfile-language-server
+      - emmylua_ls
       - eslint
       - eza
       - fd

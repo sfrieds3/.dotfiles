@@ -210,43 +210,45 @@ function M.setup()
       },
     },
 
-    lua_ls = function()
-      local runtime_path = vim.split(package.path, ";", {})
-      table.insert(runtime_path, "lua/?.lua")
-      table.insert(runtime_path, "lua/?/init.lua")
-
-      vim.lsp.config["lua_ls"] = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            hint = {
-              enable = true,
-            },
-            codeLens = {
-              enable = true,
-            },
-            completion = {
-              callSnippet = "Replace",
-            },
-            runtime = {
-              version = "LuaJIT",
-              path = runtime_path,
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false,
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      }
-    end,
+    lua_ls = false,
+    emmylua_ls = true,
+    -- lua_ls = function()
+    --   local runtime_path = vim.split(package.path, ";", {})
+    --   table.insert(runtime_path, "lua/?.lua")
+    --   table.insert(runtime_path, "lua/?/init.lua")
+    --
+    --   vim.lsp.config["lua_ls"] = {
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    --     settings = {
+    --       Lua = {
+    --         hint = {
+    --           enable = true,
+    --         },
+    --         codeLens = {
+    --           enable = true,
+    --         },
+    --         completion = {
+    --           callSnippet = "Replace",
+    --         },
+    --         runtime = {
+    --           version = "LuaJIT",
+    --           path = runtime_path,
+    --         },
+    --         diagnostics = {
+    --           globals = { "vim" },
+    --         },
+    --         workspace = {
+    --           library = vim.api.nvim_get_runtime_file("", true),
+    --           checkThirdParty = false,
+    --         },
+    --         telemetry = {
+    --           enable = false,
+    --         },
+    --       },
+    --     },
+    --   }
+    -- end,
   }
 
   --- init LSP configurations

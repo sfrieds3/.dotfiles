@@ -1,4 +1,4 @@
-return {
+local M = {
   {
     "sfrieds3/easynote.nvim",
     enabled = false,
@@ -20,3 +20,5 @@ return {
     dependencies = "nvim-lua/plenary.nvim",
   },
 }
+
+return {}

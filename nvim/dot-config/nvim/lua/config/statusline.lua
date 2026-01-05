@@ -25,7 +25,7 @@ end
 --- Get vcs info for buffer
 ---@param win_id integer Window id
 ---@return string vcs info for statusline
-local function vcs(win_id)
+local function vcs(_win_id)
   local branch_sign = "λ"
   local git_info = vim.b.gitsigns_status_dict
   if not git_info or git_info.head == "" then
