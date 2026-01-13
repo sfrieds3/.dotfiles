@@ -17,6 +17,6 @@ sfscratch/
 .noautoformat
 TODO
 .aider
-CLAUDE.md
 .env
 kulala/
+.claude/*.local.json
