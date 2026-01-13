@@ -7,7 +7,8 @@
       - font-fira-code
       - font-fira-mono
       - font-hack
-      - font-ibm-plex
+      - font-ibm-plex-mono
+      - font-ibm-plex-sans
       - font-inconsolata
       - font-jetbrains-maple-mono
       - font-jetbrains-mono
