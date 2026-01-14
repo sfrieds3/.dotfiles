@@ -70,49 +70,7 @@ function M.setup()
       },
     },
     jinja_lsp = true,
-    -- vue_ls = {
-    --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-    --   init_options = {
-    --     vue = {
-    --       -- use embedded ts_ls
-    --       hybridMode = false,
-    --     },
-    --   },
-    -- },
     zls = true,
-
-    -- basedpyright = {
-    --   on_attach = on_attach,
-    --   capabilities = capabilities,
-    --   settings = {
-    --     basedpyright = {
-    --       -- using ruff organize imports
-    --       -- disableOrganizeInputs = true,
-    --       analysis = {
-    --         -- ignore = { "*" },
-    --         diagnosticSeverityOverrides = {
-    --           reportUnannotatedClassAttribute = "none",
-    --           reportUnusedCallResult = "none",
-    --           reportUnusedExpression = "information",
-    --           reportIncompatibleMethodOverride = "information",
-    --           reportUnusedVariable = "information",
-    --           reportImplicitOverride = "none",
-    --           reportAny = "none",
-    --           reportUntypedClassDecorator = "none",
-    --           reportUntypedFunctionDecorator = "none",
-    --           reportUnknownMemberType = "none",
-    --           reportUnknownLambdaType = "none",
-    --           reportUnknownParameterType = "none",
-    --           reportMissingParameterType = "none",
-    --           reportMissingTypeArgument = "none",
-    --           reportUnknownVariableType = "none",
-    --           reportUnknownArgumentType = "none",
-    --           reportShadowedImports = "none",
-    --         },
-    --       },
-    --     },
-    --   },
-    -- },
 
     rust_analyzer = {
       on_attach = on_attach,
@@ -211,45 +169,7 @@ function M.setup()
       },
     },
 
-    lua_ls = false,
     emmylua_ls = true,
-    -- lua_ls = function()
-    --   local runtime_path = vim.split(package.path, ";", {})
-    --   table.insert(runtime_path, "lua/?.lua")
-    --   table.insert(runtime_path, "lua/?/init.lua")
-    --
-    --   vim.lsp.config["lua_ls"] = {
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    --     settings = {
-    --       Lua = {
-    --         hint = {
-    --           enable = true,
-    --         },
-    --         codeLens = {
-    --           enable = true,
-    --         },
-    --         completion = {
-    --           callSnippet = "Replace",
-    --         },
-    --         runtime = {
-    --           version = "LuaJIT",
-    --           path = runtime_path,
-    --         },
-    --         diagnostics = {
-    --           globals = { "vim" },
-    --         },
-    --         workspace = {
-    --           library = vim.api.nvim_get_runtime_file("", true),
-    --           checkThirdParty = false,
-    --         },
-    --         telemetry = {
-    --           enable = false,
-    --         },
-    --       },
-    --     },
-    --   }
-    -- end,
   }
 
   --- init LSP configurations
