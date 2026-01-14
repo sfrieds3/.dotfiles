@@ -54,6 +54,7 @@ function M.setup()
     bashls = true,
     cssls = true,
     dockerls = true,
+    eslint = true,
     jdtls = true,
     ltex = false,
     marksman = true,

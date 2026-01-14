@@ -68,11 +68,13 @@
       - mysql
       - ncdu
       - ninja
+      - nx
       - openjdk
       - oven-sh/bun/bun
       - perl
       - pipx
       - pixi
+      - pnpm
       - postgresql@17
       - prettier
       - rclone
