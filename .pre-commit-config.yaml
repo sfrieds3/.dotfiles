@@ -6,8 +6,6 @@ repos:
       - id: end-of-file-fixer
         exclude: ghostty/dot-config/ghostty/themes
       - id: trailing-whitespace
-      - id: pretty-format-json
-        args: ["--autofix", "--no-ensure-ascii"]
       - id: check-toml
       - id: check-merge-conflict
       - id: check-added-large-files
@@ -15,4 +13,11 @@ repos:
     rev: v0.16.1
     hooks:
       - id: stylua
+  - repo: local
+    hooks:
+      - id: prettier-json
+        name: Format JSON with prettier
+        entry: prettier --write
+        language: system
+        types: [json]
 exclude: "lazy-lock.json|karabiner.json"

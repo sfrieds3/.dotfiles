@@ -20,4 +20,4 @@ vim.cmd([[wincmd J]])
 vim.cmd([[let &l:winheight = &lines / 3]])
 
 -- Cfilter command (:Cfilter[!] /{pat}/)
-vim.cmd.packadd('cfilter')
+vim.cmd.packadd("cfilter")
