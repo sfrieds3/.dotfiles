@@ -66,7 +66,7 @@ return {
         go = { "gofmt", "goimports" },
         graphql = { "prettier" },
         html = { "prettier" },
-        java = { "clang_format" },
+        java = { "spotless" },
         javascript = { "prettier" },
         javascriptreact = { "prettier" },
         jinja = { "djlint" },

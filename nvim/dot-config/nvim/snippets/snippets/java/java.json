@@ -1,0 +1,239 @@
+{
+  "Do-While Statement": {
+    "body": [
+      "do {",
+      "\t$0",
+      "} while (${1:condition});"
+    ],
+    "description": "Do-While Statement",
+    "prefix": "dowhile"
+  },
+  "Private field": {
+    "body": [
+      "private ${1:String} ${2:name};"
+    ],
+    "description": "Private field",
+    "prefix": "private_field"
+  },
+  "Private static method": {
+    "body": [
+      "private static ${1:Type} ${2:name}(${3}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "private static method",
+    "prefix": "private_static_method"
+  },
+  "Protected Method": {
+    "body": [
+      "protected ${1:void} ${2:name}(${3}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Protected method",
+    "prefix": "protected_method"
+  },
+  "Protected field": {
+    "body": [
+      "protected ${1:String} ${2:name};"
+    ],
+    "description": "Protected field",
+    "prefix": "protected_field"
+  },
+  "Public constructor": {
+    "body": [
+      "public ${1:${TM_FILENAME_BASE}}($2) {",
+      "\t${0:super();}",
+      "}"
+    ],
+    "description": "Public constructor",
+    "prefix": "ctor"
+  },
+  "Public field": {
+    "body": [
+      "public ${1:String} ${2:name};"
+    ],
+    "description": "Public field",
+    "prefix": "public_field"
+  },
+  "Public method": {
+    "body": [
+      "public ${1:void} ${2:name}(${3}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "public method",
+    "prefix": "public_method"
+  },
+  "Public static method": {
+    "body": [
+      "public static ${1:void} ${2:name}(${3}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "public static method",
+    "prefix": "public_static_method"
+  },
+  "Switch Statement": {
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement",
+    "prefix": "switch"
+  },
+  "While Statement": {
+    "body": [
+      "while (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "While Statement",
+    "prefix": "while"
+  },
+  "class": {
+    "body": [
+      "public class ${1:TM_FILENAME_BASE} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Public class",
+    "prefix": "class"
+  },
+  "foreach": {
+    "body": [
+      "for (${1:type} ${2:var} : ${3:iterable}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Enhanced for loop",
+    "prefix": "foreach"
+  },
+  "fori": {
+    "body": [
+      "for (${1:int} ${2:i} = ${3:0}; $2 < ${4:max}; $2++) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Indexed for loop",
+    "prefix": "fori"
+  },
+  "if": {
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if statement",
+    "prefix": "if"
+  },
+  "ifelse": {
+    "body": [
+      "if (${1:condition}) {",
+      "\t$2",
+      "} else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if/else statement",
+    "prefix": "ifelse"
+  },
+  "ifnotnull": {
+    "body": [
+      "if (${1:condition} != null) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if statement checking for not null",
+    "prefix": "ifnotnull"
+  },
+  "ifnull": {
+    "body": [
+      "if (${1:condition} == null) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if statement checking for null",
+    "prefix": "ifnull"
+  },
+  "import": {
+    "body": [
+      "import ${1:PackageName}"
+    ],
+    "description": "Import statement",
+    "prefix": "import"
+  },
+  "main": {
+    "body": [
+      "public static void main(String[] args) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Public static main method",
+    "prefix": "main"
+  },
+  "newObject": {
+    "body": [
+      "${1:Object} ${2:foo} = new ${1:Object}();"
+    ],
+    "description": "Create new Object",
+    "prefix": "new"
+  },
+  "package": {
+    "body": [
+      "package ${1:PackageName}"
+    ],
+    "description": "Package statement",
+    "prefix": "package"
+  },
+  "private_method": {
+    "body": [
+      "private ${1:void} ${2:name}($3) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "private method",
+    "prefix": "private_method"
+  },
+  "syserr": {
+    "body": [
+      "System.err.println($0);"
+    ],
+    "description": "Print to standard err",
+    "prefix": "syserr"
+  },
+  "sysout": {
+    "body": [
+      "System.out.println($0);"
+    ],
+    "description": "Print to standard out",
+    "prefix": "sysout"
+  },
+  "trycatch": {
+    "body": [
+      "try {",
+      "\t$1",
+      "} catch (${2:Exception} ${3:e}) {",
+      "\t$4//${0:TODO}: handle exception",
+      "}"
+    ],
+    "description": "try/catch block",
+    "prefix": "try_catch"
+  },
+  "tryresources": {
+    "body": [
+      "try ($1) {",
+      "\t$2",
+      "} catch (${3:Exception} ${4:e}) {",
+      "\t$5//${0:TODO}: handle exception",
+      "}"
+    ],
+    "prefix": "try_resources"
+  }
+}

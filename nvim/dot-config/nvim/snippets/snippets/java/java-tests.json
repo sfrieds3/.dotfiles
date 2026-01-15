@@ -1,0 +1,208 @@
+{
+  "Assert - equals": {
+    "body": [
+      "assertEquals(${1:anObject}, ${2:anotherObject});"
+    ],
+    "description": "assert equals",
+    "prefix": "test_equals"
+  },
+  "Assert - hasItem": {
+    "body": [
+      "assertThat(${1:List.of(\"Test\", \"TDD\")}, hasItem(${2:\"Test\"}));"
+    ],
+    "description": "assert that hasItem",
+    "prefix": "test_hasItem"
+  },
+  "Assert - hasItems": {
+    "body": [
+      "assertThat(${1:List.of(\"Test\", \"TDD\")}, hasItem(${2:List.of(\"Test\", \"TDD\")}));"
+    ],
+    "description": "assert that hasItem",
+    "prefix": "test_hasItems"
+  },
+  "Assert - hasSize": {
+    "body": [
+      "assertThat(List.of(\"Test\", \"TDD\"), hasSize(2));"
+    ],
+    "description": "assert that hasSize",
+    "prefix": "test_hasSize"
+  },
+  "Assert - is": {
+    "body": [
+      "assertThat(${1:mockedService.executeMagic()}, is(${2:\"42\"}));"
+    ],
+    "description": "assert that is",
+    "prefix": "test_is"
+  },
+  "Assert - is not null": {
+    "body": [
+      "assertThat(${1:mockedService.executeMagic()}, notNullValue());"
+    ],
+    "description": "assert that is not null",
+    "prefix": "test_not_null"
+  },
+  "Assert - is null": {
+    "body": [
+      "assertThat(${1:mockedService.executeMagic()}, nullValue());"
+    ],
+    "description": "assert that is null",
+    "prefix": "test_null"
+  },
+  "Assert - isIn": {
+    "body": [
+      "assertThat(${1:\"test\"}, isIn(${2:List.of(\"test\", \"TDD\")}));"
+    ],
+    "description": "assert that isIn",
+    "prefix": "test_isIn"
+  },
+  "Assert - isOneOf": {
+    "body": [
+      "assertThat(${1:\"Test\"}, isOneOf(${2:\"Test\", \"TDD\"}));"
+    ],
+    "description": "assert that isOneOf",
+    "prefix": "test_isOneOf"
+  },
+  "Assert - string is not null and not empty": {
+    "body": [
+      "assertThat(${1:mockedService.executeMagic()}, not(emptyOrNullString()));"
+    ],
+    "description": "assert that string is not null or empty",
+    "prefix": "test_not_nullorempty"
+  },
+  "Assert - string is null or empty": {
+    "body": [
+      "assertThat(${1:mockedService.executeMagic()}, emptyOrNullString());"
+    ],
+    "description": "assert that a string is null or empty",
+    "prefix": "test_nullorempty"
+  },
+  "JUnit 4 - After each": {
+    "body": "@After\npublic void tearDown() {\n\t${1}\n}",
+    "description": "Create tear down method with `@After`",
+    "prefix": "test_after_junit4"
+  },
+  "JUnit 4 - Before each": {
+    "body": "@Before\npublic void setup() {\n\t${1}\n}",
+    "description": "Create setup method with `@Before`",
+    "prefix": "test_before_junit4"
+  },
+  "JUnit 4 - Imports for Tests": {
+    "body": [
+      "import static org.hamcrest.Matchers.*;",
+      "import static org.junit.Assert.assertEquals;",
+      "import static org.junit.Assert.assertThat;",
+      "import static org.mockito.Mockito.*;",
+      "import org.hamcrest.CoreMatchers;",
+      "import org.junit.After;",
+      "import org.junit.Before;",
+      "import org.junit.Test;",
+      "import org.mockito.ArgumentCaptor;",
+      "import org.mockito.Mock;"
+    ],
+    "description": "Imports to write tests with JUnit 4, Mockito and Hamcrest",
+    "prefix": "imports_junit4"
+  },
+  "JUnit 5 - After each": {
+    "body": "@AfterEach\npublic void tearDown() {\n\t${1}\n}",
+    "description": "Create tear down method with `@AfterEach`",
+    "prefix": "test_after"
+  },
+  "JUnit 5 - Assert Throws": {
+    "body": "Assertions.assertThrows(${1:Exception}.class, () -> {\n\t${0}\n});",
+    "description": "Assertion to verify if an exception was thrown",
+    "prefix": "test_exception"
+  },
+  "JUnit 5 - Before each": {
+    "body": "@BeforeEach\npublic void setup() {\n\t${1}\n}",
+    "description": "Create setup method with `@BeforeEach`",
+    "prefix": "test_before"
+  },
+  "JUnit 5 - Imports for Tests": {
+    "body": [
+      "import static org.hamcrest.Matchers.*;",
+      "import static org.hamcrest.MatcherAssert.assertThat;",
+      "import static org.junit.jupiter.api.Assertions.assertEquals;",
+      "import static org.mockito.Mockito.*;",
+      "import org.hamcrest.CoreMatchers;",
+      "import org.junit.jupiter.api.AfterEach;",
+      "import org.junit.jupiter.api.BeforeEach;",
+      "import org.junit.jupiter.api.DisplayName;",
+      "import org.junit.jupiter.api.Test;",
+      "import org.junit.jupiter.api.extension.ExtendWith;",
+      "import org.junit.jupiter.params.ParameterizedTest;",
+      "import org.junit.jupiter.params.provider.CsvSource;",
+      "import org.mockito.ArgumentCaptor;",
+      "import org.mockito.junit.jupiter.MockitoExtension;",
+      "import org.mockito.Mock;"
+    ],
+    "description": "Imports to write tests with JUnit 4, Mockito and Hamcrest",
+    "prefix": "imports_junit5"
+  },
+  "JUnit 5 - Parameterized Test": {
+    "body": [
+      "@ParameterizedTest(name = \"${1:{0\\} plus {1\\} should be {2\\}}\"",
+      "@CsvSource({\n\t${2:\"0, 0, 0\",\n\t\"1, 0, 1\",\n\t\"1, 1, 2\"}\n})",
+      "public void shouldAddTwoNumbers(int x, int y, int expectedSum) {\n\t${0}\n}"
+    ],
+    "description": "Create parameterized test",
+    "prefix": "test_parameterized"
+  },
+  "Mock - Argument captor": {
+    "body": [
+      "ArgumentCaptor<${1:Object}> ${2:argCaptor} = ArgumentCaptor.forClass(${1:Object}.class);",
+      "verify(${3:mockedService}).${4:executeMagicWith}(${2:argCaptor}.capture());",
+      "${1:Object} ${5:actualArg} = ${2:argCaptor}.getValue();"
+    ],
+    "description": "Capture an argument given to a mocked method",
+    "prefix": "mock_arg_capture"
+  },
+  "Mock - Method return": {
+    "body": [
+      "when(${1:mockedService.executeMagicWith(any())}).thenReturn(${2:\"42\"});"
+    ],
+    "description": "Mock a method's return",
+    "prefix": "mock_method_return"
+  },
+  "Mock - Method throws": {
+    "body": [
+      "when(${1:mockedService.executeMagic()}).thenThrow(new ${2:IllegalArgumentException()};"
+    ],
+    "description": "Mock a method to throw exception",
+    "prefix": "mock_method_throw"
+  },
+  "Mockito - Create mock": {
+    "body": [
+      "${1:MyService} ${2:mockedService} = mock(${1:MyService}.class);"
+    ],
+    "description": "Create a mock object of a class",
+    "prefix": "mock_class"
+  },
+  "Mockito - Verify call N times": {
+    "body": [
+      "verify(${1:mockedService}, times(${2:2})).${3:executeMagic()};"
+    ],
+    "description": "Verify if a mocked method was called `n` times",
+    "prefix": "mock_verify_times"
+  },
+  "Mockito - Verify call once": {
+    "body": [
+      "verify(${1:mockedService}).${2:executeMagic()};"
+    ],
+    "description": "Verify if a mocked method was called only once",
+    "prefix": "mock_verify_once"
+  },
+  "Mockito - Verify call only": {
+    "body": [
+      "verify(${1:mockedService}, only()).${2:executeMagic()};"
+    ],
+    "description": "Verify if a mocked method was the only one called",
+    "prefix": "mock_verify_only"
+  },
+  "Mockito - Verify never called": {
+    "body": [
+      "verify(${1:mockedService}, never()).${2:executeMagic()};"
+    ],
+    "description": "Verify if a mocked method was never called",
+    "prefix": "mock_verify_never"
+  }
+}

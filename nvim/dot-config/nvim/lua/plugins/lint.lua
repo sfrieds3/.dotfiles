@@ -9,6 +9,7 @@ return {
       ["yaml.ansible"] = { "ansible_lint" },
       dockerfile = { "hadolint" },
       django = { "djlint" },
+      java = { "checkstyle" },
       json = { "jsonlint" },
       rst = { "rstcheck" },
       -- lua = { "luacheck" },
@@ -32,6 +33,13 @@ return {
       function()
         return vim.api.nvim_buf_get_name(0)
       end,
+    }
+
+    -- checkstyle: use global config
+    local config_home = vim.env.XDG_CONFIG_HOME or vim.fn.expand("~/.config")
+    require("lint").linters.checkstyle.args = {
+      "-c",
+      config_home .. "/checkstyle/checkstyle.xml",
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "BufLeave" }, {

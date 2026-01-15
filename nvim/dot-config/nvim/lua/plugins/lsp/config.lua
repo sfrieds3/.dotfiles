@@ -55,7 +55,7 @@ function M.setup()
     cssls = true,
     dockerls = true,
     eslint = true,
-    jdtls = true,
+    jdtls = false, -- handled by nvim-jdtls in after/ftplugin/java.lua
     ltex = false,
     marksman = true,
     ruff = true,

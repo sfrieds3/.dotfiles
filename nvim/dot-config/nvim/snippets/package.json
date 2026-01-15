@@ -162,6 +162,18 @@
       {
         "language": "zig",
         "path": "./snippets/zig.json"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/java.json"
+      },
+      {
+        "language": "java-testing",
+        "path": "./snippets/java/java-tests.json"
+      },
+      {
+        "language": "javadoc",
+        "path": "./snippets/java/javadoc.json"
       }
     ]
   },
