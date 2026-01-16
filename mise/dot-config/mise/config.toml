@@ -12,3 +12,6 @@ node = "lts"
 python = ["latest", "3.12", "3.11", "3.10", "3.9", "3.8"]
 zig = "master"
 ruby = ["latest"]
+
+[env]
+JAVA_HOME = "{{ exec(command='/usr/libexec/java_home -v $(cat .java-version 2>/dev/null || echo 21)') }}"
