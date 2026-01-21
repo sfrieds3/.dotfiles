@@ -114,7 +114,7 @@ return {
     { "<leader>B",  function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
 
     -- terminal
-    { "<c-\\>", function() Snacks.terminal.toggle() end, { desc = "Toggle Terminal" } },
+    { "<c-\\>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal", mode = { "n", "t" } },
 
     -- picker
     { "<leader>,", function() Snacks.picker.smart() end, desc = "Smart" },

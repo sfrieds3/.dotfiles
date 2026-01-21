@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ "TermEnter" }, {
   group = augroup("term-map"),
   callback = function()
     local buf_keymap_opts = { buffer = true }
-    vim.keymap.set("t", "<C-c>", function()
+    vim.keymap.set("t", "<esc>", function()
       if esc_timer:is_active() then
         esc_timer:stop()
         vim.cmd("stopinsert")
