@@ -5,7 +5,6 @@
   community.general.homebrew:
     name:
       - aider
-      - apache-arrow
       - awscli
       - bats
       - btop
@@ -18,7 +17,6 @@
       - gemini-cli
       - gitlab-ci-local
       - google-cloud-sdk
-      - grafana
       - guile
       - helmfile
       - htop
@@ -27,16 +25,13 @@
       - kubecolor
       - llama.cpp
       - libomp
-      - mongodb-community@7.0
       - opam
       - opentofu
-      - prometheus
       - protobuf
       - ruby-build
       - rustup
       - sbcl
       - tofu-ls
-      - utm
       - zoxide
     state: present
     update_homebrew: true
