@@ -3,9 +3,6 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     build = "cargo build --release",
-    dependencies = {
-      "Exafunction/windsurf.nvim",
-    },
 
     opts_extend = { "sources.default" },
     opts = {
@@ -86,10 +83,9 @@ return {
         end,
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "codeium" },
+        default = { "lsp", "path", "snippets", "buffer" },
         providers = {
           lsp = {},
-          codeium = { name = "Codeium", module = "codeium.blink", async = true, score_offset = -100 },
         },
       },
     },
