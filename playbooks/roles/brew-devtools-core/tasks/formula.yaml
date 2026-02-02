@@ -96,6 +96,7 @@
       - tox
       - tree
       - tree-sitter
+      - tree-sitter-cli
       - typescript-language-server
       - uv
       - virtualenv
