@@ -10,7 +10,6 @@ uv_venv_auto = true
 go = "latest"
 node = "lts"
 python = ["latest", "3.12", "3.11", "3.10", "3.9", "3.8"]
-zig = "master"
 ruby = ["latest"]
 
 [env]
