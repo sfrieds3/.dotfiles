@@ -7,7 +7,6 @@ theme = calm
 
 shell-integration-features = no-cursor
 cursor-style = block
-scrollbar = never
 
 quick-terminal-size = 33%,75%
 
