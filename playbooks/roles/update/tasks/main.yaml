@@ -1,7 +1,7 @@
-- name: Update uv tool packages
+- name: Upgrade uv tool packages
   ansible.builtin.command:
     cmd: uv tool upgrade --all
-- name: Update installed homebrew apps
+- name: Upgrade installed homebrew apps
   community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
@@ -13,19 +13,21 @@
 - name: Update submodules in $HOME/.dotfiles repo
   ansible.builtin.shell: |
     git submodule update --init --remote && git submodule update --recursive
-- name: Run dnf upgrade
+- name: Upgrade dnf packages
   become: true
   ansible.builtin.dnf:
-    name: '*'
+    name: "*"
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'dnf'
-- name: Run apt upgrade
+- name: Upgrade apt packages
   become: true
   ansible.builtin.apt:
-    name: '*'
+    name: "*"
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'apt'
-- name: run rustup update
+- name: Update rustup
   ansible.builtin.shell: rustup update
+- name: Upgrade krew plugins
+  ansible.builtin.shell: kubectl krew upgrade
