@@ -1,9 +1,13 @@
 # General
 mouse-hide-while-typing = true
-background-opacity = 0.99
+background-opacity = 0.93
+background-blur = true
 macos-titlebar-style = transparent
 window-theme = auto
 theme = calm
+
+link-url = true
+link-previews = true
 
 shell-integration-features = no-cursor
 cursor-style = block
@@ -17,6 +21,9 @@ adjust-cell-height = 10%
 # Keybindings
 keybind = clear
 macos-option-as-alt = true
+
+# shift+enter for claude code
+keybind = shift+enter=text:\x1b[13;2u
 
 # tabs
 keybind = super+shift+n=new_tab
