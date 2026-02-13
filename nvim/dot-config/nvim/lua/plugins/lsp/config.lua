@@ -34,15 +34,8 @@ function M.setup()
       vim.lsp.inlay_hint.enable(false)
     end
 
-    -- TODO: support toggling code lens on and off
     if client:supports_method("textDocument/codeLens") then
-      vim.lsp.codelens.refresh()
-      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.codelens.refresh({ bufnr = 0 })
-        end,
-      })
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
     require("config.statusline").init_lsp_progress()
@@ -245,8 +238,7 @@ function M.setup()
       end, { buffer = ev.buf, desc = "LSP: code [A]ction" })
 
       vim.keymap.set("n", "<M-i>", function() M.toggle_inlay_hints(0) end, { buffer =ev.buf, desc = "LSP: Toggle inlay hints" })
-      vim.keymap.set("n", "<leader>cr", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
-      vim.keymap.set({ "n", "v" }, "<leader>cR", vim.lsp.codelens.run, { desc = "Run Codelens" })
+      vim.keymap.set({ "n", "v" }, "<leader>cr", vim.lsp.codelens.run, { desc = "Run Codelens" })
     end,
   })
 end
