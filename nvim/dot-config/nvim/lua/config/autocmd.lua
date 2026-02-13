@@ -1,5 +1,18 @@
 local augroup = require("utils.utils").augroup
 
+vim.g.transparent_background = true
+vim.api.nvim_create_autocmd("Colorscheme", {
+  group = augroup("transparent_bg"),
+  callback = function()
+    if vim.g.transparent_background then
+      vim.api.nvim_set_hl(0, "Normal", {
+        fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg,
+        bg = "NONE",
+      })
+    end
+  end,
+})
+
 -- Enable treesitter highlighting
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("treesitter_highlight"),

@@ -144,6 +144,17 @@ vim.keymap.set("n", "gp", "`[v`]")
 -- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
+vim.keymap.set("n", "<leader>ut", function()
+  local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+  if normal.bg then
+    vim.api.nvim_set_hl(0, "Normal", { fg = normal.fg, bg = "NONE" })
+  else
+    local palette = require("ghostty-default.palette-calm")
+    vim.api.nvim_set_hl(0, "Normal", { fg = normal.fg, bg = palette.colors.bg })
+  end
+  vim.g.transparent_background = not normal.bg
+end, { desc = "Toggle transparent background" })
+
 -- replace last search term
 vim.keymap.set("n", "<leader>tR", "':%s/' . @/ . '/'", { desc = "Replace last search term", expr = true })
 

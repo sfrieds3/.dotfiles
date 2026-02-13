@@ -67,6 +67,7 @@ local function init_statusline_hl()
 
   -- line/col indicator
   local bg_color = vim.api.nvim_get_hl(0, { name = "Normal", link = false })["bg"]
+    or vim.api.nvim_get_hl(0, { name = "NormalBg", link = false })["bg"]
   local blue_color = vim.api.nvim_get_hl(0, { name = "@function", link = false })["fg"]
   Statusline.set_statusline_hl(0, { name = "StatuslineLineCol", fg = bg_color, bg = blue_color })
 end

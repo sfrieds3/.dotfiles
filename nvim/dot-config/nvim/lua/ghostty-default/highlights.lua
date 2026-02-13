@@ -4,6 +4,7 @@ function M.setup(colors)
   local hl = {}
 
   hl.Normal = { fg = colors.fg, bg = colors.bg }
+  hl.NormalBg = { bg = colors.bg }
   hl.NormalFloat = { fg = colors.fg, bg = colors.bg_float }
   hl.FloatBorder = { fg = colors.border, bg = colors.bg_float }
   hl.FloatTitle = { fg = colors.bright_blue, bg = colors.bg_float }
