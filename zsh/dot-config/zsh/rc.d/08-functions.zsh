@@ -285,31 +285,35 @@ function docker_context() {
 
 function k8s_pod_images() {
     local namespace=""
+    local pod_name=""
     while [[ $# -gt 0 ]]; do
         case $1 in
             -n|--namespace)
                 namespace="$2"
                 shift 2
                 ;;
-            *)
-                echo "Usage: k8s_pod_images [-n|--namespace <namespace>]"
+            -*)
+                echo "Usage: k8s_pod_images [-n|--namespace <namespace>] [pod_name]"
                 return 1
+                ;;
+            *)
+                pod_name="$1"
+                shift
                 ;;
         esac
     done
 
-    if [ -n "$namespace" ]; then
-        kubectl get pods -n "$namespace" -o json
-    else
-        kubectl get pods -o json
-    fi | jq -r '
-    [.items[] |
-        {
-            namespace: .metadata.namespace,
-            name: .metadata.name,
-            images: (.spec.containers | map(.image) | join(", "))
-        }
-    ] |
+    local kubectl_args=()
+    [[ -n "$namespace" ]] && kubectl_args+=(-n "$namespace")
+    [[ -n "$pod_name" ]] && kubectl_args+=("$pod_name")
+
+    kubectl get pods "${kubectl_args[@]}" -o json | jq -r '
+    (if .items then .items else [.] end) |
+    map({
+        namespace: .metadata.namespace,
+        name: .metadata.name,
+        images: (.spec.containers | map(.image) | join(", "))
+    }) |
         (["NAMESPACE", "NAME", "IMAGES"] | @tsv),
     (.[] | [.namespace, .name, .images] | @tsv)
     ' | column -t

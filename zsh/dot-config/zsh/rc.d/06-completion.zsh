@@ -20,6 +20,7 @@ compdef kubecolor=kubectl
 source <(helm completion zsh)
 source <(docker completion zsh)
 source <(uv generate-shell-completion zsh)
+source <(stern --completion=zsh)
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 ## fzf-tab
