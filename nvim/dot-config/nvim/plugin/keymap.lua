@@ -148,11 +148,12 @@ vim.keymap.set("n", "<leader>ut", function()
   local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
   if normal.bg then
     vim.api.nvim_set_hl(0, "Normal", { fg = normal.fg, bg = "NONE" })
+    vim.g.transparent_background = true
   else
-    local palette = require("ghostty-default.palette-calm")
-    vim.api.nvim_set_hl(0, "Normal", { fg = normal.fg, bg = palette.colors.bg })
+    local original_bg = vim.api.nvim_get_hl(0, { name = "NormalBg", link = false })["bg"]
+    vim.api.nvim_set_hl(0, "Normal", { fg = normal.fg, bg = original_bg })
+    vim.g.transparent_background = false
   end
-  vim.g.transparent_background = not normal.bg
 end, { desc = "Toggle transparent background" })
 
 -- replace last search term

@@ -9,7 +9,7 @@ function M.load(colors_name, palette)
   vim.g.colors_name = colors_name
 
   local palette = require(palette)
-  local highlights = require("ghostty-default.highlights")
+  local highlights = require("calm.highlights")
 
   local colors = palette.colors
   local hl = highlights.setup(colors)

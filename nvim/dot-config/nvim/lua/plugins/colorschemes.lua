@@ -154,8 +154,8 @@ local colorschemes = {
     end,
   },
   {
-    dir = vim.fn.stdpath("config") .. "/lua/ghostty-default",
-    name = "ghostty-default",
+    dir = vim.fn.stdpath("config") .. "/lua/calm",
+    name = "calm",
     lazy = false,
     priority = 1000,
   },
