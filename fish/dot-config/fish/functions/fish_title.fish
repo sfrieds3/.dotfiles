@@ -1,5 +1,5 @@
-function fish_title --description "shell title for emacs vterm"
-    hostname
-    echo ":"
-    prompt_pwd
+function fish_title
+    set -l cmd (status current-command)
+    set -l pwd_str (prompt_pwd)
+    printf "%s:%s" $cmd $pwd_str
 end

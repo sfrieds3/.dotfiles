@@ -99,6 +99,7 @@
       - tree
       - tree-sitter
       - tree-sitter-cli
+      - ts_query_ls
       - typescript-language-server
       - uv
       - virtualenv

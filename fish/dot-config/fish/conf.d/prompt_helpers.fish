@@ -46,7 +46,7 @@ function __python_version -d "Get python version"
 end
 
 function __python_path -d "Get python path"
-    if not set -q VIRTUAL_ENV; and not set -q CONDA_PREFIX
+    if not set -q VIRTUAL_ENV
         set -l py_icon 
         set -l py_icon "py:"
         set -l pyversion (python --version | sed 's/^Python //')
@@ -57,17 +57,6 @@ function __python_path -d "Get python path"
         set_color normal
     end
 
-end
-
-function __conda_env -d "Get conda env"
-    if set -q CONDA_PREFIX
-        set -l conda_icon 🅒
-        set -l conda_icon "conda:"
-        set -l conda_environment (basename $CONDA_PREFIX)
-        set_color green
-        printf "($conda_icon $conda_environment)"
-        set_color normal
-    end
 end
 
 function __is_node_dir -d "Are we in a node dir?"
@@ -137,11 +126,12 @@ function __ssh_prompt --description "Show host if in SSH or container"
 end
 
 function _prompt_status_postexec --on-event fish_postexec
-    set --global _status "❯ "
+    set -l chars (__prompt_characters)
+    set --global _status "$chars "
     set --local __last_status $pipestatus
     for code in $__last_status
         if test $code -ne 0
-            set --global _status (echo (set_color $fish_color_error)"❯ ")
+            set --global _status (set_color $fish_color_error)"$chars "(set_color normal)
             break
         end
     end
@@ -151,12 +141,52 @@ function _prompt_helpers --on-event fish_prompt
     set --local __prompt_docker_context (__docker_context)
     set --local __prompt_python_venv (__python_venv)
     set --local __maybe_ssh_prompt (__ssh_prompt)
+    set --local __prompt_aws (__aws_profile)
+    set --local __prompt_k8s (__kubectl_status)
 
     set --global __prompt_statuses "$__prompt_docker_context$__prompt_python_venv$__maybe_ssh_prompt"
+    set --global __rprompt_extras "$__prompt_aws$__prompt_k8s"
 
     set --query _status || set --global _status "❯ "
 end
 
 function __get_prompt_pwd --on-variable PWD
     set --global __prompt_pwd (prompt_pwd)
+end
+
+function __aws_profile -d "Get AWS profile"
+    if set -q AWS_PROFILE
+        set_color green
+        printf "( $AWS_PROFILE) "
+        set_color normal
+    end
+end
+
+function __human_time -d "Convert ms to human readable" -a ms
+    set -l total_seconds (math --scale=0 "$ms / 1000")
+    if test $total_seconds -lt 1
+        return
+    end
+    set -l days (math --scale=0 "$total_seconds / 86400")
+    set -l hours (math --scale=0 "$total_seconds % 86400 / 3600")
+    set -l minutes (math --scale=0 "$total_seconds % 3600 / 60")
+    set -l seconds (math --scale=0 "$total_seconds % 60")
+    set -l result ""
+    test $days -gt 0; and set result $result{$days}"d "
+    test $hours -gt 0; and set result $result{$hours}"h "
+    test $minutes -gt 0; and set result $result{$minutes}"m "
+    set result $result{$seconds}"s"
+    echo $result
+end
+
+function __prompt_characters -d "Prompt character(s) based on shell nesting"
+    set -l lvl $SHLVL
+    if string match -q "tmux*" -- $TERM; or string match -q "screen*" -- $TERM
+        set lvl (math $lvl - 1)
+    end
+    if set -q NVIM
+        set lvl (math $lvl - 2)
+    end
+    test $lvl -lt 1; and set lvl 1
+    string repeat -n $lvl "❯"
 end

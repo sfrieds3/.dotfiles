@@ -56,6 +56,7 @@ function M.setup()
     terraformls = false,
     tofu_ls = true,
     ts_ls = true,
+    ts_query_ls = true,
     ty = {
       inlayHints = {
         variableTypes = true,

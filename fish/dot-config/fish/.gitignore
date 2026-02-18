@@ -1,7 +1,10 @@
 fish_variables
 fish_history
 generated_completions
-completions
+completions/*
+!completions/k8s_pod_stats.fish
+!completions/k8s_pod_images.fish
 fisher/*
 !fisher/.gitkeep
 fish_local.fish
+fish_frozen_key_bindings.fish

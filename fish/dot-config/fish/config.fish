@@ -22,15 +22,6 @@ if status is-interactive
     # atuin
     atuin init fish | source
 
-    # conda
-    if test -f $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda
-        eval $HOMEBREW_PREFIX/Caskroom/miniconda/base/bin/conda "shell.fish" hook $argv | source
-    end
-
-    # do not add conda env to prompt
-    function __conda_add_prompt
-    end
-
     # cargo
     if test -f "$HOME/.cargo/env.fish"
         source "$HOME/.cargo/env.fish"
