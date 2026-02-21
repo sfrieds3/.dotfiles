@@ -4,10 +4,8 @@
       - claude
       - claude-code
       - docker-desktop
-      - jordanbaird-ice
-      - miniconda
+      - opencode-desktop
       - ollama
       - openlens
-      - vivaldi
       - zen
     state: present

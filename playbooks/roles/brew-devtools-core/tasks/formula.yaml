@@ -1,6 +1,7 @@
 - name: Install devtools formulas
   community.general.homebrew:
     name:
+      - anomalyco/tap/opencode
       - ansible-language-server
       - ast-grep
       - atuin
