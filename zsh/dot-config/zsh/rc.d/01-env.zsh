@@ -21,7 +21,7 @@ if [ -f "$HOME/.cargo/env" ]; then
 fi
 
 # ocaml
-[[ ! -r /Users/scott/.opam/opam-init/init.zsh ]] || source /Users/scott/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
