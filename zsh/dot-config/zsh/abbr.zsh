@@ -19,6 +19,7 @@ abbr add ..='cd ..'
 
 abbr add rgrep='grep -r'
 abbr add nvimdiff='nvim -d'
+abbr add oc='opencode'
 
 # terminal helpers
 abbr add listports='lsof -nP -iTCP -sTCP:LISTEN'
