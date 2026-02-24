@@ -58,6 +58,7 @@ function M.setup()
     ts_ls = true,
     ts_query_ls = true,
     ty = {
+      cmd = { "uv", "run", "ty", "server" },
       inlayHints = {
         variableTypes = true,
         callArgumentNames = true,
