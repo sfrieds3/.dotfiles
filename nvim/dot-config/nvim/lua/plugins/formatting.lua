@@ -71,6 +71,8 @@ return {
         javascriptreact = { "prettier" },
         jinja = { "djlint" },
         json = { "jq", "prettier" },
+        jsonc = { "jq", "prettier" },
+        jsonl = { "jq", "prettier" },
         lua = { "stylua" },
         markdown = { "prettier" }, -- mdformat does not handle frontmatter
         ocaml = { "ocamlformat" },
