@@ -21,12 +21,33 @@ fpath=(
 eval "$(zoxide init zsh)"
 
 # mise
-eval "$(mise activate zsh)"
 export MISE_ENV_FILE=.env
+
+function __lazy_init_mise() {
+    if [[ -n "$__MISE_READY" ]]; then
+        return 0
+    fi
+
+    eval "$(command mise activate zsh)"
+    __MISE_READY=1
+}
+
+function mise() {
+    __lazy_init_mise
+    command mise "$@"
+}
 
 # atuin
 export ATUIN_NOBIND="true"
-eval "$(atuin init zsh)"
+
+function __lazy_init_atuin() {
+    if [[ -n "$__ATUIN_READY" ]]; then
+        return 0
+    fi
+
+    eval "$(command atuin init zsh)"
+    __ATUIN_READY=1
+}
 
 
 # zsh-abbr

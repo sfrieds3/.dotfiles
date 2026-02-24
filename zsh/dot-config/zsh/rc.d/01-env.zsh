@@ -13,6 +13,14 @@ export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export POETRY_DATA_DIR="$XDG_CONFIG_HOME/pypoetry"
 
+if [[ -z "$HOMEBREW_PREFIX" ]]; then
+    if [[ -d /opt/homebrew ]]; then
+        export HOMEBREW_PREFIX="/opt/homebrew"
+    elif [[ -d /usr/local/Homebrew || -d /usr/local/Cellar ]]; then
+        export HOMEBREW_PREFIX="/usr/local"
+    fi
+fi
+
 # create uv venv with pip/setuptools/wheel
 export UV_VENV_SEED=1
 

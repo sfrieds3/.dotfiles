@@ -230,7 +230,7 @@ function make_python() {
     cd "$HOME/code/lib/cpython"
     ./configure --enable-optimizations --prefix="$HOME/.local/bin/python"
 
-    CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" make
+    CFLAGS="-I${HOMEBREW_PREFIX:-/opt/homebrew}/opt/openssl/include" LDFLAGS="-L${HOMEBREW_PREFIX:-/opt/homebrew}/opt/openssl/lib" make
 }
 
 function git_rebase() {

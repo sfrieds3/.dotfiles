@@ -43,7 +43,13 @@ alias cleardns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
 alias whatsmyip='python3 -c "from socket import gethostbyname, gethostname; print(gethostbyname(gethostname()))"'
 
 # update cargo install packages
-alias cargo-install-update="cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')"
+function cargo-install-update() {
+    local -a packages
+    packages=(${(f)$(cargo install --list | sed -nE 's/^([a-z0-9_-]+) v[0-9.]+:$/\1/p')})
+
+    (( ${#packages[@]} )) || return 0
+    cargo install "${packages[@]}"
+}
 
 # test nvim
 alias testnvim='nvim --clean -u $HOME/dev/minimal_init.vim'

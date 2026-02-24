@@ -3,25 +3,76 @@
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 # complist autoloaded before compinit
 zmodload zsh/complist
+zmodload zsh/datetime
+zmodload zsh/stat
 
 autoload -Uz compinit
 
 # cache zcompdump
 ZSH_COMPDUMP=${ZSH_COMPDUMP:-$XDG_CACHE_HOME/zcompdump}
 mkdir -p "${ZSH_COMPDUMP:h}"
-compinit -u -d "$ZSH_COMPDUMP"
+
+_compdump_max_age_seconds=$((7 * 24 * 60 * 60))
+typeset -a _compdump_mtime
+
+if [[ -s "$ZSH_COMPDUMP" ]] && zstat -A _compdump_mtime +mtime -- "$ZSH_COMPDUMP" 2> /dev/null && (( EPOCHSECONDS - _compdump_mtime[1] < _compdump_max_age_seconds )); then
+    compinit -C -d "$ZSH_COMPDUMP"
+else
+    compinit -u -d "$ZSH_COMPDUMP"
+fi
+
+unset _compdump_max_age_seconds _compdump_mtime
 
 autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 
 # source dynamic completions
-source <(kubectl completion zsh)
+_completion_cache_dir="$XDG_CACHE_HOME/zsh/completions"
+mkdir -p "$_completion_cache_dir"
+
+_completion_cache_max_age_seconds=$((7 * 24 * 60 * 60))
+
+_cache_completion() {
+    local _name="$1"
+    local _command="$2"
+    local _cache_file="$_completion_cache_dir/${_name}.zsh"
+    local _tmp_file="${_cache_file}.tmp"
+    local _refresh=0
+    local -a _cache_mtime
+
+    if [[ ! -s "$_cache_file" ]]; then
+        _refresh=1
+    elif ! zstat -A _cache_mtime +mtime -- "$_cache_file" 2> /dev/null; then
+        _refresh=1
+    elif (( EPOCHSECONDS - _cache_mtime[1] >= _completion_cache_max_age_seconds )); then
+        _refresh=1
+    fi
+
+    if (( _refresh )); then
+        if eval "$_command" >| "$_tmp_file" 2> /dev/null; then
+            mv "$_tmp_file" "$_cache_file"
+        else
+            rm -f "$_tmp_file"
+        fi
+    fi
+
+    [[ -r "$_cache_file" ]] && source "$_cache_file"
+}
+
+_cache_completion kubectl "kubectl completion zsh"
 compdef kubecolor=kubectl
-source <(helm completion zsh)
-source <(docker completion zsh)
-source <(uv generate-shell-completion zsh)
-source <(stern --completion=zsh)
-source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+_cache_completion helm "helm completion zsh"
+_cache_completion docker "docker completion zsh"
+_cache_completion uv "uv generate-shell-completion zsh"
+_cache_completion stern "stern --completion=zsh"
+
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    _gcloud_completion="$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
+    [[ -r "$_gcloud_completion" ]] && source "$_gcloud_completion"
+fi
+
+unfunction _cache_completion
+unset _completion_cache_dir _completion_cache_max_age_seconds _gcloud_completion
 
 ## fzf-tab
 source "${ZDOTDIR:-$HOME/.config/zsh}/plugins/fzf-tab/fzf-tab.plugin.zsh"

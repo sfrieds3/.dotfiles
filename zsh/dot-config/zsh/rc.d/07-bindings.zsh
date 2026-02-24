@@ -13,7 +13,12 @@ bindkey '^G^G' sync-history-widget
 
 # CTRL-O
 # atuin
-bindkey -M emacs '^O' atuin-search
+function __atuin_search_widget() {
+    __lazy_init_atuin
+    zle atuin-search
+}
+zle -N __atuin_search_widget
+bindkey -M emacs '^O' __atuin_search_widget
 
 # search for line up/down
 autoload -U up-line-or-beginning-search

@@ -8,7 +8,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     if type /opt/homebrew/bin/brew &>/dev/null
     then
         eval $(/opt/homebrew/bin/brew shellenv)
-        fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+        fpath=(${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions $fpath)
         OPENJDKBIN="$HOMEBREW_PREFIX/opt/openjdk/bin"
     fi
     OPENJDKBIN=""
