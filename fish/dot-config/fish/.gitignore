@@ -6,5 +6,4 @@ completions/*
 !completions/k8s_pod_images.fish
 fisher/*
 !fisher/.gitkeep
-fish_local.fish
 fish_frozen_key_bindings.fish

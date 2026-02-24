@@ -1,9 +1,7 @@
 function __kubectl_status -d "Get k8s ctx/ns"
-    [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON "☸"
+    [ -z "$KUBECTL_PROMPT_ICON" ]; and set -l KUBECTL_PROMPT_ICON ""
     [ -z "$KUBECTL_PROMPT_SEPARATOR" ]; and set -l KUBECTL_PROMPT_SEPARATOR /
     set -l config $KUBECONFIG
-    set --local KUBECTL_PROMPT_ICON ☸
-    set --local KUBECTL_PROMPT_ICON "k8s:"
     [ -z "$config" ]; and set -l config "$HOME/.kube/config"
     if [ ! -f $config ]
         echo (set_color red)" ("$KUBECTL_PROMPT_ICON" "(set_color white)"no config)"(set_color normal)
@@ -24,12 +22,12 @@ end
 
 function __python_venv -d "Get python venv"
     if set -q VIRTUAL_ENV
-        set -l venv_icon 
-        # set -l venv_location (string replace $HOME/ '' $VIRTUAL_ENV)
-        set -l venv_location (basename $VIRTUAL_ENV)
-        set -l pyversion (python --version | sed 's/^Python //')
+        set -l venv_name (basename $VIRTUAL_ENV)
+        if set -q VIRTUAL_ENV_PROMPT; and test -n "$VIRTUAL_ENV_PROMPT"
+            set venv_name $VIRTUAL_ENV_PROMPT
+        end
         set_color green
-        printf "($venv_icon $venv_location [$pyversion]) "
+        printf "( $venv_name) "
         set_color normal
     end
 end
@@ -37,7 +35,6 @@ end
 function __python_version -d "Get python version"
     if test -e .python-version; or test -e .tool-versions
         set -l py_icon 🐍
-        set -l py_icon "py-version:"
         set -l py_version (asdf current python | awk '{print $2}')
         set_color green
         printf "($py_icon $py_version)"
@@ -48,7 +45,6 @@ end
 function __python_path -d "Get python path"
     if not set -q VIRTUAL_ENV
         set -l py_icon 
-        set -l py_icon "py:"
         set -l pyversion (python --version | sed 's/^Python //')
         set -l whichpy (which python)
         set -l venv_location (string replace $HOME/ '' $whichpy)
@@ -75,7 +71,6 @@ end
 function __node_version -d "Get node version"
     if __is_node_dir and (command -v node 2> /dev/null)
         set -l node_icon 
-        set -l node_icon "node:"
         set -l _node_version (asdf current nodejs | awk '{print $2}')
         set_color magenta
         printf "($node_icon v$_node_version)"
@@ -84,13 +79,13 @@ function __node_version -d "Get node version"
 end
 
 function __docker_context -d "Get docker context"
-    set -l docker_icon 
-    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml"
+    set -l dockerfiles "docker-compose.yaml" "docker-compose.yml" Dockerfile "compose.yaml" "compose.yml" "Chart.yaml" docker
     for dockerfile in $dockerfiles
         if test -e $dockerfile
-            set -l _docker_context (docker context show)
+            set -l _docker_context (docker context show 2>/dev/null)
+            test -z "$_docker_context"; and return
             set_color blue
-            printf "($docker_icon $_docker_context) "
+            printf "( $_docker_context) "
             set_color normal
             return
         end
@@ -100,7 +95,6 @@ end
 function __rust_version --description "Get rust toolchain version"
     set -l flist "Cargo.toml" "*rs"
     set -l rust_icon 🦀
-    set -l rust_icon "rust-version:"
     for file in $flist
         if test -e $file
             set -l _rust_version (rustc --version | awk '{print $2}')
@@ -144,8 +138,8 @@ function _prompt_helpers --on-event fish_prompt
     set --local __prompt_aws (__aws_profile)
     set --local __prompt_k8s (__kubectl_status)
 
-    set --global __prompt_statuses "$__prompt_docker_context$__prompt_python_venv$__maybe_ssh_prompt"
-    set --global __rprompt_extras "$__prompt_aws$__prompt_k8s"
+    set --global __prompt_statuses "$__maybe_ssh_prompt"
+    set --global __rprompt_extras "$__prompt_aws$__prompt_docker_context$__prompt_python_venv$__prompt_k8s"
 
     set --query _status || set --global _status "❯ "
 end
@@ -181,6 +175,9 @@ end
 
 function __prompt_characters -d "Prompt character(s) based on shell nesting"
     set -l lvl $SHLVL
+    if not string match -q "*fish*" -- $SHELL
+        set lvl (math $lvl - 1)
+    end
     if string match -q "tmux*" -- $TERM; or string match -q "screen*" -- $TERM
         set lvl (math $lvl - 1)
     end

@@ -1,4 +1,6 @@
 function fish_right_prompt -d "Right prompt with exec time, extras, git"
+    contains -- --final-rendering $argv; and return
+
     set -l vcs (fish_vcs_prompt 2>/dev/null)
 
     set -l duration_str ""

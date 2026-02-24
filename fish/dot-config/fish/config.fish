@@ -1,11 +1,4 @@
 if status is-login
-    # load local fish config
-    set -l local_config "$__fish_config_dir/fish_local.fish"
-    if test -e $local_config
-        source $local_config
-    end
-
-    # load local fish config
     set -l local_config "$__fish_user_data_dir/fish_local.fish"
     if test -e $local_config
         source $local_config
@@ -36,16 +29,11 @@ if status is-interactive
 
     set --global --export JAVA_HOME (/usr/libexec/java_home -v17)
 
+    set --global fish_transient_prompt 1
+
     # acomagu/fish-async-prompt
     set -U async_prompt_functions fish_right_prompt
 
-    # load local fish config
-    set -l local_config "$__fish_config_dir/fish_local.fish"
-    if test -e $local_config
-        source $local_config
-    end
-
-    # load local fish config
     set -l local_config "$__fish_user_data_dir/fish_local.fish"
     if test -e $local_config
         source $local_config
