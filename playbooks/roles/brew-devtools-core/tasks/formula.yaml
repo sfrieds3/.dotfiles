@@ -40,6 +40,7 @@
       - git-absorb
       - git-gui
       - git-lfs
+      - glab
       - gnupg
       - gnutls
       - gopls
