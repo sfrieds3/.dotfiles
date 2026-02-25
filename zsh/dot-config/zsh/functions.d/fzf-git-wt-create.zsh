@@ -50,7 +50,7 @@ git-wt-create() {
     ) || return 1
 
     local fzf_result fzf_exit
-    fzf_result=$(print -r -- "$choices" | fzf \
+    fzf_result=$(print -r -- "$choices" | __fzf_popup \
       --print-query \
       --prompt="branch > " \
       --header="Select branch (Enter=select match, Ctrl-T=use typed value)" \
