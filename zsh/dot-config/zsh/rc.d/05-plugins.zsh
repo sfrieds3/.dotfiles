@@ -39,6 +39,7 @@ function mise() {
 
 # atuin
 export ATUIN_NOBIND="true"
+export ATUIN_TMUX_POPUP="true"
 
 function __lazy_init_atuin() {
     if [[ -n "$__ATUIN_READY" ]]; then
