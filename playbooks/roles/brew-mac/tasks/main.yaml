@@ -1,4 +1,4 @@
 - name: Install brew devtools formulas
-  import_tasks: formula.yaml
+  ansible.builtin.import_tasks: formula.yaml
 - name: Install brew devtools casks
-  import_tasks: cask.yaml
+  ansible.builtin.import_tasks: cask.yaml

@@ -1,4 +1,5 @@
 ---
-- hosts: localhost
+- name: Configure Python tooling
+  hosts: localhost
   roles:
     - python-uv-tool

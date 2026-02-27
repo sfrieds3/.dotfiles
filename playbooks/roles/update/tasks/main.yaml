@@ -1,18 +1,24 @@
 - name: Upgrade uv tool packages
   ansible.builtin.command:
     cmd: uv tool upgrade --all
+  changed_when: false
+
 - name: Upgrade installed homebrew apps
   community.general.homebrew:
     update_homebrew: true
     upgrade_all: true
   when: ansible_facts['os_family'] == 'Darwin'
+
 - name: Upgrade all casks
   community.general.homebrew_cask:
     upgrade_all: true
   when: ansible_facts['os_family'] == 'Darwin'
+
 - name: Update submodules in $HOME/.dotfiles repo
-  ansible.builtin.shell: |
-    git submodule update --init --remote && git submodule update --recursive
+  ansible.builtin.command:
+    cmd: git submodule update --init --remote --recursive
+  changed_when: false
+
 - name: Upgrade dnf packages
   become: true
   ansible.builtin.dnf:
@@ -20,6 +26,7 @@
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'dnf'
+
 - name: Upgrade apt packages
   become: true
   ansible.builtin.apt:
@@ -27,7 +34,29 @@
     state: latest
     update_cache: true
   when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Check if rustup exists
+  ansible.builtin.command:
+    cmd: command -v rustup
+  register: update_rustup_exists
+  changed_when: false
+  failed_when: false
+
 - name: Update rustup
-  ansible.builtin.shell: rustup update
+  ansible.builtin.command:
+    cmd: rustup update
+  changed_when: false
+  when: update_rustup_exists.rc == 0
+
+- name: Check if kubectl krew exists
+  ansible.builtin.command:
+    cmd: kubectl krew version
+  register: update_krew_exists
+  changed_when: false
+  failed_when: false
+
 - name: Upgrade krew plugins
-  ansible.builtin.shell: kubectl krew upgrade
+  ansible.builtin.command:
+    cmd: kubectl krew upgrade
+  changed_when: false
+  when: update_krew_exists.rc == 0

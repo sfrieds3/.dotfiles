@@ -1,6 +1,8 @@
-- hosts: localhost
+- name: Configure core local tooling
+  hosts: localhost
   roles:
     - stow
     - dotfiles-submodules
-    - brew-mac
+    - role: brew-mac
+      when: ansible_facts['os_family'] == 'Darwin'
     - python-uv-tool

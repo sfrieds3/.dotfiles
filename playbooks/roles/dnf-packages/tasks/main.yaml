@@ -1,84 +1,53 @@
 - name: Install dnf packages
   become: true
   ansible.builtin.dnf:
-    name:
-      - '@C Development Tools and Libraries'
-      - '@virtualization'
-      - '@Development Tools'
-      - bat
-      - clang
-      - clang-tools-extra
-      - cmake
-      - curl
-      - dconf
-      - eza
-      - fd-find
-      - fontconfig-devel
-      - freetype-devel
-      - fzf
-      - g++
-      - gcc
-      - gettext
-      - giflib-devel
-      - gimp
-      - git-core
-      - gitk
-      - glibc-gconv-extra
-      - gnome-tweaks
-      - gnutls-devel
-      - gtk2-devel
-      - htop
-      - jansson-devel
-      - java-11-openjdk-devel
-      - libX11-devel
-      - libXpm-devel
-      - libgccjit-devel
-      - libpng-devel
-      - libstdc++-static
-      - libtiff-devel
-      - libtool
-      - libvirt
-      - libvterm
-      - libxcb-devel
-      - libxkbcommon-devel
-      - llvm
-      - lua
-      - make
-      - mise
-      - nasm
-      - ncurses-devel
-      - ninja-build
-      - perl-core
-      - qemu-img
-      - qemu-kvm
-      - ripgrep
-      - rsync
-      - ruby-devel
-      - shellcheck
-      - sqlite
-      - sqlite-devel
-      - texinfo
-      - util-linux-user
-      - virt-install
-      - virt-manager
-      - zoxide
-      - zsh
+    name: "{{ dnf_packages }}"
     state: present
+
 - name: Ensure $XDG_CONFIG_HOME folder is created
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.config"
     state: directory
-    mode: '0775'
+    mode: '0755'
+
 - name: Ensure $HOME/.local/bin folder is created
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
     mode: '0755'
+
 - name: Check if rust is installed
-  ansible.builtin.shell: command -v rustc
+  ansible.builtin.command:
+    cmd: command -v rustc
   register: cargo_exists
-  ignore_errors: true
+  changed_when: false
+  failed_when: false
   tags: rust
+
+- name: Determine rustup target triple
+  ansible.builtin.set_fact:
+    rustup_target: "{{ rustup_target_map.get(ansible_architecture, '') }}"
+  when: cargo_exists.rc != 0
+
+- name: Validate rustup target mapping
+  ansible.builtin.assert:
+    that:
+      - rustup_target | length > 0
+    fail_msg: "Unsupported architecture for rustup bootstrap: {{ ansible_architecture }}"
+  when: cargo_exists.rc != 0
+
+- name: Download rustup-init
+  ansible.builtin.get_url:
+    url: >-
+      https://static.rust-lang.org/rustup/archive/{{ rustup_version }}/{{ rustup_target }}/rustup-init
+    dest: /tmp/rustup-init
+    mode: '0755'
+    checksum: >-
+      sha256:https://static.rust-lang.org/rustup/archive/{{ rustup_version }}/{{ rustup_target }}/rustup-init.sha256
+  when: cargo_exists.rc != 0
+
 - name: Install Rust
-  ansible.builtin.shell: set -o pipefail && curl https://sh.rustup.rs -sSf | sh -s -- -y
-  when: cargo_exists is failed
+  ansible.builtin.command:
+    cmd: /tmp/rustup-init -y --no-modify-path
+    creates: "{{ lookup('env', 'HOME') }}/.cargo/bin/rustc"
+  when: cargo_exists.rc != 0

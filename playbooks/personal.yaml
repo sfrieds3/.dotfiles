@@ -1,4 +1,5 @@
 ---
-- hosts: localhost
+- name: Configure personal dotfiles
+  hosts: localhost
   roles:
     - stow-personal

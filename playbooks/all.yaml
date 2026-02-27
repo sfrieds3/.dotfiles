@@ -1,8 +1,11 @@
-- hosts: localhost
+- name: Configure all local tooling
+  hosts: localhost
   roles:
     - stow
     - dotfiles-submodules
     - python-uv-tool
-    - brew-mac
-    - mac-defaults
-    - update-all
+    - role: brew-mac
+      when: ansible_facts['os_family'] == 'Darwin'
+    - role: mac-defaults
+      when: ansible_facts['os_family'] == 'Darwin'
+    - update

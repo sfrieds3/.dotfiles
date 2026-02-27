@@ -1,6 +1,9 @@
 - name: Symlink personal dotfiles
-  shell: >
-    stow --dotfiles
-    git_config
+  ansible.builtin.command:
+    argv:
+      - stow
+      - --dotfiles
+      - git_config
+  changed_when: false
   args:
     chdir: "{{ lookup('env', 'HOME') }}/.dotfiles"

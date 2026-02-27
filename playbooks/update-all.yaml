@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Update all local tooling and themes
+  hosts: localhost
   roles:
     - update
     - ghostty-nvim-themes

@@ -1,7 +1,10 @@
-- hosts: localhost
+- name: Configure Linux local tooling
+  hosts: localhost
   roles:
     - stow
     - dotfiles-submodules
     - python-uv-tool
-    - apt-packages
+    - role: apt-packages
+      tags:
+        - privileged
     - cargo-install

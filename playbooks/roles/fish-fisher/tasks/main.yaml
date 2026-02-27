@@ -1,4 +1,22 @@
 ---
-- name: Install fisher and update plugins
+- name: Check if fish exists
   ansible.builtin.command:
-    cmd: curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update
+    cmd: command -v fish
+  register: fish_exists
+  changed_when: false
+  failed_when: false
+
+- name: Checkout fisher repository
+  ansible.builtin.git:
+    repo: "{{ fish_fisher_repo }}"
+    dest: "{{ fish_fisher_install_dir }}"
+    version: "{{ fish_fisher_ref }}"
+    single_branch: true
+    depth: 1
+  when: fish_exists.rc == 0
+
+- name: Update fisher plugins
+  ansible.builtin.shell: >
+    fish -c 'source {{ fish_fisher_install_dir }}/functions/fisher.fish; fisher update'
+  changed_when: false
+  when: fish_exists.rc == 0

@@ -1,0 +1,3 @@
+fish_fisher_repo: https://github.com/jorgebucaran/fisher.git
+fish_fisher_ref: 4.4.5
+fish_fisher_install_dir: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/fish/functions/fisher"

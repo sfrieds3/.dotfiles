@@ -1,9 +1,22 @@
 ---
 - name: Check if Homebrew is installed
-  command: which brew
+  ansible.builtin.command:
+    cmd: which brew
   register: brew_check
-  ignore_errors: true
+  changed_when: false
+  failed_when: false
+
+- name: Checkout Homebrew installer repository
+  ansible.builtin.git:
+    repo: "{{ homebrew_install_repo }}"
+    dest: /tmp/homebrew-install
+    version: "{{ homebrew_install_ref }}"
+    single_branch: true
+    depth: 1
+  when: brew_check.rc != 0
+
 - name: Install Homebrew
   when: brew_check.rc != 0
-  shell: |
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ansible.builtin.command:
+    cmd: /bin/bash /tmp/homebrew-install/install.sh
+  changed_when: false

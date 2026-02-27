@@ -3,8 +3,10 @@
   ansible.builtin.git:
     repo: https://github.com/sfrieds3/neovim
     dest: "{{ lookup('env', 'HOME') }}/code/personal"
+    version: main
     update: false
 - name: Build neovim
+  become: true
   ansible.builtin.command: make_nvim
   args:
     chdir: "{{ lookup('env', 'HOME') }}/code/personal"

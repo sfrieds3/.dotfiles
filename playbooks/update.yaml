@@ -1,3 +1,4 @@
-- hosts: localhost
+- name: Update local tooling
+  hosts: localhost
   roles:
     - update

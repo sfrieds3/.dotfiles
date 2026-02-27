@@ -1,3 +1,4 @@
-- hosts: localhost
+- name: Sync Homebrew packages
+  hosts: localhost
   roles:
     - brew-mac

@@ -1,0 +1,6 @@
+profile: basic
+exclude_paths:
+  - .cache/
+skip_list:
+  - command-instead-of-module
+  - package-latest

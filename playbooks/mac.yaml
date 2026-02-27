@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Configure macOS local tooling
+  hosts: localhost
   roles:
     - brew-mac
     - mac-defaults
