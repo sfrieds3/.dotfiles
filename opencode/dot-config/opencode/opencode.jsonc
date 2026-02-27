@@ -1,0 +1,74 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "external_directory": {
+      "/tmp": "allow",
+      "/tmp/**": "allow",
+    },
+    "read": {
+      "*": "allow",
+    },
+    "edit": {
+      "*": "ask",
+    },
+    "write": {
+      "*": "ask",
+    },
+    "bash": {
+      "*": "ask",
+      // Navigation/search
+      "pwd": "allow",
+      "ls *": "allow",
+      "rg *": "allow",
+      "fd *": "allow",
+      "wc *": "allow",
+      "tail *": "allow",
+      "echo *": "allow",
+      "which *": "allow",
+      "grep *": "allow",
+      // Python/uv workflows
+      "uv lock *": "allow",
+      "uv sync *": "allow",
+      "uv run *": "allow",
+      "uv add *": "allow",
+      // Git read-only
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "git branch *": "allow",
+      "git remote *": "allow",
+      "git fetch *": "allow",
+      "git worktree list *": "allow",
+      "git worktree add *": "allow",
+      "git blame *": "allow",
+      "git rev-parse *": "allow",
+      "git merge-base *": "allow",
+      "git rev list *": "allow",
+      "git ls *": "allow",
+      // Git mutating/high-risk
+      "git add *": "ask",
+      "git init *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask",
+      "git pull *": "ask",
+      "git merge *": "ask",
+      "git rebase *": "ask",
+      "git reset *": "ask",
+      "git checkout *": "deny",
+      "git switch *": "ask",
+      "git cherry-pick *": "ask",
+      // Kubernetes
+      "kubectl *": "ask",
+      "kubectl get *": "allow",
+      "kubectl logs *": "allow",
+      "kubectl delete *": "deny",
+      "stern *": "allow",
+      // Shell footguns
+      "rm -rf *": "deny",
+      "sudo *": "ask",
+    },
+    "glob": "allow",
+    "grep": "allow",
+  },
+}
