@@ -3,3 +3,4 @@
     name: "{{ brew_mac_casks }}"
     state: present
     update_homebrew: true
+    accept_external_apps: true

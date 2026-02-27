@@ -1,5 +1,4 @@
 brew_mac_formulas:
-  - 1password-cli
   - aider
   - anomalyco/tap/opencode
   - ansible-language-server
@@ -16,11 +15,9 @@ brew_mac_formulas:
   - btop
   - cargo-nextest
   - chicken
-  - claude-code
   - cloc
   - cmake
   - cmake-docs
-  - codex
   - colima
   - coreutils
   - csvlens
@@ -46,7 +43,6 @@ brew_mac_formulas:
   - gemini-cli
   - gettext
   - ghostscript
-  - ghostty
   - git
   - git-absorb
   - git-gui
@@ -55,11 +51,9 @@ brew_mac_formulas:
   - glab
   - gnupg
   - gnutls
-  - google-cloud-sdk
   - gopls
   - guile
   - hadolint
-  - helix
   - helm
   - helm-ls
   - helmfile
@@ -77,6 +71,7 @@ brew_mac_formulas:
   - kubecolor
   - kubectx
   - kubernetes-cli
+  - kustomize
   - libgccjit
   - libomp
   - llama.cpp
@@ -89,8 +84,6 @@ brew_mac_formulas:
   - marksman
   - minikube
   - mise
-  - moretools
-  - mysql
   - ncdu
   - ninja
   - nx
@@ -101,11 +94,9 @@ brew_mac_formulas:
   - perl
   - pipx
   - pnpm
-  - postgresql@17
   - prettier
   - protobuf
   - rclone
-  - redis
   - ripgrep
   - ruby-build
   - ruff
@@ -150,12 +141,17 @@ brew_mac_formulas:
   - zsh-syntax-highlighting
 
 brew_mac_casks:
+  - 1password-cli
   - alt-tab
   - audacity
   - bartender
   - claude
+  - claude-code
+  - codex
   - docker-desktop
   - easy-move-plus-resize
+  - ghostty
+  - google-cloud-sdk
   - hammerspoon
   - insomnia
   - karabiner-elements
