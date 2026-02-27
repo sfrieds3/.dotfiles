@@ -1,6 +1,7 @@
 # set prompt
 autoload -U promptinit && promptinit
 zmodload zsh/datetime
+zmodload zsh/sched
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
 autoload -Uz async && async
@@ -134,6 +135,8 @@ function +vi-git-remotebranch() {
 }
 
 function __prompt__precmd() {
+    typeset -gi __prompt_last_status=$?
+    typeset -gi cmd_finished_at=$EPOCHSECONDS
     vcs_info
     echo "$(date +%Y-%m-%d--%H-%M-%S) $(hostname) $PWD $(history -1)" >> $ALT_HISTFILE
 }
@@ -200,10 +203,57 @@ PS1='$(__mark_prompt)$prompt_newline%F{$PROMPT_DIR_COLOR}${PWD/#$HOME/~}%f$promp
 PS2='%F{yellow}%^%f '
 
 function __set_rprompt__precmd() {
+    __check_cmd_exec_time
     # RPROMPT="${vcs_info_msg_0_}%F{cyan}%f"
     RPROMPT="%F{$PROMPT_EXEC_TIME_COLOR}%{$__DOTS[ITALIC_ON]%}${cmd_exec_time}%{$__DOTS[ITALIC_OFF]%} $(__prompt__aws_profile)$(__prompt__docker_context)$(__prompt__python_venv)${vcs_info_msg_0_}%f"
 }
 add-zsh-hook precmd __set_rprompt__precmd
+
+typeset -gi PROMPT_IDLE_REFRESH_INTERVAL=${PROMPT_IDLE_REFRESH_INTERVAL:-5}
+typeset -gi PROMPT_EXEC_TIME_MIN_SECONDS=${PROMPT_EXEC_TIME_MIN_SECONDS:-5}
+typeset -gi __prompt_idle_refresh_started=0
+
+function __prompt_idle_refresh() {
+    emulate -L zsh
+
+    if zle 2>/dev/null; then
+        vcs_info
+        __set_rprompt__precmd
+        zle reset-prompt
+    fi
+
+    (( PROMPT_IDLE_REFRESH_INTERVAL > 0 )) && sched +${PROMPT_IDLE_REFRESH_INTERVAL} __prompt_idle_refresh
+}
+
+if (( ! __prompt_idle_refresh_started && PROMPT_IDLE_REFRESH_INTERVAL > 0 )); then
+    __prompt_idle_refresh_started=1
+    sched +${PROMPT_IDLE_REFRESH_INTERVAL} __prompt_idle_refresh
+fi
+
+typeset -gi __prompt_first_draw=1
+
+function __prompt__show_previous_details() {
+    emulate -L zsh
+
+    if (( __prompt_first_draw )); then
+        __prompt_first_draw=0
+        return
+    fi
+
+    if (( __prompt_last_status == 0 && cmd_exec_seconds < PROMPT_EXEC_TIME_MIN_SECONDS )); then
+        return
+    fi
+
+    local finished_at
+    local details
+    strftime -s finished_at '%H:%M:%S' ${cmd_finished_at:-$EPOCHSECONDS}
+    details="${finished_at} • ${cmd_exec_time:-0s}"
+    if (( __prompt_last_status != 0 )); then
+        details+=" • %F{$PROMPT_CHARACTER_ERROR_COLOR}${__prompt_last_status}%F{8}"
+    fi
+    print -P " %F{8}%{$__DOTS[ITALIC_ON]%}(${details})%{$__DOTS[ITALIC_OFF]%}%f"
+}
+add-zsh-hook precmd __prompt__show_previous_details
 
 
 #-------------------------------------------------------------------------------
@@ -234,8 +284,9 @@ function __human_time_to_var() {
 function __check_cmd_exec_time() {
     integer elapsed
     (( elapsed = EPOCHSECONDS - ${cmd_timestamp:-$EPOCHSECONDS} ))
+    typeset -gi cmd_exec_seconds=$elapsed
     typeset -g cmd_exec_time=
-    (( elapsed > 1 )) && {
+    (( elapsed > 0 )) && {
         __human_time_to_var $elapsed "cmd_exec_time"
     }
 }

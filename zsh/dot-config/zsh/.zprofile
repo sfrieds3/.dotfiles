@@ -36,7 +36,7 @@ export PYTHON3_VENV=$PYTHON3_VENV_BIN/python3
 export PIP_REQUIRE_VIRTUALENV=1
 
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --absolute-path"
-export FZF_DEFAULT_OPTS=--color="bg:-1,bg+:-1,fg:red,fg+:white,border:black,spinner:0,hl:yellow,header:blue,info:green,pointer:red,marker:blue,prompt:white,hl+:red"
+export FZF_DEFAULT_OPTS='--layout=reverse --border=rounded --height=85% --preview-window=right:55%:wrap --color=base16'
 
 export EZA_PARAMS=('--git' '--group' '--group-directories-first' '--time-style=long-iso' '--color-scale=all' '--icons')
 
