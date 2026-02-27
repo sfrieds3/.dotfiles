@@ -2,5 +2,5 @@
   roles:
     - stow
     - dotfiles-submodules
-    - brew-devtools-core
+    - brew-mac
     - python-uv-tool

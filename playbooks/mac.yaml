@@ -1,5 +1,5 @@
 ---
 - hosts: localhost
   roles:
-    - brew-mac-apps
+    - brew-mac
     - mac-defaults

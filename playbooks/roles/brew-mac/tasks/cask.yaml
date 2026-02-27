@@ -1,18 +1,23 @@
 - name: Install brew mac apps
-  community.general.homebrew:
+  community.general.homebrew_cask:
     name:
       - alt-tab
       - audacity
       - bartender
-      # - drawio
+      - claude
+      - docker-desktop
       - easy-move-plus-resize
       - hammerspoon
       - insomnia
       - karabiner-elements
       - maccy
+      - ollama
+      - opencode-desktop
+      - openlens
       - rectangle
       - spotify
       - vlc
       - wireshark
+      - zen
     state: present
     update_homebrew: true

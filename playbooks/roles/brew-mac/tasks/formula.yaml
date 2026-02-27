@@ -1,19 +1,27 @@
 - name: Install devtools formulas
   community.general.homebrew:
     name:
+      - aider
       - anomalyco/tap/opencode
       - ansible-language-server
       - ast-grep
       - atuin
       - autoconf
       - automake
+      - awscli
       - bash
       - bash-language-server
       - bat
+      - bats
       - bfs
+      - btop
+      - cargo-nextest
+      - chicken
+      - claude-code
       - cloc
       - cmake
       - cmake-docs
+      - codex
       - colima
       - coreutils
       - csvlens
@@ -26,13 +34,17 @@
       - docker-compose
       - docker-credential-helper
       - dockerfile-language-server
+      - duckdb
+      - eksctl
       - emmylua_ls
       - eslint
       - eza
       - fd
+      - ffmpeg
       - fish
       - fzf
       - gcc
+      - gemini-cli
       - gettext
       - ghostscript
       - ghostty
@@ -40,14 +52,20 @@
       - git-absorb
       - git-gui
       - git-lfs
+      - gitlab-ci-local
       - glab
       - gnupg
       - gnutls
+      - google-cloud-sdk
       - gopls
+      - guile
       - hadolint
       - helix
       - helm
       - helm-ls
+      - helmfile
+      - htop
+      - httpie
       - imagemagick
       - jdtls
       - jless
@@ -56,9 +74,13 @@
       - jsonlint
       - just
       - k9s
+      - kind
+      - kubecolor
       - kubectx
       - kubernetes-cli
       - libgccjit
+      - libomp
+      - llama.cpp
       - llvm
       - lua
       - lua-language-server
@@ -73,18 +95,23 @@
       - ncdu
       - ninja
       - nx
+      - opam
       - openjdk
+      - opentofu
       - oven-sh/bun/bun
       - perl
       - pipx
-      - pixi
       - pnpm
       - postgresql@17
       - prettier
+      - protobuf
       - rclone
       - redis
       - ripgrep
+      - ruby-build
       - ruff
+      - rustup
+      - sbcl
       - sd
       - shellcheck
       - sk
@@ -97,6 +124,7 @@
       - the_silver_searcher
       - tig
       - tmux
+      - tofu-ls
       - tox
       - tree
       - tree-sitter
@@ -104,7 +132,6 @@
       - ts_query_ls
       - typescript-language-server
       - uv
-      - virtualenv
       - vscode-langservers-extracted
       - vue-language-server
       - watch
@@ -115,6 +142,7 @@
       - yamlfmt
       - yamllint
       - yq
+      - zoxide
       - zsh
       - zsh-async
       - zsh-autosuggestions
