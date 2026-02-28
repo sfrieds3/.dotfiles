@@ -11,12 +11,25 @@ function occ() {
         return 1
     fi
 
-    local -a sessions picker_opts
+    local -a sessions picker_opts forward_args
     local selection session_id
+    local max_count=200
+    local arg
 
-    sessions=("${(@f)$(opencode session list 2>/dev/null)}")
-    sessions=("${sessions[@]:3}")
-    sessions=("${sessions[@]:#}")
+    for arg in "$@"; do
+        if [[ "$arg" == "--all" || "$arg" == "-a" ]]; then
+            max_count=2000
+            continue
+        fi
+        forward_args+=("$arg")
+    done
+
+    if (( $+commands[jq] )); then
+        sessions=("${(@f)$(opencode session list --format json --max-count "$max_count" 2>/dev/null | jq -r '.[] | [.id, (.title // "-")] | @tsv' 2>/dev/null)}")
+    else
+        sessions=("${(@f)$(opencode session list --max-count "$max_count" 2>/dev/null)}")
+        sessions=("${(@M)sessions:#ses_*}")
+    fi
 
     if (( ${#sessions[@]} == 0 )); then
         echo "No opencode sessions found"
@@ -45,5 +58,5 @@ function occ() {
     [[ -z "$selection" ]] && return 0
 
     session_id=${selection%%[[:space:]]*}
-    opencode --session "$session_id" "$@"
+    opencode --session "$session_id" "${forward_args[@]}"
 }
