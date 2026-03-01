@@ -1,4 +1,5 @@
 # shell tools
+abbr add oc='opencode'
 abbr add cg='cargo'
 abbr add make_nvim='make CMAKE_INSTALL_PREFIX=$HOME/bin/nvim.build install CMAKE_BUILD_TYPE=Release -j 8'
 abbr add renovate-config-validator='npx --yes --package renovate -- renovate-config-validator'
