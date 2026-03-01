@@ -92,7 +92,6 @@ brew_mac_formulas:
   - opentofu
   - oven-sh/bun/bun
   - perl
-  - pipx
   - pnpm
   - prettier
   - protobuf
