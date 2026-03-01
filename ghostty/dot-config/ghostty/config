@@ -1,4 +1,5 @@
 # General
+auto-update-channel = tip
 mouse-hide-while-typing = true
 background-opacity = 0.93
 background-blur = true

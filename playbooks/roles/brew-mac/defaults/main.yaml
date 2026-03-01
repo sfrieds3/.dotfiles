@@ -150,7 +150,7 @@ brew_mac_casks:
   - codex
   - docker-desktop
   - easy-move-plus-resize
-  - ghostty
+  - ghostty@tip
   - google-cloud-sdk
   - hammerspoon
   - insomnia
