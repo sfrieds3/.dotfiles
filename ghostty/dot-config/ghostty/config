@@ -40,7 +40,6 @@ keybind = super+shift+i=inspector:toggle
 
 # Tmux keybindings
 keybind = alt+j=esc:j
-keybind = alt+j=esc:j
 keybind = alt+k=esc:k
 keybind = alt+n=esc:n
 keybind = alt+o=esc:o
