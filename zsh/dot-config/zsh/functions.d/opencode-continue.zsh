@@ -12,22 +12,65 @@ function occ() {
     fi
 
     local -a sessions picker_opts forward_args
-    local selection session_id
+    local selection session_id picker_header
     local max_count=200
+    local scope="current"
+    local scope_mode="current"
+    local scope_dir=""
     local arg
+    local i=1
 
-    for arg in "$@"; do
-        if [[ "$arg" == "--all" || "$arg" == "-a" ]]; then
-            max_count=2000
-            continue
-        fi
-        forward_args+=("$arg")
+    while (( i <= $# )); do
+        arg="${@[i]}"
+        case "$arg" in
+            --all|-a)
+                max_count=2000
+                ;;
+            --scope|-s)
+                (( i++ ))
+                if (( i > $# )); then
+                    echo "Missing value for $arg"
+                    return 1
+                fi
+                scope="${@[i]}"
+                ;;
+            --scope=*)
+                scope="${arg#--scope=}"
+                ;;
+            *)
+                forward_args+=("$arg")
+                ;;
+        esac
+        (( i++ ))
     done
 
-    if (( $+commands[jq] )); then
-        sessions=("${(@f)$(opencode session list --format json --max-count "$max_count" 2>/dev/null | jq -r '.[] | [.id, (.title // "-")] | @tsv' 2>/dev/null)}")
+    if [[ "$scope" == "all" ]]; then
+        scope_mode="all"
+    elif [[ "$scope" == "current" || "$scope" == "cwd" || "$scope" == "." ]]; then
+        scope_mode="current"
     else
-        sessions=("${(@f)$(opencode session list --max-count "$max_count" 2>/dev/null)}")
+        scope_mode="directory"
+        scope_dir="$scope"
+        if [[ ! -d "$scope_dir" ]]; then
+            echo "Scope directory not found: $scope_dir"
+            return 1
+        fi
+    fi
+
+    if [[ "$scope_mode" == "all" ]]; then
+        sessions=("${(@f)$(opencode db "SELECT id || char(9) || COALESCE(NULLIF(title, ''), '-') FROM session ORDER BY time_updated DESC LIMIT $max_count" 2>/dev/null)}")
+    elif (( $+commands[jq] )); then
+        if [[ "$scope_mode" == "directory" ]]; then
+            sessions=("${(@f)$( (builtin cd -- "$scope_dir" 2>/dev/null && opencode session list --format json --max-count "$max_count" 2>/dev/null | jq -r '.[] | [.id, (.title // "-")] | @tsv' 2>/dev/null) )}")
+        else
+            sessions=("${(@f)$(opencode session list --format json --max-count "$max_count" 2>/dev/null | jq -r '.[] | [.id, (.title // "-")] | @tsv' 2>/dev/null)}")
+        fi
+    else
+        if [[ "$scope_mode" == "directory" ]]; then
+            sessions=("${(@f)$( (builtin cd -- "$scope_dir" 2>/dev/null && opencode session list --max-count "$max_count" 2>/dev/null) )}")
+        else
+            sessions=("${(@f)$(opencode session list --max-count "$max_count" 2>/dev/null)}")
+        fi
         sessions=("${(@M)sessions:#ses_*}")
     fi
 
@@ -49,10 +92,17 @@ function occ() {
         )
     fi
 
+    picker_header="Select session to continue"
+    if [[ "$scope_mode" == "all" ]]; then
+        picker_header+=" (scope: all)"
+    elif [[ "$scope_mode" == "directory" ]]; then
+        picker_header+=" (scope: $scope_dir)"
+    fi
+
     if typeset -f __fzf_popup > /dev/null; then
-        selection=$(printf '%s\n' "${sessions[@]}" | __fzf_popup --prompt="opencode sessions > " --header="Select session to continue" "${picker_opts[@]}")
+        selection=$(printf '%s\n' "${sessions[@]}" | __fzf_popup --prompt="opencode sessions > " --header="$picker_header" "${picker_opts[@]}")
     else
-        selection=$(printf '%s\n' "${sessions[@]}" | fzf --prompt="opencode sessions > " --header="Select session to continue" "${picker_opts[@]}")
+        selection=$(printf '%s\n' "${sessions[@]}" | fzf --prompt="opencode sessions > " --header="$picker_header" "${picker_opts[@]}")
     fi
 
     [[ -z "$selection" ]] && return 0
