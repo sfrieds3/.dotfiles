@@ -11,6 +11,7 @@ brew_mac_formulas:
   - bash-language-server
   - bat
   - bats
+  - beads
   - bfs
   - btop
   - cargo-nextest
@@ -30,6 +31,7 @@ brew_mac_formulas:
   - docker-compose
   - docker-credential-helper
   - dockerfile-language-server
+  - dolt
   - duckdb
   - eksctl
   - emmylua_ls
