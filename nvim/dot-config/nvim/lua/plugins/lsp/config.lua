@@ -22,6 +22,8 @@ function M.toggle_inlay_hints(bufnr)
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end
 
+local lsp_features = require("plugins.lsp.features")
+
 function M.setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   local err, _ = pcall(require, "blink.cmp")
@@ -217,7 +219,18 @@ function M.setup()
       vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [r]emove folder" })
       vim.keymap.set("n", "<leader>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = ev.buf, desc = "[L]SP: [w]orkspace [l]ist folders" })
       vim.keymap.set("n", "<leader>ld", vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: type [D]efinition" })
+      vim.keymap.set("n", "<leader>lhu", function() lsp_features.show_type_hierarchy("supertypes", ev.buf) end, { buffer = ev.buf, desc = "LSP: type hierarchy [u]p" })
+      vim.keymap.set("n", "<leader>lhd", function() lsp_features.show_type_hierarchy("subtypes", ev.buf) end, { buffer = ev.buf, desc = "LSP: type hierarchy [d]own" })
+      vim.keymap.set("n", "<leader>lhU", function() lsp_features.show_type_hierarchy("supertypes", ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: type hierarchy [U]p (Snacks)" })
+      vim.keymap.set("n", "<leader>lhD", function() lsp_features.show_type_hierarchy("subtypes", ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: type hierarchy [D]own (Snacks)" })
+      vim.keymap.set("n", "<leader>lci", function() lsp_features.show_call_hierarchy("incoming", ev.buf) end, { buffer = ev.buf, desc = "LSP: call hierarchy incoming" })
+      vim.keymap.set("n", "<leader>lco", function() lsp_features.show_call_hierarchy("outgoing", ev.buf) end, { buffer = ev.buf, desc = "LSP: call hierarchy outgoing" })
+      vim.keymap.set("n", "<leader>lcI", function() lsp_features.show_call_hierarchy("incoming", ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: call hierarchy incoming (Snacks)" })
+      vim.keymap.set("n", "<leader>lcO", function() lsp_features.show_call_hierarchy("outgoing", ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: call hierarchy outgoing (Snacks)" })
       vim.keymap.set("n", "crn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: [R]ename" })
+      vim.keymap.set("n", "<leader>lrp", function() lsp_features.preview_rename_impact(ev.buf) end, { buffer = ev.buf, desc = "LSP: rename impact preview" })
+      vim.keymap.set("n", "<leader>lrP", function() lsp_features.preview_rename_impact(ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: rename impact preview (Snacks)" })
+      vim.keymap.set("n", "<leader>lrr", function() lsp_features.rename_with_preview(ev.buf, { use_snacks = true }) end, { buffer = ev.buf, desc = "LSP: rename with preview" })
       vim.keymap.set("n", "<leader>co", function()
         vim.lsp.buf.code_action({
           apply = true,
@@ -227,6 +240,8 @@ function M.setup()
           },
         })
       end, { desc = "Organize Imports" })
+      vim.keymap.set("n", "<leader>lca", function() lsp_features.code_action_browser(ev.buf) end, { buffer = ev.buf, desc = "LSP: code action browser" })
+      vim.keymap.set("n", "<leader>lcf", function() lsp_features.apply_safe_source_fixes(ev.buf) end, { buffer = ev.buf, desc = "LSP: apply safe source fixes" })
       vim.keymap.set({ "n", "v" }, "crr", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code [A]ction" })
       vim.keymap.set({ "n", "v" }, "crR", function()
         vim.lsp.buf.code_action({
