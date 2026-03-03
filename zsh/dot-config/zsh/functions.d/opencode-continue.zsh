@@ -86,7 +86,7 @@ function occ() {
 
     if (( $+commands[jq] )); then
         picker_opts+=(
-            --preview="NO_COLOR=1 opencode export {1} 2>/dev/null | jq -r 'def text_parts: [.parts[]? | select(.type == \"text\") | .text] | join(\"\\n\"); def role_name: if . == \"user\" then \"YOU\" elif . == \"assistant\" then \"AI\" else ascii_upcase end; \"Session: \" + (.info.id // \"-\"), \"Title:   \" + (.info.title // \"-\"), \"\", \"Recent messages\", \"--------------\", (.messages[-10:][] | .info.role as \$role | (text_parts | gsub(\"\\r\"; \"\") | gsub(\"\\n{3,}\"; \"\\n\\n\")) as \$text | select(\$text != \"\") | \"[\" + (\$role | role_name) + \"]\", (\$text | split(\"\\n\")[] | \"  \" + .), \"\")' 2>/dev/null || printf 'Preview unavailable\\n'"
+            --preview="NO_COLOR=1 opencode export {1} 2>/dev/null | jq -r 'def text_parts: [.parts[]? | select(.type == \"text\") | .text] | join(\"\\n\"); def role_name: if . == \"user\" then \"YOU\" elif . == \"assistant\" then \"AI\" else ascii_upcase end; \"Session: \" + (.info.id // \"-\"), \"Title:   \" + (.info.title // \"-\"), \"\", \"Recent messages\", \"--------------\", (.messages[-10:][] | .info.role as \$role | (text_parts | gsub(\"\\r\"; \"\") | gsub(\"\\n{3,}\"; \"\\n\\n\")) as \$text | select(\$text != \"\") | \"[\" + (\$role | role_name) + \"]\", (\$text | split(\"\\n\")[] | \"  \" + .), \"\")' 2>/dev/null || opencode db \"SELECT json_extract(data, '$.text') FROM part WHERE session_id = '{1}' AND json_extract(data, '$.type') = 'text' ORDER BY time_created DESC LIMIT 20\" 2>/dev/null || printf 'Preview unavailable\\n'"
             --preview-window="right:65%:wrap"
             --preview-label="Conversation"
         )
