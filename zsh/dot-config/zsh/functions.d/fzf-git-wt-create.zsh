@@ -6,8 +6,8 @@ __sanitize_branch_for_path() {
 __next_worktree_dir() {
   local branch="$1" git_root repo base dir n=0
   git_root=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return 1
-  repo=${git_root:t}
-  base=${GIT_WORKTREE_BASE:-$git_root}
+  local repo_root="${git_root%/.git}"
+  base=${GIT_WORKTREE_BASE:-${repo_root}/.worktrees}
   mkdir -p -- "$base" 2>/dev/null || true
   local safe="$(__sanitize_branch_for_path "$branch")"
   dir="${base%/}/${safe}"
