@@ -1,5 +1,53 @@
 #!/bin/zsh
 
+function _occ_preview() {
+    local sid="$1"
+    [[ "$sid" =~ ^ses_[a-zA-Z0-9]+$ ]] || { printf 'Invalid session ID\n'; return 1; }
+
+    if NO_COLOR=1 opencode export "$sid" 2>/dev/null \
+        | jq -r '
+            def text_parts: [.parts[]? | select(.type == "text") | .text] | join("\n");
+            def role_name: if . == "user" then "YOU" elif . == "assistant" then "AI" else ascii_upcase end;
+            "Session: " + (.info.id // "-"),
+            "Title:   " + (.info.title // "-"),
+            "",
+            "Recent messages",
+            "--------------",
+            (.messages[-10:][] | .info.role as $role |
+                (text_parts | gsub("\r"; "") | gsub("\n{3,}"; "\n\n")) as $text |
+                select($text != "") |
+                "[" + ($role | role_name) + "]",
+                ($text | split("\n")[] | "  " + .),
+                "")' 2>/dev/null; then
+        return 0
+    fi
+
+    local title
+    title=$(opencode db "SELECT COALESCE(NULLIF(title, ''), '-') AS t FROM session WHERE id = '$sid'" 2>/dev/null | tail -n +2)
+    if [[ -n "$title" ]]; then
+        printf 'Session: %s\nTitle:   %s\n\nRecent messages\n--------------\n' "$sid" "$title"
+        opencode db "
+            SELECT
+                CASE json_extract(m.data, '\$.role')
+                    WHEN 'user' THEN '[YOU]'
+                    WHEN 'assistant' THEN '[AI]'
+                    ELSE '[' || UPPER(json_extract(m.data, '\$.role')) || ']'
+                END || char(10) || '  ' || REPLACE(SUBSTR(json_extract(p.data, '\$.text'), 1, 500), char(10), char(10) || '  ') || char(10) AS preview
+            FROM part p
+            JOIN message m ON p.message_id = m.id
+            WHERE p.session_id = '$sid'
+                AND json_extract(p.data, '\$.type') = 'text'
+                AND LENGTH(json_extract(p.data, '\$.text')) > 0
+            ORDER BY p.time_created DESC
+            LIMIT 10
+        " 2>/dev/null | tail -n +2
+        return 0
+    fi
+
+    printf 'Preview unavailable\n'
+    return 1
+}
+
 function occ() {
     if (( ! $+commands[opencode] )); then
         echo "opencode not found in PATH"
@@ -86,7 +134,7 @@ function occ() {
 
     if (( $+commands[jq] )); then
         picker_opts+=(
-            --preview="NO_COLOR=1 opencode export {1} 2>/dev/null | jq -r 'def text_parts: [.parts[]? | select(.type == \"text\") | .text] | join(\"\\n\"); def role_name: if . == \"user\" then \"YOU\" elif . == \"assistant\" then \"AI\" else ascii_upcase end; \"Session: \" + (.info.id // \"-\"), \"Title:   \" + (.info.title // \"-\"), \"\", \"Recent messages\", \"--------------\", (.messages[-10:][] | .info.role as \$role | (text_parts | gsub(\"\\r\"; \"\") | gsub(\"\\n{3,}\"; \"\\n\\n\")) as \$text | select(\$text != \"\") | \"[\" + (\$role | role_name) + \"]\", (\$text | split(\"\\n\")[] | \"  \" + .), \"\")' 2>/dev/null || opencode db \"SELECT json_extract(data, '$.text') FROM part WHERE session_id = '{1}' AND json_extract(data, '$.type') = 'text' ORDER BY time_created DESC LIMIT 20\" 2>/dev/null || printf 'Preview unavailable\\n'"
+            --preview="_occ_preview {1}"
             --preview-window="right:65%:wrap"
             --preview-label="Conversation"
         )
