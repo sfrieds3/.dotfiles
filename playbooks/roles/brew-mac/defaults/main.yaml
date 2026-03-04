@@ -112,6 +112,7 @@ brew_mac_formulas:
   - taplo
   - tectonic
   - terraform-ls
+  - terminal-notifier
   - the_silver_searcher
   - tig
   - tmux
