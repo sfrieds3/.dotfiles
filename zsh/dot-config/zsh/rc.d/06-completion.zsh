@@ -71,8 +71,7 @@ if [[ -n "$HOMEBREW_PREFIX" ]]; then
     [[ -r "$_gcloud_completion" ]] && source "$_gcloud_completion"
 fi
 
-unfunction _cache_completion
-unset _completion_cache_dir _completion_cache_max_age_seconds _gcloud_completion
+unset _gcloud_completion
 
 ## fzf-tab
 source "${ZDOTDIR:-$HOME/.config/zsh}/plugins/fzf-tab/fzf-tab.plugin.zsh"
