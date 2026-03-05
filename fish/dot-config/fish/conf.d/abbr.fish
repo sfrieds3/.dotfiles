@@ -22,7 +22,7 @@ abbr -a -- testnvimlua 'nvim --clean -u $HOME/dev/minimal_init.lua'
 # git
 abbr -a -- gs 'git status'
 abbr -a -- gr 'cd (git rev-parse --show-toplevel)'
-abbr -a -- gwr 'cd (git rev-parse --path-format=absolute --git-common-dir | sed "s|/\\.git/worktrees/.*||")'
+abbr -a -- gwr 'cd (git rev-parse --path-format=absolute --git-common-dir | sed -E "s|/\\.git(/worktrees/.*)?$||")'
 abbr -a -- gap 'git add --patch'
 abbr -a -- gcp 'git checkout --patch'
 abbr -a -- gdo 'git diff origin/(git rev-parse --abbrev-ref HEAD)'
