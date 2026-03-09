@@ -13,6 +13,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
     OPENJDKBIN=""
     CYTHON_BIN=""
+    OBSIDIAN_BIN="/Applications/Obsidian.app/Contents/MacOS"
     export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which javac)")")")"
@@ -25,7 +26,7 @@ LOCALBIN="$HOME/.local/bin"
 KREW_BIN="${KREW_ROOT:-$HOME/.krew}/bin"
 CYTHON_BIN="~/.local/bin/cython"
 
-export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN
+export PATH=$LOCALBIN:$PATH:$OPENJDKBIN:$KREW_BIN:$CYTHON_BIN:$GOBIN:$OBSIDIAN_BIN
 
 # for docker/colima
 # export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
