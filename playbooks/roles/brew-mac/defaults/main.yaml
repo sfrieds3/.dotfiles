@@ -94,6 +94,7 @@ brew_mac_formulas:
   - opentofu
   - oven-sh/bun/bun
   - perl
+  - playwright-cli
   - pnpm
   - prettier
   - protobuf
