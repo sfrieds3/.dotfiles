@@ -41,11 +41,6 @@ export FZF_DEFAULT_OPTS='--layout=reverse --border=rounded --height=85% --previe
 
 export EZA_PARAMS=('--git' '--group' '--group-directories-first' '--time-style=long-iso' '--color-scale=all' '--icons')
 
-export OPENCODE_STATE_DIR="${OPENCODE_STATE_DIR:-$XDG_STATE_HOME/opencode}"
-export OPENCODE_NOTES_FILE="${OPENCODE_NOTES_FILE:-$OPENCODE_STATE_DIR/notes.md}"
-export OPENCODE_MEMORIES_DIR="${OPENCODE_MEMORIES_DIR:-$OPENCODE_STATE_DIR/memories}"
-export OPENCODE_SCRATCH_DIR="${OPENCODE_SCRATCH_DIR:-$OPENCODE_STATE_DIR/scratch}"
-
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
