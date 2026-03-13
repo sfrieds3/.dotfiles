@@ -10,7 +10,6 @@ theme = calm
 link-url = true
 link-previews = true
 
-shell-integration-features = no-cursor
 cursor-style = block
 
 quick-terminal-size = 33%,75%
